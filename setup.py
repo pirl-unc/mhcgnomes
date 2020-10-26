@@ -53,7 +53,11 @@ if __name__ == '__main__':
             'Programming Language :: Python',
             'Topic :: Scientific/Engineering :: Bio-Informatics',
         ],
-        install_requires=[],
+        install_requires=[
+            "serializable",
+            "yaml",
+            "pandas",
+        ],
         long_description=readme_markdown,
         long_description_content_type='text/markdown',
         packages=['mhcgnomes'],
