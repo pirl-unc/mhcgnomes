@@ -80,7 +80,6 @@ class NormalizingDictionary(object):
         """
         k_normalized = self.normalize_fn(k)
         original_keys = self.normalized_to_original_keys_dict.get(k_normalized)
-        print(k, k_normalized, original_keys)
         if original_keys is None:
             return set()
         return original_keys
