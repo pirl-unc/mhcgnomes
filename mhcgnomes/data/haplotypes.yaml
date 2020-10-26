@@ -1,0 +1,333 @@
+#########################################
+# Swine MHC haplotypes copied from:
+#   https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5472656/
+##########################################
+SLA:
+  # TODO:
+  #   no one writes "SLA-Hp-1a.0", pigs actually have a distinct prefix
+  #   "Hp" for haplotypes which is distinct from the prefix used for
+  #   gene names and alleles
+  Hp-1a.0:
+    - SLA-1*01:01
+    - SLA-2*01:01
+    - SLA-3*01:01
+  Hp-2.0:
+    - SLA-1*02:01
+    - SLA-1*07:01
+    - SLA-3*02:01
+
+#########################################
+# Mouse MHC haplotypes copied from:
+# http://www.biolegend.com/media_assets/support_resource/BioLegend_Mouse_Alloantigens.pdf
+# and partially from:
+# http://jackson.jax.org/rs/444-BUH-304/images/MHC_h2_haplotypes.pdf
+##########################################
+H2:
+  a:
+    - K*k
+    - D*d
+    - L*d
+    - Aa*k
+    - Ab*k
+    - Ea*k
+    - Eb*k
+    - Qa2*a
+    - Qa1*a
+  b:
+    - K*b
+    - D*b
+    - Aa*b
+    - Ab*b
+    - Eb*b
+    - IE*k
+    - Qa2*b
+    - Qa1*a
+  bc:
+    - K*b
+    - Aa*b
+    - Ab*b
+    - Eb*b
+    - D*b
+    - L*b
+    - Qa2*a
+    - T18*f
+    - Qa1*b
+  d:
+    - K*d
+    - D*d
+    - L*d
+    - Aa*d
+    - Ab*d
+    - Ea*d
+    - Eb*d
+    - Qa2*a
+    - Qa1*b
+  f:
+    - K*f
+    - Ab*f
+    - Aa*f
+    - Eb*f
+    - Ea*f
+    - D*f
+    - L*f
+    - Qa2*b
+    - T18*d
+    - Qa1*b
+  g7:
+    - K*d
+    - Ab*g7
+    - Aa*d
+    - D*b
+    - Qa2*a
+    - T18*b
+    - Qa1*b
+  gx:
+    - K*d
+    - Ab*g7
+    - Aa*g7
+    - D*dx
+  k:
+    - K*k
+    - D*k
+    - Aa*k
+    - Ab*k
+    - Ea*k
+    - Eb*k
+    - Qa2*b
+    - T18*b
+    - Qa1*b
+  k2:
+    - K*k
+    - D*k
+    - L*k
+    - Aa*k
+    - Ab*k
+    - Ea*k
+    - Eb*k
+    - Qa2*b
+    - T18*a
+    - Qa1*a
+  m:
+    - K*k
+    - Aa*k
+    - Ab*k
+    - Ea*k
+    - Eb*k
+    - D*q
+    - L*q
+    - Qa2*a
+    - T18*a
+    - Qa1*a
+  nb1:
+    - K*b
+    - Aa*nb1
+    - Ab*nb1
+    - Ea*k
+    - Eb*k
+    - D*b
+  p:
+    - K*p
+    - Aa*p
+    - Ab*p
+    - Ea*p
+    - Eb*p
+    - D*p
+    - L*p
+    - Qa2*b
+    - T18*e
+    - Qa1*a
+  q:
+    - K*q
+    - D*q
+    - L*q
+    - Aa*q
+    - Ab*q
+    - Ea*q
+    - Eb*q
+    - Qa2*q
+  q2:
+    - K*q
+    - D*q
+    - L*q
+    - Aa*q
+    - Ab*q
+    - Ea*q
+    - Eb*q
+    - Qa2*a
+    - Qa1*a
+  r:
+    - K*r
+    - D*r
+    - L*r
+    - Aa*r
+    - Ab*r
+    - Ea*r
+    - Eb*r
+    - Qa2*b
+  s:
+    - K*s
+    - D*s
+    - L*s
+    - Aa*s
+    - Ab*s
+    - Ea*s
+    - Eb*s
+    - Qa2*a
+    - T18*b
+    - Qa1*b
+  s2:
+    - K*s
+    - D*s
+    - L*s
+    - Aa*s
+    - Ab*s
+    - Ea*s
+    - Eb*s
+    - Qa2*a
+    - T18*a
+    - Qa1*a
+  u:
+    - K*u
+    - D*d
+    - L*d
+    - Aa*u
+    - Ab*u
+    - Ea*u
+    - Eb*u
+    - Qa2*a
+    - T18*a
+    - Qa1*a
+  v:
+    - K*v
+    - D*v
+    - L*v
+    - Aa*v
+    - Ab*v
+    - Ea*v
+    - Eb*v
+  z:
+    - K*u
+    - Ab*u
+    - Aa*u
+    - Eb*u
+    - Ea*u
+    - D*z
+    - L*z
+    - Qa2*b
+    - T18*b
+    - Qa1*b
+Gaga:
+  # copied from https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6971145/
+  B2:
+    - BLB1*002:01
+    - BLB2*002:01
+    - BF1*002:01
+    - BF2*002:01
+  B4:
+    - BLB1*004:01
+    - BLB2*004:01
+    - BF1*004:01
+    - BF2*004:01
+  B5:
+    - BLB1*005:01
+    - BLB2*005:01
+    - BF1*005:01
+    - BF2*005:01
+  B6:
+    - BLB1*002:01
+    - BLB2*005:01
+    - BF1*006:01
+    - BF2*006:01
+  B8:
+    - BLB1*002:01
+    - BLB2*008:01
+    - BF1*005:01
+    - BF2*005:01
+  B9:
+    - BLB1*009:01
+    - BLB2*009:01
+    - BF1*009:01
+    - BF2*009:01
+  B11:
+    - BLB1*009:01
+    - BLB2*005:01
+    - BF1*005:01
+    - BF2*005:01
+  B12:
+    - BLB1*012:01
+    - BLB2*012:01
+    - BF1*012:01
+    - BF2*012:01
+  B13:
+    - BLB1*004:01
+    - BLB2*004:01
+    - BF1*004:01
+    - BF2*004:01
+  B14:
+    - BLB1*009:01
+    - BLB2*014:01
+    - BF2*014:01
+  B15:
+    - BLB1*015:01
+    - BLB2*015:01
+    - BF1*004:02
+    - BF2*015:01
+  B17:
+    - BLB1*017:01
+    - BLB2*017:01
+    - BF1*004:04
+    - BF2*017:01
+  B19:
+    - BLB1*012:01
+    - BLB2*012:02
+    - BF1*012:02
+    - BF2*015:02
+  B21:
+    - BLB1*004:02
+    - BLB2*021:01
+    - BF1*004:02
+    - BF2*021:01
+  B23:
+    - BLB1*005:02
+    - BLB2*023:01
+    - BF1*023:01
+    - BF2*002:02
+  B24:
+    - BLB1*004:02
+    - BLB2*008:01
+    - BF1*004:03
+    - BF2*024:01
+  # What's the relationship of BF19 to B19 and BF21 to B21???
+  BF19: []
+  BF21: []
+RT1:
+  k: []
+  b: []
+  c: []
+  h: []
+  q: []
+  n: []
+  o: []
+  av1: []
+  g: []
+  l: []
+  u: []
+  RT11: []
+ELA:
+  # Horse haplotypes
+  #
+  # Source:
+  # - https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3289534/
+  A1: []
+  A2: []
+  A3: []
+  A4: []
+  A5: []
+  A6: []
+  A7: []
+  A8: []
+  A9: []
+  A10: []
+  A15: []
+  A19: []
+  W11: []

@@ -1,0 +1,52 @@
+sudo: false  # Use container-based infrastructure
+language: python
+python:
+  - "3.6"
+  - "3.7"
+git:
+  # don't need the default depth of 50
+  # but don't want to use a depth of 1 since that affects
+  # whether jobs run when you have multiple commits queued
+  # https://github.com/travis-ci/travis-ci/issues/4575
+  depth: 10
+addons:
+  apt:
+    packages:
+      # Needed for NetMHC
+      - tcsh
+cache:
+  pip: true
+before_install:
+  - wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh;
+  - bash miniconda.sh -b -p $HOME/miniconda
+  - export PATH="$HOME/miniconda/bin:$PATH"
+  # reset the shell's lookup table for program name to path mappings
+  - hash -r
+  - conda config --set always_yes yes --set changeps1 no
+  - conda update -q conda
+  # Useful for debugging any issues with conda
+  - conda info -a
+  - python --version
+env:
+  global:
+    # MHC_BUNDLE_PASS
+    - secure: "WbchjXY8MhdOb/eoHb75Sx80ucT70bNsvWtFTszXqXOkEsvA4EB4QkgdCRUvK1p6pOAnNYjFwctacJv76PlHJUnaZUv3KYCIGHQaJI6r82/u7BzALKl4DAP2gUhxVjmnHd/CaK6USiDemdROw6x5RToN9q/0wD6CLMYFatcjSgeLJ6J1fCIDA9frQWy7U04khIA5rNrIVBSpChifLBxnHm0oTXA0vExb5iNjMFLtkTIVOx6PQCeBv3XQdvzBTmdhA16zWPFwQq2lBJ+dFIsC4PprO+gPzL3afS/Mmk88pArAVv0/RZeAGOtvJKVdAs+h66ioVq0r6/3klkiNwNTC8f4c8UfVaQSuAIJ5/Kj+5XmNxQAje5ZQ8U+YDmm3FXRx6vaV83134LOHWVX1rK9lspqGfrkoidYQq6ENfnlN5G1G/TZiE2aX72eU65f+vUbgNWRSAnemd2Sa0s9P92XzKqwvd9QLSMNvDAnbvW2n8Pl48hIj9zbAemI1V52Ro6yuWPiNkfpbfhQ9QYd6Okwyz7A2aHh99ulc+RxLZgDpJP/KNNzywQvWyJtGigI+6/PAW0rJ8E3Z2lDL3ZAcRtc0Hom/gR3lAhJBmhbIWfSer4INTJ0JG4spOS/KBJvh42Aon1W73fwf8Nao9AXWDACNg5HOFoE6yk6ICsVBgcC2tDI="
+    - KERAS_BACKEND=tensorflow
+install:
+  - >
+      conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION
+      nose pylint
+  - source activate test-environment
+  - python --version #  make sure we're running the Python version we expect
+  - pip install -r requirements.txt
+  - pip install .
+  - pip install coveralls
+script:
+  - ./lint.sh
+  # this command runs both mhctools and vaxrank tests. Sometimes they don't print output for a long
+  # time; travis_wait extends the time allowed with no output.
+  - >
+    nosetests -sv test --with-coverage --cover-package=mhcgnomes -a '!skip' &&
+    nosetests -sv -a "!skip" $PWD/mhctools/test
+after_success:
+  coveralls

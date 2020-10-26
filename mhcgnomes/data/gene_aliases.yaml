@@ -1,0 +1,76 @@
+HLA:
+  Cw: C
+  DPw: DP
+  # unclear if there are any other DRA genes besides DRA1
+  DRA1: DRA
+  DRB: DRB1
+  DPB: DPB1
+  DQA: DQA1
+  DQB: DQB1
+##########################################################################
+#
+# Mouse gene aliases copied from
+# https://bmcgenomics.biomedcentral.com/articles/10.1186/1471-2164-9-178
+# -and-
+# http://www.imgt.org/IMGTrepertoireMHC/LocusGenes/nomenclatures/mouse/MHC/Mu_MHCnom.html
+#
+###########################################################################
+H2:
+  Qa-1: T23
+  Qa1: T23
+  Qa-2: Q7
+  Qa2: Q7
+  Ped: Q7
+  Qa-10: Q10
+  Qa10: Q10
+  Qb-1: Q4
+  Qb1: Q4
+  T25: T13
+  Bl: T13
+  TL: T3
+  CRW2: M5
+  Hmt: M3
+  Thy19.4: M2
+  D1: D
+  K1: K
+  # Class II sub-classes
+  IA: A
+  I-A: A
+  IE: E
+  I-E: E
+  # Class II alpha and beta gene names
+  IAA: AA
+  IA-alpha: AA
+  IA-beta: AB
+  A-alpha: AA
+  A-beta: AB
+  IE-alpha: EA
+  IE-beta: EB
+  E-alpha: EA
+  E-beta: EB
+  IAB: AB
+  IEA: EA
+  IEB: EB
+  IEB2: EB2
+  I-AA: AA
+  I-AB: AB
+  I-EA: EA
+  EB1: EB
+  I-EB: EB
+  I-EB2: EB2
+BoLA:
+  DQA: DQA1
+  DQB: DQB1
+  DRB: DRB3
+Aoni:
+  DRB: DRB1
+RT1:
+  U: U1
+  E: E1
+  A: A1
+Gaga:
+  # adding this since NetMHCpan has "Chi-B" as an alias
+  # for Gaga-BF2"
+  Chi-B: BF2
+  YF1w: YF1
+  YF2w: YF2
