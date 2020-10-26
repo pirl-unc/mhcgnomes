@@ -188,7 +188,6 @@ def test_parse_all_parameters_true_human_class2_alpha_beta_DPA1_01_05_DPB1_100_0
             name,
             map_allele_aliases=True,
             infer_class2_pairing=True)
-
         eq_(parse_result, expected)
 
 def test_normalize_string_human_class2_alpha_beta_DPA1_01_05_DPB1_100_01():

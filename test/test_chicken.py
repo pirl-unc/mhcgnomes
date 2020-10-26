@@ -40,7 +40,6 @@ def test_chicken_haplotype_BF19_class_I():
     assert result.is_chicken
     assert result.is_class1
 
-
 def test_chicken_YF1w_7_1():
     result = parse("YF1w*7.1")
     eq_(type(result), Allele)

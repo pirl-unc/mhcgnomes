@@ -23,9 +23,11 @@ def generate(src, dst, exclude=set()):
 
                     parts = line.split()
                     allele_name = parts[0]
-                    if allele_name in exclude or allele_name in alleles:
+                    if allele_name in exclude:
                         continue
-
+                    if allele_name in alleles:
+                        print("Skipping repeat allele: '%s'" % allele_name)
+                        continue
                     alleles.add(allele_name)
 
                     fn_name = allele_name.replace("\"", "").strip()

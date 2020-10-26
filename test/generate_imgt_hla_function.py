@@ -4,6 +4,7 @@ TEST_FILENAME = "test_imgt_hla_names.py"
 FASTA_FILENAME = "hla_prot.fasta"
 special_chars = " *:-,/."
 
+alleles = set()
 with open(TEST_FILENAME, "w") as f:
     f.write("from mhcgnomes import parse, Allele")
     with open(FASTA_FILENAME) as fasta:
@@ -11,6 +12,10 @@ with open(TEST_FILENAME, "w") as f:
             if line.startswith(">"):
                 parts = line.split()
                 allele_name = parts[1]
+                if allele_name in alleles:
+                    print("Skipping repeat allele: %s" % allele_name)
+                    continue
+                alleles.add(alleles)
                 fn_name = allele_name.replace("\"", "").strip()
                 for c in special_chars:
                     fn_name = fn_name.replace(c, "_")
@@ -41,3 +46,5 @@ with open(TEST_FILENAME, "w") as f:
                                  'field(s) but got %d') % result.num_allele_fields""")
 
                 f.write("\n")
+
+print("Wrote %d alleles to %s" % (len(alleles), TEST_FILENAME))
