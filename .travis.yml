@@ -38,10 +38,6 @@ install:
   - pip install coveralls
 script:
   - ./lint.sh
-  # this command runs both mhctools and vaxrank tests. Sometimes they don't print output for a long
-  # time; travis_wait extends the time allowed with no output.
-  - >
-    nosetests -sv test --with-coverage --cover-package=mhcgnomes -a '!skip' &&
-    nosetests -sv -a "!skip" $PWD/mhctools/test
+  - nosetests -sv test --with-coverage --cover-package=mhcgnomes -a '!skip' 
 after_success:
   coveralls
