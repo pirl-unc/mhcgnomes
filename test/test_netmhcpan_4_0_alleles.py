@@ -7430,16 +7430,6 @@ def test_Mamu_A01():
     assert result.__class__ in (Gene, Allele, AlleleWithoutGene), \
                                 'Unexpected type for parse("Mamu-A01"): %s' % (result,)
 
-def test_Mamu_A01():
-    result = parse('Mamu-A01')
-    assert result.__class__ in (Gene, Allele, AlleleWithoutGene), \
-                                'Unexpected type for parse("Mamu-A01"): %s' % (result,)
-
-def test_Mamu_A02():
-    result = parse('Mamu-A02')
-    assert result.__class__ in (Gene, Allele, AlleleWithoutGene), \
-                                'Unexpected type for parse("Mamu-A02"): %s' % (result,)
-
 def test_Mamu_A02():
     result = parse('Mamu-A02')
     assert result.__class__ in (Gene, Allele, AlleleWithoutGene), \
@@ -7500,20 +7490,10 @@ def test_Mamu_A07():
     assert result.__class__ in (Gene, Allele, AlleleWithoutGene), \
                                 'Unexpected type for parse("Mamu-A07"): %s' % (result,)
 
-def test_Mamu_A07():
-    result = parse('Mamu-A07')
-    assert result.__class__ in (Gene, Allele, AlleleWithoutGene), \
-                                'Unexpected type for parse("Mamu-A07"): %s' % (result,)
-
 def test_Mamu_A0703():
     result = parse('Mamu-A0703')
     assert result.__class__ in (Gene, Allele, AlleleWithoutGene), \
                                 'Unexpected type for parse("Mamu-A0703"): %s' % (result,)
-
-def test_Mamu_A11():
-    result = parse('Mamu-A11')
-    assert result.__class__ in (Gene, Allele, AlleleWithoutGene), \
-                                'Unexpected type for parse("Mamu-A11"): %s' % (result,)
 
 def test_Mamu_A11():
     result = parse('Mamu-A11')
@@ -7605,11 +7585,6 @@ def test_Mamu_B01():
     assert result.__class__ in (Gene, Allele, AlleleWithoutGene), \
                                 'Unexpected type for parse("Mamu-B01"): %s' % (result,)
 
-def test_Mamu_B01():
-    result = parse('Mamu-B01')
-    assert result.__class__ in (Gene, Allele, AlleleWithoutGene), \
-                                'Unexpected type for parse("Mamu-B01"): %s' % (result,)
-
 def test_Mamu_B02():
     result = parse('Mamu-B02')
     assert result.__class__ in (Gene, Allele, AlleleWithoutGene), \
@@ -7620,20 +7595,10 @@ def test_Mamu_B03():
     assert result.__class__ in (Gene, Allele, AlleleWithoutGene), \
                                 'Unexpected type for parse("Mamu-B03"): %s' % (result,)
 
-def test_Mamu_B03():
-    result = parse('Mamu-B03')
-    assert result.__class__ in (Gene, Allele, AlleleWithoutGene), \
-                                'Unexpected type for parse("Mamu-B03"): %s' % (result,)
-
 def test_Mamu_B03901():
     result = parse('Mamu-B03901')
     assert result.__class__ in (Gene, Allele, AlleleWithoutGene), \
                                 'Unexpected type for parse("Mamu-B03901"): %s' % (result,)
-
-def test_Mamu_B04():
-    result = parse('Mamu-B04')
-    assert result.__class__ in (Gene, Allele, AlleleWithoutGene), \
-                                'Unexpected type for parse("Mamu-B04"): %s' % (result,)
 
 def test_Mamu_B04():
     result = parse('Mamu-B04')
@@ -7655,11 +7620,6 @@ def test_Mamu_B08():
     assert result.__class__ in (Gene, Allele, AlleleWithoutGene), \
                                 'Unexpected type for parse("Mamu-B08"): %s' % (result,)
 
-def test_Mamu_B08():
-    result = parse('Mamu-B08')
-    assert result.__class__ in (Gene, Allele, AlleleWithoutGene), \
-                                'Unexpected type for parse("Mamu-B08"): %s' % (result,)
-
 def test_Mamu_B1001():
     result = parse('Mamu-B1001')
     assert result.__class__ in (Gene, Allele, AlleleWithoutGene), \
@@ -7669,11 +7629,6 @@ def test_Mamu_B12():
     result = parse('Mamu-B12')
     assert result.__class__ in (Gene, Allele, AlleleWithoutGene), \
                                 'Unexpected type for parse("Mamu-B12"): %s' % (result,)
-
-def test_Mamu_B17():
-    result = parse('Mamu-B17')
-    assert result.__class__ in (Gene, Allele, AlleleWithoutGene), \
-                                'Unexpected type for parse("Mamu-B17"): %s' % (result,)
 
 def test_Mamu_B17():
     result = parse('Mamu-B17')
@@ -7779,11 +7734,6 @@ def test_Mamu_B47():
     result = parse('Mamu-B47')
     assert result.__class__ in (Gene, Allele, AlleleWithoutGene), \
                                 'Unexpected type for parse("Mamu-B47"): %s' % (result,)
-
-def test_Mamu_B48():
-    result = parse('Mamu-B48')
-    assert result.__class__ in (Gene, Allele, AlleleWithoutGene), \
-                                'Unexpected type for parse("Mamu-B48"): %s' % (result,)
 
 def test_Mamu_B48():
     result = parse('Mamu-B48')
@@ -7985,11 +7935,6 @@ def test_SLA_20401():
     assert result.__class__ in (Gene, Allele, AlleleWithoutGene), \
                                 'Unexpected type for parse("SLA-20401"): %s' % (result,)
 
-def test_SLA_20401():
-    result = parse('SLA-20401')
-    assert result.__class__ in (Gene, Allele, AlleleWithoutGene), \
-                                'Unexpected type for parse("SLA-20401"): %s' % (result,)
-
 def test_SLA_20402():
     result = parse('SLA-20402')
     assert result.__class__ in (Gene, Allele, AlleleWithoutGene), \
@@ -8054,11 +7999,6 @@ def test_SLA_30304():
     result = parse('SLA-30304')
     assert result.__class__ in (Gene, Allele, AlleleWithoutGene), \
                                 'Unexpected type for parse("SLA-30304"): %s' % (result,)
-
-def test_SLA_30401():
-    result = parse('SLA-30401')
-    assert result.__class__ in (Gene, Allele, AlleleWithoutGene), \
-                                'Unexpected type for parse("SLA-30401"): %s' % (result,)
 
 def test_SLA_30401():
     result = parse('SLA-30401')

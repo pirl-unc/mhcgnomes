@@ -23,9 +23,11 @@ def generate(src, dst, exclude=set()):
 
                     parts = line.split()
                     allele_name = parts[0]
-                    if allele_name in exclude:
+                    if allele_name in exclude or allele_name in alleles:
                         continue
+
                     alleles.add(allele_name)
+
                     fn_name = allele_name.replace("\"", "").strip()
                     for c in special_chars:
                         fn_name = fn_name.replace(c, "_")
