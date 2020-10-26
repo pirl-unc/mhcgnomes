@@ -55,7 +55,7 @@ if __name__ == '__main__':
         ],
         install_requires=[
             "serializable",
-            "yaml",
+            "pyyaml",
             "pandas",
         ],
         long_description=readme_markdown,
