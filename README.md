@@ -25,12 +25,16 @@ conventions.
 ```python
 
 In [1]: mhcgnomes.parse("HLA-A0201")
-Out[1]: Allele(gene=Gene(species=Species(name="Homo sapiens', prefix="HLA"), name="A"), allele_fields=("02", "01"), annotations=(), mutations=())
+Out[1]: Allele(gene=Gene(
+    species=Species(name="Homo sapiens', prefix="HLA"), name="A"), 
+    allele_fields=("02", "01"), 
+    annotations=(), 
+    mutations=())
 
-In [2]: mhcgnomes.normalized_string("HLA-A*02:01")
+In [2]: mhcgnomes.parse("HLA-A0201").to_string()
 Out[2]: 'HLA-A*02:01'
 
-In [3]: mhcgnomes.compact_string("HLA-A*02:01")
+In [3]: mhcgnomes.parse("HLA-A0201").compact_string()
 Out[3]: 'A0201'
 
 ```
@@ -45,7 +49,7 @@ For example, these all refer to the same MHC protein sequence:
 * "HLA-A02:01"
 * "HLA-A:02:01"
 * "HLA-A0201"
-* "HLA-A00201"
+
 
 Additionally, for human alleles, the species prefix is often omitted:
 
@@ -54,7 +58,6 @@ Additionally, for human alleles, the species prefix is often omitted:
 * "A\*0201"
 * "A02:01"
 * "A:02:01"
-* "A:002:01"
 * "A0201"
 
 Originally alleles for many genes were numbered with two digits:
@@ -67,7 +70,11 @@ conventionally called a "four digit" format, since each field has two
 digits. Yet, as the number of identified alleles continued to increase, then 
 the number of digits per field has often increased from two to three: 
 
-* "MICB*002:01"
+* "MICB\*002:01"
+* "HLA-A00201"
+* "A:002:01"
+
+These are not currently treated as equivalent to allele strings with two digits in their first field, but that feature is planned. 
 
 We might also encounter "6 digit" and "8 digit" MHC alleles, which specify 
 synonymous differences in the coding sequence and UTR/intronic regions respectively.
@@ -75,11 +82,23 @@ synonymous differences in the coding sequence and UTR/intronic regions respectiv
 * "A\*02:01:01"
 * "A\*02:01:01:01"
 
+### Annotations
+
 Sometimes, alleles are bundled with modifier suffixes which specify 
 the functionality or abundance of the MHC. Here's an example with an allele
 which is secreted instead of membrane-bound:
 
 * "HLA-A\*02:01:01S"
+
+These are collected in the `annotations` field of an `Allele` result.
+
+### Mutations
+
+MHC proteins are sometimes described in terms of mutations to a known allele. 
+
+* "HLA-B\*08:01 N80I mutant"
+
+These mutations are collected in the `mutations` field of an `Allele` result.
 
 ### Beyond humans
 
