@@ -52,7 +52,6 @@ For example, these all refer to the same MHC protein sequence:
 Additionally, for human alleles, the species prefix is often omitted:
 
 * "A\*02:01"
-* "A\*00201"
 * "A\*0201"
 * "A02:01"
 * "A:02:01"
@@ -71,8 +70,9 @@ the number of digits per field has often increased from two to three:
 * "MICB\*002:01"
 * "HLA-A00201"
 * "A:002:01"
+* "A\*00201"
 
-These are not currently treated as equivalent to allele strings with two digits in their first field, but that feature is planned. 
+These are not always currently treated as equivalent to allele strings with two digits in their first field, but that feature is in the works.
 
 We might also encounter "6 digit" and "8 digit" MHC alleles, which specify 
 synonymous differences in the coding sequence and UTR/intronic regions respectively.
