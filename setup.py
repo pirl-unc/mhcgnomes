@@ -58,8 +58,8 @@ if __name__ == '__main__':
             "pyyaml",
             "pandas",
         ],
-        long_description=readme_markdown,
         long_description_content_type='text/markdown',
+        long_description=readme_markdown,
         packages=['mhcgnomes'],
         package_data={'mhcgnomes': ["data/*.yaml"]},
     )

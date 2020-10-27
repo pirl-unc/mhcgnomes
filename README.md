@@ -1,15 +1,15 @@
 <a href="https://travis-ci.org/openvax/mhcgnomes">
-    <img src="https://travis-ci.com/til-unc/mhcgnomes.svg?branch=main" alt="Build Status" />
+    <img src="https://travis-ci.org/openvax/mhcgnomes.svg?branch=master" alt="Build Status" />
 </a>
 <a href="https://coveralls.io/github/openvax/mhcgnomes?branch=master">
-    <img src="https://coveralls.io/repos/til-unc/mhcgnomes/badge.svg?branch=main&service=github" alt="Coverage Status" />
+    <img src="https://coveralls.io/repos/openvax/mhcgnomes/badge.svg?branch=master&service=github" alt="Coverage Status" />
 </a>
 <a href="https://pypi.python.org/pypi/mhcgnomes/">
     <img src="https://img.shields.io/pypi/v/mhcgnomes.svg?maxAge=1000" alt="PyPI" />
 </a>
 
 
-![](gnome-red-text.png)
+![](gnome-red-text.png) 
 
 # mhcgnomes: Parsing MHC nomenclature in the wild
 
@@ -19,64 +19,116 @@ for both NetMHCpan and NetMHCIIpan predictors. This allows for standardization
 between immune databases and tools, which all seems to use different naming
 conventions.
 
-## Example
+
+## Usage example
 
 ```python
-In [1]: mhcgnomes.parse("HLA-A0201")
-Out[1]: FourDigitAllele(species='HLA', gene_name='A', group_id='02', protein_id='01')
 
-In [2]: mhcgnomes.compact_string("HLA-A*02:01")
-Out[2]: 'A0201'
+In [1]: mhcgnomes.parse("HLA-A0201")
+Out[1]: Allele(gene=Gene(species=Species(name="Homo sapiens', prefix="HLA"), name="A"), allele_fields=("02", "01"), annotations=(), mutations=())
+
+In [2]: mhcgnomes.normalized_string("HLA-A*02:01")
+Out[2]: 'HLA-A*02:01'
+
+In [3]: mhcgnomes.compact_string("HLA-A*02:01")
+Out[3]: 'A0201'
+
 ```
 
-## MHC Nomenclature
+## The problem: MHC nomenclature is nuts
 
-MHC alleles are named with a frustratingly loose system. It's not uncommon
-to see dozens of different forms for the same allele.
-
-Note: this function works with both class I and class II allele names (including
-alpha/beta pairs).
+Despite the valiant efforts of groups such as the [Comparative MHC Nomenclature Committee](https://www.ebi.ac.uk/ipd/mhc/committee/), the names of MHC alleles you might encounter in different datasets (or accepted by immunoinformatics tools) are frustratingly ill specified. It's not uncommon to see dozens of different forms for the same allele.
 
 For example, these all refer to the same MHC protein sequence:
-    * HLA-A\*02:01
-    * HLA-A02:01
-    * HLA-A:02:01
-    * HLA-A0201
-    * HLA-A00201
+
+* "HLA-A\*02:01"
+* "HLA-A02:01"
+* "HLA-A:02:01"
+* "HLA-A0201"
+* "HLA-A00201"
 
 Additionally, for human alleles, the species prefix is often omitted:
-* A\*02:01
-* A\*00201
-* A\*0201
-* A02:01
-* A:02:01
-* A:002:01
-* A0201
-* A00201
 
-We might also encounter "6 digit" and "8 digit" MHC types (which specify
-variants that don't affect amino acid sequence):
+* "A\*02:01"
+* "A\*00201"
+* "A\*0201"
+* "A02:01"
+* "A:02:01"
+* "A:002:01"
+* "A0201"
 
-* A\*02:01:01
-* A\*02:01:01:01
+Originally alleles for many genes were numbered with two digits:
 
-There are also modifier suffixes which specify whether an allele
-is e.g. secreted instead of membrane-bound:
+* "HLA-MICB*01"
 
-* HLA-A\*02:01:01S
+But as the number of identified alleles increased, the number of
+fields specifying a distinct protein increase to two. This became 
+conventionally called a "four digit" format, since each field has two
+digits. Yet, as the number of identified alleles continued to increase, then 
+the number of digits per field has often increased from two to three: 
 
-There are serotypes, which correspond to groups of four digit alleles.
-* HLA-A2
-* A2
+* "MICB*002:01"
+
+We might also encounter "6 digit" and "8 digit" MHC alleles, which specify 
+synonymous differences in the coding sequence and UTR/intronic regions respectively.
+
+* "A\*02:01:01"
+* "A\*02:01:01:01"
+
+Sometimes, alleles are bundled with modifier suffixes which specify 
+the functionality or abundance of the MHC. Here's an example with an allele
+which is secreted instead of membrane-bound:
+
+* "HLA-A\*02:01:01S"
+
+### Beyond humans
 
 To make things worse, several model organisms (like mice and rats) use archaic
 naming systems, where there is no notion of allele groups or four/six/eight
 digit alleles but every allele is simply given a name, such as:
-* H2-Kk
-* RT1-9.5f
+
+* "H2-Kk"
+* "RT1-9.5f"
+
 
 In the above example "H2"/"RT1" correspond to species, "K"/"9.5" are
 the gene names and "k"/"f" are the allele names.
+
+To make these even worse, the name of a species is subject to variation (e.g. "H2" vs. "RT-1") as well as drift over time (e.g. ChLA -> MhcPatr -> Patr).  
+
+### Serotypes, haplotypes, and other named entitites
+
+Besides alleles are also other named MHC related entities you'll encounter in immunological data. Closely related to alleles are serotypes, which effectively denote a grouping of alleles that are all recognized by the same antibody:
+
+* "HLA-A2"
+* "A2"
+
+In many datasets the exact allele is not known but an experiment might note the genetic background of a model animal, resulting in loose haplotype restrictions such as: 
+
+* "H2-k class I"
+
+Yes, good luck disambiguating "H2-k" the haplotype from "H2-K" the gene, especially since capitalization is not stable enough to be relied on for parsing. 
+
+In some cases immunological data comes only with a denoted species (e.g. "mouse"), a gene (e.g. "HLA-A"), or an MHC class ("human class I"). MHCgnomes has a structured representation for all of these cases and more. 
+
+## Parsing strategy
+
+It is a fool's errand to curate *all* possible MHC allele names since that list grows daily as the MHC loci of more people (and non-human animals) are sequenced. Instead, MHCgnomes contains an ontology of curated species and genes and then attempts to parse any given string into a multiple candidates of the following types:
+
+* `Species`
+* `Gene`
+* `Allele`
+* `Class2Pair`
+* `Class2Locus`
+* `MhcClass`
+* `Haplotype`
+* `Serotype`
+
+
+The set of candidate interpretations for each string are then 
+ranked according to heuristic rules. For example, a string will be 
+preferentially interpreted as an `Allele` rather than a `Serotype` 
+or `Haplotype`. 
 
 ## References
 
