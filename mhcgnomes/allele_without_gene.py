@@ -73,3 +73,45 @@ class AlleleWithoutGene(ResultWithSpecies):
     @property
     def is_class2(self):
         return self.mhc_class and is_class2(self.mhc_class)
+
+    @property
+    def annotation_null(self):
+        return False
+
+    @property
+    def annotation_cystosolic(self):
+        return False
+
+    @property
+    def annotation_secreted(self):
+        return False
+
+    @property
+    def annotation_questionable(self):
+        return False
+
+    @property
+    def annotation_low_expression(self):
+        return False
+
+    @property
+    def annotation_aberrant_expression(self):
+        return False
+
+    @property
+    def annotation_group(self):
+        # designates a group of genomic sequence alleles
+        # with identical peptide binding region
+        return False
+
+    @property
+    def annotation_pseudogene(self):
+        # designates a group of genomic sequence alleles
+        # with identical peptide binding region
+        return False
+
+    @property
+    def annotation_splice_variant(self):
+        # designates a group of genomic sequence alleles
+        # with identical peptide binding region
+        return False
