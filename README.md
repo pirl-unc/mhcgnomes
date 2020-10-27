@@ -21,8 +21,10 @@ aims to correctly parse every name in [IEDB](http://www.iedb.org/), [IMGT/HLA](h
 ```python
 
 In [1]: mhcgnomes.parse("HLA-A0201")
-Out[1]: Allele(gene=Gene(
-    species=Species(name="Homo sapiens', prefix="HLA"), name="A"), 
+Out[1]: Allele(
+    gene=Gene(
+        species=Species(name="Homo sapiens', prefix="HLA"), 
+        name="A"), 
     allele_fields=("02", "01"), 
     annotations=(), 
     mutations=())
