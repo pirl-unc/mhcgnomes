@@ -14,11 +14,7 @@
 # mhcgnomes: Parsing MHC nomenclature in the wild
 
 MHCgnomes is a parsing library for multi-species MHC nomenclature which
-aims to correctly parse every name in IEDB, IMGT, and the allele lists
-for both NetMHCpan and NetMHCIIpan predictors. This allows for standardization
-between immune databases and tools, which all seems to use different naming
-conventions.
-
+aims to correctly parse every name in [IEDB](http://www.iedb.org/), [IMGT/HLA](https://www.ebi.ac.uk/ipd/imgt/hla/), [IPD/MHC](https://www.ebi.ac.uk/ipd/mhc/), and the allele lists for both [NetMHCpan](https://services.healthtech.dtu.dk/service.php?NetMHCpan-4.1) and [NetMHCIIpan](https://services.healthtech.dtu.dk/service.php?NetMHCIIpan-4.0) predictors. This allows for standardization between immune databases and tools, which often use different naming conventions.
 
 ## Usage example
 
