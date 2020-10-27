@@ -9,7 +9,7 @@
 </a>
 
 
-![](gnome-red-text.png) 
+![](https://raw.githubusercontent.com/til-unc/mhcgnomes/main/gnome-red-text.png) 
 
 # mhcgnomes: Parsing MHC nomenclature in the wild
 
