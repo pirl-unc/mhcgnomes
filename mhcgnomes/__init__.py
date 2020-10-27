@@ -11,6 +11,7 @@
 # limitations under the License.
 
 from .allele import Allele
+from .allele_without_gene import AlleleWithoutGene
 from .class2_locus import Class2Locus
 from .class2_pair import Class2Pair
 from .dataframe import dataframe_from_string_list, dataframe_from_parsed_objects
@@ -25,9 +26,8 @@ from .normalizing_set import NormalizingSet
 from .parser import Parser
 from .serotype import Serotype
 from .species import Species
-from .allele_without_gene import AlleleWithoutGene
+from .version import __version__
 
-__version__ = "1.0.0"
 
 __all__ = [
     "Allele",

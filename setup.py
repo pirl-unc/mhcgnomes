@@ -26,7 +26,7 @@ except:
     logging.warning("Failed to load %s" % readme_path)
     readme_markdown = ""
 
-with open('mhcgnomes/__init__.py', 'r') as f:
+with open('mhcgnomes/version.py', 'r') as f:
     version = re.search(
         r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]',
         f.read(),
@@ -42,7 +42,7 @@ if __name__ == '__main__':
         description="Python library for parsing MHC nomenclature in the wild",
         author="Alex Rubinsteyn",
         author_email="alex.rubinsteyn@unc.edu",
-        url="https://github.com/openvax/mhcgnomes",
+        url="https://github.com/til-unc/mhcgnomes",
         license="http://www.apache.org/licenses/LICENSE-2.0.html",
         classifiers=[
             'Development Status :: 4 - Beta',
