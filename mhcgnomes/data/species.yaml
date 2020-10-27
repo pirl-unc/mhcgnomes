@@ -44,6 +44,14 @@ Homo sapiens:
       - CD1d
       - CD1e
       - MR1
+    I:
+      # pseudogenes
+      - H
+      - J
+      - K
+      - L
+      - P
+      - V
     IIa:
       DR:
         - DRA
@@ -65,6 +73,13 @@ Homo sapiens:
       DM:
         - DMA
         - DMB
+    II:
+      DR:
+        # TODO: how should we categorize pseudogenes?
+        - DRB6
+        - DRB7
+        - DRB8
+        - DRB9
     other:
       - TAP1
       - TAP2
@@ -1779,3 +1794,4 @@ Theropithecus gelada:
     IIa:
       DQ:
         - DQA1
+        - DQB
