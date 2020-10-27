@@ -118,6 +118,7 @@ It is a fool's errand to curate *all* possible MHC allele names since that list 
 * `Species`
 * `Gene`
 * `Allele`
+* `AlleleWithoutGene`
 * `Class2Pair`
 * `Class2Locus`
 * `MhcClass`
