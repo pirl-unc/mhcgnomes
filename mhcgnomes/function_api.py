@@ -44,6 +44,7 @@ def parse(
         map_allele_aliases=MAP_ALLELE_ALIASES,
         infer_class2_pairing=INFER_CLASS2_PAIRING,
         simplify_haplotypes_if_possible=COLLAPSE_SINGLETON_HAPLOTYPES,
+        valid_result_types=[],
         raise_on_error=True):
     """
     Parse MHC alleles into a structured representation.
@@ -67,6 +68,9 @@ def parse(
         If a Haplotype contains only a single allele or Class II allele pair,
         then return the allele instead of a haplotype.
 
+    valid_result_types : list of class
+        Only return results of the given classes.
+
     raise_on_error : bool
         Raise an exception if string can't be parsed. If False, return None
         instead.
@@ -79,7 +83,8 @@ def parse(
         raw_string,
         default_species=default_species,
         infer_class2_pairing=infer_class2_pairing,
-        raise_on_error=raise_on_error)
+        raise_on_error=raise_on_error,
+        valid_result_types=valid_result_types)
 
 def normalized_string(
         raw_string,
@@ -88,7 +93,8 @@ def normalized_string(
         map_allele_aliases=True,
         simplify_haplotypes_if_possible=COLLAPSE_SINGLETON_HAPLOTYPES,
         infer_class2_pairing=True,
-        default_species="HLA",
+        default_species=DEFAULT_SPECIES_PREFIX,
+        valid_result_types=[],
         raise_on_error=True):
     """
     Transform MHC alleles into a canonical string representation.
@@ -128,6 +134,9 @@ def normalized_string(
         By default, parse alleles like "A*02:01" as human but it's possible
         to change this to some other species.
 
+    valid_result_types : list of class
+        Only return results of the given classes.
+
     raise_on_error : bool
         Raise an exception if string can't be parsed. If False, return None
         instead.
@@ -138,7 +147,8 @@ def normalized_string(
         default_species=default_species,
         map_allele_aliases=map_allele_aliases,
         raise_on_error=raise_on_error,
-        simplify_haplotypes_if_possible=simplify_haplotypes_if_possible)
+        simplify_haplotypes_if_possible=simplify_haplotypes_if_possible,
+        valid_result_types=valid_result_types)
     if not parsed_object:
         return None
     return parsed_object.to_string(
@@ -152,6 +162,7 @@ def compact_string(
         simplify_haplotypes_if_possible=COLLAPSE_SINGLETON_HAPLOTYPES,
         infer_class2_pairing=False,
         default_species="HLA",
+        valid_result_types=[],
         raise_on_error=True):
     """
     Turn HLA-A*02:01 into A0201 or H-2-D-b into H-2Db or
@@ -173,7 +184,6 @@ def compact_string(
         If a Haplotype contains only a single allele or Class II allele pair,
         then return the allele instead of a haplotype.
 
-
     infer_class2_pairing : bool
         If given only the alpha or beta chain of a Class II allele,
         try to infer the most likely pairing from population frequencies.
@@ -181,6 +191,9 @@ def compact_string(
     default_species : str
         By default, parse alleles like "A*02:01" as human but it's possible
         to change this to some other species.
+
+    valid_result_types : list of class
+        Only return results of the given classes.
 
     raise_on_error : bool
         Raise an exception if string can't be parsed. If False, return None
@@ -192,7 +205,8 @@ def compact_string(
         infer_class2_pairing=infer_class2_pairing,
         default_species=default_species,
         raise_on_error=raise_on_error,
-        simplify_haplotypes_if_possible=simplify_haplotypes_if_possible)
+        simplify_haplotypes_if_possible=simplify_haplotypes_if_possible,
+        valid_result_types=valid_result_types)
     if not parsed_object:
         return None
     return parsed_object.compact_string(use_old_species_prefix=use_old_species_prefix)

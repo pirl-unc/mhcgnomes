@@ -1167,6 +1167,7 @@ class Parser(object):
             infer_class2_pairing=INFER_CLASS2_PAIRING,
             default_species=DEFAULT_SPECIES_PREFIX,
             preferred_type=None,
+            valid_result_types=[],
             raise_on_error=True):
         """
         Parse any MHC related string, from gene loci to fully specified 8 digit
@@ -1194,6 +1195,9 @@ class Parser(object):
         preferred_type : type
             If a result of this class is available, return it.
 
+        valid_result_types : list of class
+            If given, only return results with types in this list of classes.
+
         raise_on_error : bool
             If False, return False when parsing is impossible.
 
@@ -1215,6 +1219,12 @@ class Parser(object):
         candidates = self.parse_multiple_candidates(
             name,
             default_species=default_species)
+
+        if valid_result_types:
+            candidates = [
+                candidate for candidate in candidates
+                if type(candidate) in valid_result_types
+            ]
 
         if len(candidates) == 0:
             if raise_on_error:
