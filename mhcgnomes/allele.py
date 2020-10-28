@@ -129,6 +129,7 @@ class Allele(ResultWithSpecies):
             annotations=[],
             mutations=[],
             raw_string=None):
+        print(gene, allele_fields, annotations, mutations)
         if gene is None:
             return None
 
