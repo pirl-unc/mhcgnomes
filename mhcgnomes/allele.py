@@ -94,35 +94,6 @@ class Allele(ResultWithSpecies):
                 mutations=[] if drop_mutations else self.mutations)
 
     @property
-    def group_id(self):
-        if self.num_allele_fields > 0:
-            return self.allele_fields[0]
-        else:
-            return None
-
-    @property
-    def protein_id(self):
-        n = self.num_allele_fields
-        if n == 0:
-            return None
-        return ":".join(self.allele_fields[:2])
-
-    @property
-    def coding_sequence_id(self):
-        n = self.num_allele_fields
-        if n == 0:
-            return None
-        return ":".join(self.allele_fields[:3])
-
-
-    @property
-    def genomic_sequence_id(self):
-        n = self.num_allele_fields
-        if n == 0:
-            return None
-        return ":".join(self.allele_fields[:4])
-
-    @property
     def mhc_class(self):
         return self.gene.mhc_class
 
@@ -141,52 +112,6 @@ class Allele(ResultWithSpecies):
     @property
     def is_class2_beta(self):
         return self.gene.is_class2_beta
-
-    @property
-    def provisional_workshop_name(self):
-        return self.fields[0].startswith("W")
-
-    @property
-    def annotation_null(self):
-        return "N" in self.annotations
-
-    @property
-    def annotation_cystosolic(self):
-        return "C" in self.annotations
-
-    @property
-    def annotation_secreted(self):
-        return "S" in self.annotations
-
-    @property
-    def annotation_questionable(self):
-        return "Q" in self.annotations
-
-    @property
-    def annotation_low_expression(self):
-        return "L" in self.annotations
-
-    @property
-    def annotation_aberrant_expression(self):
-        return "A" in self.annotations
-
-    @property
-    def annotation_group(self):
-        # designates a group of genomic sequence alleles
-        # with identical peptide binding region
-        return "G" in self.annotations
-
-    @property
-    def annotation_pseudogene(self):
-        # designates a group of genomic sequence alleles
-        # with identical peptide binding region
-        return "Ps" in self.annotations
-
-    @property
-    def annotation_splice_variant(self):
-        # designates a group of genomic sequence alleles
-        # with identical peptide binding region
-        return "Sp" in self.annotations
 
     @classmethod
     def split_allele_fields(cls, allele_fields):
@@ -358,3 +283,51 @@ class Allele(ResultWithSpecies):
         d["is_mutant"] = self.is_mutant
         return d
 
+    def _check_annotation(self, annotation):
+        """
+        Return False if object doesn't have 'annotations' or if
+        argument given isn't in the list of annotations.
+        """
+        return annotation in self.annotations
+
+    @property
+    def annotation_null(self):
+        return self._check_annotation("N")
+
+    @property
+    def annotation_cystosolic(self):
+        return self._check_annotation("C")
+
+    @property
+    def annotation_secreted(self):
+        return self._check_annotation("S")
+
+    @property
+    def annotation_questionable(self):
+        return self._check_annotation("Q")
+
+    @property
+    def annotation_low_expression(self):
+        return self._check_annotation("L")
+
+    @property
+    def annotation_aberrant_expression(self):
+        return self._check_annotation("A")
+
+    @property
+    def annotation_group(self):
+        # designates a group of genomic sequence alleles
+        # with identical peptide binding region
+        return self._check_annotation("G")
+
+    @property
+    def annotation_pseudogene(self):
+        # designates a group of genomic sequence alleles
+        # with identical peptide binding region
+        return self._check_annotation("Ps")
+
+    @property
+    def annotation_splice_variant(self):
+        # designates a group of genomic sequence alleles
+        # with identical peptide binding region
+        return self._check_annotation("Sp")

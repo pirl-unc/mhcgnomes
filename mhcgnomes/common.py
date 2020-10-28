@@ -20,7 +20,6 @@ def cache(fn):
     """
     return lru_cache(maxsize=None)(fn)
 
-
 def normalize_string(name, chars_to_remove="-_'"):
     """
     Return uppercase string without any surrounding whitespace and
