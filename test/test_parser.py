@@ -6,7 +6,8 @@ from mhcgnomes import (
     Species,
     Haplotype,
     Serotype,
-    Gene
+    Gene,
+    parse,
 )
 from nose.tools import eq_
 
@@ -208,3 +209,16 @@ def test_parse_BoLA_DRA_DRB31501():
     result = parser.parse("BoLA-DRA-DRB31501")
     assert result is not None
     assert type(result) is Class2Pair, "Expected Class2Pair but got: %s" % (result,)
+
+
+def test_parse_H2K_valid_types_Gene():
+    parse_fns = [parse, Parser().parse]
+    for fn in parse_fns:
+        result = fn("H2K", valid_result_types=[Gene])
+        assert type(result) is Gene
+
+def test_parse_H2K_valid_types_Haplotype():
+    parse_fns = [parse, Parser().parse]
+    for fn in parse_fns:
+        result = fn("H2K", valid_result_types=[Haplotype])
+        assert type(result) is Haplotype

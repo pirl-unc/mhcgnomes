@@ -13,12 +13,33 @@
 from functools import lru_cache
 
 
+def arg_to_cache_key(x):
+    if type(x) in {list, tuple}:
+        value = tuple([arg_to_cache_key(xi) for xi in x])
+    elif type(x) is dict:
+        value = tuple([
+            (arg_to_cache_key(k), arg_to_cache_key(v)) for (k, v) in x.items()])
+    else:
+        value = x
+    return (type(x).__name__, value)
+
 def cache(fn):
     """
-    Memoization, should behave same as functools.cache from Python 3.9
-    but will work with earlier 3.x Python versions.
+    Memoization function which tries to freeze non-hashable types like
+    dict and list, which depends on functions being called not modifying their
+    arguments.
     """
-    return lru_cache(maxsize=None)(fn)
+    cache = {}
+    def cached_fn(*args, **kwargs):
+        args_key = arg_to_cache_key(args)
+        kwargs_key = arg_to_cache_key(kwargs)
+        key = (args_key, kwargs_key)
+        if key not in cache:
+
+            result = fn(*args, **kwargs)
+            cache[key] = result
+        return cache[key]
+    return cached_fn
 
 def normalize_string(name, chars_to_remove="-_'"):
     """
