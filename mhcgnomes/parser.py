@@ -786,7 +786,7 @@ class Parser(object):
             return None
         if alpha_result.species != beta_result.species:
             return None
-        return Class2Pair(alpha_result, beta_result)
+        return Class2Pair.get(alpha_result, beta_result)
 
     def parse_mutations(self, species, mutation_strings):
         """
@@ -933,6 +933,7 @@ class Parser(object):
             chain_to_mutations,
             gene_to_mutations)
 
+
     def parse_with_interior_whitespace(
             self,
             name,
@@ -942,13 +943,82 @@ class Parser(object):
         If there's whitespace within an allele description then it's
         either a mutant allele or an error.
         """
-        parts = [p.strip() for p in name.lower().split() if p]
+        parts = [p.strip() for p in name.split()]
+        parts_lower = [p.lower() for p in parts]
 
         if len(parts) == 1:
             # no whitespace, so nothing else in this function applies
             return None
 
-        if "mutant" in parts:
+        if parts_lower[-1] in {"alpha", "alpha-chain"}:
+            candidates = []
+            for candidate in self.parse_multiple_candidates(
+                    name=" ".join(parts[:-1]),
+                    default_species=default_species):
+                if type(candidate) in (Allele, AlleleWithoutGene, Gene):
+                    if candidate.is_class1 or candidate.is_class2_alpha:
+                        candidates.append(candidate)
+                    elif type(candidate) is Class2Pair:
+                        candidates.append(candidate.alpha)
+                    elif type(candidate) is Class2Locus:
+                        alpha_genes = candidate.alpha_chain_genes
+                        if len(alpha_genes) == 1:
+                            candidates.append(alpha_genes[0])
+                    else:
+                        continue
+            return self.pick_best_result(
+                candidates, raise_on_error=raise_on_error)
+        elif parts_lower[-1] in {"beta", "beta-chain"}:
+            candidates = []
+            for candidate in self.parse_multiple_candidates(
+                    name=" ".join(parts[:-1]),
+                    default_species=default_species):
+                if type(candidate) in (Allele, AlleleWithoutGene, Gene):
+                    if candidate.is_class2_beta:
+                        candidates.append(candidate)
+                    elif type(candidate) is Class2Pair:
+                        candidates.append(candidate.beta)
+                    elif type(candidate) is Class2Locus:
+                        beta_genes = candidate.beta_chain_genes
+                        if len(beta_genes) == 1:
+                            candidates.append(beta_genes[0])
+                    else:
+                        continue
+            return self.pick_best_result(
+                candidates, raise_on_error=raise_on_error)
+        elif parts_lower[1] == "mhc":
+            # parse strings like "MOUSE MHC class I L-q" as an allele
+            # and also "MOUSE MHC" as just a species
+            # The case of "MOUSE MHC class I" is handled in the last case below.
+            species, str_after_species = \
+                self.parse_species(parts[0], default_species=None)
+
+            if not species:
+                return None
+            if str_after_species:
+                return None
+            if len(parts) == 2:
+                return species
+            if len(parts) == 5 and parts_lower[2] == "class":
+                if parts_lower[3] in {"1", "i"}:
+                    expect_class1 = True
+                    expect_class2 = False
+                elif parts_lower[3] in {"II", "ii"}:
+                    expect_class2 = True
+                    expect_class1 = False
+                else:
+                    return None
+
+                for candidate in self.parse_allele_or_gene_candidates(
+                        species=species,
+                        str_after_species=parts[4],
+                        original_name=name):
+                    if expect_class1 and candidate.is_class1:
+                        return candidate
+                    elif expect_class2 and candidate.is_class2:
+                        return candidate
+            return None
+        elif parts_lower[-1] == "mutant":
             result_without_mutation = self.parse(
                 parts[0],
                 default_species=default_species,
@@ -976,7 +1046,7 @@ class Parser(object):
             else:
                 return None
         elif len(parts) >= 3:
-            if parts[-2] == "class" and parts[-1] in {"1", "2", "i", "ii"}:
+            if parts_lower[-2] == "class" and parts_lower[-1] in {"1", "2", "i", "ii"}:
 
                 mhc_class_string = normalize_mhc_class_string(parts[-1])
                 # Parse MHC classes, haplotypes, or serotypes such as:
@@ -993,7 +1063,9 @@ class Parser(object):
                         return unrestricted_result.restrict_mhc_class(
                             mhc_class_string)
                     elif type(unrestricted_result) is Species:
-                        return MhcClass(unrestricted_result, mhc_class_string)
+                        return MhcClass.get(
+                            unrestricted_result,
+                            mhc_class_string)
                 if raise_on_error:
                     raise ParseError(
                             "Unable to parse '%s' in '%s'" % (
@@ -1088,6 +1160,8 @@ class Parser(object):
         # list containing all candidate results
         parse_candidates = []
 
+
+
         # all of these functions are expected to take the sequence
         # without any additional knowledge of which species it is associated
         # with.
@@ -1166,8 +1240,8 @@ class Parser(object):
             name,
             infer_class2_pairing=INFER_CLASS2_PAIRING,
             default_species=DEFAULT_SPECIES_PREFIX,
-            preferred_type=None,
-            valid_result_types=[],
+            preferred_result_types=None,
+            valid_result_types=None,
             raise_on_error=True):
         """
         Parse any MHC related string, from gene loci to fully specified 8 digit
@@ -1192,10 +1266,10 @@ class Parser(object):
         default_species : Species or None
             Assume this species if it's not obvious in the sequence.
 
-        preferred_type : type
+        preferred_result_types : list of type or None
             If a result of this class is available, return it.
 
-        valid_result_types : list of class
+        valid_result_types : list of type or None
             If given, only return results with types in this list of classes.
 
         raise_on_error : bool
@@ -1221,10 +1295,22 @@ class Parser(object):
             default_species=default_species)
 
         if valid_result_types:
+            if type(valid_result_types) not in (list, set, tuple):
+                valid_result_types = [valid_result_types]
             candidates = [
                 candidate for candidate in candidates
                 if type(candidate) in valid_result_types
             ]
+
+        if preferred_result_types:
+            if type(preferred_result_types) not in (list, set, tuple):
+                preferred_result_types = [preferred_result_types]
+            candidates_with_preferred_type = [
+                candidate for candidate in candidates
+                if type(candidate) in preferred_result_types
+            ]
+            if len(candidates_with_preferred_type) > 0:
+                candidates = candidates_with_preferred_type
 
         if len(candidates) == 0:
             if raise_on_error:
@@ -1232,13 +1318,7 @@ class Parser(object):
             else:
                 return None
 
-        if preferred_type is not None:
-            candidates_with_preferred_type = [
-                candidate for candidate in candidates
-                if isinstance(candidate, preferred_type)
-            ]
-            if len(candidates_with_preferred_type) > 0:
-                candidates = candidates_with_preferred_type
+
 
         result = self.pick_best_result(candidates)
         if infer_class2_pairing:

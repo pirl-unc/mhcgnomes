@@ -15,9 +15,9 @@ from typing import List, Tuple, Union
 
 from .gene import Gene
 from .mutation import Mutation
-from .result_with_species import ResultWithSpecies
+from .result_with_gene import ResultWithGene
 
-class Allele(ResultWithSpecies):
+class Allele(ResultWithGene):
     """
     Allele name which specifies a unique protein amino acid sequence
     using this kind of notation: "HLA-A*02:01" or more generally:
@@ -30,11 +30,10 @@ class Allele(ResultWithSpecies):
             annotations : Union[List[str], Tuple[str]] = [],
             mutations : Union[List[Mutation], Tuple[Mutation]] = [],
             raw_string=None):
-        ResultWithSpecies.__init__(
+        ResultWithGene.__init__(
             self,
-            gene.species,
+            gene=gene,
             raw_string=raw_string)
-        self.gene = gene
         self.allele_fields = tuple(allele_fields)
         self.annotations = tuple(annotations)
         self.mutations = tuple(mutations)
@@ -69,10 +68,6 @@ class Allele(ResultWithSpecies):
         )
 
     @property
-    def gene_name(self):
-        return self.gene.gene_name
-
-    @property
     def num_allele_fields(self):
         return len(self.allele_fields)
 
@@ -93,25 +88,6 @@ class Allele(ResultWithSpecies):
                 annotations=[] if drop_annotations else self.annotations,
                 mutations=[] if drop_mutations else self.mutations)
 
-    @property
-    def mhc_class(self):
-        return self.gene.mhc_class
-
-    @property
-    def is_class1(self):
-        return self.gene.is_class1
-
-    @property
-    def is_class2(self):
-        return self.gene.is_class2
-
-    @property
-    def is_class2_alpha(self):
-        return self.gene.is_class2_alpha
-
-    @property
-    def is_class2_beta(self):
-        return self.gene.is_class2_beta
 
     @classmethod
     def split_allele_fields(cls, allele_fields):

@@ -12,11 +12,10 @@
 
 from typing import List, Tuple, Union
 
-from .mhc_class_helpers import is_class1, is_class2
 from .species import Species
-from .result_with_species import ResultWithSpecies
+from .result_with_mhc_class import ResultWithMhcClass
 
-class AlleleWithoutGene(ResultWithSpecies):
+class AlleleWithoutGene(ResultWithMhcClass):
     """
     Identifier for molecule whose gene is unknown and no proper allele numbering
     is given for.
@@ -27,8 +26,11 @@ class AlleleWithoutGene(ResultWithSpecies):
             name : str,
             mhc_class : Union[str, None] = None,
             raw_string : Union[str, None] = None):
-        ResultWithSpecies.__init__(self, species=species, raw_string=raw_string)
-        self.mhc_class = mhc_class
+        ResultWithMhcClass.__init__(
+            self,
+            species=species,
+            mhc_class=mhc_class,
+            raw_string=raw_string)
         self.name = name
 
     def to_string(
@@ -66,52 +68,4 @@ class AlleleWithoutGene(ResultWithSpecies):
             name=name,
             raw_string=raw_string)
 
-    @property
-    def is_class1(self):
-        return self.mhc_class and is_class1(self.mhc_class)
 
-    @property
-    def is_class2(self):
-        return self.mhc_class and is_class2(self.mhc_class)
-
-    @property
-    def annotation_null(self):
-        return False
-
-    @property
-    def annotation_cystosolic(self):
-        return False
-
-    @property
-    def annotation_secreted(self):
-        return False
-
-    @property
-    def annotation_questionable(self):
-        return False
-
-    @property
-    def annotation_low_expression(self):
-        return False
-
-    @property
-    def annotation_aberrant_expression(self):
-        return False
-
-    @property
-    def annotation_group(self):
-        # designates a group of genomic sequence alleles
-        # with identical peptide binding region
-        return False
-
-    @property
-    def annotation_pseudogene(self):
-        # designates a group of genomic sequence alleles
-        # with identical peptide binding region
-        return False
-
-    @property
-    def annotation_splice_variant(self):
-        # designates a group of genomic sequence alleles
-        # with identical peptide binding region
-        return False

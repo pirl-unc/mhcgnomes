@@ -19,11 +19,11 @@ from .mhc_class_helpers import (
     is_valid_restriction
 )
 from .errors import ParseError
-from .result_with_species import ResultWithSpecies
+from .result_with_mhc_class import ResultWithMhcClass
 from .species import Species
 
 
-class MhcClass(ResultWithSpecies):
+class MhcClass(ResultWithMhcClass):
     """
     Wrapper class for species combined with MHC classes such as
     "I", "Ia", "Ib", "II", "IIa", &c
@@ -34,12 +34,11 @@ class MhcClass(ResultWithSpecies):
             species : Species,
             mhc_class : str,
             raw_string : Union[str, None] = None):
-        ResultWithSpecies.__init__(
+        ResultWithMhcClass.__init__(
             self,
             species=species,
+            mhc_class=mhc_class,
             raw_string=raw_string)
-        self.mhc_class = normalize_mhc_class_string(mhc_class)
-
 
     @classmethod
     def get(cls, species_prefix, mhc_class):

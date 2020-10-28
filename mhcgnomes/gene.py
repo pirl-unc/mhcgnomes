@@ -14,23 +14,23 @@ from __future__ import print_function, division, absolute_import
 
 from typing import Union
 
-from .mhc_class_helpers import is_class1, is_class2
-from .result_with_species import ResultWithSpecies
+
+from .result_with_mhc_class import ResultWithMhcClass
 from .species import Species
 
 
-class Gene(ResultWithSpecies):
+class Gene(ResultWithMhcClass):
     def __init__(
             self,
             species : Species,
             name : str,
             raw_string : Union[str, None] = None):
-        ResultWithSpecies.__init__(
+        ResultWithMhcClass.__init__(
             self,
             species=species,
+            mhc_class=species.get_mhc_class_of_gene(name),
             raw_string=raw_string)
         self.name = name
-
 
     @property
     def raw_string_was_alias(self):
@@ -40,31 +40,6 @@ class Gene(ResultWithSpecies):
     @property
     def gene_name(self):
         return self.name
-
-
-    @property
-    def mhc_class(self):
-        return self.species.get_mhc_class_of_gene(self.gene_name)
-
-    @property
-    def is_class1(self):
-        return is_class1(self.mhc_class)
-
-    @property
-    def is_class2(self):
-        return is_class2(self.mhc_class)
-
-    @property
-    def is_class2_alpha(self):
-        return (
-            self.is_class2 and
-            self.species.class2_gene_name_to_chain_type[self.name] == "alpha")
-
-    @property
-    def is_class2_beta(self):
-        return (
-            self.is_class2 and
-            self.species.class2_gene_name_to_chain_type[self.name] == "beta")
 
     @property
     def gene(self):

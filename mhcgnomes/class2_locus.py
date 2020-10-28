@@ -12,20 +12,22 @@
 
 from typing import Union, Sequence
 
-from .result_with_species import ResultWithSpecies
+from .result_with_mhc_class import ResultWithMhcClass
 from .species import Species
 from .gene import Gene
 
-class Class2Locus(ResultWithSpecies):
+class Class2Locus(ResultWithMhcClass):
     def __init__(
             self,
             species : Species,
             name : str,
+            mhc_class : str = "II",
             genes : Sequence[Gene] = [],
             raw_string : Union[str, None] = None):
-        ResultWithSpecies.__init__(
+        ResultWithMhcClass.__init__(
             self,
             species=species,
+            mhc_class=mhc_class,
             raw_string=raw_string)
         self.name = name
         self.genes = genes

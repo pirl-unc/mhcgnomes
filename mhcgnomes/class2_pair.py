@@ -14,9 +14,9 @@ from typing import Union
 from collections import OrderedDict
 
 from .allele import Allele
-from .result_with_species import ResultWithSpecies
+from .result_with_mhc_class import ResultWithMhcClass
 
-class Class2Pair(ResultWithSpecies):
+class Class2Pair(ResultWithMhcClass):
     """
     Representation of an alpha/beta pair of Class II MHC chains.
     """
@@ -25,21 +25,15 @@ class Class2Pair(ResultWithSpecies):
             self,
             alpha : Allele,
             beta : Allele,
+            mhc_class="II",
             raw_string : Union[str, None] = None):
-        ResultWithSpecies.__init__(
+        ResultWithMhcClass.__init__(
             self,
             species=alpha.species,
+            mhc_class=mhc_class,
             raw_string=raw_string)
         self.alpha = alpha
         self.beta = beta
-
-    @property
-    def is_class1(self):
-        return False
-
-    @property
-    def is_class2(self):
-        return True
 
     @classmethod
     def get(cls, alpha, beta, raw_string=None):
@@ -47,7 +41,17 @@ class Class2Pair(ResultWithSpecies):
             return None
         if beta is None:
             return None
-        return cls(alpha=alpha, beta=beta, raw_string=raw_string)
+
+        if alpha.mhc_class != beta.mhc_class:
+            mhc_class = "II"
+        else:
+            mhc_class = alpha.mhc_class
+
+        return cls(
+            alpha=alpha,
+            beta=beta,
+            mhc_class=mhc_class,
+            raw_string=raw_string)
 
     def to_string(
             self,
@@ -69,14 +73,6 @@ class Class2Pair(ResultWithSpecies):
                 include_species=include_species,
                 use_old_species_prefix=use_old_species_prefix),
             self.beta.compact_string(include_species=False))
-
-    @property
-    def mhc_class(self):
-        alpha_class = self.alpha.mhc_class
-        if alpha_class:
-            return alpha_class
-        else:
-            return self.beta.mhc_class
 
     @property
     def gene_name(self):

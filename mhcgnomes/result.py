@@ -180,3 +180,68 @@ class Result(Serializable):
         self_key = (self.__class__.__name__,) + self.to_tuple()
         other_key = (other.__class__.__name__,) + other.to_tuple()
         return self_key < other_key
+
+
+    ############################################################################
+    #
+    #  Default properties shared across all result objects
+    #
+    ############################################################################
+
+    @property
+    def annotation_null(self):
+        return False
+
+    @property
+    def annotation_cystosolic(self):
+        return False
+
+    @property
+    def annotation_secreted(self):
+        return False
+
+    @property
+    def annotation_questionable(self):
+        return False
+
+    @property
+    def annotation_low_expression(self):
+        return False
+
+    @property
+    def annotation_aberrant_expression(self):
+        return False
+
+    @property
+    def annotation_group(self):
+        # designates a group of genomic sequence alleles
+        # with identical peptide binding region
+        return False
+
+    @property
+    def annotation_pseudogene(self):
+        # designates a group of genomic sequence alleles
+        # with identical peptide binding region
+        return False
+
+    @property
+    def annotation_splice_variant(self):
+        # designates a group of genomic sequence alleles
+        # with identical peptide binding region
+        return False
+
+    @property
+    def is_class1(self):
+        return False
+
+    @property
+    def is_class2(self):
+        return False
+
+    @property
+    def is_class2_alpha(self):
+        return False
+
+    @property
+    def is_class2_beta(self):
+        return False
