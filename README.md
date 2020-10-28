@@ -88,7 +88,9 @@ which is secreted instead of membrane-bound:
 
 * "HLA-A\*02:01:01S"
 
-These are collected in the `annotations` field of an `Allele` result.
+These are collected in the `annotations` field of an 
+[`Allele`](https://github.com/til-unc/mhcgnomes/blob/main/mhcgnomes/allele.py)
+result.
 
 ### Mutations
 
@@ -96,7 +98,8 @@ MHC proteins are sometimes described in terms of mutations to a known allele.
 
 * "HLA-B\*08:01 N80I mutant"
 
-These mutations are collected in the `mutations` field of an `Allele` result.
+These mutations are collected in the `mutations` field of an 
+[`Allele`](https://github.com/til-unc/mhcgnomes/blob/main/mhcgnomes/allele.py) result.
 
 ### Beyond humans
 
@@ -132,21 +135,22 @@ In some cases immunological data comes only with a denoted species (e.g. "mouse"
 
 It is a fool's errand to curate *all* possible MHC allele names since that list grows daily as the MHC loci of more people (and non-human animals) are sequenced. Instead, MHCgnomes contains an ontology of curated species and genes and then attempts to parse any given string into a multiple candidates of the following types:
 
-* `Species`
-* `Gene`
-* `Allele`
-* `AlleleWithoutGene`
-* `Class2Pair`
-* `Class2Locus`
-* `MhcClass`
-* `Haplotype`
-* `Serotype`
+* [`Species`](https://github.com/til-unc/mhcgnomes/blob/main/mhcgnomes/species.py)
+* [`Gene`](https://github.com/til-unc/mhcgnomes/blob/main/mhcgnomes/gene.py)
+* [`Allele`](https://github.com/til-unc/mhcgnomes/blob/main/mhcgnomes/allele.py)
+* [`AlleleWithoutGene`](https://github.com/til-unc/mhcgnomes/blob/main/mhcgnomes/allele_without_gene.py)
+* [`Class2Pair`](https://github.com/til-unc/mhcgnomes/blob/main/mhcgnomes/class2_pair.py)
+* [`Class2Locus`](https://github.com/til-unc/mhcgnomes/blob/main/mhcgnomes/class2_locus.py)
+* [`MhcClass`](https://github.com/til-unc/mhcgnomes/blob/main/mhcgnomes/mhc_class.py)
+* [`Haplotype`](https://github.com/til-unc/mhcgnomes/blob/main/mhcgnomes/haplotype.py)
+* [`Serotype`](https://github.com/til-unc/mhcgnomes/blob/main/mhcgnomes/serotype.py)
 
 
 The set of candidate interpretations for each string are then 
 ranked according to heuristic rules. For example, a string will be 
-preferentially interpreted as an `Allele` rather than a `Serotype` 
-or `Haplotype`. 
+preferentially interpreted as an [`Allele`](https://github.com/til-unc/mhcgnomes/blob/main/mhcgnomes/allele.py) rather 
+than a [`Serotype`](https://github.com/til-unc/mhcgnomes/blob/main/mhcgnomes/serotype.py)
+or [`Haplotype`](https://github.com/til-unc/mhcgnomes/blob/main/mhcgnomes/haplotype.py). 
 
 ## References
 
