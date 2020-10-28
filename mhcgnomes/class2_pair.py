@@ -41,11 +41,10 @@ class Class2Pair(ResultWithMhcClass):
             return None
         if beta is None:
             return None
-
-        if alpha.mhc_class != beta.mhc_class:
-            mhc_class = "II"
-        else:
+        if alpha.mhc_class == beta.mhc_class:
             mhc_class = alpha.mhc_class
+        else:
+            mhc_class = "II"
 
         return cls(
             alpha=alpha,
@@ -128,4 +127,4 @@ def infer_class2_alpha_chain(beta):
     if alpha is None:
         return beta
 
-    return Class2Pair(alpha, beta)
+    return Class2Pair.get(alpha, beta)

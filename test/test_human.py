@@ -117,7 +117,7 @@ def test_A_02_01_01_01():
 
 
 def test_parse_human_class2_DRB1_01_02():
-    expected = Class2Pair(
+    expected = Class2Pair.get(
         Allele.get("HLA", "DRA", "01", "01"),
         Allele.get("HLA", "DRB1", "01", "02"),
     )
@@ -161,7 +161,7 @@ def test_compact_string_string_human_class2_DRB1_01_02():
         eq_(compact_string(name), expected_compact)
 
 def test_parse_human_class2_alpha_beta_DPA1_01_05_DPB1_100_01():
-    expected = Class2Pair(
+    expected = Class2Pair.get(
         Allele.get("HLA", "DPA1", "01", "05"),
         Allele.get("HLA", "DPB1", "100", "01")
     )
@@ -174,7 +174,7 @@ def test_parse_human_class2_alpha_beta_DPA1_01_05_DPB1_100_01():
         eq_(parse(name), expected)
 
 def test_parse_all_parameters_true_human_class2_alpha_beta_DPA1_01_05_DPB1_100_01():
-    expected = Class2Pair(
+    expected = Class2Pair.get(
         Allele.get("HLA", "DPA1", "01", "05"),
         Allele.get("HLA", "DPB1", "100", "01")
     )
@@ -230,7 +230,6 @@ def test_alpha_chain_inference_DQ():
 def test_human_class2_pair_with_mutation():
     allele = "HLA-DRA*01:01/DRB1*01:01 G86Y mutant"
     result = parse(allele)
-    print(result)
     eq_(type(result), Class2Pair)
     eq_(result.beta.is_mutant, True)
 
