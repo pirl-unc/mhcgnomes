@@ -36,6 +36,14 @@ class Class2Pair(ResultWithMhcClass):
         self.beta = beta
 
     @classmethod
+    def hash_field_names(cls):
+        return ("alpha", "beta")
+
+    @classmethod
+    def eq_field_names(cls):
+        return ("alpha", "beta")
+
+    @classmethod
     def get(cls, alpha, beta, raw_string=None):
         if alpha is None:
             return None
