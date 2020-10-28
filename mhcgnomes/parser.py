@@ -339,7 +339,6 @@ class Parser(object):
             gene,
             allele_fields,
             functional_annotations=None):
-        print("1a", gene, allele_fields, functional_annotations)
         if allele_fields is None:
             return None
 
@@ -378,7 +377,6 @@ class Parser(object):
             if gene.is_chicken and not all([
                     (c.isdigit() or c == ".") for c in allele_field]):
                 return None
-        print("1b", gene, allele_fields, functional_annotations)
         return Allele.get_with_gene(
             gene,
             allele_fields,
@@ -399,13 +397,11 @@ class Parser(object):
 
         Returns list of (gene_name, str_after_gene) pairs.
         """
-        print("-3", species, seq)
         results = []
         for n in range(len(seq), 0, -1):
             substring = seq[:n]
             parsed = Gene.get(species, substring)
             if parsed:
-                print("-3b", parsed, seq[n:])
                 results.append((parsed, seq[n:]))
         return results
 
