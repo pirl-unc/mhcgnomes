@@ -77,12 +77,19 @@ def restrict_alleles(alleles, mhc_class):
     ]
 
 
-def normalize_mhc_class_string(mhc_class):
+def normalize_mhc_class_string(mhc_class, raise_on_error=True):
     original_string = mhc_class
     mhc_class = mhc_class.lower()
+    if mhc_class.startswith("class-"):
+        _, mhc_class = mhc_class.split("class-")
+    elif mhc_class.startswith("class "):
+        _, mhc_class = mhc_class.split("class ")
     mhc_class = mhc_class.replace("i", "I")
     mhc_class = mhc_class.replace("1", "I")
     mhc_class = mhc_class.replace("2", "II")
     if mhc_class not in valid_class_restrictions:
-        raise ParseError("Invalid MHC class: '%s'" % original_string)
+        if raise_on_error:
+            raise ParseError("Invalid MHC class: '%s'" % original_string)
+        else:
+            return None
     return mhc_class

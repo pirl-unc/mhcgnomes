@@ -10,13 +10,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+def strip_char(s : str, char_to_remove : str):
+    while s.startswith(char_to_remove):
+        s = s[1:]
+    while s.endswith(char_to_remove):
+        s = s[:-1]
+    return s
+
+def strip_chars(s : str, chars_to_remove):
+    for c in chars_to_remove:
+        s = strip_char(s, c)
+    return s
 
 def strip_whitespace_and_dashes(s : str):
-    while s.startswith("-") or s.startswith(" "):
-        s = s[1:]
-    while s.endswith("-") or s.endswith(" "):
-        s = s[:-1]
-    return s.strip()
+    return strip_chars(s, "- ").strip()
 
 def strip_whitespace_and_remove_quotes(name : str):
     return name.replace("\"", "").replace("'", "").strip()

@@ -12,7 +12,7 @@ def test_parse_uniprot_MOUSE_MHC_class_I_L_q_alpha_chain():
     result = parse(s)
     eq_(result, Allele.get("H2", "L", "q"))
 
-def TODO_parse_uniprot():
+def test_parse_uniprot_H2_class_I_histocompatibility_antigen_K_B_alpha_chain():
     s = "H-2 class I histocompatibility antigen, K-B alpha chain"
     result = parse(s)
     eq_(result, Allele.get("H2", "K", "b"))
