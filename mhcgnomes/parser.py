@@ -30,7 +30,6 @@ from .haplotype import Haplotype
 from .mhc_class import MhcClass
 from .mhc_class_helpers import normalize_mhc_class_string
 from .mutation import Mutation
-
 from .parsing_helpers import (
     strip_whitespace_and_remove_quotes,
     strip_whitespace_and_dashes,
@@ -41,6 +40,7 @@ from .parsing_helpers import (
     split_digits_at_end
 )
 from .result import Result
+from .result_with_mhc_class import ResultWithMhcClass
 from .serotype import Serotype
 from .species import Species, infer_species_from_prefix
 from .tokenize import tokenize
@@ -1096,6 +1096,7 @@ class Parser(object):
         if raw_string_parts is None:
             raw_string_parts = tokens
 
+        
         if len(tokens) == 1:
             # no whitespace, so nothing else in this function applies
             return self.parse_single_token_to_multiple_candidates(
@@ -1156,110 +1157,62 @@ class Parser(object):
                 if with_mutation is None:
                     continue
                 candidates.append(with_mutation)
-        if len(tokens) > 1 and tokens[-1] in {"class-1", "class-2"}:
+        if tokens[-1] in {"class-1", "class-2"}:
             # Parse MHC classes, haplotypes, or serotypes such as:
             # - "HLA class I" => tokenized as ("hla", "class-1")
             # - "H2-b class I" => tokenized as ("h2-b", "class-1")
             # - "ELA-A1 class I" => tokenized as ("ela-a1", "class-1")
             # - "H2-r class I" => tokenized as ("h2-r", "class-1")
             # - "BF19 class II" => tokenized as ("bf19", "class-2")
-            mhc_class_string = normalize_mhc_class_string(tokens[-1])
+            class1 = (tokens[-1] == "class-1")
+            class2 = not class1
+            mhc_class_string = "I" if class1 else "II"
             if mhc_class_string:
                 for unrestricted_result in self.parse_tokens_to_multiple_candidates(
                         tokens=tokens[:-1],
-                        raw_string_parts=[:-1],
+                        raw_string_parts=raw_string_parts[:-1],
                         raise_on_error=raise_on_error,
                         default_species=default_species):
-                    if type(unrestricted_result) is Haplotype:
+                    t = type(unrestricted_result)
+                    if t is Haplotype:
                         restricted = unrestricted_result.restrict_mhc_class(mhc_class_string)
                         if restricted:
                             candidates.append(restricted)
-                    elif type(unrestricted_result) is Species:
+                    elif t is Species:
                         mhc_class = MhcClass.get(
                             unrestricted_result,
                             mhc_class_string)
                         if mhc_class:
                             candidates.append(mhc_class)
-        elif len(tokens) > 1 and tokens[-2] in {"class-1", "class-2"}:
+                    elif isinstance(unrestricted_result, ResultWithMhcClass):
+                        if (class1 and unrestricted_result.is_class1) or (class2 and unrestricted_result.is_class2):
+                            candidates.append(unrestricted_result)
+        elif len(tokens) >= 3 and (tokens[1] in {"class-1", "class-2"}):
             # parse strings like "MOUSE MHC class I L-q" as an allele
             # Tokenization normalizes this sequence into:
             #   ("mouse", "class-1", "L-q")
-            #
-            # We would also like to parse subsequences like:
-            #   ("class-1", "L-q")
+
             species, str_after_species = \
                 self.parse_species(tokens[0], default_species=None)
 
-            if not species:
-                return None
-            if str_after_species:
-                return None
+            if species and not str_after_species:
+                class1 = (tokens[1] == "class-1")
+                class2 = not class1
+                mhc_class_string = "I" if class1 else "II"
+                for candidate in self.parse_tokens_to_multiple_candidates(
+                        tokens=tokens[2:],
+                        raw_string_parts=raw_string_parts[2:],
+                        default_species=species):
 
-            if len(tokens) == 2:
-                return species
-            if len(parts) == 5 and tokens[2] == "class-1":
-                if tokens[3] in {"1", "i"}:
-                    expect_class1 = True
-                    expect_class2 = False
-                elif tokens[3] in {"II", "ii"}:
-                    expect_class2 = True
-                    expect_class1 = False
-                else:
-                    return None
-
-                for candidate in self.parse_allele_or_gene_candidates(
-                        species=species,
-                        str_after_species=parts[4],
-                        raw_string=name):
-                    if expect_class1 and candidate.is_class1:
-                        return candidate
-                    elif expect_class2 and candidate.is_class2:
-                        return candidate
-            return None
-
-
-        if len(parts) == 2:
-            species_common_name, gene_or_locus_name = parts
+                    if (class1 and candidate.is_class1) or (class2 and candidate.is_class2):
+                        candidates.append(candidate)
+        elif len(tokens) == 2:
+            species_common_name, gene_or_locus_name = tokens
             gene_or_locus = self.get_gene_or_locus(
                 species_common_name,
                 gene_or_locus_name)
-
             if gene_or_locus:
-                return gene_or_locus
-            elif raise_on_error:
-                raise ParseError(
-                    "Failed to parse '%s' as gene in '%s'" % (
-                        gene_or_locus, name))
-            else:
-                return None
-        elif len(parts) >= 3:
-            if tokens[-2] == "class" and tokens[-1] in {"1", "2", "i", "ii"}:
-
-                mhc_class_string = normalize_mhc_class_string(parts[-1])
-                # Parse MHC classes, haplotypes, or serotypes such as:
-                # - "HLA class I"
-                # - "H2-b class I"
-                # - "ELA-A1 class I"
-                # - "H2-r class I"
-                # - "BF19 class II"
-                unrestricted_string = " ".join(parts[:-2])
-                for unrestricted_result in self.parse_multiple_candidates(
-                        unrestricted_string,
-                        default_species=default_species):
-                    if type(unrestricted_result) is Haplotype:
-                        return unrestricted_result.restrict_mhc_class(
-                            mhc_class_string)
-                    elif type(unrestricted_result) is Species:
-                        return MhcClass.get(
-                            unrestricted_result,
-                            mhc_class_string)
-                if raise_on_error:
-                    raise ParseError(
-                            "Unable to parse '%s' in '%s'" % (
-                                unrestricted_string,
-                                name,))
-                else:
-                    return None
+                candidates.append(gene_or_locus)
         return candidates
 
 
@@ -1277,7 +1230,7 @@ class Parser(object):
             tokens=tokens,
             raw_string_parts=raw_string_parts,
             default_species=default_species,
-            raise_on_error=False)
+            raise_on_error=raise_on_error)
 
     @cache
     def parse(
@@ -1362,7 +1315,6 @@ class Parser(object):
                 raise ParseError("Could not parse '%s'" % name)
             else:
                 return None
-
 
 
         result = self.pick_best_result(candidates)

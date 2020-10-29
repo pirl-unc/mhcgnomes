@@ -52,7 +52,7 @@ replacement_pattern_lengths = {
 sorted_replacement_pattern_lengths = sorted(
     replacement_pattern_lengths, reverse=True)
 
-def simplify_tokens(self, tokens, raw_string_parts):
+def simplify_tokens(tokens, raw_string_parts):
     """
     Combine token pairs like ['alpha', 'chain'] into 'alpha-chain' and
     combine the corresponding raw string parts separated by a space.
