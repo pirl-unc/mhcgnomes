@@ -1,4 +1,4 @@
-from mhcgnomes.tokenize import tokenize, CLASS1_TOKEN, ALPHA_CHAIN_TOKEN
+from mhcgnomes.tokenize import tokenize, split, CLASS1_TOKEN, ALPHA_CHAIN_TOKEN
 from nose.tools import eq_
 
 def test_tokenize_complex_uniprot_string_for_H2_Lq():
@@ -35,3 +35,8 @@ def test_tokenize_attributes_only():
     eq_(attributes["PE"], "3")
     assert "SV" in attributes
     eq_(attributes["SV"], "1")
+
+
+def test_split():
+    s = "Class II DRA0101/DRB0101"
+    eq_(split(s), ["Class", "II", "DRA0101", "/", "DRB0101"])

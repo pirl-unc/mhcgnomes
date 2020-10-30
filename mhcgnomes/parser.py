@@ -39,7 +39,6 @@ from .parsing_helpers import (
     split_digits_at_end
 )
 from .result import Result
-from .result_with_mhc_class import ResultWithMhcClass
 from .serotype import Serotype
 from .species import Species, infer_species_from_prefix
 from .tokenize import (
@@ -737,18 +736,6 @@ class Parser(object):
                 default_species=species)
         return None
 
-    def parse_class2_pair_with_slash_sep(
-            self,
-            name,
-            default_species=None):
-        if name.count("/") == 1:
-            # parse paired Class II alleles such as 'DRA1*01:01/DRB1*01:01'
-            alpha, beta = name.split("/")
-            return self.parse_class2_pair_from_alpha_and_beta_strings(
-                alpha,
-                beta,
-                default_species=default_species)
-        return None
 
     def parse_class2_pair_from_alpha_and_beta_strings(
             self,
@@ -1027,7 +1014,6 @@ class Parser(object):
         # without any additional knowledge of which species it is associated
         # with.
         fns_without_species = [
-            self.parse_class2_pair_with_slash_sep,
             self.parse_haplotype,
             self.parse_gene_without_species,
             self.parse_allele_without_species,
@@ -1137,7 +1123,7 @@ class Parser(object):
                         mhc_class_string)
                     if mhc_class:
                         candidates.append(mhc_class)
-                elif isinstance(unrestricted_result, ResultWithMhcClass):
+                elif unrestricted_result.has_mhc_class:
                     if (class1 and unrestricted_result.is_class1) or (class2 and unrestricted_result.is_class2):
                         candidates.append(unrestricted_result)
         return candidates
@@ -1205,8 +1191,39 @@ class Parser(object):
                 raise_on_error=raise_on_error)
 
         candidates = []
-
-        if tokens[-1] == ALPHA_CHAIN_TOKEN:
+        if "/" in tokens:
+            slash_index = tokens.index("/")
+            if slash_index > 0:
+                alpha_tokens = tokens[:slash_index]
+                alpha_raw_string_parts = raw_string_parts[:slash_index]
+                beta_tokens = tokens[slash_index + 1:]
+                beta_raw_string_parts = raw_string_parts[slash_index + 1:]
+                for alpha_result in self.parse_tokens_to_multiple_candidates(
+                        tokens=alpha_tokens,
+                        raw_string_parts=alpha_raw_string_parts,
+                        default_species=default_species,
+                        raise_on_error=False):
+                    if alpha_result is None:
+                        continue
+                    if type(alpha_result) not in (Allele, Gene):
+                        continue
+                    if alpha_result.has_species:
+                        species_for_beta = alpha_result.species
+                    else:
+                        species_for_beta = default_species
+                    for beta_result in self.parse_tokens_to_multiple_candidates(
+                            tokens=beta_tokens,
+                            raw_string_parts=beta_raw_string_parts,
+                            default_species=species_for_beta,
+                            raise_on_error=False):
+                        if beta_result is None:
+                            continue
+                    if alpha_result.species != beta_result.species:
+                        continue
+                    class2_pair = Class2Pair.get(alpha_result, beta_result)
+                    if class2_pair:
+                        candidates.append(class2_pair)
+        elif tokens[-1] == ALPHA_CHAIN_TOKEN:
             for candidate in self.parse_tokens_to_multiple_candidates(
                     tokens=tokens[:-1],
                     raw_string_parts=raw_string_parts[:-1],
@@ -1243,15 +1260,15 @@ class Parser(object):
         elif tokens[-1] == MUTANT_TOKEN:
             for without_mutation in self.parse_single_token_to_multiple_candidates(
                     token=tokens[0],
-                    raw_string_parts=raw_string_parts[0],
+                    raw_string=raw_string_parts[0],
                     default_species=default_species,
                     raise_on_error=raise_on_error):
-                if without_mutation:
+                if not without_mutation:
                     continue
                 with_mutation = self.parse_and_apply_mutations(
                     result_without_mutation=without_mutation,
                     mutation_strings=tokens[1:],
-                    raw_string=" ".join(raw_string_parts[1:]),
+                    raw_string=" ".join(raw_string_parts[1:-1]),
                     default_species=default_species)
                 if with_mutation is None:
                     continue

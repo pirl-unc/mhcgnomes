@@ -27,6 +27,10 @@ class ResultWithGene(ResultWithMhcClass):
         self.gene = gene
 
     @property
+    def has_gene(self):
+        return True
+
+    @property
     def gene_name(self):
         return self.gene.name
 

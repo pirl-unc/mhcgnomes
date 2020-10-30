@@ -245,3 +245,15 @@ class Result(Serializable):
     @property
     def is_class2_beta(self):
         return False
+
+    @property
+    def has_species(self):
+        return False
+
+    @property
+    def has_mhc_class(self):
+        return False
+
+    @property
+    def has_gene(self):
+        return False

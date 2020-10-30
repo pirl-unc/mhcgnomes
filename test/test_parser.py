@@ -41,7 +41,6 @@ def test_parse_lowercase_drb1_01_01():
     eq_(result, expected)
 
 
-
 def test_parse_multiple_expect_unique_A0201():
     parser = Parser()
     expected_single = Allele.get("HLA", "A", "02", "01")
@@ -50,16 +49,6 @@ def test_parse_multiple_expect_unique_A0201():
     candidates = parser.parse_multiple_candidates("HLA-A*02:01")
     eq_(candidates, list(expected))
 
-
-def test_parse_class2_pair_with_slash_sep_HLA_DRA_01_01_DRB1_01_01():
-    parser = Parser()
-
-    expected_alpha = Allele.get("HLA", "DRA", "01", "01")
-    expected_beta = Allele.get("HLA", "DRB1", "01", "01")
-    expected_result = Class2Pair.get(expected_alpha, expected_beta)
-
-    result = parser.parse_class2_pair_with_slash_sep("HLA-DRA*01:01/DRB1*01:01")
-    eq_(result, expected_result)
 
 
 def test_parse_hla_lowercase_dra_01_01_drb1_01_01():
@@ -79,18 +68,10 @@ def test_parse_hla_lowercase_dra_01_01_drb1_01_01_no_default_species():
     result = parser.parse("hla-dra*01:01/drb1*01:01", default_species=None)
     eq_(result, expected_result)
 
-def test_parse_class2_pair_with_slash_sep_lowercase_hla_dra_01_01_drb1_01_01():
-    parser = Parser()
 
-    expected_alpha = Allele.get("HLA", "DRA", "01", "01")
-    expected_beta = Allele.get("HLA", "DRB1", "01", "01")
-    expected_result = Class2Pair.get(expected_alpha, expected_beta)
-    result = parser.parse_class2_pair_with_slash_sep("hla-dra*01:01/drb1*01:01")
-    eq_(result, expected_result)
-
-def test_parse_with_interior_whitespace_HLA_DRA_01_01_DRB1_01_01_G86Y_mutant():
+def test_parse_multiple_candidates_HLA_DRA_01_01_DRB1_01_01_G86Y_mutant():
     parser = Parser()
-    result = parser.parse_with_interior_whitespace(
+    results = parser.parse_multiple_candidates(
         "HLA-DRA*01:01/DRB1*01:01 G86Y mutant")
     expected_mutation = Mutation.get(
         pos=86,
@@ -100,7 +81,7 @@ def test_parse_with_interior_whitespace_HLA_DRA_01_01_DRB1_01_01_G86Y_mutant():
     expected_beta = Allele.get(
         "HLA", "DRB1", "01", "01", mutations=(expected_mutation,))
     expected_result = Class2Pair.get(expected_alpha, expected_beta)
-    eq_(result, expected_result)
+    eq_(results, [expected_result])
 
 def test_get_haplotypes_for_any_species_BF19():
     parser = Parser()
@@ -110,9 +91,10 @@ def test_get_haplotypes_for_any_species_BF19():
     eq_(type(result), Haplotype)
     eq_(result.name, "BF19")
 
-def test_parse_with_interior_whitespace_BF19_class_II():
+def test_parse_multiple_candidates_BF19_class_II():
     parser = Parser()
-    result = parser.parse_with_interior_whitespace("BF19 class II")
+    results = parser.parse_multiple_candidates("BF19 class II")
+    result = results[0]
     eq_(type(result), Haplotype)
     eq_(result.name, "BF19")
 
@@ -227,3 +209,28 @@ def test_parse_H2_K_valid_types_Haplotype():
     for fn in parse_fns:
         result = fn("H2K", valid_result_types=[Haplotype])
         assert type(result) is Haplotype
+
+
+def test_parse_H2_IAb_I67F_R70Q_T71K_mutant():
+    s = "H2-IAb I67F, R70Q, T71K mutant"
+    parse_fns = [parse, Parser().parse]
+    for fn in parse_fns:
+        result = fn(s)
+        assert result is not None
+        assert type(result) in (Class2Pair, Allele), \
+            "Wrong result type: %s" % (result,)
+        if type(result) is Allele:
+            eq_(len(result.mutations), 3)
+        elif type(result) is Class2Pair:
+            eq_(len(result.beta.mutations), 3)
+
+
+def test_parse_HLA_DRA_01_01_F54C_mutant_DRB1_01_01():
+    s = "HLA-DRA*01:01 F54C mutant/DRB1*01:01"
+    parse_fns = [parse, Parser().parse]
+    for fn in parse_fns:
+        result = fn(s)
+        assert result is not None
+        assert type(result) is Class2Pair
+        eq_(len(result.alpha.mutations), 1)
+        eq_(len(result.beta.mutations), 0)

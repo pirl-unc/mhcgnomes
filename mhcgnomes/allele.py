@@ -83,7 +83,7 @@ class Allele(ResultWithGene):
         if num_fields >= self.num_allele_fields:
             return self
         else:
-            self.copy(
+            return self.copy(
                 allele_fields=self.allele_fields[:num_fields],
                 annotations=[] if drop_annotations else self.annotations,
                 mutations=[] if drop_mutations else self.mutations)

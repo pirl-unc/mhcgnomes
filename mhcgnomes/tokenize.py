@@ -11,6 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from .common import cache
 from .parsing_helpers import strip_chars
 
 CLASS1_TOKEN = "class-1"
@@ -114,8 +115,25 @@ def normalize_token(s):
     """
     return strip_chars(deparen(s.lower()), "-, ").strip()
 
+
+def split(s, token_seps="/"):
+    """
+    Split string on whitespace. Also split on slashes but preserve
+    them in the token sequence.
+    """
+    results = s.split()
+    for sep in token_seps:
+        new_results = []
+        for part in results:
+            for i, sub_part in enumerate(part.split(sep)):
+                if i > 0:
+                    new_results.append(sep)
+                new_results.append(sub_part)
+        results = new_results
+    return results
+
 def split_and_extract_attributes(s):
-    parts = s.split()
+    parts = split(s)
     if "=" not in s:
         return parts, {}
 
@@ -139,6 +157,7 @@ def split_and_extract_attributes(s):
         attributes[attribute_key_in_progress] = " ".join(attribute_values_in_progress)
     return parts_before_attributes, attributes
 
+@cache
 def tokenize(name):
     """
     Returns two tuples and a dictionary:

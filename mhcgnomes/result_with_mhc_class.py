@@ -24,6 +24,10 @@ class ResultWithMhcClass(ResultWithSpecies):
         self.mhc_class = mhc_class
 
     @property
+    def has_mhc_class(self):
+        return True
+
+    @property
     def is_class1(self):
         return is_class1(self.mhc_class)
 
