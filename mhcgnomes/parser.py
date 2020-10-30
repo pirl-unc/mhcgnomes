@@ -1096,7 +1096,7 @@ class Parser(object):
         if raw_string_parts is None:
             raw_string_parts = tokens
 
-        
+
         if len(tokens) == 1:
             # no whitespace, so nothing else in this function applies
             return self.parse_single_token_to_multiple_candidates(
@@ -1215,6 +1215,23 @@ class Parser(object):
                 candidates.append(gene_or_locus)
         return candidates
 
+    def select_species_from_optional_attributes(
+            self,
+            attributes,
+            default_species=DEFAULT_SPECIES_PREFIX):
+        """
+        If input sequence had attributes like 'OS=Mus musculus' then use those
+        to select the default species.
+        """
+        species = None
+        if "OS" in attributes:
+            species = Species.get(attributes["OS"])
+        elif "species" in attributes:
+            species = Species.get(attributes["species"])
+        if species:
+            return species
+        else:
+            return default_species
 
     def parse_multiple_candidates(
             self,
@@ -1225,7 +1242,11 @@ class Parser(object):
         Returns list of ParseResult objects which are candidate interpretations
         of the given string.
         """
-        tokens, raw_string_parts = tokenize(name)
+        tokens, raw_string_parts, attributes = tokenize(name)
+        # species represented in some UniProt entries as 'OS=Mus musculus'
+        default_species = self.select_species_from_optional_attributes(
+            attributes,
+            default_species=default_species)
         return self.parse_tokens_to_multiple_candidates(
             tokens=tokens,
             raw_string_parts=raw_string_parts,
