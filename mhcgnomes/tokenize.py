@@ -25,7 +25,10 @@ token_replacement_patterns = {
     ("mhc",): None,
     ("major", "histocompatibility", "antigen",): None,
     ("histocompatibility", "antigen",): None,
+    # a lot of the HLA sequence s
     ("fragment",): None,
+    ("exons", "1-3"): None,
+    ("exons", "1-2"): None,
 
     # class I
     ("mhc-i",): CLASS1_TOKEN,
@@ -76,10 +79,13 @@ def apply_replacements(tokens, raw_string_parts, length):
             new_token = token_replacement_patterns[key]
             if new_token is not None:
                 result_tokens.append(new_token)
-                result_raw_string_parts.append(" ".join(
-                    raw_string_parts[i:i + length]))
+                new_raw_string_part = " ".join(
+                    raw_string_parts[i: i + length])
+                result_raw_string_parts.append(new_raw_string_part)
             i += length
         else:
+            result_tokens.append(tokens[i])
+            result_raw_string_parts.append(raw_string_parts[i])
             i += 1
     return result_tokens, result_raw_string_parts
 
@@ -108,7 +114,7 @@ def normalize_token(s):
     """
     return strip_chars(deparen(s.lower()), "-, ").strip()
 
-def split_and_extract_key_value_attributes(s):
+def split_and_extract_attributes(s):
     parts = s.split()
     if "=" not in s:
         return parts, {}
@@ -141,7 +147,7 @@ def tokenize(name):
         - original strings corresponding to each token
             e.g. ("MHC Class II", "alpha chain")
     """
-    raw_string_parts, attributes = split_and_extract_key_value_attributes(name)
+    raw_string_parts, attributes = split_and_extract_attributes(name)
     tokens = [normalize_token(p) for p in raw_string_parts]
-    tokens =  simplify_tokens(tokens, raw_string_parts)
-    return tokens, raw_string_parts, attributes
+    tokens, raw_string_parts =  simplify_tokens(tokens, raw_string_parts)
+    return tuple(tokens), tuple(raw_string_parts), attributes

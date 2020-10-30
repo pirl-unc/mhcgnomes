@@ -22,3 +22,7 @@ def test_parse_uniprot_H2_class_I_histocompatibility_antigen_K_Q_alpha_chain_fra
     result = parse(s)
     eq_(result, Allele.get("H2", "K", "q"))
 
+def test_parse_uniprot_MHC_class_I_histocompatibility_antigen_L_Q_alpha_chain_fragment_with_attributes():
+    s = "MHC class I L-q alpha-chain gene (H2 haplotype), exons 1-3 (Fragment) OS=Mus musculus OX=10090 PE=3 SV=1"
+    result = parse(s)
+    eq_(result, Allele.get("H2", "L", "q"))

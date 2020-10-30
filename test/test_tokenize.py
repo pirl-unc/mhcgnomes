@@ -8,10 +8,30 @@ def test_tokenize_complex_uniprot_string_for_H2_Lq():
         CLASS1_TOKEN,
         "l-q",
         ALPHA_CHAIN_TOKEN,
+        "gene",
         "h2",
         "haplotype",
-        "exons",
-        "1-3"
     ))
-    assert "OS" in attributes
     eq_(raw_string_parts[1], "L-q")
+    assert "OS" in attributes
+    eq_(attributes["OS"], "Mus musculus")
+    assert "OX" in attributes
+    eq_(attributes["OX"], "10090")
+    assert "PE" in attributes
+    eq_(attributes["PE"], "3")
+    assert "SV" in attributes
+    eq_(attributes["SV"], "1")
+
+def test_tokenize_attributes_only():
+    s = "OS=Mus musculus OX=10090 PE=3 SV=1"
+    tokens, raw_string_parts, attributes = tokenize(s)
+    eq_(tokens, ())
+    eq_(raw_string_parts, ())
+    assert "OS" in attributes
+    eq_(attributes["OS"], "Mus musculus")
+    assert "OX" in attributes
+    eq_(attributes["OX"], "10090")
+    assert "PE" in attributes
+    eq_(attributes["PE"], "3")
+    assert "SV" in attributes
+    eq_(attributes["SV"], "1")
