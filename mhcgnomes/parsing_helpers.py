@@ -25,9 +25,6 @@ def strip_chars(s : str, chars_to_remove):
 def strip_whitespace_and_dashes(s : str):
     return strip_chars(s, "- ").strip()
 
-def strip_whitespace_and_remove_quotes(name : str):
-    return name.replace("\"", "").replace("'", "").strip()
-
 def smart_split(seq : str, sep : str):
     """
     Split string on a separator and then get rid of dashes
@@ -39,7 +36,7 @@ def split_on_all_seps(seq : str, seps="_:"):
     """
     Split given string on all separators specified
 
-    For example, 02_01:01 will be split into:
+    For example, 02_01:01 will be split_token_sequences into:
         ["02", "01", "01"]
     """
     string_parts = [seq]
@@ -85,7 +82,7 @@ def split_allele_fields(
         return str_after_gene.split(":")
 
     # if we don't have ':' to guide the field boundaries
-    # then split on all possible seps and try to guess
+    # then split_token_sequences on all possible seps and try to guess
     # which blocks of numbers are actually multiple fields.
     parts = split_on_all_seps(str_after_gene)
 

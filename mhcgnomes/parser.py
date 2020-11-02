@@ -12,7 +12,7 @@
 
 import re
 from collections import defaultdict
-from typing import Mapping, Sequence
+from typing import Mapping, Sequence, Union
 
 from .allele import Allele
 from .allele_annotations import (
@@ -30,7 +30,6 @@ from .haplotype import Haplotype
 from .mhc_class import MhcClass
 from .mutation import Mutation
 from .parsing_helpers import (
-    strip_whitespace_and_remove_quotes,
     strip_whitespace_and_dashes,
     split_allele_fields,
     contains_any_letters,
@@ -41,14 +40,8 @@ from .parsing_helpers import (
 from .result import Result
 from .serotype import Serotype
 from .species import Species, infer_species_from_prefix
-from .tokenize import (
-    tokenize,
-    CLASS1_TOKEN,
-    CLASS2_TOKEN,
-    ALPHA_CHAIN_TOKEN,
-    BETA_CHAIN_TOKEN,
-    MUTANT_TOKEN
-)
+from .token import Token
+from .tokenize import tokenize
 
 
 # default values for Parser parameters, reused in the 'parse' function below
@@ -265,34 +258,35 @@ class Parser(object):
             alleles=alleles,
             raw_string=haplotype_name)
 
-    def parse_crossed_haplotypes(self, haplotype_name, default_species=None):
-        if haplotype_name.count("/") != 1:
+    def create_crossed_haplotype(
+            self,
+            first_haplotype_object : Haplotype,
+            second_haplotype_name : str):
+        if first_haplotype_object is None:
             return None
+        if len(second_haplotype_name) == 0:
+            return None
+        if not second_haplotype_name.isalnum():
+            return None
+        second_haplotype_object = self.get_haplotype(
+            first_haplotype_object.species,
+            second_haplotype_name)
 
-        if haplotype_name.count("-") != 1:
+        if second_haplotype_object is None:
             return None
-        species_prefix, haplotypes = haplotype_name.split("-")
-        if haplotypes.count("/") != 1:
-            return None
-        first, second = haplotypes.split("/")
-        parsed_first = self.parse_haplotype("%s-%s" % (species_prefix, first))
-        if parsed_first is None:
-            return None
-        parsed_second = self.parse_haplotype("%s-%s" % (species_prefix, second))
-        if parsed_second is None:
-            return None
+        name = "%s/%s" % (first_haplotype_object.name, second_haplotype_object.name)
+        raw_string = "%s/%s" % (first_haplotype_object.raw_string, second_haplotype_name)
         return Haplotype(
-            species=parsed_first.species,
-            name="%s/%s" % (first, second),
-            alleles=parsed_first.alleles + parsed_second.alleles,
-            raw_string=haplotype_name)
+            species=first_haplotype_object.species,
+            name=name,
+            alleles=first_haplotype_object.alleles + second_haplotype_object.alleles,
+            raw_string=raw_string)
+
 
     def parse_haplotype(
             self,
             haplotype_name,
             default_species=None):
-        if "/" in haplotype_name:
-            return self.parse_crossed_haplotypes(haplotype_name, default_species)
 
         # first try determining the species purley based on the string given
         # with reference to the default species
@@ -442,7 +436,7 @@ class Parser(object):
 
         if str_after_species.count("*") == 1:
             # if the sequence conforms to the "A*0201" format, then
-            # just split on the '*' character and return this as the
+            # just split_token_sequences on the '*' character and return this as the
             # only possibility
             gene_name, str_after_gene = smart_split(str_after_species, "*")
             add_to_candidates(gene_name, str_after_gene)
@@ -495,7 +489,7 @@ class Parser(object):
             species,
             str_after_species,
             raw_string=None):
-        # try to heuristically split apart the gene name and any allele information
+        # try to heuristically split_token_sequences apart the gene name and any allele information
         # when the requires separators are missing
         # Examples which will parse correctly here:
         #   A*0201
@@ -887,9 +881,7 @@ class Parser(object):
     def parse_and_apply_mutations(
             self,
             result_without_mutation,
-            mutation_strings,
-            default_species=None,
-            raw_string=None):
+            mutation_tokens):
         """
         Parameters
         ----------
@@ -910,9 +902,10 @@ class Parser(object):
         if type(result_without_mutation) not in (Allele, Class2Pair):
             return None
 
-        if mutation_strings[-1].lower() != "mutant":
+        if not mutation_tokens[-1].is_mutant:
             return None
-        mutation_strings = mutation_strings[:-1]
+
+        mutation_strings = [tok.seq for tok in mutation_tokens[:-1]]
 
         if len(mutation_strings) == 0:
             return None
@@ -971,7 +964,10 @@ class Parser(object):
             return None
         return Gene.get(species, gene_name)
 
-    def parse_allele_without_species(self, allele_name, default_species=None):
+    def parse_allele_without_species(
+            self,
+            allele_name : str,
+            default_species : Union[str, Species, None]=None):
         """
         Parse the allele name without any associated species based on being
         having a unique gene name across all species or matching the default
@@ -999,14 +995,16 @@ class Parser(object):
     @cache
     def parse_single_token_to_multiple_candidates(
             self,
-            token,
-            default_species=DEFAULT_SPECIES_PREFIX,
-            raw_string=None,
-            raise_on_error=False):
+            token : Token,
+            default_species : Union[str, Species, None]=DEFAULT_SPECIES_PREFIX,
+            raise_on_error : bool=False):
         """
         Returns list of result objects for a single token string which
         should not contain any whitespace.
         """
+        seq = token.seq
+        raw_string = token.raw_string
+
         # list containing all candidate results
         parse_candidates = []
 
@@ -1019,9 +1017,7 @@ class Parser(object):
             self.parse_allele_without_species,
         ]
         for fn in fns_without_species:
-            result = fn(
-                token,
-                default_species=default_species)
+            result = fn(seq, default_species=default_species)
 
             if not result:
                 continue
@@ -1035,7 +1031,7 @@ class Parser(object):
                     raw_string))
 
         species, str_after_species = self.parse_species(
-            token,
+            name=seq,
             default_species=default_species)
 
         if species is not None:
@@ -1085,10 +1081,13 @@ class Parser(object):
         """
         if type(preferred_types) not in (list, set, tuple):
             preferred_types = [preferred_types]
-
+        if type(preferred_types) is not tuple:
+            preferred_types = tuple(preferred_types)
         filtered_results = [
             result
-            for result in results if type(result) in preferred_types]
+            for result in results
+            if isinstance(result, preferred_types)
+        ]
         if filtered_results:
             return filtered_results
         else:
@@ -1099,17 +1098,15 @@ class Parser(object):
             self,
             class_token,
             other_tokens,
-            other_raw_string_parts,
             raise_on_error=False,
             default_species=DEFAULT_SPECIES_PREFIX):
-        class1 = (class_token == CLASS1_TOKEN)
-        class2 = not class1
+        class1 = class_token.is_class1
+        class2 = class_token.is_class2
         mhc_class_string = "I" if class1 else "II"
         candidates = []
         if mhc_class_string:
             for unrestricted_result in self.parse_tokens_to_multiple_candidates(
                     tokens=other_tokens,
-                    raw_string_parts=other_raw_string_parts,
                     raise_on_error=raise_on_error,
                     default_species=default_species):
                 t = type(unrestricted_result)
@@ -1131,9 +1128,7 @@ class Parser(object):
     def parse_with_haplotype_token_to_multiple_candidates(
             self,
             maybe_species_token,
-            maybe_species_raw_string_part,
             other_tokens,
-            other_raw_string_parts,
             raise_on_error=False,
             default_species=DEFAULT_SPECIES_PREFIX):
         """
@@ -1146,87 +1141,105 @@ class Parser(object):
         species = Species.get(maybe_species_token)
         if species:
             if other_tokens:
-                candidates.extend(self.parse_tokens_to_multiple_candidates(
+                return self.parse_tokens_to_multiple_candidates(
                     tokens=other_tokens,
-                    raw_string_parts=other_raw_string_parts,
                     default_species=species,
-                    raise_on_error=raise_on_error))
+                    raise_on_error=raise_on_error)
             else:
                 # sequences like "haplotype H2" just map to the species
-                candidates.append(species)
-        else:
-            tokens = (maybe_species_token,) + other_tokens
-            raw_string_parts = (
-                (maybe_species_raw_string_part,) + other_raw_string_parts
-            )
-            candidates.extend(
-                self.restrict_result_type_if_possible(
-                    results=self.parse_tokens_to_multiple_candidates(
-                        tokens=tokens,
-                        raw_string_parts=raw_string_parts,
-                        default_species=default_species,
-                        raise_on_error=raise_on_error),
-                    preferred_types=Haplotype))
+                return [species]
+
+        tokens = (maybe_species_token,) + other_tokens
+        return self.restrict_result_type_if_possible(
+                results=self.parse_tokens_to_multiple_candidates(
+                    tokens=tokens,
+                    default_species=default_species,
+                    raise_on_error=raise_on_error),
+                preferred_types=[Haplotype])
+
+    def parse_tokens_around_slash(
+            self,
+            tokens_before,
+            tokens_after,
+            default_species=DEFAULT_SPECIES_PREFIX,
+            raise_on_error=False):
+        if len(tokens_before) == 0:
+            return self.parse_tokens_to_multiple_candidates(
+                tokens=tokens_after,
+                default_species=default_species,
+                raise_on_error=raise_on_error)
+        elif len(tokens_after) == 0:
+            return self.parse_tokens_to_multiple_candidates(
+                tokens=tokens_before,
+                default_species=default_species,
+                raise_on_error=raise_on_error)
+        candidates = []
+        for result_before in self.parse_tokens_to_multiple_candidates(
+                tokens=tokens_before,
+                default_species=default_species,
+                raise_on_error=False):
+            if result_before is None:
+                continue
+            if type(result_before) is Haplotype:
+                if len(tokens_after) not in {1, 2}:
+                    continue
+                if tokens_after[0].can_be_identifier:
+                    haplotype = self.create_crossed_haplotype(
+                        first_haplotype_object=result_before,
+                        second_haplotype_name=tokens_after[0].seq)
+                    if haplotype is None:
+                        continue
+                    elif len(tokens_after) == 1:
+                        candidates.append(haplotype)
+                    elif len(tokens_after) == 2 and tokens_after[1].is_class1_or_class2:
+                        class1 = tokens_after[1].is_class1
+                        restricted_haplotype = haplotype.restrict_mhc_class(
+                            class_restriction="I" if class1 else "II",
+                            raise_on_error=False)
+                        if restricted_haplotype:
+                            candidates.append(restricted_haplotype)
+            elif type(result_before) in (Allele, Gene):
+                if result_before.has_species:
+                    species = result_before.species
+                else:
+                    species = default_species
+                for result_after in self.parse_tokens_to_multiple_candidates(
+                        tokens=tokens_after,
+                        default_species=species,
+                        raise_on_error=False):
+                    if result_after is None:
+                        continue
+                if result_before.species != result_after.species:
+                    continue
+                class2_pair = Class2Pair.get(result_before, result_after)
+                if class2_pair:
+                    candidates.append(class2_pair)
         return candidates
 
     def parse_tokens_to_multiple_candidates(
             self,
             tokens,
-            raw_string_parts=None,
             default_species=DEFAULT_SPECIES_PREFIX,
             raise_on_error=False):
-
-        if raw_string_parts is None:
-            raw_string_parts = tokens
-
         if len(tokens) == 0:
             return []
-
-        if len(tokens) == 1:
+        elif len(tokens) == 1:
             # no whitespace, so nothing else in this function applies
             return self.parse_single_token_to_multiple_candidates(
                 token=tokens[0],
                 default_species=default_species,
-                raw_string=raw_string_parts[0],
                 raise_on_error=raise_on_error)
-
-        candidates = []
-        if "/" in tokens:
+        elif "/" in tokens:
             slash_index = tokens.index("/")
-            if slash_index > 0:
-                alpha_tokens = tokens[:slash_index]
-                alpha_raw_string_parts = raw_string_parts[:slash_index]
-                beta_tokens = tokens[slash_index + 1:]
-                beta_raw_string_parts = raw_string_parts[slash_index + 1:]
-                for alpha_result in self.parse_tokens_to_multiple_candidates(
-                        tokens=alpha_tokens,
-                        raw_string_parts=alpha_raw_string_parts,
-                        default_species=default_species,
-                        raise_on_error=False):
-                    if alpha_result is None:
-                        continue
-                    if type(alpha_result) not in (Allele, Gene):
-                        continue
-                    if alpha_result.has_species:
-                        species_for_beta = alpha_result.species
-                    else:
-                        species_for_beta = default_species
-                    for beta_result in self.parse_tokens_to_multiple_candidates(
-                            tokens=beta_tokens,
-                            raw_string_parts=beta_raw_string_parts,
-                            default_species=species_for_beta,
-                            raise_on_error=False):
-                        if beta_result is None:
-                            continue
-                    if alpha_result.species != beta_result.species:
-                        continue
-                    class2_pair = Class2Pair.get(alpha_result, beta_result)
-                    if class2_pair:
-                        candidates.append(class2_pair)
-        elif tokens[-1] == ALPHA_CHAIN_TOKEN:
+            return self.parse_tokens_around_slash(
+                tokens_before=tokens[:slash_index],
+                tokens_after=tokens[slash_index + 1:],
+                default_species=default_species,
+                raise_on_error=raise_on_error)
+        candidates = []
+        if tokens[-1].is_alpha:
             for candidate in self.parse_tokens_to_multiple_candidates(
                     tokens=tokens[:-1],
-                    raw_string_parts=raw_string_parts[:-1],
                     default_species=default_species,
                     raise_on_error=raise_on_error):
                 if type(candidate) in (Allele, AlleleWithoutGene, Gene):
@@ -1240,10 +1253,9 @@ class Parser(object):
                             candidates.append(alpha_genes[0])
                     else:
                         continue
-        elif tokens[-1] == BETA_CHAIN_TOKEN:
+        elif tokens[-1].is_beta:
             for candidate in self.parse_tokens_to_multiple_candidates(
                     tokens=tokens[:-1],
-                    raw_string_parts=raw_string_parts[:-1],
                     default_species=default_species,
                     raise_on_error=raise_on_error):
                 if type(candidate) in (Allele, AlleleWithoutGene, Gene):
@@ -1257,23 +1269,21 @@ class Parser(object):
                             candidates.append(beta_genes[0])
                     else:
                         continue
-        elif tokens[-1] == MUTANT_TOKEN:
+        elif tokens[-1].is_mutant:
             for without_mutation in self.parse_single_token_to_multiple_candidates(
                     token=tokens[0],
-                    raw_string=raw_string_parts[0],
                     default_species=default_species,
                     raise_on_error=raise_on_error):
                 if not without_mutation:
                     continue
                 with_mutation = self.parse_and_apply_mutations(
                     result_without_mutation=without_mutation,
-                    mutation_strings=tokens[1:],
-                    raw_string=" ".join(raw_string_parts[1:-1]),
-                    default_species=default_species)
+                    mutation_tokens=tokens[1:])
                 if with_mutation is None:
                     continue
                 candidates.append(with_mutation)
-        if tokens[-1] in {CLASS1_TOKEN, CLASS2_TOKEN}:
+
+        if tokens[-1].is_class1_or_class2:
             # Parse MHC classes, haplotypes, or serotypes such as:
             # - "HLA class I" => tokenized as ("hla", "class-1")
             # - "ELA-A1 class I" => tokenized as ("ela-a1", "class-1")
@@ -1281,10 +1291,9 @@ class Parser(object):
                 self.parse_with_class_token_to_multiple_candidates(
                     class_token=tokens[-1],
                     other_tokens=tokens[:-1],
-                    other_raw_string_parts=raw_string_parts[:-1],
                     raise_on_error=raise_on_error,
                     default_species=default_species))
-        elif tokens[0] in {CLASS1_TOKEN, CLASS2_TOKEN}:
+        elif tokens[0].is_class1 or tokens[0].is_class2:
             # Parse MHC classes, haplotypes, or serotypes such as:
             # - "class I HLA" => tokenized as ("class-1", "hla)
             # - "Class I H2-b " => tokenized as ("class-1", "h2-b")
@@ -1292,11 +1301,10 @@ class Parser(object):
                 self.parse_with_class_token_to_multiple_candidates(
                     class_token=tokens[0],
                     other_tokens=tokens[1:],
-                    other_raw_string_parts=raw_string_parts[1:],
                     raise_on_error=raise_on_error,
                     default_species=default_species))
 
-        elif len(tokens) >= 3 and (tokens[1] in {CLASS1_TOKEN, CLASS2_TOKEN}):
+        elif len(tokens) >= 3 and (tokens[1].is_class1_or_class2):
             # parse strings like "MOUSE MHC class I L-q" as an allele
             # Tokenization normalizes this sequence into:
             #   ("mouse", "class-1", "L-q")
@@ -1304,63 +1312,57 @@ class Parser(object):
             species = Species.get(tokens[0])
 
             if species:
-                class1 = (tokens[1] == CLASS1_TOKEN)
-                class2 = not class1
+                class1 = tokens[1].is_class1
+                class2 = tokens[1].is_class2
                 mhc_class_string = "I" if class1 else "II"
                 for candidate in self.parse_tokens_to_multiple_candidates(
                         tokens=tokens[2:],
-                        raw_string_parts=raw_string_parts[2:],
                         default_species=species):
 
                     if (class1 and candidate.is_class1) or (class2 and candidate.is_class2):
                         candidates.append(candidate)
 
-        elif tokens[0] == "haplotype":
-            # parse "haplotype H2 L-q " but also "haplotype H2-k"
+        elif tokens[0].is_haplotype:
+            # parse one of the following formats:
+            #   - "haplotype H2 L-q " (here haplotype just means species)
+            #   - "haplotype H2-k" (unrestricted haplotype)
+            #   - "haplotype H2-k class I" (restricted haplotype)
             candidates.extend(
                 self.parse_with_haplotype_token_to_multiple_candidates(
                     maybe_species_token=tokens[1],
-                    maybe_species_raw_string_part=raw_string_parts[1],
                     other_tokens=tokens[2:],
-                    raw_string_parts=raw_string_parts[2:],
                     raise_on_error=raise_on_error,
                     default_species=default_species))
 
-        elif tokens[-1] == "haplotype":
+        elif tokens[-1].is_haplotype:
             # parse "L-q H2 haplotype" but also "H2-k haplotype"
             candidates.extend(
                 self.parse_with_haplotype_token_to_multiple_candidates(
                     maybe_species_token=tokens[-2],
-                    maybe_species_raw_string_part=raw_string_parts[-2],
                     other_tokens=tokens[:-2],
-                    other_raw_string_parts=raw_string_parts[:-2],
                     raise_on_error=raise_on_error,
                     default_species=default_species))
-        elif tokens[-1] == "gene":
-            candidates.extend(
-                self.restrict_result_type_if_possible(
+        elif tokens[-1].is_gene:
+            return self.restrict_result_type_if_possible(
                     results=self.parse_tokens_to_multiple_candidates(
                         tokens=tokens[:-1],
-                        raw_string_parts=raw_string_parts[:-1],
                         default_species=default_species,
                         raise_on_error=raise_on_error),
-                    preferred_types=Gene))
-        elif tokens[0] == "gene":
-            candidates.extend(
-                self.restrict_result_type_if_possible(
+                    preferred_types=[Gene])
+        elif tokens[0].is_gene:
+            return self.restrict_result_type_if_possible(
                     results=self.parse_tokens_to_multiple_candidates(
                         tokens=tokens[1:],
-                        raw_string_parts=raw_string_parts[1:],
                         default_species=default_species,
                         raise_on_error=raise_on_error),
-                    preferred_types=Gene))
+                    preferred_types=[Gene])
         elif len(tokens) == 2:
             species_common_name, gene_or_locus_name = tokens
             gene_or_locus = self.get_gene_or_locus(
-                species_common_name,
-                gene_or_locus_name)
+                species_common_name.seq,
+                gene_or_locus_name.seq)
             if gene_or_locus:
-                candidates.append(gene_or_locus)
+                return [gene_or_locus]
         return candidates
 
     def select_species_from_optional_attributes(
@@ -1390,14 +1392,19 @@ class Parser(object):
         Returns list of ParseResult objects which are candidate interpretations
         of the given string.
         """
-        tokens, raw_string_parts, attributes = tokenize(name)
+        tokenization_result = tokenize(name)
+        print(tokenization_result)
+        if len(tokenization_result.trimmed_string) == 0:
+            if raise_on_error:
+                raise ParseError("Cannot parse empty allele name '%s'" % name)
+            else:
+                return []
         # species represented in some UniProt entries as 'OS=Mus musculus'
         default_species = self.select_species_from_optional_attributes(
-            attributes,
+            tokenization_result.attributes,
             default_species=default_species)
         return self.parse_tokens_to_multiple_candidates(
-            tokens=tokens,
-            raw_string_parts=raw_string_parts,
+            tokens=tokenization_result.tokens,
             default_species=default_species,
             raise_on_error=raise_on_error)
 
@@ -1449,17 +1456,10 @@ class Parser(object):
             - Allele
             - Class2Pair
         """
-        trimmed_name = strip_whitespace_and_remove_quotes(name)
-
-        if len(trimmed_name) == 0:
-            if raise_on_error:
-                raise ParseError("Cannot parse empty allele name '%s'" % name)
-            else:
-                return None
-
         candidates = self.parse_multiple_candidates(
             name,
-            default_species=default_species)
+            default_species=default_species,
+            raise_on_error=raise_on_error)
 
         if valid_result_types:
             if type(valid_result_types) not in (list, set, tuple):
@@ -1484,7 +1484,6 @@ class Parser(object):
                 raise ParseError("Could not parse '%s'" % name)
             else:
                 return None
-
 
         result = self.pick_best_result(candidates)
         if infer_class2_pairing:

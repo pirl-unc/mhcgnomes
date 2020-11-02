@@ -234,3 +234,14 @@ def test_parse_HLA_DRA_01_01_F54C_mutant_DRB1_01_01():
         assert type(result) is Class2Pair
         eq_(len(result.alpha.mutations), 1)
         eq_(len(result.beta.mutations), 0)
+
+def test_raw_strings_from_parse_class_ii():
+    alpha = "DPA1*01:05"
+    beta = "DPB1*100:01"
+    s = "%s-%s" % (alpha, beta)
+    parser = Parser()
+    result = parser.parse(s)
+    eq_(type(result), Class2Pair)
+    eq_(result.raw_string, s)
+    eq_(result.alpha.raw_string.lower(), alpha.lower())
+    eq_(result.beta.raw_string.lower(), beta.lower())

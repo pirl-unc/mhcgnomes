@@ -1,4 +1,3 @@
-
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -11,96 +10,27 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from serializable import Serializable
+
 from .common import cache
 from .parsing_helpers import strip_chars
+from .token import Token
+from .token_substitution import simplify_tokens
 
-CLASS1_TOKEN = "class-1"
-CLASS2_TOKEN = "class-2"
-ALPHA_CHAIN_TOKEN = "alpha"
-BETA_CHAIN_TOKEN = "beta"
-MUTANT_TOKEN = "mutant"
+class TokenizationResult(Serializable):
+    def __init__(
+            self,
+            tokens,
+            ignored_tokens,
+            attributes,
+            raw_string,
+            trimmed_string):
+        self.tokens = tuple(tokens)
+        self.ignored_tokens = tuple(ignored_tokens)
+        self.attributes = attributes
+        self.raw_string = raw_string
+        self.trimmed_string = trimmed_string
 
-token_replacement_patterns = {
-    # 'MHC' doesn't mean anything by itself since we're always
-    # parsing MHC nomenclature here
-    ("mhc",): None,
-    ("major", "histocompatibility", "antigen",): None,
-    ("histocompatibility", "antigen",): None,
-    # a lot of the HLA sequence s
-    ("fragment",): None,
-    ("exons", "1-3"): None,
-    ("exons", "1-2"): None,
-
-    # class I
-    ("mhc-i",): CLASS1_TOKEN,
-    ("mhc-1",): CLASS1_TOKEN,
-    ("class-i",): CLASS1_TOKEN,
-    ("class", "1"): CLASS1_TOKEN,
-    ("class", "i"): CLASS1_TOKEN,
-
-    # class II
-    ("mhc-ii",): CLASS2_TOKEN,
-    ("mhc-2",): CLASS2_TOKEN,
-    ("class-ii",): CLASS2_TOKEN,
-    ("class", "2"): CLASS2_TOKEN,
-    ("class", "ii"): CLASS2_TOKEN,
-
-    # Class II chains
-    ("alpha", "chain"): ALPHA_CHAIN_TOKEN,
-    ("alpha-chain",): ALPHA_CHAIN_TOKEN,
-    ("beta", "chain"): BETA_CHAIN_TOKEN,
-    ("beta-chain",): BETA_CHAIN_TOKEN,
-
-    # 'mutant', 'mutation', 'mutations', are synonyms
-    ("mutation",): MUTANT_TOKEN,
-    ("mutations",): MUTANT_TOKEN,
-}
-
-replacement_pattern_lengths = {
-    len(key)
-    for key in token_replacement_patterns.keys()
-}
-
-# sorted in descending order
-sorted_replacement_pattern_lengths = sorted(
-    replacement_pattern_lengths, reverse=True)
-
-def apply_replacements(tokens, raw_string_parts, length):
-    """
-    Replace all subsequences of `length` tokens with any replacements
-    found in the dictionary above.
-    """
-    result_tokens = []
-    result_raw_string_parts = []
-    i = 0
-    n_tokens = len(tokens)
-    while i < n_tokens:
-        key = tuple(tokens[i:i + length])
-        if key in token_replacement_patterns:
-            new_token = token_replacement_patterns[key]
-            if new_token is not None:
-                result_tokens.append(new_token)
-                new_raw_string_part = " ".join(
-                    raw_string_parts[i: i + length])
-                result_raw_string_parts.append(new_raw_string_part)
-            i += length
-        else:
-            result_tokens.append(tokens[i])
-            result_raw_string_parts.append(raw_string_parts[i])
-            i += 1
-    return result_tokens, result_raw_string_parts
-
-def simplify_tokens(tokens, raw_string_parts):
-    """
-    Combine token pairs like ['alpha', 'chain'] into 'alpha-chain' and
-    combine the corresponding raw string parts separated by a space.
-
-    Also normalize token sequences like ['mhc' 'class' 'i'] into
-    'class-1'.
-    """
-    for length in sorted_replacement_pattern_lengths:
-        tokens, raw_string_parts = apply_replacements(tokens, raw_string_parts, length)
-    return tokens, raw_string_parts
 
 def deparen(s):
     """
@@ -115,10 +45,9 @@ def normalize_token(s):
     """
     return strip_chars(deparen(s.lower()), "-, ").strip()
 
-
-def split(s, token_seps="/"):
+def split_token_sequences(s, token_seps="/"):
     """
-    Split string on whitespace. Also split on slashes but preserve
+    Split string on whitespace. Also split_token_sequences on slashes but preserve
     them in the token sequence.
     """
     results = s.split()
@@ -133,7 +62,7 @@ def split(s, token_seps="/"):
     return results
 
 def split_and_extract_attributes(s):
-    parts = split(s)
+    parts = split_token_sequences(s)
     if "=" not in s:
         return parts, {}
 
@@ -157,16 +86,25 @@ def split_and_extract_attributes(s):
         attributes[attribute_key_in_progress] = " ".join(attribute_values_in_progress)
     return parts_before_attributes, attributes
 
+def strip_whitespace_and_remove_quotes(name : str):
+    return name.replace("\"", "").replace("'", "").strip()
+
 @cache
 def tokenize(name):
     """
-    Returns two tuples and a dictionary:
-        - canonical tokens
-            e.g. (CLASS2_TOKEN, "alpha")
-        - original strings corresponding to each token
-            e.g. ("MHC Class II", "alpha chain")
+    Splits name into token sequence and returns TokenizationResult which
+    contains a sequence of Token objects.
     """
-    raw_string_parts, attributes = split_and_extract_attributes(name)
-    tokens = [normalize_token(p) for p in raw_string_parts]
-    tokens, raw_string_parts =  simplify_tokens(tokens, raw_string_parts)
-    return tuple(tokens), tuple(raw_string_parts), attributes
+    trimmed_name = strip_whitespace_and_remove_quotes(name)
+    raw_string_parts, attributes = split_and_extract_attributes(trimmed_name)
+    token_sequences = [normalize_token(p) for p in raw_string_parts]
+    tokens = [
+        Token(seq, raw_string)
+        for (seq, raw_string) in zip(token_sequences, raw_string_parts)]
+    tokens, ignored_tokens =  simplify_tokens(tokens)
+    return TokenizationResult(
+        tokens=tokens,
+        ignored_tokens=ignored_tokens,
+        attributes=attributes,
+        raw_string=name,
+        trimmed_string=trimmed_name)
