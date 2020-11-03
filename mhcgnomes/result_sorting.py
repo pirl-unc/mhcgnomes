@@ -100,18 +100,21 @@ def sort_key(result: Result):
     else:
         allele_fields = ()
 
-    allele_fields_normal = True
-    for x in allele_fields:
-        if not x.isdigit():
-            allele_fields_normal = False
-            break
-        elif all([c == "0" for c in x]):
-            allele_fields_normal = False
-            break
-        elif len(x) < 2 or len(x) > 4:
-            allele_fields_normal = False
-            break
-    print(result, allele_fields, allele_fields_normal)
+    if len(allele_fields) > 0:
+        allele_fields_normal = True
+        for x in allele_fields:
+            if not x.isdigit():
+                allele_fields_normal = False
+                break
+            elif all([c == "0" for c in x]):
+                allele_fields_normal = False
+                break
+            elif len(x) < 2 or len(x) > 4:
+                allele_fields_normal = False
+                break
+    else:
+        allele_fields_normal = False
+
     num_alleles_in_haplotype_or_serotype = 0
     if is_serotype or is_haplotype:
         num_alleles_in_haplotype_or_serotype = len(result.alleles)
@@ -120,7 +123,7 @@ def sort_key(result: Result):
         name_matches_raw_string,
         allele_fields_normal,
         # for Class II pairs, prefer Allele objects for alpha and beta
-        # and then any of {AlleleWithoutGene, Allele, Gene} where
+        # and then any of {AlleleWpithoutGene, Allele, Gene} where
         # genes play the role of mono-morphic alleles
         (is_class2_pair and alpha_is_allele and beta_is_allele),
         (is_class2_pair and alpha_is_valid and beta_is_valid),

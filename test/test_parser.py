@@ -9,6 +9,7 @@ from mhcgnomes import (
     Gene,
     parse,
 )
+from mhcgnomes.result_sorting import pick_best_result
 from nose.tools import eq_
 
 def test_parse_lowercase_hla():
@@ -263,4 +264,18 @@ def test_candidates_from_ambiguous_class2_DPB110001():
     parser = Parser()
     results = parser.parse_multiple_candidates(s)
     eq_(len(results), 2)
-    assert Allele.get("HLA", "DPB1", "100", "01") in  results[0]
+    assert Allele.get("HLA", "DPB1", "100", "01") in  results
+
+
+def test_candidates_from_ambiguous_mouse_class2_IAb():
+    s = "H-2-IAb"
+    parser = Parser()
+    results = parser.parse_multiple_candidates(s)
+    eq_(len(results), 2)
+    class2 = Class2Pair.get(
+        Allele.get("H2", "AA", "b"),
+        Allele.get("H2", "AB", "b"))
+    assert class2 in results
+    gene = Gene.get("H2", "AB")
+    assert gene in results
+    eq_(pick_best_result(results), class2)
