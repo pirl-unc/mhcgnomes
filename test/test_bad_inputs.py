@@ -10,10 +10,6 @@ def test_parse_extra_text_after_allele():
 def test_bad_input_parse_extra_text_after_allele():
     parse("HLA-A*02:01 zipper")
 
-@raises(ParseError)
-def test_bad_input_parse_extra_text_after_allele():
-    parse("HLA-A*02:01 zipper")
-
 def test_bad_input_parse_extra_text_after_allele_no_raise():
     result = parse("HLA-A*02:01 zipper", raise_on_error=False)
     assert result is None
