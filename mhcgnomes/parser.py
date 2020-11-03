@@ -40,6 +40,7 @@ from .parsing_helpers import (
 )
 from .result import Result
 from .result_with_species import ResultWithSpecies
+from .result_sorting import pick_best_result
 from .serotype import Serotype
 from .species import Species, infer_species_from_prefix
 from .token import Token
@@ -157,7 +158,8 @@ class Parser(object):
             candidates = self.parse_allele_or_gene_candidates(
                 species,
                 str_after_species=allele_name)
-            allele = self.pick_best_result(candidates, raise_on_error=False)
+
+            allele = pick_best_result(candidates, raise_on_error=False)
             if allele is None:
                 print("Warning: unable to parse allele name '%s' for '%s'" % (
                     allele_name,
@@ -328,7 +330,7 @@ class Parser(object):
 
         if len(matches) == 0:
             return None
-        return self.pick_best_result(matches)
+        return pick_best_result(matches)
 
 
     def get_haplotypes_for_any_species(
@@ -552,107 +554,6 @@ class Parser(object):
                     allele = allele.copy(raw_string=raw_string)
                 candidate_results.append(allele)
         return candidate_results
-
-    def pick_best_result(self, candidates, raise_on_error=True):
-        if len(candidates) == 0:
-            if raise_on_error:
-                raise ValueError(
-                    "Expected at least one candidate ParseResult object")
-            else:
-                return None
-
-        elif len(candidates) == 1:
-            return list(candidates)[0]
-
-        def sort_key(candidate):
-            print(candidate)
-            if hasattr(candidate, 'name'):
-                name_matches_raw_string = (
-                    candidate.raw_string.lower() == candidate.name.lower())
-            else:
-                name_matches_raw_string = False
-            is_class2_pair = type(candidate) is Class2Pair
-            alpha_is_allele = is_class2_pair and type(candidate.alpha) is Allele
-            alpha_is_valid = (
-                is_class2_pair and type(candidate.alpha) in {Allele, AlleleWithoutGene, Gene}
-            )
-            beta_is_allele = is_class2_pair and type(candidate.beta) is Allele
-            beta_is_valid = (
-                is_class2_pair and type(candidate.beta) in {Allele, AlleleWithoutGene, Gene}
-            )
-            is_allele = type(candidate) is Allele
-            is_serotype = type(candidate) is Serotype
-            is_haplotype = type(candidate) is Haplotype
-            is_gene = type(candidate) is Gene
-
-            if is_allele:
-                num_allele_fields = candidate.num_allele_fields
-            elif is_class2_pair and alpha_is_allele and beta_is_allele:
-                num_allele_fields = max(
-                    candidate.alpha.num_allele_fields,
-                    candidate.beta.num_allele_fields)
-            else:
-                num_allele_fields = 0
-
-            if hasattr(candidate, 'gene') and candidate.gene is not None:
-                raw_gene_name_matches_normalized = (
-                    candidate.gene.raw_string.lower() ==
-                    candidate.gene.name.lower()
-                )
-                original_gene_seq_length = len(candidate.gene.raw_string)
-            elif is_gene:
-                raw_gene_name_matches_normalized = (
-                        candidate.raw_string.upper() ==
-                        candidate.name.upper()
-                )
-                original_gene_seq_length = len(candidate.raw_string)
-            else:
-                raw_gene_name_matches_normalized = False
-                original_gene_seq_length = 0
-
-            if is_allele:
-                allele_fields = candidate.allele_fields
-            elif is_class2_pair and alpha_is_allele and beta_is_allele:
-                allele_fields = (
-                    candidate.alpha.allele_fields +
-                    candidate.beta.allele_fields
-                )
-            else:
-                allele_fields = ()
-
-            allele_fields_normal = True
-            for x in allele_fields:
-                if not x.isdigit() or len(x) < 2 or len(x) > 4:
-                    allele_fields_normal = False
-                    break
-
-            num_alleles_in_haplotype_or_serotype = 0
-            if is_serotype or is_haplotype:
-                num_alleles_in_haplotype_or_serotype = len(candidate.alleles)
-
-            return (
-                name_matches_raw_string,
-                # for Class II pairs, prefer Allele objects for alpha and beta
-                # and then any of {AlleleWithoutGene, Allele, Gene} where
-                # genes play the role of mono-morphic alleles
-                # TODO: optionally replace genes with known most common allele
-                (is_class2_pair and alpha_is_allele and beta_is_allele),
-                (is_class2_pair and alpha_is_valid and beta_is_valid),
-                is_allele,
-                allele_fields_normal,
-                is_gene,
-                raw_gene_name_matches_normalized,
-                num_allele_fields,
-                original_gene_seq_length,
-                is_serotype,
-                is_haplotype,
-                num_alleles_in_haplotype_or_serotype,
-                # make sure the ordering is stable by sorting on string
-                # representation, even if it's semantically meaningful
-                str(candidate),
-            )
-        sorted_candidates = sorted(candidates, key=sort_key, reverse=True)
-        return sorted_candidates[0]
 
     def parse_allele_with_gene(self, gene, str_after_gene):
         if gene is None:
@@ -1218,18 +1119,17 @@ class Parser(object):
                         default_species=species):
                     if result_after is None:
                         continue
-                if result_before.species != result_after.species:
-                    continue
-                class2_pair = Class2Pair.get(result_before, result_after)
-                if class2_pair:
-                    candidates.append(class2_pair)
+                    if result_before.species != result_after.species:
+                        continue
+                    class2_pair = Class2Pair.get(result_before, result_after)
+                    if class2_pair:
+                        candidates.append(class2_pair)
         return unique(candidates)
 
     def parse_tokens_to_multiple_candidates(
             self,
             tokens: Sequence[Token],
             default_species: Union[Species, str, None] = DEFAULT_SPECIES_PREFIX):
-        print(">>>", tokens)
         if len(tokens) == 0:
             return []
         elif len(tokens) == 1:
@@ -1398,10 +1298,9 @@ class Parser(object):
         of the given string.
         """
         tokenization_result = tokenize(name)
-        print(tokenization_result)
         if len(tokenization_result.trimmed_string) == 0:
             return []
-        # species represented in some UniProt entries as 'OS=Mus musculus'
+        # species represented in some UniProt entries using 'OS=' attribute
         default_species = self.select_species_from_optional_attributes(
             tokenization_result.attributes,
             default_species=default_species)
@@ -1484,7 +1383,7 @@ class Parser(object):
             else:
                 return None
 
-        result = self.pick_best_result(candidates)
+        result = pick_best_result(candidates)
         if infer_class2_pairing:
             result = infer_class2_alpha_chain(result)
         return result.copy(raw_string=name)

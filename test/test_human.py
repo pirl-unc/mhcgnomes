@@ -158,18 +158,53 @@ def test_compact_string_string_human_class2_DRB1_01_02():
                  "DRB0102"]:
         eq_(parse(name).compact_string(), expected_compact)
 
-def test_parse_human_class2_alpha_beta_DPA1_01_05_DPB1_100_01():
+def test_parse_human_class2_alpha_beta_DPA1_01_05_DPB1_100_01_upper_compact():
     expected = Class2Pair.get(
         Allele.get("HLA", "DPA1", "01", "05"),
         Allele.get("HLA", "DPB1", "100", "01")
     )
-    for name in ["DPA10105-DPB110001",
-                 "HLA-DPA1*01:05-DPB1*100:01",
-                 "hla-dpa1*0105-dpb1*10001",
-                 "dpa1*0105-dpb1*10001",
-                 "HLA-DPA1*01:05/DPB1*100:01",
-                 "DPA10105/DPB110001"]:
-        eq_(parse(name, infer_class2_pairing=True), expected)
+    s = "DPA10105-DPB110001"
+    eq_(parse(s, infer_class2_pairing=True), expected)
+
+def test_parse_human_class2_alpha_beta_DPA1_01_05_DPB1_100_01_full_syntax_hyphens():
+    expected = Class2Pair.get(
+        Allele.get("HLA", "DPA1", "01", "05"),
+        Allele.get("HLA", "DPB1", "100", "01")
+    )
+    s = "HLA-DPA1*01:05-DPB1*100:01"
+    eq_(parse(s, infer_class2_pairing=True), expected)
+
+def test_parse_human_class2_alpha_beta_DPA1_01_05_DPB1_100_01_full_syntax_hyphens_lower():
+    expected = Class2Pair.get(
+        Allele.get("HLA", "DPA1", "01", "05"),
+        Allele.get("HLA", "DPB1", "100", "01")
+    )
+    s = "hla-dpa1*0105-dpb1*10001"
+    eq_(parse(s, infer_class2_pairing=True), expected)
+
+def test_parse_human_class2_alpha_beta_DPA1_01_05_DPB1_100_01_no_hla_lower_no_colons():
+    expected = Class2Pair.get(
+        Allele.get("HLA", "DPA1", "01", "05"),
+        Allele.get("HLA", "DPB1", "100", "01")
+    )
+    s = "dpa1*0105-dpb1*10001"
+    eq_(parse(s, infer_class2_pairing=True), expected)
+
+def test_parse_human_class2_alpha_beta_DPA1_01_05_DPB1_100_01_full_syntax_slash():
+    expected = Class2Pair.get(
+        Allele.get("HLA", "DPA1", "01", "05"),
+        Allele.get("HLA", "DPB1", "100", "01")
+    )
+    s = "HLA-DPA1*01:05/DPB1*100:01"
+    eq_(parse(s, infer_class2_pairing=True), expected)
+
+def test_parse_human_class2_alpha_beta_DPA1_01_05_DPB1_100_01_compact_slash():
+    expected = Class2Pair.get(
+        Allele.get("HLA", "DPA1", "01", "05"),
+        Allele.get("HLA", "DPB1", "100", "01")
+    )
+    s = "DPA10105/DPB110001"
+    eq_(parse(s, infer_class2_pairing=True), expected)
 
 def test_parse_all_parameters_true_human_class2_alpha_beta_DPA1_01_05_DPB1_100_01():
     expected = Class2Pair.get(

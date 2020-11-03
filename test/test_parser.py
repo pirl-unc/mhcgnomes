@@ -245,3 +245,22 @@ def test_raw_strings_from_parse_class_ii():
     eq_(result.raw_string, s)
     eq_(result.alpha.raw_string.lower(), alpha.lower())
     eq_(result.beta.raw_string.lower(), beta.lower())
+
+def test_candidates_from_ambiguous_class2_DPA10105_DPB110001():
+    s = "DPA10105-DPB110001"
+    parser = Parser()
+    results = parser.parse_multiple_candidates(s)
+    eq_(len(results), 1)
+    eq_(results[0], Class2Pair.get(
+        Allele.get("HLA", "DPA1", "01", "05"),
+        Allele.get("HLA", "DPB1", "100", "01")))
+    for r in results:
+        print("\t", r)
+
+
+def test_candidates_from_ambiguous_class2_DPB110001():
+    s = "DPB110001"
+    parser = Parser()
+    results = parser.parse_multiple_candidates(s)
+    eq_(len(results), 2)
+    assert Allele.get("HLA", "DPB1", "100", "01") in  results[0]
