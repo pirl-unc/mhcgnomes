@@ -15,7 +15,7 @@ with open(TEST_FILENAME, "w") as f:
                 if allele_name in alleles:
                     print("Skipping repeat allele: %s" % allele_name)
                     continue
-                alleles.add(alleles)
+                alleles.add(allele_name)
                 fn_name = allele_name.replace("\"", "").strip()
                 for c in special_chars:
                     fn_name = fn_name.replace(c, "_")
