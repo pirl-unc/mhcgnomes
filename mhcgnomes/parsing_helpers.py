@@ -10,16 +10,22 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from typing import Iterable
+
+def strip_char(s : str, char_to_remove : str):
+    while s.startswith(char_to_remove):
+        s = s[1:]
+    while s.endswith(char_to_remove):
+        s = s[:-1]
+    return s
+
+def strip_chars(s : str, chars_to_remove):
+    for c in chars_to_remove:
+        s = strip_char(s, c)
+    return s
 
 def strip_whitespace_and_dashes(s : str):
-    while s.startswith("-") or s.startswith(" "):
-        s = s[1:]
-    while s.endswith("-") or s.endswith(" "):
-        s = s[:-1]
-    return s.strip()
-
-def strip_whitespace_and_remove_quotes(name : str):
-    return name.replace("\"", "").replace("'", "").strip()
+    return strip_chars(s, "- ").strip()
 
 def smart_split(seq : str, sep : str):
     """
@@ -32,7 +38,7 @@ def split_on_all_seps(seq : str, seps="_:"):
     """
     Split given string on all separators specified
 
-    For example, 02_01:01 will be split into:
+    For example, 02_01:01 will be split_token_sequences into:
         ["02", "01", "01"]
     """
     string_parts = [seq]
@@ -54,6 +60,16 @@ def split_digits_at_end(seq : str):
         suffix = prefix[-1] + suffix
         prefix = prefix[:-1]
     return prefix, suffix
+
+
+def unique(xs : Iterable):
+    """
+    Return iterable at most as long as the input, containing only its
+    unique elements.
+    """
+    if len(xs) == 0 or len(xs) == 1:
+        return xs
+    return list(set(xs))
 
 def contains_any_letters(s : str):
     """
@@ -78,7 +94,7 @@ def split_allele_fields(
         return str_after_gene.split(":")
 
     # if we don't have ':' to guide the field boundaries
-    # then split on all possible seps and try to guess
+    # then split_token_sequences on all possible seps and try to guess
     # which blocks of numbers are actually multiple fields.
     parts = split_on_all_seps(str_after_gene)
 

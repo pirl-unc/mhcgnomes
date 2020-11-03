@@ -1,7 +1,5 @@
 from nose.tools import eq_
 from mhcgnomes import (
-    normalized_string,
-    compact_string,
     parse,
     Allele,
     Gene,
@@ -11,15 +9,15 @@ from mhcgnomes import (
 
 def test_macaque_allele_B_08_02():
     allele_name = "Mamu-B*082:02"
-    eq_(normalized_string(allele_name), "Mamu-B*082:02")
-    eq_(compact_string(allele_name), "B08202")
+    eq_(parse(allele_name).to_string(), "Mamu-B*082:02")
+    eq_(parse(allele_name).compact_string(), "B08202")
 
 def test_macaque_allele_B_007_02():
     # expect 3rd zero in the family "007" to be trimmed in the normalized form
     # of this allele
     allele_name = "Mamu-B*007:02"
-    eq_(normalized_string(allele_name), "Mamu-B*007:02")
-    eq_(compact_string(allele_name), "B00702")
+    eq_(parse(allele_name).to_string(), "Mamu-B*007:02")
+    eq_(parse(allele_name).compact_string(), "B00702")
 
 def test_gelada_species_Thge():
     expected = Species.get("Thge")

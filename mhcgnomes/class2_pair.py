@@ -49,6 +49,10 @@ class Class2Pair(ResultWithMhcClass):
             return None
         if beta is None:
             return None
+        if not isinstance(alpha, ResultWithMhcClass):
+            return None
+        if not isinstance(beta, ResultWithMhcClass):
+            return None
         if alpha.mhc_class == beta.mhc_class:
             mhc_class = alpha.mhc_class
         else:

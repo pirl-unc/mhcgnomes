@@ -24,6 +24,10 @@ class ResultWithSpecies(Result):
         self.species = species
 
     @property
+    def has_species(self):
+        return True
+
+    @property
     def species_prefix(self):
         return self.species.prefix
 

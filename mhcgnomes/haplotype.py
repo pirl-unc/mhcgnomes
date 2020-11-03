@@ -17,12 +17,12 @@ from .mhc_class_helpers import (
     is_valid_restriction,
     restrict_alleles,
 )
-from .result_with_species import ResultWithSpecies
 from .class2_locus import Class2Locus
 from .class2_pair import Class2Pair
+from .result_with_multiple_alleles  import ResultWithMultipleAlleles
 from .species import Species
 
-class Haplotype(ResultWithSpecies):
+class Haplotype(ResultWithMultipleAlleles):
     def __init__(
             self,
             species : Species,
@@ -32,12 +32,12 @@ class Haplotype(ResultWithSpecies):
             locus_restriction : Union[Class2Locus, None] = None,
             parent_haplotypes : Union[Sequence["Haplotype"], None] = None,
             raw_string : Union[str, None] = None):
-        ResultWithSpecies.__init__(
+        ResultWithMultipleAlleles.__init__(
             self,
             species=species,
+            name=name,
+            alleles=alleles,
             raw_string=raw_string)
-        self.name = name
-        self.alleles = tuple(sorted(alleles))
         self.class_restriction = class_restriction
         self.locus_restriction = locus_restriction
         self.parent_haplotypes = parent_haplotypes
@@ -74,10 +74,6 @@ class Haplotype(ResultWithSpecies):
     @property
     def haplotype_name(self):
         return self.name
-
-    @property
-    def num_alleles(self):
-        return len(self.alleles)
 
     def restrict_mhc_class(self, class_restriction, raise_on_error=True):
         if class_restriction is None:
@@ -192,23 +188,3 @@ class Haplotype(ResultWithSpecies):
 
     def compact_string(self, include_species=False):
         return self.to_string(include_species=include_species)
-
-    @property
-    def has_allele(self):
-        return len(self.alleles) > 0
-
-    @property
-    def is_class1(self):
-        return all([allele.is_class1 for allele in self.alleles])
-
-    @property
-    def is_class2(self):
-        return all([allele.is_class2 for allele in self.alleles])
-
-    @property
-    def is_class2_alpha(self):
-        return all([allele.is_class2_alpha for allele in self.alleles])
-
-    @property
-    def is_class2_beta(self):
-        return all([allele.is_class2_beta for allele in self.alleles])

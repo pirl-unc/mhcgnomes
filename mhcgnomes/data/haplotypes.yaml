@@ -39,7 +39,7 @@ H2:
     - Aa*b
     - Ab*b
     - Eb*b
-    - IE*k
+    # Ea: null
     - Qa2*b
     - Qa1*a
   bc:
