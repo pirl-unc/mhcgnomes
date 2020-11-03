@@ -201,13 +201,13 @@ def test_parse_H2K():
 def test_parse_H2_K_valid_types_Gene():
     parse_fns = [parse, Parser().parse]
     for fn in parse_fns:
-        result = fn("H2K", valid_result_types=[Gene])
+        result = fn("H2K", required_result_types=[Gene])
         assert type(result) is Gene
 
 def test_parse_H2_K_valid_types_Haplotype():
     parse_fns = [parse, Parser().parse]
     for fn in parse_fns:
-        result = fn("H2K", valid_result_types=[Haplotype])
+        result = fn("H2K", required_result_types=[Haplotype])
         assert type(result) is Haplotype
 
 

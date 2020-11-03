@@ -6,8 +6,6 @@ from mhcgnomes import (
     Class2Pair,
     Gene,
     Haplotype,
-    compact_string,
-    normalized_string
 )
 
 
@@ -15,25 +13,17 @@ def test_mouse_class1_alleles_H2_Kk():
     H2Kk = Allele.get("H2", "K", "k")
 
     eq_(parse("H2-Kk"), H2Kk)
-    eq_(normalized_string("H2-Kk"), "H2-K*k")
-    eq_(compact_string("H-2-Kk"), "Kk")
 
     # with a hyphen in "H-2"
     eq_(parse("H-2-Kk"), H2Kk)
-    eq_(normalized_string("H-2-Kk"), "H2-K*k")
-    eq_(compact_string("H-2-Kk"), "Kk")
 
 def test_mouse_class1_alleles_H2_Db():
     H2Db = Allele.get("H2", "D", "b")
 
     eq_(parse("H2-Db"), H2Db)
-    eq_(normalized_string("H2-Db"), "H2-D*b")
-    eq_(compact_string("H2-Db"), "Db")
 
     # with hyphen in "H-2"
     eq_(parse("H-2-Db"), H2Db)
-    eq_(normalized_string("H-2-Db"), "H2-D*b")
-    eq_(compact_string("H-2-Db"), "Db")
 
 def test_H2_Kd_without_seps():
     eq_(parse("H2Kd"), Allele.get("H2", "K", "d"))
@@ -48,13 +38,9 @@ def test_mouse_class2_gene():
     # H2-IAb
     gene = Gene.get("H2", "EB2")
     eq_(parse("H2-IEb2"), gene)
-    eq_(normalized_string("H2-IEb2"), "H2-EB2")
-    eq_(compact_string("H2-IEb2"), "EB2")
 
     # with hyphen in "H-2"
     eq_(parse("H-2-IEb2"), gene)
-    eq_(normalized_string("H-2-Eb2"), "H2-EB2")
-    eq_(compact_string("H-2-IEb2"), "EB2")
 
 def test_parse_H2r():
     haplotype = parse("H2-r")

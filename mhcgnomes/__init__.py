@@ -16,7 +16,7 @@ from .class2_locus import Class2Locus
 from .class2_pair import Class2Pair
 from .dataframe import dataframe_from_string_list, dataframe_from_parsed_objects
 from .errors import ParseError
-from .function_api import normalized_string, compact_string, parse
+from .function_api import cached_parser, parse
 from .gene import Gene
 from .haplotype import Haplotype
 from .mutation import Mutation
@@ -43,10 +43,8 @@ __all__ = [
     "ParseError",
     "Serotype",
     "Species",
-
-    "compact_string",
     "dataframe_from_parsed_objects",
     "dataframe_from_string_list",
-    "normalized_string",
+    "cached_parser",
     "parse",
 ]

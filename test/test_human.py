@@ -1,7 +1,5 @@
 from nose.tools import eq_
 from mhcgnomes import (
-    normalized_string,
-    compact_string,
     parse,
     Class2Pair,
     Allele
@@ -11,53 +9,53 @@ from mhcgnomes import (
 def test_normalized_string_hla_a0201_complete():
     name = "HLA-A*02:01"
     expected = "HLA-A*02:01"
-    eq_(normalized_string(name), expected)
+    eq_(parse(name).to_string(), expected)
 
 def test_normalized_string_hla_a0201_no_fieldsep():
     name = "HLA-A*0201"
     expected = "HLA-A*02:01"
-    eq_(normalized_string(name), expected)
+    eq_(parse(name).to_string(), expected)
 
 
 def test_normalized_string_hla_a0201_no_species_no_star_no_fieldsep():
     name = "A0201"
     expected = "HLA-A*02:01"
-    eq_(normalized_string(name), expected)
+    eq_(parse(name).to_string(), expected)
 
 def test_normalized_string_hla_a0201_no_star_no_fieldsep():
     name = "HLA-A0201"
     expected = "HLA-A*02:01"
-    eq_(normalized_string(name), expected)
+    eq_(parse(name).to_string(), expected)
 
 def test_normalized_string_hla_a0201_no_fieldsep_lowercase():
     name = "hla-a*0201"
     expected = "HLA-A*02:01"
-    eq_(normalized_string(name), expected)
+    eq_(parse(name).to_string(), expected)
 
 def test_normalized_string_hla_a0201_no_species_no_fieldsep_lowercase():
     name = "a*0201"
     expected = "HLA-A*02:01"
-    eq_(normalized_string(name), expected)
+    eq_(parse(name).to_string(), expected)
 
 def test_normalized_string_hla_a0201_no_species_lowercase():
     name = "a*02:01"
     expected = "HLA-A*02:01"
-    eq_(normalized_string(name), expected)
+    eq_(parse(name).to_string(), expected)
 
 def test_normalized_string_hla_a0201_no_species_no_star_no_fieldsep_lowercase():
     name = "a0201"
     expected = "HLA-A*02:01"
-    eq_(normalized_string(name), expected)
+    eq_(parse(name).to_string(), expected)
 
 def test_normalized_string_hla_a0201_no_species_no_fieldsep():
     name = "A*0201"
     expected = "HLA-A*02:01"
-    eq_(normalized_string(name), expected)
+    eq_(parse(name).to_string(), expected)
 
 def test_normalized_string_hla_a0201_no_species():
     name = "A*02:01"
     expected = "HLA-A*02:01"
-    eq_(normalized_string(name), expected)
+    eq_(parse(name).to_string(), expected)
 
 
 hla_02_01_names = [
@@ -79,30 +77,30 @@ hla_02_01_names = [
 def test_hla_short_names():
     expected = "A0201"
     for name in hla_02_01_names:
-        result = compact_string(name)
+        result = parse(name).compact_string()
         eq_(result, expected)
 
 
 def test_hla_A2_serotype():
-    eq_(compact_string("A2"), "A2")
-    eq_(normalized_string("A2"), "HLA-A2")
+    eq_(parse("A2").compact_string(), "A2")
+    eq_(parse("A2").to_string(), "HLA-A2")
 
-    eq_(compact_string("HLA-A2"), "A2")
-    eq_(normalized_string("HLA-A2"), "HLA-A2")
+    eq_(parse("HLA-A2").compact_string(), "A2")
+    eq_(parse("HLA-A2").to_string(), "HLA-A2")
 
 
 def test_hla_with_3_digit_allele_code():
     # B*15:120
-    eq_(normalized_string("HLA-B*15:120"), "HLA-B*15:120")
-    eq_(compact_string("HLA-B*15:120"), "B15120")
-    eq_(normalized_string("B15120"), "HLA-B*15:120")
-    eq_(compact_string("B15120"), "B15120")
+    eq_(parse("HLA-B*15:120").to_string(), "HLA-B*15:120")
+    eq_(parse("HLA-B*15:120").compact_string(), "B15120")
+    eq_(parse("B15120").to_string(), "HLA-B*15:120")
+    eq_(parse("B15120").compact_string(), "B15120")
 
     # A*02*123
-    eq_(normalized_string("HLA-A*02:123"), "HLA-A*02:123")
-    eq_(compact_string("HLA-A*02:123"), "A02123")
-    eq_(normalized_string("A02123"), "HLA-A*02:123")
-    eq_(compact_string("A02123"), "A02123")
+    eq_(parse("HLA-A*02:123").to_string(), "HLA-A*02:123")
+    eq_(parse("HLA-A*02:123").compact_string(), "A02123")
+    eq_(parse("A02123").to_string(), "HLA-A*02:123")
+    eq_(parse("A02123").compact_string(), "A02123")
 
 
 
@@ -145,7 +143,7 @@ def test_normalized_string_human_class2_DRB1_01_02():
                  "HLA-DRB1*0102",
                  "HLA-DRB1*01:02",
                  "DRB0102"]:
-        eq_(normalized_string(name), expected)
+        eq_(parse(name, infer_class2_pairing=True).to_string(), expected)
 
 
 def test_compact_string_string_human_class2_DRB1_01_02():
@@ -158,7 +156,7 @@ def test_compact_string_string_human_class2_DRB1_01_02():
                  "HLA-DRB1*0102",
                  "HLA-DRB1*01:02",
                  "DRB0102"]:
-        eq_(compact_string(name), expected_compact)
+        eq_(parse(name).compact_string(), expected_compact)
 
 def test_parse_human_class2_alpha_beta_DPA1_01_05_DPB1_100_01():
     expected = Class2Pair.get(
@@ -171,7 +169,7 @@ def test_parse_human_class2_alpha_beta_DPA1_01_05_DPB1_100_01():
                  "dpa1*0105-dpb1*10001",
                  "HLA-DPA1*01:05/DPB1*100:01",
                  "DPA10105/DPB110001"]:
-        eq_(parse(name), expected)
+        eq_(parse(name, infer_class2_pairing=True), expected)
 
 def test_parse_all_parameters_true_human_class2_alpha_beta_DPA1_01_05_DPB1_100_01():
     expected = Class2Pair.get(
@@ -198,7 +196,7 @@ def test_normalize_string_human_class2_alpha_beta_DPA1_01_05_DPB1_100_01():
                  "dpa1*0105-dpb1*10001",
                  "HLA-DPA1*01:05/DPB1*100:01",
                  "DPA10105/DPB110001"]:
-        eq_(normalized_string(name), expected)
+        eq_(parse(name, infer_class2_pairing=True).to_string(), expected)
 
 
 def test_compact_string_human_class2_alpha_beta_DPA1_01_05_DPB1_100_01():
@@ -209,23 +207,23 @@ def test_compact_string_human_class2_alpha_beta_DPA1_01_05_DPB1_100_01():
                  "dpa1*0105-dpb1*10001",
                  "HLA-DPA1*01:05/DPB1*100:01",
                  "DPA10105/DPB110001"]:
-        eq_(compact_string(name), expected_compact)
+        eq_(parse(name, infer_class2_pairing=True).compact_string(), expected_compact)
 
 
 def test_alpha_chain_inference_DP():
     # example of common DP haplotype from wikipedia article on HLA-DP
     just_beta = "HLA-DPB1*04:01"
     expected = "HLA-DPA1*01:03-DPB1*04:01"
-    eq_(normalized_string(just_beta, infer_class2_pairing=True), expected)
-    eq_(normalized_string(just_beta, infer_class2_pairing=False), just_beta)
+    eq_(parse(just_beta, infer_class2_pairing=True).to_string(), expected)
+    eq_(parse(just_beta, infer_class2_pairing=False).to_string(), just_beta)
 
 
 def test_alpha_chain_inference_DQ():
     # example of common DQ haplotype from wikipedia article on HLA-DQ
     just_beta = "HLA-DQB1*06:02"
     expected = "HLA-DQA1*01:02-DQB1*06:02"
-    eq_(normalized_string(just_beta, infer_class2_pairing=True), expected)
-    eq_(normalized_string(just_beta, infer_class2_pairing=False), just_beta)
+    eq_(parse(just_beta, infer_class2_pairing=True).to_string(), expected)
+    eq_(parse(just_beta, infer_class2_pairing=False).to_string(), just_beta)
 
 def test_human_class2_pair_with_mutation():
     allele = "HLA-DRA*01:01/DRB1*01:01 G86Y mutant"

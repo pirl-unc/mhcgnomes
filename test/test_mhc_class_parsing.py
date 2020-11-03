@@ -1,8 +1,6 @@
 from mhcgnomes import (
     parse,
     MhcClass,
-    compact_string,
-    normalized_string
 )
 from nose.tools import eq_
 
@@ -18,7 +16,7 @@ def check_human_class1_string(s):
             expected_parsed_result,
             s,
             parsed_result))
-    normalized_str = normalized_string(s)
+    normalized_str = parsed_result.to_string()
     eq_(
         normalized_str,
         expected_string_repr,
@@ -26,7 +24,7 @@ def check_human_class1_string(s):
             expected_string_repr,
             s,
             normalized_str))
-    compact_str = compact_string(s)
+    compact_str = parsed_result.compact_string()
     eq_(
         compact_str,
         expected_string_repr,
