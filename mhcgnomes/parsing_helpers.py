@@ -10,7 +10,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Iterable
 
 def strip_char(s : str, char_to_remove : str):
     while s.startswith(char_to_remove):
@@ -61,15 +60,6 @@ def split_digits_at_end(seq : str):
         prefix = prefix[:-1]
     return prefix, suffix
 
-
-def unique(xs : Iterable):
-    """
-    Return iterable at most as long as the input, containing only its
-    unique elements.
-    """
-    if len(xs) == 0 or len(xs) == 1:
-        return xs
-    return list(set(xs))
 
 def contains_any_letters(s : str):
     """

@@ -12,7 +12,7 @@
 
 import re
 from collections import defaultdict
-from typing import Mapping, Sequence, Union
+from typing import Mapping, Iterable, Union, Sequence
 
 from .allele import Allele
 from .allele_annotations import (
@@ -22,7 +22,7 @@ from .allele_annotations import (
 from .allele_without_gene import AlleleWithoutGene
 from .class2_locus import Class2Locus
 from .class2_pair import Class2Pair, infer_class2_alpha_chain
-from .common import cache
+from .common import cache, unique
 from .data import haplotypes as raw_haplotypes_data
 from .errors import ParseError
 from .gene import Gene
@@ -36,7 +36,6 @@ from .parsing_helpers import (
     contains_whitespace,
     smart_split,
     split_digits_at_end,
-    unique
 )
 from .result import Result
 from .result_with_species import ResultWithSpecies
@@ -1314,8 +1313,8 @@ class Parser(object):
             name : str,
             infer_class2_pairing : bool = INFER_CLASS2_PAIRING,
             default_species : Union[Species, str, None] = DEFAULT_SPECIES_PREFIX,
-            preferred_result_types : Union[type,Sequence[type], None] = None,
-            required_result_types : Union[type, Sequence[type], None] = None,
+            preferred_result_types : Union[type, Iterable[type], None] = None,
+            required_result_types : Union[type, Iterable[type], None] = None,
             raise_on_error : bool = True):
         """
         Parse any MHC related string, from gene loci to fully specified 8 digit

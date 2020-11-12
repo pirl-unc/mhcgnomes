@@ -12,7 +12,8 @@
 
 from typing import Sequence, Union
 
-from .allele import Allele
+from .common import unique
+from .gene import Gene
 from .result_with_species import ResultWithSpecies
 from .species import Species
 
@@ -22,7 +23,7 @@ class ResultWithMultipleAlleles(ResultWithSpecies):
             self,
             species : Species,
             name : str,
-            alleles : Sequence[Allele],
+            alleles : Sequence[ResultWithSpecies],
             raw_string : Union[str, None] = None):
         ResultWithSpecies.__init__(
             self,
@@ -30,12 +31,19 @@ class ResultWithMultipleAlleles(ResultWithSpecies):
             raw_string=raw_string)
         self.name = name
         self.alleles = tuple(sorted(alleles))
-        self.genes = list({allele.gene for allele in alleles})
-        inferred_species = {
-            gene.species for gene in self.genes
-        }
+
+        genes = []
+        for allele in self.alleles:
+            # monomorphic alleles sometimes represented just by the gene name
+            if type(allele) is Gene:
+                genes.append(allele)
+            elif allele.has_gene:
+                genes.append(allele.gene)
+        self.genes = unique(genes)
+        inferred_species = unique([gene.species for gene in self.genes])
+
         if len(inferred_species) == 1:
-            inferred_species = list(inferred_species)[0]
+            inferred_species = inferred_species[0]
             if inferred_species != species:
                 raise ValueError(
                     "Species inferred from given alleles (%s) is different from %s" % (
@@ -79,7 +87,6 @@ class ResultWithMultipleAlleles(ResultWithSpecies):
         else:
             return None
 
-
     def collapse_if_possible(self):
         """
         If this serotype contains a single allele, return it.
@@ -107,3 +114,45 @@ class ResultWithMultipleAlleles(ResultWithSpecies):
     @property
     def is_class2_beta(self):
         return all([allele.is_class2_beta for allele in self.alleles])
+
+    @property
+    def annotation_null(self):
+        return any([allele.annotation_null for allele in self.alleles])
+
+    @property
+    def annotation_cystosolic(self):
+        return any([allele.annotation_cystosolic for allele in self.alleles])
+
+    @property
+    def annotation_secreted(self):
+        return any([allele.annotation_secreted for allele in self.alleles])
+
+    @property
+    def annotation_questionable(self):
+        return any([allele.annotation_questionable for allele in self.alleles])
+
+    @property
+    def annotation_low_expression(self):
+        return any([allele.annotation_low_expression for allele in self.alleles])
+
+    @property
+    def annotation_aberrant_expression(self):
+        return any([allele.annotation_aberrant_expression for allele in self.alleles])
+
+    @property
+    def annotation_group(self):
+        # designates a group of genomic sequence alleles
+        # with identical peptide binding region
+        return any([allele.annotation_group for allele in self.alleles])
+
+    @property
+    def annotation_pseudogene(self):
+        # designates a group of genomic sequence alleles
+        # with identical peptide binding region
+        return any([allele.annotation_pseudogene for allele in self.alleles])
+
+    @property
+    def annotation_splice_variant(self):
+        # designates a group of genomic sequence alleles
+        # with identical peptide binding region
+        return any([allele.annotation_splice_variant for allele in self.alleles])

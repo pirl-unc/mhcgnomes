@@ -279,3 +279,10 @@ def test_DRB5_0108N():
     assert result is not None
     eq_(type(result), Allele)
     assert result.annotation_null
+
+def test_DRB5_0108N_with_inferred_alpha():
+    allele = "DRB5_0108N"
+    result = parse(allele, infer_class2_pairing=True)
+    assert result is not None
+    eq_(type(result), Class2Pair)
+    assert result.annotation_null

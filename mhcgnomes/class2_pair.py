@@ -14,7 +14,10 @@ from typing import Union
 from collections import OrderedDict
 
 from .allele import Allele
+from .allele_without_gene import AlleleWithoutGene
+from .gene import Gene
 from .result_with_mhc_class import ResultWithMhcClass
+
 
 class Class2Pair(ResultWithMhcClass):
     """
@@ -23,8 +26,8 @@ class Class2Pair(ResultWithMhcClass):
 
     def __init__(
             self,
-            alpha : Allele,
-            beta : Allele,
+            alpha : Union[Allele, AlleleWithoutGene, Gene],
+            beta : Union[Allele, AlleleWithoutGene, Gene],
             mhc_class="II",
             raw_string : Union[str, None] = None):
         ResultWithMhcClass.__init__(
@@ -49,9 +52,9 @@ class Class2Pair(ResultWithMhcClass):
             return None
         if beta is None:
             return None
-        if not isinstance(alpha, ResultWithMhcClass):
+        if not isinstance(alpha, (Allele, Gene, AlleleWithoutGene)):
             return None
-        if not isinstance(beta, ResultWithMhcClass):
+        if not isinstance(beta, (Allele, Gene, AlleleWithoutGene)):
             return None
         if alpha.mhc_class == beta.mhc_class:
             mhc_class = alpha.mhc_class
@@ -98,6 +101,84 @@ class Class2Pair(ResultWithMhcClass):
             ("is_mutant", False),
             ("allele", self.to_string()),
         ])
+
+    def restrict_num_allele_fields(
+            self,
+            num_fields: int,
+            drop_annotations: bool = False,
+            drop_mutations: bool = False):
+        if type(self.alpha) is Allele:
+            alpha = self.alpha.restrict_num_allele_fields(
+                num_fields=num_fields,
+                drop_annotations=drop_annotations,
+                drop_mutations=drop_mutations)
+        else:
+            alpha = self.alpha
+        if type(self.beta) is Allele:
+            beta = self.beta.restrict_num_allele_fields(
+                num_fields=num_fields,
+                drop_annotations=drop_annotations,
+                drop_mutations=drop_mutations)
+        else:
+            beta = self.beta
+        if alpha != self.alpha or beta != self.beta:
+            return Class2Pair.get(alpha=alpha, beta=beta, raw_string=self.raw_string)
+        else:
+            return self
+
+    @property
+    def annotation_null(self):
+        return (
+            self.alpha.annotation_null or
+            self.beta.annotation_null)
+
+    @property
+    def annotation_cystosolic(self):
+        return (
+            self.alpha.annotation_cystosolic or
+            self.beta.annotation_cystosolic)
+
+    @property
+    def annotation_secreted(self):
+        return (
+            self.alpha.annotation_secreted or
+            self.beta.annotation_secreted)
+
+    @property
+    def annotation_questionable(self):
+        return (
+            self.alpha.annotation_questionable or
+            self.beta.annotation_questionable)
+
+    @property
+    def annotation_low_expression(self):
+        return (
+            self.alpha.annotation_low_expression or
+            self.beta.annotation_low_expression)
+
+    @property
+    def annotation_aberrant_expression(self):
+        return (
+            self.alpha.annotation_aberrant_expression or
+            self.beta.annotation_aberrant_expression)
+
+    @property
+    def annotation_group(self):
+        return (
+            self.alpha.annotation_group or
+            self.beta.annotation_group)
+
+    @property
+    def annotation_pseudogene(self):
+        return (
+            self.alpha.annotation_pseudogene or
+            self.beta.annotation_pseudogene)
+
+    @property
+    def annotation_splice_variant(self):
+        return (
+            self.alpha.annotation_splice_variant or
+            self.beta.annotation_splice_variant)
 
 
 default_human_alpha_chains = {

@@ -55,13 +55,13 @@ def test_parse_H2_IE():
 
 
 def test_parse_H2_IEd_simplify():
-    result = parse("H2-IEd", simplify_haplotypes_if_possible=True)
+    result = parse("H2-IEd", collapse_singleton_haplotypes=True)
     eq_(type(result), Class2Pair)
     eq_(result.alpha.name, "d")
     eq_(result.beta.name, "d")
 
 def test_parse_H2_IEd_no_simplify():
-    result = parse("H2-IEd", simplify_haplotypes_if_possible=False)
+    result = parse("H2-IEd", collapse_singleton_haplotypes=False)
     eq_(type(result), Haplotype)
     eq_(result.name, "d")
     assert result.locus_restriction is not None

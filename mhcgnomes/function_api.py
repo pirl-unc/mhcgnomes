@@ -43,7 +43,8 @@ def parse(
         default_species=DEFAULT_SPECIES_PREFIX,
         map_allele_aliases=MAP_ALLELE_ALIASES,
         infer_class2_pairing=INFER_CLASS2_PAIRING,
-        simplify_haplotypes_if_possible=COLLAPSE_SINGLETON_HAPLOTYPES,
+        collapse_singleton_haplotypes=COLLAPSE_SINGLETON_HAPLOTYPES,
+        collapse_singleton_serotypes=COLLAPSE_SINGLETON_SEROTYPES,
         required_result_types=[],
         preferred_result_types=[],
         raise_on_error=True):
@@ -65,9 +66,13 @@ def parse(
        If given only the alpha or beta chain of a Class II allele,
        try to infer the most likely pairing from population frequencies.
 
-    simplify_haplotypes_if_possible : bool
+    collapse_singleton_haplotypes : bool
         If a Haplotype contains only a single allele or Class II allele pair,
         then return the allele instead of a haplotype.
+
+    collapse_singleton_serotypes : bool
+        If a Serotype contains only a single allele or Class II allele pair,
+        then return the allele instead of a serotype.
 
     required_result_types : list of type
         Only return results of the given classes.
@@ -81,7 +86,8 @@ def parse(
     """
     parser = cached_parser(
         map_allele_aliases=map_allele_aliases,
-        collapse_singleton_haplotypes=simplify_haplotypes_if_possible)
+        collapse_singleton_haplotypes=collapse_singleton_haplotypes,
+        collapse_singleton_serotypes=collapse_singleton_serotypes)
 
     return parser.parse(
         raw_string,

@@ -230,6 +230,7 @@ class Result(Serializable):
         # with identical peptide binding region
         return False
 
+
     @property
     def is_class1(self):
         return False

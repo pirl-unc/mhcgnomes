@@ -10,8 +10,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from functools import lru_cache
+from typing import Iterable
 
+def unique(xs : Iterable):
+    """
+    Return iterable at most as long as the input, containing only its
+    unique elements.
+    """
+    if type(xs) is list and len(xs) == 0 or len(xs) == 1:
+        return xs
+    return list(set(xs))
 
 def arg_to_cache_key(x):
     if type(x) in {list, tuple}:
