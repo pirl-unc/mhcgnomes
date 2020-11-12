@@ -21,4 +21,3 @@ def test_annotation_null_HLA_DRA_01_01_01_01_DRB1_01_01_01_01N():
     result = parse("DRA*01:01:01:01/DRB*01:01:01:01N")
     eq_(type(result), Class2Pair)
     assert result.annotation_null
-    

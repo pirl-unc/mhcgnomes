@@ -125,29 +125,6 @@ class Allele(ResultWithGene):
             mutations=mutations,
             raw_string=raw_string)
 
-    @classmethod
-    def parse_canonical_format(cls, allele_string, default_species=None):
-        """
-        Parse allele in the canonical format:
-            Species-Gene*Allele
-        Any alleles which don't conform to this format must be parsed using
-        the Parser object.
-
-        Returns Allele or None
-        """
-        if (allele_string.count("-") == 0):
-            if default_species is None:
-                return None
-            species = default_species
-            gene_and_allele = allele_string
-        elif allele_string.count("-") == 1:
-            species, gene_and_allele = allele_string.split("-")
-
-        if gene_and_allele.count("*") != 1:
-            return None
-
-        gene, allele = gene_and_allele.split("*")
-        return cls.get(species, gene, allele)
 
     @classmethod
     def get(
@@ -261,8 +238,7 @@ class Allele(ResultWithGene):
 
     def _check_annotation(self, annotation):
         """
-        Return False if object doesn't have 'annotations' or if
-        argument given isn't in the list of annotations.
+        Check if given annotation is in the annotation list.
         """
         return annotation in self.annotations
 
