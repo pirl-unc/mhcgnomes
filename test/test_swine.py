@@ -18,7 +18,7 @@ def test_SLA_1_0101_with_seps():
 
 def test_SLA_1_HB01():
     eq_(parse("SLA-1-HB01"),
-        Allele.get("SLA", "1", "HB", "01"))
+        Allele.get("SLA", "1", "HB01"))
 
 def test_SLA_1_0101_no_seps():
     eq_(parse("SLA-10101"),
@@ -84,13 +84,13 @@ def test_parse_to_string_SLA_1_TPK():
 
 def test_parse_to_string_SLA_2_TPK_AA():
     eq_(
-        parse("SLA-2-TPK.AA", map_allele_aliases=False).to_string(),
+        parse("SLA-2-TPK.AA", map_allele_aliases=True).to_string(),
         "SLA-2*TPK"
     )
 
 def test_parse_to_string_SLA_2_TPK_AA_with_colon_sep():
     eq_(
-        parse("SLA-2:TPK.AA", map_allele_aliases=False).to_string(),
+        parse("SLA-2:TPK.AA", map_allele_aliases=True).to_string(),
         "SLA-2*TPK"
     )
 
