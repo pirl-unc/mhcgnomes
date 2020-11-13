@@ -19,3 +19,9 @@ def test_parse_BoLA_N_04801():
     eq_(allele.gene.name, "N")
     eq_(allele.allele_fields, ("048", "01"))
 
+def test_parse_BoLA_N_001001_with_colon_sep():
+    allele = parse('BoLA-N:00101')
+    eq_(type(allele), Allele)
+    eq_(allele.species.prefix, "BoLA")
+    eq_(allele.gene.name, "N")
+    eq_(allele.allele_fields, ("001", "01"))

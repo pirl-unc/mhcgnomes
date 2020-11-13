@@ -51,7 +51,7 @@ def sort_key(result: Result):
     )
     if hasattr(result, 'name'):
         name_matches_raw_string = (
-                result.raw_string.lower() == result.name.lower())
+                lower_raw_string == result.name.lower())
     else:
         name_matches_raw_string = False
     is_class2_pair = type(result) is Class2Pair
@@ -78,15 +78,18 @@ def sort_key(result: Result):
         num_allele_fields = 0
 
     if hasattr(result, 'gene') and result.gene is not None:
-        raw_gene_name_matches_normalized = (
-                result.gene.raw_string.lower() ==
-                result.gene.name.lower()
-        )
+        if result.gene.raw_string:
+            raw_gene_name_matches_normalized = (
+                    result.gene.raw_string.lower() ==
+                    result.gene.name.lower()
+            )
+        else:
+            raw_gene_name_matches_normalized = False
         original_gene_seq_length = len(result.gene.raw_string)
     elif is_gene:
         raw_gene_name_matches_normalized = (
-                result.raw_string.upper() ==
-                result.name.upper()
+                lower_raw_string ==
+                result.name.lower()
         )
         original_gene_seq_length = len(result.raw_string)
     else:
@@ -137,6 +140,7 @@ def sort_key(result: Result):
         is_serotype,
         is_haplotype,
         num_alleles_in_haplotype_or_serotype,
+        result.raw_string is not None,
         # make sure the ordering is stable by sorting on string
         # representation, even if it's semantically meaningful
         str(result),
