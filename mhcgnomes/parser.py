@@ -526,7 +526,6 @@ class Parser(object):
         if contains_whitespace(str_after_species):
             return []
         candidate_results = []
-        print(str_after_species)
         if str_after_species in species.allele_aliases:
             original = species.allele_aliases.original_key(str_after_species)
             if "*" not in original:
