@@ -526,16 +526,15 @@ class Parser(object):
         if contains_whitespace(str_after_species):
             return []
         candidate_results = []
+        print(str_after_species)
         if str_after_species in species.allele_aliases:
-            if "*" not in str_after_species:
-                alias = species.allele_aliases[str_after_species]
-                if alias is None:
-                    name = species.allele_aliases.original_key(str_after_species)
-                    candidate_results.append(
-                        AlleleWithoutGene.get(
-                            species=species,
-                            name=name,
-                            raw_string=str_after_species))
+            original = species.allele_aliases.original_key(str_after_species)
+            if "*" not in original:
+                candidate_results.append(
+                    AlleleWithoutGene.get(
+                        species=species,
+                        name=original,
+                        raw_string=str_after_species))
 
         for gene, allele_name in self.parse_gene_candidates(
                 species, str_after_species):
