@@ -28,6 +28,9 @@ SLA:
   1*HB04: ~
   2*HB01: ~
   3*HB01: ~
+  1*LWH.AA: 1*LWH
+  2*LWH.AA: 2*LWH
+  3*LWH.AA: 3*LWH
   1*LWH: ~
   2*LWH: ~
   3*LWH: ~
@@ -49,6 +52,7 @@ SLA:
   1*YDL: ~
   2*YDL: ~
   3*YDL: ~
+  2*YDL02: ~
   1*YDY.AA: 1*YDY
   2*YDY.AA: 2*YDY
   3*YDY01.AA: 3*YDY01
