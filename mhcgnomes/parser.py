@@ -62,7 +62,8 @@ class Parser(object):
             map_species_group_to_top_species: bool = MAP_SPECIES_GROUP_TO_TOP_SPECIES,
             collapse_singleton_haplotypes: bool = COLLAPSE_SINGLETON_HAPLOTYPES,
             collapse_singleton_serotypes: bool = COLLAPSE_SINGLETON_SEROTYPES,
-            gene_seps: Sequence[str] = GENE_SEPS):
+            gene_seps: Sequence[str] = GENE_SEPS,
+            verbose=False):
         """
         map_allele_aliases : bool
             Convert old allele aliases to newer names. For example,
@@ -80,12 +81,16 @@ class Parser(object):
         collapse_singleton_serotypes : bool
             If a serotype contains just one allele, return that instead of
             the Serotype object containing it.
+
+        verbose : bool
+            Print the parse candidates for every distinct token
         """
         self.map_allele_aliases = map_allele_aliases
         self.map_species_group_to_top_species = map_species_group_to_top_species
         self.collapse_singleton_haplotypes = collapse_singleton_haplotypes
         self.collapse_singleton_serotypes = collapse_singleton_serotypes
         self.gene_seps = gene_seps
+        self.verbose = verbose
 
     def parse_species_from_prefix(self, name: str):
         """
@@ -522,22 +527,13 @@ class Parser(object):
             return []
         candidate_results = []
         if str_after_species in species.allele_aliases:
-            alias = species.allele_aliases[str_after_species]
-
-            if alias is None:
-                name = species.allele_aliases.original_key(str_after_species)
-                allele = AlleleWithoutGene.get(
-                    species=species,
-                    name=name,
-                    raw_string=str_after_species)
-                candidate_results.append(allele)
-            elif self.map_allele_aliases:
-                parsed_alias = self.parse(
-                    alias,
-                    default_species=species,
-                    raise_on_error=False)
-                if parsed_alias is not None:
-                    candidate_results.append(parsed_alias)
+            original = species.allele_aliases.original_key(str_after_species)
+            if "*" not in original:
+                candidate_results.append(
+                    AlleleWithoutGene.get(
+                        species=species,
+                        name=original,
+                        raw_string=str_after_species))
 
         for gene, allele_name in self.parse_gene_candidates(
                 species, str_after_species):
@@ -564,16 +560,11 @@ class Parser(object):
         if contains_whitespace(str_after_gene):
             return None
 
+        str_after_gene = self.strip_extra_chars(str_after_gene)
+
         species = gene.species
         gene_name = gene.name
-        if self.map_allele_aliases:
-            # if the remaining string is an allele string which has
-            # been renamed or deprecated, then get its new/canonical form
-            # TODO: make this an optional transformation after parsing
-            new_allele_name = species.allele_aliases.get(
-                "%s*%s" % (gene_name, str_after_gene))
-            if new_allele_name:
-                gene_name, str_after_gene = new_allele_name.split("*")
+
         if species.is_mouse:
             if str_after_gene.isalnum() and not str_after_gene.isnumeric():
                 # mouse alleles can be a mixture of numbers and letters
@@ -584,8 +575,8 @@ class Parser(object):
         elif species.is_rat:
             return Allele.get_with_gene(gene, str_after_gene.lower())
         elif species.is_pig:
-            # parse e.g. "SLA-1-HB03" or "SLA-3-US#11"
-            if str_after_gene[:2] == "HB" or "#" in str_after_gene:
+            # parse e.g. "SLA-3-US#11"
+            if "#" in str_after_gene:
                 return Allele.get_with_gene(
                     gene,
                     str_after_gene.upper())
@@ -839,30 +830,107 @@ class Parser(object):
             gene_to_mutations)
 
 
-    def transform_parse_candidates(
-            self,
-            parse_candidates: Sequence[Result],
-            raw_string: str):
+    def adjust_raw_string_and_transform_parse_candidates(
+            self, candidates: Sequence[Result], raw_string: str):
         """
         Annotate every ParseResult in a list with its `raw_string` field
         updated to `raw_string`.
 
-        Also perform optional transformations such as collapsing singleton
-        serotypes and haplotypes.
+        Returns
+        -------
+        List of Result objects
         """
         results = []
-        for parse_candidate in parse_candidates:
-            if parse_candidate is None:
-                continue
-            t = type(parse_candidate)
-            if ((self.collapse_singleton_haplotypes and t is Haplotype) or
-                    (self.collapse_singleton_serotypes and t is Serotype)):
-                simpler_result = parse_candidate.collapse_if_possible()
-                if simpler_result:
-                    parse_candidate = simpler_result
+        for parse_candidate in candidates:
             parse_candidate = parse_candidate.copy(raw_string=raw_string)
             assert parse_candidate is not None
             results.append(parse_candidate)
+        return self.transform_parse_candidates(results)
+
+    def transform_parse_candidate(self, parse_candidate : Result):
+        """
+        Perform optional transformations on Result objects such as collapsing
+        singleton serotypes and haplotypes.
+        """
+        if parse_candidate is None:
+            return None
+        t = type(parse_candidate)
+        transformed = None
+        if t is Haplotype:
+            if self.collapse_singleton_haplotypes:
+                transformed = parse_candidate.collapse_if_possible()
+        elif t is Serotype:
+            if self.collapse_singleton_serotypes:
+                transformed = parse_candidate.collapse_if_possible()
+        elif t is Allele:
+            species = parse_candidate.species
+            gene = parse_candidate.gene
+            gene_name = gene.name
+            old_name = parse_candidate.name
+            corrected_old_name = new_allele_string = None
+            for gene_name in species.reverse_gene_aliases[gene_name]:
+                query = "%s*%s" % (gene_name, old_name)
+                if query in species.allele_aliases:
+                    _, corrected_old_name = \
+                        species.allele_aliases.original_key(query).split("*")
+                    new_allele_string = species.allele_aliases[query]
+                    break
+            if corrected_old_name and corrected_old_name != old_name:
+                transformed = parse_candidate.copy(
+                    allele_fields=corrected_old_name.split(":"))
+            if self.map_allele_aliases and new_allele_string:
+                # if the remaining string is an allele string which has
+                # been renamed or deprecated, then get its new/canonical
+                # form
+                if new_allele_string.count("*") == 1:
+                    new_gene_name, new_allele_name = new_allele_string.split("*")
+
+                    if new_allele_name != old_name:
+                        gene = Gene.get(
+                            species,
+                            new_gene_name)
+                        transformed = parse_candidate.copy(
+                            gene=gene,
+                            allele_fields=new_allele_name.split(":"))
+
+        elif t is AlleleWithoutGene:
+            species = parse_candidate.species
+            old_name = parse_candidate.name
+            corrected_old_name = new_name = None
+            if old_name in species.allele_aliases:
+                corrected_old_name = species.allele_aliases.original_key(old_name)
+                new_name = species.allele_aliases[old_name]
+            if self.map_allele_aliases and new_name:
+                if new_name.count("*") == 1:
+                    new_gene_name, new_allele_name = new_name.split("*")
+                    gene = Gene.get(
+                        species,
+                        new_gene_name)
+                    transformed = Allele.get(
+                        species,
+                        gene,
+                        *new_allele_name.split(":"),
+                        raw_string=parse_candidate.raw_string)
+                else:
+                    transformed = parse_candidate.copy(name=new_name)
+            elif corrected_old_name and corrected_old_name != old_name:
+                transformed = parse_candidate.copy(name=corrected_old_name)
+        if transformed is not None:
+            return transformed
+        else:
+            return parse_candidate
+
+    def transform_parse_candidates(
+            self,
+            parse_candidates: Sequence[Result]):
+        """
+        Apply transform_parse_candidate to a list of results.
+        """
+        results = []
+        for parse_candidate in parse_candidates:
+            result = self.transform_parse_candidate(parse_candidate)
+            if result:
+                results.append(result)
         return unique(results)
 
     def parse_gene_without_species(
@@ -924,6 +992,9 @@ class Parser(object):
         Returns list of result objects for a single token string which
         should not contain any whitespace.
         """
+        if self.verbose:
+            print(f""">>> Parser.parse_single_token_to_multiple_candidates(
+                            {token}, {default_species})""")
         seq = token.seq
         raw_string = token.raw_string
 
@@ -938,9 +1009,18 @@ class Parser(object):
             self.parse_gene_without_species,
             self.parse_allele_without_species,
         ]
+        if self.verbose:
+            print("=== Functions without required species argument ===")
         for fn in fns_without_species:
             result = fn(seq, default_species=default_species)
-
+            if self.verbose:
+                print("%s('%s', default_species=%s) = %s" % (
+                    fn.__qualname__,
+                    seq,
+                    ('%s' % default_species if type(default_species) is str
+                        else default_species),
+                    ('%s' % result if type(result) is str else result)
+                ))
             if type(result) in (list, tuple):
                 parse_candidates.extend(result)
             elif isinstance(result, Result):
@@ -955,6 +1035,8 @@ class Parser(object):
             if len(str_after_species) == 0:
                 parse_candidates.append(species)
             else:
+                if self.verbose:
+                    print("=== Functions with required species argument ===")
                 # all of these functions are expected to take two arguments
                 # (Species, str_after_species) and returns either a parsed
                 # represntation or None
@@ -972,7 +1054,13 @@ class Parser(object):
                     result = fn(
                         species,
                         str_after_species)
-
+                    if self.verbose:
+                        print("%s(%s, '%s') = %s" % (
+                            fn.__qualname__,
+                            species,
+                            seq,
+                            "None" if not result else '%s' % result
+                        ))
                     if not result:
                         continue
                     if type(result) in (list, tuple):
@@ -986,10 +1074,9 @@ class Parser(object):
 
         # update all the objects to set their raw_string field to raw_string
         # and also perform optional transformations
-        parse_candidates = self.transform_parse_candidates(
+        return self.adjust_raw_string_and_transform_parse_candidates(
             parse_candidates,
             raw_string=raw_string)
-        return parse_candidates
 
     def restrict_result_type_if_possible(
             self,
@@ -1268,7 +1355,7 @@ class Parser(object):
                         if isinstance(second_result, ResultWithSpecies):
                             if second_result.species == first_result:
                                 candidates.append(second_result)
-        return unique(candidates)
+        return self.transform_parse_candidates(candidates)
 
     def select_species_from_optional_attributes(
             self,
@@ -1355,8 +1442,8 @@ class Parser(object):
             - Allele
             - Class2Pair
         """
-        candidates = self.parse_multiple_candidates\
-            (name, default_species=default_species)
+        candidates = self.parse_multiple_candidates(
+            name, default_species=default_species)
 
         if required_result_types:
             if type(required_result_types) not in (list, set, tuple):

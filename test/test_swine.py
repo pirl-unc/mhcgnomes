@@ -18,7 +18,7 @@ def test_SLA_1_0101_with_seps():
 
 def test_SLA_1_HB01():
     eq_(parse("SLA-1-HB01"),
-        Allele.get("SLA", "1", "HB", "01"))
+        Allele.get("SLA", "1", "HB01"))
 
 def test_SLA_1_0101_no_seps():
     eq_(parse("SLA-10101"),
@@ -56,3 +56,53 @@ def test_SLA_2_w09pt22_normalize():
     # SLA-2*w09pt22 is the provisional allele name for 2*09:03
     eq_(parse("SLA-2*w09pt22", map_allele_aliases=True),
         Allele.get("SLA", "2", "09", "03"))
+
+def test_parse_to_string_SLA_1_CHANGDA():
+    eq_(
+        parse("SLA-1-CHANGDA", map_allele_aliases=False).to_string(),
+        "SLA-1*CHANGDA")
+
+def test_parse_to_string_SLA_1_HB01():
+    eq_(
+        parse("SLA-1-HB01", map_allele_aliases=False).to_string(),
+        "SLA-1*HB01"
+    )
+
+
+def test_parse_to_string_SLA_1_HB01_with_colon_sep():
+    eq_(
+        parse("SLA-1:HB01", map_allele_aliases=False).to_string(),
+        "SLA-1*HB01"
+    )
+
+def test_parse_to_string_SLA_1_TPK():
+    eq_(
+        parse("SLA-1-TPK", map_allele_aliases=False).to_string(),
+        "SLA-1*TPK"
+    )
+
+
+def test_parse_to_string_SLA_2_TPK_AA():
+    eq_(
+        parse("SLA-2-TPK.AA", map_allele_aliases=True).to_string(),
+        "SLA-2*TPK"
+    )
+
+def test_parse_to_string_SLA_2_TPK_AA_with_colon_sep():
+    eq_(
+        parse("SLA-2:TPK.AA", map_allele_aliases=True).to_string(),
+        "SLA-2*TPK"
+    )
+
+
+def test_parse_to_string_SLA_2_LWH():
+    eq_(
+        parse("SLA-2-LWH", map_allele_aliases=False).to_string(),
+        "SLA-2*LWH"
+    )
+
+def test_parse_to_string_SLA_2_YDY01():
+    eq_(
+        parse("SLA-3-YDY01", map_allele_aliases=False).to_string(),
+        "SLA-3*YDY01"
+    )

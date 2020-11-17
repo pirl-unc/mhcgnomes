@@ -10,7 +10,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from collections import OrderedDict
+from collections import OrderedDict, defaultdict
 from typing import Union, Mapping, Iterable
 
 from .common import cache
@@ -66,10 +66,27 @@ class Species(Result):
         self.class2_locus_to_gene_names = class2_locus_to_gene_names
         self.class2_gene_name_to_chain_type = class2_gene_name_to_chain_type
         self.gene_aliases = gene_aliases
+        # create a reverse lookup from proper names to their list of aliases
+        self.reverse_gene_aliases = \
+            self._create_reverse_gene_aliases(gene_names, gene_aliases)
+
         self.allele_aliases = allele_aliases
         self.haplotypes = haplotypes
         self.serotypes = serotypes
         self.parent_species = parent_species
+
+    @classmethod
+    def _create_reverse_gene_aliases(cls, gene_names, gene_aliases):
+        """
+        Creates dictionary mapping canonical gene name to its set of aliases.
+        """
+        d = defaultdict(set)
+
+        for k, v in gene_aliases.items():
+            d[v].add(k)
+        for v in gene_names:
+            d[v].add(v)
+        return d
 
     @classmethod
     def str_field_names(cls):

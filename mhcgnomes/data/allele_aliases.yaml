@@ -1,16 +1,70 @@
 ####################################################
 #
+# Names which map to null "~" are those that don't yet have a known name in
+# the "standard" format
+#
+####################################################
+
+####################################################
+#
 # Swine allele aliases manually scraped from:
 # https://www.ebi.ac.uk/ipd/mhc/
 #
 ####################################################
 SLA:
-  # treating "HB" as a locus
-  1*HB01: 1*HB:01
-  1*HB02: 1*HB:02
-  1*HB03: 1*HB:03
-  1*HB04: 1*HB:04
-  # provisional allele names
+  # Allele names from NetMHCpan
+  # many seem to to be derived from Chinese publications that I can't read,
+  #
+  1*CHANGDA: ~
+  1*CDY.AA: 1*CDY
+  2*CDY.AA: 2*CDY
+  3*CDY.AA: 3*CDY
+  1*CDY: ~
+  2*CDY: ~
+  3*CDY: ~
+  1*HB01: ~
+  1*HB02: ~
+  1*HB03: ~
+  1*HB04: ~
+  2*HB01: ~
+  3*HB01: ~
+  1*LWH: ~
+  2*LWH: ~
+  3*LWH: ~
+  1*TPK.AA: 1*TPK
+  2*TPK.AA: 2*TPK
+  3*TPK.AA: 3*TPK
+  1*TPK: ~
+  2*TPK: ~
+  3*TPK: ~
+  1*YC.AA: 1*YC
+  2*YC.AA: 2*YC
+  3*YC.AA: 3*YC
+  1*YC: ~
+  2*YC: ~
+  3*YC: ~
+  1*YDL.AA: 1*YDL
+  2*YDL.AA: 2*YDL
+  3*YDL.AA: 3*YDL
+  1*YDL: ~
+  2*YDL: ~
+  3*YDL: ~
+  1*YDY.AA: 1*YDY
+  2*YDY.AA: 2*YDY
+  3*YDY01.AA: 3*YDY01
+  3*YDY02.AA: 3*YDY01
+  1*YDY: ~
+  2*YDY: ~
+  3*YDY01: ~
+  3*YDY02: ~
+  1*YTH.AA: 1*YTH
+  2*YTH.AA: 2*YTH
+  3*YTH.AA: 3*YTH
+  1*YTH: ~
+  2*YTH: ~
+  3*YTH: ~
+
+  # provisional allele names mapped to their permanent names
   1*01rh28: 1*01:03
   1*02we02: 1*02:03
   1*04gx01: 1*04:03
@@ -235,13 +289,13 @@ Patr:
   DRB*W903: DRB3*0703
 BoLA:
   #  Source: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4225172/
-  HD6: BoLA-6*013:01
-  JSP.1: BoLA-3*002:01
-  D18.4: BoLA-1*023:01
-  AW10: BoLA-3*001:01
-  T2A: BoLA-2*012:01
-  T2B: BoLA-6*041:01
-  # DRA: BoLA-DRA*01:01
-  T2C: ~
+  HD6: 6*013:01
+  JSP.1: 3*002:01
+  D18.4: 1*023:01
+  AW10: 3*001:01
+  T2a: 2*012:01
+  T2b: 6*041:01
+  T2c: ~
   T7: ~
   T5: ~
+  # DRA: DRA*01:01

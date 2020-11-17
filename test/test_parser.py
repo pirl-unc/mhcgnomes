@@ -279,3 +279,16 @@ def test_candidates_from_ambiguous_mouse_class2_IAb():
     gene = Gene.get("H2", "AB")
     assert gene in results
     eq_(pick_best_result(results), class2)
+
+
+def test_parse_species_SLA_3_YDY01():
+    parser = Parser()
+    species, str_after_species = parser.parse_species("SLA-3-YDY01")
+    assert species.is_pig
+    eq_(str_after_species.lower(), "3-ydy01")
+
+def test_parse_species_sla_3_ydy01_lower_case():
+    parser = Parser()
+    species, str_after_species = parser.parse_species("sla-3-ydy01")
+    assert species.is_pig
+    eq_(str_after_species.lower(), "3-ydy01")
