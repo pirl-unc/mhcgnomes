@@ -52,6 +52,7 @@ SLA:
   1*YDL: ~
   2*YDL: ~
   3*YDL: ~
+  1*YDL01: ~
   2*YDL02: ~
   1*YDY.AA: 1*YDY
   2*YDY.AA: 2*YDY
@@ -302,4 +303,5 @@ BoLA:
   T2c: ~
   T7: ~
   T5: ~
+  # TODO: What to do with the invariant DR alpha genes of many species?
   # DRA: DRA*01:01
