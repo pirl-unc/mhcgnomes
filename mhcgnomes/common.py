@@ -49,10 +49,10 @@ def cache(fn):
         return cache[key]
     return cached_fn
 
-def normalize_string(name, chars_to_remove="-_'"):
+def normalize_string(name, chars_to_remove="-_':"):
     """
     Return uppercase string without any surrounding whitespace and
-    without any characters such as '-', '_' or "'"
+    without any characters such as '-', '_' ':' or "'"
     """
     if type(name) in (float, int):
         name = str(name)

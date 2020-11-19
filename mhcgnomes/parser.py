@@ -48,7 +48,7 @@ from .tokenize import tokenize
 
 # default values for Parser parameters, reused in the 'parse' function below
 DEFAULT_SPECIES_PREFIX = "HLA"
-MAP_ALLELE_ALIASES = True
+USE_ALLELE_ALIASES = True
 INFER_CLASS2_PAIRING = False
 COLLAPSE_SINGLETON_HAPLOTYPES = True
 COLLAPSE_SINGLETON_SEROTYPES = False
@@ -58,14 +58,14 @@ GENE_SEPS = "*_-^:"
 class Parser(object):
     def __init__(
             self,
-            map_allele_aliases: bool = MAP_ALLELE_ALIASES,
+            use_allele_aliases: bool = USE_ALLELE_ALIASES,
             map_species_group_to_top_species: bool = MAP_SPECIES_GROUP_TO_TOP_SPECIES,
             collapse_singleton_haplotypes: bool = COLLAPSE_SINGLETON_HAPLOTYPES,
             collapse_singleton_serotypes: bool = COLLAPSE_SINGLETON_SEROTYPES,
             gene_seps: Sequence[str] = GENE_SEPS,
             verbose=False):
         """
-        map_allele_aliases : bool
+        use_allele_aliases : bool
             Convert old allele aliases to newer names. For example,
             change "SLA-2*07we01" to "SLA-2*07:03"
 
@@ -85,7 +85,7 @@ class Parser(object):
         verbose : bool
             Print the parse candidates for every distinct token
         """
-        self.map_allele_aliases = map_allele_aliases
+        self.use_allele_aliases = use_allele_aliases
         self.map_species_group_to_top_species = map_species_group_to_top_species
         self.collapse_singleton_haplotypes = collapse_singleton_haplotypes
         self.collapse_singleton_serotypes = collapse_singleton_serotypes
@@ -878,7 +878,7 @@ class Parser(object):
             if corrected_old_name and corrected_old_name != old_name:
                 transformed = parse_candidate.copy(
                     allele_fields=corrected_old_name.split(":"))
-            if self.map_allele_aliases and new_allele_string:
+            if self.use_allele_aliases and new_allele_string:
                 # if the remaining string is an allele string which has
                 # been renamed or deprecated, then get its new/canonical
                 # form
@@ -900,7 +900,7 @@ class Parser(object):
             if old_name in species.allele_aliases:
                 corrected_old_name = species.allele_aliases.original_key(old_name)
                 new_name = species.allele_aliases[old_name]
-            if self.map_allele_aliases and new_name:
+            if self.use_allele_aliases and new_name:
                 if new_name.count("*") == 1:
                     new_gene_name, new_allele_name = new_name.split("*")
                     gene = Gene.get(
