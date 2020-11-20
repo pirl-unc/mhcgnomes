@@ -63,8 +63,9 @@ class NormalizingDictionary(object):
 
     def __setitem__(self, k, v):
         if k is None:
-            raise ValueError("Key cannot be None in __setitem__")
-        k_normalized = self.normalize_fn(k)
+            k_normalized = None
+        else:
+            k_normalized = self.normalize_fn(k)
         self.original_to_normalized_key_dict[k] = k_normalized
         self.normalized_to_original_keys_dict[k_normalized].add(k)
         self.store[k_normalized] = v
@@ -162,8 +163,6 @@ class NormalizingDictionary(object):
     def map_values(self, fn):
         pairs = []
         for k, v in self.items():
-            if not k:
-                raise ValueError("Empty key")
             if v is None:
                 raise ValueError("Empty value for '%s'" % k)
             v2 = fn(v)

@@ -57,6 +57,24 @@ class ResultWithMultipleAlleles(ResultWithSpecies):
                     name,
                     inferred_species))
 
+    def map_alleles(self, fn):
+        """
+        Map a function over all the alleles of this Serotype or Haplotype,
+        and update the alleles field if any individual alleles change.
+        """
+        old_alleles = tuple(self.alleles)
+        new_alleles = []
+        for allele in old_alleles:
+            new_allele = fn(allele)
+            if new_allele is None:
+                continue
+            else:
+                new_alleles.append(new_allele)
+        new_alleles = tuple(new_alleles)
+        if old_alleles == new_alleles:
+            return self
+        return self.copy(alleles=new_alleles)
+
     @classmethod
     def str_field_names(cls):
         return ("species", "name", "num_alleles")

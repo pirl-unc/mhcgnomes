@@ -1,0 +1,45 @@
+SLA:
+  1:
+    - CDY
+    - CHANGDA
+    - HB01
+    - HB02
+    - HB03
+    - HB04
+    - LWH
+    - TPK
+    - YC
+    - YTH
+    - YDY
+    - YDL
+    - YDL01
+  2:
+    - CDY
+    - HB01
+    - LWH
+    - TPK
+    - YC
+    - YTH
+    - YDY
+    - YDL
+    - YDL02
+  3:
+    - CDY
+    - HB01
+    - LWH
+    - TPK
+    - YC
+    - YTH
+    - YDY01
+    - YDY02
+    - YDL
+BoLA:
+  no-gene:
+    - HD6
+    - JSP.1
+    - D18.4
+    - AW10
+    - T2b
+    - T2c
+    - T5
+    - T7
