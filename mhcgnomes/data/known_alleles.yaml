@@ -1,5 +1,5 @@
 SLA:
-  1:
+  "1":
     - CDY
     - CHANGDA
     - HB01
@@ -13,7 +13,7 @@ SLA:
     - YDY
     - YDL
     - YDL01
-  2:
+  "2":
     - CDY
     - HB01
     - LWH
@@ -23,7 +23,7 @@ SLA:
     - YDY
     - YDL
     - YDL02
-  3:
+  "3":
     - CDY
     - HB01
     - LWH

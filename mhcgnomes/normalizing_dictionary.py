@@ -47,7 +47,7 @@ class NormalizingDictionary(object):
     def update_pairs(self, pairs):
         # populate dictionary with initial values via calls to __setitem__
         for (k, v) in pairs:
-            self.__setitem__(k, v)
+            self[k] = v
 
     def update(self, other_dict):
         self.update_pairs(other_dict.items())
@@ -62,10 +62,7 @@ class NormalizingDictionary(object):
         return self.store[k_normalized]
 
     def __setitem__(self, k, v):
-        if k is None:
-            k_normalized = None
-        else:
-            k_normalized = self.normalize_fn(k)
+        k_normalized = self.normalize_fn(k)
         self.original_to_normalized_key_dict[k] = k_normalized
         self.normalized_to_original_keys_dict[k_normalized].add(k)
         self.store[k_normalized] = v
@@ -136,7 +133,7 @@ class NormalizingDictionary(object):
         """
         for (normalized_key, original_keys) in self.key_sets_aligned_with_values():
             if len(original_keys) == 0:
-                raise ValueError("Key set unexpectedly empty")
+                raise ValueError("Key set unexpectedly empty for '%s'" % normalized_key)
             yield sorted(original_keys)[0]
 
     def values(self):
@@ -160,8 +157,6 @@ class NormalizingDictionary(object):
     def map_values(self, fn):
         pairs = []
         for k, v in self.items():
-            if v is None:
-                raise ValueError("Empty value for '%s'" % k)
             v2 = fn(v)
             pairs.append((k, v2))
 

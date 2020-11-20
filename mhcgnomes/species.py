@@ -550,9 +550,13 @@ def create_species_for_latin_name(latin_name):
     serotypes = combine_matching_keys(
         raw_serotypes_dict,
         all_identifiers)
-    known_alleles = combine_matching_keys(
-        raw_known_alleles_dict,
-        all_identifiers)
+
+    known_alleles = NormalizingDictionary(default_value_fn=NormalizingSet)
+    for curr_species_name in all_identifiers:
+        known_alleles_for_species = raw_known_alleles_dict.get(curr_species_name, {})
+        for gene_name, alleles in known_alleles_for_species.items():
+            print(gene_name, alleles)
+            known_alleles[gene_name].update(alleles)
 
     return Species(
         name=latin_name,

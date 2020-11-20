@@ -54,6 +54,9 @@ def normalize_string(name, chars_to_remove="-_':"):
     Return uppercase string without any surrounding whitespace and
     without any characters such as '-', '_' ':' or "'"
     """
+    if name is None:
+        return None
+
     if type(name) in (float, int):
         name = str(name)
 
