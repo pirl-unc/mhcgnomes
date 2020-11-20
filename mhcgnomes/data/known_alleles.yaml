@@ -34,7 +34,7 @@ SLA:
     - YDY02
     - YDL
 BoLA:
-  no-gene:
+  ~:
     - HD6
     - JSP.1
     - D18.4

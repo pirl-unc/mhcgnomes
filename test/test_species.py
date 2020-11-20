@@ -22,3 +22,7 @@ def test_RT1():
 
 def test_Rano():
     eq_(Species.get("Rano").prefix, "Rano")
+
+def test_T2c_in_BoLA():
+    cow = Species.get("BoLA")
+    assert "T2c" in cow.known_alleles[None]

@@ -126,9 +126,6 @@ class NormalizingDictionary(object):
         results = []
         for normalized_key in self.normalized_keys():
             original_keys = self.normalized_to_original_keys_dict[normalized_key]
-            if not normalized_key or not original_keys:
-                raise ValueError("Bad key pair (%s, %s)" % (
-                    normalized_key, original_keys))
             results.append((normalized_key, original_keys))
         return results
 
