@@ -56,9 +56,9 @@ def normalize_string(name, chars_to_remove="-_':"):
     """
     if name is None:
         return None
-
     if type(name) in (float, int):
         name = str(name)
+
 
     if not isinstance(name, str):
         return name

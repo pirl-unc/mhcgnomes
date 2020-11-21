@@ -538,25 +538,22 @@ def create_species_for_latin_name(latin_name):
     # over time and don't want one update to break code mysteriously
     # elsewhere. Another reason is that a few species share the same
     # prefix ('Bubu' belongs to both an owl species and water buffalo).
-    gene_aliases = combine_matching_keys(
+    gene_aliases = combine_species_aliases(
         raw_gene_aliases_dict,
         all_identifiers)
-    allele_aliases = combine_matching_keys(
+    allele_aliases = combine_species_aliases(
         raw_allele_aliases_dict,
         all_identifiers)
-    haplotypes = combine_matching_keys(
+    haplotypes = combine_species_aliases(
         raw_haplotypes_dict,
         all_identifiers)
-    serotypes = combine_matching_keys(
+    serotypes = combine_species_aliases(
         raw_serotypes_dict,
         all_identifiers)
-
-    known_alleles = NormalizingDictionary(default_value_fn=NormalizingSet)
-    for curr_species_name in all_identifiers:
-        known_alleles_for_species = raw_known_alleles_dict.get(curr_species_name, {})
-        for gene_name, alleles in known_alleles_for_species.items():
-            print(gene_name, alleles)
-            known_alleles[gene_name].update(alleles)
+    known_alleles = combine_species_aliases(
+        raw_known_alleles_dict,
+        all_identifiers,
+        value_class=NormalizingSet)
 
     return Species(
         name=latin_name,
@@ -580,12 +577,36 @@ def create_species_for_latin_name(latin_name):
         taxon_id=taxon_id,
         raw_string=latin_name)
 
-def combine_matching_keys(d, keys, dictionary_class=NormalizingDictionary):
-    result = dictionary_class()
-    for key in keys:
-        if key in d:
-            sub_dict = dictionary_class.from_dict(d[key])
-            result.update(sub_dict)
+def combine_species_aliases(
+        species_dict,
+        species_names,
+        dictionary_class=NormalizingDictionary,
+        value_class=None):
+    if value_class:
+        result = dictionary_class(default_value_fn=value_class)
+    else:
+        result = dictionary_class()
+    for species_name in species_names:
+        value_for_species = species_dict.get(species_name)
+        if value_for_species:
+            if type(value_for_species) not in (dict, NormalizingDictionary):
+                raise TypeError("Expected sub-dictionaries but got %s" % (type(value_for_species,)))
+            for (key, value) in value_for_species.items():
+                old_value = None
+                if key in result:
+                    old_value = result[key]
+                elif value_class is not None:
+                    old_value = value_class()
+
+                if old_value is not None:
+                    t = type(old_value)
+                    if t in {set, dict, NormalizingSet, NormalizingDictionary}:
+                        combined = old_value.copy()
+                        combined.update(value)
+                        value = combined
+                    elif t in {list, tuple}:
+                        value = old_value + t(value)
+                result[key] = value
     return result
 
 def create_species_lookup_dictionaries():

@@ -29,5 +29,4 @@ def test_T2c_in_BoLA():
 
 def test_known_allele_SLA_3_ydy01():
     pig = Species.get("SLA")
-    print(pig.known_alleles)
     eq_(pig.get_known_allele(gene_name="3", allele_name="ydy01"), ("3", "YDY01"))
