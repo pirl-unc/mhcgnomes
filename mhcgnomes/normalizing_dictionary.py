@@ -56,7 +56,7 @@ class NormalizingDictionary(object):
         k_normalized = self.normalize_fn(k)
         if k_normalized not in self.store:
             if self.default_value_fn is not None:
-                self.store[k_normalized] = self.default_value_fn()
+                self[k] = self.default_value_fn()
             else:
                 raise KeyError(k)
         return self.store[k_normalized]
