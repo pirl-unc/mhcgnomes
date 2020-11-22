@@ -554,7 +554,8 @@ class Parser(object):
         return candidate_results
 
     def parse_allele_with_gene(
-            self, gene : Union[str, Gene],
+            self,
+            gene : Gene,
             str_after_gene : str,
             raw_string: Union[str, None] = None):
         if gene is None:
@@ -617,12 +618,13 @@ class Parser(object):
                 gene.mhc_class in {"I", "Ia", "Ib"} or
                 not gene.name.startswith("DP"))
         )
+
         allow_three_digits_in_first_field = not allow_three_digits_in_second_field
         allele_fields = split_allele_fields(
             str_after_gene=str_after_gene,
             allow_three_digits_in_first_field=allow_three_digits_in_first_field,
             allow_three_digits_in_second_field=allow_three_digits_in_second_field)
-
+        print(allow_three_digits_in_first_field, allow_three_digits_in_second_field, allele_fields)
         if allele_fields:
             return self.parse_allele_from_allele_fields(
                 gene=gene,

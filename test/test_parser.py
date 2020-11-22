@@ -292,3 +292,12 @@ def test_parse_species_sla_3_ydy01_lower_case():
     species, str_after_species = parser.parse_species("sla-3-ydy01")
     assert species.is_pig
     eq_(str_after_species.lower(), "3-ydy01")
+
+def test_parse_allele_with_gene_MICA_038():
+    parser = Parser()
+    allele = parser.parse_allele_with_gene(
+        gene=Gene.get("HLA", "MICA"),
+        str_after_gene="038")
+    assert allele is not None
+    assert allele.is_class1
+    eq_(allele.allele_fields, ("038",))
