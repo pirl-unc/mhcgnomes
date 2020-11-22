@@ -1413,10 +1413,12 @@ class Parser(object):
     def parse(
             self,
             name : str,
-            infer_class2_pairing : bool = INFER_CLASS2_PAIRING,
-            default_species : Union[Species, str, None] = DEFAULT_SPECIES_PREFIX,
-            preferred_result_types : Union[type, Iterable[type], None] = None,
-            required_result_types : Union[type, Iterable[type], None] = None,
+            infer_class2_pairing: bool = INFER_CLASS2_PAIRING,
+            default_species: Union[Species, str, None] = DEFAULT_SPECIES_PREFIX,
+            preferred_result_types: Union[type, Iterable[type], None] = None,
+            required_result_types: Union[type, Iterable[type], None] = None,
+            only_class1: bool = False,
+            only_class2: bool = False,
             raise_on_error : bool = True):
         """
         Parse any MHC related string, from gene loci to fully specified 8 digit
@@ -1447,6 +1449,12 @@ class Parser(object):
         required_result_types : list of type or None
             If given, only return results with types in this list of classes.
 
+        only_class1 : bool
+            Only return results which belong to MHC class I
+
+        only_class2 : bool
+            Only return results which belong to MHC class II
+
         raise_on_error : bool
             If False, return False when parsing is impossible.
 
@@ -1459,6 +1467,18 @@ class Parser(object):
         """
         candidates = self.parse_multiple_candidates(
             name, default_species=default_species)
+
+        if only_class1:
+            candidates = [
+                candidate for candidate in candidates
+                if candidate.is_class1
+            ]
+
+        if only_class2:
+            candidates = [
+                candidate for candidate in candidates
+                if candidate.is_class2
+            ]
 
         if required_result_types:
             if type(required_result_types) not in (list, set, tuple):
