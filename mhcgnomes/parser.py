@@ -889,6 +889,14 @@ class Parser(object):
             transformed = parse_candidate.map_alleles(self.transform_parse_candidate)
             if self.collapse_singleton_haplotypes:
                 transformed = parse_candidate.collapse_if_possible()
+        elif t is Class2Pair:
+            alpha = self.transform_parse_candidates(parse_candidate.alpha)
+            beta = self.transform_parse_candidates(parse_candidate.beta)
+            if alpha != parse_candidate.alpha or beta != parse_candidate.beta:
+                transformed = Class2Pair.get(
+                    alpha,
+                    beta,
+                    raw_string=parse_candidate.raw_string)
         elif t in (AlleleWithoutGene, Allele):
             raw_string = parse_candidate.raw_string
             species = parse_candidate.species
