@@ -19,7 +19,14 @@ def unique(xs : Iterable):
     """
     if type(xs) is list and len(xs) == 0 or len(xs) == 1:
         return xs
-    return list(set(xs))
+    result = []
+    unique_set = set()
+    for xi in xs:
+        if xi in unique_set:
+            continue
+        result.append(xi)
+        unique_set.add(xi)
+    return result
 
 def arg_to_cache_key(x):
     if type(x) in {list, tuple}:

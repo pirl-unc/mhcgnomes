@@ -886,9 +886,15 @@ class Parser(object):
         t = type(parse_candidate)
         transformed = None
         if t in (Serotype, Haplotype):
-            transformed = parse_candidate.map_alleles(self.transform_parse_candidate)
+            old_alleles = parse_candidate.alleles
+            new_alleles = self.transform_parse_candidates(old_alleles)
+            if old_alleles != new_alleles:
+                transformed = parse_candidate.copy(alleles=new_alleles)
             if self.collapse_singleton_haplotypes:
-                transformed = parse_candidate.collapse_if_possible()
+                if transformed is None:
+                    transformed = parse_candidate.collapse_if_possible()
+                else:
+                    transformed = transformed.collapse_if_possible()
         elif t is Class2Pair:
             alpha = self.transform_parse_candidates(parse_candidate.alpha)
             beta = self.transform_parse_candidates(parse_candidate.beta)
