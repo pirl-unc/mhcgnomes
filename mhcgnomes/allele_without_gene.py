@@ -40,7 +40,7 @@ class AlleleWithoutGene(ResultWithMhcClass):
         """
         Return allele strings like "BoLA-T2C"
         """
-        species_str = self.species_str.to_string(
+        species_str = self.species.to_string(
             include_species=include_species,
             use_old_species_prefix=use_old_species_prefix)
         return "%s-%s" % (species_str, self.name)

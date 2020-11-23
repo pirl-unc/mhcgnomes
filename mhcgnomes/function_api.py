@@ -14,7 +14,7 @@ from .common import cache
 from .parser import Parser
 from .parser import (
     DEFAULT_SPECIES_PREFIX,
-    MAP_ALLELE_ALIASES,
+    USE_ALLELE_ALIASES,
     GENE_SEPS,
     INFER_CLASS2_PAIRING,
     COLLAPSE_SINGLETON_HAPLOTYPES,
@@ -24,29 +24,34 @@ from .parser import (
 
 @cache
 def cached_parser(
-        map_allele_aliases=MAP_ALLELE_ALIASES,
+        use_allele_aliases=USE_ALLELE_ALIASES,
         gene_seps=GENE_SEPS,
         collapse_singleton_haplotypes=COLLAPSE_SINGLETON_HAPLOTYPES,
-        collapse_singleton_serotypes=COLLAPSE_SINGLETON_SEROTYPES):
+        collapse_singleton_serotypes=COLLAPSE_SINGLETON_SEROTYPES,
+        verbose=False):
     """
     Construct a Parser instance if this combination of arguments hasn't
     been used before, otherwise retrieve an existing parser.
     """
     return Parser(
-        map_allele_aliases=map_allele_aliases,
+        use_allele_aliases=use_allele_aliases,
         gene_seps=gene_seps,
         collapse_singleton_haplotypes=collapse_singleton_haplotypes,
-        collapse_singleton_serotypes=collapse_singleton_serotypes)
+        collapse_singleton_serotypes=collapse_singleton_serotypes,
+        verbose=verbose)
 
 def parse(
         raw_string,
         default_species=DEFAULT_SPECIES_PREFIX,
-        map_allele_aliases=MAP_ALLELE_ALIASES,
+        use_allele_aliases=USE_ALLELE_ALIASES,
         infer_class2_pairing=INFER_CLASS2_PAIRING,
         collapse_singleton_haplotypes=COLLAPSE_SINGLETON_HAPLOTYPES,
         collapse_singleton_serotypes=COLLAPSE_SINGLETON_SEROTYPES,
         required_result_types=[],
         preferred_result_types=[],
+        only_class1=False,
+        only_class2=False,
+        verbose=False,
         raise_on_error=True):
     """
     Parse MHC alleles into a structured representation.
@@ -60,7 +65,7 @@ def parse(
        By default, parse alleles like "A*02:01" as human but it's possible
        to change this to some other species.
 
-    map_allele_aliases : bool
+    use_allele_aliases : bool
 
     infer_class2_pairing : bool
        If given only the alpha or beta chain of a Class II allele,
@@ -80,14 +85,24 @@ def parse(
     preferred_result_types : list of type
         Return a result that's one of these classes if possible, otherwise None.
 
+    only_class1 : bool
+        Only return MHC Class I results
+
+    only_class2 : bool
+        Only return MHC Class II results
+
+    verbose : bool
+        Print intermediate parsing steps
+
     raise_on_error : bool
         Raise an exception if string can't be parsed. If False, return None
         instead.
     """
     parser = cached_parser(
-        map_allele_aliases=map_allele_aliases,
+        use_allele_aliases=use_allele_aliases,
         collapse_singleton_haplotypes=collapse_singleton_haplotypes,
-        collapse_singleton_serotypes=collapse_singleton_serotypes)
+        collapse_singleton_serotypes=collapse_singleton_serotypes,
+        verbose=verbose)
 
     return parser.parse(
         raw_string,
@@ -95,4 +110,6 @@ def parse(
         infer_class2_pairing=infer_class2_pairing,
         raise_on_error=raise_on_error,
         required_result_types=required_result_types,
-        preferred_result_types=preferred_result_types)
+        preferred_result_types=preferred_result_types,
+        only_class1=only_class1,
+        only_class2=only_class2)

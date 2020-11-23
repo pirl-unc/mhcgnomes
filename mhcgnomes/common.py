@@ -19,7 +19,14 @@ def unique(xs : Iterable):
     """
     if type(xs) is list and len(xs) == 0 or len(xs) == 1:
         return xs
-    return list(set(xs))
+    result = []
+    unique_set = set()
+    for xi in xs:
+        if xi in unique_set:
+            continue
+        result.append(xi)
+        unique_set.add(xi)
+    return result
 
 def arg_to_cache_key(x):
     if type(x) in {list, tuple}:
@@ -49,13 +56,16 @@ def cache(fn):
         return cache[key]
     return cached_fn
 
-def normalize_string(name, chars_to_remove="-_'"):
+def normalize_string(name, chars_to_remove="-_':"):
     """
     Return uppercase string without any surrounding whitespace and
-    without any characters such as '-', '_' or "'"
+    without any characters such as '-', '_' ':' or "'"
     """
+    if name is None:
+        return None
     if type(name) in (float, int):
         name = str(name)
+
 
     if not isinstance(name, str):
         return name

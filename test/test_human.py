@@ -219,7 +219,7 @@ def test_parse_all_parameters_true_human_class2_alpha_beta_DPA1_01_05_DPB1_100_0
                  "DPA10105/DPB110001"]:
         parse_result = parse(
             name,
-            map_allele_aliases=True,
+            use_allele_aliases=True,
             infer_class2_pairing=True)
         eq_(parse_result, expected)
 

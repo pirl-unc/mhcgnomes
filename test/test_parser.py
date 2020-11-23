@@ -136,7 +136,6 @@ def test_parse_DRB5_0108N():
     seq = "DRB5_0108N"
     parser = Parser()
     result = parser.parse(seq)
-    print(result)
     assert result is not None
     eq_(type(result), Allele)
 
@@ -145,7 +144,6 @@ def test_parse_HLA_A2():
     seq = "HLA-A2"
     parser = Parser()
     result = parser.parse(seq)
-    print(result)
     assert result is not None
     eq_(type(result), Serotype)
 
@@ -183,7 +181,6 @@ def test_parse_parse_BF2():
 def test_parse_multiple_candidates_BoLA_DRA_DRB31501():
     parser = Parser()
     results = parser.parse_multiple_candidates("BoLA-DRA-DRB31501")
-    print(results)
     assert len(results) > 0
     assert any([type(result) is Class2Pair for result in results])
 
@@ -255,8 +252,6 @@ def test_candidates_from_ambiguous_class2_DPA10105_DPB110001():
     eq_(results[0], Class2Pair.get(
         Allele.get("HLA", "DPA1", "01", "05"),
         Allele.get("HLA", "DPB1", "100", "01")))
-    for r in results:
-        print("\t", r)
 
 
 def test_candidates_from_ambiguous_class2_DPB110001():
@@ -292,3 +287,27 @@ def test_parse_species_sla_3_ydy01_lower_case():
     species, str_after_species = parser.parse_species("sla-3-ydy01")
     assert species.is_pig
     eq_(str_after_species.lower(), "3-ydy01")
+
+def test_parse_allele_with_gene_MICA_038():
+    parser = Parser()
+    allele = parser.parse_allele_with_gene(
+        gene=Gene.get("HLA", "MICA"),
+        str_after_gene="038")
+    assert allele is not None
+    assert allele.is_class1
+    eq_(allele.allele_fields, ("038",))
+
+
+def test_parse_allele_B_27_215N():
+    parser = Parser()
+    allele = parser.parse_allele_with_gene(
+        gene=Gene.get("HLA", "B"),
+        str_after_gene="27:215N")
+    eq_(allele.allele_fields, ("27", "215"))
+    eq_(allele.annotations, ("N",))
+
+def test_parse_B_27_215N():
+    parser = Parser(verbose=True)
+    allele = parser.parse("B*27:215N")
+    eq_(allele.allele_fields, ("27", "215"))
+    eq_(allele.annotations, ("N",))

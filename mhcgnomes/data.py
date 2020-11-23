@@ -60,6 +60,12 @@ allele_aliases = load(
     normalize_first_level_keys=True,
     normalize_second_level_keys=True)
 
+# Dictionary mapping species -> gene -> list of known allele names
+known_alleles = load(
+    "known_alleles.yaml",
+    normalize_first_level_keys=True,
+    normalize_second_level_keys=True)
+
 # Dictionary mapping species to haplotype name to list of alleles
 haplotypes = load(
     "haplotypes.yaml",

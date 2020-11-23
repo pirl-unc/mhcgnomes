@@ -19,6 +19,7 @@ from .data import serotypes as raw_serotypes_dict
 from .data import haplotypes as raw_haplotypes_dict
 from .data import allele_aliases as raw_allele_aliases_dict
 from .data import species as raw_species_dict
+from .data import known_alleles as raw_known_alleles_dict
 from .mhc_class_helpers import class1_restrictions, class2_restrictions
 from .normalizing_set import NormalizingSet
 from .normalizing_dictionary import NormalizingDictionary
@@ -30,16 +31,17 @@ class Species(Result):
     """
     def __init__(
             self,
-            name : str,
-            common_name : str,
-            mhc_prefix : str,
-            gene_names : Iterable[str],
-            gene_name_to_mhc_class : Mapping[str, str],
-            class2_loci : Iterable[str],
+            name: str,
+            common_name: str,
+            mhc_prefix: str,
+            gene_names: Iterable[str],
+            gene_name_to_mhc_class: Mapping[str, str],
+            class2_loci: Iterable[str],
             class2_locus_to_gene_names : Mapping[str, Iterable[str]],
             class2_gene_name_to_chain_type : Mapping[str, str],
-            gene_aliases : Mapping[str, str],
-            allele_aliases : Mapping[str, str],
+            gene_aliases: Mapping[str, str],
+            allele_aliases: Mapping[str, str],
+            known_alleles: Mapping[str, Iterable[str]],
             haplotypes : Mapping[str, Iterable[str]],
             serotypes : Mapping[str, Iterable[str]],
             parent_species : Union['Species', None] = None,
@@ -71,6 +73,7 @@ class Species(Result):
             self._create_reverse_gene_aliases(gene_names, gene_aliases)
 
         self.allele_aliases = allele_aliases
+        self.known_alleles = known_alleles
         self.haplotypes = haplotypes
         self.serotypes = serotypes
         self.parent_species = parent_species
@@ -80,7 +83,7 @@ class Species(Result):
         """
         Creates dictionary mapping canonical gene name to its set of aliases.
         """
-        d = defaultdict(set)
+        d = defaultdict(NormalizingSet)
 
         for k, v in gene_aliases.items():
             d[v].add(k)
@@ -304,6 +307,63 @@ class Species(Result):
         gene_name = self.normalize_gene_name_if_exists(gene_name)
         return self.gene_name_to_mhc_class.get(gene_name)
 
+    @cache
+    def get_known_allele(self, gene_name, allele_name):
+        gene_name_candidates = {gene_name}
+
+        if gene_name is not None:
+            gene_aliases = self.reverse_gene_aliases.get(gene_name, [])
+            gene_name_candidates.update(gene_aliases)
+
+        for gene_name in gene_name_candidates:
+            known_alleles_for_gene_name = self.known_alleles.get(gene_name)
+            if known_alleles_for_gene_name:
+                if allele_name in known_alleles_for_gene_name:
+                    known_allele_name = known_alleles_for_gene_name.get_original(allele_name)
+                    return (gene_name, known_allele_name)
+
+        # if allele isn't in known_alleles try looking at the keys of
+        # allele_aliases
+        for gene_name in gene_name_candidates:
+            if gene_name:
+                key = "%s*%s" % (gene_name, allele_name)
+            else:
+                key = allele_name
+            if key in self.allele_aliases:
+                known_allele_name = self.allele_aliases.original_key(key)
+                return (gene_name, known_allele_name)
+        return None
+
+    @cache
+    def get_allele_alias(self, gene_name: str, allele_name: str):
+        """
+        Returns None if no alias found, otherwise pair of
+        (gene name, allele name)
+        """
+        gene_name_candidates = {gene_name}
+
+        if gene_name is not None:
+            gene_aliases = self.reverse_gene_aliases.get(gene_name, [])
+            gene_name_candidates.update(gene_aliases)
+
+        # if allele isn't in known_alleles try looking at the keys of
+        # allele_aliases
+        for gene_name in gene_name_candidates:
+            if gene_name:
+                key = "%s*%s" % (gene_name, allele_name)
+            else:
+                key = allele_name
+            if key in self.allele_aliases:
+                value = self.allele_aliases[key]
+                if "*" in value:
+                    parts = value.split("*")
+                    if len(parts) != 2:
+                        continue
+                    return tuple(parts)
+                else:
+                    return (None, value)
+        return None
+
     @classmethod
     def get_species_with_gene_name(self, gene_name):
         """
@@ -478,18 +538,23 @@ def create_species_for_latin_name(latin_name):
     # over time and don't want one update to break code mysteriously
     # elsewhere. Another reason is that a few species share the same
     # prefix ('Bubu' belongs to both an owl species and water buffalo).
-    gene_aliases = combine_matching_keys(
+    gene_aliases = combine_species_aliases(
         raw_gene_aliases_dict,
         all_identifiers)
-    allele_aliases = combine_matching_keys(
+    allele_aliases = combine_species_aliases(
         raw_allele_aliases_dict,
         all_identifiers)
-    haplotypes = combine_matching_keys(
+    haplotypes = combine_species_aliases(
         raw_haplotypes_dict,
         all_identifiers)
-    serotypes = combine_matching_keys(
+    serotypes = combine_species_aliases(
         raw_serotypes_dict,
         all_identifiers)
+    known_alleles = combine_species_aliases(
+        raw_known_alleles_dict,
+        all_identifiers,
+        value_class=NormalizingSet)
+
     return Species(
         name=latin_name,
         common_name=shortest_common_name,
@@ -502,6 +567,7 @@ def create_species_for_latin_name(latin_name):
         class2_gene_name_to_chain_type=class2_gene_name_to_chain_type,
         gene_aliases=gene_aliases,
         allele_aliases=allele_aliases,
+        known_alleles=known_alleles,
         haplotypes=haplotypes,
         serotypes=serotypes,
         other_mhc_prefixes=other_mhc_prefixes,
@@ -511,12 +577,36 @@ def create_species_for_latin_name(latin_name):
         taxon_id=taxon_id,
         raw_string=latin_name)
 
-def combine_matching_keys(d, keys, dictionary_class=NormalizingDictionary):
-    result = dictionary_class()
-    for key in keys:
-        if key in d:
-            sub_dict = dictionary_class.from_dict(d[key])
-            result.update(sub_dict)
+def combine_species_aliases(
+        species_dict,
+        species_names,
+        dictionary_class=NormalizingDictionary,
+        value_class=None):
+    if value_class:
+        result = dictionary_class(default_value_fn=value_class)
+    else:
+        result = dictionary_class()
+    for species_name in species_names:
+        value_for_species = species_dict.get(species_name)
+        if value_for_species:
+            if type(value_for_species) not in (dict, NormalizingDictionary):
+                raise TypeError("Expected sub-dictionaries but got %s" % (type(value_for_species,)))
+            for (key, value) in value_for_species.items():
+                old_value = None
+                if key in result:
+                    old_value = result[key]
+                elif value_class is not None:
+                    old_value = value_class()
+
+                if old_value is not None:
+                    t = type(old_value)
+                    if t in {set, dict, NormalizingSet, NormalizingDictionary}:
+                        combined = old_value.copy()
+                        combined.update(value)
+                        value = combined
+                    elif t in {list, tuple}:
+                        value = old_value + t(value)
+                result[key] = value
     return result
 
 def create_species_lookup_dictionaries():

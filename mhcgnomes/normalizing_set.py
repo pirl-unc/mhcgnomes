@@ -33,6 +33,14 @@ class NormalizingSet(object):
         item = self.normalize_fn(item)
         return item in self.items
 
+    def __eq__(self, other):
+        if type(other) is not NormalizingSet:
+            return False
+        if len(self) != len(other):
+            return False
+        return self.items == other.items
+
+
     def get_original(self, item):
         normalized = self.normalize_fn(item)
         return self.item_to_original.get(normalized)

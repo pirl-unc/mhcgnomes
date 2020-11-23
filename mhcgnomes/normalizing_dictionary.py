@@ -47,7 +47,7 @@ class NormalizingDictionary(object):
     def update_pairs(self, pairs):
         # populate dictionary with initial values via calls to __setitem__
         for (k, v) in pairs:
-            self.__setitem__(k, v)
+            self[k] = v
 
     def update(self, other_dict):
         self.update_pairs(other_dict.items())
@@ -56,14 +56,12 @@ class NormalizingDictionary(object):
         k_normalized = self.normalize_fn(k)
         if k_normalized not in self.store:
             if self.default_value_fn is not None:
-                self.store[k_normalized] = self.default_value_fn()
+                self[k] = self.default_value_fn()
             else:
                 raise KeyError(k)
         return self.store[k_normalized]
 
     def __setitem__(self, k, v):
-        if k is None:
-            raise ValueError("Key cannot be None in __setitem__")
         k_normalized = self.normalize_fn(k)
         self.original_to_normalized_key_dict[k] = k_normalized
         self.normalized_to_original_keys_dict[k_normalized].add(k)
@@ -125,9 +123,6 @@ class NormalizingDictionary(object):
         results = []
         for normalized_key in self.normalized_keys():
             original_keys = self.normalized_to_original_keys_dict[normalized_key]
-            if not normalized_key or not original_keys:
-                raise ValueError("Bad key pair (%s, %s)" % (
-                    normalized_key, original_keys))
             results.append((normalized_key, original_keys))
         return results
 
@@ -138,7 +133,7 @@ class NormalizingDictionary(object):
         """
         for (normalized_key, original_keys) in self.key_sets_aligned_with_values():
             if len(original_keys) == 0:
-                raise ValueError("Key set unexpectedly empty")
+                raise ValueError("Key set unexpectedly empty for '%s'" % normalized_key)
             yield sorted(original_keys)[0]
 
     def values(self):
@@ -162,10 +157,6 @@ class NormalizingDictionary(object):
     def map_values(self, fn):
         pairs = []
         for k, v in self.items():
-            if not k:
-                raise ValueError("Empty key")
-            if v is None:
-                raise ValueError("Empty value for '%s'" % k)
             v2 = fn(v)
             pairs.append((k, v2))
 

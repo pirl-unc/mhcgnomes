@@ -73,7 +73,7 @@ class Allele(ResultWithGene):
 
     @property
     def name(self):
-        return ":".join(self.allele_fields)
+        return ":".join(self.allele_fields) + "".join(self.annotations)
 
     def restrict_num_allele_fields(
             self,

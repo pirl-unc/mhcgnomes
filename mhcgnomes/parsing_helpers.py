@@ -90,6 +90,11 @@ def split_allele_fields(
 
     parsed_fields = []
     failed = False
+    if len(parts) == 1:
+        part = parts[0]
+        if len(part) in {2, 3}:
+            return [part]
+
     for part in parts:
         if failed:
             break
