@@ -528,8 +528,10 @@ class Parser(object):
         if contains_whitespace(str_after_species):
             return []
         candidate_results = []
+
         known_allele = species.get_known_allele(
             gene_name=None, allele_name=str_after_species)
+
         if known_allele is not None:
             gene_name, allele_name = known_allele
             assert gene_name is None
@@ -555,8 +557,9 @@ class Parser(object):
 
     def parse_allele_with_gene(
             self,
-            gene : Gene,
-            str_after_gene : str,
+            gene: Gene,
+            str_after_gene: str,
+            preserve_caps: bool = False,
             raw_string: Union[str, None] = None):
         if gene is None:
             return None
@@ -565,6 +568,9 @@ class Parser(object):
             return None
 
         if contains_whitespace(str_after_gene):
+            return None
+
+        if "*" in str_after_gene:
             return None
 
         str_after_gene = self.strip_extra_chars(str_after_gene)
@@ -577,26 +583,26 @@ class Parser(object):
                 # but can't be only numbers
                 return Allele.get_with_gene(
                     gene,
-                    str_after_gene.lower(),
+                    str_after_gene if preserve_caps else str_after_gene.lower(),
                     raw_string=raw_string)
             else:
                 return None
         elif species.is_rat:
             return Allele.get_with_gene(
                 gene,
-                str_after_gene.lower(),
+                str_after_gene if preserve_caps else str_after_gene.lower(),
                 raw_string=raw_string)
         elif species.is_pig:
             # parse e.g. "SLA-3-US#11"
             if "#" in str_after_gene:
                 return Allele.get_with_gene(
                     gene,
-                    str_after_gene.upper(),
+                    str_after_gene if preserve_caps else str_after_gene.upper(),
                     raw_string=raw_string)
             elif contains_any_letters(str_after_gene):
                 return Allele.get_with_gene(
                     gene,
-                    str_after_gene.lower(),
+                    str_after_gene if preserve_caps else str_after_gene.lower(),
                     raw_string=raw_string)
         # for now let's limit parsing of functional annotations to a single
         # letter at the end of an allele string following two or more numbers
@@ -624,7 +630,6 @@ class Parser(object):
             str_after_gene=str_after_gene,
             allow_three_digits_in_first_field=allow_three_digits_in_first_field,
             allow_three_digits_in_second_field=allow_three_digits_in_second_field)
-        print(allow_three_digits_in_first_field, allow_three_digits_in_second_field, allele_fields)
         if allele_fields:
             return self.parse_allele_from_allele_fields(
                 gene=gene,
@@ -850,8 +855,10 @@ class Parser(object):
             gene_to_mutations)
 
 
-    def adjust_raw_string_and_transform_parse_candidates(
-            self, candidates: Sequence[Result], raw_string: str):
+    def adjust_raw_strings(
+            self,
+            candidates: Sequence[Result],
+            raw_string: str):
         """
         Annotate every ParseResult in a list with its `raw_string` field
         updated to `raw_string`.
@@ -866,7 +873,7 @@ class Parser(object):
                 parse_candidate = parse_candidate.copy(raw_string=raw_string)
             assert parse_candidate is not None
             results.append(parse_candidate)
-        return self.transform_parse_candidates(results)
+        return results
 
     @cache
     def transform_parse_candidate(self, parse_candidate : Result):
@@ -896,6 +903,7 @@ class Parser(object):
                 allele_alias = species.get_allele_alias(
                     gene_name=gene_name,
                     allele_name=old_name)
+
                 if allele_alias is not None:
                     new_gene_name, new_allele_name = allele_alias
                     if new_gene_name is None:
@@ -911,7 +919,9 @@ class Parser(object):
                         transformed = self.parse_allele_with_gene(
                             new_gene,
                             new_allele_name,
+                            preserve_caps=True,
                             raw_string=raw_string)
+
             if transformed is None:
                 known_allele = species.get_known_allele(
                     gene_name=gene_name,
@@ -931,6 +941,7 @@ class Parser(object):
                         transformed = self.parse_allele_with_gene(
                             new_gene,
                             new_allele_name,
+                            preserve_caps=True,
                             raw_string=raw_string)
         if transformed is not None:
             return transformed
@@ -1088,10 +1099,10 @@ class Parser(object):
                         raise ParseError("Unexpected result '%s' while parsing '%s'" % (
                             result,
                             raw_string))
-
+        parse_candidates = unique(parse_candidates)
         # update all the objects to set their raw_string field to raw_string
         # and also perform optional transformations
-        return self.adjust_raw_string_and_transform_parse_candidates(
+        return self.adjust_raw_strings(
             parse_candidates,
             raw_string=raw_string)
 
@@ -1407,9 +1418,10 @@ class Parser(object):
         default_species = self.select_species_from_optional_attributes(
             tokenization_result.attributes,
             default_species=default_species)
-        return self.parse_tokens_to_multiple_candidates(
+        results = self.parse_tokens_to_multiple_candidates(
             tokens=tokenization_result.tokens,
             default_species=default_species)
+        return self.transform_parse_candidates(results)
 
     @cache
     def parse(
@@ -1468,7 +1480,8 @@ class Parser(object):
             - Class2Pair
         """
         candidates = self.parse_multiple_candidates(
-            name, default_species=default_species)
+            name,
+            default_species=default_species)
 
         if only_class1:
             candidates = [
@@ -1507,7 +1520,9 @@ class Parser(object):
                 return None
 
         result = pick_best_result(candidates)
+
         if infer_class2_pairing:
             result = infer_class2_alpha_chain(result)
+
         return result.copy(raw_string=name)
 

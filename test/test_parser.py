@@ -136,7 +136,6 @@ def test_parse_DRB5_0108N():
     seq = "DRB5_0108N"
     parser = Parser()
     result = parser.parse(seq)
-    print(result)
     assert result is not None
     eq_(type(result), Allele)
 
@@ -145,7 +144,6 @@ def test_parse_HLA_A2():
     seq = "HLA-A2"
     parser = Parser()
     result = parser.parse(seq)
-    print(result)
     assert result is not None
     eq_(type(result), Serotype)
 
@@ -183,7 +181,6 @@ def test_parse_parse_BF2():
 def test_parse_multiple_candidates_BoLA_DRA_DRB31501():
     parser = Parser()
     results = parser.parse_multiple_candidates("BoLA-DRA-DRB31501")
-    print(results)
     assert len(results) > 0
     assert any([type(result) is Class2Pair for result in results])
 
@@ -255,8 +252,6 @@ def test_candidates_from_ambiguous_class2_DPA10105_DPB110001():
     eq_(results[0], Class2Pair.get(
         Allele.get("HLA", "DPA1", "01", "05"),
         Allele.get("HLA", "DPB1", "100", "01")))
-    for r in results:
-        print("\t", r)
 
 
 def test_candidates_from_ambiguous_class2_DPB110001():
