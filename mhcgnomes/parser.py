@@ -48,7 +48,7 @@ from .tokenize import tokenize
 
 # default values for Parser parameters, reused in the 'parse' function below
 DEFAULT_SPECIES_PREFIX = "HLA"
-USE_ALLELE_ALIASES = True
+USE_ALLELE_ALIASES = False
 INFER_CLASS2_PAIRING = False
 COLLAPSE_SINGLETON_HAPLOTYPES = True
 COLLAPSE_SINGLETON_SEROTYPES = False
@@ -535,11 +535,12 @@ class Parser(object):
         if known_allele is not None:
             gene_name, allele_name = known_allele
             assert gene_name is None
-            candidate_results.append(
-                AlleleWithoutGene.get(
-                    species=species,
-                    name=allele_name,
-                    raw_string=str_after_species))
+            if "*" not in allele_name:
+                candidate_results.append(
+                    AlleleWithoutGene.get(
+                        species=species,
+                        name=allele_name,
+                        raw_string=str_after_species))
 
         for gene, allele_name in self.parse_gene_candidates(
                 species, str_after_species):
@@ -896,8 +897,8 @@ class Parser(object):
                 else:
                     transformed = transformed.collapse_if_possible()
         elif t is Class2Pair:
-            alpha = self.transform_parse_candidates(parse_candidate.alpha)
-            beta = self.transform_parse_candidates(parse_candidate.beta)
+            alpha = self.transform_parse_candidate(parse_candidate.alpha)
+            beta = self.transform_parse_candidate(parse_candidate.beta)
             if alpha != parse_candidate.alpha or beta != parse_candidate.beta:
                 transformed = Class2Pair.get(
                     alpha,
@@ -921,10 +922,11 @@ class Parser(object):
                 if allele_alias is not None:
                     new_gene_name, new_allele_name = allele_alias
                     if new_gene_name is None:
-                        transformed = AlleleWithoutGene.get(
-                            species,
-                            new_allele_name,
-                            raw_string=raw_string)
+                        if "*" not in new_allele_name:
+                            transformed = AlleleWithoutGene.get(
+                                species,
+                                new_allele_name,
+                                raw_string=raw_string)
                     else:
                         if new_gene_name == gene_name:
                             new_gene = gene
@@ -943,10 +945,11 @@ class Parser(object):
                 if known_allele is not None:
                     new_gene_name, new_allele_name = known_allele
                     if new_gene_name is None:
-                        transformed = AlleleWithoutGene.get(
-                            species,
-                            new_allele_name,
-                            raw_string=raw_string)
+                        if "*" not in new_allele_name:
+                            transformed = AlleleWithoutGene.get(
+                                species,
+                                new_allele_name,
+                                raw_string=raw_string)
                     else:
                         if new_gene_name == gene_name:
                             new_gene = gene
@@ -957,6 +960,10 @@ class Parser(object):
                             new_allele_name,
                             preserve_caps=True,
                             raw_string=raw_string)
+        if self.verbose:
+            print("=== Transform ===")
+            print("In:  %s" % parse_candidate)
+            print("Out: %s" % transformed)
         if transformed is not None:
             return transformed
         else:

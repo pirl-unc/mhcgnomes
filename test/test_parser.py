@@ -296,3 +296,18 @@ def test_parse_allele_with_gene_MICA_038():
     assert allele is not None
     assert allele.is_class1
     eq_(allele.allele_fields, ("038",))
+
+
+def test_parse_allele_B_27_215N():
+    parser = Parser()
+    allele = parser.parse_allele_with_gene(
+        gene=Gene.get("HLA", "B"),
+        str_after_gene="27:215N")
+    eq_(allele.allele_fields, ("27", "215"))
+    eq_(allele.annotations, ("N",))
+
+def test_parse_B_27_215N():
+    parser = Parser(verbose=True)
+    allele = parser.parse("B*27:215N")
+    eq_(allele.allele_fields, ("27", "215"))
+    eq_(allele.annotations, ("N",))
