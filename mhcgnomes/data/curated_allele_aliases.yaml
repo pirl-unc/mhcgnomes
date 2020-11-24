@@ -253,6 +253,40 @@ Patr:
   DRB*W901: DRB3*07:01
   DRB*W902: DRB3*07:02
   DRB*W903: DRB3*07:03
+  # Copied from Table 4 of:
+  #   Nomenclature report 2019: major histocompatibility complex genes
+  #   and alleles of Great and Small Ape and Old and New World monkey species
+  DPB1*05: DPB1*01:01
+  DPB1*06: DPB1*01:02
+  DPB1*07: DPB1*01:03
+  DPB1*08: DPB1*01:04
+  DPB1*09: DPB1*01:05
+  DPB1*10: DPB1*01:06
+  DPB1*11: DPB1*01:07
+  DPB1*23: DPB1*01:07
+  DPB1*12: DPB1*01:08
+  DPB1*13: DPB1*01:09
+  DPB1*18: DPB1*01:09
+  DPB1*24: DPB1*01:09
+  DPB1*15: DPB1*01:10
+  DPB1*16: DPB1*01:11
+  DPB1*25: DPB1*01:11
+  DPB1*26: DPB1*01:11
+  DPB1*17: DPB1*01:12
+  DPB1*22: DPB1*01:13:01
+  DPB1*27: DPB1*01:14
+  DPB1*28: DPB1*01:15
+  DPB1*30: DPB1*01:16
+  DPB1*31: DPB1*01:17
+  DPB1*21: DPB1*01:17
+  DPB1*32: DPB1*01:18
+  DPB1*19: DPB1*02:01
+  DPB1*20: DPB1*02:02
+  DPB1*01: DPB1*03:01
+  DPB1*02: DPB1*03:02
+  DPB1*03: DPB1*03:03
+  DPB1*04: DPB1*03:04
+  DPB1*29: DPB1*03:05
 BoLA:
   #  Source: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4225172/
   HD6: 6*013:01
@@ -454,3 +488,33 @@ HLA:
   DRB5*02:26: DRB5*02:26N
   DQA1*01:07: DQA1*01:07Q
   DPB1*939:01N: DPB1*939:01
+Mamu:
+  # Copied from Supplementary Table 1 of:
+  #   Nomenclature report on the major histocompatibility complex, genes,
+  #   and alleles of Great Ape, Old and New World monkey species (2012)
+  A*01: A1*001:01
+  A*0102: A1*001:02
+  A*0103: A1*001:03
+  A*02: A1*002:01
+  A*03: A1*003:01
+  A*21: A1*003:06
+  A*2102: A1*003:07
+  A1*030102: A1*003:14
+  A*04: A1*004:01:01
+  A*06: A1*006:01
+  A*0602: A1*006:02
+  A*0701: A1*007:01
+  A*0702: A1*007:02
+  A*0703: A1*007:03
+  A1*1701: A1*007:04
+  A*08: A1*008:01:01
+  A*11: A1*011:01
+  A*27: A1*011:04
+  A*12: A1*012:01
+  A*1602: A1*016:01
+  A*19: A1*019:01
+  A*23: A1*023:01
+  A*25: A1*025:01
+  A*26: A1*026:01
+  A*28: A1*028:01
+  A1*5801: A1*061:01
