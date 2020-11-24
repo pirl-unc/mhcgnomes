@@ -1,12 +1,5 @@
 ####################################################
 #
-# Names which map to null "~" are those that don't yet have a known name in
-# the "standard" format
-#
-####################################################
-
-####################################################
-#
 # Swine allele aliases manually scraped from:
 # - https://www.ebi.ac.uk/ipd/mhc/
 #
