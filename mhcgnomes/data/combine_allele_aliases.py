@@ -10,6 +10,8 @@ parser = argparse.ArgumentParser(
 
 parser.add_argument("--yaml-input-file", "-y", nargs="+")
 parser.add_argument("--xml-input-file", "-x", nargs="+")
+parser.add_argument("--allele-history-input-file", "-a", nargs="+")
+parser.add_argument("--deleted-alleles-input-file", "-d", nargs="+")
 parser.add_argument("--output", "-o", required=True)
 
 
@@ -68,7 +70,7 @@ def main(args_list):
                         else:
                             species_to_old_to_new[species][old_name] = new_name
 
-    # TODO: sanity check to make sure no "new name" also has an "old name" entry
+    #  sanity check to make sure no "new name" also has an "old name" entry
     changed = True
     while changed:
         print("\n")
@@ -76,11 +78,21 @@ def main(args_list):
         updated = species_to_old_to_new.copy()
         for (species, species_dict) in species_to_old_to_new.items():
             for old, new in species_dict.items():
-                if new in species_dict:
-                    changed = True
+                if "-" in new:
+                    if new.startswith("%s-" % species):
+                        new_without_species = new[len(species) + 1:]
+                        print("Removing species prefix from %s = %s" % (
+                            new,
+                            new_without_species))
+                        del updated[species][old]
+                        updated[species][old] = new_without_species
+                        changed = True
+                elif new in species_dict:
                     newer = species_dict[new]
                     print("\t Updating %s %s => %s => %s" % (species, old, new, newer))
                     updated[species][old] = newer
+                    changed = True
+
         species_to_old_to_new = updated
 
     print("Writing %s" % args.output)
