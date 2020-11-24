@@ -41,8 +41,12 @@ def main(args_list):
                     continue
                 for old_name_obj in nomenclature_obj:
                     old_name = old_name_obj.text
+                    if old_name == name_without_species:
+                        continue
                     old_name_without_seps = old_name.replace(":", "")
-                    if old_name_without_seps in name_without_seps or name_without_seps in old_name_without_seps:
+                    if old_name_without_seps == name_without_seps:
+                        continue
+                    if old_name.count(":") > 0 and old_name_without_seps in name_without_seps:
                         continue
                     old_names = old_name_obj.text
                     for old_name in old_names.split(","):
@@ -95,7 +99,10 @@ def main(args_list):
 
         species_to_old_to_new = updated
 
-    print("Writing %s" % args.output)
+    print("Writing %d alias mappings across %d species to %s" % (
+        sum([len(species_dict) for species_dict in species_to_old_to_new.values()]),
+        len(species_to_old_to_new),
+        args.output))
     with open(args.output, "w") as f:
         for species, species_dict in sorted(species_to_old_to_new.items()):
             f.write("%s:\n" % species)

@@ -133,7 +133,7 @@ def sort_key(result: Result):
         (is_class2_pair and alpha_is_allele and beta_is_allele),
         (is_class2_pair and alpha_is_valid and beta_is_valid),
         is_allele,
-        is_allele_without_gene,
+
         full_string_matches_raw_string,
         compact_string_matches_raw_string,
         is_gene,
@@ -142,6 +142,7 @@ def sort_key(result: Result):
         original_gene_seq_length,
         is_serotype,
         is_haplotype,
+        is_allele_without_gene,
         num_alleles_in_haplotype_or_serotype,
         result.raw_string is not None,
         # make sure the ordering is stable by sorting on string
