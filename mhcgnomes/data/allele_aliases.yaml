@@ -4591,7 +4591,6 @@ Papa:
   DRB6*0101: DRB6*01:01
   DRB6*0102: DRB6*01:02
   G*01: G*01:01
-  H(Sha): H*01
 Papp:
   DQA1*0101: DQA1*01:01
   DQA1*0102: DQA1*01:02
@@ -4947,7 +4946,6 @@ Popy:
   DRB6*0201N: DRB6*02:01N
   DRB6*0202N: DRB6*02:02N
   E*01: E*01:01
-  H(Hat): H*01
 Rano:
   1*av1: M3-1*av1
   1*n: T24-1*n

@@ -40,17 +40,18 @@ def main(args_list):
                 if not nomenclature_obj:
                     continue
                 for old_name_obj in nomenclature_obj:
-                    old_name = old_name_obj.text
-                    if old_name == name_without_species:
-                        continue
-                    old_name_without_seps = old_name.replace(":", "")
-                    if old_name_without_seps == name_without_seps:
-                        continue
-                    if old_name.count(":") > 0 and old_name_without_seps in name_without_seps:
-                        continue
                     old_names = old_name_obj.text
                     for old_name in old_names.split(","):
                         old_name = old_name.strip()
+                        if "(" in old_name:
+                            continue
+                        if old_name == name_without_species:
+                            continue
+                        old_name_without_seps = old_name.replace(":", "")
+                        if old_name_without_seps == name_without_seps:
+                            continue
+                        if old_name.count(":") > 0 and old_name_without_seps in name_without_seps:
+                            continue
                         species_to_old_to_new[species][old_name] = name_without_species
     if args.yaml_input_file:
         for yaml_filename in args.yaml_input_file:
