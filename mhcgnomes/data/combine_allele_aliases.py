@@ -69,12 +69,25 @@ def main(args_list):
                             species_to_old_to_new[species][old_name] = new_name
 
     # TODO: sanity check to make sure no "new name" also has an "old name" entry
+    changed = True
+    while changed:
+        print("\n")
+        changed = False
+        updated = species_to_old_to_new.copy()
+        for (species, species_dict) in species_to_old_to_new.items():
+            for old, new in species_dict.items():
+                if new in species_dict:
+                    changed = True
+                    newer = species_dict[new]
+                    print("\t Updating %s %s => %s => %s" % (species, old, new, newer))
+                    updated[species][old] = newer
+        species_to_old_to_new = updated
 
-
+    print("Writing %s" % args.output)
     with open(args.output, "w") as f:
-        for species, species_dict in species_to_old_to_new.items():
+        for species, species_dict in sorted(species_to_old_to_new.items()):
             f.write("%s:\n" % species)
-            for old_name, new_name in species_dict.items():
+            for old_name, new_name in sorted(species_dict.items()):
                 f.write("  %s: %s\n" % (old_name, new_name))
 
 if __name__ == "__main__":
