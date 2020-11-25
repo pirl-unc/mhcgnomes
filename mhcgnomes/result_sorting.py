@@ -54,7 +54,8 @@ def sort_key(result: Result):
                 lower_raw_string == result.name.lower())
     else:
         name_matches_raw_string = False
-    is_class2_pair = type(result) is Class2Pair
+    t = type(result)
+    is_class2_pair = t is Class2Pair
     alpha_is_allele = is_class2_pair and type(result.alpha) is Allele
     alpha_is_valid = (
         is_class2_pair and type(result.alpha) in {Allele, AlleleWithoutGene, Gene}
@@ -63,10 +64,11 @@ def sort_key(result: Result):
     beta_is_valid = (
         is_class2_pair and type(result.beta) in {Allele, AlleleWithoutGene, Gene}
     )
-    is_allele = type(result) is Allele
-    is_serotype = type(result) is Serotype
-    is_haplotype = type(result) is Haplotype
-    is_gene = type(result) is Gene
+    is_allele = t is Allele
+    is_allele_without_gene = t is AlleleWithoutGene
+    is_serotype = t is Serotype
+    is_haplotype = t is Haplotype
+    is_gene = t is Gene
 
     if is_allele:
         num_allele_fields = result.num_allele_fields
@@ -131,6 +133,7 @@ def sort_key(result: Result):
         (is_class2_pair and alpha_is_allele and beta_is_allele),
         (is_class2_pair and alpha_is_valid and beta_is_valid),
         is_allele,
+
         full_string_matches_raw_string,
         compact_string_matches_raw_string,
         is_gene,
@@ -139,6 +142,7 @@ def sort_key(result: Result):
         original_gene_seq_length,
         is_serotype,
         is_haplotype,
+        is_allele_without_gene,
         num_alleles_in_haplotype_or_serotype,
         result.raw_string is not None,
         # make sure the ordering is stable by sorting on string

@@ -50,3 +50,8 @@ def test_monkey_allele_Aoni_DRB3_06_01():
     expected = Allele.get("Aoni", "DRB3", "06", "01")
     assert expected is not None
     eq_(parse('Aoni-DRB3*06:01'), expected)
+
+
+def test_Mamu_A7_allele_without_seps():
+    s = "Mamu-A70103"
+    eq_(parse(s).to_string(), "Mamu-A7*01:03")

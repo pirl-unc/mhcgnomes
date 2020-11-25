@@ -322,16 +322,20 @@ class Species(Result):
                     known_allele_name = known_alleles_for_gene_name.get_original(allele_name)
                     return (gene_name, known_allele_name)
 
-        # if allele isn't in known_alleles try looking at the keys of
-        # allele_aliases
+
+        # if allele isn't in known_alleles but it's an alias for an allele which
+        # is, then also return it
         for gene_name in gene_name_candidates:
             if gene_name:
                 key = "%s*%s" % (gene_name, allele_name)
             else:
                 key = allele_name
             if key in self.allele_aliases:
-                known_allele_name = self.allele_aliases.original_key(key)
-                return (gene_name, known_allele_name)
+                new_name = self.allele_aliases[key]
+                for gene_name2 in gene_name_candidates:
+                    if new_name in self.known_alleles.get(gene_name2, []):
+                        known_allele_name = self.allele_aliases.original_key(key)
+                        return (gene_name, known_allele_name)
         return None
 
     @cache
