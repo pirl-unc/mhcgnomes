@@ -14,10 +14,66 @@ parser.add_argument("--allele-history-input-file", "-a", nargs="+")
 parser.add_argument("--deleted-alleles-input-file", "-d", nargs="+")
 parser.add_argument("--output", "-o", required=True)
 
+def valid_name(name):
+    if "(" in name or ")" in name:
+        return False
+    return not name.replace(":", "").isdigit()
+
+def sufficiently_different_name(old_name, new_name):
+    if old_name == new_name:
+        return False
+    old_name_without_seps = old_name.replace(":", "")
+    new_name_without_seps = new_name.replace(":", "")
+    if old_name_without_seps == new_name_without_seps:
+        return False
+    if old_name.count(":") > 0 and old_name_without_seps in new_name:
+        return False
+    return True
+
+class MappingAccumulator(object):
+    def __init__(self):
+        self.species_to_old_to_new = defaultdict(OrderedDict)
+        self.ambiguous_names = defaultdict(set)
+
+    def update(self, species, old_name, new_name):
+        old_name = old_name.strip()
+        if not valid_name(old_name):
+            return False
+        if old_name in self.ambiguous_names[species]:
+            return False
+        new_name = new_name.strip()
+        if not valid_name(new_name):
+            return False
+        if not sufficiently_different_name(old_name, new_name):
+            return False
+        if old_name in self.species_to_old_to_new[species]:
+            existing_value = self.species_to_old_to_new[species][old_name]
+            if new_name == existing_value or existing_value.startswith(new_name):
+                return False
+            elif new_name.startswith(existing_value):
+                # if there's a version of the new allele with more
+                # fields then keep that instead
+                self.species_to_old_to_new[species][old_name] = new_name
+                return True
+            else:
+                del self.species_to_old_to_new[species][old_name]
+                self.ambiguous_names[species].add(old_name)
+                return False
+        else:
+            self.species_to_old_to_new[species][old_name] = new_name
+            return True
+
+    def merge_dictionary(self, d):
+        for species, species_dict in d.items():
+            for old_name, new_name in species_dict.items():
+                self.update(species, old_name, new_name)
+
+
 
 def main(args_list):
     args = parser.parse_args(args_list)
-    species_to_old_to_new = defaultdict(OrderedDict)
+    accum = MappingAccumulator()
+
     if args.xml_input_file:
         for xml_file in args.xml_input_file:
             print("Loading XML source %s" % xml_file)
@@ -29,8 +85,6 @@ def main(args_list):
                 if name_obj is None:
                     continue
                 name = name_obj.text
-                name_without_seps = name.replace(":", "")
-
                 if "-" not in name:
                     raise ValueError("Missing species in %s" % name)
                 parts = name.split("-")
@@ -42,41 +96,43 @@ def main(args_list):
                 for old_name_obj in nomenclature_obj:
                     old_names = old_name_obj.text
                     for old_name in old_names.split(","):
-                        old_name = old_name.strip()
-                        if "(" in old_name:
-                            continue
-                        if old_name == name_without_species:
-                            continue
-                        old_name_without_seps = old_name.replace(":", "")
-                        if old_name_without_seps == name_without_seps:
-                            continue
-                        if old_name.count(":") > 0 and old_name_without_seps in name_without_seps:
-                            continue
-                        species_to_old_to_new[species][old_name] = name_without_species
+                        accum.update(species, old_name, name_without_species)
+
     if args.yaml_input_file:
         for yaml_filename in args.yaml_input_file:
             print("Loading YAML source %s" % yaml_filename)
             with open(yaml_filename) as yaml_file:
                 d = yaml.safe_load(yaml_file.read())
-                for species, species_dict in d.items():
-                    for old_name, new_name in species_dict.items():
-                        if old_name in species_to_old_to_new[species]:
-                            existing_value = species_to_old_to_new[species][old_name]
-                            if new_name == existing_value or existing_value.startswith(new_name):
-                                continue
-                            elif new_name.startswith(existing_value):
-                                # if there's a version of the new allele with more
-                                # fields then keep that instead
-                                species_to_old_to_new[species][old_name] = new_name
-                            else:
-                                raise ValueError(
-                                    "Found %s => %s in %s but contradicts existing value %s" % (
-                                        old_name, new_name, yaml_filename, existing_value))
-                        else:
-                            species_to_old_to_new[species][old_name] = new_name
+                accum.merge_dictionary(d)
+
+    if args.allele_history_input_file:
+        for filename in args.allele_history_input_file:
+            with open(filename) as f:
+                for line in f:
+                    line = line.strip()
+                    if not line or line.startswith("#"):
+                        continue
+                    parts = line.split(",")
+                    most_recent_name = parts[1]
+                    if most_recent_name == "NA":
+                        continue
+                    
+                    old_names = [p for p in parts[2:] if p and p != "NA"]
+                    different_old_names = [
+                        name
+                        for name in old_names
+                        if name != most_recent_name
+                        and valid_name(name)
+                        and sufficiently_different_name(name, most_recent_name)
+                    ]
+                    for old_name in different_old_names:
+                        if accum.update("HLA", old_name, most_recent_name):
+                            print("%s=>%s" % (old_name, most_recent_name))
+
 
     #  sanity check to make sure no "new name" also has an "old name" entry
     changed = True
+    species_to_old_to_new = accum.species_to_old_to_new
     while changed:
         print("\n")
         changed = False

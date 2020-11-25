@@ -518,3 +518,19 @@ Mamu:
   A*26: A1*026:01
   A*28: A1*028:01
   A1*5801: A1*061:01
+  # copied from allele list of NetMHC
+  # http://www.cbs.dtu.dk/services/NetMHC/MHC_allele_names.txt
+  A*2201: A1*022:01
+  A*2601: A1*026:01
+  B*01: B*001:01
+  B*03: B*003:01
+  B*08: B*008:01
+  B*1001: B*010:01
+  B*17: B*017:01
+  B*39: B*039:01
+  B*39:01: B*039:01
+  B*52: B*052:01
+  B*66: B*066:01
+  B*6601: B*066:01
+  B*8301: B*083:01
+  B*8701: B*087:01
