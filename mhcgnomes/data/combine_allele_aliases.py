@@ -4,6 +4,8 @@ import sys
 import xml.etree.ElementTree as ET
 import yaml
 
+import pandas as pd
+
 parser = argparse.ArgumentParser(
     prog="combine_allele_aliases.py",
     description="Combine databases with manually curated allele aliases")
@@ -11,7 +13,7 @@ parser = argparse.ArgumentParser(
 parser.add_argument("--yaml-input-file", "-y", nargs="+")
 parser.add_argument("--xml-input-file", "-x", nargs="+")
 parser.add_argument("--allele-history-input-file", "-a", nargs="+")
-parser.add_argument("--deleted-alleles-input-file", "-d", nargs="+")
+parser.add_argument("--csv-input-file", "-s", nargs="+")
 parser.add_argument("--output", "-o", required=True)
 
 def valid_name(name):
@@ -107,6 +109,7 @@ def main(args_list):
 
     if args.allele_history_input_file:
         for filename in args.allele_history_input_file:
+            print("Loading allele history source %s" % filename)
             with open(filename) as f:
                 for line in f:
                     line = line.strip()
@@ -116,7 +119,7 @@ def main(args_list):
                     most_recent_name = parts[1]
                     if most_recent_name == "NA":
                         continue
-                    
+
                     old_names = [p for p in parts[2:] if p and p != "NA"]
                     different_old_names = [
                         name
@@ -127,9 +130,26 @@ def main(args_list):
                     ]
                     for old_name in different_old_names:
                         if accum.update("HLA", old_name, most_recent_name):
-                            print("%s=>%s" % (old_name, most_recent_name))
+                            print("\t%s=>%s" % (old_name, most_recent_name))
 
-
+    if args.csv_input_file:
+        for filename in args.csv_input_file:
+            print("Loading CSV source %s" % filename)
+            df = pd.read_csv(filename, comment="#")
+            assert "Allele" in df.columns
+            assert "Description" in df.columns
+            for old_allele, desc in zip(df.Allele, df.Description):
+                new_allele = None
+                for sep in ["=", "renamed", "identical to", "changed to", "Renamed"]:
+                    if sep in desc:
+                        parts = desc.split(sep)
+                        part = parts[1]
+                        new_allele = part.split()[0]
+                        break
+                if new_allele:
+                    accum.update("HLA", old_allele, new_allele)
+                else:
+                    print("\tSkipping %s: %s" % (old_allele, desc))
     #  sanity check to make sure no "new name" also has an "old name" entry
     changed = True
     species_to_old_to_new = accum.species_to_old_to_new
