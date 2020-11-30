@@ -344,10 +344,35 @@ Canis simensis:
 #
 # Felidae
 #
+# Sources:
+# - https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7375346/
+#
 ############################
 Felis sp.:
   prefix: FLA
   name: Cat
+  genes:
+    Ia:
+      - E
+      - H
+      - K
+    IIb:
+      - A
+      - C
+      - F
+      - J
+      - L
+      - M
+      - O
+      - Q
+      - S
+    IIa:
+      DP:
+        - DPA1
+        - DPB1
+      DR:
+        - DRA1
+        - DRB1
 Felis catus:
   parent: Felis sp.
   prefix: Feca

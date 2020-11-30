@@ -1,4 +1,4 @@
-from mhcgnomes import parse, Haplotype
+from mhcgnomes import parse, Haplotype, Allele
 from nose.tools import eq_
 
 def test_parse_haplotype_ELA_A1():
@@ -14,3 +14,4 @@ def test_parse_haplotype_ELA_A1_lowercase():
     assert type(result) is Haplotype
     eq_(result.name, "A1")
     assert result.species.is_horse
+
