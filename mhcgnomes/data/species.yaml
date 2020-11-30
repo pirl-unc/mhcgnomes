@@ -356,7 +356,7 @@ Felis sp.:
       - E
       - H
       - K
-    IIb:
+    Ib:
       - A
       - C
       - F
@@ -373,6 +373,13 @@ Felis sp.:
       DR:
         - DRA1
         - DRB1
+    IIb:
+      DO:
+        - DOA
+        - DOB
+      DM:
+        - DMA
+        - DMB
 Felis catus:
   parent: Felis sp.
   prefix: Feca
