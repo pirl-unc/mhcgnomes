@@ -32,10 +32,20 @@ class Gene(ResultWithMhcClass):
             raw_string=raw_string)
         self.name = name
 
+    def __hash__(self):
+        return hash((self.species, self.name))
+
+    def __eq__(self, other):
+        if type(other) is not Gene:
+            return False
+        return (
+            self.species == other.species and
+            self.name == other.name
+        )
+
     @property
     def raw_string_was_alias(self):
         return self.raw_string in self.species.gene_aliases
-
 
     @property
     def gene_name(self):
