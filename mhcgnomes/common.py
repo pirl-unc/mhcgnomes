@@ -10,6 +10,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import re
 from typing import Iterable
 
 def unique(xs : Iterable):
@@ -36,7 +37,7 @@ def arg_to_cache_key(x, _primitive_types={bool, int, str, float}):
     if t is int or t is str or t is bool or t is float:
         return x
 
-    if t in {list, tuple}:
+    if t is list or t is tuple:
         if len(x) == 0:
             value = ()
         elif len(x) == 1:
@@ -45,7 +46,8 @@ def arg_to_cache_key(x, _primitive_types={bool, int, str, float}):
             value = tuple([arg_to_cache_key(xi) for xi in x])
     elif t is dict:
         value = tuple([
-            (arg_to_cache_key(k), arg_to_cache_key(v)) for (k, v) in x.items()])
+            (arg_to_cache_key(k), arg_to_cache_key(v))
+            for (k, v) in x.items()])
     else:
         value = x
     return (t.__name__, value)
@@ -73,38 +75,27 @@ def cache(fn):
         return cache[key]
     return cached_fn
 
-
-def normalize_string(name, _cache={}, _chars_to_remove="-_':"):
+def normalize_string(name, _cache={}):
     """
     Return uppercase string without any surrounding whitespace and
     without any characters such as '-', '_' ':' or "'"
     """
+    if name is None:
+        return None
+
     if name in _cache:
         return _cache[name]
 
-    if name is None:
-        result = None
+    t = type(name)
+    if t is float or t is int:
+        result = str(name)
+    elif t is not str:
+        result = name
     else:
-        t = type(name)
-        if t is float or t is int:
-            result = str(name)
-        elif t is not str:
-            result = name
-        else:
-            name = name.strip().upper()
-            for char in _chars_to_remove:
-                if char in name:
-                    name = name.replace(char, "")
-            result = name
+        result = (
+            name.replace("-", "").replace("_", "")
+                .replace("'", "").replace(":", "")
+                .strip().upper()
+        )
     _cache[name] = result
     return result
-
-
-def normalize_dict_key(key):
-    if type(key) in (list, tuple):
-        return tuple([
-            normalize_dict_key(sub_key)
-            for sub_key in key
-        ])
-    else:
-        return normalize_string(key)
