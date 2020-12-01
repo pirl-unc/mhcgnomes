@@ -209,27 +209,6 @@ class Parser(object):
             alleles=alleles,
             raw_string=serotype_name)
 
-    def get_haplotype_with_class2_locus(
-            self,
-            species: Union[Species, str],
-            locus_string: str,
-            haplotype_string: str):
-        """
-        Construct a haplotype limited at a specific Class II locus
-        Returns Haplotype or None
-        """
-        locus = Class2Locus.get(species, locus_string)
-        if locus is None:
-            return None
-        haplotype = self.get_haplotype(
-            species,
-            haplotype_string)
-        if haplotype is None:
-            return None
-        return haplotype.restrict_class2_locus(
-            class2_locus=locus,
-            raise_on_error=False)
-
     def parse_haplotype_with_class2_locus_from_any_string_split(
             self,
             species: Union[Species, str],
@@ -238,15 +217,24 @@ class Parser(object):
          Try parsing a string like "IAk" into the 'k' mouse haplotype restricted
          at the A locus
          """
-        for locus_length in range(1, len(locus_and_haplotype)):
-            haplotype_string = self.strip_extra_chars(
-                locus_and_haplotype[locus_length:])
+        for locus_length in range(
+                1,
+                len(locus_and_haplotype)):
             locus_string = self.strip_extra_chars(
                 locus_and_haplotype[:locus_length])
-            haplotype = self.get_haplotype_with_class2_locus(
-                species=species,
-                locus_string=locus_string,
-                haplotype_string=haplotype_string)
+            locus = Class2Locus.get(species, locus_string)
+            if locus is None:
+                continue
+            haplotype_string = self.strip_extra_chars(
+                locus_and_haplotype[locus_length:])
+            haplotype = self.get_haplotype(
+                species,
+                haplotype_string)
+            if haplotype is None:
+                continue
+            haplotype = haplotype.restrict_class2_locus(
+                class2_locus=locus,
+                raise_on_error=False)
             if haplotype:
                 return haplotype
         return None
@@ -366,7 +354,7 @@ class Parser(object):
             gene: Gene,
             allele_fields: Union[str, Sequence[str], None],
             functional_annotations: Union[str, Sequence[str], None] = None,
-            raw_string: Union[str, None] = None) -> Union[Allele, None]:
+            raw_string: Union[str, None] = None) -> Union[Gene, Allele, None]:
         if allele_fields is None:
             return None
 
@@ -1072,6 +1060,7 @@ class Parser(object):
             print("=== Functions without required species argument ===")
         for fn in fns_without_species:
             result = fn(seq, default_species=default_species)
+
             if self.verbose:
                 print("%s('%s', default_species=%s) = %s" % (
                     fn.__qualname__,
@@ -1080,6 +1069,8 @@ class Parser(object):
                         else default_species),
                     ('%s' % result if type(result) is str else result)
                 ))
+            if result is None:
+                continue
             if type(result) in (list, tuple):
                 parse_candidates.extend(result)
             elif isinstance(result, Result):
@@ -1120,7 +1111,7 @@ class Parser(object):
                             seq,
                             "None" if not result else '%s' % result
                         ))
-                    if not result:
+                    if result is None:
                         continue
                     if type(result) in (list, tuple):
                         parse_candidates.extend(result)
@@ -1555,5 +1546,7 @@ class Parser(object):
         if infer_class2_pairing:
             result = infer_class2_alpha_chain(result)
 
-        return result.copy(raw_string=name)
+        if result.raw_string != name:
+            result = result.copy(raw_string=name)
 
+        return result
