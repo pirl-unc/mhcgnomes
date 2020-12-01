@@ -92,6 +92,11 @@ class Parser(object):
         self.gene_seps = gene_seps
         self.verbose = verbose
 
+        # technically we could just wrap the transform method with @cache
+        # but since it's called a lot it's faster to make a dedicated cache
+        # for a single input argument
+        self._transform_cache = {}
+
     def parse_species_from_prefix(self, name: str):
         """
         Returns tuple with two elements:
@@ -876,14 +881,17 @@ class Parser(object):
             results.append(parse_candidate)
         return results
 
-    @cache
-    def transform_parse_candidate(self, parse_candidate : Result):
+    def transform_parse_candidate(
+            self,
+            parse_candidate: Result):
         """
         Perform optional transformations on Result objects such as collapsing
         singleton serotypes and haplotypes.
         """
         if parse_candidate is None:
             return None
+        if parse_candidate in self._transform_cache:
+            return self._transform_cache[parse_candidate]
         t = type(parse_candidate)
         transformed = None
         if t in (Serotype, Haplotype):
@@ -965,9 +973,11 @@ class Parser(object):
             print("In:  %s" % parse_candidate)
             print("Out: %s" % transformed)
         if transformed is not None:
-            return transformed
+            result = transformed
         else:
-            return parse_candidate
+            result = parse_candidate
+        self._transform_cache[parse_candidate] = result
+        return result
 
     def transform_parse_candidates(
             self,

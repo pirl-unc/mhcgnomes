@@ -142,7 +142,10 @@ class Result(Serializable):
         return True
 
     def __hash__(self):
-        return sum(hash(getattr(self, field)) for field in self.hash_field_names())
+        total = 0
+        for field in self.hash_field_names():
+            total += hash(getattr(self, field))
+        return total
 
     def to_record(self):
         raise NotImplementedError(

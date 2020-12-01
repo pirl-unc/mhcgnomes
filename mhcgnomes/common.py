@@ -28,15 +28,27 @@ def unique(xs : Iterable):
         unique_set.add(xi)
     return result
 
-def arg_to_cache_key(x):
-    if type(x) in {list, tuple}:
-        value = tuple([arg_to_cache_key(xi) for xi in x])
-    elif type(x) is dict:
+def arg_to_cache_key(x, _primitive_types={bool, int, str, float}):
+    if x is None:
+        return None
+
+    t = type(x)
+    if t is int or t is str or t is bool or t is float:
+        return x
+
+    if t in {list, tuple}:
+        if len(x) == 0:
+            value = ()
+        elif len(x) == 1:
+            value = (arg_to_cache_key(x[0]),)
+        else:
+            value = tuple([arg_to_cache_key(xi) for xi in x])
+    elif t is dict:
         value = tuple([
             (arg_to_cache_key(k), arg_to_cache_key(v)) for (k, v) in x.items()])
     else:
         value = x
-    return (type(x).__name__, value)
+    return (t.__name__, value)
 
 def cache(fn):
     """
@@ -46,37 +58,46 @@ def cache(fn):
     """
     cache = {}
     def cached_fn(*args, **kwargs):
-        args_key = arg_to_cache_key(args)
-        kwargs_key = arg_to_cache_key(kwargs)
+        if not args:
+            args_key = ()
+        else:
+            args_key = arg_to_cache_key(args)
+        if not kwargs:
+            kwargs_key = ()
+        else:
+            kwargs_key = arg_to_cache_key(kwargs)
         key = (args_key, kwargs_key)
         if key not in cache:
-
             result = fn(*args, **kwargs)
             cache[key] = result
         return cache[key]
     return cached_fn
 
-def normalize_string(name, chars_to_remove="-_':"):
+
+def normalize_string(name, _cache={}, _chars_to_remove="-_':"):
     """
     Return uppercase string without any surrounding whitespace and
     without any characters such as '-', '_' ':' or "'"
     """
+    if name in _cache:
+        return _cache[name]
+
     if name is None:
-        return None
-    if type(name) in (float, int):
-        name = str(name)
-
-
-    if not isinstance(name, str):
-        return name
-
-    if " " in name:
-        name = name.strip()
-    name = name.upper()
-    for char in chars_to_remove:
-        if char in name:
-            name = name.replace(char, "")
-    return name
+        result = None
+    else:
+        t = type(name)
+        if t is float or t is int:
+            result = str(name)
+        elif t is not str:
+            result = name
+        else:
+            name = name.strip().upper()
+            for char in _chars_to_remove:
+                if char in name:
+                    name = name.replace(char, "")
+            result = name
+    _cache[name] = result
+    return result
 
 
 def normalize_dict_key(key):
