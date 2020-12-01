@@ -25,6 +25,7 @@ from .normalizing_set import NormalizingSet
 from .normalizing_dictionary import NormalizingDictionary
 from .result import Result
 
+
 class Species(Result):
     """
     Representation of a parsed species prefix such as "HLA", "ELA"
@@ -77,6 +78,14 @@ class Species(Result):
         self.haplotypes = haplotypes
         self.serotypes = serotypes
         self.parent_species = parent_species
+
+    def __hash__(self):
+        return hash(self.name)
+
+    def __eq__(self, other):
+        if type(other) is not Species:
+            return False
+        return self.name == other.name
 
     @classmethod
     def _create_reverse_gene_aliases(cls, gene_names, gene_aliases):
@@ -680,21 +689,16 @@ def infer_species_from_prefix(name):
     """
     # Try parsing a few different substrings to get the species,
     # and then use the species gene list to determine what the gene is in this string
-    candidate_species_substrings = {
-        name,
-        # sometimes alleles are preceded by a space 'HLA A*02:01'
-        name.split()[0],
-    }
+    candidate_species_substrings = {name}
 
-    for candidate in list(candidate_species_substrings):
-        if "-" in candidate:
-            # if name is "H-2-K" then try parsing "H" and "H-2" as a species
-            # prefix
-            parts_split_by_dash = name.split("-")
-            candidate_species_substrings.update([
-                parts_split_by_dash[0],
-                parts_split_by_dash[0] + "-" + parts_split_by_dash[1]
-            ])
+    if "-" in name:
+        # if name is "H-2-K" then try parsing "H" and "H-2" as a species
+        # prefix
+        parts_split_by_dash = name.split("-")
+        candidate_species_substrings.add(parts_split_by_dash[0])
+        candidate_species_substrings.add(
+            parts_split_by_dash[0] + "-" + parts_split_by_dash[1]
+        )
 
     for num_chars in [None, 4, 3, 2]:
         for candidate in candidate_species_substrings:
@@ -704,10 +708,13 @@ def infer_species_from_prefix(name):
                 original_prefix = candidate
             species_objects = find_matching_species_objects(original_prefix)
             if species_objects:
-                species = sorted(
-                    species_objects,
-                    key=create_species_sort_key(original_prefix))[-1]
-                return species, original_prefix
+                if len(species_objects) > 1:
+                    species_object = sorted(
+                        species_objects,
+                        key=create_species_sort_key(original_prefix))[-1]
+                else:
+                    species_object = species_objects[0]
+                return species_object, original_prefix
 
     # if all else fails, look for a distinctive gene name which is unique
     # to one species

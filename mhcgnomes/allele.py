@@ -38,6 +38,24 @@ class Allele(ResultWithGene):
         self.annotations = tuple(annotations)
         self.mutations = tuple(mutations)
 
+    def __hash__(self):
+        return hash((
+            self.gene,
+            self.allele_fields,
+            self.annotations,
+            self.mutations
+        ))
+
+    def __eq__(self, other):
+        if type(other) is not Allele:
+            return False
+        return (
+            self.gene == other.gene and
+            self.allele_fields == other.allele_fields and
+            self.annotations == other.annotations and
+            self.mutations == other.mutations
+        )
+
     @classmethod
     def tuple_field_names(cls):
         return (
