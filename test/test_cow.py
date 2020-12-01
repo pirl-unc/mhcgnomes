@@ -26,10 +26,3 @@ def test_parse_BoLA_N_001001_with_colon_sep():
     eq_(allele.gene.name, "N")
     eq_(allele.allele_fields, ("001", "01"))
 
-def test_parse_BoLA_HD_06_01():
-    s = "BoLA-HD*06:01"
-    allele = parse(s)
-    eq_(type(allele), Allele)
-    eq_(allele.species.prefix, "BoLA")
-    eq_(allele.gene.name, "HD")
-    eq_(allele.allele_fields, ("06", "01"))
