@@ -25,3 +25,4 @@ def test_parse_BoLA_N_001001_with_colon_sep():
     eq_(allele.species.prefix, "BoLA")
     eq_(allele.gene.name, "N")
     eq_(allele.allele_fields, ("001", "01"))
+
