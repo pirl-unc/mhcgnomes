@@ -57,28 +57,6 @@ Additionally, for human alleles, the species prefix is often omitted:
 * "A:02:01"
 * "A0201"
 
-Originally alleles for many genes were numbered with two digits:
-
-* "HLA-MICB*01"
-
-But as the number of identified alleles increased, the number of
-fields specifying a distinct protein increase to two. This became 
-conventionally called a "four digit" format, since each field has two
-digits. Yet, as the number of identified alleles continued to increase, then 
-the number of digits per field has often increased from two to three: 
-
-* "MICB\*002:01"
-* "HLA-A00201"
-* "A:002:01"
-* "A\*00201"
-
-These are not always currently treated as equivalent to allele strings with two digits in their first field, but that feature is in the works.
-
-We might also encounter "6 digit" and "8 digit" MHC alleles, which specify 
-synonymous differences in the coding sequence and UTR/intronic regions respectively.
-
-* "A\*02:01:01"
-* "A\*02:01:01:01"
 
 ### Annotations
 
@@ -151,6 +129,28 @@ ranked according to heuristic rules. For example, a string will be
 preferentially interpreted as an [`Allele`](https://github.com/til-unc/mhcgnomes/blob/main/mhcgnomes/allele.py) rather 
 than a [`Serotype`](https://github.com/til-unc/mhcgnomes/blob/main/mhcgnomes/serotype.py)
 or [`Haplotype`](https://github.com/til-unc/mhcgnomes/blob/main/mhcgnomes/haplotype.py). 
+
+
+## How many digits per field?
+
+Originally alleles for many genes were numbered with two digits:
+
+* "HLA-MICB\*01"
+
+But as the number of identified alleles increased, the number of
+fields specifying a distinct protein increase to two. This became 
+conventionally called a "four digit" format, since each field has two
+digits. Yet, as the number of identified alleles continued to increase, then 
+the number of digits per field has often increased from two to three: 
+
+* "MICB\*002:01"
+* "HLA-A00201"
+* "A:002:01"
+* "A\*00201"
+
+These are not always currently treated as equivalent to allele strings with two digits in their first field, but that feature is in the works.
+
+However, if databases such as [IPD-MHC](https://www.ebi.ac.uk/ipd/mhc/) or [IMGT-HLA](https://www.ebi.ac.uk/ipd/imgt/hla/) recorded an older form of an allele, then MHCgnomes can optionally map it onto the modern version (including capturing differences in numbers of digits per field). 
 
 ## References
 
