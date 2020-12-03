@@ -31,7 +31,7 @@ _standard_allele_regex = re.compile(_standard_allele_regex_str)
 
 def parse_standard_allele_format(
         seq: str,
-        raw_string: Union[str, None],
+        raw_string: Union[str, None] = None,
         default_species: Union[str, Species, None] = None):
     """
     Parse alleles which are in a standard format, such as::
@@ -58,55 +58,60 @@ def parse_standard_allele_format(
     Allele or None
     """
     match = _standard_allele_regex.fullmatch(seq)
+
     if not match:
         return None
-    if match:
-        groups = match.groups()
 
-        species_prefix, gene_name = groups[:2]
+    groups = match.groups()
 
-        if gene_name is None:
-            return None
+    if len(groups) < 3:
+        return None
 
-        if species_prefix is None:
-            species = Species.get(default_species)
-        elif len(species_prefix) >= 2 and species_prefix[-1] == "-":
-            species = Species.get(species_prefix[:-1])
+    species_prefix, gene_name = groups[:2]
+
+    if gene_name is None:
+        return None
+
+    if species_prefix is None:
+        species = Species.get(default_species)
+    elif len(species_prefix) >= 2 and species_prefix[-1] == "-":
+        species = Species.get(species_prefix[:-1])
+    else:
+        return None
+
+    if species is None:
+        return None
+
+    gene = Gene.get(species, gene_name)
+
+    if gene is None:
+        return None
+
+    allele_fields = []
+    for i, raw_allele_field in enumerate(groups[2:-1]):
+        if raw_allele_field is None:
+            break
+        elif i == 0:
+            allele_fields.append(raw_allele_field)
         else:
-            return None
+            # skip the initial ':' in all fields after first
+            allele_fields.append(raw_allele_field[1:])
 
-        if species is None:
-            return None
+    if len(allele_fields) == 0:
+        return None
 
-        gene = Gene.get(species, gene_name)
+    annotation = groups[-1]
 
-        if gene is None:
-            return None
+    if annotation:
+        annotations = [annotation.upper()]
+    else:
+        annotations = []
 
-        allele_fields = []
-        for i, x in enumerate(groups[2:-1]):
-            if x is None:
-                break
-            elif i == 0:
-                allele_fields.append(x)
-            else:
-                # skip the initial ':' in all fields after first
-                allele_fields.append(x[1:])
+    if raw_string is None:
+        raw_string = seq
 
-         if len(allele_fields) == 0:
-            return None
-
-        annotation = groups[-1]
-
-        if annotation:
-            annotation = annotation.upper()
-
-        if raw_string is None:
-            raw_string = seq
-
-        return Allele.get(
-            species,
-            gene,
-            allele_fields,
-            annotation=annotation,
-            raw_string=raw_string)
+    return Allele.get_with_gene(
+        gene,
+        allele_fields,
+        annotations=annotations,
+        raw_string=raw_string)

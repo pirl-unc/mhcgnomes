@@ -10,7 +10,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import List, Tuple, Union
+from typing import List, Tuple, Union, Iterable
 
 
 from .gene import Gene
@@ -26,9 +26,9 @@ class Allele(ResultWithGene):
     def __init__(
             self,
             gene : Gene,
-            allele_fields : Union[List[str], Tuple[str]],
-            annotations : Union[List[str], Tuple[str]] = [],
-            mutations : Union[List[Mutation], Tuple[Mutation]] = [],
+            allele_fields : Iterable[str],
+            annotations : Iterable[str] = (),
+            mutations : Iterable[Mutation] = (),
             raw_string=None):
         ResultWithGene.__init__(
             self,
@@ -118,23 +118,24 @@ class Allele(ResultWithGene):
     @classmethod
     def get_with_gene(
             cls,
-            gene,
-            allele_fields,
-            annotations=[],
-            mutations=[],
-            raw_string=None):
+            gene : Gene,
+            allele_fields: Iterable[str],
+            annotations: Union[Iterable[str], None] = None,
+            mutations: Union[Iterable[Mutation], None] = None,
+            raw_string: Union[str, None] = None):
         if gene is None:
             return None
 
         allele_fields = cls.split_allele_fields(allele_fields)
+
         if len(allele_fields) == 0:
             return None
 
         if annotations is None:
-            annotations = []
+            annotations = ()
 
         if mutations is None:
-            mutations = []
+            mutations = ()
 
         return Allele(
             gene=gene,
