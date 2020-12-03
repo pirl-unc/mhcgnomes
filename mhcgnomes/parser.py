@@ -1045,6 +1045,17 @@ class Parser(object):
         seq = token.seq
         raw_string = token.raw_string
 
+        standard_result = parse_standard_allele_format(
+            seq,
+            raw_string=raw_string,
+            default_species=default_species)
+
+        if standard_result:
+            if self.verbose:
+                print(f"""=== Standard format result """)
+                print(standard_result)
+            return [standard_result]
+
         # list containing all candidate results
         parse_candidates = []
 

@@ -198,7 +198,7 @@ class Species(Result):
     def get(cls, species_name):
         if type(species_name) is Species:
             return species_name
-        elif type(species_name) is not str:
+        elif species_name is None or type(species_name) is not str:
             return None
 
         species_objects = cls.get_multiple(species_name)
