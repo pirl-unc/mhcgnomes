@@ -42,6 +42,7 @@ from .result_with_species import ResultWithSpecies
 from .result_sorting import pick_best_result
 from .serotype import Serotype
 from .species import Species, infer_species_from_prefix
+from .standard_format import parse_standard_allele_format
 from .token import Token
 from .tokenize import tokenize
 
@@ -1044,6 +1045,18 @@ class Parser(object):
                             {token}, {default_species})""")
         seq = token.seq
         raw_string = token.raw_string
+
+        standard_result = parse_standard_allele_format(
+            seq,
+            raw_string=raw_string,
+            default_species=default_species)
+
+        if standard_result:
+
+            if self.verbose:
+                print(f"""=== Standard format result """)
+                print(standard_result)
+            return [standard_result]
 
         # list containing all candidate results
         parse_candidates = []

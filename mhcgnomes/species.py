@@ -198,7 +198,7 @@ class Species(Result):
     def get(cls, species_name):
         if type(species_name) is Species:
             return species_name
-        elif type(species_name) is not str:
+        elif species_name is None or type(species_name) is not str:
             return None
 
         species_objects = cls.get_multiple(species_name)
@@ -316,7 +316,6 @@ class Species(Result):
         gene_name = self.normalize_gene_name_if_exists(gene_name)
         return self.gene_name_to_mhc_class.get(gene_name)
 
-    @cache
     def get_known_allele(self, gene_name, allele_name):
         gene_name_candidates = {gene_name}
 
