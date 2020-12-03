@@ -29,28 +29,37 @@ def unique(xs : Iterable):
         unique_set.add(xi)
     return result
 
-def arg_to_cache_key(x, _primitive_types={bool, int, str, float}):
+
+def arg_to_cache_key(x):
     if x is None:
         return None
 
     t = type(x)
-    if t is int or t is str or t is bool or t is float:
+
+    if t is int or t is str or t is bool or t is float or t is type:
         return x
 
     if t is list or t is tuple:
         if len(x) == 0:
-            value = ()
+            return ()
         elif len(x) == 1:
-            value = (arg_to_cache_key(x[0]),)
+            return (arg_to_cache_key(x[0]),)
         else:
             value = tuple([arg_to_cache_key(xi) for xi in x])
     elif t is dict:
-        value = tuple([
-            (arg_to_cache_key(k), arg_to_cache_key(v))
-            for (k, v) in x.items()])
+        if len(x) == 0:
+            value = ()
+        elif len(x) == 1:
+            ((k, v),) = x.items()
+            value = (arg_to_cache_key(k), arg_to_cache_key(v))
+        else:
+            value = tuple([
+                (arg_to_cache_key(k), arg_to_cache_key(v))
+                for (k, v) in x.items()])
     else:
         value = x
     return (t.__name__, value)
+
 
 def cache(fn):
     """
@@ -60,10 +69,7 @@ def cache(fn):
     """
     cache = {}
     def cached_fn(*args, **kwargs):
-        if not args:
-            args_key = ()
-        else:
-            args_key = arg_to_cache_key(args)
+        args_key = arg_to_cache_key(args)
         if not kwargs:
             kwargs_key = ()
         else:
