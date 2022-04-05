@@ -1,8 +1,8 @@
 sudo: false  # Use container-based infrastructure
 language: python
 python:
-  - "3.6"
-  - "3.7"
+  - "3.8"
+  - "3.9"
 git:
   # don't need the default depth of 50
   # but don't want to use a depth of 1 since that affects
