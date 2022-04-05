@@ -1,3 +1,4 @@
 pandas
 serializable
-pyyaml
+PyYAML
+numpy
