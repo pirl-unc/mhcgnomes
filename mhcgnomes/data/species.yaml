@@ -1553,6 +1553,10 @@ Macaca thibetana:
         - DPB1
       DQ:
         - DQB1
+    IIb:
+      DM:
+        - DMA
+        - DMB
     I:
       - I
 Papio anubis:
