@@ -301,6 +301,11 @@ Canis sp.:
   prefix: DLA
   name: Canine
   genes:
+    I:
+      # weird gene, like a classical class I but
+      # outside the main MHC locus
+      # source: https://pubmed.ncbi.nlm.nih.gov/23510416/
+      - "79"
     Ia:
       - "12"
       - "64"
@@ -1353,7 +1358,6 @@ Macaca fascicularis:
   taxon: 9541
   genes:
     I:
-      - AG
       - I
     Ia:
       - A1
@@ -1372,7 +1376,9 @@ Macaca fascicularis:
     Ib:
       - E
       - F
-      - G
+      - G # pseudogene in macaques
+      - AG
+      - AG1
     IIa:
       DP:
         - DPA1
@@ -1481,10 +1487,15 @@ Macaca sp.:
     Ib:
       - E
       - F
-      - G
+      - G # pseudogene in macaques
+      - AG
+      # source for AG: https://pubmed.ncbi.nlm.nih.gov/9317129/
+      - AG
+      - AG1
+      # source for AG5: https://pubmed.ncbi.nlm.nih.gov/12097369/
+      - AG5
     I:
       - I
-      - AG
     IIa:
       DP:
         - DPA1
@@ -1720,6 +1731,7 @@ Pongo sp.:
         - DQB2
       DR:
         - DRA
+        - DRB
         - DRB5
         - DRB6
     IIb:
