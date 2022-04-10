@@ -92,7 +92,7 @@ digit alleles but every allele is simply given a name, such as:
 In the above example "H2"/"RT1" correspond to species, "K"/"9.5" are
 the gene names and "k"/"f" are the allele names.
 
-To make these even worse, the name of a species is subject to variation (e.g. "H2" vs. "RT-1") as well as drift over time (e.g. ChLA -> MhcPatr -> Patr).  
+To make these even worse, the name of a species is subject to variation (e.g. "H2" vs. "H-2") as well as drift over time (e.g. ChLA -> MhcPatr -> Patr).  
 
 ### Serotypes, haplotypes, and other named entitites
 
