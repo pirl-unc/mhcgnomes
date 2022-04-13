@@ -259,12 +259,17 @@ Rattus sp.:
       - S2
       - S3
       - T18
+      - T24-1
+      - T24-2
+      - T24-3
+      - T24-4
       - U1
       - U2
     IIa:
       D:
         - Da
         - Db1
+        - Db2
       B:
         - Ba
         - Bb
@@ -607,6 +612,8 @@ Equus sp.:
       - "6"
       - "7"
       - "16"
+      - "17"
+      - "18"
     IIa:
       DQ:
         - DQA1
@@ -1082,15 +1089,19 @@ Callithrix sp.:
     Ib:
       - E
       - F
+      - F1
+      - F2
+      - F3
       - F4
       - F5
       - F6
       - F7
+      - G
+    I:
       - F1Ps
       - F2Ps
       - F3Ps
       - F5Ps
-      - G
       - G10Ps
       - G11Ps
       - G13Ps
@@ -1260,6 +1271,7 @@ Gorilla sp.:
         - DQB1
         - DQB2
       DR:
+        - DRA
         - DRB
         - DRB1
         - DRB3
@@ -1351,6 +1363,7 @@ Macaca assamensis:
     I:
       - I
 Macaca fascicularis:
+  parent: Macaca sp.
   prefix: Mafa
   other prefixes:
     - MhcMafa
@@ -1358,7 +1371,14 @@ Macaca fascicularis:
   taxon: 9541
   genes:
     I:
+      - B02Ps
+      - B21Ps
       - I
+      - J
+      - K
+      - S
+      - W
+      - V
     Ia:
       - A1
       - A2
@@ -1379,6 +1399,11 @@ Macaca fascicularis:
       - G # pseudogene in macaques
       - AG
       - AG1
+      - AG2
+      - AG3
+      - AG4
+      - AG5
+      - AG6
     IIa:
       DP:
         - DPA1
@@ -1492,10 +1517,26 @@ Macaca sp.:
       # source for AG: https://pubmed.ncbi.nlm.nih.gov/9317129/
       - AG
       - AG1
+      - AG2
+      - AG3
+      - AG4
       # source for AG5: https://pubmed.ncbi.nlm.nih.gov/12097369/
       - AG5
+      - AG6
     I:
+      - B02Ps
+      - B10Ps
+      - B14Ps
+      - B19Ps
+      - B21Ps
+      - B22
       - I
+      - J
+      - L
+      - N
+      - S
+      - W
+      - V
     IIa:
       DP:
         - DPA1
@@ -1512,6 +1553,7 @@ Macaca sp.:
         - DRB4
         - DRB5
         - DRB6
+        - DRB9
     IIb:
       DM:
         - DMA
@@ -1551,6 +1593,7 @@ Mandrillus sphinx:
         - DRB5
         - DRB6
 Macaca thibetana:
+  parent: Macaca sp.
   prefix: Math
   name: Milne Edward's Macaque
   taxon: 54602
@@ -1719,6 +1762,8 @@ Pongo sp.:
       - Ap
     Ib:
       - E
+      - F
+      - G
       - H
     IIa:
       DP:
@@ -1732,6 +1777,8 @@ Pongo sp.:
       DR:
         - DRA
         - DRB
+        - DRB1
+        - DRB3
         - DRB5
         - DRB6
     IIb:

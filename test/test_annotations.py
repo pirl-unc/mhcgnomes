@@ -1,6 +1,6 @@
 from mhcgnomes import parse, Allele
 from mhcgnomes.allele_annotations import (
-    parse_functional_annotations_from_allele_fields,
+    parse_annotations_from_allele_fields,
 )
 from nose.tools import eq_
 
@@ -30,10 +30,18 @@ def test_null_E010801N():
     assert result.annotation_null
 
 def test_parse_functional_annotations_from_allele_fields_E010801N():
-    results = parse_functional_annotations_from_allele_fields("010801N")
-    assert len(results) == 2
+    results = parse_annotations_from_allele_fields("010801N")
+    assert len(results) == 3
     eq_(results[0], ("010801",))
-    eq_(results[1], ["N",])
+    eq_(results[1], ())
+    eq_(results[2], ("N",))
+
+def test_parse_workshop_annotation_from_allele_fields_W113G():
+    results = parse_annotations_from_allele_fields("W113G")
+    assert len(results) == 3
+    eq_(results[0], ("113",))
+    eq_(results[1], ("W",))
+    eq_(results[2], ("G",))
 
 def test_secreted_B_44_02_01_02S():
     result = parse("B*44:02:01:02S")

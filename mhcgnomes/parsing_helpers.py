@@ -23,8 +23,10 @@ def strip_chars(s : str, chars_to_remove, _cache={}):
     _cache[original] = s
     return s
 
+
 def strip_whitespace_and_dashes(s : str):
     return strip_chars(s, "- ")
+
 
 def smart_split(seq : str, sep : str):
     """
@@ -32,6 +34,7 @@ def smart_split(seq : str, sep : str):
     and empty strings
     """
     return [strip_whitespace_and_dashes(p) for p in seq.split(sep)]
+
 
 def split_on_all_seps(seq : str, seps="_:"):
     """

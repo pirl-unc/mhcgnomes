@@ -16,8 +16,8 @@ from typing import Mapping, Iterable, Union, Sequence
 
 from .allele import Allele
 from .allele_annotations import (
-    parse_functional_annotations_from_seq,
-    parse_functional_annotations_from_allele_fields
+    parse_annotations_from_seq,
+    parse_annotations_from_allele_fields
 )
 from .allele_without_gene import AlleleWithoutGene
 from .class2_locus import Class2Locus
@@ -364,7 +364,7 @@ class Parser(object):
 
         if functional_annotations is None:
             allele_fields, functional_annotations = \
-                parse_functional_annotations_from_allele_fields(allele_fields)
+                parse_annotations_from_allele_fields(allele_fields)
 
 
         if len(allele_fields) == 0 or len(allele_fields) > 4:
@@ -599,16 +599,8 @@ class Parser(object):
                     gene,
                     str_after_gene if preserve_caps else str_after_gene.lower(),
                     raw_string=raw_string)
-        # for now let's limit parsing of functional annotations to a single
-        # letter at the end of an allele string following two or more numbers
-        if len(str_after_gene) > 2 and (
-                str_after_gene[-1].isalpha() and
-                str_after_gene[-2].isdigit() and
-                str_after_gene[-3].isdigit()):
-            str_after_gene, functional_annotations = \
-                parse_functional_annotations_from_seq(str_after_gene)
-        else:
-            functional_annotations = []
+        str_after_gene, prefix_annotations, functional_annotations = \
+            parse_annotations_from_seq(str_after_gene)
         # only allele names which allow three digits in second field seem to be
         # human class I names such as "HLA-B*15:120" but not Ic/Id genes
         # like MICA.
@@ -625,7 +617,13 @@ class Parser(object):
             str_after_gene=str_after_gene,
             allow_three_digits_in_first_field=allow_three_digits_in_first_field,
             allow_three_digits_in_second_field=allow_three_digits_in_second_field)
+
         if allele_fields:
+            # for now we only expect a "W" prefix annotation, indicating
+            # that it's a workshop allele, so we just put that back in the
+            # sequence.
+            first_field = "".join(prefix_annotations) + allele_fields[0]
+            allele_fields = (first_field,) + tuple(allele_fields[1:])
             return self.parse_allele_from_allele_fields(
                 gene=gene,
                 allele_fields=allele_fields,

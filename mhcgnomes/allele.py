@@ -17,6 +17,7 @@ from .gene import Gene
 from .mutation import Mutation
 from .result_with_gene import ResultWithGene
 
+
 class Allele(ResultWithGene):
     """
     Allele name which specifies a unique protein amino acid sequence
