@@ -31,6 +31,7 @@ token_replacement_patterns = {
     ("fragment",): None,
     ("exons", "1-3"): None,
     ("exons", "1-2"): None,
+    ("allele", "undetermined"): None,
 
     # class I
     ("mhc-i",): CLASS1_TOKEN_SEQ,
@@ -38,6 +39,8 @@ token_replacement_patterns = {
     ("class-i",): CLASS1_TOKEN_SEQ,
     ("class", "1"): CLASS1_TOKEN_SEQ,
     ("class", "i"): CLASS1_TOKEN_SEQ,
+    ("hla-class", "i"): CLASS1_TOKEN_SEQ,
+    ("hla-class", "1"): CLASS1_TOKEN_SEQ,
 
     # class II
     ("mhc-ii",): CLASS2_TOKEN_SEQ,
@@ -45,6 +48,8 @@ token_replacement_patterns = {
     ("class-ii",): CLASS2_TOKEN_SEQ,
     ("class", "2"): CLASS2_TOKEN_SEQ,
     ("class", "ii"): CLASS2_TOKEN_SEQ,
+    ("hla-class", "ii"): CLASS2_TOKEN_SEQ,
+    ("hla-class", "2"): CLASS2_TOKEN_SEQ,
 
     # Class II chains
     ("alpha", "chain"): ALPHA_CHAIN_TOKEN_SEQ,

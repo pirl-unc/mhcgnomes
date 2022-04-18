@@ -159,6 +159,8 @@ Mus musculus:
       - M10-PS3
     Id:
       - CD1d
+      - CD1d1
+      - CD1d2
     IIa:
       A:
         - AA
@@ -1121,6 +1123,11 @@ Callithrix sp.:
       DR:
         - DRB
         - DRB1
+      DP:
+        - DPA
+        - DPB
+        - DPA1
+        - DPB1
 Callithrix jacchus:
   parent: Callithrix sp.
   prefix: Caja
@@ -1523,6 +1530,13 @@ Macaca sp.:
       # source for AG5: https://pubmed.ncbi.nlm.nih.gov/12097369/
       - AG5
       - AG6
+    Id:
+      - CD1a
+      - CD1b
+      - CD1c
+      - CD1d
+      - CD1e
+      - MR1
     I:
       - B02Ps
       - B10Ps
@@ -1906,3 +1920,15 @@ Theropithecus gelada:
       DQ:
         - DQA1
         - DQB
+##########################
+#
+# Panda
+#
+##########################
+Ailuropoda melanoleuca:
+  prefix: Aime
+  name: Giant panda
+  taxon: 9646
+  genes:
+    I:
+     - "128"

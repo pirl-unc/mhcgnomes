@@ -19,8 +19,9 @@ SLA:
 #########################################
 # Mouse MHC haplotypes copied from:
 # http://www.biolegend.com/media_assets/support_resource/BioLegend_Mouse_Alloantigens.pdf
-# and partially from:
+# as well as:
 # http://jackson.jax.org/rs/444-BUH-304/images/MHC_h2_haplotypes.pdf
+# http://www.informatics.jax.org/downloads/datasets/misc/H2Haplotypes/H2_haplotypes.html
 ##########################################
 H2:
   a:
@@ -86,6 +87,73 @@ H2:
     - Ab*g7
     - Aa*g7
     - D*dx
+  i:
+    # same as i3?
+    # Found the use of H2-i3 mice in:
+    #   https://sci-hub.se/10.1016/0264-410x(94)90203-8
+    # ...was transcribed as H2-i in IEDB
+    - K*b
+    - Ab*b
+    - Aa*b
+    - Eb*b
+    - Eb*k
+    - Ea*k
+    - S*d
+    - D*d
+    - L*d
+    - Qa-2*a
+    - T18*a
+    - Q1*a
+  i3:
+    - K*b
+    - Ab*b
+    - Aa*b
+    - Eb*b
+    - Eb*k
+    - Ea*k
+    - S*d
+    - D*d
+    - L*d
+    - Qa-2*a
+    - T18*a
+    - Q1*a
+  i5:
+    - K*b
+    - Ab*b
+    - Aa*b
+    - Eb*b
+    - Eb*k
+    - Ea*k
+    - S*d
+    - D*d
+    - L*d
+    - Qa-2*a
+    - T18*a
+    - Q1*a
+  i7:
+    - K*b
+    - Ab*b
+    - Aa*b
+    - Eb*b
+    - Ea*b
+    - S*b
+    - D*d
+    - L*d
+    - Qa-2*a
+    - T18*c
+    - Q1*b
+  ia:
+    - K*b
+    - Ab*b
+    - Aa*b
+    - Eb*b
+    - Ea*b
+    - S*b
+    - D*dm1
+    - L*dm1
+    - Qa-2*a
+    - T18*c
+    - Q1*b
   k:
     - K*k
     - D*k

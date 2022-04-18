@@ -101,7 +101,7 @@ def tokenize(name):
     tokens = [
         Token(seq, raw_string)
         for (seq, raw_string) in zip(token_sequences, raw_string_parts)]
-    tokens, ignored_tokens =  simplify_tokens(tokens)
+    tokens, ignored_tokens = simplify_tokens(tokens)
     return TokenizationResult(
         tokens=tokens,
         ignored_tokens=ignored_tokens,

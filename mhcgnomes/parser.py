@@ -41,7 +41,7 @@ from .result import Result
 from .result_with_species import ResultWithSpecies
 from .result_sorting import pick_best_result
 from .serotype import Serotype
-from .species import Species, infer_species_from_prefix
+from .species import Species, infer_species_from_prefix, find_matching_species_objects
 from .standard_format import parse_standard_allele_format
 from .token import Token
 from .tokenize import tokenize
@@ -744,7 +744,7 @@ class Parser(object):
                     return None
             else:
                 gene = None
-            mut =  Mutation.parse(mutation_string, raise_on_error=False)
+            mut = Mutation.parse(mutation_string, raise_on_error=False)
             if mut is None:
                 return None
             if gene:
@@ -1193,9 +1193,9 @@ class Parser(object):
 
     def parse_with_haplotype_token_to_multiple_candidates(
             self,
-            maybe_species_token : Token,
-            other_tokens : Sequence[Token],
-            default_species : Union[Species, str, None]  = DEFAULT_SPECIES_PREFIX):
+            maybe_species_token: Token,
+            other_tokens: Sequence[Token],
+            default_species: Union[Species, str, None] = DEFAULT_SPECIES_PREFIX):
         """
         Parse "Haplotype H2 L-q" but also "Haplotype H2-k"
         Or: "L-q H2 Haplotype"
@@ -1277,6 +1277,7 @@ class Parser(object):
             self,
             tokens: Sequence[Token],
             default_species: Union[Species, str, None] = DEFAULT_SPECIES_PREFIX):
+
         if len(tokens) == 0:
             return []
         elif len(tokens) == 1:
@@ -1291,6 +1292,8 @@ class Parser(object):
                 tokens_after=tokens[slash_index + 1:],
                 default_species=default_species)
 
+        # if the token sequence didn't start with a recognizable species name
+        # then continue here
         candidates = []
         if tokens[-1].is_alpha:
             for candidate in self.parse_tokens_to_multiple_candidates(
@@ -1323,6 +1326,7 @@ class Parser(object):
                     else:
                         continue
         elif tokens[-1].is_mutant:
+            print(tokens)
             for without_mutation in self.parse_single_token_to_multiple_candidates(
                     token=tokens[0],
                     default_species=default_species):
@@ -1354,7 +1358,7 @@ class Parser(object):
                     other_tokens=tokens[1:],
                     default_species=default_species))
 
-        elif len(tokens) >= 3 and (tokens[1].is_class1_or_class2):
+        elif len(tokens) >= 3 and tokens[1].is_class1_or_class2:
             # parse strings like "MOUSE MHC class I L-q" as an allele
             # Tokenization normalizes this sequence into:
             #   ("mouse", "class-1", "L-q")
@@ -1420,8 +1424,7 @@ class Parser(object):
 
     def select_species_from_optional_attributes(
             self,
-            attributes: Mapping[str, str],
-            default_species: Union[Species, str, None] = DEFAULT_SPECIES_PREFIX):
+            attributes: Mapping[str, str]):
         """
         If input sequence had attributes like 'OS=Mus musculus' then use those
         to select the default species.
@@ -1430,16 +1433,14 @@ class Parser(object):
         if "OS" in attributes:
             species = Species.get(attributes["OS"])
         elif "species" in attributes:
-            species = Species.get(attributes["species"])
-        if species:
-            return species
+            return Species.get(attributes["species"])
         else:
-            return default_species
+            return None
 
     def parse_multiple_candidates(
             self,
-            name : str,
-            default_species : Union[Species, str, None]=DEFAULT_SPECIES_PREFIX):
+            name: str,
+            default_species: Union[Species, str, None]=DEFAULT_SPECIES_PREFIX):
         """
         Returns list of ParseResult objects which are candidate interpretations
         of the given string.
@@ -1447,26 +1448,68 @@ class Parser(object):
         tokenization_result = tokenize(name)
         if len(tokenization_result.trimmed_string) == 0:
             return []
-        # species represented in some UniProt entries using 'OS=' attribute
-        default_species = self.select_species_from_optional_attributes(
-            tokenization_result.attributes,
-            default_species=default_species)
-        results = self.parse_tokens_to_multiple_candidates(
-            tokens=tokenization_result.tokens,
-            default_species=default_species)
+
+        tokens = tokenization_result.tokens
+        species_candidates = []
+        found_species_prefix = False
+        for num_species_tokens in [3, 2, 1]:
+            if len(tokens) >= (num_species_tokens + 1):
+                # try peeling off species names such as
+                # "homo sapiens" at the beginning of a token sequence
+                species_candidates = find_matching_species_objects(
+                    ' '.join([t.seq for t in tokens[:num_species_tokens]]))
+                print(species_candidates)
+            if len(species_candidates) > 0:
+                tokens = tokens[num_species_tokens:]
+                found_species_prefix = True
+                break
+
+        results = []
+        if found_species_prefix:
+            # if anything at the start of the token sequence matched a species
+            # name then just go with those species possibilities and throw away
+            # the default one we're using
+            if len(tokens) == 0:
+                results.extend(species_candidates)
+            else:
+                for maybe_species in species_candidates:
+                    if len(tokens) == 1 and tokens[0].is_class1:
+                            results.append(MhcClass.get(maybe_species, "I"))
+                    elif len(tokens) == 1 and tokens[0].is_class2:
+                            results.append(MhcClass.get(maybe_species, "II"))
+                    else:
+                        maybe_results = self.parse_tokens_to_multiple_candidates(
+                            tokens=tokens,
+                            default_species=maybe_species)
+                        # filter out the Species hits since we already have a species from
+                        # the prefix
+                        maybe_results = [r for r in maybe_results if type(r) is not Species]
+                        results.extend(maybe_results)
+        else:
+            # species represented in some UniProt entries using 'OS=' attribute
+            species_from_attributes = self.select_species_from_optional_attributes(
+                tokenization_result.attributes)
+
+            if species_from_attributes is None:
+                default_species = default_species
+            else:
+                default_species = species_from_attributes
+            results.extend(self.parse_tokens_to_multiple_candidates(
+                tokens=tokens,
+                default_species=default_species))
         return self.transform_parse_candidates(results)
 
     @cache
     def parse(
             self,
-            name : str,
+            name: str,
             infer_class2_pairing: bool = INFER_CLASS2_PAIRING,
             default_species: Union[Species, str, None] = DEFAULT_SPECIES_PREFIX,
             preferred_result_types: Union[type, Iterable[type], None] = None,
             required_result_types: Union[type, Iterable[type], None] = None,
             only_class1: bool = False,
             only_class2: bool = False,
-            raise_on_error : bool = True):
+            raise_on_error: bool = True):
         """
         Parse any MHC related string, from gene loci to fully specified 8 digit
         alleles, alpha/beta pairings of Class II MHCs, with expression modifiers
