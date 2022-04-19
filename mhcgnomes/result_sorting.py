@@ -14,7 +14,7 @@ from typing import List, Iterable
 
 from .allele import Allele
 from .allele_without_gene import AlleleWithoutGene
-from .class2_pair import Class2Pair
+from .class2_pair import Pair
 from .haplotype import Haplotype
 from .gene import Gene
 from .result import Result
@@ -55,7 +55,7 @@ def sort_key(result: Result):
     else:
         name_matches_raw_string = False
     t = type(result)
-    is_class2_pair = t is Class2Pair
+    is_class2_pair = t is Pair
     alpha_is_allele = is_class2_pair and type(result.alpha) is Allele
     alpha_is_valid = (
         is_class2_pair and type(result.alpha) in {Allele, AlleleWithoutGene, Gene}

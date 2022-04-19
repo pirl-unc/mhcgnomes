@@ -11,6 +11,10 @@
 # If unsure which sub-class a gene belongs to, use just "I" or "II"
 # Some non-MHC genes involved in antigen processing are also included
 # below, such as TAP1/2. Group these under "other".
+#
+# Source for MHC Id genes across different species:
+# - https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5002277/
+
 
 ######################################################
 #
@@ -158,9 +162,14 @@ Mus musculus:
       - M10-PS2
       - M10-PS3
     Id:
+      - CD1a
+      - CD1b
+      - CD1c
       - CD1d
       - CD1d1
       - CD1d2
+      - CD1e
+      - MR1
     IIa:
       A:
         - AA
@@ -209,6 +218,11 @@ Rattus sp.:
     Id:
       - Hfe
       - Mr1
+      - CD1a
+      - CD1b
+      - CD1c
+      - CD1d
+      - CD1e
     I:
       # unclear if Class Ia or Ib
       - 118
@@ -405,6 +419,18 @@ Felis catus:
 # - https://www.ebi.ac.uk/ipd/mhc/group/FISH/species
 #
 ############################
+Ctenopharyngodon idella:
+  prefix: Ctid
+  name: Grass carp
+  taxon: 1844
+  genes:
+    I:
+      - UAA
+      - UBA
+    II:
+      DA:
+        - DAA
+        - DAB
 Oncorhynchus mykiss:
   prefix: Onmy
   name:

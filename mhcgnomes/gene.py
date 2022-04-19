@@ -12,9 +12,9 @@
 
 from __future__ import print_function, division, absolute_import
 
-from typing import Union
+from typing import Union, Iterable
 
-
+from .mutation import Mutation
 from .result_with_mhc_class import ResultWithMhcClass
 from .species import Species
 
@@ -22,25 +22,28 @@ from .species import Species
 class Gene(ResultWithMhcClass):
     def __init__(
             self,
-            species : Species,
-            name : str,
-            raw_string : Union[str, None] = None):
+            species: Species,
+            name: str,
+            mutations: Iterable[Mutation] = (),
+            raw_string: Union[str, None] = None):
         ResultWithMhcClass.__init__(
             self,
             species=species,
             mhc_class=species.get_mhc_class_of_gene(name),
             raw_string=raw_string)
         self.name = name
+        self.mutations = mutations
 
     def __hash__(self):
-        return hash((self.species, self.name))
+        return hash((self.species, self.name, self.mutations))
 
     def __eq__(self, other):
         if type(other) is not Gene:
             return False
         return (
             self.species == other.species and
-            self.name == other.name
+            self.name == other.name and
+            self.mutations == other.mutations
         )
 
     @property
@@ -56,7 +59,7 @@ class Gene(ResultWithMhcClass):
         return self
 
     @classmethod
-    def get(cls, species_prefix : Union[str, Species], gene_name : str):
+    def get(cls, species_prefix: Union[str, Species], gene_name: str, mutations: Iterable[Mutation] = ()):
         """
         Returns Gene if gene name is in ontology, otherwise None
         """
@@ -78,7 +81,17 @@ class Gene(ResultWithMhcClass):
         return Gene(
             species,
             gene_name,
+            mutations=mutations,
             raw_string=raw_string)
+
+    def copy_without_mutations(self):
+        return self.copy(mutations=())
+
+    def copy_with_extra_mutations(self, mutations: Iterable[Mutation]):
+        return self.copy(mutations=self.mutations + tuple(mutations))
+
+    def mutation_string(self):
+        return " ".join([mut.to_string() for mut in self.mutations])
 
     def to_string(
             self,
@@ -93,9 +106,12 @@ class Gene(ResultWithMhcClass):
                 species_str = self.species.historic_mhc_prefix
             else:
                 species_str = self.species_prefix
-            return "%s-%s" % (species_str, self.gene_name)
+            result = "%s-%s" % (species_str, self.gene_name)
         else:
-            return self.gene_name
+            result = self.gene_name
+        if self.is_mutant:
+            result += " %s mutant" % self.mutation_string()
+        return result
 
     def compact_string(
             self,
@@ -110,6 +126,10 @@ class Gene(ResultWithMhcClass):
             include_species=include_species,
             use_old_species_prefix=use_old_species_prefix)
 
+    @property
+    def is_mutant(self):
+        return len(self.mutations) > 0
+
 
     def to_record(self):
         """
@@ -121,4 +141,6 @@ class Gene(ResultWithMhcClass):
         d = self.species.to_record()
         d["gene"] = self.to_string()
         d["mhc_class"] = self.mhc_class
+        d["mutations"] = self.mutation_string()
+        d["is_mutant"] = self.is_mutant
         return d

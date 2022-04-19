@@ -19,15 +19,15 @@ from .gene import Gene
 from .result_with_mhc_class import ResultWithMhcClass
 
 
-class Class2Pair(ResultWithMhcClass):
+class Pair(ResultWithMhcClass):
     """
     Representation of an alpha/beta pair of Class II MHC chains.
     """
 
     def __init__(
             self,
-            alpha : Union[Allele, AlleleWithoutGene, Gene],
-            beta : Union[Allele, AlleleWithoutGene, Gene],
+            alpha: Union[Allele, AlleleWithoutGene, Gene],
+            beta: Union[Allele, AlleleWithoutGene, Gene],
             mhc_class="II",
             raw_string : Union[str, None] = None):
         ResultWithMhcClass.__init__(
@@ -122,7 +122,7 @@ class Class2Pair(ResultWithMhcClass):
         else:
             beta = self.beta
         if alpha != self.alpha or beta != self.beta:
-            return Class2Pair.get(alpha=alpha, beta=beta, raw_string=self.raw_string)
+            return Pair.get(alpha=alpha, beta=beta, raw_string=self.raw_string)
         else:
             return self
 
@@ -199,7 +199,7 @@ def infer_class2_alpha_chain(beta):
     Given an Allele for a Class II beta chain, returns the alpha/beta pair with
     a population invariant alpha chain (if one is known)
     """
-    if isinstance(beta, Class2Pair):
+    if isinstance(beta, Pair):
         return beta
 
     if not isinstance(beta, Allele):
@@ -220,4 +220,4 @@ def infer_class2_alpha_chain(beta):
     if alpha is None:
         return beta
 
-    return Class2Pair.get(alpha, beta)
+    return Pair.get(alpha, beta)

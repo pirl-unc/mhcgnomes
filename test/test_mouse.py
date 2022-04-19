@@ -3,7 +3,7 @@ from mhcgnomes import (
     parse,
     Allele,
     Class2Locus,
-    Class2Pair,
+    Pair,
     Gene,
     Haplotype,
 )
@@ -56,7 +56,7 @@ def test_parse_H2_IE():
 
 def test_parse_H2_IEd_simplify():
     result = parse("H2-IEd", collapse_singleton_haplotypes=True)
-    eq_(type(result), Class2Pair)
+    eq_(type(result), Pair)
     eq_(result.alpha.name, "d")
     eq_(result.beta.name, "d")
 

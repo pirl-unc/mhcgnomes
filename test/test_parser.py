@@ -1,7 +1,7 @@
 from mhcgnomes import (
     Parser,
     Allele,
-    Class2Pair,
+    Pair,
     Mutation,
     Species,
     Haplotype,
@@ -57,7 +57,7 @@ def test_parse_hla_lowercase_dra_01_01_drb1_01_01():
 
     expected_alpha = Allele.get("HLA", "DRA", "01", "01")
     expected_beta = Allele.get("HLA", "DRB1", "01", "01")
-    expected_result = Class2Pair.get(expected_alpha, expected_beta)
+    expected_result = Pair.get(expected_alpha, expected_beta)
     result = parser.parse("hla-dra*01:01/drb1*01:01")
     eq_(result, expected_result)
 
@@ -65,7 +65,7 @@ def test_parse_hla_lowercase_dra_01_01_drb1_01_01_no_default_species():
     parser = Parser()
     expected_alpha = Allele.get("HLA", "DRA", "01", "01")
     expected_beta = Allele.get("HLA", "DRB1", "01", "01")
-    expected_result = Class2Pair.get(expected_alpha, expected_beta)
+    expected_result = Pair.get(expected_alpha, expected_beta)
     result = parser.parse("hla-dra*01:01/drb1*01:01", default_species=None)
     eq_(result, expected_result)
 
@@ -81,7 +81,7 @@ def test_parse_multiple_candidates_HLA_DRA_01_01_DRB1_01_01_G86Y_mutant():
     expected_alpha = Allele.get("HLA", "DRA", "01", "01")
     expected_beta = Allele.get(
         "HLA", "DRB1", "01", "01", mutations=(expected_mutation,))
-    expected_result = Class2Pair.get(expected_alpha, expected_beta)
+    expected_result = Pair.get(expected_alpha, expected_beta)
     eq_(results, [expected_result])
 
 def test_get_haplotypes_for_any_species_BF19():
@@ -182,13 +182,13 @@ def test_parse_multiple_candidates_BoLA_DRA_DRB31501():
     parser = Parser()
     results = parser.parse_multiple_candidates("BoLA-DRA-DRB31501")
     assert len(results) > 0
-    assert any([type(result) is Class2Pair for result in results])
+    assert any([type(result) is Pair for result in results])
 
 def test_parse_BoLA_DRA_DRB31501():
     parser = Parser()
     result = parser.parse("BoLA-DRA-DRB31501")
     assert result is not None
-    assert type(result) is Class2Pair, "Expected Class2Pair but got: %s" % (result,)
+    assert type(result) is Pair, "Expected Class2Pair but got: %s" % (result,)
 
 def test_parse_H2K():
     parse_fns = [parse, Parser().parse]
@@ -215,11 +215,11 @@ def test_parse_H2_IAb_I67F_R70Q_T71K_mutant():
     for fn in parse_fns:
         result = fn(s)
         assert result is not None
-        assert type(result) in (Class2Pair, Allele), \
+        assert type(result) in (Pair, Allele), \
             "Wrong result type: %s" % (result,)
         if type(result) is Allele:
             eq_(len(result.mutations), 3)
-        elif type(result) is Class2Pair:
+        elif type(result) is Pair:
             eq_(len(result.beta.mutations), 3)
 
 
@@ -229,7 +229,7 @@ def test_parse_HLA_DRA_01_01_F54C_mutant_DRB1_01_01():
     for fn in parse_fns:
         result = fn(s)
         assert result is not None
-        assert type(result) is Class2Pair
+        assert type(result) is Pair
         eq_(len(result.alpha.mutations), 1)
         eq_(len(result.beta.mutations), 0)
 
@@ -239,7 +239,7 @@ def test_raw_strings_from_parse_class_ii():
     s = "%s-%s" % (alpha, beta)
     parser = Parser()
     result = parser.parse(s)
-    eq_(type(result), Class2Pair)
+    eq_(type(result), Pair)
     eq_(result.raw_string, s)
     eq_(result.alpha.raw_string.lower(), alpha.lower())
     eq_(result.beta.raw_string.lower(), beta.lower())
@@ -249,7 +249,7 @@ def test_candidates_from_ambiguous_class2_DPA10105_DPB110001():
     parser = Parser()
     results = parser.parse_multiple_candidates(s)
     eq_(len(results), 1)
-    eq_(results[0], Class2Pair.get(
+    eq_(results[0], Pair.get(
         Allele.get("HLA", "DPA1", "01", "05"),
         Allele.get("HLA", "DPB1", "100", "01")))
 
@@ -267,7 +267,7 @@ def test_candidates_from_ambiguous_mouse_class2_IAb():
     parser = Parser()
     results = parser.parse_multiple_candidates(s)
     eq_(len(results), 2)
-    class2 = Class2Pair.get(
+    class2 = Pair.get(
         Allele.get("H2", "AA", "b"),
         Allele.get("H2", "AB", "b"))
     assert class2 in results

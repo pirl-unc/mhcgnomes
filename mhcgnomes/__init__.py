@@ -13,7 +13,7 @@
 from .allele import Allele
 from .allele_without_gene import AlleleWithoutGene
 from .class2_locus import Class2Locus
-from .class2_pair import Class2Pair
+from .class2_pair import Pair
 from .dataframe import dataframe_from_string_list, dataframe_from_parsed_objects
 from .errors import ParseError
 from .function_api import cached_parser, parse
@@ -32,7 +32,7 @@ from .version import __version__
 __all__ = [
     "Allele",
     "Class2Locus",
-    "Class2Pair",
+    "Pair",
     "Gene",
     "Haplotype",
     "MhcClass",

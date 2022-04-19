@@ -26,18 +26,23 @@ class Allele(ResultWithGene):
     """
     def __init__(
             self,
-            gene : Gene,
-            allele_fields : Iterable[str],
-            annotations : Iterable[str] = (),
-            mutations : Iterable[Mutation] = (),
+            gene: Gene,
+            allele_fields: Iterable[str],
+            annotations: Iterable[str] = (),
+            mutations: Iterable[Mutation] = (),
             raw_string=None):
+        if gene.is_mutant:
+            gene_mutations = tuple(gene.mutations)
+            gene = gene.copy_without_mutations()
+        else:
+            gene_mutations = ()
         ResultWithGene.__init__(
             self,
             gene=gene,
             raw_string=raw_string)
         self.allele_fields = tuple(allele_fields)
         self.annotations = tuple(annotations)
-        self.mutations = tuple(mutations)
+        self.mutations = gene_mutations + tuple(mutations)
 
     def __hash__(self):
         return hash((
@@ -119,7 +124,7 @@ class Allele(ResultWithGene):
     @classmethod
     def get_with_gene(
             cls,
-            gene : Gene,
+            gene: Gene,
             allele_fields: Iterable[str],
             annotations: Union[Iterable[str], None] = None,
             mutations: Union[Iterable[Mutation], None] = None,

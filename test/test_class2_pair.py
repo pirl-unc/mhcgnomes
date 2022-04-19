@@ -1,9 +1,9 @@
-from mhcgnomes import parse, Class2Pair
+from mhcgnomes import parse, Pair
 from nose.tools import eq_
 
 def test_restrict_num_allele_fields_HLA_DRA_01_01_01_01_DRB1_01_01_01_01():
     result = parse("DRA*01:01:01:01/DRB*01:01:01:01")
-    eq_(type(result), Class2Pair)
+    eq_(type(result), Pair)
     eq_(result.alpha.allele_fields, ("01", "01", "01", "01"))
     eq_(result.beta.allele_fields, ("01", "01", "01", "01"))
 
@@ -15,9 +15,9 @@ def test_restrict_num_allele_fields_HLA_DRA_01_01_01_01_DRB1_01_01_01_01():
 
 def test_annotation_null_HLA_DRA_01_01_01_01_DRB1_01_01_01_01N():
     result = parse("DRA*01:01:01:01/DRB*01:01:01:01")
-    eq_(type(result), Class2Pair)
+    eq_(type(result), Pair)
     assert not result.annotation_null
 
     result = parse("DRA*01:01:01:01/DRB*01:01:01:01N")
-    eq_(type(result), Class2Pair)
+    eq_(type(result), Pair)
     assert result.annotation_null

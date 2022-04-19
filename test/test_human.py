@@ -1,7 +1,7 @@
 from nose.tools import eq_
 from mhcgnomes import (
     parse,
-    Class2Pair,
+    Pair,
     Allele
 )
 
@@ -115,7 +115,7 @@ def test_A_02_01_01_01():
 
 
 def test_parse_human_class2_DRB1_01_02():
-    expected = Class2Pair.get(
+    expected = Pair.get(
         Allele.get("HLA", "DRA", "01", "01"),
         Allele.get("HLA", "DRB1", "01", "02"),
     )
@@ -159,7 +159,7 @@ def test_compact_string_string_human_class2_DRB1_01_02():
         eq_(parse(name).compact_string(), expected_compact)
 
 def test_parse_human_class2_alpha_beta_DPA1_01_05_DPB1_100_01_upper_compact():
-    expected = Class2Pair.get(
+    expected = Pair.get(
         Allele.get("HLA", "DPA1", "01", "05"),
         Allele.get("HLA", "DPB1", "100", "01")
     )
@@ -167,7 +167,7 @@ def test_parse_human_class2_alpha_beta_DPA1_01_05_DPB1_100_01_upper_compact():
     eq_(parse(s, infer_class2_pairing=True), expected)
 
 def test_parse_human_class2_alpha_beta_DPA1_01_05_DPB1_100_01_full_syntax_hyphens():
-    expected = Class2Pair.get(
+    expected = Pair.get(
         Allele.get("HLA", "DPA1", "01", "05"),
         Allele.get("HLA", "DPB1", "100", "01")
     )
@@ -175,7 +175,7 @@ def test_parse_human_class2_alpha_beta_DPA1_01_05_DPB1_100_01_full_syntax_hyphen
     eq_(parse(s, infer_class2_pairing=True), expected)
 
 def test_parse_human_class2_alpha_beta_DPA1_01_05_DPB1_100_01_full_syntax_hyphens_lower():
-    expected = Class2Pair.get(
+    expected = Pair.get(
         Allele.get("HLA", "DPA1", "01", "05"),
         Allele.get("HLA", "DPB1", "100", "01")
     )
@@ -183,7 +183,7 @@ def test_parse_human_class2_alpha_beta_DPA1_01_05_DPB1_100_01_full_syntax_hyphen
     eq_(parse(s, infer_class2_pairing=True), expected)
 
 def test_parse_human_class2_alpha_beta_DPA1_01_05_DPB1_100_01_no_hla_lower_no_colons():
-    expected = Class2Pair.get(
+    expected = Pair.get(
         Allele.get("HLA", "DPA1", "01", "05"),
         Allele.get("HLA", "DPB1", "100", "01")
     )
@@ -191,7 +191,7 @@ def test_parse_human_class2_alpha_beta_DPA1_01_05_DPB1_100_01_no_hla_lower_no_co
     eq_(parse(s, infer_class2_pairing=True), expected)
 
 def test_parse_human_class2_alpha_beta_DPA1_01_05_DPB1_100_01_full_syntax_slash():
-    expected = Class2Pair.get(
+    expected = Pair.get(
         Allele.get("HLA", "DPA1", "01", "05"),
         Allele.get("HLA", "DPB1", "100", "01")
     )
@@ -199,7 +199,7 @@ def test_parse_human_class2_alpha_beta_DPA1_01_05_DPB1_100_01_full_syntax_slash(
     eq_(parse(s, infer_class2_pairing=True), expected)
 
 def test_parse_human_class2_alpha_beta_DPA1_01_05_DPB1_100_01_compact_slash():
-    expected = Class2Pair.get(
+    expected = Pair.get(
         Allele.get("HLA", "DPA1", "01", "05"),
         Allele.get("HLA", "DPB1", "100", "01")
     )
@@ -207,7 +207,7 @@ def test_parse_human_class2_alpha_beta_DPA1_01_05_DPB1_100_01_compact_slash():
     eq_(parse(s, infer_class2_pairing=True), expected)
 
 def test_parse_all_parameters_true_human_class2_alpha_beta_DPA1_01_05_DPB1_100_01():
-    expected = Class2Pair.get(
+    expected = Pair.get(
         Allele.get("HLA", "DPA1", "01", "05"),
         Allele.get("HLA", "DPB1", "100", "01")
     )
@@ -263,14 +263,14 @@ def test_alpha_chain_inference_DQ():
 def test_human_class2_pair_with_mutation():
     allele = "HLA-DRA*01:01/DRB1*01:01 G86Y mutant"
     result = parse(allele)
-    eq_(type(result), Class2Pair)
+    eq_(type(result), Pair)
     eq_(result.beta.is_mutant, True)
 
 
 def test_human_class2_beta_with_mutation():
     allele = "DRB1*01:01 G86Y mutant"
     result = parse(allele, infer_class2_pairing=True)
-    eq_(type(result), Class2Pair)
+    eq_(type(result), Pair)
     eq_(result.beta.is_mutant, True)
 
 def test_DRB5_0108N():
@@ -284,5 +284,5 @@ def test_DRB5_0108N_with_inferred_alpha():
     allele = "DRB5_0108N"
     result = parse(allele, infer_class2_pairing=True)
     assert result is not None
-    eq_(type(result), Class2Pair)
+    eq_(type(result), Pair)
     assert result.annotation_null

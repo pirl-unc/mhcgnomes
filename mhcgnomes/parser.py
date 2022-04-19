@@ -21,7 +21,7 @@ from .allele_annotations import (
 )
 from .allele_without_gene import AlleleWithoutGene
 from .class2_locus import Class2Locus
-from .class2_pair import Class2Pair, infer_class2_alpha_chain
+from .class2_pair import Pair, infer_class2_alpha_chain
 from .common import cache, unique
 from .data import haplotypes as raw_haplotypes_data
 from .errors import ParseError
@@ -702,7 +702,7 @@ class Parser(object):
             return None
         if alpha_result.species != beta_result.species:
             return None
-        return Class2Pair.get(alpha_result, beta_result)
+        return Pair.get(alpha_result, beta_result)
 
     def parse_mutations(self, species, mutation_strings):
         """
@@ -761,16 +761,22 @@ class Parser(object):
             mutations_without_selector,
             chain_to_mutations,
             gene_to_mutations):
-        n_mutations = len(mutations_without_selector) + len(gene_to_mutations) + len(chain_to_mutations)
-        if n_mutations == 0:
+        n_mutations = (
+                len(mutations_without_selector) +
+                len(gene_to_mutations) +
+                len(chain_to_mutations))
+
+        if not n_mutations:
             return None
+
         result = result_without_mutation
 
         alpha_mutations = chain_to_mutations["alpha"]
         beta_mutations = chain_to_mutations["beta"]
 
-        if type(result) is Allele:
+        if type(result) in (Gene, Allele):
             mutations = list(mutations_without_selector)
+
             for gene, mutations_for_gene in gene_to_mutations.items():
                 if gene != result_without_mutation.gene:
                     return None
@@ -787,7 +793,7 @@ class Parser(object):
                     return None
                 mutations.extend(mutations_without_selector)
             result = result.copy_with_extra_mutations(mutations)
-        elif type(result) is Class2Pair:
+        elif type(result) is Pair:
             beta_mutations.extend(mutations_without_selector)
             alpha, beta = result.alpha, result.beta
             for gene, mutations_for_gene in gene_to_mutations.items():
@@ -807,8 +813,8 @@ class Parser(object):
 
     def parse_and_apply_mutations(
             self,
-            result_without_mutation: Union[Allele, Class2Pair],
-            mutation_tokens: Sequence[Token]) -> Union[Allele, Class2Pair, None]:
+            result_without_mutation: Union[Gene, Allele, Pair],
+            mutation_tokens: Sequence[Token]) -> Union[Allele, Pair, None]:
         """
         Parameters
         ----------
@@ -826,7 +832,7 @@ class Parser(object):
         if result_without_mutation is None:
             return None
 
-        if type(result_without_mutation) not in (Allele, Class2Pair):
+        if type(result_without_mutation) not in (Gene, Allele, Pair):
             return None
 
         while mutation_tokens[-1].is_mutant:
@@ -834,6 +840,7 @@ class Parser(object):
 
         if len(mutation_tokens) == 0:
             return None
+
         mutation_strings = [tok.seq for tok in mutation_tokens]
 
         mutations_without_selector, chain_to_mutations, gene_to_mutations = \
@@ -891,11 +898,11 @@ class Parser(object):
                     transformed = parse_candidate.collapse_if_possible()
                 else:
                     transformed = transformed.collapse_if_possible()
-        elif t is Class2Pair:
+        elif t is Pair:
             alpha = self.transform_parse_candidate(parse_candidate.alpha)
             beta = self.transform_parse_candidate(parse_candidate.beta)
             if alpha != parse_candidate.alpha or beta != parse_candidate.beta:
-                transformed = Class2Pair.get(
+                transformed = Pair.get(
                     alpha,
                     beta,
                     raw_string=parse_candidate.raw_string)
@@ -1268,7 +1275,7 @@ class Parser(object):
                         continue
                     if result_before.species != result_after.species:
                         continue
-                    class2_pair = Class2Pair.get(result_before, result_after)
+                    class2_pair = Pair.get(result_before, result_after)
                     if class2_pair:
                         candidates.append(class2_pair)
         return unique(candidates)
@@ -1302,7 +1309,7 @@ class Parser(object):
                 if type(candidate) in (Allele, AlleleWithoutGene, Gene):
                     if candidate.is_class1 or candidate.is_class2_alpha:
                         candidates.append(candidate)
-                    elif type(candidate) is Class2Pair:
+                    elif type(candidate) is Pair:
                         candidates.append(candidate.alpha)
                     elif type(candidate) is Class2Locus:
                         alpha_genes = candidate.alpha_chain_genes
@@ -1317,7 +1324,7 @@ class Parser(object):
                 if type(candidate) in (Allele, AlleleWithoutGene, Gene):
                     if candidate.is_class2_beta:
                         candidates.append(candidate)
-                    elif type(candidate) is Class2Pair:
+                    elif type(candidate) is Pair:
                         candidates.append(candidate.beta)
                     elif type(candidate) is Class2Locus:
                         beta_genes = candidate.beta_chain_genes
@@ -1326,7 +1333,6 @@ class Parser(object):
                     else:
                         continue
         elif tokens[-1].is_mutant:
-            print(tokens)
             for without_mutation in self.parse_single_token_to_multiple_candidates(
                     token=tokens[0],
                     default_species=default_species):
@@ -1458,7 +1464,6 @@ class Parser(object):
                 # "homo sapiens" at the beginning of a token sequence
                 species_candidates = find_matching_species_objects(
                     ' '.join([t.seq for t in tokens[:num_species_tokens]]))
-                print(species_candidates)
             if len(species_candidates) > 0:
                 tokens = tokens[num_species_tokens:]
                 found_species_prefix = True

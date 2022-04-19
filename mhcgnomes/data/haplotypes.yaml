@@ -98,33 +98,32 @@ H2:
     - Eb*b
     - Eb*k
     - Ea*k
-    - S*d
     - D*d
     - L*d
     - Qa-2*a
     - T18*a
     - Q1*a
   i3:
+    # source: http://www.informatics.jax.org/downloads/datasets/misc/H2Haplotypes/H2_haplotypes.html
     - K*b
     - Ab*b
     - Aa*b
     - Eb*b
     - Eb*k
     - Ea*k
-    - S*d
     - D*d
     - L*d
     - Qa-2*a
     - T18*a
     - Q1*a
   i5:
+    # source: http://www.informatics.jax.org/downloads/datasets/misc/H2Haplotypes/H2_haplotypes.html
     - K*b
     - Ab*b
     - Aa*b
     - Eb*b
     - Eb*k
     - Ea*k
-    - S*d
     - D*d
     - L*d
     - Qa-2*a

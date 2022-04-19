@@ -18,7 +18,7 @@ from .mhc_class_helpers import (
     restrict_alleles,
 )
 from .class2_locus import Class2Locus
-from .class2_pair import Class2Pair
+from .class2_pair import Pair
 from .result_with_multiple_alleles  import ResultWithMultipleAlleles
 from .species import Species
 
@@ -164,7 +164,7 @@ class Haplotype(ResultWithMultipleAlleles):
 
         alpha = alpha_alleles[0]
         beta = beta_alleles[0]
-        return Class2Pair(alpha, beta)
+        return Pair(alpha, beta)
 
     def to_string(
             self,
