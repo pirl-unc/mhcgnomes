@@ -15,7 +15,6 @@
 # Source for MHC Id genes across different species:
 # - https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5002277/
 
-
 ######################################################
 #
 # Human
@@ -88,6 +87,7 @@ Homo sapiens:
       - TAP1
       - TAP2
       - TAPBP
+      - B2M
 ######################################################
 #
 # Mouse
@@ -189,6 +189,11 @@ Mus musculus:
       DO:
         - OA
         - OB
+    other:
+      - TAP1
+      - TAP2
+      - TAPBP
+      - B2M
 ######################################################
 #
 # Rats
@@ -299,6 +304,11 @@ Rattus sp.:
       DM:
         - DMA
         - DMB
+    other:
+      - TAP1
+      - TAP2
+      - TAPBP
+      - B2M
 Rattus norvegicus:
   parent: Rattus sp.
   prefix: Rano
@@ -338,6 +348,11 @@ Canis sp.:
       DR:
         - DRA
         - DRB1
+    other:
+      - TAP1
+      - TAP2
+      - TAPBP
+      - B2M
 Canis lupus baileyi:
   parent: Canis sp.
   prefix: Caba
@@ -406,6 +421,11 @@ Felis sp.:
       DM:
         - DMA
         - DMB
+    other:
+      - TAP1
+      - TAP2
+      - TAPBP
+      - B2M
 Felis catus:
   parent: Felis sp.
   prefix: Feca
@@ -431,6 +451,12 @@ Ctenopharyngodon idella:
       DA:
         - DAA
         - DAB
+    other:
+      - TAP1
+      - TAP2
+      - TAPBP
+      - B2M-1
+      - B2M-2
 Oncorhynchus mykiss:
   prefix: Onmy
   name:
@@ -469,6 +495,7 @@ Sistrurus catenatus:
   genes:
     IIa:
       DA:
+        - DAA
         - DAB
 ##############################################
 #
@@ -566,6 +593,11 @@ Bos sp.:
         - DYA
       DI:
         - DIB
+    other:
+      - TAP1
+      - TAP2
+      - TAPBP
+      - B2M
 Bos taurus:
   parent: Bos sp.
   prefix: Bota
@@ -614,6 +646,11 @@ Capra sp.:
         - DRA1
         - DRB
         - DRB1
+      other:
+        - TAP1
+        - TAP2
+        - TAPBP
+        - B2M
 Capra hircus:
   parent: Capra sp.
   prefix: Cahi
@@ -662,6 +699,11 @@ Equus sp.:
       DM:
         - DMA
         - DMB
+    other:
+      - TAP1
+      - TAP2
+      - TAPBP
+      - B2M
 Equus caballus:
   parent: Equus sp.
   prefix: Eqca
@@ -724,6 +766,8 @@ Sus sp.:
     other:
       - TAP1
       - TAP2
+      - TAPBP
+      - B2M
 Sus domesticus:
   parent: Sus sp.
   prefix: Sudo
@@ -773,6 +817,8 @@ Pteropus alecto:
     other:
       - TAP1
       - TAP2
+      - TAPBP
+      - B2M
 ################################################################################
 #
 # Rabbit
@@ -799,6 +845,11 @@ Oryctolagus sp.:
         - DQA
         - DQB
       DN: {}  # couldn't tell which genes in DN locus
+    other:
+      - TAP1
+      - TAP2
+      - TAPBP
+      - B2M
 Oryctolagus cuniculus:
   parent: Oryctolagus sp.
   prefix: Orcu
@@ -841,6 +892,8 @@ Gallus gallus:
     other:
       - TAP1
       - TAP2
+      - TAPBP
+      - B2M
 ################################################################################
 #
 # Duck
@@ -854,7 +907,12 @@ Anas platyrhynchos:
   prefix: Anpl
   genes:
     Ia:
-    - UAA
+      - UAA
+    other:
+      - TAP1
+      - TAP2
+      - TAPBP
+      - B2M
 ################################################################################
 #
 # Egrets & Ibises
@@ -877,6 +935,11 @@ Nipponia nippon:
         - DAB1
         - DAB2
         - DAB3
+    other:
+      - TAP1
+      - TAP2
+      - TAPBP
+      - B2M
 ################################################################################
 #
 # Owls
@@ -1007,28 +1070,58 @@ Tyto alba:
 #   - https://pubmed.ncbi.nlm.nih.gov/15665097/
 #
 ################################################################################
+Primata sp.:
+  prefix: NHP
+  taxon: 9443
+  name: Primate
+  genes:
+    Ib:
+      - E
+      - F
+      - G
+      - HFE
+    Ic:
+      - MICA
+      - MICB
+    Id:
+      - CD1a
+      - CD1b
+      - CD1c
+      - CD1d
+      - CD1e
+      - MR1
+    IIb:
+      DM:
+        - DMA
+        - DMB
+      DO:
+        - DOA
+        - DOB
+    other:
+      - TAP1
+      - TAP2
+      - TAPBP
+      - B2M
 Alouatta pigra:
   prefix: Alpi
+  parent: Primata sp.
   name: Guatemalan black howler
   taxon: 182253
   genes:
     IIa:
       DR:
+        - DRA
         - DRB
 Aotus sp.:
   prefix: OmLA
+  parent: Primata sp.
   name:
     - Night monkey
     - Owl monkey
   genes:
-    Ib:
-      - F
+    I:
+      - PS2
     IIa:
-      Ib:
-        - E
-        - G
-      I:
-        - PS2
       DR:
         - DRA
         - DRB
@@ -1072,29 +1165,27 @@ Aotus vociferans:
   taxon: 57176
 Ateles belzebuth:
   prefix: Atbe
+  parent: Primata sp.
   name: White-fronted Spider Monkey
   taxon: 9507
   genes:
     Ia:
       - B
-    Ib:
-      - E
-      - G
     IIa:
       DR:
+        - DRA
         - DRB
 Ateles fusciceps:
   prefix: Atfu
+  parent: Primata sp.
   name: Black-headed Spider Monkey
   taxon: 9508
   genes:
     Ia:
       - B
-    Ib:
-      - E
-      - G
 Callithrix sp.:
   prefix: MaLA
+  parent: Primata sp.
   name: Marmoset
   # TODO:
   #   - Harmonize with this gene table
@@ -1161,16 +1252,19 @@ Callithrix jacchus:
   taxon: 9483
 Callicebus moloch:
   prefix: Camo
+  parent: Primata sp.
   name: Red-bellied Titi
   taxon: 9523
   genes:
     IIa:
       DR:
+        - DRA
         - DRB
         - DRB1
         - DRB11
         - DRB3
 Callithrix pygmaea:
+  parent: Primata sp.
   prefix: Capy
   old prefix: Cepy
   name: Pygmy Marmoset
@@ -1178,17 +1272,21 @@ Callithrix pygmaea:
   genes:
     IIa:
       DR:
+        - DRA
         - DRB
         - DRB1
 Cebus apella:
+  parent: Primata sp.
   prefix: Ceap
   name: Tufted Capuchin
   taxon: 9515
   genes:
     IIa:
       DR:
+        - DRA
         - DRB
 Cercocebus atys:
+  parent: Primata sp.
   prefix: Ceat
   name: Sooty Mangabey
   taxon: 9531
@@ -1198,12 +1296,10 @@ Cercocebus atys:
       - Aw1
       - Aw2
       - B
-    Ib:
-      - E
-      - F
     I:
       - I
 Cercopithecus mitis:
+  parent: Primata sp.
   prefix: Cemi
   name: Blue Monkey
   taxon: 36225
@@ -1215,6 +1311,7 @@ Cercopithecus mitis:
       DQ:
         - DQA1
 Cercopithecus neglectus:
+  parent: Primata sp.
   prefix: Cene
   name: De Brazza's monkey
   taxon: 36227
@@ -1223,6 +1320,7 @@ Cercopithecus neglectus:
       DQ:
         - DQA1
 Chlorocebus aethiops:
+  parent: Primata sp.
   prefix: Chae
   name: Grivet
   taxon: 9534
@@ -1230,18 +1328,18 @@ Chlorocebus aethiops:
     Ia:
       - A
       - B
-    Ib:
-      - G
     IIa:
       DQ:
         - DQA1
         - DQB1
       DR:
+        - DRA
         - DRB
         - DRB1
         - DRB5
         - DRB6
 Chlorocebus pygerythrus:
+  parent: Primata sp.
   prefix: Chpy
   name: vervet monkey
   taxon: 60710
@@ -1250,14 +1348,15 @@ Chlorocebus pygerythrus:
       - A
       - B
 Chlorocebus sabaeus:
+  parent: Primata sp.
   prefix: Chsa
   name: Green Monkey
   taxon: 60711
   genes:
-    Ia:
+    I:
+      - A
+      - AG
       - B
-    Ib:
-      - E
     IIa:
       DP:
         - DPA1
@@ -1270,10 +1369,8 @@ Chlorocebus sabaeus:
         - DRB
         - DRB1
         - DRB5
-    I:
-      - A
-      - AG
 Colobus guereza:
+  parent: Primata sp.
   prefix: Cogu
   name: Mantled Guereza
   taxon: 33548
@@ -1282,6 +1379,7 @@ Colobus guereza:
       DQ:
         - DQA1
 Gorilla sp.:
+  parent: Primata sp.
   prefix: GoLA
   name: Gorilla
   genes:
@@ -1290,10 +1388,9 @@ Gorilla sp.:
       - B
       - C
     Ib:
-      - E
-      - F
-      - G
-      - H
+      - H # same as HFE?
+    I: # unclassified
+      - OKO
     IIa:
       DP:
         - DPA1
@@ -1310,12 +1407,6 @@ Gorilla sp.:
         - DRB3
         - DRB5
         - DRB6
-    IIb:
-      DM:
-        - DMA
-        - DMB
-    I: # unclassified
-      - OKO
 Gorilla beringei:
   parent: Gorilla sp.
   prefix: Gobe
@@ -1329,6 +1420,7 @@ Gorilla gorilla:
     - Western gorilla
   taxon: 9593
 Hylobates lar:
+  parent: Primata sp.
   prefix: Hyla
   name: Lar Gibbon
   taxon: 9580
@@ -1343,22 +1435,23 @@ Hylobates lar:
         - DQB1
         - DQB2
 Hylobates moloch:
+  parent: Primata sp.
   prefix: Hymo
   name: Silvery Javan Gibbon
   taxon: 81572
   genes:
     IIa:
       DR:
-        - DRB
+        - DRA
+        - DRB # same as DRB1?
         - DRB1
 Leontopithecus rosalia:
+  parent: Primata sp.
   prefix: Lero
   name: Golden Lion Tamarin
   taxon: 30588
-  genes:
-    Ib:
-      - G
 Lophocebus aterrimus:
+  parent: Primata sp.
   prefix: Loat
   name: Black Crested Mangabey
   taxon: 75566
@@ -1367,6 +1460,7 @@ Lophocebus aterrimus:
       DQ:
         - DQA1
 Macaca arctoides:
+  parent: Primata sp.
   prefix: Maar
   name: Stump-tailed Macaque
   taxon: 9540
@@ -1374,6 +1468,8 @@ Macaca arctoides:
     Ia:
       - A1
       - B
+    I: # unclassified
+      - I
     IIa:
       DP:
         - DPA1
@@ -1383,9 +1479,9 @@ Macaca arctoides:
       DR:
         - DRB1
         - DRB5
-    I: # unclassified
-      - I
+
 Macaca assamensis:
+  parent: Primata sp.
   prefix: Maas
   name: Assam Macaque
   taxon: 9551
@@ -1426,17 +1522,6 @@ Macaca fascicularis:
       - B17
       - B20
       - B21
-    Ib:
-      - E
-      - F
-      - G # pseudogene in macaques
-      - AG
-      - AG1
-      - AG2
-      - AG3
-      - AG4
-      - AG5
-      - AG6
     IIa:
       DP:
         - DPA1
@@ -1452,14 +1537,8 @@ Macaca fascicularis:
         - DRB4
         - DRB5
         - DRB6
-    IIb:
-      DM:
-        - DMA
-        - DMB
-      DO:
-        - DOA
-        - DOB
 Macaca fuscata:
+  parent: Primata sp.
   prefix: Mafu
   name: Japanese Macaque
   taxon: 9542
@@ -1470,6 +1549,7 @@ Macaca fuscata:
         - DRB1
         - DRB3
 Mandrillus leucophaeus:
+  parent: Primata sp.
   prefix: Male
   name: Drill
   taxon: 9568
@@ -1478,6 +1558,7 @@ Mandrillus leucophaeus:
       DR:
         - DRB1
 Macaca leonina:
+  parent: Primata sp.
   prefix: Malo
   name: Northern Pig-tailed Macaque
   taxon: 90387
@@ -1502,13 +1583,6 @@ Macaca leonina:
         - DRB
         - DRB1
         - DRB3
-    IIb:
-      DM:
-        - DMA
-        - DMB
-      DO:
-        - DOA
-        - DOB
 
 # Rhesus Monkey
 #
@@ -1524,6 +1598,7 @@ Macaca leonina:
 # a specific A gene. This seems similar to the situation in HLA-DR but with
 # even fewer sequence differences between the gene copies.
 Macaca sp.:
+  parent: Primata sp.
   prefix: RhLA
   name: Macaque
   genes:
@@ -1543,10 +1618,6 @@ Macaca sp.:
       - B17
       - B20
     Ib:
-      - E
-      - F
-      - G # pseudogene in macaques
-      - AG
       # source for AG: https://pubmed.ncbi.nlm.nih.gov/9317129/
       - AG
       - AG1
@@ -1556,13 +1627,6 @@ Macaca sp.:
       # source for AG5: https://pubmed.ncbi.nlm.nih.gov/12097369/
       - AG5
       - AG6
-    Id:
-      - CD1a
-      - CD1b
-      - CD1c
-      - CD1d
-      - CD1e
-      - MR1
     I:
       - B02Ps
       - B10Ps
@@ -1621,12 +1685,14 @@ Macaca silenus:
         # unclear if DRB4 shared across all macaques
         - DRB4
 Mandrillus sphinx:
+  parent: Primata sp.
   prefix: Masp
   name: Mandrill
   taxon: 9561
   genes:
     IIa:
       DR:
+        - DRA
         - DRB
         - DRB1
         - DRB3
@@ -1642,18 +1708,16 @@ Macaca thibetana:
       - A1
       - A2
       - B
+    I:
+      - I
     IIa:
       DP:
         - DPB1
       DQ:
         - DQB1
-    IIb:
-      DM:
-        - DMA
-        - DMB
-    I:
-      - I
+
 Papio anubis:
+  parent: Primata sp.
   prefix: Paan
   name: Olive Baboon
   taxon: 9555
@@ -1680,6 +1744,7 @@ Papio anubis:
         - DRB5
         - DRB6
 Papio cynocephalus:
+  parent: Primata sp.
   prefix: Pacy
   name: Yellow Baboon
   taxon: 9556
@@ -1693,6 +1758,7 @@ Papio cynocephalus:
       DQ:
         - DQA1
 Papio hamadryas:
+  parent: Primata sp.
   prefix: Paha
   name: Hamadryas Baboon
   taxon: 9557
@@ -1710,6 +1776,7 @@ Papio hamadryas:
         - DRB1
 
 Papio papio:
+  parent: Primata sp.
   prefix: Papp
   name: Guinea Baboon
   taxon: 100937
@@ -1718,6 +1785,7 @@ Papio papio:
       DQ:
         - DQA1
 Pan sp.:
+  parent: Primata sp.
   prefix: ChLA
   name: Chimpanzee
   genes:
@@ -1727,10 +1795,7 @@ Pan sp.:
       - B
       - C
     Ib:
-      - E
-      - F
-      - G
-      - H
+      - H # same as HFE?
     IIa:
       DP:
         - DPA1
@@ -1749,11 +1814,6 @@ Pan sp.:
         - DRB5
         - DRB6
         - DRB7
-    IIb:
-      DM:
-        - DMB
-      DO:
-        - DOB
 Pan troglodytes:
   parent: Pan sp.
   prefix: Patr
@@ -1766,31 +1826,33 @@ Pan paniscus:
   name: Bonobo
   taxon: 9597
 Papio ursinus:
+  parent: Primata sp.
   prefix: Paur
   name: Chacma Baboon
   taxon: 36229
   genes:
     IIa:
       DR:
+        - DRA
         - DRB
         - DRB1
         - DRB5
         - DRB6
 Pithecia pithecia:
+  parent: Primata sp.
   prefix: Pipi
   name: White-faced Saki
   taxon: 43777
   genes:
     Ia:
       - B
-    Ib:
-      - E
-      - G
     IIa:
       DR:
+        - DRA
         - DRB
         - DRB3
 Pongo sp.:
+  parent: Primata sp.
   prefix: OrLA
   name: Orangutan
   genes:
@@ -1801,10 +1863,7 @@ Pongo sp.:
     I:
       - Ap
     Ib:
-      - E
-      - F
-      - G
-      - H
+      - H # same as HFE?
     IIa:
       DP:
         - DPA1
@@ -1821,10 +1880,6 @@ Pongo sp.:
         - DRB3
         - DRB5
         - DRB6
-    IIb:
-      DM:
-        - DMA
-        - DMB
 Pongo abelii:
   parent: Pongo sp.
   prefix: Poab
@@ -1836,6 +1891,7 @@ Pongo pygmaeus:
   name: Bornean Orangutan
   taxon: 9600
 Rhinopithecus roxellana:
+  parent: Primata sp.
   prefix: Rhro
   name: Golden Snub-nosed Monkey
   taxon: 61622
@@ -1850,6 +1906,7 @@ Rhinopithecus roxellana:
         - DRB1
         - DRB2
 Saguinus fuscicollis:
+  parent: Primata sp.
   prefix: Safu
   name: Brown-mantled Tamarin
   taxon: 9487
@@ -1860,6 +1917,7 @@ Saguinus fuscicollis:
       - PS1
       - PS2
 Saguinus geoffroyi:
+  parent: Primata sp.
   prefix: Sage
   name: Geoffroy's Tamarin
   taxon: 43778
@@ -1868,17 +1926,18 @@ Saguinus geoffroyi:
       - PS1
       - PS2
 Saguinus labiatus:
+  parent: Primata sp.
   prefix: Sala
   name: White-lipped Tamarin
   taxon: 78454
   genes:
-    Ib:
-      - G
     IIa:
       DR:
+        - DRA
         - DRB
         - DRB1
 Saguinus mystax:
+  parent: Primata sp.
   prefix: Samy
   name: Moustached Tamarin
   taxon: 9488
@@ -1887,16 +1946,18 @@ Saguinus mystax:
       - PS1
       - PS2
 Saguinus oedipus:
+  parent: Primata sp.
   prefix: Saoe
   name: Cottontop Tamarin
   taxon: 9490
   genes:
     Ia:
       - C
-    Ib:
-      - E
-      - F
-      - G
+    I:
+      - N1
+      - N3
+      - N4
+      - PS1
     IIa:
       DP:
         - DPB1
@@ -1910,24 +1971,21 @@ Saguinus oedipus:
         - DRB11
         - DRB3
         - DRB5
-    I:
-      - N1
-      - N3
-      - N4
-      - PS1
+
 Saimiri sciureus:
+  parent: Primata sp.
   prefix: Sasc
   name: Common Squirrel Monkey
   taxon: 9521
   genes:
-    Ib:
-      - G
     IIa:
       DP:
         - DPA1
       DR:
+        - DRA
         - DRB
 Semnopithecus entellus:
+  parent: Primata sp.
   prefix: Seen
   old prefix: Pren
   name: Northern Plains Gray Langur
@@ -1936,7 +1994,11 @@ Semnopithecus entellus:
     IIa:
       DP:
         - DPB1
+      DR:
+        - DRA
+        - DRB
 Theropithecus gelada:
+  parent: Primata sp.
   prefix: Thge
   old prefix: Pren
   name: Gelada
@@ -1946,6 +2008,9 @@ Theropithecus gelada:
       DQ:
         - DQA1
         - DQB
+      DR:
+        - DRA
+        - DRB
 ##########################
 #
 # Panda
@@ -1958,3 +2023,8 @@ Ailuropoda melanoleuca:
   genes:
     I:
      - "128"
+    other:
+      - TAP1
+      - TAP2
+      - TAPBP
+      - B2M
