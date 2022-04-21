@@ -144,3 +144,10 @@ class Gene(ResultWithMhcClass):
         d["mutations"] = self.mutation_string()
         d["is_mutant"] = self.is_mutant
         return d
+
+    def restrict_num_allele_fields(
+            self,
+            num_fields,
+            drop_annotations=False,
+            drop_mutations=False):
+        return self.copy(mutations=[] if drop_mutations else self.mutations)

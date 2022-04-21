@@ -31,8 +31,8 @@ class MhcClass(ResultWithMhcClass):
     """
     def __init__(
             self,
-            species : Species,
-            mhc_class : str,
+            species: Species,
+            mhc_class: str,
             raw_string : Union[str, None] = None):
         ResultWithMhcClass.__init__(
             self,

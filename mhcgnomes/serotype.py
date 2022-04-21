@@ -25,10 +25,10 @@ class Serotype(ResultWithMultipleAlleles):
     """
     def __init__(
             self,
-            species : Species,
-            name : str,
-            alleles : Sequence[Allele],
-            raw_string : Union[str, None] = None):
+            species: Species,
+            name: str,
+            alleles: Sequence[Allele],
+            raw_string: Union[str, None] = None):
         ResultWithMultipleAlleles.__init__(
             self,
             species=species,

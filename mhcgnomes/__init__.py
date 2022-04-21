@@ -13,7 +13,7 @@
 from .allele import Allele
 from .allele_without_gene import AlleleWithoutGene
 from .class2_locus import Class2Locus
-from .class2_pair import Pair
+from .pair import Pair
 from .dataframe import dataframe_from_string_list, dataframe_from_parsed_objects
 from .errors import ParseError
 from .function_api import cached_parser, parse

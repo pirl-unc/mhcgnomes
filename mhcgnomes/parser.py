@@ -21,7 +21,7 @@ from .allele_annotations import (
 )
 from .allele_without_gene import AlleleWithoutGene
 from .class2_locus import Class2Locus
-from .class2_pair import Pair, infer_class2_alpha_chain
+from .pair import Pair, infer_class2_alpha_chain
 from .common import cache, unique
 from .data import haplotypes as raw_haplotypes_data
 from .errors import ParseError
@@ -1048,6 +1048,14 @@ class Parser(object):
         if self.verbose:
             print(f""">>> Parser.parse_single_token_to_multiple_candidates(
                             {token}, {default_species})""")
+
+        # if the whole sequence is just something like "Class I" then return that
+        # result directly
+        if token.is_class1_or_class2:
+            mhc_class = MhcClass.get(default_species, "I" if token.is_class1 else "II")
+            if mhc_class:
+                return [mhc_class]
+
         seq = token.seq
         raw_string = token.raw_string
 
@@ -1057,7 +1065,6 @@ class Parser(object):
             default_species=default_species)
 
         if standard_result:
-
             if self.verbose:
                 print(f"""=== Standard format result """)
                 print(standard_result)
@@ -1168,7 +1175,6 @@ class Parser(object):
         else:
             return results
 
-
     def parse_with_class_token_to_multiple_candidates(
             self,
             class_token: Token,
@@ -1177,8 +1183,15 @@ class Parser(object):
         class1 = class_token.is_class1
         class2 = class_token.is_class2
         mhc_class_string = "I" if class1 else "II"
+
         candidates = []
-        if mhc_class_string:
+        if len(other_tokens) == 0:
+            mhc_class = MhcClass.get(
+                default_species,
+                mhc_class_string)
+            if mhc_class:
+                candidates.append(mhc_class)
+        else:
             for unrestricted_result in self.parse_tokens_to_multiple_candidates(
                     tokens=other_tokens,
                     default_species=default_species):

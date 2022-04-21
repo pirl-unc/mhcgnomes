@@ -18,20 +18,20 @@ from .mhc_class_helpers import (
     restrict_alleles,
 )
 from .class2_locus import Class2Locus
-from .class2_pair import Pair
+from .pair import Pair
 from .result_with_multiple_alleles  import ResultWithMultipleAlleles
 from .species import Species
 
 class Haplotype(ResultWithMultipleAlleles):
     def __init__(
             self,
-            species : Species,
-            name : str,
-            alleles : Sequence[Allele],
-            class_restriction : Union[str, None] = None,
-            locus_restriction : Union[Class2Locus, None] = None,
-            parent_haplotypes : Union[Sequence["Haplotype"], None] = None,
-            raw_string : Union[str, None] = None):
+            species: Species,
+            name: str,
+            alleles: Sequence[Allele],
+            class_restriction: Union[str, None] = None,
+            locus_restriction: Union[Class2Locus, None] = None,
+            parent_haplotypes: Union[Sequence["Haplotype"], None] = None,
+            raw_string: Union[str, None] = None):
         ResultWithMultipleAlleles.__init__(
             self,
             species=species,

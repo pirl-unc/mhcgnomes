@@ -14,7 +14,7 @@ from typing import List, Iterable
 
 from .allele import Allele
 from .allele_without_gene import AlleleWithoutGene
-from .class2_pair import Pair
+from .pair import Pair
 from .haplotype import Haplotype
 from .gene import Gene
 from .result import Result

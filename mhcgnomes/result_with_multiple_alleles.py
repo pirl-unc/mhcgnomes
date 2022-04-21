@@ -21,10 +21,10 @@ from .species import Species
 class ResultWithMultipleAlleles(ResultWithSpecies):
     def __init__(
             self,
-            species : Species,
-            name : str,
-            alleles : Sequence[ResultWithSpecies],
-            raw_string : Union[str, None] = None):
+            species: Species,
+            name: str,
+            alleles: Sequence[ResultWithSpecies],
+            raw_string: Union[str, None] = None):
         ResultWithSpecies.__init__(
             self,
             species=species,
@@ -156,3 +156,15 @@ class ResultWithMultipleAlleles(ResultWithSpecies):
         # designates a group of genomic sequence alleles
         # with identical peptide binding region
         return any([allele.annotation_splice_variant for allele in self.alleles])
+
+
+    def restrict_num_allele_fields(
+            self,
+            num_fields,
+            drop_annotations=False,
+            drop_mutations=False):
+        alleles = [
+            allele.restrict_num_allele_fields(num_fields, drop_annotations, drop_mutations)
+            for allele in self.alleles
+        ]
+        return self.copy(alleles=alleles)

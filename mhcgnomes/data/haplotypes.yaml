@@ -135,7 +135,6 @@ H2:
     - Aa*b
     - Eb*b
     - Ea*b
-    - S*b
     - D*d
     - L*d
     - Qa-2*a
@@ -147,7 +146,6 @@ H2:
     - Aa*b
     - Eb*b
     - Ea*b
-    - S*b
     - D*dm1
     - L*dm1
     - Qa-2*a
@@ -380,6 +378,8 @@ RT1:
   l: []
   u: []
   RT11: []
+  A: []
+  RT11v1: []
 ELA:
   # Horse haplotypes
   #

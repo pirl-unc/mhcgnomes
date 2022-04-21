@@ -21,7 +21,7 @@ from .result_with_mhc_class import ResultWithMhcClass
 
 class Pair(ResultWithMhcClass):
     """
-    Representation of an alpha/beta pair of Class II MHC chains.
+    Representation of an alpha/beta pair of MHC chains.
     """
 
     def __init__(
@@ -107,20 +107,15 @@ class Pair(ResultWithMhcClass):
             num_fields: int,
             drop_annotations: bool = False,
             drop_mutations: bool = False):
-        if type(self.alpha) is Allele:
-            alpha = self.alpha.restrict_num_allele_fields(
-                num_fields=num_fields,
-                drop_annotations=drop_annotations,
-                drop_mutations=drop_mutations)
-        else:
-            alpha = self.alpha
-        if type(self.beta) is Allele:
-            beta = self.beta.restrict_num_allele_fields(
-                num_fields=num_fields,
-                drop_annotations=drop_annotations,
-                drop_mutations=drop_mutations)
-        else:
-            beta = self.beta
+
+        alpha = self.alpha.restrict_num_allele_fields(
+            num_fields=num_fields,
+            drop_annotations=drop_annotations,
+            drop_mutations=drop_mutations)
+        beta = self.beta.restrict_num_allele_fields(
+            num_fields=num_fields,
+            drop_annotations=drop_annotations,
+            drop_mutations=drop_mutations)
         if alpha != self.alpha or beta != self.beta:
             return Pair.get(alpha=alpha, beta=beta, raw_string=self.raw_string)
         else:

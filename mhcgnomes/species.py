@@ -49,7 +49,6 @@ class Species(Result):
             old_mhc_prefix: Union[str, None] = None,
             other_mhc_prefixes : Iterable[str] = [],
             other_common_names : Iterable[str] = [],
-            taxon_id: Union[int, None] = None,
             raw_string : Union[str, None] = None):
         Result.__init__(self, raw_string=raw_string)
         self.name = name
@@ -62,7 +61,6 @@ class Species(Result):
         else:
             self.old_mhc_prefix = mhc_prefix
 
-        self.taxon_id = taxon_id
         self.gene_names = gene_names
         self.gene_name_to_mhc_class = gene_name_to_mhc_class
         self.class2_loci = class2_loci
@@ -486,10 +484,6 @@ def create_species_for_latin_name(latin_name):
     common_names = [s.lower() for s in common_names]
     shortest_common_name = min(common_names, key=len)
 
-    taxon_id = species_info.get("taxon")
-    if type(taxon_id) is str:
-        taxon_id = int(taxon_id)
-
 
     if parent_species is None:
         gene_names = NormalizingSet()
@@ -586,7 +580,6 @@ def create_species_for_latin_name(latin_name):
         other_common_names=[
             name for name in common_names
             if name != shortest_common_name],
-        taxon_id=taxon_id,
         raw_string=latin_name)
 
 def combine_species_aliases(

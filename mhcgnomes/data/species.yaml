@@ -25,7 +25,6 @@
 Homo sapiens:
   prefix: HLA
   name: Human
-  taxon: 9606
   genes:
     Ia:
       - A
@@ -99,7 +98,6 @@ Homo sapiens:
 Mus musculus:
   prefix: H2
   name: Mouse
-  taxon: 10090
   genes:
     Ia:
       - D
@@ -315,11 +313,9 @@ Rattus norvegicus:
   name:
     - Norway Rat
     - Norwegian Rat
-  taxon: 10116
 Rattus rattus:
   prefix: Rara
   name: Black Rat
-  taxon: 10117
 ############################
 #
 # Canids: dogs, wolves, &c
@@ -357,12 +353,10 @@ Canis lupus baileyi:
   parent: Canis sp.
   prefix: Caba
   name: Mexican Gray Wolf
-  taxon: 143281
 Canis latrans:
   parent: Canis sp.
   prefix: Cala
   name: Coyote
-  taxon: 9614
 Canis lupus:
   parent: Canis sp.
   prefix: Calu
@@ -370,17 +364,14 @@ Canis lupus:
     - Gray Wolf
     - Wolf
     - Dog
-  taxon: 9612
 Canis rufus:
   parent: Canis sp.
   prefix: Caru
   name: Red Wolf
-  taxon: 45781
 Canis simensis:
   parent: Canis sp.
   prefix: Casi
   name: Ethiopian Wolf
-  taxon: 32534
 ############################
 #
 # Felidae
@@ -430,7 +421,6 @@ Felis catus:
   parent: Felis sp.
   prefix: Feca
   name: Domestic cat
-  taxon: 9685
 ############################
 #
 # Fish
@@ -442,7 +432,6 @@ Felis catus:
 Ctenopharyngodon idella:
   prefix: Ctid
   name: Grass carp
-  taxon: 1844
   genes:
     I:
       - UAA
@@ -462,7 +451,6 @@ Oncorhynchus mykiss:
   name:
     - Rainbow Trout
     - Trout
-  taxon: 8022
   genes:
     Ia:
       - UBA
@@ -475,7 +463,6 @@ Salmo salar:
   name:
     - Atlantic Salmon
     - Salmon
-  taxon: 8030
   genes:
     Ia:
       - UBA
@@ -491,7 +478,6 @@ Salmo salar:
 Sistrurus catenatus:
   prefix: Sica
   name: Massasauga
-  taxon: 8756
   genes:
     IIa:
       DA:
@@ -529,13 +515,11 @@ Ovis aries:
   prefix: Ovar
   name:
     - Domestic Sheep
-  taxon: 9940
 Ovis canadensis:
   parent: Ovis sp.
   prefix: Ovca
   name:
     - Bighorn Sheep
-  taxon: 37174
 ################################################################################
 #
 # Bovids
@@ -548,7 +532,6 @@ Ovis canadensis:
 Bos sp.:
   prefix: BoLA
   name: Cattle
-  taxon: 29061
   genes:
     Ia:
       - "N"
@@ -570,9 +553,16 @@ Bos sp.:
       - NC8
       - NC9
       - NC10
+    Ic:
+      - MICA
+      - MICB
     Id:
+      - CD1a
       - CD1b3
+      - CD1c
       - CD1d
+      - CD1e
+      - MR1
     IIa:
       DQ:
         - DQA1
@@ -588,6 +578,7 @@ Bos sp.:
       DN:
         - DNA
       DO:
+        - DOA
         - DOB
       DY:
         - DYA
@@ -602,29 +593,24 @@ Bos taurus:
   parent: Bos sp.
   prefix: Bota
   name: Cow
-  taxon: 9913
 Bos indicus:
   parent: Bos sp.
   prefix: Boin
   name: Zebu
-  taxon: 9915
 Bos frontalis:
   parent: Bos sp.
   prefix: Bofr
   name: Gayal
-  taxon: 30520
 Bos grunniens:
   parent: Bos sp.
   prefix: Bogr
   name:
     - Domestic Yak
     - Yak
-  taxon: 30521
 Bubalus bubalis:
   parent: Bos sp.
   prefix: Bubu
   name: Water Buffalo
-  taxon: 89462
   genes:
     IIa:
       DQ:
@@ -656,7 +642,6 @@ Capra hircus:
   prefix: Cahi
   name:
     - Domestic goat
-  taxon: 9925
 ################################################################################
 #
 # Horse
@@ -708,7 +693,6 @@ Equus caballus:
   parent: Equus sp.
   prefix: Eqca
   name: Horse
-  taxon: 9796
 Equus burchelli:
   parent: Equus sp.
   prefix: Eqbu
@@ -772,14 +756,12 @@ Sus domesticus:
   parent: Sus sp.
   prefix: Sudo
   name: Domestic Pig
-  taxon: 9825
 Sus scrofa:
   parent: Sus sp.
   prefix: Susc
   # TODO: reflect this in the Species object
   haplotype prefix: Hp
   name: Feral Pig
-  taxon: 9823
 ################################################################################
 #
 # Bats
@@ -866,7 +848,6 @@ Oryctolagus cuniculus:
 Gallus gallus:
   prefix: Gaga
   name: Chicken
-  taxon: 9031
   genes:
     Ia:
       - BF1
@@ -923,7 +904,6 @@ Anas platyrhynchos:
 Egretta eulophotes:
   prefix: Egeu
   name: Chinese egret
-  taxon: 458089
 Nipponia nippon:
   prefix: Nini
   name: Japanese crested ibis
@@ -1072,7 +1052,6 @@ Tyto alba:
 ################################################################################
 Primata sp.:
   prefix: NHP
-  taxon: 9443
   name: Primate
   genes:
     Ib:
@@ -1106,7 +1085,6 @@ Alouatta pigra:
   prefix: Alpi
   parent: Primata sp.
   name: Guatemalan black howler
-  taxon: 182253
   genes:
     IIa:
       DR:
@@ -1137,37 +1115,30 @@ Aotus azarai:
   parent: Aotus sp.
   prefix: Aoaz
   name: Azara's Night Monkey
-  taxon: 30591
 Aotus lemurinus:
   parent: Aotus sp.
   prefix: Aole
   name: Gray-bellied Night Monkey
-  taxon: 43147
 Aotus nancymaae:
   parent: Aotus sp.
   prefix: Aona
   name: Nancy Ma's Night Monkey
-  taxon: 37293
 Aotus nigriceps:
   parent: Aotus sp.
   prefix: Aoni
   name: Black-headed Night Monkey
-  taxon: 57175
 Aotus trivirgatus:
   parent: Aotus sp.
   prefix: Aotr
   name: Three-striped Night Monkey
-  taxon: 9505
 Aotus vociferans:
   parent: Aotus sp.
   prefix: Aovo
   name: Spix's Night Monkey
-  taxon: 57176
 Ateles belzebuth:
   prefix: Atbe
   parent: Primata sp.
   name: White-fronted Spider Monkey
-  taxon: 9507
   genes:
     Ia:
       - B
@@ -1179,7 +1150,6 @@ Ateles fusciceps:
   prefix: Atfu
   parent: Primata sp.
   name: Black-headed Spider Monkey
-  taxon: 9508
   genes:
     Ia:
       - B
@@ -1249,12 +1219,10 @@ Callithrix jacchus:
   parent: Callithrix sp.
   prefix: Caja
   name: Common Marmoset
-  taxon: 9483
 Callicebus moloch:
   prefix: Camo
   parent: Primata sp.
   name: Red-bellied Titi
-  taxon: 9523
   genes:
     IIa:
       DR:
@@ -1268,7 +1236,6 @@ Callithrix pygmaea:
   prefix: Capy
   old prefix: Cepy
   name: Pygmy Marmoset
-  taxon: 9493
   genes:
     IIa:
       DR:
@@ -1279,7 +1246,6 @@ Cebus apella:
   parent: Primata sp.
   prefix: Ceap
   name: Tufted Capuchin
-  taxon: 9515
   genes:
     IIa:
       DR:
@@ -1289,7 +1255,6 @@ Cercocebus atys:
   parent: Primata sp.
   prefix: Ceat
   name: Sooty Mangabey
-  taxon: 9531
   genes:
     Ia:
       - A1
@@ -1302,7 +1267,6 @@ Cercopithecus mitis:
   parent: Primata sp.
   prefix: Cemi
   name: Blue Monkey
-  taxon: 36225
   genes:
     Ia:
       - A
@@ -1314,7 +1278,6 @@ Cercopithecus neglectus:
   parent: Primata sp.
   prefix: Cene
   name: De Brazza's monkey
-  taxon: 36227
   genes:
     IIa:
       DQ:
@@ -1323,7 +1286,6 @@ Chlorocebus aethiops:
   parent: Primata sp.
   prefix: Chae
   name: Grivet
-  taxon: 9534
   genes:
     Ia:
       - A
@@ -1342,7 +1304,6 @@ Chlorocebus pygerythrus:
   parent: Primata sp.
   prefix: Chpy
   name: vervet monkey
-  taxon: 60710
   genes:
     Ia:
       - A
@@ -1351,7 +1312,6 @@ Chlorocebus sabaeus:
   parent: Primata sp.
   prefix: Chsa
   name: Green Monkey
-  taxon: 60711
   genes:
     I:
       - A
@@ -1373,7 +1333,6 @@ Colobus guereza:
   parent: Primata sp.
   prefix: Cogu
   name: Mantled Guereza
-  taxon: 33548
   genes:
     IIa:
       DQ:
@@ -1412,18 +1371,15 @@ Gorilla beringei:
   prefix: Gobe
   name:
     - Eastern gorilla
-  taxon: 499232
 Gorilla gorilla:
   parent: Gorilla sp.
   prefix: Gogo
   name:
     - Western gorilla
-  taxon: 9593
 Hylobates lar:
   parent: Primata sp.
   prefix: Hyla
   name: Lar Gibbon
-  taxon: 9580
   genes:
     Ia:
       - A
@@ -1438,7 +1394,6 @@ Hylobates moloch:
   parent: Primata sp.
   prefix: Hymo
   name: Silvery Javan Gibbon
-  taxon: 81572
   genes:
     IIa:
       DR:
@@ -1449,12 +1404,10 @@ Leontopithecus rosalia:
   parent: Primata sp.
   prefix: Lero
   name: Golden Lion Tamarin
-  taxon: 30588
 Lophocebus aterrimus:
   parent: Primata sp.
   prefix: Loat
   name: Black Crested Mangabey
-  taxon: 75566
   genes:
     IIa:
       DQ:
@@ -1463,7 +1416,6 @@ Macaca arctoides:
   parent: Primata sp.
   prefix: Maar
   name: Stump-tailed Macaque
-  taxon: 9540
   genes:
     Ia:
       - A1
@@ -1484,7 +1436,6 @@ Macaca assamensis:
   parent: Primata sp.
   prefix: Maas
   name: Assam Macaque
-  taxon: 9551
   genes:
     Ia:
       - A1
@@ -1497,7 +1448,6 @@ Macaca fascicularis:
   other prefixes:
     - MhcMafa
   name: Crab-eating Macaque
-  taxon: 9541
   genes:
     I:
       - B02Ps
@@ -1541,7 +1491,6 @@ Macaca fuscata:
   parent: Primata sp.
   prefix: Mafu
   name: Japanese Macaque
-  taxon: 9542
   genes:
     IIa:
       DR:
@@ -1552,7 +1501,6 @@ Mandrillus leucophaeus:
   parent: Primata sp.
   prefix: Male
   name: Drill
-  taxon: 9568
   genes:
     IIa:
       DR:
@@ -1561,7 +1509,6 @@ Macaca leonina:
   parent: Primata sp.
   prefix: Malo
   name: Northern Pig-tailed Macaque
-  taxon: 90387
   genes:
     Ia:
       - A1
@@ -1668,17 +1615,14 @@ Macaca mulatta:
   name:
     - Rhesus monkey
     - Rhesus macaque
-  taxon: 9544
 Macaca nemestrina:
   parent: Macaca sp.
   prefix: Mane
   name: Southern Pig-tailed Macaque
-  taxon: 9545
 Macaca silenus:
   parent: Macaca sp.
   prefix: Masi
   name: Lion-tailed Macaque
-  taxon: 54601
   genes:
     IIa:
       DR:
@@ -1688,7 +1632,6 @@ Mandrillus sphinx:
   parent: Primata sp.
   prefix: Masp
   name: Mandrill
-  taxon: 9561
   genes:
     IIa:
       DR:
@@ -1702,7 +1645,6 @@ Macaca thibetana:
   parent: Macaca sp.
   prefix: Math
   name: Milne Edward's Macaque
-  taxon: 54602
   genes:
     Ia:
       - A1
@@ -1720,7 +1662,6 @@ Papio anubis:
   parent: Primata sp.
   prefix: Paan
   name: Olive Baboon
-  taxon: 9555
   genes:
     Ia:
       - A
@@ -1747,7 +1688,6 @@ Papio cynocephalus:
   parent: Primata sp.
   prefix: Pacy
   name: Yellow Baboon
-  taxon: 9556
   genes:
     Ia:
       - A
@@ -1761,7 +1701,6 @@ Papio hamadryas:
   parent: Primata sp.
   prefix: Paha
   name: Hamadryas Baboon
-  taxon: 9557
   genes:
     Ia:
       - A
@@ -1779,7 +1718,6 @@ Papio papio:
   parent: Primata sp.
   prefix: Papp
   name: Guinea Baboon
-  taxon: 100937
   genes:
     IIa:
       DQ:
@@ -1819,17 +1757,14 @@ Pan troglodytes:
   prefix: Patr
   alias: MhcPtar
   name: Common Chimpanzee
-  taxon: 9598
 Pan paniscus:
   parent: Pan sp.
   prefix: Papa
   name: Bonobo
-  taxon: 9597
 Papio ursinus:
   parent: Primata sp.
   prefix: Paur
   name: Chacma Baboon
-  taxon: 36229
   genes:
     IIa:
       DR:
@@ -1842,7 +1777,6 @@ Pithecia pithecia:
   parent: Primata sp.
   prefix: Pipi
   name: White-faced Saki
-  taxon: 43777
   genes:
     Ia:
       - B
@@ -1884,17 +1818,14 @@ Pongo abelii:
   parent: Pongo sp.
   prefix: Poab
   name: Sumatran Orangutan
-  taxon: 9601
 Pongo pygmaeus:
   parent: Pongo sp.
   prefix: Popy
   name: Bornean Orangutan
-  taxon: 9600
 Rhinopithecus roxellana:
   parent: Primata sp.
   prefix: Rhro
   name: Golden Snub-nosed Monkey
-  taxon: 61622
   genes:
     IIa:
       DP:
@@ -1909,7 +1840,6 @@ Saguinus fuscicollis:
   parent: Primata sp.
   prefix: Safu
   name: Brown-mantled Tamarin
-  taxon: 9487
   genes:
     Ib:
       - G
@@ -1920,7 +1850,6 @@ Saguinus geoffroyi:
   parent: Primata sp.
   prefix: Sage
   name: Geoffroy's Tamarin
-  taxon: 43778
   genes:
     I:
       - PS1
@@ -1929,7 +1858,6 @@ Saguinus labiatus:
   parent: Primata sp.
   prefix: Sala
   name: White-lipped Tamarin
-  taxon: 78454
   genes:
     IIa:
       DR:
@@ -1940,7 +1868,6 @@ Saguinus mystax:
   parent: Primata sp.
   prefix: Samy
   name: Moustached Tamarin
-  taxon: 9488
   genes:
     I:
       - PS1
@@ -1949,7 +1876,6 @@ Saguinus oedipus:
   parent: Primata sp.
   prefix: Saoe
   name: Cottontop Tamarin
-  taxon: 9490
   genes:
     Ia:
       - C
@@ -1976,7 +1902,6 @@ Saimiri sciureus:
   parent: Primata sp.
   prefix: Sasc
   name: Common Squirrel Monkey
-  taxon: 9521
   genes:
     IIa:
       DP:
@@ -1989,7 +1914,6 @@ Semnopithecus entellus:
   prefix: Seen
   old prefix: Pren
   name: Northern Plains Gray Langur
-  taxon: 88029
   genes:
     IIa:
       DP:
@@ -2002,7 +1926,6 @@ Theropithecus gelada:
   prefix: Thge
   old prefix: Pren
   name: Gelada
-  taxon: 9565
   genes:
     IIa:
       DQ:
@@ -2019,10 +1942,41 @@ Theropithecus gelada:
 Ailuropoda melanoleuca:
   prefix: Aime
   name: Giant panda
-  taxon: 9646
   genes:
     I:
      - "128"
+    other:
+      - TAP1
+      - TAP2
+      - TAPBP
+      - B2M
+##########################
+#
+# Xenopus (frog)
+#
+##########################
+Xenopus laevis:
+  prefix: Xela
+  name: African clawed frog
+  genes:
+    Ia:
+      - UAA
+    other:
+      - TAP1
+      - TAP2
+      - TAPBP
+      - B2M
+##########################
+#
+# Possum
+#
+##########################
+Trichosurus vulpecula:
+  prefix: Trvu
+  name: Common brushtail possum
+  genes:
+    I:
+      - UB
     other:
       - TAP1
       - TAP2
