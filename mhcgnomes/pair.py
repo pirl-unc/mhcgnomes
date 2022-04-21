@@ -102,17 +102,17 @@ class Pair(ResultWithMhcClass):
             ("allele", self.to_string()),
         ])
 
-    def restrict_num_allele_fields(
+    def restrict_allele_fields(
             self,
             num_fields: int,
             drop_annotations: bool = False,
             drop_mutations: bool = False):
 
-        alpha = self.alpha.restrict_num_allele_fields(
+        alpha = self.alpha.restrict_allele_fields(
             num_fields=num_fields,
             drop_annotations=drop_annotations,
             drop_mutations=drop_mutations)
-        beta = self.beta.restrict_num_allele_fields(
+        beta = self.beta.restrict_allele_fields(
             num_fields=num_fields,
             drop_annotations=drop_annotations,
             drop_mutations=drop_mutations)

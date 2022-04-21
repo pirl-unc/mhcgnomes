@@ -145,7 +145,7 @@ class Gene(ResultWithMhcClass):
         d["is_mutant"] = self.is_mutant
         return d
 
-    def restrict_num_allele_fields(
+    def restrict_allele_fields(
             self,
             num_fields,
             drop_annotations=False,

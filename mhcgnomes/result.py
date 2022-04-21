@@ -262,7 +262,7 @@ class Result(Serializable):
     def has_gene(self):
         return False
 
-    def restrict_num_allele_fields(
+    def restrict_allele_fields(
             self,
             num_fields,
             drop_annotations=False,

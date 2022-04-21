@@ -791,7 +791,6 @@ class Parser(object):
             else:
                 if alpha_mutations or beta_mutations:
                     return None
-                mutations.extend(mutations_without_selector)
             result = result.copy_with_extra_mutations(mutations)
         elif type(result) is Pair:
             beta_mutations.extend(mutations_without_selector)

@@ -16,7 +16,7 @@ def test_restrict_num_allele_fields_A02010101():
     assert allele_eight_digit is not None
     assert type(allele_eight_digit) is Allele
     eq_(allele_eight_digit.num_allele_fields, 4)
-    allele_four_digit = allele_eight_digit.restrict_num_allele_fields(2)
+    allele_four_digit = allele_eight_digit.restrict_allele_fields(2)
     eq_(allele_four_digit.num_allele_fields, 2)
 
 
