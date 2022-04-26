@@ -1514,6 +1514,8 @@ class Parser(object):
             results.extend(self.parse_tokens_to_multiple_candidates(
                 tokens=tokens,
                 default_species=default_species))
+        if len(results) == 0 and "-" in name:
+            return self.parse_multiple_candidates(name.replace("-", " "), default_species=default_species)
         return self.transform_parse_candidates(results)
 
     @cache

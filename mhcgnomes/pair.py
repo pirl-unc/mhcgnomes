@@ -56,7 +56,11 @@ class Pair(ResultWithMhcClass):
             return None
         if not isinstance(beta, (Allele, Gene, AlleleWithoutGene)):
             return None
-        if alpha.mhc_class == beta.mhc_class:
+        if alpha.mhc_class == "other" and beta.mhc_class != "other":
+            mhc_class = beta.mhc_class
+        elif beta.mhc_class == "other" and alpha.mhc_class != "other":
+            mhc_class = alpha.mhc_class
+        elif alpha.mhc_class == beta.mhc_class:
             mhc_class = alpha.mhc_class
         else:
             mhc_class = "II"
@@ -71,7 +75,7 @@ class Pair(ResultWithMhcClass):
             self,
             include_species=True,
             use_old_species_prefix=False):
-        return "%s-%s" % (
+        return "%s/%s" % (
             self.alpha.to_string(
                 include_species=include_species,
                 use_old_species_prefix=use_old_species_prefix),

@@ -95,6 +95,7 @@ def tokenize(name):
     Splits name into token sequence and returns TokenizationResult which
     contains a sequence of Token objects.
     """
+    name = str(name)
     trimmed_name = strip_whitespace_and_remove_quotes(name)
     raw_string_parts, attributes = split_and_extract_attributes(trimmed_name)
     token_sequences = [normalize_token(p) for p in raw_string_parts]
