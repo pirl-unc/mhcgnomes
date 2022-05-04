@@ -47,6 +47,7 @@ def parse(
         infer_class2_pairing=INFER_CLASS2_PAIRING,
         collapse_singleton_haplotypes=COLLAPSE_SINGLETON_HAPLOTYPES,
         collapse_singleton_serotypes=COLLAPSE_SINGLETON_SEROTYPES,
+        max_allele_fields=None,
         required_result_types=[],
         preferred_result_types=[],
         only_class1=False,
@@ -78,6 +79,9 @@ def parse(
     collapse_singleton_serotypes : bool
         If a Serotype contains only a single allele or Class II allele pair,
         then return the allele instead of a serotype.
+
+    max_allele_fields : int
+        If not None, restrict number of allele fields to given value.
 
     required_result_types : list of type
         Only return results of the given classes.
@@ -112,4 +116,5 @@ def parse(
         required_result_types=required_result_types,
         preferred_result_types=preferred_result_types,
         only_class1=only_class1,
-        only_class2=only_class2)
+        only_class2=only_class2,
+        max_allele_fields=max_allele_fields)

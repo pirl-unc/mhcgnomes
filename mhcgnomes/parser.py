@@ -51,7 +51,7 @@ from .tokenize import tokenize
 DEFAULT_SPECIES_PREFIX = "HLA"
 USE_ALLELE_ALIASES = False
 INFER_CLASS2_PAIRING = False
-COLLAPSE_SINGLETON_HAPLOTYPES = True
+COLLAPSE_SINGLETON_HAPLOTYPES = False
 COLLAPSE_SINGLETON_SEROTYPES = False
 MAP_SPECIES_GROUP_TO_TOP_SPECIES = False
 GENE_SEPS = "*_-^:"
@@ -892,7 +892,9 @@ class Parser(object):
             new_alleles = self.transform_parse_candidates(old_alleles)
             if old_alleles != new_alleles:
                 transformed = parse_candidate.copy(alleles=new_alleles)
-            if self.collapse_singleton_haplotypes:
+            if (
+                    (self.collapse_singleton_haplotypes and t is Haplotype) or
+                    (self.collapse_singleton_serotypes and t is Serotype)):
                 if transformed is None:
                     transformed = parse_candidate.collapse_if_possible()
                 else:
@@ -1447,9 +1449,8 @@ class Parser(object):
         If input sequence had attributes like 'OS=Mus musculus' then use those
         to select the default species.
         """
-        species = None
         if "OS" in attributes:
-            species = Species.get(attributes["OS"])
+            return Species.get(attributes["OS"])
         elif "species" in attributes:
             return Species.get(attributes["species"])
         else:
@@ -1515,7 +1516,12 @@ class Parser(object):
                 tokens=tokens,
                 default_species=default_species))
         if len(results) == 0 and "-" in name:
-            return self.parse_multiple_candidates(name.replace("-", " "), default_species=default_species)
+            results = self.parse_multiple_candidates(name.replace("-", " "), default_species=default_species)
+            if len(results) == 0 and "GN" in tokenization_result.attributes and "OS" in tokenization_result.attributes:
+                # try just parsing the gene name
+                return self.parse_multiple_candidates(
+                    tokenization_result.attributes["GN"],
+                    default_species= tokenization_result.attributes["OS"])
         return self.transform_parse_candidates(results)
 
     @cache
@@ -1528,6 +1534,7 @@ class Parser(object):
             required_result_types: Union[type, Iterable[type], None] = None,
             only_class1: bool = False,
             only_class2: bool = False,
+            max_allele_fields: int = None,
             raise_on_error: bool = True):
         """
         Parse any MHC related string, from gene loci to fully specified 8 digit
@@ -1563,6 +1570,9 @@ class Parser(object):
 
         only_class2 : bool
             Only return results which belong to MHC class II
+
+        max_allele_fields : int
+            If not None, restrict number of allele fields to given value.
 
         raise_on_error : bool
             If False, return False when parsing is impossible.
@@ -1621,5 +1631,8 @@ class Parser(object):
 
         if result.raw_string != name:
             result = result.copy(raw_string=name)
+
+        if max_allele_fields:
+            result = result.restrict_allele_fields(max_allele_fields)
 
         return result

@@ -1,6 +1,6 @@
 
 from nose.tools import eq_
-from mhcgnomes import parse, Allele, Species
+from mhcgnomes import parse, Allele, Species, Gene
 
 
 def test_parse_RT1():
@@ -58,3 +58,12 @@ def test_rat_class1_allele_M3_1_av1_no_star():
     expected = Allele.get("RT1", "M3-1", "av1")
     assert expected is not None
     eq_(parse("RT1-M3-1av1"), expected)
+
+def test_RT1_Db_A_weird_uniprot_name():
+    seq = "Class II RT1.D(A) beta chain"
+    species = Species.get("RT1")
+    print(species.find_matching_gene_name("Db"))
+
+    expected = Allele.get("RT1", "Db", "a")
+    assert expected is not None
+    eq_(parse(seq), expected)

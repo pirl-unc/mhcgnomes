@@ -54,6 +54,13 @@ def test_parse_H2_IE():
     eq_(result.name, "E")
 
 
+def test_mouse_MR1_weird_uniprot_entry():
+    seq = "Major histocompatibility complex class I-related gene protein OS=Mus musculus OX=10090 GN=Mr1 PE=1 SV=2"
+    result = parse(seq)
+    expected = Gene.get("H2", "MR1")
+    eq_(result, expected)
+
+
 def test_parse_H2_IEd_simplify():
     result = parse("H2-IEd", collapse_singleton_haplotypes=True)
     eq_(type(result), Pair)

@@ -68,6 +68,7 @@ RT1:
   U: U1
   E: E1
   A: A1
+  Db: Db1
 Gaga:
   # adding this since NetMHCpan has "Chi-B" as an alias
   # for Gaga-BF2"

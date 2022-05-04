@@ -59,6 +59,7 @@ def split_token_sequences(s, token_seps="/"):
                     new_results.append(sep)
                 new_results.append(sub_part)
         results = new_results
+
     return results
 
 def split_and_extract_attributes(s):
@@ -71,6 +72,7 @@ def split_and_extract_attributes(s):
     found_first_attribute = False
     attribute_key_in_progress = None
     attribute_values_in_progress = None
+
     for part in parts:
         if part.count("=") == 1:
             found_first_attribute = True
