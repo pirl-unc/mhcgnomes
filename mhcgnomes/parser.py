@@ -51,7 +51,7 @@ from .tokenize import tokenize
 DEFAULT_SPECIES_PREFIX = "HLA"
 USE_ALLELE_ALIASES = False
 INFER_CLASS2_PAIRING = False
-COLLAPSE_SINGLETON_HAPLOTYPES = False
+COLLAPSE_SINGLETON_HAPLOTYPES = True
 COLLAPSE_SINGLETON_SEROTYPES = False
 MAP_SPECIES_GROUP_TO_TOP_SPECIES = False
 GENE_SEPS = "*_-^:"
@@ -1465,6 +1465,7 @@ class Parser(object):
         of the given string.
         """
         tokenization_result = tokenize(name)
+        print(tokenization_result)
         if len(tokenization_result.trimmed_string) == 0:
             return []
 

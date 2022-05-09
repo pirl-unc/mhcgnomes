@@ -235,7 +235,7 @@ def test_normalize_string_human_class2_alpha_beta_DPA1_01_05_DPB1_100_01():
 
 
 def test_compact_string_human_class2_alpha_beta_DPA1_01_05_DPB1_100_01():
-    expected_compact = "DPA1*0105/DPB1*10001"
+    expected_compact = "DPA1*0105-DPB1*10001"
     for name in ["DPA10105-DPB110001",
                  "HLA-DPA1*01:05-DPB1*100:01",
                  "hla-dpa1*0105-dpb1*10001",
