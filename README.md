@@ -2,9 +2,7 @@
     <img src="https://travis-ci.com/pirl-unc/mhcgnomes.svg?branch=main" alt="Build Status" />
 </a>
 
-<a href="https://coveralls.io/github/pirl-unc/mhcgnomes?branch=main">
-    <img src="https://coveralls.io/repos/pirl-unc/mhcgnomes/badge.svg?branch=main&service=github" alt="Coverage Status" />
-</a>
+[![Coverage Status](https://coveralls.io/repos/github/til-unc/mhcgnomes/badge.svg?branch=main)](https://coveralls.io/github/til-unc/mhcgnomes?branch=main)
 <a href="https://pypi.python.org/pypi/mhcgnomes/">
     <img src="https://img.shields.io/pypi/v/mhcgnomes.svg?maxAge=1000" alt="PyPI" />
 </a>
