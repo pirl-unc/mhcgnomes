@@ -1,6 +1,8 @@
-<a href="https://travis-ci.com/pirl-unc/mhcgnomes">
-    <img src="https://travis-ci.com/pirl-unc/mhcgnomes.svg?branch=main" alt="Build Status" />
+<a href="https://app.travis-ci.com/github/pirl-unc/mhcgnomes">
+    <img src="https://travis-ci.com/pirl-unc/mhcgnomes.svg?branch=main]" alt="Build Status" />
 </a>
+
+https://app.travis-ci.com/pirl-unc/mhcgnomes.svg?branch=main
 <a href="https://coveralls.io/github/pirl-unc/mhcgnomes?branch=main">
     <img src="https://coveralls.io/repos/pirl-unc/mhcgnomes/badge.svg?branch=main&service=github" alt="Coverage Status" />
 </a>
