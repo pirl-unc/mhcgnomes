@@ -1465,7 +1465,6 @@ class Parser(object):
         of the given string.
         """
         tokenization_result = tokenize(name)
-        print(tokenization_result)
         if len(tokenization_result.trimmed_string) == 0:
             return []
 
