@@ -1,4 +1,5 @@
 from mhcgnomes import parse, Pair
+
 def test_DRB1_0101():
     result = parse('DRB1_0101', infer_class2_pairing=True)
     assert result.__class__ is Pair, \

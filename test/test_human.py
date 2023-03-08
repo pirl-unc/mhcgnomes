@@ -1,4 +1,3 @@
-from nose.tools import eq_
 from mhcgnomes import (
     parse,
     Pair,
@@ -9,53 +8,53 @@ from mhcgnomes import (
 def test_normalized_string_hla_a0201_complete():
     name = "HLA-A*02:01"
     expected = "HLA-A*02:01"
-    eq_(parse(name).to_string(), expected)
+    assert parse(name).to_string() == expected
 
 def test_normalized_string_hla_a0201_no_fieldsep():
     name = "HLA-A*0201"
     expected = "HLA-A*02:01"
-    eq_(parse(name).to_string(), expected)
+    assert parse(name).to_string() == expected
 
 
 def test_normalized_string_hla_a0201_no_species_no_star_no_fieldsep():
     name = "A0201"
     expected = "HLA-A*02:01"
-    eq_(parse(name).to_string(), expected)
+    assert parse(name).to_string() == expected
 
 def test_normalized_string_hla_a0201_no_star_no_fieldsep():
     name = "HLA-A0201"
     expected = "HLA-A*02:01"
-    eq_(parse(name).to_string(), expected)
+    assert parse(name).to_string() == expected
 
 def test_normalized_string_hla_a0201_no_fieldsep_lowercase():
     name = "hla-a*0201"
     expected = "HLA-A*02:01"
-    eq_(parse(name).to_string(), expected)
+    assert parse(name).to_string() == expected
 
 def test_normalized_string_hla_a0201_no_species_no_fieldsep_lowercase():
     name = "a*0201"
     expected = "HLA-A*02:01"
-    eq_(parse(name).to_string(), expected)
+    assert parse(name).to_string() == expected
 
 def test_normalized_string_hla_a0201_no_species_lowercase():
     name = "a*02:01"
     expected = "HLA-A*02:01"
-    eq_(parse(name).to_string(), expected)
+    assert parse(name).to_string() == expected
 
 def test_normalized_string_hla_a0201_no_species_no_star_no_fieldsep_lowercase():
     name = "a0201"
     expected = "HLA-A*02:01"
-    eq_(parse(name).to_string(), expected)
+    assert parse(name).to_string() == expected
 
 def test_normalized_string_hla_a0201_no_species_no_fieldsep():
     name = "A*0201"
     expected = "HLA-A*02:01"
-    eq_(parse(name).to_string(), expected)
+    assert parse(name).to_string() == expected
 
 def test_normalized_string_hla_a0201_no_species():
     name = "A*02:01"
     expected = "HLA-A*02:01"
-    eq_(parse(name).to_string(), expected)
+    assert parse(name).to_string() == expected
 
 
 hla_02_01_names = [
@@ -78,40 +77,40 @@ def test_hla_short_names():
     expected = "A0201"
     for name in hla_02_01_names:
         result = parse(name).compact_string()
-        eq_(result, expected)
+        assert result == expected
 
 
 def test_hla_A2_serotype():
-    eq_(parse("A2").compact_string(), "A2")
-    eq_(parse("A2").to_string(), "HLA-A2")
+    assert parse("A2").compact_string() == "A2"
+    assert parse("A2").to_string() == "HLA-A2"
 
-    eq_(parse("HLA-A2").compact_string(), "A2")
-    eq_(parse("HLA-A2").to_string(), "HLA-A2")
+    assert parse("HLA-A2").compact_string() == "A2"
+    assert parse("HLA-A2").to_string() == "HLA-A2"
 
 
 def test_hla_with_3_digit_allele_code():
     # B*15:120
-    eq_(parse("HLA-B*15:120").to_string(), "HLA-B*15:120")
-    eq_(parse("HLA-B*15:120").compact_string(), "B15120")
-    eq_(parse("B15120").to_string(), "HLA-B*15:120")
-    eq_(parse("B15120").compact_string(), "B15120")
+    assert parse("HLA-B*15:120").to_string() == "HLA-B*15:120"
+    assert parse("HLA-B*15:120").compact_string() == "B15120"
+    assert parse("B15120").to_string() == "HLA-B*15:120"
+    assert parse("B15120").compact_string() == "B15120"
 
     # A*02*123
-    eq_(parse("HLA-A*02:123").to_string(), "HLA-A*02:123")
-    eq_(parse("HLA-A*02:123").compact_string(), "A02123")
-    eq_(parse("A02123").to_string(), "HLA-A*02:123")
-    eq_(parse("A02123").compact_string(), "A02123")
+    assert parse("HLA-A*02:123").to_string() == "HLA-A*02:123"
+    assert parse("HLA-A*02:123").compact_string() == "A02123"
+    assert parse("A02123").to_string() == "HLA-A*02:123"
+    assert parse("A02123").compact_string() == "A02123"
 
 
 
 def test_A_02_01_01_01():
     result = parse("A*02:01:01:01")
-    eq_(result.species_prefix, "HLA")
-    eq_(result.gene_name, "A")
-    eq_(result.allele_fields[0], "02")
-    eq_(result.allele_fields[1], "01")
-    eq_(result.allele_fields[2], "01")
-    eq_(result.allele_fields[3], "01")
+    assert result.species_prefix == "HLA"
+    assert result.gene_name == "A"
+    assert result.allele_fields[0] == "02"
+    assert result.allele_fields[1] == "01"
+    assert result.allele_fields[2] == "01"
+    assert result.allele_fields[3] == "01"
 
 
 def test_parse_human_class2_DRB1_01_02():
@@ -130,7 +129,7 @@ def test_parse_human_class2_DRB1_01_02():
         parse_result = parse(
             name,
             infer_class2_pairing=True)
-        eq_(parse_result, expected)
+        assert parse_result == expected
 
 
 def test_normalized_string_human_class2_DRB1_01_02():
@@ -143,7 +142,7 @@ def test_normalized_string_human_class2_DRB1_01_02():
                  "HLA-DRB1*0102",
                  "HLA-DRB1*01:02",
                  "DRB0102"]:
-        eq_(parse(name, infer_class2_pairing=True).to_string(), expected)
+        assert parse(name == infer_class2_pairing=True).to_string(), expected
 
 
 def test_compact_string_string_human_class2_DRB1_01_02():
@@ -156,7 +155,7 @@ def test_compact_string_string_human_class2_DRB1_01_02():
                  "HLA-DRB1*0102",
                  "HLA-DRB1*01:02",
                  "DRB0102"]:
-        eq_(parse(name).compact_string(), expected_compact)
+        assert parse(name).compact_string() == expected_compact
 
 def test_parse_human_class2_alpha_beta_DPA1_01_05_DPB1_100_01_upper_compact():
     expected = Pair.get(
@@ -164,7 +163,7 @@ def test_parse_human_class2_alpha_beta_DPA1_01_05_DPB1_100_01_upper_compact():
         Allele.get("HLA", "DPB1", "100", "01")
     )
     s = "DPA10105-DPB110001"
-    eq_(parse(s, infer_class2_pairing=True), expected)
+    assert parse(s == infer_class2_pairing=True), expected
 
 def test_parse_human_class2_alpha_beta_DPA1_01_05_DPB1_100_01_full_syntax_hyphens():
     expected = Pair.get(
@@ -172,7 +171,7 @@ def test_parse_human_class2_alpha_beta_DPA1_01_05_DPB1_100_01_full_syntax_hyphen
         Allele.get("HLA", "DPB1", "100", "01")
     )
     s = "HLA-DPA1*01:05/DPB1*100:01"
-    eq_(parse(s, infer_class2_pairing=True), expected)
+    assert parse(s == infer_class2_pairing=True), expected
 
 def test_parse_human_class2_alpha_beta_DPA1_01_05_DPB1_100_01_full_syntax_hyphens_lower():
     expected = Pair.get(
@@ -180,7 +179,7 @@ def test_parse_human_class2_alpha_beta_DPA1_01_05_DPB1_100_01_full_syntax_hyphen
         Allele.get("HLA", "DPB1", "100", "01")
     )
     s = "hla-dpa1*0105-dpb1*10001"
-    eq_(parse(s, infer_class2_pairing=True), expected)
+    assert parse(s == infer_class2_pairing=True), expected
 
 def test_parse_human_class2_alpha_beta_DPA1_01_05_DPB1_100_01_no_hla_lower_no_colons():
     expected = Pair.get(
@@ -188,7 +187,7 @@ def test_parse_human_class2_alpha_beta_DPA1_01_05_DPB1_100_01_no_hla_lower_no_co
         Allele.get("HLA", "DPB1", "100", "01")
     )
     s = "dpa1*0105-dpb1*10001"
-    eq_(parse(s, infer_class2_pairing=True), expected)
+    assert parse(s == infer_class2_pairing=True), expected
 
 def test_parse_human_class2_alpha_beta_DPA1_01_05_DPB1_100_01_full_syntax_slash():
     expected = Pair.get(
@@ -196,7 +195,7 @@ def test_parse_human_class2_alpha_beta_DPA1_01_05_DPB1_100_01_full_syntax_slash(
         Allele.get("HLA", "DPB1", "100", "01")
     )
     s = "HLA-DPA1*01:05/DPB1*100:01"
-    eq_(parse(s, infer_class2_pairing=True), expected)
+    assert parse(s == infer_class2_pairing=True), expected
 
 def test_parse_human_class2_alpha_beta_DPA1_01_05_DPB1_100_01_compact_slash():
     expected = Pair.get(
@@ -204,7 +203,7 @@ def test_parse_human_class2_alpha_beta_DPA1_01_05_DPB1_100_01_compact_slash():
         Allele.get("HLA", "DPB1", "100", "01")
     )
     s = "DPA10105/DPB110001"
-    eq_(parse(s, infer_class2_pairing=True), expected)
+    assert parse(s == infer_class2_pairing=True), expected
 
 def test_parse_all_parameters_true_human_class2_alpha_beta_DPA1_01_05_DPB1_100_01():
     expected = Pair.get(
@@ -221,7 +220,7 @@ def test_parse_all_parameters_true_human_class2_alpha_beta_DPA1_01_05_DPB1_100_0
             name,
             use_allele_aliases=True,
             infer_class2_pairing=True)
-        eq_(parse_result, expected)
+        assert parse_result == expected
 
 def test_normalize_string_human_class2_alpha_beta_DPA1_01_05_DPB1_100_01():
     expected = "HLA-DPA1*01:05/DPB1*100:01"
@@ -231,7 +230,7 @@ def test_normalize_string_human_class2_alpha_beta_DPA1_01_05_DPB1_100_01():
                  "dpa1*0105-dpb1*10001",
                  "HLA-DPA1*01:05/DPB1*100:01",
                  "DPA10105/DPB110001"]:
-        eq_(parse(name, infer_class2_pairing=True).to_string(), expected)
+        assert parse(name == infer_class2_pairing=True).to_string(), expected
 
 
 def test_compact_string_human_class2_alpha_beta_DPA1_01_05_DPB1_100_01():
@@ -242,47 +241,47 @@ def test_compact_string_human_class2_alpha_beta_DPA1_01_05_DPB1_100_01():
                  "dpa1*0105-dpb1*10001",
                  "HLA-DPA1*01:05/DPB1*100:01",
                  "DPA10105/DPB110001"]:
-        eq_(parse(name, infer_class2_pairing=True).compact_string(), expected_compact)
+        assert parse(name == infer_class2_pairing=True).compact_string(), expected_compact
 
 
 def test_alpha_chain_inference_DP():
     # example of common DP haplotype from wikipedia article on HLA-DP
     just_beta = "HLA-DPB1*04:01"
     expected = "HLA-DPA1*01:03/DPB1*04:01"
-    eq_(parse(just_beta, infer_class2_pairing=True).to_string(), expected)
-    eq_(parse(just_beta, infer_class2_pairing=False).to_string(), just_beta)
+    assert parse(just_beta == infer_class2_pairing=True).to_string(), expected
+    assert parse(just_beta == infer_class2_pairing=False).to_string(), just_beta
 
 
 def test_alpha_chain_inference_DQ():
     # example of common DQ haplotype from wikipedia article on HLA-DQ
     just_beta = "HLA-DQB1*06:02"
     expected = "HLA-DQA1*01:02/DQB1*06:02"
-    eq_(parse(just_beta, infer_class2_pairing=True).to_string(), expected)
-    eq_(parse(just_beta, infer_class2_pairing=False).to_string(), just_beta)
+    assert parse(just_beta == infer_class2_pairing=True).to_string(), expected
+    assert parse(just_beta == infer_class2_pairing=False).to_string(), just_beta
 
 def test_human_class2_pair_with_mutation():
     allele = "HLA-DRA*01:01/DRB1*01:01 G86Y mutant"
     result = parse(allele)
-    eq_(type(result), Pair)
-    eq_(result.beta.is_mutant, True)
+    assert type(result) == Pair
+    assert result.beta.is_mutant == True
 
 
 def test_human_class2_beta_with_mutation():
     allele = "DRB1*01:01 G86Y mutant"
     result = parse(allele, infer_class2_pairing=True)
-    eq_(type(result), Pair)
-    eq_(result.beta.is_mutant, True)
+    assert type(result) == Pair
+    assert result.beta.is_mutant == True
 
 def test_DRB5_0108N():
     allele = "DRB5_0108N"
     result = parse(allele)
     assert result is not None
-    eq_(type(result), Allele)
+    assert type(result) == Allele
     assert result.annotation_null
 
 def test_DRB5_0108N_with_inferred_alpha():
     allele = "DRB5_0108N"
     result = parse(allele, infer_class2_pairing=True)
     assert result is not None
-    eq_(type(result), Pair)
+    assert type(result) == Pair
     assert result.annotation_null

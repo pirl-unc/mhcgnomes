@@ -1,4 +1,5 @@
 from mhcgnomes import parse, Allele
+
 def test_Aona_DQA1_27_01():
     result = parse('Aona-DQA1*27:01')
     assert result.__class__ is Allele, \

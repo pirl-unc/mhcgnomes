@@ -2,32 +2,25 @@ from mhcgnomes import (
     parse,
     MhcClass,
 )
-from nose.tools import eq_
 
 
 def check_human_class1_string(s):
     expected_parsed_result = MhcClass.get("HLA", "I")
     expected_string_repr = "human class I"
     parsed_result = parse(s)
-    eq_(
-        parsed_result,
-        expected_parsed_result,
+    assert parsed_result == expected_parsed_result,
         "Expected %s for parsing of '%s' but got %s" % (
             expected_parsed_result,
             s,
             parsed_result))
     normalized_str = parsed_result.to_string()
-    eq_(
-        normalized_str,
-        expected_string_repr,
+    assert normalized_str ==  expected_string_repr,
         "Expected '%s' for normalized representation of '%s' but got '%s'" % (
             expected_string_repr,
             s,
             normalized_str))
     compact_str = parsed_result.compact_string()
-    eq_(
-        compact_str,
-        expected_string_repr,
+    assert compact_str == expected_string_repr,
         "Expected '%s' for compact representation of '%s' but got '%s'" % (
             expected_string_repr,
             s,

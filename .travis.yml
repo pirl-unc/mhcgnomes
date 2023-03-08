@@ -1,4 +1,4 @@
-sudo: false  # Use container-based infrastructure
+sudo: false # Use container-based infrastructure
 language: python
 python:
   - "3.8"
@@ -29,8 +29,8 @@ before_install:
   - python --version
 install:
   - >
-      conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION
-      nose pylint pandas
+    conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION
+    pytest pylint pandas
   - source activate test-environment
   - python --version #  make sure we're running the Python version we expect
   - pip install -r requirements.txt
@@ -38,6 +38,5 @@ install:
   - pip install coveralls
 script:
   - ./lint.sh
-  - nosetests -sv test --with-coverage --cover-package=mhcgnomes -a '!skip' 
-after_success:
-  coveralls
+  - nosetests -sv test --with-coverage --cover-package=mhcgnomes -a '!skip'
+after_success: coveralls
