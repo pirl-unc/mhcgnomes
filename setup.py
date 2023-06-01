@@ -55,9 +55,9 @@ if __name__ == '__main__':
         ],
         install_requires=[
             "serializable",
-	    "PyYAML==5.4",
+	        "PyYAML>=5.4",
             "pandas",
-	    "numpy",
+	        "numpy",
         ],
         long_description_content_type='text/markdown',
         long_description=readme_markdown,
