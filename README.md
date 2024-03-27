@@ -11,8 +11,6 @@
 
 ![](https://raw.githubusercontent.com/til-unc/mhcgnomes/main/gnome-red-text.png) 
 
-* this fork originally resided at https://github.com/Benjamin-Vincent-Lab/mchgnomes , it was moved here on 2/12/2024
-
 # mhcgnomes: Parsing MHC nomenclature in the wild
 
 MHCgnomes is a parsing library for multi-species MHC nomenclature which
