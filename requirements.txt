@@ -1,4 +1,4 @@
-pandas
+pandas>=2.0.0,<3.0.0
 serializable
 PyYAML
-numpy
+numpy>=1.0.0,<2.0.0
