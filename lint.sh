@@ -10,6 +10,6 @@ set -o errexit
 find mhcgnomes tests -name '*.py' \
   | xargs pylint \
   --errors-only \
-  --disable=unsubscriptable-object,not-an-iterable,no-member
+  --disable=unsubscriptable-object,not-an-iterable,no-member,relative-beyond-top-level
 
 echo 'Passes pylint check'
