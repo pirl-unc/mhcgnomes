@@ -11,8 +11,8 @@
 # limitations under the License.
 
 from .common import cache
-from .parser import Parser
 from .parser import (
+    Parser,
     DEFAULT_SPECIES_PREFIX,
     USE_ALLELE_ALIASES,
     GENE_SEPS,

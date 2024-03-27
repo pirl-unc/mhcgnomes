@@ -12,7 +12,6 @@
 
 import pandas as pd
 
-from .function_api import parse
 
 def dataframe_from_parsed_objects(parsed_objects):
     records = [
@@ -23,5 +22,7 @@ def dataframe_from_parsed_objects(parsed_objects):
 
 
 def dataframe_from_string_list(names):
+    from .function_api import parse
+
     parsed_objects = [parse(name) for name in names]
     return dataframe_from_parsed_objects(parsed_objects)
