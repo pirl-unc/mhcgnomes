@@ -1524,7 +1524,7 @@ class Parser(object):
                     default_species= tokenization_result.attributes["OS"])
         return self.transform_parse_candidates(results)
 
-    @cache
+    #@cache # removing caching until issue with DPB110401 is resolved
     def parse(
             self,
             name: str,
