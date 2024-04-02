@@ -883,8 +883,8 @@ class Parser(object):
         """
         if parse_candidate is None:
             return None
-        if parse_candidate in self._transform_cache:
-            return self._transform_cache[parse_candidate]
+        # if parse_candidate in self._transform_cache:
+        #     return self._transform_cache[parse_candidate]
         t = type(parse_candidate)
         transformed = None
         if t in (Serotype, Haplotype):
