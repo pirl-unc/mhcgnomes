@@ -883,8 +883,8 @@ class Parser(object):
         """
         if parse_candidate is None:
             return None
-        if parse_candidate in self._transform_cache:
-            return self._transform_cache[parse_candidate]
+        # if parse_candidate in self._transform_cache: ##FG removed. causing caching issues
+        #     return self._transform_cache[parse_candidate]
         t = type(parse_candidate)
         transformed = None
         if t in (Serotype, Haplotype):
@@ -1623,7 +1623,6 @@ class Parser(object):
                 raise ParseError("Could not parse '%s'" % name)
             else:
                 return None
-
         result = pick_best_result(candidates)
 
         if infer_class2_pairing:
