@@ -883,7 +883,7 @@ class Parser(object):
         """
         if parse_candidate is None:
             return None
-        # if parse_candidate in self._transform_cache:
+        # if parse_candidate in self._transform_cache: ##FG removed. causing caching issues
         #     return self._transform_cache[parse_candidate]
         t = type(parse_candidate)
         transformed = None
@@ -1524,7 +1524,7 @@ class Parser(object):
                     default_species= tokenization_result.attributes["OS"])
         return self.transform_parse_candidates(results)
 
-    #@cache # removing caching until issue with DPB110401 is resolved
+    @cache
     def parse(
             self,
             name: str,
@@ -1623,7 +1623,6 @@ class Parser(object):
                 raise ParseError("Could not parse '%s'" % name)
             else:
                 return None
-
         result = pick_best_result(candidates)
 
         if infer_class2_pairing:
