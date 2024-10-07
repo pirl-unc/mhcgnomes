@@ -4,7 +4,6 @@ from mhcgnomes.allele_annotations import (
 )
 from .common import eq_
 
-
 def test_questionable_A_01_281Q():
     result = parse("A*01:281Q")
     eq_(result, Allele.get("HLA", "A", "01", "281", annotation="Q"))

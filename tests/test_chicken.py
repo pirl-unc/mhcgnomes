@@ -1,7 +1,6 @@
 from mhcgnomes import parse, Species, Allele, Haplotype, Gene
 from .common import eq_
 
-
 def test_parse_BF2_gene():
     result = parse("BF2")
     expected = Gene.get("chicken", "BF2")

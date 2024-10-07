@@ -1,7 +1,6 @@
 from mhcgnomes import parse, Pair
 from .common import eq_
 
-
 def test_restrict_num_allele_fields_HLA_DRA_01_01_01_01_DRB1_01_01_01_01():
     result = parse("DRA*01:01:01:01/DRB*01:01:01:01")
     eq_(type(result), Pair)
