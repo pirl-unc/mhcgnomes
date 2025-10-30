@@ -425,7 +425,7 @@ class Parser(object):
                 results.append((parsed, seq[n:]))
         return results
 
-    compact_gene_and_allele_regex = re.compile("([A-Za-z]+)([0-9\:]+[A-Z]?)")
+    compact_gene_and_allele_regex = re.compile(r"([A-Za-z]+)([0-9\:]+[A-Z]?)")
 
     def strip_extra_chars(self, seq: str):
         for sep in self.gene_seps:

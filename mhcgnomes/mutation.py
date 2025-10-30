@@ -36,7 +36,7 @@ class Mutation(Result):
     def to_string(self):
         return "%s%d%s" % (self.aa_original, self.pos, self.aa_mutant)
 
-    mutation_regex = re.compile("([a-yA-Y])(\d+)([a-yA-Y])")
+    mutation_regex = re.compile(r"([a-yA-Y])(\d+)([a-yA-Y])")
 
     @classmethod
     def get(cls, pos, aa_original, aa_mutant, raw_string=None):
