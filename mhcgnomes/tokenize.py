@@ -17,6 +17,7 @@ from .parsing_helpers import strip_chars
 from .token import Token
 from .token_substitution import simplify_tokens
 
+
 class TokenizationResult(Serializable):
     def __init__(
             self,

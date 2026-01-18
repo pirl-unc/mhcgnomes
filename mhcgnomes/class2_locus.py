@@ -10,19 +10,63 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Union, Sequence
+from collections.abc import Sequence
+from typing import Optional, Union
 
+from .gene import Gene
 from .result_with_mhc_class import ResultWithMhcClass
 from .species import Species
-from .gene import Gene
+
 
 class Class2Locus(ResultWithMhcClass):
+    """
+    Represents an MHC Class II locus (e.g., DR, DQ, DP).
+
+    A Class II locus groups together the alpha and beta chain genes for a
+    specific Class II molecule. For example, "HLA-DR" includes DRA (alpha)
+    and DRB1, DRB3, DRB4, DRB5 (beta) genes.
+
+    Parameters
+    ----------
+    species : Species
+        The species this locus belongs to.
+    name : str
+        The locus name (e.g., "DR", "DQ", "DP").
+    mhc_class : str, default "II"
+        The MHC class (always "II" for Class2Locus).
+    genes : Sequence[Gene], optional
+        The genes belonging to this locus.
+    raw_string : str, optional
+        The original unparsed string.
+
+    Attributes
+    ----------
+    species : Species
+        The species this locus belongs to.
+    name : str
+        The locus name.
+    genes : list of Gene
+        The genes in this locus.
+    alpha_chain_genes : list of Gene
+        Alpha chain genes (names ending in "A").
+    beta_chain_genes : list of Gene
+        Beta chain genes (names ending in "B").
+
+    Examples
+    --------
+    >>> from mhcgnomes import Class2Locus
+    >>> locus = Class2Locus.get("HLA", "DR")
+    >>> locus.name
+    'DR'
+    >>> locus.alpha_chain_gene_names
+    ['DRA']
+    """
     def __init__(
             self,
             species : Species,
             name : str,
             mhc_class : str = "II",
-            genes : Sequence[Gene] = [],
+            genes : Optional[Sequence[Gene]] = None,
             raw_string : Union[str, None] = None):
         ResultWithMhcClass.__init__(
             self,
@@ -30,7 +74,7 @@ class Class2Locus(ResultWithMhcClass):
             mhc_class=mhc_class,
             raw_string=raw_string)
         self.name = name
-        self.genes = genes
+        self.genes = genes if genes is not None else []
 
     @property
     def locus_name(self):
@@ -61,7 +105,7 @@ class Class2Locus(ResultWithMhcClass):
 
     @classmethod
     def endswith_ignore_digits(cls, s1, s2):
-        while s1[-1].isdigit():
+        while s1 and s1[-1].isdigit():
             s1 = s1[:-1]
         return s1.endswith(s2)
 

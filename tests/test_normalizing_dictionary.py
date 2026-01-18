@@ -1,4 +1,5 @@
 from mhcgnomes import NormalizingDictionary
+
 from .common import eq_
 
 

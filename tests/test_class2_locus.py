@@ -1,5 +1,7 @@
-from mhcgnomes import Class2Locus, parse, Species
+from mhcgnomes import Class2Locus, Species, parse
+
 from .common import eq_
+
 
 def test_parse_HLA_DR():
     result = parse("HLA-DR")

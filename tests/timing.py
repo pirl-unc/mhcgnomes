@@ -1,7 +1,10 @@
 
-import pandas as pd
 from time import time
+
+import pandas as pd
+
 from mhcgnomes import parse
+
 
 def run(n_repeats=3, filename="MHC_prot.fasta"):
     if filename.endswith("csv"):

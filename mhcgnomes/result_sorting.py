@@ -10,13 +10,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import List, Iterable
+from collections.abc import Iterable
 
 from .allele import Allele
 from .allele_without_gene import AlleleWithoutGene
-from .pair import Pair
-from .haplotype import Haplotype
 from .gene import Gene
+from .haplotype import Haplotype
+from .pair import Pair
 from .result import Result
 from .serotype import Serotype
 
@@ -33,7 +33,7 @@ def pick_best_result(
     sorted_candidates = sort_results(candidates)
     return sorted_candidates[0]
 
-def sort_results(results: Iterable[Result]) -> List[Result]:
+def sort_results(results: Iterable[Result]) -> list[Result]:
     if type(results) is not list:
         results = list(results)
     if not results or len(results) == 1:
@@ -108,13 +108,7 @@ def sort_key(result: Result):
     if len(allele_fields) > 0:
         allele_fields_normal = True
         for x in allele_fields:
-            if not x.isdigit():
-                allele_fields_normal = False
-                break
-            elif all([c == "0" for c in x]):
-                allele_fields_normal = False
-                break
-            elif len(x) < 2 or len(x) > 4:
+            if not x.isdigit() or all(c == "0" for c in x) or len(x) < 2 or len(x) > 4:
                 allele_fields_normal = False
                 break
     else:

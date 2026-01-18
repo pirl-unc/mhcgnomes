@@ -10,14 +10,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Iterable
+from collections.abc import Iterable
+from functools import wraps
+
 
 def unique(xs : Iterable):
     """
     Return iterable at most as long as the input, containing only its
     unique elements.
     """
-    if type(xs) is list and len(xs) == 0 or len(xs) == 1:
+    if type(xs) is list and (len(xs) == 0 or len(xs) == 1):
         return xs
     result = []
     unique_set = set()
@@ -66,7 +68,9 @@ def cache(fn):
     dict and list, which depends on functions being called not modifying their
     arguments.
     """
-    cache = {}
+    cache_dict = {}
+
+    @wraps(fn)
     def cached_fn(*args, **kwargs):
         args_key = arg_to_cache_key(args)
         if not kwargs:
@@ -74,17 +78,19 @@ def cache(fn):
         else:
             kwargs_key = arg_to_cache_key(kwargs)
         key = (args_key, kwargs_key)
-        if key not in cache:
+        if key not in cache_dict:
             result = fn(*args, **kwargs)
-            cache[key] = result
-        return cache[key]
+            cache_dict[key] = result
+        return cache_dict[key]
     return cached_fn
 
-def normalize_string(name, _cache={}):
+def normalize_string(name, _cache=None):
     """
     Return uppercase string without any surrounding whitespace and
     without any characters such as '-', '_' ':' or "'"
     """
+    if _cache is None:
+        _cache = {}
     if name is None:
         return None
 

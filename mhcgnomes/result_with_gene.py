@@ -12,6 +12,7 @@
 
 from .result_with_mhc_class import ResultWithMhcClass
 
+
 class ResultWithGene(ResultWithMhcClass):
     """
     Common base class for any result object which has a species field.

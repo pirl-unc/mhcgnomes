@@ -10,14 +10,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from .token import Token
 from .token_canonical_sequences import (
-    CLASS1_TOKEN_SEQ,
-    CLASS2_TOKEN_SEQ,
     ALPHA_CHAIN_TOKEN_SEQ,
     BETA_CHAIN_TOKEN_SEQ,
-    MUTANT_TOKEN_SEQ
+    CLASS1_TOKEN_SEQ,
+    CLASS2_TOKEN_SEQ,
+    MUTANT_TOKEN_SEQ,
 )
-from .token import Token
 
 token_replacement_patterns = {
     # 'MHC' doesn't mean anything by itself since we're always
@@ -64,7 +64,7 @@ token_replacement_patterns = {
 
 replacement_pattern_lengths = {
     len(key)
-    for key in token_replacement_patterns.keys()
+    for key in token_replacement_patterns
 }
 
 # sorted in descending order

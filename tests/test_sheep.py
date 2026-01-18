@@ -1,6 +1,6 @@
-from .common import eq_
+from mhcgnomes import Allele, parse
 
-from mhcgnomes import parse, Allele
+from .common import eq_
 
 
 def test_sheep_class1_allele_vs_get():

@@ -1,6 +1,6 @@
 from mhcgnomes import Allele, parse
-from .common import eq_
 
+from .common import eq_
 
 """
 Collection of tests for UniProt descriptions of MHC alleles

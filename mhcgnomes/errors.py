@@ -11,6 +11,7 @@
 # limitations under the License.
 
 class ParseError(Exception):
+    """Raised when an MHC string cannot be parsed."""
     pass
 
 class UnknownSpecies(ParseError):

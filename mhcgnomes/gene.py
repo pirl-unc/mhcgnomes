@@ -10,7 +10,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Union, Iterable
+from collections.abc import Iterable
+from typing import Union
 
 from .mutation import Mutation
 from .result_with_mhc_class import ResultWithMhcClass
@@ -18,6 +19,44 @@ from .species import Species
 
 
 class Gene(ResultWithMhcClass):
+    """
+    Represents an MHC gene within a species.
+
+    A Gene represents a specific MHC locus like HLA-A, HLA-B, or HLA-DRB1.
+    It contains species information and can optionally include mutations.
+
+    Parameters
+    ----------
+    species : Species
+        The species this gene belongs to.
+    name : str
+        The gene name (e.g., "A", "B", "DRB1").
+    mutations : Iterable[Mutation], optional
+        Any mutations from the reference sequence.
+    raw_string : str, optional
+        The original unparsed string.
+
+    Attributes
+    ----------
+    species : Species
+        The species this gene belongs to.
+    name : str
+        The gene name.
+    mutations : Iterable[Mutation]
+        Any mutations from the reference sequence.
+    mhc_class : str
+        The MHC class (e.g., "Ia", "Ib", "II", "IIa", "IIb").
+
+    Examples
+    --------
+    >>> gene = Gene.get("HLA", "A")
+    >>> gene.name
+    'A'
+    >>> gene.mhc_class
+    'Ia'
+    >>> gene.to_string()
+    'HLA-A'
+    """
     def __init__(
             self,
             species: Species,
@@ -59,7 +98,30 @@ class Gene(ResultWithMhcClass):
     @classmethod
     def get(cls, species_prefix: Union[str, Species], gene_name: str, mutations: Iterable[Mutation] = ()):
         """
-        Returns Gene if gene name is in ontology, otherwise None
+        Get or create a Gene from species prefix and gene name.
+
+        This is the primary factory method for creating Gene objects.
+        It validates that the gene exists in the species ontology.
+
+        Parameters
+        ----------
+        species_prefix : str or Species
+            Species prefix string (e.g., "HLA") or Species object.
+        gene_name : str
+            The gene name to look up (e.g., "A", "B", "DRB1").
+        mutations : Iterable[Mutation], optional
+            Any mutations to associate with this gene.
+
+        Returns
+        -------
+        Gene or None
+            The Gene object if found in ontology, otherwise None.
+
+        Examples
+        --------
+        >>> Gene.get("HLA", "A")
+        Gene(species=..., name='A', ...)
+        >>> Gene.get("HLA", "INVALID")  # Returns None
         """
         # use the canonical gene name e.g. "A" and not "a"
         if type(species_prefix) is Species:
@@ -104,11 +166,11 @@ class Gene(ResultWithMhcClass):
                 species_str = self.species.historic_mhc_prefix
             else:
                 species_str = self.species_prefix
-            result = "%s-%s" % (species_str, self.gene_name)
+            result = f"{species_str}-{self.gene_name}"
         else:
             result = self.gene_name
         if self.is_mutant:
-            result += " %s mutant" % self.mutation_string()
+            result += f" {self.mutation_string()} mutant"
         return result
 
     def compact_string(

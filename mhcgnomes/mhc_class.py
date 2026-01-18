@@ -12,13 +12,13 @@
 
 from typing import Union
 
+from .errors import ParseError
 from .mhc_class_helpers import (
-    normalize_mhc_class_string,
     is_class1,
     is_class2,
-    is_valid_restriction
+    is_valid_restriction,
+    normalize_mhc_class_string,
 )
-from .errors import ParseError
 from .result_with_mhc_class import ResultWithMhcClass
 from .species import Species
 
@@ -82,9 +82,9 @@ class MhcClass(ResultWithMhcClass):
                 species_str = self.species.historic_alias
             else:
                 species_str = self.species.prefix
-            return "%s class %s" % (species_str, self.mhc_class)
+            return f"{species_str} class {self.mhc_class}"
         else:
-            return "class %s" % self.mhc_class
+            return f"class {self.mhc_class}"
 
     def compact_string(self, include_species=True, use_old_species_prefix=False):
         """

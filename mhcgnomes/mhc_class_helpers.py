@@ -89,7 +89,7 @@ def normalize_mhc_class_string(mhc_class, raise_on_error=True):
     mhc_class = mhc_class.replace("2", "II")
     if mhc_class not in valid_class_restrictions:
         if raise_on_error:
-            raise ParseError("Invalid MHC class: '%s'" % original_string)
+            raise ParseError(f"Invalid MHC class: '{original_string}'")
         else:
             return None
     return mhc_class

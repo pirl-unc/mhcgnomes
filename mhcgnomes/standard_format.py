@@ -13,18 +13,18 @@
 import re
 from typing import Union
 
-from .species import Species
-from .gene import Gene
 from .allele import Allele
+from .gene import Gene
+from .species import Species
 
 _standard_allele_regex_str = (
-    "([a-zA-Z]+-)?"             # optional species
-    "([a-zA-Z]+\d?|\d{1,2})\*"  # gene, either e.g. "A1" or "88"
-    "(\d{2,3})"     # mandatory first digit field with between 2 and 3 digits
-    "(:\d{2,3})?"   # optional second allele field with up to 3 digits
-    "(:\d\d)?"      # optional third allele field
-    "(:\d\d)?"      # optional fourth allele field
-    "([a-zA-Z])?"       # optional annotation at the end of the allele
+    r"([a-zA-Z]+-)?"             # optional species
+    r"([a-zA-Z]+\d?|\d{1,2})\*"  # gene, either e.g. "A1" or "88"
+    r"(\d{2,3})"     # mandatory first digit field with between 2 and 3 digits
+    r"(:\d{2,3})?"   # optional second allele field with up to 3 digits
+    r"(:\d\d)?"      # optional third allele field
+    r"(:\d\d)?"      # optional fourth allele field
+    r"([a-zA-Z])?"       # optional annotation at the end of the allele
 )
 _standard_allele_regex = re.compile(_standard_allele_regex_str)
 

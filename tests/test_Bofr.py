@@ -1,4 +1,5 @@
-from mhcgnomes import parse, Allele, Species
+from mhcgnomes import Allele, Species, parse
+
 
 def test_Bofr_species():
     species = Species.get("Bofr")

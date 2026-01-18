@@ -20,7 +20,7 @@ aims to correctly parse every name in [IEDB](http://www.iedb.org/), [IMGT/HLA](h
 In [1]: mhcgnomes.parse("HLA-A0201")
 Out[1]: Allele(
     gene=Gene(
-        species=Species(name="Homo sapiens', prefix="HLA"),
+        species=Species(name="Homo sapiens", mhc_prefix="HLA"),
         name="A"),
     allele_fields=("02", "01"),
     annotations=(),
@@ -111,7 +111,7 @@ It is a fool's errand to curate _all_ possible MHC allele names since that list 
 - [`Gene`](https://github.com/til-unc/mhcgnomes/blob/main/mhcgnomes/gene.py)
 - [`Allele`](https://github.com/til-unc/mhcgnomes/blob/main/mhcgnomes/allele.py)
 - [`AlleleWithoutGene`](https://github.com/til-unc/mhcgnomes/blob/main/mhcgnomes/allele_without_gene.py)
-- [`Class2Pair`](https://github.com/til-unc/mhcgnomes/blob/main/mhcgnomes/class2_pair.py)
+- [`Pair`](https://github.com/til-unc/mhcgnomes/blob/main/mhcgnomes/pair.py)
 - [`Class2Locus`](https://github.com/til-unc/mhcgnomes/blob/main/mhcgnomes/class2_locus.py)
 - [`MhcClass`](https://github.com/til-unc/mhcgnomes/blob/main/mhcgnomes/mhc_class.py)
 - [`Haplotype`](https://github.com/til-unc/mhcgnomes/blob/main/mhcgnomes/haplotype.py)

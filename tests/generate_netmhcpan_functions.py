@@ -1,4 +1,3 @@
-import pandas as pd
 
 NETMHCPAN_3_0_DEST = "test_netmhcpan_3_0_alleles.py"
 NETMHCPAN_3_0_SOURCE = "netmhcpan_3_0_alleles.txt"
@@ -9,16 +8,16 @@ NETMHCPAN_4_0_SOURCE = "netmhcpan_4_0_alleles.txt"
 special_chars = " *:-,/."
 
 
-def generate(src, dst, exclude=set()):
+def generate(src, dst, exclude=None):
+    if exclude is None:
+        exclude = set()
     alleles = set()
     with open(dst, "w") as f:
         f.write("from mhcgnomes import parse, Allele, Gene, AlleleWithoutGene\n")
         with open(src) as alleles_file:
                 for line in alleles_file:
                     line = line.strip()
-                    if line.startswith("#"):
-                        continue
-                    elif not line:
+                    if line.startswith("#") or not line:
                         continue
 
                     parts = line.split()
@@ -26,7 +25,7 @@ def generate(src, dst, exclude=set()):
                     if allele_name in exclude:
                         continue
                     if allele_name in alleles:
-                        print("Skipping repeat allele: '%s'" % allele_name)
+                        print(f"Skipping repeat allele: '{allele_name}'")
                         continue
                     alleles.add(allele_name)
 

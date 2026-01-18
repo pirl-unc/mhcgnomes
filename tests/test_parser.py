@@ -1,15 +1,16 @@
 from mhcgnomes import (
-    Parser,
     Allele,
-    Pair,
-    Mutation,
-    Species,
-    Haplotype,
-    Serotype,
     Gene,
+    Haplotype,
+    Mutation,
+    Pair,
+    Parser,
+    Serotype,
+    Species,
     parse,
 )
 from mhcgnomes.result_sorting import pick_best_result
+
 from .common import eq_
 
 
@@ -152,15 +153,14 @@ def test_parse_multiple_candidates_A2():
     parser = Parser()
     results = parser.parse_multiple_candidates("A2")
     assert len(results) > 0
-    assert any([type(result) is Serotype for result in results])
+    assert any(type(result) is Serotype for result in results)
 
 def test_parse_allele_or_gene_candidates_A2():
     parser = Parser()
     results = parser.parse_allele_or_gene_candidates(
         species=Species.get("HLA"),
         str_after_species="A2")
-    assert len(results) == 0, "Didn't expect any result but got %s" % (
-        results,)
+    assert len(results) == 0, f"Didn't expect any result but got {results}"
 
 def test_parse_parse_allele_or_gene_candidates_BF2():
     parser = Parser()
@@ -183,13 +183,13 @@ def test_parse_multiple_candidates_BoLA_DRA_DRB31501():
     parser = Parser()
     results = parser.parse_multiple_candidates("BoLA-DRA-DRB31501")
     assert len(results) > 0
-    assert any([type(result) is Pair for result in results])
+    assert any(type(result) is Pair for result in results)
 
 def test_parse_BoLA_DRA_DRB31501():
     parser = Parser()
     result = parser.parse("BoLA-DRA-DRB31501")
     assert result is not None
-    assert type(result) is Pair, "Expected Class2Pair but got: %s" % (result,)
+    assert type(result) is Pair, f"Expected Pair but got: {result}"
 
 def test_parse_H2K():
     parse_fns = [parse, Parser().parse]
@@ -217,7 +217,7 @@ def test_parse_H2_IAb_I67F_R70Q_T71K_mutant():
         result = fn(s)
         assert result is not None
         assert type(result) in (Pair, Allele), \
-            "Wrong result type: %s" % (result,)
+            f"Wrong result type: {result}"
         if type(result) is Allele:
             eq_(len(result.mutations), 3)
         elif type(result) is Pair:
@@ -237,7 +237,7 @@ def test_parse_HLA_DRA_01_01_F54C_mutant_DRB1_01_01():
 def test_raw_strings_from_parse_class_ii():
     alpha = "DPA1*01:05"
     beta = "DPB1*100:01"
-    s = "%s-%s" % (alpha, beta)
+    s = f"{alpha}-{beta}"
     parser = Parser()
     result = parser.parse(s)
     eq_(type(result), Pair)

@@ -1,17 +1,15 @@
-from mhcgnomes.tokenize import (
-    tokenize,
-    split_token_sequences,
-)
 from mhcgnomes.token import Token
 from mhcgnomes.token_canonical_sequences import (
-    CLASS1_TOKEN_SEQ,
-    CLASS2_TOKEN_SEQ,
     ALPHA_CHAIN_TOKEN_SEQ,
-    MUTANT_TOKEN_SEQ,
-    BETA_CHAIN_TOKEN_SEQ,
+    CLASS1_TOKEN_SEQ,
+)
+from mhcgnomes.tokenize import (
+    split_token_sequences,
+    tokenize,
 )
 
 from .common import eq_
+
 
 def test_Token():
     t = Token("l-q", raw_string="L-Q")

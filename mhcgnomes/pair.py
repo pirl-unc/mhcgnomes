@@ -10,8 +10,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Union
 from collections import OrderedDict
+from typing import Union
 
 from .allele import Allele
 from .allele_without_gene import AlleleWithoutGene
@@ -21,7 +21,44 @@ from .result_with_mhc_class import ResultWithMhcClass
 
 class Pair(ResultWithMhcClass):
     """
-    Representation of an alpha/beta pair of MHC chains.
+    Represents an alpha/beta pair of MHC Class II chains.
+
+    MHC Class II molecules are heterodimers consisting of an alpha chain
+    and a beta chain. This class represents such pairs, commonly seen in
+    notation like "HLA-DRA*01:01/DRB1*01:01".
+
+    Parameters
+    ----------
+    alpha : Allele, AlleleWithoutGene, or Gene
+        The alpha chain component.
+    beta : Allele, AlleleWithoutGene, or Gene
+        The beta chain component.
+    mhc_class : str, default "II"
+        The MHC class (typically "II" for pairs).
+    raw_string : str, optional
+        The original unparsed string.
+
+    Attributes
+    ----------
+    alpha : Allele, AlleleWithoutGene, or Gene
+        The alpha chain component.
+    beta : Allele, AlleleWithoutGene, or Gene
+        The beta chain component.
+    species : Species
+        The species (inherited from alpha chain).
+    mhc_class : str
+        The MHC class.
+
+    Examples
+    --------
+    >>> from mhcgnomes import parse
+    >>> pair = parse("HLA-DRA*01:01/DRB1*01:01")
+    >>> pair.alpha.gene_name
+    'DRA'
+    >>> pair.beta.gene_name
+    'DRB1'
+    >>> pair.to_string()
+    'HLA-DRA*01:01/DRB1*01:01'
     """
 
     def __init__(
@@ -58,9 +95,7 @@ class Pair(ResultWithMhcClass):
             return None
         if alpha.mhc_class == "other" and beta.mhc_class != "other":
             mhc_class = beta.mhc_class
-        elif beta.mhc_class == "other" and alpha.mhc_class != "other":
-            mhc_class = alpha.mhc_class
-        elif alpha.mhc_class == beta.mhc_class:
+        elif (beta.mhc_class == "other" and alpha.mhc_class != "other") or alpha.mhc_class == beta.mhc_class:
             mhc_class = alpha.mhc_class
         else:
             mhc_class = "II"
@@ -75,7 +110,7 @@ class Pair(ResultWithMhcClass):
             self,
             include_species=True,
             use_old_species_prefix=False):
-        return "%s/%s" % (
+        return "{}/{}".format(
             self.alpha.to_string(
                 include_species=include_species,
                 use_old_species_prefix=use_old_species_prefix),
@@ -86,7 +121,7 @@ class Pair(ResultWithMhcClass):
             self,
             include_species=False,
             use_old_species_prefix=False):
-        return "%s-%s" % (
+        return "{}-{}".format(
             self.alpha.compact_string(
                 include_species=include_species,
                 use_old_species_prefix=use_old_species_prefix),
@@ -94,7 +129,7 @@ class Pair(ResultWithMhcClass):
 
     @property
     def gene_name(self):
-        return "%s/%s" % (self.alpha.gene_name, self.beta.gene_name)
+        return f"{self.alpha.gene_name}/{self.beta.gene_name}"
 
     def to_record(self):
         # return a dictionary that has the same elements as Gene.to_dict()

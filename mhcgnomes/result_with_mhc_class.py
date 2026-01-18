@@ -13,6 +13,7 @@
 from .mhc_class_helpers import is_class1, is_class2
 from .result_with_species import ResultWithSpecies
 
+
 class ResultWithMhcClass(ResultWithSpecies):
     """
     Common base class for any result object which has a species field.

@@ -1,5 +1,7 @@
-from mhcgnomes import parse, Gene
+from mhcgnomes import Gene, parse
+
 from .common import eq_
+
 
 def test_mamu_cd1b():
     seq = "rhesus macaque CD1b"

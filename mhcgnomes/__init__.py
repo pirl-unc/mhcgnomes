@@ -13,38 +13,38 @@
 from .allele import Allele
 from .allele_without_gene import AlleleWithoutGene
 from .class2_locus import Class2Locus
-from .pair import Pair
-from .dataframe import dataframe_from_string_list, dataframe_from_parsed_objects
+from .dataframe import dataframe_from_parsed_objects, dataframe_from_string_list
 from .errors import ParseError
 from .function_api import cached_parser, parse
 from .gene import Gene
 from .haplotype import Haplotype
-from .mutation import Mutation
 from .mhc_class import MhcClass
+from .mutation import Mutation
 from .normalizing_dictionary import NormalizingDictionary
 from .normalizing_set import NormalizingSet
+from .pair import Pair
 from .parser import Parser
 from .serotype import Serotype
 from .species import Species
 from .version import __version__
 
-
 __all__ = [
     "Allele",
+    "AlleleWithoutGene",
     "Class2Locus",
-    "Pair",
     "Gene",
     "Haplotype",
     "MhcClass",
     "Mutation",
     "NormalizingDictionary",
     "NormalizingSet",
-    "Parser",
+    "Pair",
     "ParseError",
+    "Parser",
     "Serotype",
     "Species",
+    "cached_parser",
     "dataframe_from_parsed_objects",
     "dataframe_from_string_list",
-    "cached_parser",
     "parse",
 ]

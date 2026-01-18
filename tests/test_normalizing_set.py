@@ -1,6 +1,9 @@
 from collections import defaultdict
+
 from mhcgnomes.normalizing_set import NormalizingSet
+
 from .common import eq_
+
 
 def test_NormalizingSet_get_original():
     s = NormalizingSet()

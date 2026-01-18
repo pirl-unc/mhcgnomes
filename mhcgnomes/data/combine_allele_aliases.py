@@ -1,10 +1,10 @@
-from collections import defaultdict, OrderedDict
 import argparse
 import sys
 import xml.etree.ElementTree as ET
-import yaml
+from collections import OrderedDict, defaultdict
 
 import pandas as pd
+import yaml
 
 parser = argparse.ArgumentParser(
     prog="combine_allele_aliases.py",
@@ -28,11 +28,9 @@ def sufficiently_different_name(old_name, new_name):
     new_name_without_seps = new_name.replace(":", "")
     if old_name_without_seps == new_name_without_seps:
         return False
-    if old_name.count(":") > 0 and old_name_without_seps in new_name:
-        return False
-    return True
+    return not (old_name.count(":") > 0 and old_name_without_seps in new_name)
 
-class MappingAccumulator(object):
+class MappingAccumulator:
     def __init__(self):
         self.species_to_old_to_new = defaultdict(OrderedDict)
         self.ambiguous_names = defaultdict(set)
@@ -78,7 +76,7 @@ def main(args_list):
 
     if args.xml_input_file:
         for xml_file in args.xml_input_file:
-            print("Loading XML source %s" % xml_file)
+            print(f"Loading XML source {xml_file}")
             tree = ET.parse(xml_file)
             root = tree.getroot()
             entries = root.find("entries")
@@ -88,7 +86,7 @@ def main(args_list):
                     continue
                 name = name_obj.text
                 if "-" not in name:
-                    raise ValueError("Missing species in %s" % name)
+                    raise ValueError(f"Missing species in {name}")
                 parts = name.split("-")
                 species = parts[0]
                 name_without_species = "-".join(parts[1:])
@@ -102,14 +100,14 @@ def main(args_list):
 
     if args.yaml_input_file:
         for yaml_filename in args.yaml_input_file:
-            print("Loading YAML source %s" % yaml_filename)
+            print(f"Loading YAML source {yaml_filename}")
             with open(yaml_filename) as yaml_file:
                 d = yaml.safe_load(yaml_file.read())
                 accum.merge_dictionary(d)
 
     if args.allele_history_input_file:
         for filename in args.allele_history_input_file:
-            print("Loading allele history source %s" % filename)
+            print(f"Loading allele history source {filename}")
             with open(filename) as f:
                 for line in f:
                     line = line.strip()
@@ -130,11 +128,11 @@ def main(args_list):
                     ]
                     for old_name in different_old_names:
                         if accum.update("HLA", old_name, most_recent_name):
-                            print("\t%s=>%s" % (old_name, most_recent_name))
+                            print(f"\t{old_name}=>{most_recent_name}")
 
     if args.csv_input_file:
         for filename in args.csv_input_file:
-            print("Loading CSV source %s" % filename)
+            print(f"Loading CSV source {filename}")
             df = pd.read_csv(filename, comment="#")
             assert "Allele" in df.columns
             assert "Description" in df.columns
@@ -149,7 +147,7 @@ def main(args_list):
                 if new_allele:
                     accum.update("HLA", old_allele, new_allele)
                 else:
-                    print("\tSkipping %s: %s" % (old_allele, desc))
+                    print(f"\tSkipping {old_allele}: {desc}")
     #  sanity check to make sure no "new name" also has an "old name" entry
     changed = True
     species_to_old_to_new = accum.species_to_old_to_new
@@ -160,17 +158,15 @@ def main(args_list):
         for (species, species_dict) in species_to_old_to_new.items():
             for old, new in species_dict.items():
                 if "-" in new:
-                    if new.startswith("%s-" % species):
+                    if new.startswith(f"{species}-"):
                         new_without_species = new[len(species) + 1:]
-                        print("Removing species prefix from %s = %s" % (
-                            new,
-                            new_without_species))
+                        print(f"Removing species prefix from {new} = {new_without_species}")
                         del updated[species][old]
                         updated[species][old] = new_without_species
                         changed = True
                 elif new in species_dict:
                     newer = species_dict[new]
-                    print("\t Updating %s %s => %s => %s" % (species, old, new, newer))
+                    print(f"\t Updating {species} {old} => {new} => {newer}")
                     updated[species][old] = newer
                     changed = True
 
@@ -182,9 +178,9 @@ def main(args_list):
         args.output))
     with open(args.output, "w") as f:
         for species, species_dict in sorted(species_to_old_to_new.items()):
-            f.write("%s:\n" % species)
+            f.write(f"{species}:\n")
             for old_name, new_name in sorted(species_dict.items()):
-                f.write("  %s: %s\n" % (old_name, new_name))
+                f.write(f"  {old_name}: {new_name}\n")
 
 if __name__ == "__main__":
     main(sys.argv[1:])

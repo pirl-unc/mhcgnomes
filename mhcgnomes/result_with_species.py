@@ -13,6 +13,7 @@
 
 from .result import Result
 
+
 class ResultWithSpecies(Result):
     """
     Common base class for any result object which has a species field.

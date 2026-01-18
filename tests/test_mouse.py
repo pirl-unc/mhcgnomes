@@ -1,13 +1,13 @@
-from .common import eq_
-
 from mhcgnomes import (
-    parse,
     Allele,
     Class2Locus,
-    Pair,
     Gene,
     Haplotype,
+    Pair,
+    parse,
 )
+
+from .common import eq_
 
 
 def test_mouse_class1_alleles_H2_Kk():

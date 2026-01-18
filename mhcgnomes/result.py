@@ -10,9 +10,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import inspect
+
 from serializable import Serializable
 
-import inspect
 
 class Result(Serializable):
     """
@@ -96,33 +97,32 @@ class Result(Serializable):
         results = []
         for k, v in self._field_name_value_pairs(names):
             if isinstance(v, str):
-                results.append((k, "'%s'" % (v,)))
+                results.append((k, f"'{v}'"))
             else:
-                results.append((k, "%s" % (v,)))
+                results.append((k, f"{v}"))
         return results
-    
+
     def __str__(self):
-        return "%s(%s)" % (
+        return "{}({})".format(
             self.__class__.__name__,
             ", ".join(
-                ["%s=%s" % (k, v_str)
+                [f"{k}={v_str}"
                 for (k, v_str) in
                  self._field_name_string_pairs(self.str_field_names())
                 ]))
-                
+
     def __repr__(self):
-        return "%s(%s)" % (
+        return "{}({})".format(
             self.__class__.__name__,
             ", ".join(
-                ["%s=%s" % (k, v_str)
+                [f"{k}={v_str}"
                  for (k, v_str) in
                  self._field_name_string_pairs(self.repr_field_names())
                  ]))
 
     def to_string(self, include_species=True, use_old_species_prefix=False):
         raise NotImplementedError(
-            "%s requires implementation of to_string() method" % (
-                self.__class__.__name__))
+            f"{self.__class__.__name__} requires implementation of to_string() method")
 
     def compact_string(self, include_species=False, use_old_species_prefix=False):
         """
@@ -136,10 +136,7 @@ class Result(Serializable):
     def __eq__(self, other):
         if self.__class__ is not other.__class__:
             return False
-        for field in self.eq_field_names():
-            if getattr(self, field) != getattr(other, field):
-                return False
-        return True
+        return all(getattr(self, field) == getattr(other, field) for field in self.eq_field_names())
 
     def __hash__(self):
         total = 0
@@ -149,8 +146,7 @@ class Result(Serializable):
 
     def to_record(self):
         raise NotImplementedError(
-            "%s requires implementation of to_record() method" % (
-                self.__class__.__name__))
+            f"{self.__class__.__name__} requires implementation of to_record() method")
 
     def to_tuple(self):
         keys = self.tuple_field_names()
@@ -180,8 +176,8 @@ class Result(Serializable):
         return self.__class__.from_dict(field_dict)
 
     def __lt__(self, other):
-        self_key = (self.__class__.__name__,) + self.to_tuple()
-        other_key = (other.__class__.__name__,) + other.to_tuple()
+        self_key = (self.__class__.__name__, *self.to_tuple())
+        other_key = (other.__class__.__name__, *other.to_tuple())
         return self_key < other_key
 
 

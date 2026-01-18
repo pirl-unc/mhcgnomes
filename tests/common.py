@@ -12,6 +12,7 @@
 
 from functools import wraps
 
+
 def ok_(a, s=None):
     if s is None:
         assert a
@@ -68,13 +69,13 @@ class assert_raises:
         pass
 
     def to_string(self):
-        return " or ".join(["%s" % e for e in self.exception_types])
+        return " or ".join([f"{e}" for e in self.exception_types])
 
     def __exit__(self, type, value, traceback):
         if type is None:
-            raise AssertionError("Expected exception %s not raised" % self.to_string())
+            raise AssertionError(f"Expected exception {self.to_string()} not raised")
         if type not in self.exception_types:
-            raise AssertionError("Expected exception %s, got %s" % (self.to_string(), type))
+            raise AssertionError(f"Expected exception {self.to_string()}, got {type}")
         return True
 
 def raises(*exception_types):

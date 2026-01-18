@@ -1,4 +1,5 @@
-from mhcgnomes import parse, Allele
+from mhcgnomes import Allele, parse
+
 from .common import eq_
 
 

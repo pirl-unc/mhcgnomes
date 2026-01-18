@@ -11,13 +11,52 @@
 # limitations under the License.
 
 import re
-
 from typing import Union
 
 from .errors import ParseError
 from .result import Result
 
+
 class Mutation(Result):
+    """
+    Represents a single amino acid mutation in an MHC sequence.
+
+    Mutations are described using standard notation: OriginalAA + Position + MutantAA.
+    For example, "N80I" represents asparagine (N) at position 80 mutated to
+    isoleucine (I).
+
+    Parameters
+    ----------
+    pos : int
+        The position of the mutation (1-indexed).
+    aa_original : str
+        The original amino acid (single letter code).
+    aa_mutant : str
+        The mutant amino acid (single letter code).
+    raw_string : str, optional
+        The original unparsed string.
+
+    Attributes
+    ----------
+    pos : int
+        The position of the mutation.
+    aa_original : str
+        The original amino acid.
+    aa_mutant : str
+        The mutant amino acid.
+
+    Examples
+    --------
+    >>> mut = Mutation.parse("N80I")
+    >>> mut.pos
+    80
+    >>> mut.aa_original
+    'N'
+    >>> mut.aa_mutant
+    'I'
+    >>> mut.to_string()
+    'N80I'
+    """
 
     def __init__(
             self,
@@ -34,9 +73,9 @@ class Mutation(Result):
         return ("pos", "aa_original", "aa_mutant")
 
     def to_string(self):
-        return "%s%d%s" % (self.aa_original, self.pos, self.aa_mutant)
+        return f"{self.aa_original}{self.pos}{self.aa_mutant}"
 
-    mutation_regex = re.compile("([a-yA-Y])(\d+)([a-yA-Y])")
+    mutation_regex = re.compile(r"([a-yA-Y])(\d+)([a-yA-Y])")
 
     @classmethod
     def get(cls, pos, aa_original, aa_mutant, raw_string=None):
@@ -51,7 +90,7 @@ class Mutation(Result):
         result = cls.mutation_regex.fullmatch(seq)
         if result is None:
             if raise_on_error:
-                raise ParseError("Allele mutation malformed: '%s'" % seq)
+                raise ParseError(f"Allele mutation malformed: '{seq}'")
             else:
                 return None
         return cls.get(

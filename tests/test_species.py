@@ -1,19 +1,19 @@
 from mhcgnomes import Species
-from .common import eq_
 
+from .common import eq_
 
 
 def test_HLA():
     for hla in ["HLA", "hla"]:
         species = Species.get(hla)
-        assert species is not None, "Could not find Species for '%s'" % hla
+        assert species is not None, f"Could not find Species for '{hla}'"
         eq_(species.common_species_name, "human")
 
 
 def test_human():
     for human in ["human", "Human", "HUMAN"]:
         species = Species.get(human)
-        assert species is not None, "Could not find Species for '%s'" % human
+        assert species is not None, f"Could not find Species for '{human}'"
         eq_(species.common_species_name, "human")
 
 

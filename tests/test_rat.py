@@ -1,6 +1,6 @@
-from .common import eq_
+from mhcgnomes import Allele, Species, parse
 
-from mhcgnomes import parse, Allele, Species, Gene
+from .common import eq_
 
 
 def test_parse_RT1():

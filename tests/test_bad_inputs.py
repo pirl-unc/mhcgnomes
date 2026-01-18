@@ -1,5 +1,7 @@
-from .common import raises
 from mhcgnomes import ParseError, parse
+
+from .common import raises
+
 
 @raises(ParseError)
 def test_parse_extra_text_after_allele():

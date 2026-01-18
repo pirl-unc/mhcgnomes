@@ -10,10 +10,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import List, Tuple, Union
+from typing import Union
 
-from .species import Species
 from .result_with_mhc_class import ResultWithMhcClass
+from .species import Species
+
 
 class AlleleWithoutGene(ResultWithMhcClass):
     """
@@ -43,7 +44,7 @@ class AlleleWithoutGene(ResultWithMhcClass):
         species_str = self.species.to_string(
             include_species=include_species,
             use_old_species_prefix=use_old_species_prefix)
-        return "%s-%s" % (species_str, self.name)
+        return f"{species_str}-{self.name}"
 
     def compact_string(
             self,

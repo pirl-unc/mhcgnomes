@@ -1,15 +1,12 @@
 #!/bin/bash
 set -o errexit
 
+# Run ruff linter
+ruff check mhcgnomes tests
 
-# disabling several categories of errors due to false positives in pylint,
-# see these issues:
-# - https://bitbucket.org/logilab/pylint/issues/701/false-positives-with-not-an-iterable-and
-# - https://bitbucket.org/logilab/pylint/issues/58
+echo 'Passes ruff check'
 
-find mhcgnomes tests -name '*.py' \
-  | xargs pylint \
-  --errors-only \
-  --disable=unsubscriptable-object,not-an-iterable,no-member,relative-beyond-top-level
+# Run ruff formatter check
+ruff format --check mhcgnomes tests
 
-echo 'Passes pylint check'
+echo 'Passes ruff format check'

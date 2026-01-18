@@ -1,11 +1,6 @@
-from .common import eq_
+from mhcgnomes import Allele, Gene, Species, parse
 
-from mhcgnomes import (
-    parse,
-    Allele,
-    Gene,
-    Species
-)
+from .common import eq_
 
 
 def test_macaque_allele_B_08_02():

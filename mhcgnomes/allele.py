@@ -10,8 +10,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import List, Tuple, Union, Iterable
-
+from collections.abc import Iterable
+from typing import Union
 
 from .gene import Gene
 from .mutation import Mutation
@@ -20,9 +20,48 @@ from .result_with_gene import ResultWithGene
 
 class Allele(ResultWithGene):
     """
-    Allele name which specifies a unique protein amino acid sequence
-    using this kind of notation: "HLA-A*02:01" or more generally:
-            Species-Gene*Group:ProteinID
+    Represents an MHC allele with gene and allele field information.
+
+    An Allele specifies a unique protein amino acid sequence using notation
+    like "HLA-A*02:01" or more generally: Species-Gene*Group:ProteinID
+
+    Alleles can have annotations (e.g., "N" for null, "S" for secreted)
+    and mutations (e.g., "N80I").
+
+    Parameters
+    ----------
+    gene : Gene
+        The gene this allele belongs to.
+    allele_fields : Iterable[str]
+        The allele field identifiers (e.g., ("02", "01") for A*02:01).
+    annotations : Iterable[str], optional
+        Functional annotations like "N" (null), "S" (secreted), etc.
+    mutations : Iterable[Mutation], optional
+        Any mutations from the reference sequence.
+    raw_string : str, optional
+        The original unparsed string.
+
+    Attributes
+    ----------
+    gene : Gene
+        The gene this allele belongs to.
+    allele_fields : tuple of str
+        The allele field identifiers.
+    annotations : tuple of str
+        Functional annotations.
+    mutations : tuple of Mutation
+        Any mutations from the reference sequence.
+
+    Examples
+    --------
+    >>> from mhcgnomes import parse
+    >>> allele = parse("HLA-A*02:01")
+    >>> allele.gene_name
+    'A'
+    >>> allele.allele_fields
+    ('02', '01')
+    >>> allele.to_string()
+    'HLA-A*02:01'
     """
     def __init__(
             self,
@@ -129,6 +168,28 @@ class Allele(ResultWithGene):
             annotations: Union[Iterable[str], None] = None,
             mutations: Union[Iterable[Mutation], None] = None,
             raw_string: Union[str, None] = None):
+        """
+        Create an Allele from a Gene object and allele fields.
+
+        Parameters
+        ----------
+        gene : Gene
+            The gene this allele belongs to.
+        allele_fields : Iterable[str]
+            The allele field identifiers.
+        annotations : Iterable[str], optional
+            Functional annotations.
+        mutations : Iterable[Mutation], optional
+            Mutations from reference sequence.
+        raw_string : str, optional
+            Original unparsed string.
+
+        Returns
+        -------
+        Allele or None
+            The constructed Allele, or None if gene is None or no allele
+            fields provided.
+        """
         if gene is None:
             return None
 
@@ -160,6 +221,40 @@ class Allele(ResultWithGene):
             annotation=None,
             mutations=None,
             raw_string=None):
+        """
+        Create an Allele from species prefix, gene name, and allele fields.
+
+        This is the primary factory method for creating Allele objects
+        programmatically.
+
+        Parameters
+        ----------
+        species_prefix : str
+            Species prefix (e.g., "HLA" for human).
+        gene_name : str
+            Gene name (e.g., "A", "B", "DRB1").
+        *allele_fields : str
+            Variable number of allele field arguments, or a single
+            colon-separated string.
+        annotation : str, optional
+            Single functional annotation.
+        mutations : str or list, optional
+            Mutations as string or list of Mutation objects.
+        raw_string : str, optional
+            Original unparsed string.
+
+        Returns
+        -------
+        Allele or None
+            The constructed Allele, or None if species/gene not found.
+
+        Examples
+        --------
+        >>> Allele.get("HLA", "A", "02", "01")
+        Allele(gene=..., allele_fields=('02', '01'), ...)
+        >>> Allele.get("HLA", "A", "02:01")  # Also valid
+        Allele(gene=..., allele_fields=('02', '01'), ...)
+        """
         gene = Gene.get(species_prefix, gene_name)
         if not gene:
             return None
@@ -208,12 +303,12 @@ class Allele(ResultWithGene):
         gene_str = self.gene.to_string(
             include_species=include_species,
             use_old_species_prefix=use_old_species_prefix)
-        result = "%s*%s" % (gene_str, ":".join(self.allele_fields))
+        result = "{}*{}".format(gene_str, ":".join(self.allele_fields))
         if include_annotations:
             for annot in self.annotations:
                 result += annot
         if self.is_mutant:
-            result += " %s mutant" % self.mutation_string()
+            result += f" {self.mutation_string()} mutant"
         return result
 
     def compact_string(
@@ -227,14 +322,14 @@ class Allele(ResultWithGene):
             Normalized: HLA-A*02:01
             Compact: HLA-A0201
         """
-        result = "%s%s%s" % (
+        result = "{}{}{}".format(
             self.gene.compact_string(
                 include_species=include_species,
                 use_old_species_prefix=use_old_species_prefix),
             "*" if self.gene_name[-1].isdigit() else "",
             "".join(self.allele_fields))
         if self.is_mutant:
-            result += " %s mutant" % self.mutation_string()
+            result += f" {self.mutation_string()} mutant"
         return result
 
     def copy_with_extra_mutations(self, mutations):

@@ -1,6 +1,8 @@
-from mhcgnomes.standard_format import parse_standard_allele_format
 from mhcgnomes import Allele
+from mhcgnomes.standard_format import parse_standard_allele_format
+
 from .common import eq_
+
 
 def test_parse_standard_allele_format_HLA_A_02_01():
     result = parse_standard_allele_format(seq="HLA-A*02:01")

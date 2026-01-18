@@ -1,4 +1,3 @@
-import pandas as pd
 
 TEST_FILENAME = "test_ipd_mhc_names.py"
 FASTA_FILENAME = "MHC_prot.fasta"
@@ -14,8 +13,8 @@ with open(TEST_FILENAME, "w") as f:
                 parts = line.split()
                 allele_name = parts[1]
                 if allele_name in alleles:
-                    print("Skipping repeat allele: '%s'" % (allele_name,))
-                    print("-- %s" % (line,))
+                    print(f"Skipping repeat allele: '{allele_name}'")
+                    print(f"-- {line}")
                     continue
                 alleles.add(allele_name)
                 fn_name = allele_name.replace("\"", "").strip()
@@ -44,7 +43,7 @@ with open(TEST_FILENAME, "w") as f:
                 f.write(f"""\n    assert result.__class__ is Allele, \\
                     'Expected parse(\"{allele_name}\") to be Allele but got %s' % (result,)""")
                 f.write(f"""\n    assert result.num_allele_fields == {field_count}, \\
-                                ('Expected parse(\"{allele_name}\") to have {field_count} ' 
+                                ('Expected parse(\"{allele_name}\") to have {field_count} '
                                  'field(s) but got %d') % result.num_allele_fields""")
 
                 f.write("\n")

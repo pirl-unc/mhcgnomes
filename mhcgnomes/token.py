@@ -11,13 +11,15 @@
 # limitations under the License.
 
 from serializable import Serializable
+
 from .token_canonical_sequences import (
-    CLASS1_TOKEN_SEQ,
-    CLASS2_TOKEN_SEQ,
     ALPHA_CHAIN_TOKEN_SEQ,
     BETA_CHAIN_TOKEN_SEQ,
-    MUTANT_TOKEN_SEQ
+    CLASS1_TOKEN_SEQ,
+    CLASS2_TOKEN_SEQ,
+    MUTANT_TOKEN_SEQ,
 )
+
 
 class Token(Serializable):
     def __init__(self, seq, raw_string=None):
@@ -27,10 +29,10 @@ class Token(Serializable):
         self.raw_string = raw_string
 
     def __str__(self):
-        return "Token('%s')" % self.seq
+        return f"Token('{self.seq}')"
 
     def __repr__(self):
-        return "Token(seq='%s', raw_string='%s')" % (self.seq, self.raw_string)
+        return f"Token(seq='{self.seq}', raw_string='{self.raw_string}')"
 
     def __eq__(self, other):
         if type(other) is Token:

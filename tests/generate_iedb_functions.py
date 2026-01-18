@@ -10,7 +10,7 @@ with open(TEST_FILENAME, "w") as f:
     for allele_name, count in sorted(zip(
             df.allele, df["number_of_entries"])):
         if allele_name in alleles:
-            print("Skipping repeat allele: '%s'" % (allele_name,))
+            print(f"Skipping repeat allele: '{allele_name}'")
             continue
         alleles.add(allele_name)
         fn_name = allele_name.replace("\"", "").strip()

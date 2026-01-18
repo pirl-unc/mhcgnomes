@@ -10,7 +10,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Sequence, Union
+from collections.abc import Sequence
+from typing import Union
 
 from .common import unique
 from .gene import Gene
@@ -46,16 +47,10 @@ class ResultWithMultipleAlleles(ResultWithSpecies):
             inferred_species = inferred_species[0]
             if inferred_species != species:
                 raise ValueError(
-                    "Species inferred from given alleles (%s) is different from %s" % (
-                        inferred_species,
-                        species,
-                    ))
+                    f"Species inferred from given alleles ({inferred_species}) is different from {species}")
         elif len(inferred_species) > 1:
             raise ValueError(
-                "%s '%s' cannot span genes from multiple species: %s" % (
-                    self.__class__.__name__,
-                    name,
-                    inferred_species))
+                f"{self.__class__.__name__} '{name}' cannot span genes from multiple species: {inferred_species}")
 
     @classmethod
     def str_field_names(cls):
@@ -76,7 +71,7 @@ class ResultWithMultipleAlleles(ResultWithSpecies):
     @property
     def gene(self):
         if len(self.genes) == 1:
-            return list(self.genes)[0]
+            return next(iter(self.genes))
         else:
             return None
 
@@ -101,61 +96,61 @@ class ResultWithMultipleAlleles(ResultWithSpecies):
 
     @property
     def is_class1(self):
-        return all([allele.is_class1 for allele in self.alleles])
+        return all(allele.is_class1 for allele in self.alleles)
 
     @property
     def is_class2(self):
-        return all([allele.is_class2 for allele in self.alleles])
+        return all(allele.is_class2 for allele in self.alleles)
 
     @property
     def is_class2_alpha(self):
-        return all([allele.is_class2_alpha for allele in self.alleles])
+        return all(allele.is_class2_alpha for allele in self.alleles)
 
     @property
     def is_class2_beta(self):
-        return all([allele.is_class2_beta for allele in self.alleles])
+        return all(allele.is_class2_beta for allele in self.alleles)
 
     @property
     def annotation_null(self):
-        return any([allele.annotation_null for allele in self.alleles])
+        return any(allele.annotation_null for allele in self.alleles)
 
     @property
     def annotation_cystosolic(self):
-        return any([allele.annotation_cystosolic for allele in self.alleles])
+        return any(allele.annotation_cystosolic for allele in self.alleles)
 
     @property
     def annotation_secreted(self):
-        return any([allele.annotation_secreted for allele in self.alleles])
+        return any(allele.annotation_secreted for allele in self.alleles)
 
     @property
     def annotation_questionable(self):
-        return any([allele.annotation_questionable for allele in self.alleles])
+        return any(allele.annotation_questionable for allele in self.alleles)
 
     @property
     def annotation_low_expression(self):
-        return any([allele.annotation_low_expression for allele in self.alleles])
+        return any(allele.annotation_low_expression for allele in self.alleles)
 
     @property
     def annotation_aberrant_expression(self):
-        return any([allele.annotation_aberrant_expression for allele in self.alleles])
+        return any(allele.annotation_aberrant_expression for allele in self.alleles)
 
     @property
     def annotation_group(self):
         # designates a group of genomic sequence alleles
         # with identical peptide binding region
-        return any([allele.annotation_group for allele in self.alleles])
+        return any(allele.annotation_group for allele in self.alleles)
 
     @property
     def annotation_pseudogene(self):
         # designates a group of genomic sequence alleles
         # with identical peptide binding region
-        return any([allele.annotation_pseudogene for allele in self.alleles])
+        return any(allele.annotation_pseudogene for allele in self.alleles)
 
     @property
     def annotation_splice_variant(self):
         # designates a group of genomic sequence alleles
         # with identical peptide binding region
-        return any([allele.annotation_splice_variant for allele in self.alleles])
+        return any(allele.annotation_splice_variant for allele in self.alleles)
 
 
     def restrict_allele_fields(

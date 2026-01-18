@@ -74,7 +74,7 @@ def peel_suffix_annotations(seq):
     for annot in valid_functional_annotations:
         n_annot_chars = len(annot)
         if seq[-n_annot_chars:].lower() == annot.lower():
-            functional_annotations = [annot] + functional_annotations
+            functional_annotations = [annot, *functional_annotations]
             seq = seq[:-n_annot_chars]
     return seq, functional_annotations
 

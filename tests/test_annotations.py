@@ -1,8 +1,10 @@
-from mhcgnomes import parse, Allele
+from mhcgnomes import Allele, parse
 from mhcgnomes.allele_annotations import (
     parse_annotations_from_allele_fields,
 )
+
 from .common import eq_
+
 
 def test_questionable_A_01_281Q():
     result = parse("A*01:281Q")

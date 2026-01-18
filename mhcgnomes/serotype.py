@@ -10,7 +10,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Sequence, Union
+from collections.abc import Sequence
+from typing import Union
 
 from .allele import Allele
 from .result_with_multiple_alleles import ResultWithMultipleAlleles
@@ -19,9 +20,43 @@ from .species import Species
 
 class Serotype(ResultWithMultipleAlleles):
     """
-    Common base class for all result objects which have a species field.
+    Represents an MHC serotype (serological antigen type).
 
-    Contains many common helpers such as `is_human`.
+    A Serotype represents a group of MHC alleles that are recognized by the
+    same antibody. For example, "HLA-A2" is a serotype that includes multiple
+    alleles like A*02:01, A*02:02, etc.
+
+    Serotypes are commonly used in older literature and transplantation
+    medicine before high-resolution molecular typing became available.
+
+    Parameters
+    ----------
+    species : Species
+        The species this serotype belongs to.
+    name : str
+        The serotype name (e.g., "A2", "B27", "DR4").
+    alleles : Sequence[Allele]
+        The alleles that belong to this serotype.
+    raw_string : str, optional
+        The original unparsed string.
+
+    Attributes
+    ----------
+    species : Species
+        The species this serotype belongs to.
+    name : str
+        The serotype name.
+    alleles : Sequence[Allele]
+        The alleles in this serotype.
+
+    Examples
+    --------
+    >>> from mhcgnomes import parse
+    >>> sero = parse("HLA-A2")
+    >>> sero.name
+    'A2'
+    >>> len(sero.alleles) > 0
+    True
     """
     def __init__(
             self,
@@ -41,7 +76,7 @@ class Serotype(ResultWithMultipleAlleles):
             include_species=True,
             use_old_species_prefix=False):
         if include_species:
-            return "%s-%s" % (
+            return "{}-{}".format(
                 self.species.to_string(
                     use_old_species_prefix=use_old_species_prefix),
                 self.name)

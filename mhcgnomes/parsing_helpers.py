@@ -11,7 +11,9 @@
 # limitations under the License.
 
 
-def strip_chars(s : str, chars_to_remove, _cache={}):
+def strip_chars(s : str, chars_to_remove, _cache=None):
+    if _cache is None:
+        _cache = {}
     if s in _cache:
         return _cache[s]
     original = s
@@ -43,10 +45,10 @@ def split_on_all_seps(seq : str, seps="_:"):
     For example, 02_01:01 will be split_token_sequences into:
         ["02", "01", "01"]
     """
-    string_parts = [seq]
+    parts = [seq]
     for sep in seps:
         new_parts = []
-        for subseq in string_parts:
+        for subseq in parts:
             new_parts.extend(smart_split(subseq, sep))
         parts = new_parts
     return parts
@@ -68,10 +70,7 @@ def contains_any_letters(s : str):
     """
     Returns True if any characters in the sequence are letters.
     """
-    for si in s:
-        if si.isalpha():
-            return True
-    return False
+    return any(si.isalpha() for si in s)
 
 def contains_whitespace(s : str):
     """
@@ -119,9 +118,7 @@ def split_allele_fields(
                     failed = True
                     break
                 if (allow_three_digits_in_first_field and n_parsed == 0 and
-                        (remaining_length == 3 or remaining_length > 4)):
-                    boundary_index = 3
-                elif (allow_three_digits_in_second_field and n_parsed == 1 and
+                        (remaining_length == 3 or remaining_length > 4)) or (allow_three_digits_in_second_field and n_parsed == 1 and
                       (remaining_length == 3 or remaining_length > 4)):
                     boundary_index = 3
                 else:

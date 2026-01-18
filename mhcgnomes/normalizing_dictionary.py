@@ -14,7 +14,8 @@ from collections import defaultdict
 
 from .common import normalize_string
 
-class NormalizingDictionary(object):
+
+class NormalizingDictionary:
     """
     Like a regular dictionary but all keys get normalized by a user
     provided function.
@@ -99,8 +100,7 @@ class NormalizingDictionary(object):
         elif len(ks) > 1:
             if pick_best_fn is None:
                 raise ValueError(
-                    "Key '%s' matches multiple entries: %s" % (
-                        k, ks,))
+                    f"Key '{k}' matches multiple entries: {ks}")
             else:
                 return pick_best_fn(ks)
         else:
@@ -133,15 +133,14 @@ class NormalizingDictionary(object):
         """
         for (normalized_key, original_keys) in self.key_sets_aligned_with_values():
             if len(original_keys) == 0:
-                raise ValueError("Key set unexpectedly empty for '%s'" % normalized_key)
+                raise ValueError(f"Key set unexpectedly empty for '{normalized_key}'")
             yield sorted(original_keys)[0]
 
     def values(self):
         return self.store.values()
 
     def __iter__(self):
-        for k in self.keys_aligned_with_values():
-            yield k
+        yield from self.keys_aligned_with_values()
 
     def items(self):
         return zip(
@@ -149,10 +148,7 @@ class NormalizingDictionary(object):
             self.values())
 
     def to_dict(self):
-        return {
-            k: v
-            for (k,v) in self.items()
-        }
+        return dict(self.items())
 
     def map_values(self, fn):
         pairs = []
@@ -216,16 +212,14 @@ class NormalizingDictionary(object):
 
     def __str__(self):
         s = (
-            "<NormalizingDictionary with %d unique items, "
-            "normalize_fn=%s, "
-            "default_value_fn=%s>") % (
-                len(self.store),
-                self.normalize_fn,
-                self.default_value_fn)
+            f"<NormalizingDictionary with {len(self.store)} unique items, "
+            f"normalize_fn={self.normalize_fn}, "
+            f"default_value_fn={self.default_value_fn}>"
+        )
         all_items = list(self.items())
 
         for i, (k, v) in enumerate(all_items):
-            s += "\n\t%s: %s" % (k, v)
+            s += f"\n\t{k}: {v}"
             if i > 10:
                 s += "\n..."
                 break

@@ -12,7 +12,8 @@
 
 from .common import normalize_string
 
-class NormalizingSet(object):
+
+class NormalizingSet:
     """
     Like a regular set but all keys get normalized by a user
     provided function.

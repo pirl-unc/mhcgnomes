@@ -1,4 +1,5 @@
-from mhcgnomes import Haplotype, parse, Species, Parser
+from mhcgnomes import Haplotype, Parser, Species, parse
+
 from .common import eq_
 
 

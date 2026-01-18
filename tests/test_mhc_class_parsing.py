@@ -1,7 +1,8 @@
 from mhcgnomes import (
-    parse,
     MhcClass,
+    parse,
 )
+
 from .common import eq_
 
 
@@ -12,26 +13,17 @@ def check_human_class1_string(s):
     eq_(
         parsed_result,
         expected_parsed_result,
-        "Expected %s for parsing of '%s' but got %s" % (
-            expected_parsed_result,
-            s,
-            parsed_result))
+        f"Expected {expected_parsed_result} for parsing of '{s}' but got {parsed_result}")
     normalized_str = parsed_result.to_string()
     eq_(
         normalized_str,
         expected_string_repr,
-        "Expected '%s' for normalized representation of '%s' but got '%s'" % (
-            expected_string_repr,
-            s,
-            normalized_str))
+        f"Expected '{expected_string_repr}' for normalized representation of '{s}' but got '{normalized_str}'")
     compact_str = parsed_result.compact_string()
     eq_(
         compact_str,
         expected_string_repr,
-        "Expected '%s' for compact representation of '%s' but got '%s'" % (
-            expected_string_repr,
-            s,
-            compact_str))
+        f"Expected '{expected_string_repr}' for compact representation of '{s}' but got '{compact_str}'")
 
 
 def test_human_class_1():

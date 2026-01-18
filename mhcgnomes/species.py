@@ -11,18 +11,19 @@
 # limitations under the License.
 
 from collections import OrderedDict, defaultdict
-from typing import Union, Mapping, Iterable
+from collections.abc import Iterable, Mapping
+from typing import Union
 
 from .common import cache
-from .data import gene_aliases as raw_gene_aliases_dict
-from .data import serotypes as raw_serotypes_dict
-from .data import haplotypes as raw_haplotypes_dict
 from .data import allele_aliases as raw_allele_aliases_dict
-from .data import species as raw_species_dict
+from .data import gene_aliases as raw_gene_aliases_dict
+from .data import haplotypes as raw_haplotypes_dict
 from .data import known_alleles as raw_known_alleles_dict
+from .data import serotypes as raw_serotypes_dict
+from .data import species as raw_species_dict
 from .mhc_class_helpers import class1_restrictions, class2_restrictions
-from .normalizing_set import NormalizingSet
 from .normalizing_dictionary import NormalizingDictionary
+from .normalizing_set import NormalizingSet
 from .result import Result
 
 
@@ -232,14 +233,14 @@ class Species(Result):
         prefixes = set(self.other_mhc_prefixes)
         if self.old_mhc_prefix:
             prefixes.add(self.old_mhc_prefix)
-        return [self.prefix] + sorted(prefixes)
+        return [self.prefix, *sorted(prefixes)]
 
     @property
     def all_common_names(self):
         """
         Returns all common names used for this species
         """
-        return [self.common_name] + self.other_common_names
+        return [self.common_name, *self.other_common_names]
 
     @property
     def all_identifiers(self):
@@ -248,7 +249,7 @@ class Species(Result):
 
        Returns list of str
        """
-       return [self.name] + self.all_mhc_prefixes + self.all_common_names
+       return [self.name, *self.all_mhc_prefixes, *self.all_common_names]
 
     def find_matching_gene_name(self, gene_name):
         """
@@ -323,17 +324,16 @@ class Species(Result):
 
         for gene_name in gene_name_candidates:
             known_alleles_for_gene_name = self.known_alleles.get(gene_name)
-            if known_alleles_for_gene_name:
-                if allele_name in known_alleles_for_gene_name:
-                    known_allele_name = known_alleles_for_gene_name.get_original(allele_name)
-                    return (gene_name, known_allele_name)
+            if known_alleles_for_gene_name and allele_name in known_alleles_for_gene_name:
+                known_allele_name = known_alleles_for_gene_name.get_original(allele_name)
+                return (gene_name, known_allele_name)
 
 
         # if allele isn't in known_alleles but it's an alias for an allele which
         # is, then also return it
         for gene_name in gene_name_candidates:
             if gene_name:
-                key = "%s*%s" % (gene_name, allele_name)
+                key = f"{gene_name}*{allele_name}"
             else:
                 key = allele_name
             if key in self.allele_aliases:
@@ -360,7 +360,7 @@ class Species(Result):
         # allele_aliases
         for gene_name in gene_name_candidates:
             if gene_name:
-                key = "%s*%s" % (gene_name, allele_name)
+                key = f"{gene_name}*{allele_name}"
             else:
                 key = allele_name
             if key in self.allele_aliases:
@@ -435,8 +435,10 @@ def guess_class2_chain_type(gene_name):
     trimmed_gene_name = gene_name
     if trimmed_gene_name.endswith("like"):
         trimmed_gene_name = trimmed_gene_name[:-4]
-    while trimmed_gene_name[-1].isdigit():
+    while trimmed_gene_name and trimmed_gene_name[-1].isdigit():
         trimmed_gene_name = trimmed_gene_name[:-1]
+    if not trimmed_gene_name:
+        return "beta"
     last_letter = trimmed_gene_name[-1].upper()
     is_alpha = (last_letter == "A")
     # assume that anything which can't be pinned down to be an alpha chain
@@ -447,7 +449,7 @@ def guess_class2_chain_type(gene_name):
 @cache
 def create_species_for_latin_name(latin_name):
     if latin_name not in raw_species_dict:
-        raise ValueError("Species not found: '%s'" % (latin_name,))
+        raise ValueError(f"Species not found: '{latin_name}'")
     species_info = raw_species_dict[latin_name]
     parent_species_latin_name = species_info.get("parent")
     if parent_species_latin_name:
@@ -458,12 +460,11 @@ def create_species_for_latin_name(latin_name):
     prefix = species_info.get("prefix")
     if not prefix:
         raise ValueError(
-            "Missing 'prefix' for '%s' in species ontology" % (latin_name,))
+            f"Missing 'prefix' for '{latin_name}' in species ontology")
 
     old_mhc_prefix = species_info.get("old prefix")
-    if not old_mhc_prefix:
-        if parent_species:
-            old_mhc_prefix = parent_species.prefix
+    if not old_mhc_prefix and parent_species:
+        old_mhc_prefix = parent_species.prefix
 
     other_mhc_prefixes = species_info.get("other prefixes")
     if type(other_mhc_prefixes) is str:
@@ -474,7 +475,7 @@ def create_species_for_latin_name(latin_name):
     common_name = species_info.get("name")
     if not common_name:
         raise ValueError(
-            "Missing 'name' for '%s' in species ontology" % (latin_name,))
+            f"Missing 'name' for '{latin_name}' in species ontology")
 
     if type(common_name) is str:
         common_names = [common_name]
@@ -500,22 +501,18 @@ def create_species_for_latin_name(latin_name):
 
     for mhc_class, mhc_class_members in species_info.get("genes", {}).items():
         if mhc_class_members is None:
-            raise ValueError("Unexpected None in gene ontology for class '%s' of '%s'" % (
-                mhc_class,
-                latin_name))
+            raise ValueError(f"Unexpected None in gene ontology for class '{mhc_class}' of '{latin_name}'")
         if mhc_class in class1_restrictions.union({"other"}):
             if type(mhc_class_members) is not list:
                 raise ValueError(
-                    "Malformed gene ontology for '%s' MHC class '%s'" % (
-                        latin_name, mhc_class))
+                    f"Malformed gene ontology for '{latin_name}' MHC class '{mhc_class}'")
             for gene_name in mhc_class_members:
                 gene_names.add(str(gene_name))
                 gene_name_to_mhc_class[gene_name] = mhc_class
         elif mhc_class in class2_restrictions:
             if type(mhc_class_members) is not dict:
                 raise ValueError(
-                    "Malformed gene ontology for '%s' MHC class '%s'" % (
-                        latin_name, mhc_class))
+                    f"Malformed gene ontology for '{latin_name}' MHC class '{mhc_class}'")
             for locus, locus_gene_names in mhc_class_members.items():
                 class2_loci.add(locus)
                 for gene_name in locus_gene_names:
@@ -595,7 +592,7 @@ def combine_species_aliases(
         value_for_species = species_dict.get(species_name)
         if value_for_species:
             if type(value_for_species) not in (dict, NormalizingDictionary):
-                raise TypeError("Expected sub-dictionaries but got %s" % (type(value_for_species,)))
+                raise TypeError(f"Expected sub-dictionaries but got {type(value_for_species,)}")
             for (key, value) in value_for_species.items():
                 old_value = None
                 if key in result:
@@ -622,7 +619,7 @@ def create_species_lookup_dictionaries():
     # species objects
     alias_to_species_objects = NormalizingDictionary(default_value_fn=set)
 
-    for latin_name in raw_species_dict.keys():
+    for latin_name in raw_species_dict:
         species = create_species_for_latin_name(latin_name)
         species_name_to_species_object[latin_name] = species
         for s in species.all_identifiers:

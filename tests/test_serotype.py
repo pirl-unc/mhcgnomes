@@ -1,4 +1,5 @@
-from mhcgnomes import Serotype, parse, Species
+from mhcgnomes import Species, parse
+
 from .common import eq_
 
 

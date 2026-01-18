@@ -1,5 +1,7 @@
-from mhcgnomes import parse, Species, Allele, Haplotype, Gene
+from mhcgnomes import Allele, Gene, Haplotype, Species, parse
+
 from .common import eq_
+
 
 def test_parse_BF2_gene():
     result = parse("BF2")

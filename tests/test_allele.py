@@ -1,5 +1,7 @@
 from mhcgnomes import Allele
+
 from .common import eq_
+
 
 def test_allele_get_A0201():
     allele = Allele.get("HLA", "A", "02", "01")

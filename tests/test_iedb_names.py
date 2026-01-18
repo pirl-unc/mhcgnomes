@@ -1,5 +1,6 @@
 from mhcgnomes import parse
 
+
 def test_Anpl_UAA_01():
     # Anpl-UAA*01 occurs 34 times in 2019 IEDB snapshot
     assert parse("Anpl-UAA*01") is not None

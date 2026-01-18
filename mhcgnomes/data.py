@@ -10,8 +10,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import yaml
 from os.path import dirname, join
+
+import yaml
 
 from .normalizing_dictionary import NormalizingDictionary
 
@@ -27,7 +28,7 @@ def load(
         normalize_first_level_keys=False,
         normalize_second_level_keys=False):
     path = get_path(yaml_filename)
-    with open(path, 'r') as f:
+    with open(path) as f:
         result = yaml.safe_load(f)
 
     if normalize_second_level_keys:

@@ -5,11 +5,11 @@ Pig allele names from:
 """
 
 from mhcgnomes import (
-    parse,
     Allele,
+    parse,
 )
-from .common import eq_
 
+from .common import eq_
 
 
 def test_SLA_1_0101_with_seps():

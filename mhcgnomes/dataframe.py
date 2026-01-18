@@ -12,9 +12,34 @@
 
 import pandas as pd
 
-from . import function_api 
+from . import function_api
+
 
 def dataframe_from_parsed_objects(parsed_objects):
+    """
+    Create a pandas DataFrame from a list of parsed MHC objects.
+
+    Each parsed object's `to_record()` method is called to generate a
+    dictionary, which is then converted to a DataFrame row.
+
+    Parameters
+    ----------
+    parsed_objects : list of Result
+        List of parsed MHC objects (Allele, Gene, Species, etc.).
+
+    Returns
+    -------
+    pandas.DataFrame
+        DataFrame with columns corresponding to the object fields.
+
+    Examples
+    --------
+    >>> from mhcgnomes import parse
+    >>> objects = [parse("HLA-A*02:01"), parse("HLA-B*07:02")]
+    >>> df = dataframe_from_parsed_objects(objects)
+    >>> df["gene"].tolist()
+    ['HLA-A', 'HLA-B']
+    """
     records = [
         obj.to_record()
         for obj in parsed_objects
@@ -23,5 +48,28 @@ def dataframe_from_parsed_objects(parsed_objects):
 
 
 def dataframe_from_string_list(names):
+    """
+    Parse a list of MHC allele strings and return a DataFrame.
+
+    This is a convenience function that parses each string and creates
+    a DataFrame from the results.
+
+    Parameters
+    ----------
+    names : list of str
+        List of MHC allele/gene/species strings to parse.
+
+    Returns
+    -------
+    pandas.DataFrame
+        DataFrame with parsed information for each input string.
+
+    Examples
+    --------
+    >>> names = ["HLA-A*02:01", "HLA-B*07:02", "HLA-C*07:01"]
+    >>> df = dataframe_from_string_list(names)
+    >>> df["allele"].tolist()
+    ['HLA-A*02:01', 'HLA-B*07:02', 'HLA-C*07:01']
+    """
     parsed_objects = [function_api.parse(name) for name in names]
     return dataframe_from_parsed_objects(parsed_objects)

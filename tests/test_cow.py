@@ -1,6 +1,7 @@
+from mhcgnomes import Allele, parse
+
 from .common import eq_
 
-from mhcgnomes import parse, Allele
 
 def test_parse_BoLA_N_04801_with_colon_gene_sep():
     # testing NetMHCpan format for BLA-N*048:01 from

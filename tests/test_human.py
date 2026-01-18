@@ -1,10 +1,6 @@
-from .common import eq_
+from mhcgnomes import Allele, Pair, parse
 
-from mhcgnomes import (
-    parse,
-    Pair,
-    Allele
-)
+from .common import eq_
 
 
 def test_normalized_string_hla_a0201_complete():

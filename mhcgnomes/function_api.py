@@ -12,13 +12,13 @@
 
 from .common import cache
 from .parser import (
-    Parser,
-    DEFAULT_SPECIES_PREFIX,
-    USE_ALLELE_ALIASES,
-    GENE_SEPS,
-    INFER_CLASS2_PAIRING,
     COLLAPSE_SINGLETON_HAPLOTYPES,
     COLLAPSE_SINGLETON_SEROTYPES,
+    DEFAULT_SPECIES_PREFIX,
+    GENE_SEPS,
+    INFER_CLASS2_PAIRING,
+    USE_ALLELE_ALIASES,
+    Parser,
 )
 
 
@@ -30,8 +30,37 @@ def cached_parser(
         collapse_singleton_serotypes=COLLAPSE_SINGLETON_SEROTYPES,
         verbose=False):
     """
+    Get or create a cached Parser instance.
+
     Construct a Parser instance if this combination of arguments hasn't
-    been used before, otherwise retrieve an existing parser.
+    been used before, otherwise retrieve an existing parser from cache.
+
+    Parameters
+    ----------
+    use_allele_aliases : bool
+        Whether to use allele alias mappings for parsing.
+    gene_seps : tuple of str
+        Separator characters between gene name and allele fields.
+    collapse_singleton_haplotypes : bool
+        If a Haplotype contains only a single allele, return the allele
+        instead of a haplotype.
+    collapse_singleton_serotypes : bool
+        If a Serotype contains only a single allele, return the allele
+        instead of a serotype.
+    verbose : bool
+        Print intermediate parsing steps for debugging.
+
+    Returns
+    -------
+    Parser
+        A Parser instance configured with the given options.
+
+    Examples
+    --------
+    >>> parser = cached_parser()
+    >>> result = parser.parse("HLA-A*02:01")
+    >>> result.gene_name
+    'A'
     """
     return Parser(
         use_allele_aliases=use_allele_aliases,
@@ -48,8 +77,8 @@ def parse(
         collapse_singleton_haplotypes=COLLAPSE_SINGLETON_HAPLOTYPES,
         collapse_singleton_serotypes=COLLAPSE_SINGLETON_SEROTYPES,
         max_allele_fields=None,
-        required_result_types=[],
-        preferred_result_types=[],
+        required_result_types=None,
+        preferred_result_types=None,
         only_class1=False,
         only_class2=False,
         verbose=False,
@@ -101,7 +130,34 @@ def parse(
     raise_on_error : bool
         Raise an exception if string can't be parsed. If False, return None
         instead.
+
+    Returns
+    -------
+    Result
+        A parsed MHC object, which may be an Allele, Gene, Species, Haplotype,
+        Serotype, Pair, Class2Locus, or MhcClass depending on the input string.
+        Returns None if parsing fails and raise_on_error is False.
+
+    Raises
+    ------
+    ParseError
+        If the string cannot be parsed and raise_on_error is True.
+
+    Examples
+    --------
+    >>> from mhcgnomes import parse
+    >>> allele = parse("HLA-A*02:01")
+    >>> allele.gene_name
+    'A'
+    >>> allele.allele_fields
+    ('02', '01')
+    >>> allele.to_string()
+    'HLA-A*02:01'
     """
+    if preferred_result_types is None:
+        preferred_result_types = []
+    if required_result_types is None:
+        required_result_types = []
     parser = cached_parser(
         use_allele_aliases=use_allele_aliases,
         collapse_singleton_haplotypes=collapse_singleton_haplotypes,

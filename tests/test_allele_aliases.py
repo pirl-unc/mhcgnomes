@@ -1,5 +1,7 @@
 from mhcgnomes import parse
+
 from .common import eq_
+
 
 def test_parse_C0301_use_allele_aliases():
     allele = parse("C0301", use_allele_aliases=True)

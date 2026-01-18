@@ -10,19 +10,70 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Sequence, Union
+from collections.abc import Sequence
+from typing import Union
 
 from .allele import Allele
+from .class2_locus import Class2Locus
 from .mhc_class_helpers import (
     is_valid_restriction,
     restrict_alleles,
 )
-from .class2_locus import Class2Locus
 from .pair import Pair
-from .result_with_multiple_alleles  import ResultWithMultipleAlleles
+from .result_with_multiple_alleles import ResultWithMultipleAlleles
 from .species import Species
 
+
 class Haplotype(ResultWithMultipleAlleles):
+    """
+    Represents a named MHC haplotype containing multiple alleles.
+
+    A Haplotype is a collection of MHC alleles that are inherited together
+    on a single chromosome. Common examples include mouse haplotypes like
+    "H2-k" which define the complete set of MHC alleles for that strain.
+
+    Haplotypes can be restricted by MHC class (I or II) or by a specific
+    Class II locus (e.g., DR, DQ, DP).
+
+    Parameters
+    ----------
+    species : Species
+        The species this haplotype belongs to.
+    name : str
+        The haplotype name (e.g., "k", "d", "b" for mouse).
+    alleles : Sequence[Allele]
+        The alleles contained in this haplotype.
+    class_restriction : str, optional
+        MHC class restriction ("I" or "II").
+    locus_restriction : Class2Locus, optional
+        Specific Class II locus restriction.
+    parent_haplotypes : Sequence[Haplotype], optional
+        Parent haplotypes if this is derived from others.
+    raw_string : str, optional
+        The original unparsed string.
+
+    Attributes
+    ----------
+    species : Species
+        The species this haplotype belongs to.
+    name : str
+        The haplotype name.
+    alleles : Sequence[Allele]
+        The alleles in this haplotype.
+    class_restriction : str or None
+        MHC class restriction if any.
+    locus_restriction : Class2Locus or None
+        Class II locus restriction if any.
+
+    Examples
+    --------
+    >>> from mhcgnomes import parse
+    >>> hap = parse("H2-b")
+    >>> hap.name
+    'b'
+    >>> hap.species.common_name
+    'mouse'
+    """
     def __init__(
             self,
             species: Species,
@@ -83,9 +134,7 @@ class Haplotype(ResultWithMultipleAlleles):
         if not is_valid_restriction(self.class_restriction, class_restriction):
             if raise_on_error:
                 raise ValueError(
-                    "Cannot restrict '%s' to class '%s'" % (
-                        self.to_string(),
-                        class_restriction))
+                    f"Cannot restrict '{self.to_string()}' to class '{class_restriction}'")
             else:
                 return None
         restricted_alleles = restrict_alleles(self.alleles, class_restriction)
@@ -105,8 +154,7 @@ class Haplotype(ResultWithMultipleAlleles):
         if self.locus_restriction is not None:
             if raise_on_error:
                 raise ValueError(
-                    "Haplotype %s already has locus restriction, cannot restrict to %s" % (
-                        self, class2_locus))
+                    f"Haplotype {self} already has locus restriction, cannot restrict to {class2_locus}")
             else:
                 return None
         valid_genes = set(class2_locus.genes)
@@ -179,10 +227,10 @@ class Haplotype(ResultWithMultipleAlleles):
                 include_species=include_species,
                 use_old_species_prefix=use_old_species_prefix)
 
-        result += ("-%s" % (self.name,))
+        result += (f"-{self.name}")
 
         if self.class_restriction:
-            result += " class %s" % (self.class_restriction,)
+            result += f" class {self.class_restriction}"
 
         return result
 

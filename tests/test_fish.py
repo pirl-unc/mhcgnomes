@@ -1,4 +1,5 @@
-from mhcgnomes import parse, Allele, Gene, Species, Pair
+from mhcgnomes import Allele, Gene, Pair, Species, parse
+
 from .common import eq_
 
 
