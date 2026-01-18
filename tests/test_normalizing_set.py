@@ -12,12 +12,14 @@ def test_NormalizingSet_get_original():
     original = s.get_original("abcd")
     eq_(original, item)
 
+
 def test_NormalizingSet_eq():
     a = NormalizingSet()
     a.add("yo")
     b = NormalizingSet()
     b.add("YO ")
     eq_(a, b)
+
 
 def test_NormalizingSet_in_defaultdict():
     d = defaultdict(NormalizingSet)

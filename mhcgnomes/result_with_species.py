@@ -20,6 +20,7 @@ class ResultWithSpecies(Result):
 
     Useful for sharing helper methods that rely on the 'species' field.
     """
+
     def __init__(self, species, raw_string=None):
         Result.__init__(self, raw_string=raw_string)
         self.species = species
@@ -75,4 +76,3 @@ class ResultWithSpecies(Result):
     @property
     def is_horse(self):
         return self.species.is_horse
-

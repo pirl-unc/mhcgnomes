@@ -1,4 +1,3 @@
-
 TEST_FILENAME = "test_imgt_hla_names.py"
 FASTA_FILENAME = "hla_prot.fasta"
 special_chars = " *:-,/."
@@ -15,7 +14,7 @@ with open(TEST_FILENAME, "w") as f:
                     print(f"Skipping repeat allele: {allele_name}")
                     continue
                 alleles.add(allele_name)
-                fn_name = allele_name.replace("\"", "").strip()
+                fn_name = allele_name.replace('"', "").strip()
                 for c in special_chars:
                     fn_name = fn_name.replace(c, "_")
                 fn_name = fn_name.replace("__", "_")

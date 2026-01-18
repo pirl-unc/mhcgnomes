@@ -63,54 +63,41 @@ class Allele(ResultWithGene):
     >>> allele.to_string()
     'HLA-A*02:01'
     """
+
     def __init__(
-            self,
-            gene: Gene,
-            allele_fields: Iterable[str],
-            annotations: Iterable[str] = (),
-            mutations: Iterable[Mutation] = (),
-            raw_string=None):
+        self,
+        gene: Gene,
+        allele_fields: Iterable[str],
+        annotations: Iterable[str] = (),
+        mutations: Iterable[Mutation] = (),
+        raw_string=None,
+    ):
         if gene.is_mutant:
             gene_mutations = tuple(gene.mutations)
             gene = gene.copy_without_mutations()
         else:
             gene_mutations = ()
-        ResultWithGene.__init__(
-            self,
-            gene=gene,
-            raw_string=raw_string)
+        ResultWithGene.__init__(self, gene=gene, raw_string=raw_string)
         self.allele_fields = tuple(allele_fields)
         self.annotations = tuple(annotations)
         self.mutations = gene_mutations + tuple(mutations)
 
     def __hash__(self):
-        return hash((
-            self.gene,
-            self.allele_fields,
-            self.annotations,
-            self.mutations
-        ))
+        return hash((self.gene, self.allele_fields, self.annotations, self.mutations))
 
     def __eq__(self, other):
         if type(other) is not Allele:
             return False
         return (
-            self.gene == other.gene and
-            self.allele_fields == other.allele_fields and
-            self.annotations == other.annotations and
-            self.mutations == other.mutations
+            self.gene == other.gene
+            and self.allele_fields == other.allele_fields
+            and self.annotations == other.annotations
+            and self.mutations == other.mutations
         )
 
     @classmethod
     def tuple_field_names(cls):
-        return (
-            "gene",
-            "allele_fields",
-            "annotations",
-            "mutations",
-            "raw_string"
-        )
-
+        return ("gene", "allele_fields", "annotations", "mutations", "raw_string")
 
     @classmethod
     def str_field_names(cls):
@@ -138,19 +125,15 @@ class Allele(ResultWithGene):
     def name(self):
         return ":".join(self.allele_fields) + "".join(self.annotations)
 
-    def restrict_allele_fields(
-            self,
-            num_fields,
-            drop_annotations=False,
-            drop_mutations=False):
+    def restrict_allele_fields(self, num_fields, drop_annotations=False, drop_mutations=False):
         if num_fields >= self.num_allele_fields:
             return self
         else:
             return self.copy(
                 allele_fields=self.allele_fields[:num_fields],
                 annotations=[] if drop_annotations else self.annotations,
-                mutations=[] if drop_mutations else self.mutations)
-
+                mutations=[] if drop_mutations else self.mutations,
+            )
 
     @classmethod
     def split_allele_fields(cls, allele_fields):
@@ -162,12 +145,13 @@ class Allele(ResultWithGene):
 
     @classmethod
     def get_with_gene(
-            cls,
-            gene: Gene,
-            allele_fields: Iterable[str],
-            annotations: Union[Iterable[str], None] = None,
-            mutations: Union[Iterable[Mutation], None] = None,
-            raw_string: Union[str, None] = None):
+        cls,
+        gene: Gene,
+        allele_fields: Iterable[str],
+        annotations: Union[Iterable[str], None] = None,
+        mutations: Union[Iterable[Mutation], None] = None,
+        raw_string: Union[str, None] = None,
+    ):
         """
         Create an Allele from a Gene object and allele fields.
 
@@ -209,18 +193,19 @@ class Allele(ResultWithGene):
             allele_fields=allele_fields,
             annotations=annotations,
             mutations=mutations,
-            raw_string=raw_string)
-
+            raw_string=raw_string,
+        )
 
     @classmethod
     def get(
-            cls,
-            species_prefix,
-            gene_name,
-            *allele_fields,
-            annotation=None,
-            mutations=None,
-            raw_string=None):
+        cls,
+        species_prefix,
+        gene_name,
+        *allele_fields,
+        annotation=None,
+        mutations=None,
+        raw_string=None,
+    ):
         """
         Create an Allele from species prefix, gene name, and allele fields.
 
@@ -290,19 +275,18 @@ class Allele(ResultWithGene):
             allele_fields=allele_fields,
             annotations=annotations,
             mutations=mutations,
-            raw_string=raw_string)
+            raw_string=raw_string,
+        )
 
     def to_string(
-            self,
-            include_species=True,
-            use_old_species_prefix=False,
-            include_annotations=True):
+        self, include_species=True, use_old_species_prefix=False, include_annotations=True
+    ):
         """
         Return allele strings like "HLA-A*02:01"
         """
         gene_str = self.gene.to_string(
-            include_species=include_species,
-            use_old_species_prefix=use_old_species_prefix)
+            include_species=include_species, use_old_species_prefix=use_old_species_prefix
+        )
         result = "{}*{}".format(gene_str, ":".join(self.allele_fields))
         if include_annotations:
             for annot in self.annotations:
@@ -312,10 +296,8 @@ class Allele(ResultWithGene):
         return result
 
     def compact_string(
-            self,
-            include_species=False,
-            use_old_species_prefix=False,
-            include_annotations=False):
+        self, include_species=False, use_old_species_prefix=False, include_annotations=False
+    ):
         """
         Compact representation of a Allele, omits the "*" and ":"
         in allele names
@@ -324,10 +306,11 @@ class Allele(ResultWithGene):
         """
         result = "{}{}{}".format(
             self.gene.compact_string(
-                include_species=include_species,
-                use_old_species_prefix=use_old_species_prefix),
+                include_species=include_species, use_old_species_prefix=use_old_species_prefix
+            ),
             "*" if self.gene_name[-1].isdigit() else "",
-            "".join(self.allele_fields))
+            "".join(self.allele_fields),
+        )
         if self.is_mutant:
             result += f" {self.mutation_string()} mutant"
         return result

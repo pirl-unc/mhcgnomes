@@ -24,11 +24,8 @@ class NormalizingDictionary:
     may differ because two distinct keys may be transformed to the same
     underlying normalized key and thus will share a value.
     """
-    def __init__(
-            self,
-            *pairs,
-            normalize_fn=normalize_string,
-            default_value_fn=None):
+
+    def __init__(self, *pairs, normalize_fn=normalize_string, default_value_fn=None):
         self.store = {}
         self.original_to_normalized_key_dict = {}
         self.normalized_to_original_keys_dict = defaultdict(set)
@@ -41,13 +38,12 @@ class NormalizingDictionary:
         values = [self.__getitem__(k) for k in keys]
         pairs = zip(keys, values)
         return NormalizingDictionary(
-            *pairs,
-            normalize_fn=self.normalize_fn,
-            default_value_fn=self.default_value_fn)
+            *pairs, normalize_fn=self.normalize_fn, default_value_fn=self.default_value_fn
+        )
 
     def update_pairs(self, pairs):
         # populate dictionary with initial values via calls to __setitem__
-        for (k, v) in pairs:
+        for k, v in pairs:
             self[k] = v
 
     def update(self, other_dict):
@@ -99,8 +95,7 @@ class NormalizingDictionary:
                 return default_value
         elif len(ks) > 1:
             if pick_best_fn is None:
-                raise ValueError(
-                    f"Key '{k}' matches multiple entries: {ks}")
+                raise ValueError(f"Key '{k}' matches multiple entries: {ks}")
             else:
                 return pick_best_fn(ks)
         else:
@@ -131,7 +126,7 @@ class NormalizingDictionary:
         Returns one of the original keys associated with each item
         of values
         """
-        for (normalized_key, original_keys) in self.key_sets_aligned_with_values():
+        for normalized_key, original_keys in self.key_sets_aligned_with_values():
             if len(original_keys) == 0:
                 raise ValueError(f"Key set unexpectedly empty for '{normalized_key}'")
             yield sorted(original_keys)[0]
@@ -143,9 +138,7 @@ class NormalizingDictionary:
         yield from self.keys_aligned_with_values()
 
     def items(self):
-        return zip(
-            self.keys_aligned_with_values(),
-            self.values())
+        return zip(self.keys_aligned_with_values(), self.values())
 
     def to_dict(self):
         return dict(self.items())
@@ -157,19 +150,14 @@ class NormalizingDictionary:
             pairs.append((k, v2))
 
         return NormalizingDictionary(
-            *pairs,
-            normalize_fn=self.normalize_fn,
-            default_value_fn=self.default_value_fn)
+            *pairs, normalize_fn=self.normalize_fn, default_value_fn=self.default_value_fn
+        )
 
     def map_keys(self, fn):
-        pairs = [
-            (fn(k), v)
-            for (k, v) in self.items()
-        ]
+        pairs = [(fn(k), v) for (k, v) in self.items()]
         return NormalizingDictionary(
-            *pairs,
-            normalize_fn=self.normalize_fn,
-            default_value_fn=self.default_value_fn)
+            *pairs, normalize_fn=self.normalize_fn, default_value_fn=self.default_value_fn
+        )
 
     def invert(self):
         """
@@ -178,11 +166,9 @@ class NormalizingDictionary:
         values are collections (list, set, or tuple) then the elements
         of the collection are turned into individual keys.
         """
-        result = NormalizingDictionary(
-            normalize_fn=self.normalize_fn,
-            default_value_fn=set)
+        result = NormalizingDictionary(normalize_fn=self.normalize_fn, default_value_fn=set)
 
-        for (k, v) in self.items():
+        for k, v in self.items():
             if isinstance(v, (list, tuple, set)):
                 values = v
             else:
@@ -199,10 +185,7 @@ class NormalizingDictionary:
     def from_dict(cls, d, normalize_fn=normalize_string, default_value_fn=None):
         if type(d) is NormalizingDictionary:
             return d.copy()
-        result = cls(
-            *d.items(),
-            normalize_fn=normalize_fn,
-            default_value_fn=default_value_fn)
+        result = cls(*d.items(), normalize_fn=normalize_fn, default_value_fn=default_value_fn)
         if len(d) != 0:
             assert len(result) > 0
             assert len(result.store) > 0

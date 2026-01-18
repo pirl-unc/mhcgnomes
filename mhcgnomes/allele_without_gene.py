@@ -21,35 +21,29 @@ class AlleleWithoutGene(ResultWithMhcClass):
     Identifier for molecule whose gene is unknown and no proper allele numbering
     is given for.
     """
+
     def __init__(
-            self,
-            species : Species,
-            name : str,
-            mhc_class : Union[str, None] = None,
-            raw_string : Union[str, None] = None):
+        self,
+        species: Species,
+        name: str,
+        mhc_class: Union[str, None] = None,
+        raw_string: Union[str, None] = None,
+    ):
         ResultWithMhcClass.__init__(
-            self,
-            species=species,
-            mhc_class=mhc_class,
-            raw_string=raw_string)
+            self, species=species, mhc_class=mhc_class, raw_string=raw_string
+        )
         self.name = name
 
-    def to_string(
-            self,
-            include_species=True,
-            use_old_species_prefix=False):
+    def to_string(self, include_species=True, use_old_species_prefix=False):
         """
         Return allele strings like "BoLA-T2C"
         """
         species_str = self.species.to_string(
-            include_species=include_species,
-            use_old_species_prefix=use_old_species_prefix)
+            include_species=include_species, use_old_species_prefix=use_old_species_prefix
+        )
         return f"{species_str}-{self.name}"
 
-    def compact_string(
-            self,
-            include_species=False,
-            use_old_species_prefix=False):
+    def compact_string(self, include_species=False, use_old_species_prefix=False):
         """
         Compact representation, e.g. just "T2C" instead of "BoLA-T2C"
         """
@@ -64,9 +58,4 @@ class AlleleWithoutGene(ResultWithMhcClass):
         if not name:
             return None
 
-        return cls(
-            species=species,
-            name=name,
-            raw_string=raw_string)
-
-
+        return cls(species=species, name=name, raw_string=raw_string)

@@ -19,6 +19,7 @@ class Result(Serializable):
     """
     Base class for all parsed objects in mhcnames.
     """
+
     def __init__(self, raw_string=None):
         self.raw_string = raw_string
 
@@ -31,10 +32,13 @@ class Result(Serializable):
         """
         sig = inspect.signature(cls.__init__)
         params = sig.parameters
-        init_arg_names = tuple([
-            k for k, p in params.items()
-            if k != "self" and p.kind not in {p.VAR_KEYWORD, p.VAR_POSITIONAL}
-        ])
+        init_arg_names = tuple(
+            [
+                k
+                for k, p in params.items()
+                if k != "self" and p.kind not in {p.VAR_KEYWORD, p.VAR_POSITIONAL}
+            ]
+        )
         return init_arg_names
 
     @classmethod
@@ -44,9 +48,7 @@ class Result(Serializable):
         e.g. having objects with identical
 
         """
-        return tuple(
-            [x for x in cls.init_field_names() if x != "raw_string"])
-
+        return tuple([x for x in cls.init_field_names() if x != "raw_string"])
 
     @classmethod
     def str_field_names(cls):
@@ -77,7 +79,6 @@ class Result(Serializable):
         """
         return cls.init_field_names_without_raw_string()
 
-
     @classmethod
     def hash_field_names(cls):
         """
@@ -106,32 +107,36 @@ class Result(Serializable):
         return "{}({})".format(
             self.__class__.__name__,
             ", ".join(
-                [f"{k}={v_str}"
-                for (k, v_str) in
-                 self._field_name_string_pairs(self.str_field_names())
-                ]))
+                [
+                    f"{k}={v_str}"
+                    for (k, v_str) in self._field_name_string_pairs(self.str_field_names())
+                ]
+            ),
+        )
 
     def __repr__(self):
         return "{}({})".format(
             self.__class__.__name__,
             ", ".join(
-                [f"{k}={v_str}"
-                 for (k, v_str) in
-                 self._field_name_string_pairs(self.repr_field_names())
-                 ]))
+                [
+                    f"{k}={v_str}"
+                    for (k, v_str) in self._field_name_string_pairs(self.repr_field_names())
+                ]
+            ),
+        )
 
     def to_string(self, include_species=True, use_old_species_prefix=False):
         raise NotImplementedError(
-            f"{self.__class__.__name__} requires implementation of to_string() method")
+            f"{self.__class__.__name__} requires implementation of to_string() method"
+        )
 
     def compact_string(self, include_species=False, use_old_species_prefix=False):
         """
         Compact representation, defaults to omitting species
         """
         return self.to_string(
-            include_species=include_species,
-            use_old_species_prefix=use_old_species_prefix)
-
+            include_species=include_species, use_old_species_prefix=use_old_species_prefix
+        )
 
     def __eq__(self, other):
         if self.__class__ is not other.__class__:
@@ -146,7 +151,8 @@ class Result(Serializable):
 
     def to_record(self):
         raise NotImplementedError(
-            f"{self.__class__.__name__} requires implementation of to_record() method")
+            f"{self.__class__.__name__} requires implementation of to_record() method"
+        )
 
     def to_tuple(self):
         keys = self.tuple_field_names()
@@ -179,7 +185,6 @@ class Result(Serializable):
         self_key = (self.__class__.__name__, *self.to_tuple())
         other_key = (other.__class__.__name__, *other.to_tuple())
         return self_key < other_key
-
 
     ############################################################################
     #
@@ -229,7 +234,6 @@ class Result(Serializable):
         # with identical peptide binding region
         return False
 
-
     @property
     def is_class1(self):
         return False
@@ -258,9 +262,5 @@ class Result(Serializable):
     def has_gene(self):
         return False
 
-    def restrict_allele_fields(
-            self,
-            num_fields,
-            drop_annotations=False,
-            drop_mutations=False):
+    def restrict_allele_fields(self, num_fields, drop_annotations=False, drop_mutations=False):
         return self

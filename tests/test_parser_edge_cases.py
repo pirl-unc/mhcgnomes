@@ -24,6 +24,7 @@ from .common import eq_
 # get_serotype edge cases (lines 194-195)
 # ============================================================================
 
+
 class TestGetSerotype:
     """Tests for Parser.get_serotype edge cases."""
 
@@ -43,6 +44,7 @@ class TestGetSerotype:
 # ============================================================================
 # create_crossed_haplotype edge cases (lines 278-289)
 # ============================================================================
+
 
 class TestCreateCrossedHaplotype:
     """Tests for Parser.create_crossed_haplotype edge cases."""
@@ -92,6 +94,7 @@ class TestCreateCrossedHaplotype:
 # parse_allele_from_allele_fields edge cases (lines 359-395)
 # ============================================================================
 
+
 class TestParseAlleleFromAlleleFields:
     """Tests for Parser.parse_allele_from_allele_fields edge cases."""
 
@@ -115,7 +118,8 @@ class TestParseAlleleFromAlleleFields:
         gene = Gene.get("HLA", "A")
         # Pass functional_annotations to skip the annotation parsing step
         result = parser.parse_allele_from_allele_fields(
-            gene, ["01", "01", "01", "01", "01"], functional_annotations=[])
+            gene, ["01", "01", "01", "01", "01"], functional_annotations=[]
+        )
         assert result is None
 
     def test_allele_field_with_asterisk(self):
@@ -123,7 +127,8 @@ class TestParseAlleleFromAlleleFields:
         parser = Parser()
         gene = Gene.get("HLA", "A")
         result = parser.parse_allele_from_allele_fields(
-            gene, ["02", "01"], functional_annotations=["*"])
+            gene, ["02", "01"], functional_annotations=["*"]
+        )
         # The asterisk in annotations won't cause None, let's test the field check
         # by using parse_allele_with_gene which calls this
         result = parser.parse_allele_with_gene(gene, "02*01")
@@ -143,7 +148,8 @@ class TestParseAlleleFromAlleleFields:
         gene = Gene.get("HLA", "A")
         # Use the high-level function that validates fields
         result = parser.parse_allele_from_allele_fields(
-            gene, ["02", "AB"], functional_annotations=[])
+            gene, ["02", "AB"], functional_annotations=[]
+        )
         assert result is None
 
     def test_chicken_allele_with_letters(self):
@@ -152,13 +158,15 @@ class TestParseAlleleFromAlleleFields:
         gene = Gene.get("chicken", "BF2")
         if gene is not None:
             result = parser.parse_allele_from_allele_fields(
-                gene, ["12AB"], functional_annotations=[])
+                gene, ["12AB"], functional_annotations=[]
+            )
             assert result is None
 
 
 # ============================================================================
 # get_gene_or_locus edge cases (lines 402-408)
 # ============================================================================
+
 
 class TestGetGeneOrLocus:
     """Tests for Parser.get_gene_or_locus edge cases."""
@@ -187,6 +195,7 @@ class TestGetGeneOrLocus:
 # ============================================================================
 # parse_allele_with_gene edge cases (lines 559-593)
 # ============================================================================
+
 
 class TestParseAlleleWithGene:
     """Tests for Parser.parse_allele_with_gene edge cases."""
@@ -231,36 +240,37 @@ class TestParseAlleleWithGene:
 # parse_class2_pair_from_alpha_and_beta_strings edge cases (lines 681-704)
 # ============================================================================
 
+
 class TestParseClass2PairFromStrings:
     """Tests for Parser.parse_class2_pair_from_alpha_and_beta_strings edge cases."""
 
     def test_alpha_parse_fails(self):
         """Returns None when alpha parse fails."""
         parser = Parser()
-        result = parser.parse_class2_pair_from_alpha_and_beta_strings(
-            "INVALID", "DRB1*01:01")
+        result = parser.parse_class2_pair_from_alpha_and_beta_strings("INVALID", "DRB1*01:01")
         assert result is None
 
     def test_alpha_wrong_type(self):
         """Returns None when alpha is wrong type (not Allele/Gene)."""
         parser = Parser()
         # Parsing just "HLA" gives Species, not Allele/Gene
-        result = parser.parse_class2_pair_from_alpha_and_beta_strings(
-            "HLA", "DRB1*01:01")
+        result = parser.parse_class2_pair_from_alpha_and_beta_strings("HLA", "DRB1*01:01")
         assert result is None
 
     def test_require_alleles_alpha_is_gene(self):
         """Returns None when require_alleles=True but alpha is Gene."""
         parser = Parser()
         result = parser.parse_class2_pair_from_alpha_and_beta_strings(
-            "HLA-DRA", "DRB1*01:01", require_alleles=True)
+            "HLA-DRA", "DRB1*01:01", require_alleles=True
+        )
         assert result is None
 
     def test_require_alleles_beta_is_gene(self):
         """Returns None when require_alleles=True but beta is Gene."""
         parser = Parser()
         result = parser.parse_class2_pair_from_alpha_and_beta_strings(
-            "HLA-DRA*01:01", "DRB1", require_alleles=True)
+            "HLA-DRA*01:01", "DRB1", require_alleles=True
+        )
         assert result is None
 
     def test_species_mismatch(self):
@@ -268,13 +278,15 @@ class TestParseClass2PairFromStrings:
         parser = Parser()
         # This should fail because we're mixing species
         result = parser.parse_class2_pair_from_alpha_and_beta_strings(
-            "HLA-DRA*01:01", "H2-Ab")  # HLA vs H2
+            "HLA-DRA*01:01", "H2-Ab"
+        )  # HLA vs H2
         assert result is None
 
 
 # ============================================================================
 # parse_mutations edge cases (lines 729-749)
 # ============================================================================
+
 
 class TestParseMutations:
     """Tests for Parser.parse_mutations edge cases."""
@@ -285,7 +297,7 @@ class TestParseMutations:
         species = Species.get("HLA")
         result = parser.parse_mutations(species, ["", "  ", "G86Y"])
         assert result is not None
-        mutations, chain_to_mut, gene_to_mut = result
+        mutations, _chain_to_mut, _gene_to_mut = result
         eq_(len(mutations), 1)
 
     def test_mutation_with_trailing_comma(self):
@@ -294,7 +306,7 @@ class TestParseMutations:
         species = Species.get("HLA")
         result = parser.parse_mutations(species, ["G86Y,"])
         assert result is not None
-        mutations, chain_to_mut, gene_to_mut = result
+        mutations, _chain_to_mut, _gene_to_mut = result
         eq_(len(mutations), 1)
 
     def test_alpha_chain_selector(self):
@@ -303,7 +315,7 @@ class TestParseMutations:
         species = Species.get("HLA")
         result = parser.parse_mutations(species, ["alpha", "G86Y"])
         assert result is not None
-        mutations, chain_to_mut, gene_to_mut = result
+        _mutations, chain_to_mut, _gene_to_mut = result
         eq_(len(chain_to_mut["alpha"]), 1)
 
     def test_beta_chain_selector(self):
@@ -312,7 +324,7 @@ class TestParseMutations:
         species = Species.get("HLA")
         result = parser.parse_mutations(species, ["beta", "G86Y"])
         assert result is not None
-        mutations, chain_to_mut, gene_to_mut = result
+        _mutations, chain_to_mut, _gene_to_mut = result
         eq_(len(chain_to_mut["beta"]), 1)
 
     def test_gene_selector_mutation(self):
@@ -321,7 +333,7 @@ class TestParseMutations:
         species = Species.get("HLA")
         result = parser.parse_mutations(species, ["DRB1:G86Y"])
         assert result is not None
-        mutations, chain_to_mut, gene_to_mut = result
+        _mutations, _chain_to_mut, gene_to_mut = result
         eq_(len(gene_to_mut), 1)
 
     def test_invalid_gene_selector(self):
@@ -350,84 +362,86 @@ class TestParseMutations:
 # apply_mutations edge cases (lines 769-810)
 # ============================================================================
 
+
 class TestApplyMutations:
     """Tests for Parser.apply_mutations edge cases."""
 
     def test_no_mutations(self):
         """Returns None when no mutations to apply."""
         from collections import defaultdict
+
         parser = Parser()
         allele = parse("HLA-A*02:01")
-        result = parser.apply_mutations(
-            allele, [], defaultdict(list), defaultdict(list))
+        result = parser.apply_mutations(allele, [], defaultdict(list), defaultdict(list))
         assert result is None
 
     def test_gene_mismatch_in_gene_to_mutations(self):
         """Returns None when gene in gene_to_mutations doesn't match."""
         from collections import defaultdict
+
         parser = Parser()
         allele = parse("HLA-A*02:01")
         wrong_gene = Gene.get("HLA", "B")
         mut = Mutation.get(86, "G", "Y")
         gene_to_mut = defaultdict(list)
         gene_to_mut[wrong_gene] = [mut]
-        result = parser.apply_mutations(
-            allele, [], defaultdict(list), gene_to_mut)
+        result = parser.apply_mutations(allele, [], defaultdict(list), gene_to_mut)
         assert result is None
 
     def test_beta_mutations_on_class2_alpha(self):
         """Returns None when beta mutations applied to class2 alpha chain."""
         from collections import defaultdict
+
         parser = Parser()
         allele = parse("HLA-DRA*01:01")
         assert allele.is_class2_alpha
         mut = Mutation.get(86, "G", "Y")
         chain_to_mut = defaultdict(list)
         chain_to_mut["beta"] = [mut]
-        result = parser.apply_mutations(
-            allele, [], chain_to_mut, defaultdict(list))
+        result = parser.apply_mutations(allele, [], chain_to_mut, defaultdict(list))
         assert result is None
 
     def test_alpha_beta_mutations_on_class1(self):
         """Returns None when alpha/beta mutations applied to class I."""
         from collections import defaultdict
+
         parser = Parser()
         allele = parse("HLA-A*02:01")
         assert allele.is_class1
         mut = Mutation.get(86, "G", "Y")
         chain_to_mut = defaultdict(list)
         chain_to_mut["alpha"] = [mut]
-        result = parser.apply_mutations(
-            allele, [], chain_to_mut, defaultdict(list))
+        result = parser.apply_mutations(allele, [], chain_to_mut, defaultdict(list))
         assert result is None
 
     def test_unexpected_gene_in_pair(self):
         """Returns None when unexpected gene in pair mutations."""
         from collections import defaultdict
+
         parser = Parser()
         pair = parse("HLA-DRA*01:01/DRB1*01:01")
         wrong_gene = Gene.get("HLA", "A")
         mut = Mutation.get(86, "G", "Y")
         gene_to_mut = defaultdict(list)
         gene_to_mut[wrong_gene] = [mut]
-        result = parser.apply_mutations(
-            pair, [], defaultdict(list), gene_to_mut)
+        result = parser.apply_mutations(pair, [], defaultdict(list), gene_to_mut)
         assert result is None
 
     def test_unsupported_result_type(self):
         """Returns None for unsupported result type."""
         from collections import defaultdict
+
         parser = Parser()
         species = Species.get("HLA")
         mut = Mutation.get(86, "G", "Y")
-        result = parser.apply_mutations(
-            species, [mut], defaultdict(list), defaultdict(list))
+        result = parser.apply_mutations(species, [mut], defaultdict(list), defaultdict(list))
         assert result is None
 
 
 # ============================================================================
 # parse() filtering options (lines 1594-1638)
 # ============================================================================
+
 
 class TestParseFilters:
     """Tests for Parser.parse filtering options."""
@@ -488,6 +502,7 @@ class TestParseFilters:
 # Token-based parsing edge cases (lines 1322-1400)
 # ============================================================================
 
+
 class TestTokenParsing:
     """Tests for token-based parsing edge cases."""
 
@@ -546,6 +561,7 @@ class TestTokenParsing:
 # Slash-separated parsing edge cases (lines 1252-1294)
 # ============================================================================
 
+
 class TestSlashParsing:
     """Tests for slash-separated parsing edge cases."""
 
@@ -576,6 +592,7 @@ class TestSlashParsing:
 # Haplotype parsing edge cases (lines 1218-1242)
 # ============================================================================
 
+
 class TestHaplotypeParsing:
     """Tests for haplotype parsing edge cases."""
 
@@ -595,6 +612,7 @@ class TestHaplotypeParsing:
 # Verbose mode (lines 1089, 1094, 1118, 1137)
 # ============================================================================
 
+
 class TestVerboseMode:
     """Tests for verbose mode output."""
 
@@ -609,6 +627,7 @@ class TestVerboseMode:
 # ============================================================================
 # Transform edge cases (lines 888-963)
 # ============================================================================
+
 
 class TestTransformParseCandidates:
     """Tests for transform_parse_candidate edge cases."""
@@ -638,6 +657,7 @@ class TestTransformParseCandidates:
 # parse_allele_or_gene_candidates edge cases (lines 522-542)
 # ============================================================================
 
+
 class TestParseAlleleOrGeneCandidates:
     """Tests for parse_allele_or_gene_candidates edge cases."""
 
@@ -645,14 +665,14 @@ class TestParseAlleleOrGeneCandidates:
         """Input with whitespace returns empty list."""
         parser = Parser()
         species = Species.get("HLA")
-        result = parser.parse_allele_or_gene_candidates(
-            species, "A 02 01")
+        result = parser.parse_allele_or_gene_candidates(species, "A 02 01")
         eq_(result, [])
 
 
 # ============================================================================
 # parse_haplotype_with_class2_locus edge cases (lines 213-241)
 # ============================================================================
+
 
 class TestParseHaplotypeWithClass2Locus:
     """Tests for parse_haplotype_with_class2_locus_from_any_string_split."""
@@ -661,14 +681,14 @@ class TestParseHaplotypeWithClass2Locus:
         """Parse mouse I-A locus with haplotype like 'IAk'."""
         parser = Parser()
         species = Species.get("H2")
-        parser.parse_haplotype_with_class2_locus_from_any_string_split(
-            species, "IAk")
+        parser.parse_haplotype_with_class2_locus_from_any_string_split(species, "IAk")
         # Should try to parse as locus + haplotype
 
 
 # ============================================================================
 # MhcClass from token (lines 1058-1061)
 # ============================================================================
+
 
 class TestMhcClassFromToken:
     """Tests for MhcClass parsing from tokens."""
@@ -691,6 +711,7 @@ class TestMhcClassFromToken:
 # ============================================================================
 # Species and class combined parsing (lines 1192-1212)
 # ============================================================================
+
 
 class TestSpeciesClassParsing:
     """Tests for combined species and MHC class parsing."""
@@ -716,6 +737,7 @@ class TestSpeciesClassParsing:
 # Class2 pair with hyphen separator (lines 635-658)
 # ============================================================================
 
+
 class TestClass2PairHyphenSep:
     """Tests for Class II pair parsing with hyphen separator."""
 
@@ -723,8 +745,7 @@ class TestClass2PairHyphenSep:
         """Parse Class II pair with hyphen separator."""
         parser = Parser()
         species = Species.get("HLA")
-        result = parser.parse_class2_pair_with_hyphen_sep(
-            species, "DRA*01:01-DRB1*01:01")
+        result = parser.parse_class2_pair_with_hyphen_sep(species, "DRA*01:01-DRB1*01:01")
         if result is not None:
             assert type(result) is Pair
 
@@ -733,14 +754,14 @@ class TestClass2PairHyphenSep:
         parser = Parser()
         species = Species.get("HLA")
         # More than 2 hyphen-separated parts
-        parser.parse_class2_pair_with_hyphen_sep(
-            species, "DRA-01-01-DRB1-01-01")
+        parser.parse_class2_pair_with_hyphen_sep(species, "DRA-01-01-DRB1-01-01")
         # Should return None because it's not a simple 2-part split
 
 
 # ============================================================================
 # Additional edge cases for higher coverage
 # ============================================================================
+
 
 class TestGetHaplotype:
     """Tests for Parser.get_haplotype edge cases."""
@@ -786,6 +807,7 @@ class TestParseAndApplyMutations:
         serotype = parser.get_serotype("HLA", "A2")
         if serotype is not None:
             from mhcgnomes.token import Token
+
             tokens = [Token("G86Y", "G86Y")]
             parser.parse_and_apply_mutations(serotype, tokens)
             # May return None or mutated allele
@@ -796,6 +818,7 @@ class TestParseAndApplyMutations:
         haplotype = parser.get_haplotype("H2", "b")
         if haplotype is not None:
             from mhcgnomes.token import Token
+
             tokens = [Token("G86Y", "G86Y")]
             parser.parse_and_apply_mutations(haplotype, tokens)
 
@@ -830,6 +853,7 @@ class TestApplyMutationsToPair:
     def test_apply_mutations_to_pair_with_gene_selector(self):
         """Apply mutations to pair with gene selector matching alpha."""
         from collections import defaultdict
+
         parser = Parser()
         pair = parse("HLA-DRA*01:01/DRB1*01:01")
         assert type(pair) is Pair
@@ -839,8 +863,7 @@ class TestApplyMutationsToPair:
         gene_to_mut = defaultdict(list)
         gene_to_mut[alpha_gene] = [mut]
 
-        result = parser.apply_mutations(
-            pair, [], defaultdict(list), gene_to_mut)
+        result = parser.apply_mutations(pair, [], defaultdict(list), gene_to_mut)
         assert result is not None
         assert type(result) is Pair
         assert result.alpha.is_mutant
@@ -848,6 +871,7 @@ class TestApplyMutationsToPair:
     def test_apply_mutations_to_pair_with_beta_gene_selector(self):
         """Apply mutations to pair with gene selector matching beta."""
         from collections import defaultdict
+
         parser = Parser()
         pair = parse("HLA-DRA*01:01/DRB1*01:01")
         assert type(pair) is Pair
@@ -857,8 +881,7 @@ class TestApplyMutationsToPair:
         gene_to_mut = defaultdict(list)
         gene_to_mut[beta_gene] = [mut]
 
-        result = parser.apply_mutations(
-            pair, [], defaultdict(list), gene_to_mut)
+        result = parser.apply_mutations(pair, [], defaultdict(list), gene_to_mut)
         assert result is not None
         assert type(result) is Pair
         assert result.beta.is_mutant
@@ -880,7 +903,7 @@ class TestAlphaAndBetaTokenParsing:
         # The pair parsing with beta token may not work as expected
         # because the tokenization may not produce this exact format
         result = parse("DRB1*01:01 beta", raise_on_error=False)
-        if result is not None and hasattr(result, 'is_class2_beta'):
+        if result is not None and hasattr(result, "is_class2_beta"):
             assert result.is_class2_beta
 
     def test_alpha_token_with_class2_locus(self):
@@ -991,7 +1014,8 @@ class TestParseWithClassTokenNoOtherTokens:
         class_token = Token("class-1", "class I")
         class_token._is_class1 = True
         results = parser.parse_with_class_token_to_multiple_candidates(
-            class_token, [], default_species="HLA")
+            class_token, [], default_species="HLA"
+        )
         assert len(results) > 0
 
 
@@ -1005,7 +1029,8 @@ class TestParseWithHaplotypeTokenNoOtherTokens:
         species_token = Token("h2", "H2")
         # Pass tuple instead of list for other_tokens
         parser.parse_with_haplotype_token_to_multiple_candidates(
-            species_token, (), default_species=None)
+            species_token, (), default_species=None
+        )
         # Should return [species] when no other tokens and species is valid
 
 
@@ -1172,7 +1197,8 @@ class TestParseAlleleFromAlleleFieldsAnnotations:
         gene = Gene.get("HLA", "A")
         # Provide annotations directly to skip buggy annotation parsing path
         result = parser.parse_allele_from_allele_fields(
-            gene, ["02", "01"], functional_annotations=["N"])
+            gene, ["02", "01"], functional_annotations=["N"]
+        )
         if result is not None:
             assert type(result) is Allele
             eq_(result.annotations, ("N",))

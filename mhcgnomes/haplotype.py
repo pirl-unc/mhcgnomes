@@ -74,53 +74,35 @@ class Haplotype(ResultWithMultipleAlleles):
     >>> hap.species.common_name
     'mouse'
     """
+
     def __init__(
-            self,
-            species: Species,
-            name: str,
-            alleles: Sequence[Allele],
-            class_restriction: Union[str, None] = None,
-            locus_restriction: Union[Class2Locus, None] = None,
-            parent_haplotypes: Union[Sequence["Haplotype"], None] = None,
-            raw_string: Union[str, None] = None):
+        self,
+        species: Species,
+        name: str,
+        alleles: Sequence[Allele],
+        class_restriction: Union[str, None] = None,
+        locus_restriction: Union[Class2Locus, None] = None,
+        parent_haplotypes: Union[Sequence["Haplotype"], None] = None,
+        raw_string: Union[str, None] = None,
+    ):
         ResultWithMultipleAlleles.__init__(
-            self,
-            species=species,
-            name=name,
-            alleles=alleles,
-            raw_string=raw_string)
+            self, species=species, name=name, alleles=alleles, raw_string=raw_string
+        )
         self.class_restriction = class_restriction
         self.locus_restriction = locus_restriction
         self.parent_haplotypes = parent_haplotypes
 
     @classmethod
     def str_field_names(cls):
-        return (
-            "species",
-            "name",
-            "num_alleles",
-            "class_restriction",
-            "locus_restriction"
-        )
+        return ("species", "name", "num_alleles", "class_restriction", "locus_restriction")
 
     @classmethod
     def repr_field_names(cls):
-        return (
-            "species",
-            "name",
-            "alleles",
-            "class_restriction",
-            "locus_restriction"
-        )
+        return ("species", "name", "alleles", "class_restriction", "locus_restriction")
 
     @classmethod
     def eq_field_names(cls):
-        return (
-            "species",
-            "name",
-            "class_restriction",
-            "locus_restriction"
-        )
+        return ("species", "name", "class_restriction", "locus_restriction")
 
     @property
     def haplotype_name(self):
@@ -134,7 +116,8 @@ class Haplotype(ResultWithMultipleAlleles):
         if not is_valid_restriction(self.class_restriction, class_restriction):
             if raise_on_error:
                 raise ValueError(
-                    f"Cannot restrict '{self.to_string()}' to class '{class_restriction}'")
+                    f"Cannot restrict '{self.to_string()}' to class '{class_restriction}'"
+                )
             else:
                 return None
         restricted_alleles = restrict_alleles(self.alleles, class_restriction)
@@ -144,9 +127,10 @@ class Haplotype(ResultWithMultipleAlleles):
             alleles=restricted_alleles,
             class_restriction=class_restriction,
             locus_restriction=self.locus_restriction,
-            raw_string=self.raw_string)
+            raw_string=self.raw_string,
+        )
 
-    def restrict_class2_locus(self, class2_locus : Class2Locus, raise_on_error=True):
+    def restrict_class2_locus(self, class2_locus: Class2Locus, raise_on_error=True):
         if class2_locus is None:
             return self
         if self.locus_restriction == class2_locus:
@@ -154,23 +138,21 @@ class Haplotype(ResultWithMultipleAlleles):
         if self.locus_restriction is not None:
             if raise_on_error:
                 raise ValueError(
-                    f"Haplotype {self} already has locus restriction, cannot restrict to {class2_locus}")
+                    f"Haplotype {self} already has locus restriction, cannot restrict to {class2_locus}"
+                )
             else:
                 return None
         valid_genes = set(class2_locus.genes)
 
-        restricted_alleles = [
-            allele
-            for allele in self.alleles
-            if allele.gene in valid_genes
-        ]
+        restricted_alleles = [allele for allele in self.alleles if allele.gene in valid_genes]
         return Haplotype(
             species=self.species,
             name=self.name,
             alleles=restricted_alleles,
             class_restriction=self.class_restriction,
             locus_restriction=class2_locus,
-            raw_string=self.raw_string)
+            raw_string=self.raw_string,
+        )
 
     def collapse_if_possible(self):
         """
@@ -199,14 +181,8 @@ class Haplotype(ResultWithMultipleAlleles):
 
         if len(alpha_genes) == 0 or len(beta_genes) == 0:
             return None
-        alpha_alleles = [
-            a for a in self.alleles
-            if a.gene in alpha_genes
-        ]
-        beta_alleles = [
-            a for a in self.alleles
-            if a.gene in beta_genes
-        ]
+        alpha_alleles = [a for a in self.alleles if a.gene in alpha_genes]
+        beta_alleles = [a for a in self.alleles if a.gene in beta_genes]
         if len(alpha_alleles) != 1 or len(beta_alleles) != 1:
             return None
 
@@ -214,20 +190,17 @@ class Haplotype(ResultWithMultipleAlleles):
         beta = beta_alleles[0]
         return Pair(alpha, beta)
 
-    def to_string(
-            self,
-            include_species=True,
-            use_old_species_prefix=False):
+    def to_string(self, include_species=True, use_old_species_prefix=False):
         if self.locus_restriction:
             result = self.locus_restriction.to_string(
-                include_species=include_species,
-                use_old_species_prefix=use_old_species_prefix)
+                include_species=include_species, use_old_species_prefix=use_old_species_prefix
+            )
         else:
             result = self.species.to_string(
-                include_species=include_species,
-                use_old_species_prefix=use_old_species_prefix)
+                include_species=include_species, use_old_species_prefix=use_old_species_prefix
+            )
 
-        result += (f"-{self.name}")
+        result += f"-{self.name}"
 
         if self.class_restriction:
             result += f" class {self.class_restriction}"

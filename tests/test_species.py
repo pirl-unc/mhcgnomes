@@ -17,16 +17,18 @@ def test_human():
         eq_(species.common_species_name, "human")
 
 
-
 def test_RT1():
     eq_(Species.get("RT1").prefix, "RT1")
+
 
 def test_Rano():
     eq_(Species.get("Rano").prefix, "Rano")
 
+
 def test_T2c_in_BoLA():
     cow = Species.get("BoLA")
     assert "T2c" in cow.known_alleles[None]
+
 
 def test_known_allele_SLA_3_ydy01():
     pig = Species.get("SLA")

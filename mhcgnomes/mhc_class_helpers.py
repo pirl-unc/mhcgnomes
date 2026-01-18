@@ -12,12 +12,7 @@
 
 from .errors import ParseError
 
-class1_subtypes = {
-    "Ia",
-    "Ib",
-    "Ic",
-    "Id"
-}
+class1_subtypes = {"Ia", "Ib", "Ic", "Id"}
 
 class2_subtypes = {
     "IIa",
@@ -34,9 +29,9 @@ classical_subtypes = {"Ia", "IIa"}
 
 def mhc_class_is_more_specific(original_class=None, new_class=None):
     return (
-        (original_class is None and new_class is not None) or
-        (original_class == "I" and new_class in class1_subtypes) or
-        (original_class == "II" and new_class in class1_subtypes)
+        (original_class is None and new_class is not None)
+        or (original_class == "I" and new_class in class1_subtypes)
+        or (original_class == "II" and new_class in class1_subtypes)
     )
 
 
@@ -70,11 +65,7 @@ def restrict_alleles(alleles, mhc_class):
     else:
         valid_subtypes = {mhc_class}
 
-    return [
-        allele
-        for allele in alleles
-        if allele.mhc_class in valid_subtypes
-    ]
+    return [allele for allele in alleles if allele.mhc_class in valid_subtypes]
 
 
 def normalize_mhc_class_string(mhc_class, raise_on_error=True):

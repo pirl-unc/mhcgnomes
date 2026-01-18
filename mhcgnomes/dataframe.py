@@ -40,10 +40,7 @@ def dataframe_from_parsed_objects(parsed_objects):
     >>> df["gene"].tolist()
     ['HLA-A', 'HLA-B']
     """
-    records = [
-        obj.to_record()
-        for obj in parsed_objects
-    ]
+    records = [obj.to_record() for obj in parsed_objects]
     return pd.DataFrame.from_records(records)
 
 

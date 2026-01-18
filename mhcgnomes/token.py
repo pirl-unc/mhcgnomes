@@ -96,9 +96,9 @@ class Token(Serializable):
     @property
     def can_be_identifier(self):
         return not (
-            self.is_alpha_or_beta or
-            self.is_class1_or_class2 or
-            self.is_slash or
-            self.is_haplotype or
-            self.is_gene
+            self.is_alpha_or_beta
+            or self.is_class1_or_class2
+            or self.is_slash
+            or self.is_haplotype
+            or self.is_gene
         )

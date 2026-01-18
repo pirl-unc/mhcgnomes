@@ -62,16 +62,15 @@ class Pair(ResultWithMhcClass):
     """
 
     def __init__(
-            self,
-            alpha: Union[Allele, AlleleWithoutGene, Gene],
-            beta: Union[Allele, AlleleWithoutGene, Gene],
-            mhc_class="II",
-            raw_string : Union[str, None] = None):
+        self,
+        alpha: Union[Allele, AlleleWithoutGene, Gene],
+        beta: Union[Allele, AlleleWithoutGene, Gene],
+        mhc_class="II",
+        raw_string: Union[str, None] = None,
+    ):
         ResultWithMhcClass.__init__(
-            self,
-            species=alpha.species,
-            mhc_class=mhc_class,
-            raw_string=raw_string)
+            self, species=alpha.species, mhc_class=mhc_class, raw_string=raw_string
+        )
         self.alpha = alpha
         self.beta = beta
 
@@ -95,37 +94,30 @@ class Pair(ResultWithMhcClass):
             return None
         if alpha.mhc_class == "other" and beta.mhc_class != "other":
             mhc_class = beta.mhc_class
-        elif (beta.mhc_class == "other" and alpha.mhc_class != "other") or alpha.mhc_class == beta.mhc_class:
+        elif (
+            beta.mhc_class == "other" and alpha.mhc_class != "other"
+        ) or alpha.mhc_class == beta.mhc_class:
             mhc_class = alpha.mhc_class
         else:
             mhc_class = "II"
 
-        return cls(
-            alpha=alpha,
-            beta=beta,
-            mhc_class=mhc_class,
-            raw_string=raw_string)
+        return cls(alpha=alpha, beta=beta, mhc_class=mhc_class, raw_string=raw_string)
 
-    def to_string(
-            self,
-            include_species=True,
-            use_old_species_prefix=False):
+    def to_string(self, include_species=True, use_old_species_prefix=False):
         return "{}/{}".format(
             self.alpha.to_string(
-                include_species=include_species,
-                use_old_species_prefix=use_old_species_prefix),
-            self.beta.to_string(
-                include_species=False))
+                include_species=include_species, use_old_species_prefix=use_old_species_prefix
+            ),
+            self.beta.to_string(include_species=False),
+        )
 
-    def compact_string(
-            self,
-            include_species=False,
-            use_old_species_prefix=False):
+    def compact_string(self, include_species=False, use_old_species_prefix=False):
         return "{}-{}".format(
             self.alpha.compact_string(
-                include_species=include_species,
-                use_old_species_prefix=use_old_species_prefix),
-            self.beta.compact_string(include_species=False))
+                include_species=include_species, use_old_species_prefix=use_old_species_prefix
+            ),
+            self.beta.compact_string(include_species=False),
+        )
 
     @property
     def gene_name(self):
@@ -134,27 +126,24 @@ class Pair(ResultWithMhcClass):
     def to_record(self):
         # return a dictionary that has the same elements as Gene.to_dict()
         # along with "allele"
-        return OrderedDict([
-            ("gene", self.gene_name),
-            ("mhc_class", self.mhc_class),
-            ("is_mutant", False),
-            ("allele", self.to_string()),
-        ])
+        return OrderedDict(
+            [
+                ("gene", self.gene_name),
+                ("mhc_class", self.mhc_class),
+                ("is_mutant", False),
+                ("allele", self.to_string()),
+            ]
+        )
 
     def restrict_allele_fields(
-            self,
-            num_fields: int,
-            drop_annotations: bool = False,
-            drop_mutations: bool = False):
-
+        self, num_fields: int, drop_annotations: bool = False, drop_mutations: bool = False
+    ):
         alpha = self.alpha.restrict_allele_fields(
-            num_fields=num_fields,
-            drop_annotations=drop_annotations,
-            drop_mutations=drop_mutations)
+            num_fields=num_fields, drop_annotations=drop_annotations, drop_mutations=drop_mutations
+        )
         beta = self.beta.restrict_allele_fields(
-            num_fields=num_fields,
-            drop_annotations=drop_annotations,
-            drop_mutations=drop_mutations)
+            num_fields=num_fields, drop_annotations=drop_annotations, drop_mutations=drop_mutations
+        )
         if alpha != self.alpha or beta != self.beta:
             return Pair.get(alpha=alpha, beta=beta, raw_string=self.raw_string)
         else:
@@ -162,57 +151,39 @@ class Pair(ResultWithMhcClass):
 
     @property
     def annotation_null(self):
-        return (
-            self.alpha.annotation_null or
-            self.beta.annotation_null)
+        return self.alpha.annotation_null or self.beta.annotation_null
 
     @property
     def annotation_cystosolic(self):
-        return (
-            self.alpha.annotation_cystosolic or
-            self.beta.annotation_cystosolic)
+        return self.alpha.annotation_cystosolic or self.beta.annotation_cystosolic
 
     @property
     def annotation_secreted(self):
-        return (
-            self.alpha.annotation_secreted or
-            self.beta.annotation_secreted)
+        return self.alpha.annotation_secreted or self.beta.annotation_secreted
 
     @property
     def annotation_questionable(self):
-        return (
-            self.alpha.annotation_questionable or
-            self.beta.annotation_questionable)
+        return self.alpha.annotation_questionable or self.beta.annotation_questionable
 
     @property
     def annotation_low_expression(self):
-        return (
-            self.alpha.annotation_low_expression or
-            self.beta.annotation_low_expression)
+        return self.alpha.annotation_low_expression or self.beta.annotation_low_expression
 
     @property
     def annotation_aberrant_expression(self):
-        return (
-            self.alpha.annotation_aberrant_expression or
-            self.beta.annotation_aberrant_expression)
+        return self.alpha.annotation_aberrant_expression or self.beta.annotation_aberrant_expression
 
     @property
     def annotation_group(self):
-        return (
-            self.alpha.annotation_group or
-            self.beta.annotation_group)
+        return self.alpha.annotation_group or self.beta.annotation_group
 
     @property
     def annotation_pseudogene(self):
-        return (
-            self.alpha.annotation_pseudogene or
-            self.beta.annotation_pseudogene)
+        return self.alpha.annotation_pseudogene or self.beta.annotation_pseudogene
 
     @property
     def annotation_splice_variant(self):
-        return (
-            self.alpha.annotation_splice_variant or
-            self.beta.annotation_splice_variant)
+        return self.alpha.annotation_splice_variant or self.beta.annotation_splice_variant
 
 
 default_human_alpha_chains = {
@@ -224,7 +195,7 @@ default_human_alpha_chains = {
     "DPB": Allele.get("HLA", "DPA1", "01", "03"),
     # Most common DQ alpha (according to wikipedia) is DQA1*01:02
     # but like DPA we should use pair frequencies in the future
-    "DQB": Allele.get("HLA", "DQA1", "01", "02")
+    "DQB": Allele.get("HLA", "DQA1", "01", "02"),
 }
 
 

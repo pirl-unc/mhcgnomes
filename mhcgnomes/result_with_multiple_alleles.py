@@ -21,15 +21,13 @@ from .species import Species
 
 class ResultWithMultipleAlleles(ResultWithSpecies):
     def __init__(
-            self,
-            species: Species,
-            name: str,
-            alleles: Sequence[ResultWithSpecies],
-            raw_string: Union[str, None] = None):
-        ResultWithSpecies.__init__(
-            self,
-            species=species,
-            raw_string=raw_string)
+        self,
+        species: Species,
+        name: str,
+        alleles: Sequence[ResultWithSpecies],
+        raw_string: Union[str, None] = None,
+    ):
+        ResultWithSpecies.__init__(self, species=species, raw_string=raw_string)
         self.name = name
         self.alleles = tuple(sorted(alleles))
 
@@ -47,10 +45,12 @@ class ResultWithMultipleAlleles(ResultWithSpecies):
             inferred_species = inferred_species[0]
             if inferred_species != species:
                 raise ValueError(
-                    f"Species inferred from given alleles ({inferred_species}) is different from {species}")
+                    f"Species inferred from given alleles ({inferred_species}) is different from {species}"
+                )
         elif len(inferred_species) > 1:
             raise ValueError(
-                f"{self.__class__.__name__} '{name}' cannot span genes from multiple species: {inferred_species}")
+                f"{self.__class__.__name__} '{name}' cannot span genes from multiple species: {inferred_species}"
+            )
 
     @classmethod
     def str_field_names(cls):
@@ -152,12 +152,7 @@ class ResultWithMultipleAlleles(ResultWithSpecies):
         # with identical peptide binding region
         return any(allele.annotation_splice_variant for allele in self.alleles)
 
-
-    def restrict_allele_fields(
-            self,
-            num_fields,
-            drop_annotations=False,
-            drop_mutations=False):
+    def restrict_allele_fields(self, num_fields, drop_annotations=False, drop_mutations=False):
         alleles = [
             allele.restrict_allele_fields(num_fields, drop_annotations, drop_mutations)
             for allele in self.alleles

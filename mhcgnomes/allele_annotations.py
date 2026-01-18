@@ -25,18 +25,7 @@
 # - http://hla.alleles.org/alleles/g_groups.html
 # - https://www.ebi.ac.uk/ipd/mhc/group/NHP/page/nomenclature/
 
-valid_functional_annotations = {
-    "N",
-    "L",
-    "S",
-    "C",
-    "A",
-    "Q",
-    "G",
-    "P",
-    "Ps",
-    "Sp,"
-}
+valid_functional_annotations = {"N", "L", "S", "C", "A", "Q", "G", "P", "Ps", "Sp,"}
 
 
 def check_for_workshop_prefix(seq):
@@ -64,9 +53,7 @@ def peel_suffix_annotations(seq):
 
     # for now let's limit parsing of functional annotations to a single
     # letter at the end of an allele string following two or more numbers
-    if not (seq[-1].isalpha() and
-            seq[-2].isdigit() and
-            seq[-3].isdigit()):
+    if not (seq[-1].isalpha() and seq[-2].isdigit() and seq[-3].isdigit()):
         return seq, []
 
     functional_annotations = []
@@ -89,6 +76,7 @@ def parse_annotations_from_seq(seq):
     seq, suffix_annotations = peel_suffix_annotations(seq)
     return seq, tuple(prefix_annotations), tuple(suffix_annotations)
 
+
 def parse_annotations_from_allele_fields(allele_fields):
     """
     Returns tuple:
@@ -97,20 +85,10 @@ def parse_annotations_from_allele_fields(allele_fields):
         - suffix annotations
     """
     if isinstance(allele_fields, str):
-        allele_fields = [
-            field.strip()
-            for field in
-            allele_fields.split(":")
-        ]
+        allele_fields = [field.strip() for field in allele_fields.split(":")]
     allele_fields = list(allele_fields)
 
-    allele_fields[0], prefix_annotations = \
-        check_for_workshop_prefix(allele_fields[0])
+    allele_fields[0], prefix_annotations = check_for_workshop_prefix(allele_fields[0])
 
-    allele_fields[-1], suffix_annotations = \
-        peel_suffix_annotations(allele_fields[-1])
-    return (
-        tuple(allele_fields),
-        tuple(prefix_annotations),
-        tuple(suffix_annotations)
-    )
+    allele_fields[-1], suffix_annotations = peel_suffix_annotations(allele_fields[-1])
+    return (tuple(allele_fields), tuple(prefix_annotations), tuple(suffix_annotations))

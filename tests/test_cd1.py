@@ -8,6 +8,7 @@ def test_mamu_cd1b():
     result = parse(seq)
     eq_(result, Gene.get("Mamu", "CD1b"))
 
+
 def test_mamu_cd1b_dash():
     seq = "rhesus monkey-CD1b"
     result = parse(seq)

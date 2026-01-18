@@ -14,4 +14,3 @@ def test_parse_HLA_A2_serotype():
     assert result is not None
     eq_(result.name, "A2")
     eq_(result.species.prefix, "HLA")
-

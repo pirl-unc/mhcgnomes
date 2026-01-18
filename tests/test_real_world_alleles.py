@@ -26,6 +26,7 @@ from .common import eq_
 # Standard HLA Class I alleles - the most common formats
 # ============================================================================
 
+
 class TestStandardClassIAlleles:
     """Tests for standard HLA Class I allele formats."""
 
@@ -101,6 +102,7 @@ class TestStandardClassIAlleles:
 # Four-field (8-digit) alleles - full resolution typing
 # ============================================================================
 
+
 class TestFourFieldAlleles:
     """Tests for full 4-field allele designations."""
 
@@ -144,6 +146,7 @@ class TestFourFieldAlleles:
 # Alleles with expression annotations (N, L, S, C, A, Q)
 # ============================================================================
 
+
 class TestAnnotatedAlleles:
     """Tests for alleles with functional annotations."""
 
@@ -152,20 +155,15 @@ class TestAnnotatedAlleles:
         ("HLA-A*02:15N", "A", ("02", "15"), ("N",), "annotation_null"),
         ("HLA-B*15:01N", "B", ("15", "01"), ("N",), "annotation_null"),
         ("HLA-B*44:02:01:02N", "B", ("44", "02", "01", "02"), ("N",), "annotation_null"),
-
         # Low expression
         ("HLA-A*24:02L", "A", ("24", "02"), ("L",), "annotation_low_expression"),
         ("HLA-B*44:02L", "B", ("44", "02"), ("L",), "annotation_low_expression"),
-
         # Secreted (soluble)
         ("HLA-A*24:02S", "A", ("24", "02"), ("S",), "annotation_secreted"),
-
         # Cytoplasmic (not on cell surface)
         ("HLA-B*44:02C", "B", ("44", "02"), ("C",), "annotation_cystosolic"),
-
         # Questionable
         ("HLA-A*02:01Q", "A", ("02", "01"), ("Q",), "annotation_questionable"),
-
         # Aberrant expression
         ("HLA-A*02:01A", "A", ("02", "01"), ("A",), "annotation_aberrant_expression"),
     ]
@@ -187,6 +185,7 @@ class TestAnnotatedAlleles:
 # HLA Class II alleles - alpha/beta chains
 # ============================================================================
 
+
 class TestClassIIAlleles:
     """Tests for HLA Class II allele formats."""
 
@@ -203,14 +202,12 @@ class TestClassIIAlleles:
         ("HLA-DRB3*01:01", "DRB3", ("01", "01")),
         ("HLA-DRB4*01:01", "DRB4", ("01", "01")),
         ("HLA-DRB5*01:01", "DRB5", ("01", "01")),
-
         # DQ locus
         ("HLA-DQB1*02:01", "DQB1", ("02", "01")),
         ("HLA-DQB1*03:01", "DQB1", ("03", "01")),
         ("HLA-DQB1*03:02", "DQB1", ("03", "02")),  # T1D association
         ("HLA-DQB1*05:01", "DQB1", ("05", "01")),
         ("HLA-DQB1*06:02", "DQB1", ("06", "02")),
-
         # DP locus
         ("HLA-DPB1*01:01", "DPB1", ("01", "01")),
         ("HLA-DPB1*02:01", "DPB1", ("02", "01")),
@@ -256,6 +253,7 @@ class TestClassIIAlleles:
 # Class II alpha/beta pairs
 # ============================================================================
 
+
 class TestClassIIPairs:
     """Tests for Class II alpha/beta pair formats."""
 
@@ -265,12 +263,10 @@ class TestClassIIPairs:
         ("HLA-DRA*01:01/DRB1*03:01", "DRA", "01:01", "DRB1", "03:01"),
         ("HLA-DRA*01:01/DRB1*04:01", "DRA", "01:01", "DRB1", "04:01"),
         ("HLA-DRA*01:01/DRB1*15:01", "DRA", "01:01", "DRB1", "15:01"),
-
         # DQ pairs
         ("HLA-DQA1*01:02/DQB1*06:02", "DQA1", "01:02", "DQB1", "06:02"),
         ("HLA-DQA1*05:01/DQB1*02:01", "DQA1", "05:01", "DQB1", "02:01"),
         ("HLA-DQA1*03:01/DQB1*03:02", "DQA1", "03:01", "DQB1", "03:02"),
-
         # DP pairs
         ("HLA-DPA1*01:03/DPB1*04:01", "DPA1", "01:03", "DPB1", "04:01"),
         ("HLA-DPA1*02:01/DPB1*01:01", "DPA1", "02:01", "DPB1", "01:01"),
@@ -304,6 +300,7 @@ class TestClassIIPairs:
 # Alternate input formats commonly seen in the wild
 # ============================================================================
 
+
 class TestAlternateFormats:
     """Tests for non-standard but common allele formats."""
 
@@ -312,24 +309,19 @@ class TestAlternateFormats:
         ("A*02:01", "A", ("02", "01")),
         ("B*07:02", "B", ("07", "02")),
         ("DRB1*01:01", "DRB1", ("01", "01")),
-
         # Lowercase
         ("hla-a*02:01", "A", ("02", "01")),
         ("hla-b*07:02", "B", ("07", "02")),
-
         # Without colons (compact format)
         ("HLA-A*0201", "A", ("02", "01")),
         ("HLA-B*0702", "B", ("07", "02")),
         ("A*0201", "A", ("02", "01")),
-
         # With underscore separator
         ("HLA-A_0201", "A", ("02", "01")),
         ("A_02_01", "A", ("02", "01")),
-
         # Ultra-compact (no separators)
         ("A0201", "A", ("02", "01")),
         ("B0702", "B", ("07", "02")),
-
         # Three-digit allele groups (high-resolution typing)
         ("HLA-B*15:120", "B", ("15", "120")),
         ("HLA-A*02:101", "A", ("02", "101")),
@@ -348,6 +340,7 @@ class TestAlternateFormats:
 # ============================================================================
 # Serotypes (serological typing)
 # ============================================================================
+
 
 class TestSerotypes:
     """Tests for serological type designations."""
@@ -380,6 +373,7 @@ class TestSerotypes:
 # ============================================================================
 # Mutations
 # ============================================================================
+
 
 class TestMutantAlleles:
     """Tests for alleles with point mutations."""
@@ -415,6 +409,7 @@ class TestMutantAlleles:
 # Non-classical HLA genes
 # ============================================================================
 
+
 class TestNonClassicalHLA:
     """Tests for non-classical HLA molecules."""
 
@@ -422,14 +417,11 @@ class TestNonClassicalHLA:
         # HLA-E
         ("HLA-E*01:01", "E", ("01", "01")),
         ("HLA-E*01:03", "E", ("01", "03")),
-
         # HLA-F
         ("HLA-F*01:01", "F", ("01", "01")),
-
         # HLA-G
         ("HLA-G*01:01", "G", ("01", "01")),
         ("HLA-G*01:04", "G", ("01", "04")),
-
         # MICA/MICB
         ("HLA-MICA*001", "MICA", ("001",)),
         ("HLA-MICA*002", "MICA", ("002",)),
@@ -450,6 +442,7 @@ class TestNonClassicalHLA:
 # ============================================================================
 # Gene-level parsing (without allele designation)
 # ============================================================================
+
 
 class TestGeneParsing:
     """Tests for gene-level parsing."""
@@ -479,6 +472,7 @@ class TestGeneParsing:
 # MHC Class parsing
 # ============================================================================
 
+
 class TestMhcClassParsing:
     """Tests for MHC class-level parsing."""
 
@@ -501,6 +495,7 @@ class TestMhcClassParsing:
 # Species parsing
 # ============================================================================
 
+
 class TestSpeciesParsing:
     """Tests for species-level parsing."""
 
@@ -521,6 +516,7 @@ class TestSpeciesParsing:
 # ============================================================================
 # Error handling
 # ============================================================================
+
 
 class TestErrorHandling:
     """Tests for error handling."""
@@ -548,6 +544,7 @@ class TestErrorHandling:
 # ============================================================================
 # Edge cases and boundary conditions
 # ============================================================================
+
 
 class TestEdgeCases:
     """Tests for edge cases and boundary conditions."""
@@ -595,6 +592,7 @@ class TestEdgeCases:
 # ============================================================================
 # Real-world clinical/research scenarios
 # ============================================================================
+
 
 class TestRealWorldScenarios:
     """Tests simulating real-world usage scenarios."""

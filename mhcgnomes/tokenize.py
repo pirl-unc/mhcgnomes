@@ -19,13 +19,7 @@ from .token_substitution import simplify_tokens
 
 
 class TokenizationResult(Serializable):
-    def __init__(
-            self,
-            tokens,
-            ignored_tokens,
-            attributes,
-            raw_string,
-            trimmed_string):
+    def __init__(self, tokens, ignored_tokens, attributes, raw_string, trimmed_string):
         self.tokens = tuple(tokens)
         self.ignored_tokens = tuple(ignored_tokens)
         self.attributes = attributes
@@ -39,12 +33,14 @@ def deparen(s):
     """
     return s.replace("(", "").replace(")", "")
 
+
 def normalize_token(s):
     """
     Apply all string transformations to turn non-whitespace character sequence
     into a token.
     """
     return strip_chars(deparen(s.lower()), "-, ").strip()
+
 
 def split_token_sequences(s, token_seps="/"):
     """
@@ -62,6 +58,7 @@ def split_token_sequences(s, token_seps="/"):
         results = new_results
 
     return results
+
 
 def split_and_extract_attributes(s):
     parts = split_token_sequences(s)
@@ -89,8 +86,10 @@ def split_and_extract_attributes(s):
         attributes[attribute_key_in_progress] = " ".join(attribute_values_in_progress)
     return parts_before_attributes, attributes
 
-def strip_whitespace_and_remove_quotes(name : str):
-    return name.replace("\"", "").replace("'", "").strip()
+
+def strip_whitespace_and_remove_quotes(name: str):
+    return name.replace('"', "").replace("'", "").strip()
+
 
 @cache
 def tokenize(name):
@@ -103,12 +102,13 @@ def tokenize(name):
     raw_string_parts, attributes = split_and_extract_attributes(trimmed_name)
     token_sequences = [normalize_token(p) for p in raw_string_parts]
     tokens = [
-        Token(seq, raw_string)
-        for (seq, raw_string) in zip(token_sequences, raw_string_parts)]
+        Token(seq, raw_string) for (seq, raw_string) in zip(token_sequences, raw_string_parts)
+    ]
     tokens, ignored_tokens = simplify_tokens(tokens)
     return TokenizationResult(
         tokens=tokens,
         ignored_tokens=ignored_tokens,
         attributes=attributes,
         raw_string=name,
-        trimmed_string=trimmed_name)
+        trimmed_string=trimmed_name,
+    )

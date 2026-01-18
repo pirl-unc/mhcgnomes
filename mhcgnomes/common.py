@@ -14,7 +14,7 @@ from collections.abc import Iterable
 from functools import wraps
 
 
-def unique(xs : Iterable):
+def unique(xs: Iterable):
     """
     Return iterable at most as long as the input, containing only its
     unique elements.
@@ -54,9 +54,7 @@ def arg_to_cache_key(x):
             ((k, v),) = x.items()
             value = (arg_to_cache_key(k), arg_to_cache_key(v))
         else:
-            value = tuple([
-                (arg_to_cache_key(k), arg_to_cache_key(v))
-                for (k, v) in x.items()])
+            value = tuple([(arg_to_cache_key(k), arg_to_cache_key(v)) for (k, v) in x.items()])
     else:
         value = x
     return (t.__name__, value)
@@ -82,7 +80,9 @@ def cache(fn):
             result = fn(*args, **kwargs)
             cache_dict[key] = result
         return cache_dict[key]
+
     return cached_fn
+
 
 def normalize_string(name, _cache=None):
     """
@@ -104,9 +104,7 @@ def normalize_string(name, _cache=None):
         result = name
     else:
         result = (
-            name.replace("-", "").replace("_", "")
-                .replace("'", "").replace(":", "")
-                .strip().upper()
+            name.replace("-", "").replace("_", "").replace("'", "").replace(":", "").strip().upper()
         )
     _cache[name] = result
     return result

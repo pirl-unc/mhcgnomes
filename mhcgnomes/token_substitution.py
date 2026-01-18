@@ -24,15 +24,24 @@ token_replacement_patterns = {
     # parsing MHC nomenclature here
     ("major", "histocompatibility", "complex"): None,
     ("mhc",): None,
-    ("major", "histocompatibility", "antigen",): None,
-    ("histocompatibility", "antigen",): None,
-    ("leukocyte", "antigen",): None,
+    (
+        "major",
+        "histocompatibility",
+        "antigen",
+    ): None,
+    (
+        "histocompatibility",
+        "antigen",
+    ): None,
+    (
+        "leukocyte",
+        "antigen",
+    ): None,
     # a lot of the HLA sequence s
     ("fragment",): None,
     ("exons", "1-3"): None,
     ("exons", "1-2"): None,
     ("allele", "undetermined"): None,
-
     # class I
     ("mhc-i",): CLASS1_TOKEN_SEQ,
     ("mhc-1",): CLASS1_TOKEN_SEQ,
@@ -41,7 +50,6 @@ token_replacement_patterns = {
     ("class", "i"): CLASS1_TOKEN_SEQ,
     ("hla-class", "i"): CLASS1_TOKEN_SEQ,
     ("hla-class", "1"): CLASS1_TOKEN_SEQ,
-
     # class II
     ("mhc-ii",): CLASS2_TOKEN_SEQ,
     ("mhc-2",): CLASS2_TOKEN_SEQ,
@@ -50,26 +58,21 @@ token_replacement_patterns = {
     ("class", "ii"): CLASS2_TOKEN_SEQ,
     ("hla-class", "ii"): CLASS2_TOKEN_SEQ,
     ("hla-class", "2"): CLASS2_TOKEN_SEQ,
-
     # Class II chains
     ("alpha", "chain"): ALPHA_CHAIN_TOKEN_SEQ,
     ("alpha-chain",): ALPHA_CHAIN_TOKEN_SEQ,
     ("beta", "chain"): BETA_CHAIN_TOKEN_SEQ,
     ("beta-chain",): BETA_CHAIN_TOKEN_SEQ,
-
     # 'mutant', 'mutation', 'mutations', are synonyms
     ("mutation",): MUTANT_TOKEN_SEQ,
     ("mutations",): MUTANT_TOKEN_SEQ,
 }
 
-replacement_pattern_lengths = {
-    len(key)
-    for key in token_replacement_patterns
-}
+replacement_pattern_lengths = {len(key) for key in token_replacement_patterns}
 
 # sorted in descending order
-sorted_replacement_pattern_lengths = sorted(
-    replacement_pattern_lengths, reverse=True)
+sorted_replacement_pattern_lengths = sorted(replacement_pattern_lengths, reverse=True)
+
 
 def apply_token_substitutions(tokens, length):
     """
@@ -92,8 +95,8 @@ def apply_token_substitutions(tokens, length):
                 else:
                     new_token = Token(
                         seq=new_token_seq,
-                        raw_string=" ".join(
-                            [tokens[j].raw_string for j in range(i, i + length)]))
+                        raw_string=" ".join([tokens[j].raw_string for j in range(i, i + length)]),
+                    )
                     result_tokens.append(new_token)
 
         if found_in_dict:
@@ -105,6 +108,7 @@ def apply_token_substitutions(tokens, length):
         result_tokens,
         ignored_tokens,
     )
+
 
 def simplify_tokens(tokens):
     """

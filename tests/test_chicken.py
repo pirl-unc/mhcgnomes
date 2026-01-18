@@ -9,16 +9,19 @@ def test_parse_BF2_gene():
     assert expected is not None
     eq_(result, expected)
 
+
 def test_parse_BF2_15_01():
     result = parse("BF2*15:01")
     chicken = Species.get("chicken")
     expected = Allele.get(chicken, "BF2", "15", "01")
     eq_(result, expected)
 
+
 def test_parse_BF2_1501():
     result = parse("BF2*1501")
     expected = Allele.get(Species.get("chicken"), "BF2", "15", "01")
     eq_(result, expected)
+
 
 def test_chicken_haplotype_B12():
     result = parse("B12", default_species="Gaga")
@@ -35,12 +38,14 @@ def test_chicken_haplotype_B19_class_II():
     assert result.is_chicken
     assert result.is_class2
 
+
 def test_chicken_haplotype_BF19_class_I():
     result = parse("BF19 Class I")
     eq_(type(result), Haplotype)
     eq_(result.name, "BF19")
     assert result.is_chicken
     assert result.is_class1
+
 
 def test_chicken_YF1w_7_1():
     result = parse("YF1w*7.1")
@@ -49,6 +54,7 @@ def test_chicken_YF1w_7_1():
     eq_(result.gene_name, "YF1")
     assert result.is_chicken
     assert result.is_class1
+
 
 def test_YF1w_in_gene_aliases():
     species = Species.get("chicken")

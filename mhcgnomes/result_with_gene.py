@@ -19,12 +19,11 @@ class ResultWithGene(ResultWithMhcClass):
 
     Useful for sharing helper methods that rely on the 'species' field.
     """
+
     def __init__(self, gene, raw_string=None):
         ResultWithMhcClass.__init__(
-            self,
-            species=gene.species,
-            mhc_class=gene.mhc_class,
-            raw_string=raw_string)
+            self, species=gene.species, mhc_class=gene.mhc_class, raw_string=raw_string
+        )
         self.gene = gene
 
     @property
@@ -35,15 +34,15 @@ class ResultWithGene(ResultWithMhcClass):
     def gene_name(self):
         return self.gene.name
 
-
     @property
     def is_class2_alpha(self):
         return (
-            self.is_class2 and
-            self.species.class2_gene_name_to_chain_type[self.gene_name] == "alpha")
+            self.is_class2
+            and self.species.class2_gene_name_to_chain_type[self.gene_name] == "alpha"
+        )
 
     @property
     def is_class2_beta(self):
         return (
-            self.is_class2 and
-            self.species.class2_gene_name_to_chain_type[self.gene_name] == "beta")
+            self.is_class2 and self.species.class2_gene_name_to_chain_type[self.gene_name] == "beta"
+        )

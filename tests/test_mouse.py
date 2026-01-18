@@ -18,6 +18,7 @@ def test_mouse_class1_alleles_H2_Kk():
     # with a hyphen in "H-2"
     eq_(parse("H-2-Kk"), H2Kk)
 
+
 def test_mouse_class1_alleles_H2_Db():
     H2Db = Allele.get("H2", "D", "b")
 
@@ -26,14 +27,18 @@ def test_mouse_class1_alleles_H2_Db():
     # with hyphen in "H-2"
     eq_(parse("H-2-Db"), H2Db)
 
+
 def test_H2_Kd_without_seps():
     eq_(parse("H2Kd"), Allele.get("H2", "K", "d"))
+
 
 def test_H2_Lq_with_dash_in_species():
     eq_(parse("H-2-Lq"), Allele.get("H2", "L", "q"))
 
+
 def test_H2_Lq_without_dash_in_species():
     eq_(parse("H2-Lq"), Allele.get("H2", "L", "q"))
+
 
 def test_mouse_class2_gene():
     # H2-IAb
@@ -42,6 +47,7 @@ def test_mouse_class2_gene():
 
     # with hyphen in "H-2"
     eq_(parse("H-2-IEb2"), gene)
+
 
 def test_parse_H2r():
     haplotype = parse("H2-r")
@@ -67,6 +73,7 @@ def test_parse_H2_IEd_simplify():
     eq_(type(result), Pair)
     eq_(result.alpha.name, "d")
     eq_(result.beta.name, "d")
+
 
 def test_parse_H2_IEd_no_simplify():
     result = parse("H2-IEd", collapse_singleton_haplotypes=False)

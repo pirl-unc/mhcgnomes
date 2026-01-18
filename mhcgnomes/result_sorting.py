@@ -21,17 +21,15 @@ from .result import Result
 from .serotype import Serotype
 
 
-def pick_best_result(
-        candidates: Iterable[Result],
-        raise_on_error=True) -> Result:
+def pick_best_result(candidates: Iterable[Result], raise_on_error=True) -> Result:
     if len(candidates) == 0:
         if raise_on_error:
-            raise ValueError(
-                "Expected at least one candidate ParseResult object")
+            raise ValueError("Expected at least one candidate ParseResult object")
         else:
             return None
     sorted_candidates = sort_results(candidates)
     return sorted_candidates[0]
+
 
 def sort_results(results: Iterable[Result]) -> list[Result]:
     if type(results) is not list:
@@ -43,27 +41,18 @@ def sort_results(results: Iterable[Result]) -> list[Result]:
 
 def sort_key(result: Result):
     lower_raw_string = result.raw_string.lower() if result.raw_string else ""
-    full_string_matches_raw_string = (
-            result.to_string().lower() == lower_raw_string
-    )
-    compact_string_matches_raw_string = (
-            result.compact_string().lower() == lower_raw_string
-    )
-    if hasattr(result, 'name'):
-        name_matches_raw_string = (
-                lower_raw_string == result.name.lower())
+    full_string_matches_raw_string = result.to_string().lower() == lower_raw_string
+    compact_string_matches_raw_string = result.compact_string().lower() == lower_raw_string
+    if hasattr(result, "name"):
+        name_matches_raw_string = lower_raw_string == result.name.lower()
     else:
         name_matches_raw_string = False
     t = type(result)
     is_class2_pair = t is Pair
     alpha_is_allele = is_class2_pair and type(result.alpha) is Allele
-    alpha_is_valid = (
-        is_class2_pair and type(result.alpha) in {Allele, AlleleWithoutGene, Gene}
-    )
+    alpha_is_valid = is_class2_pair and type(result.alpha) in {Allele, AlleleWithoutGene, Gene}
     beta_is_allele = is_class2_pair and type(result.beta) is Allele
-    beta_is_valid = (
-        is_class2_pair and type(result.beta) in {Allele, AlleleWithoutGene, Gene}
-    )
+    beta_is_valid = is_class2_pair and type(result.beta) in {Allele, AlleleWithoutGene, Gene}
     is_allele = t is Allele
     is_allele_without_gene = t is AlleleWithoutGene
     is_serotype = t is Serotype
@@ -73,26 +62,20 @@ def sort_key(result: Result):
     if is_allele:
         num_allele_fields = result.num_allele_fields
     elif is_class2_pair and alpha_is_allele and beta_is_allele:
-        num_allele_fields = max(
-            result.alpha.num_allele_fields,
-            result.beta.num_allele_fields)
+        num_allele_fields = max(result.alpha.num_allele_fields, result.beta.num_allele_fields)
     else:
         num_allele_fields = 0
 
-    if hasattr(result, 'gene') and result.gene is not None:
+    if hasattr(result, "gene") and result.gene is not None:
         if result.gene.raw_string:
             raw_gene_name_matches_normalized = (
-                    result.gene.raw_string.lower() ==
-                    result.gene.name.lower()
+                result.gene.raw_string.lower() == result.gene.name.lower()
             )
         else:
             raw_gene_name_matches_normalized = False
         original_gene_seq_length = len(result.gene.raw_string)
     elif is_gene:
-        raw_gene_name_matches_normalized = (
-                lower_raw_string ==
-                result.name.lower()
-        )
+        raw_gene_name_matches_normalized = lower_raw_string == result.name.lower()
         original_gene_seq_length = len(result.raw_string)
     else:
         raw_gene_name_matches_normalized = False
@@ -127,7 +110,6 @@ def sort_key(result: Result):
         (is_class2_pair and alpha_is_allele and beta_is_allele),
         (is_class2_pair and alpha_is_valid and beta_is_valid),
         is_allele,
-
         full_string_matches_raw_string,
         compact_string_matches_raw_string,
         is_gene,

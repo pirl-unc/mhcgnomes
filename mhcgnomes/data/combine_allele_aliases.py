@@ -8,7 +8,8 @@ import yaml
 
 parser = argparse.ArgumentParser(
     prog="combine_allele_aliases.py",
-    description="Combine databases with manually curated allele aliases")
+    description="Combine databases with manually curated allele aliases",
+)
 
 parser.add_argument("--yaml-input-file", "-y", nargs="+")
 parser.add_argument("--xml-input-file", "-x", nargs="+")
@@ -16,10 +17,12 @@ parser.add_argument("--allele-history-input-file", "-a", nargs="+")
 parser.add_argument("--csv-input-file", "-s", nargs="+")
 parser.add_argument("--output", "-o", required=True)
 
+
 def valid_name(name):
     if "(" in name or ")" in name:
         return False
     return not name.replace(":", "").isdigit()
+
 
 def sufficiently_different_name(old_name, new_name):
     if old_name == new_name:
@@ -29,6 +32,7 @@ def sufficiently_different_name(old_name, new_name):
     if old_name_without_seps == new_name_without_seps:
         return False
     return not (old_name.count(":") > 0 and old_name_without_seps in new_name)
+
 
 class MappingAccumulator:
     def __init__(self):
@@ -67,7 +71,6 @@ class MappingAccumulator:
         for species, species_dict in d.items():
             for old_name, new_name in species_dict.items():
                 self.update(species, old_name, new_name)
-
 
 
 def main(args_list):
@@ -155,11 +158,11 @@ def main(args_list):
         print("\n")
         changed = False
         updated = species_to_old_to_new.copy()
-        for (species, species_dict) in species_to_old_to_new.items():
+        for species, species_dict in species_to_old_to_new.items():
             for old, new in species_dict.items():
                 if "-" in new:
                     if new.startswith(f"{species}-"):
-                        new_without_species = new[len(species) + 1:]
+                        new_without_species = new[len(species) + 1 :]
                         print(f"Removing species prefix from {new} = {new_without_species}")
                         del updated[species][old]
                         updated[species][old] = new_without_species
@@ -172,15 +175,20 @@ def main(args_list):
 
         species_to_old_to_new = updated
 
-    print("Writing %d alias mappings across %d species to %s" % (
-        sum([len(species_dict) for species_dict in species_to_old_to_new.values()]),
-        len(species_to_old_to_new),
-        args.output))
+    print(
+        "Writing %d alias mappings across %d species to %s"
+        % (
+            sum([len(species_dict) for species_dict in species_to_old_to_new.values()]),
+            len(species_to_old_to_new),
+            args.output,
+        )
+    )
     with open(args.output, "w") as f:
         for species, species_dict in sorted(species_to_old_to_new.items()):
             f.write(f"{species}:\n")
             for old_name, new_name in sorted(species_dict.items()):
                 f.write(f"  {old_name}: {new_name}\n")
+
 
 if __name__ == "__main__":
     main(sys.argv[1:])

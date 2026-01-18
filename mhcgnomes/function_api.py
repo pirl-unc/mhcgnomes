@@ -24,11 +24,12 @@ from .parser import (
 
 @cache
 def cached_parser(
-        use_allele_aliases=USE_ALLELE_ALIASES,
-        gene_seps=GENE_SEPS,
-        collapse_singleton_haplotypes=COLLAPSE_SINGLETON_HAPLOTYPES,
-        collapse_singleton_serotypes=COLLAPSE_SINGLETON_SEROTYPES,
-        verbose=False):
+    use_allele_aliases=USE_ALLELE_ALIASES,
+    gene_seps=GENE_SEPS,
+    collapse_singleton_haplotypes=COLLAPSE_SINGLETON_HAPLOTYPES,
+    collapse_singleton_serotypes=COLLAPSE_SINGLETON_SEROTYPES,
+    verbose=False,
+):
     """
     Get or create a cached Parser instance.
 
@@ -67,22 +68,25 @@ def cached_parser(
         gene_seps=gene_seps,
         collapse_singleton_haplotypes=collapse_singleton_haplotypes,
         collapse_singleton_serotypes=collapse_singleton_serotypes,
-        verbose=verbose)
+        verbose=verbose,
+    )
+
 
 def parse(
-        raw_string,
-        default_species=DEFAULT_SPECIES_PREFIX,
-        use_allele_aliases=USE_ALLELE_ALIASES,
-        infer_class2_pairing=INFER_CLASS2_PAIRING,
-        collapse_singleton_haplotypes=COLLAPSE_SINGLETON_HAPLOTYPES,
-        collapse_singleton_serotypes=COLLAPSE_SINGLETON_SEROTYPES,
-        max_allele_fields=None,
-        required_result_types=None,
-        preferred_result_types=None,
-        only_class1=False,
-        only_class2=False,
-        verbose=False,
-        raise_on_error=True):
+    raw_string,
+    default_species=DEFAULT_SPECIES_PREFIX,
+    use_allele_aliases=USE_ALLELE_ALIASES,
+    infer_class2_pairing=INFER_CLASS2_PAIRING,
+    collapse_singleton_haplotypes=COLLAPSE_SINGLETON_HAPLOTYPES,
+    collapse_singleton_serotypes=COLLAPSE_SINGLETON_SEROTYPES,
+    max_allele_fields=None,
+    required_result_types=None,
+    preferred_result_types=None,
+    only_class1=False,
+    only_class2=False,
+    verbose=False,
+    raise_on_error=True,
+):
     """
     Parse MHC alleles into a structured representation.
 
@@ -162,7 +166,8 @@ def parse(
         use_allele_aliases=use_allele_aliases,
         collapse_singleton_haplotypes=collapse_singleton_haplotypes,
         collapse_singleton_serotypes=collapse_singleton_serotypes,
-        verbose=verbose)
+        verbose=verbose,
+    )
 
     return parser.parse(
         raw_string,
@@ -173,4 +178,5 @@ def parse(
         preferred_result_types=preferred_result_types,
         only_class1=only_class1,
         only_class2=only_class2,
-        max_allele_fields=max_allele_fields)
+        max_allele_fields=max_allele_fields,
+    )

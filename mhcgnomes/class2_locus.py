@@ -61,18 +61,18 @@ class Class2Locus(ResultWithMhcClass):
     >>> locus.alpha_chain_gene_names
     ['DRA']
     """
+
     def __init__(
-            self,
-            species : Species,
-            name : str,
-            mhc_class : str = "II",
-            genes : Optional[Sequence[Gene]] = None,
-            raw_string : Union[str, None] = None):
+        self,
+        species: Species,
+        name: str,
+        mhc_class: str = "II",
+        genes: Optional[Sequence[Gene]] = None,
+        raw_string: Union[str, None] = None,
+    ):
         ResultWithMhcClass.__init__(
-            self,
-            species=species,
-            mhc_class=mhc_class,
-            raw_string=raw_string)
+            self, species=species, mhc_class=mhc_class, raw_string=raw_string
+        )
         self.name = name
         self.genes = genes if genes is not None else []
 
@@ -90,14 +90,14 @@ class Class2Locus(ResultWithMhcClass):
 
     def to_string(self, include_species=True, use_old_species_prefix=False):
         species_string = self.species.to_string(
-            include_species=include_species,
-            use_old_species_prefix=use_old_species_prefix)
+            include_species=include_species, use_old_species_prefix=use_old_species_prefix
+        )
         return species_string + "-" + self.name
 
     def compact_string(self, include_species=False, use_old_species_prefix=False):
         return self.to_string(
-            include_species=include_species,
-            use_old_species_prefix=use_old_species_prefix)
+            include_species=include_species, use_old_species_prefix=use_old_species_prefix
+        )
 
     @property
     def gene_names(self):
@@ -117,7 +117,6 @@ class Class2Locus(ResultWithMhcClass):
             if self.endswith_ignore_digits(name.lower(), "a"):
                 results.append(g)
         return results
-
 
     @property
     def beta_chain_genes(self):
@@ -157,8 +156,4 @@ class Class2Locus(ResultWithMhcClass):
             if gene is None:
                 continue
             genes.append(gene)
-        return Class2Locus(
-            species=species,
-            name=locus_name,
-            genes=genes,
-            raw_string=raw_string)
+        return Class2Locus(species=species, name=locus_name, genes=genes, raw_string=raw_string)

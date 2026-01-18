@@ -1,12 +1,13 @@
-#!/bin/bash
-set -o errexit
+#!/usr/bin/env bash
 
-# Run ruff linter
-ruff check mhcgnomes tests
+set -e
 
-echo 'Passes ruff check'
+SOURCES="mhcgnomes tests"
 
-# Run ruff formatter check
-ruff format --check mhcgnomes tests
+echo "Running ruff check..."
+ruff check $SOURCES
 
-echo 'Passes ruff format check'
+echo "Running ruff format check..."
+ruff format --check $SOURCES
+
+echo "All checks passed!"

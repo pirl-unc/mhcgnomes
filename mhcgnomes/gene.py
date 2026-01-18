@@ -57,17 +57,20 @@ class Gene(ResultWithMhcClass):
     >>> gene.to_string()
     'HLA-A'
     """
+
     def __init__(
-            self,
-            species: Species,
-            name: str,
-            mutations: Iterable[Mutation] = (),
-            raw_string: Union[str, None] = None):
+        self,
+        species: Species,
+        name: str,
+        mutations: Iterable[Mutation] = (),
+        raw_string: Union[str, None] = None,
+    ):
         ResultWithMhcClass.__init__(
             self,
             species=species,
             mhc_class=species.get_mhc_class_of_gene(name),
-            raw_string=raw_string)
+            raw_string=raw_string,
+        )
         self.name = name
         self.mutations = mutations
 
@@ -78,9 +81,9 @@ class Gene(ResultWithMhcClass):
         if type(other) is not Gene:
             return False
         return (
-            self.species == other.species and
-            self.name == other.name and
-            self.mutations == other.mutations
+            self.species == other.species
+            and self.name == other.name
+            and self.mutations == other.mutations
         )
 
     @property
@@ -96,7 +99,9 @@ class Gene(ResultWithMhcClass):
         return self
 
     @classmethod
-    def get(cls, species_prefix: Union[str, Species], gene_name: str, mutations: Iterable[Mutation] = ()):
+    def get(
+        cls, species_prefix: Union[str, Species], gene_name: str, mutations: Iterable[Mutation] = ()
+    ):
         """
         Get or create a Gene from species prefix and gene name.
 
@@ -138,11 +143,7 @@ class Gene(ResultWithMhcClass):
         if gene_name is None:
             return None
 
-        return Gene(
-            species,
-            gene_name,
-            mutations=mutations,
-            raw_string=raw_string)
+        return Gene(species, gene_name, mutations=mutations, raw_string=raw_string)
 
     def copy_without_mutations(self):
         return self.copy(mutations=())
@@ -153,10 +154,7 @@ class Gene(ResultWithMhcClass):
     def mutation_string(self):
         return " ".join([mut.to_string() for mut in self.mutations])
 
-    def to_string(
-            self,
-            include_species=True,
-            use_old_species_prefix=False):
+    def to_string(self, include_species=True, use_old_species_prefix=False):
         if include_species:
             # non-classical genes located outside the MHC locus
             # get identified with the common species name if possible
@@ -173,23 +171,18 @@ class Gene(ResultWithMhcClass):
             result += f" {self.mutation_string()} mutant"
         return result
 
-    def compact_string(
-            self,
-            include_species=False,
-            use_old_species_prefix=False):
+    def compact_string(self, include_species=False, use_old_species_prefix=False):
         """
         Compact representation of a Locus, currently same as the
         normalized representation.
         """
         return Gene.to_string(
-            self,
-            include_species=include_species,
-            use_old_species_prefix=use_old_species_prefix)
+            self, include_species=include_species, use_old_species_prefix=use_old_species_prefix
+        )
 
     @property
     def is_mutant(self):
         return len(self.mutations) > 0
-
 
     def to_record(self):
         """
@@ -205,9 +198,5 @@ class Gene(ResultWithMhcClass):
         d["is_mutant"] = self.is_mutant
         return d
 
-    def restrict_allele_fields(
-            self,
-            num_fields,
-            drop_annotations=False,
-            drop_mutations=False):
+    def restrict_allele_fields(self, num_fields, drop_annotations=False, drop_mutations=False):
         return self.copy(mutations=[] if drop_mutations else self.mutations)

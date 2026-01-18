@@ -10,18 +10,24 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+
 class ParseError(Exception):
     """Raised when an MHC string cannot be parsed."""
+
     pass
+
 
 class UnknownSpecies(ParseError):
     pass
 
+
 class UnknownGene(ParseError):
     pass
 
+
 class UnknownHaplotype(ParseError):
     pass
+
 
 class UnknownSerotype(ParseError):
     pass

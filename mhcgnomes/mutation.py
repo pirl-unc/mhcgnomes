@@ -59,11 +59,8 @@ class Mutation(Result):
     """
 
     def __init__(
-            self,
-            pos : int,
-            aa_original : str,
-            aa_mutant : str,
-            raw_string : Union[str, None] = None):
+        self, pos: int, aa_original: str, aa_mutant: str, raw_string: Union[str, None] = None
+    ):
         Result.__init__(self, raw_string=raw_string)
         self.pos = pos
         self.aa_original = aa_original
@@ -97,4 +94,5 @@ class Mutation(Result):
             pos=result.group(2),
             aa_original=result.group(1),
             aa_mutant=result.group(3),
-            raw_string=seq)
+            raw_string=seq,
+        )

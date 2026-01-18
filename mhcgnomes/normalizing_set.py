@@ -18,10 +18,8 @@ class NormalizingSet:
     Like a regular set but all keys get normalized by a user
     provided function.
     """
-    def __init__(
-            self,
-            *items,
-            normalize_fn=normalize_string):
+
+    def __init__(self, *items, normalize_fn=normalize_string):
         self.item_to_original = {}
         self.items = set()
         self.normalize_fn = normalize_fn
@@ -41,7 +39,6 @@ class NormalizingSet:
             return False
         return self.items == other.items
 
-
     def get_original(self, item):
         normalized = self.normalize_fn(item)
         return self.item_to_original.get(normalized)
@@ -53,7 +50,7 @@ class NormalizingSet:
 
     def update(self, extra_items):
         for original in extra_items:
-           self.add(original)
+            self.add(original)
 
     def __iter__(self):
         for normalized in self.items:

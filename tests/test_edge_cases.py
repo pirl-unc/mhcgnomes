@@ -21,6 +21,7 @@ from .common import eq_
 # So a tuple of length 1 would incorrectly return True for the second part.
 # ============================================================================
 
+
 def test_unique_tuple_length_one():
     """
     A tuple with length 1 should be processed by unique(), not returned as-is.
@@ -63,6 +64,7 @@ def test_unique_list_length_one():
 # Original: while s1[-1].isdigit(): s1 = s1[:-1]
 # This crashes with IndexError if the string consists entirely of digits.
 # ============================================================================
+
 
 def test_endswith_ignore_digits_all_digits():
     """
@@ -107,6 +109,7 @@ def test_class2_locus_default_genes():
 # Similar to bug #2 - while loop without bounds check on digit stripping.
 # ============================================================================
 
+
 def test_guess_class2_chain_type_all_digits():
     """
     guess_class2_chain_type should handle gene names that are all digits.
@@ -146,6 +149,7 @@ def test_guess_class2_chain_type_beta():
 # The function accessed mutation_tokens[-1] before checking if list was empty.
 # ============================================================================
 
+
 def test_parse_and_apply_mutations_empty_tokens():
     """
     parse_and_apply_mutations should handle empty mutation tokens gracefully.
@@ -161,6 +165,7 @@ def test_parse_and_apply_mutations_empty_tokens():
 # Bug #5: Uninitialized variable in parsing_helpers.py:51 (split_on_all_seps)
 # If seps="" (empty string), the for loop never executes and 'parts' is undefined.
 # ============================================================================
+
 
 def test_split_on_all_seps_empty_seps():
     """
@@ -193,11 +198,13 @@ def test_split_on_all_seps_single_sep():
 # to raw strings.
 # ============================================================================
 
+
 def test_mutation_regex_still_works():
     """
     Mutation regex should work correctly after conversion to raw string.
     """
     from mhcgnomes.mutation import Mutation
+
     result = Mutation.parse("G86Y")
     assert result is not None
     eq_(result.aa_original, "G")
@@ -210,6 +217,7 @@ def test_standard_format_regex_still_works():
     Standard allele format regex should work correctly after conversion to raw strings.
     """
     from mhcgnomes.standard_format import parse_standard_allele_format
+
     result = parse_standard_allele_format("HLA-A*02:01")
     assert result is not None
     eq_(result.gene.name, "A")
@@ -232,6 +240,7 @@ def test_compact_gene_and_allele_regex_still_works():
 # Additional edge case tests that provide good coverage
 # ============================================================================
 
+
 def test_unique_with_generator():
     """
     unique() should work with generators (non-list iterables).
@@ -245,6 +254,7 @@ def test_parse_mutation_with_digits():
     Parse mutation with multi-digit position.
     """
     from mhcgnomes.mutation import Mutation
+
     result = Mutation.parse("A123B")
     assert result is not None
     eq_(result.pos, 123)

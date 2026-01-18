@@ -18,21 +18,20 @@ from .gene import Gene
 from .species import Species
 
 _standard_allele_regex_str = (
-    r"([a-zA-Z]+-)?"             # optional species
+    r"([a-zA-Z]+-)?"  # optional species
     r"([a-zA-Z]+\d?|\d{1,2})\*"  # gene, either e.g. "A1" or "88"
-    r"(\d{2,3})"     # mandatory first digit field with between 2 and 3 digits
-    r"(:\d{2,3})?"   # optional second allele field with up to 3 digits
-    r"(:\d\d)?"      # optional third allele field
-    r"(:\d\d)?"      # optional fourth allele field
-    r"([a-zA-Z])?"       # optional annotation at the end of the allele
+    r"(\d{2,3})"  # mandatory first digit field with between 2 and 3 digits
+    r"(:\d{2,3})?"  # optional second allele field with up to 3 digits
+    r"(:\d\d)?"  # optional third allele field
+    r"(:\d\d)?"  # optional fourth allele field
+    r"([a-zA-Z])?"  # optional annotation at the end of the allele
 )
 _standard_allele_regex = re.compile(_standard_allele_regex_str)
 
 
 def parse_standard_allele_format(
-        seq: str,
-        raw_string: Union[str, None] = None,
-        default_species: Union[str, Species, None] = None):
+    seq: str, raw_string: Union[str, None] = None, default_species: Union[str, Species, None] = None
+):
     """
     Parse alleles which are in a standard format, such as::
 
@@ -110,8 +109,4 @@ def parse_standard_allele_format(
     if raw_string is None:
         raw_string = seq
 
-    return Allele.get_with_gene(
-        gene,
-        allele_fields,
-        annotations=annotations,
-        raw_string=raw_string)
+    return Allele.get_with_gene(gene, allele_fields, annotations=annotations, raw_string=raw_string)

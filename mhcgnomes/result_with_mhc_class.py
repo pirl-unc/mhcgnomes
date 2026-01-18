@@ -20,8 +20,9 @@ class ResultWithMhcClass(ResultWithSpecies):
 
     Useful for sharing helper methods that rely on the 'species' field.
     """
+
     def __init__(self, species, mhc_class, raw_string=None):
-        ResultWithSpecies.__init__(self, species=species,raw_string=raw_string)
+        ResultWithSpecies.__init__(self, species=species, raw_string=raw_string)
         self.mhc_class = mhc_class
 
     @property

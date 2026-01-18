@@ -1,4 +1,3 @@
-
 TEST_FILENAME = "test_ipd_mhc_names.py"
 FASTA_FILENAME = "MHC_prot.fasta"
 
@@ -9,7 +8,6 @@ with open(TEST_FILENAME, "w") as f:
     with open(FASTA_FILENAME) as fasta:
         for line in fasta:
             if line.startswith(">"):
-
                 parts = line.split()
                 allele_name = parts[1]
                 if allele_name in alleles:
@@ -17,7 +15,7 @@ with open(TEST_FILENAME, "w") as f:
                     print(f"-- {line}")
                     continue
                 alleles.add(allele_name)
-                fn_name = allele_name.replace("\"", "").strip()
+                fn_name = allele_name.replace('"', "").strip()
                 for c in special_chars:
                     fn_name = fn_name.replace(c, "_")
                 fn_name = fn_name.replace("__", "_")

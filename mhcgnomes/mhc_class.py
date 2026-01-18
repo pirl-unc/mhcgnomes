@@ -29,16 +29,11 @@ class MhcClass(ResultWithMhcClass):
     "I", "Ia", "Ib", "II", "IIa", &c
     which provides some utility functions.
     """
-    def __init__(
-            self,
-            species: Species,
-            mhc_class: str,
-            raw_string : Union[str, None] = None):
+
+    def __init__(self, species: Species, mhc_class: str, raw_string: Union[str, None] = None):
         ResultWithMhcClass.__init__(
-            self,
-            species=species,
-            mhc_class=mhc_class,
-            raw_string=raw_string)
+            self, species=species, mhc_class=mhc_class, raw_string=raw_string
+        )
 
     @classmethod
     def get(cls, species_prefix, mhc_class):
@@ -92,5 +87,5 @@ class MhcClass(ResultWithMhcClass):
         normalized representation.
         """
         return self.to_string(
-            include_species=include_species,
-            use_old_species_prefix=use_old_species_prefix)
+            include_species=include_species, use_old_species_prefix=use_old_species_prefix
+        )
