@@ -10,6 +10,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import re
 from collections.abc import Iterable
 
 from .allele import Allele
@@ -19,6 +20,10 @@ from .haplotype import Haplotype
 from .pair import Pair
 from .result import Result
 from .serotype import Serotype
+
+# Pattern for serotype names that look like alleles (e.g., B3901, A2403, DR1403)
+# These should have lower priority than actual allele interpretations
+_ALLELE_LIKE_SEROTYPE_PATTERN = re.compile(r"^([ABC]\d{4,}|D[RPQO][AB]?\d{4,})$")
 
 
 def pick_best_result(candidates: Iterable[Result], raise_on_error=True) -> Result:
@@ -58,6 +63,10 @@ def sort_key(result: Result):
     is_serotype = t is Serotype
     is_haplotype = t is Haplotype
     is_gene = t is Gene
+
+    # Penalize serotypes that look like alleles (e.g., B3901, A2403)
+    # These should have lower priority than actual allele interpretations
+    is_allele_like_serotype = is_serotype and bool(_ALLELE_LIKE_SEROTYPE_PATTERN.match(result.name))
 
     if is_allele:
         num_allele_fields = result.num_allele_fields
@@ -102,6 +111,9 @@ def sort_key(result: Result):
         num_alleles_in_haplotype_or_serotype = len(result.alleles)
 
     return (
+        # Penalize serotypes that look like alleles (B3901, A2403, etc.)
+        # These should be lower priority than allele interpretations
+        not is_allele_like_serotype,
         name_matches_raw_string,
         allele_fields_normal,
         # for Class II pairs, prefer Allele objects for alpha and beta

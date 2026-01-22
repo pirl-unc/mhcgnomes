@@ -68,3 +68,17 @@ haplotypes = load(
 serotypes = load(
     "serotypes.yaml", normalize_first_level_keys=True, normalize_second_level_keys=True
 )
+
+# Dictionary mapping species to heterodimer shorthand to alpha/beta allele pairs
+# e.g., HLA -> DQ2.5 -> {alpha: DQA1*05:01, beta: DQB1*02:01}
+heterodimers = load(
+    "heterodimers.yaml", normalize_first_level_keys=True, normalize_second_level_keys=True
+)
+
+# Dictionary mapping species to supertype name to supertype info
+# e.g., HLA -> A02 -> {representative: A*02:01, alleles: [A*02:01, A*02:02, ...]}
+# Supertypes are functional groupings based on peptide-binding specificity
+# (Sidney et al. 2008, https://pmc.ncbi.nlm.nih.gov/articles/PMC2245908/)
+supertypes = load(
+    "supertypes.yaml", normalize_first_level_keys=True, normalize_second_level_keys=True
+)

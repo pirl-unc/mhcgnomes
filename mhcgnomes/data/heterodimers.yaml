@@ -1,0 +1,65 @@
+# HLA Class II heterodimer shorthand notation mappings
+#
+# DQ heterodimers use "DQx.y" notation where:
+#   x = DQ serotype number (determined by beta chain)
+#   y = alpha chain variant number
+#
+# For example: DQ2.5 = DQ2 serotype with alpha-5 chain = DQA1*05:01/DQB1*02:01
+#
+# Note: HLA-DR does NOT use this notation because DRA is essentially monomorphic.
+#
+# References:
+# -----------
+# DQ2.5 (DQA1*05:01/DQB1*02:01):
+#   - Lundin KE, et al. PMC3872820 (2014)
+#   - Megiorni F, Pizzuti A. J Biomed Sci. PMC3482388 (2012)
+#
+# DQ2.2 (DQA1*02:01/DQB1*02:02):
+#   - Dahal-Koirala S, et al. PNAS 117(6):3063-3070 (2020)
+#
+# DQ2.3 (DQA1*03:01/DQB1*02:01):
+#   - Broughton SE, et al. PMC3340161 (2012)
+#
+# DQ7.5 (DQA1*05:05/DQB1*03:01):
+#   - Mayo Clinic Laboratories, Test ID: CELI
+#
+# DQ3.1 (DQA1*03:01/DQB1*03:01):
+#   - Sidney J, et al. J Immunol 1994. PMID:7512598
+#
+# DQ8.5 (DQA1*05:01/DQB1*03:02):
+#   - Petersen J, et al. Structure 2016. PMID:27568928
+#
+# IEDB occurrence counts (mhc_ligand_full.csv):
+#   DQ2.2:  45,950
+#   DQ7.5:  45,944
+#   DQ2.5:  43,167
+#   DQ3.1:      47
+#   DQ2.3:      14
+#   DQ8.5:       2
+
+HLA:
+  # DQ2 variants (beta chain = DQB1*02:xx)
+  DQ2.2:
+    alpha: DQA1*02:01
+    beta: DQB1*02:02
+  DQ2.3:
+    alpha: DQA1*03:01
+    beta: DQB1*02:01
+  DQ2.5:
+    alpha: DQA1*05:01
+    beta: DQB1*02:01
+
+  # DQ3 variants (beta chain = DQB1*03:01)
+  DQ3.1:
+    alpha: DQA1*03:01
+    beta: DQB1*03:01
+
+  # DQ7 variants (DQ7 is split of DQ3, beta = DQB1*03:01)
+  DQ7.5:
+    alpha: DQA1*05:05
+    beta: DQB1*03:01
+
+  # DQ8 variants (DQ8 is split of DQ3, beta = DQB1*03:02)
+  DQ8.5:
+    alpha: DQA1*05:01
+    beta: DQB1*03:02

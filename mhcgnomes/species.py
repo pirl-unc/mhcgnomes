@@ -10,17 +10,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import re
 from collections import OrderedDict, defaultdict
 from collections.abc import Iterable, Mapping
-from typing import Union
+from typing import Any, Union
 
 from .common import cache
 from .data import allele_aliases as raw_allele_aliases_dict
 from .data import gene_aliases as raw_gene_aliases_dict
 from .data import haplotypes as raw_haplotypes_dict
+from .data import heterodimers as raw_heterodimers_dict
 from .data import known_alleles as raw_known_alleles_dict
 from .data import serotypes as raw_serotypes_dict
 from .data import species as raw_species_dict
+from .data import supertypes as raw_supertypes_dict
 from .mhc_class_helpers import class1_restrictions, class2_restrictions
 from .normalizing_dictionary import NormalizingDictionary
 from .normalizing_set import NormalizingSet
@@ -47,6 +50,8 @@ class Species(Result):
         known_alleles: Mapping[str, Iterable[str]],
         haplotypes: Mapping[str, Iterable[str]],
         serotypes: Mapping[str, Iterable[str]],
+        heterodimers: Mapping[str, Mapping[str, str]],
+        supertypes: Mapping[str, Mapping[str, Any]],
         parent_species: Union["Species", None] = None,
         old_mhc_prefix: Union[str, None] = None,
         other_mhc_prefixes: Iterable[str] = [],
@@ -77,6 +82,8 @@ class Species(Result):
         self.known_alleles = known_alleles
         self.haplotypes = haplotypes
         self.serotypes = serotypes
+        self.heterodimers = heterodimers
+        self.supertypes = supertypes
         self.parent_species = parent_species
 
     def __hash__(self):
@@ -545,6 +552,8 @@ def create_species_for_latin_name(latin_name):
     allele_aliases = combine_species_aliases(raw_allele_aliases_dict, all_identifiers)
     haplotypes = combine_species_aliases(raw_haplotypes_dict, all_identifiers)
     serotypes = combine_species_aliases(raw_serotypes_dict, all_identifiers)
+    heterodimers = combine_species_aliases(raw_heterodimers_dict, all_identifiers)
+    supertypes = combine_species_aliases(raw_supertypes_dict, all_identifiers)
     known_alleles = combine_species_aliases(
         raw_known_alleles_dict, all_identifiers, value_class=NormalizingSet
     )
@@ -564,6 +573,8 @@ def create_species_for_latin_name(latin_name):
         known_alleles=known_alleles,
         haplotypes=haplotypes,
         serotypes=serotypes,
+        heterodimers=heterodimers,
+        supertypes=supertypes,
         other_mhc_prefixes=other_mhc_prefixes,
         other_common_names=[name for name in common_names if name != shortest_common_name],
         raw_string=latin_name,
@@ -671,12 +682,16 @@ def infer_species_from_prefix(name):
     # and then use the species gene list to determine what the gene is in this string
     candidate_species_substrings = {name}
 
-    if "-" in name:
-        # if name is "H-2-K" then try parsing "H" and "H-2" as a species
-        # prefix
-        parts_split_by_dash = name.split("-")
-        candidate_species_substrings.add(parts_split_by_dash[0])
-        candidate_species_substrings.add(parts_split_by_dash[0] + "-" + parts_split_by_dash[1])
+    if "-" in name or "." in name:
+        # if name is "H-2-K" or "RT1.A" then try parsing "H", "H-2", "RT1" as
+        # species prefixes. We treat both "-" and "." as valid separators.
+        parts_split_by_separator = re.split(r"[-.]", name)
+        candidate_species_substrings.add(parts_split_by_separator[0])
+        if len(parts_split_by_separator) > 1:
+            # Also try first two parts joined by hyphen (e.g., "H-2" from "H-2-K")
+            candidate_species_substrings.add(
+                parts_split_by_separator[0] + "-" + parts_split_by_separator[1]
+            )
 
     for num_chars in [None, 4, 3, 2]:
         for candidate in candidate_species_substrings:

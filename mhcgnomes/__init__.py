@@ -26,6 +26,7 @@ from .pair import Pair
 from .parser import Parser
 from .serotype import Serotype
 from .species import Species
+from .supertype import Supertype
 from .version import __version__
 
 __all__ = [
@@ -43,6 +44,7 @@ __all__ = [
     "Parser",
     "Serotype",
     "Species",
+    "Supertype",
     "cached_parser",
     "dataframe_from_parsed_objects",
     "dataframe_from_string_list",
