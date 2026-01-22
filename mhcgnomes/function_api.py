@@ -138,9 +138,10 @@ def parse(
     Returns
     -------
     Result
-        A parsed MHC object, which may be an Allele, Gene, Species, Haplotype,
-        Serotype, Pair, Class2Locus, or MhcClass depending on the input string.
-        Returns None if parsing fails and raise_on_error is False.
+        A parsed MHC object, which may be an Allele, AlleleWithoutGene, Gene,
+        Species, Haplotype, Serotype, Supertype, Pair, Class2Locus, or MhcClass
+        depending on the input string. Returns None if parsing fails and
+        raise_on_error is False.
 
     Raises
     ------

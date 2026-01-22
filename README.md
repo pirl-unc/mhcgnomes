@@ -62,7 +62,7 @@ which is secreted instead of membrane-bound:
 - "HLA-A\*02:01:01S"
 
 These are collected in the `annotations` field of an
-[`Allele`](https://github.com/til-unc/mhcgnomes/blob/main/mhcgnomes/allele.py)
+[`Allele`](https://github.com/pirl-unc/mhcgnomes/blob/main/mhcgnomes/allele.py)
 result.
 
 ### Mutations
@@ -72,7 +72,7 @@ MHC proteins are sometimes described in terms of mutations to a known allele.
 - "HLA-B\*08:01 N80I mutant"
 
 These mutations are collected in the `mutations` field of an
-[`Allele`](https://github.com/til-unc/mhcgnomes/blob/main/mhcgnomes/allele.py) result.
+[`Allele`](https://github.com/pirl-unc/mhcgnomes/blob/main/mhcgnomes/allele.py) result.
 
 ### Beyond humans
 
@@ -88,12 +88,22 @@ the gene names and "k"/"f" are the allele names.
 
 To make these even worse, the name of a species is subject to variation (e.g. "H2" vs. "H-2") as well as drift over time (e.g. ChLA -> MhcPatr -> Patr).
 
-### Serotypes, haplotypes, and other named entitites
+### Serotypes, supertypes, haplotypes, and other named entities
 
-Besides alleles are also other named MHC related entities you'll encounter in immunological data. Closely related to alleles are serotypes, which effectively denote a grouping of alleles that are all recognized by the same antibody:
+Besides alleles there are also other named MHC related entities you'll encounter in immunological data. Closely related to alleles are serotypes, which effectively denote a grouping of alleles that are all recognized by the same antibody:
 
 - "HLA-A2"
 - "A2"
+
+Supertypes are functional groupings based on shared peptide-binding specificity rather than serological reactivity (Sidney et al. 2008). These are parsed when the "supertype" keyword is present:
+
+- "A2 supertype"
+- "HLA-B44 supertype"
+
+Class II heterodimers can be specified using dot notation, which is common in celiac disease literature:
+
+- "DQ2.5" (equivalent to DQA1\*05:01/DQB1\*02:01)
+- "DQ8.5"
 
 In many datasets the exact allele is not known but an experiment might note the genetic background of a model animal, resulting in loose haplotype restrictions such as:
 
@@ -107,21 +117,22 @@ In some cases immunological data comes only with a denoted species (e.g. "mouse"
 
 It is a fool's errand to curate _all_ possible MHC allele names since that list grows daily as the MHC loci of more people (and non-human animals) are sequenced. Instead, MHCgnomes contains an ontology of curated species and genes and then attempts to parse any given string into a multiple candidates of the following types:
 
-- [`Species`](https://github.com/til-unc/mhcgnomes/blob/main/mhcgnomes/species.py)
-- [`Gene`](https://github.com/til-unc/mhcgnomes/blob/main/mhcgnomes/gene.py)
-- [`Allele`](https://github.com/til-unc/mhcgnomes/blob/main/mhcgnomes/allele.py)
-- [`AlleleWithoutGene`](https://github.com/til-unc/mhcgnomes/blob/main/mhcgnomes/allele_without_gene.py)
-- [`Pair`](https://github.com/til-unc/mhcgnomes/blob/main/mhcgnomes/pair.py)
-- [`Class2Locus`](https://github.com/til-unc/mhcgnomes/blob/main/mhcgnomes/class2_locus.py)
-- [`MhcClass`](https://github.com/til-unc/mhcgnomes/blob/main/mhcgnomes/mhc_class.py)
-- [`Haplotype`](https://github.com/til-unc/mhcgnomes/blob/main/mhcgnomes/haplotype.py)
-- [`Serotype`](https://github.com/til-unc/mhcgnomes/blob/main/mhcgnomes/serotype.py)
+- [`Species`](https://github.com/pirl-unc/mhcgnomes/blob/main/mhcgnomes/species.py)
+- [`Gene`](https://github.com/pirl-unc/mhcgnomes/blob/main/mhcgnomes/gene.py)
+- [`Allele`](https://github.com/pirl-unc/mhcgnomes/blob/main/mhcgnomes/allele.py)
+- [`AlleleWithoutGene`](https://github.com/pirl-unc/mhcgnomes/blob/main/mhcgnomes/allele_without_gene.py)
+- [`Pair`](https://github.com/pirl-unc/mhcgnomes/blob/main/mhcgnomes/pair.py)
+- [`Class2Locus`](https://github.com/pirl-unc/mhcgnomes/blob/main/mhcgnomes/class2_locus.py)
+- [`MhcClass`](https://github.com/pirl-unc/mhcgnomes/blob/main/mhcgnomes/mhc_class.py)
+- [`Haplotype`](https://github.com/pirl-unc/mhcgnomes/blob/main/mhcgnomes/haplotype.py)
+- [`Serotype`](https://github.com/pirl-unc/mhcgnomes/blob/main/mhcgnomes/serotype.py)
+- [`Supertype`](https://github.com/pirl-unc/mhcgnomes/blob/main/mhcgnomes/supertype.py)
 
 The set of candidate interpretations for each string are then
 ranked according to heuristic rules. For example, a string will be
-preferentially interpreted as an [`Allele`](https://github.com/til-unc/mhcgnomes/blob/main/mhcgnomes/allele.py) rather
-than a [`Serotype`](https://github.com/til-unc/mhcgnomes/blob/main/mhcgnomes/serotype.py)
-or [`Haplotype`](https://github.com/til-unc/mhcgnomes/blob/main/mhcgnomes/haplotype.py).
+preferentially interpreted as an [`Allele`](https://github.com/pirl-unc/mhcgnomes/blob/main/mhcgnomes/allele.py) rather
+than a [`Serotype`](https://github.com/pirl-unc/mhcgnomes/blob/main/mhcgnomes/serotype.py)
+or [`Haplotype`](https://github.com/pirl-unc/mhcgnomes/blob/main/mhcgnomes/haplotype.py).
 
 ## How many digits per field?
 

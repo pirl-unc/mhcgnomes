@@ -94,6 +94,18 @@ class Token(Serializable):
         return self.seq == "gene"
 
     @property
+    def is_allele(self):
+        return self.seq == "allele"
+
+    @property
+    def is_serotype(self):
+        return self.seq == "serotype"
+
+    @property
+    def is_supertype(self):
+        return self.seq == "supertype"
+
+    @property
     def can_be_identifier(self):
         return not (
             self.is_alpha_or_beta
@@ -101,4 +113,7 @@ class Token(Serializable):
             or self.is_slash
             or self.is_haplotype
             or self.is_gene
+            or self.is_allele
+            or self.is_serotype
+            or self.is_supertype
         )

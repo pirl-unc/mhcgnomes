@@ -41,6 +41,7 @@ from .result_with_species import ResultWithSpecies
 from .serotype import Serotype
 from .species import Species, find_matching_species_objects, infer_species_from_prefix
 from .standard_format import parse_standard_allele_format
+from .supertype import Supertype
 from .token import Token
 from .tokenize import tokenize
 
@@ -51,7 +52,7 @@ INFER_CLASS2_PAIRING = False
 COLLAPSE_SINGLETON_HAPLOTYPES = True
 COLLAPSE_SINGLETON_SEROTYPES = False
 MAP_SPECIES_GROUP_TO_TOP_SPECIES = False
-GENE_SEPS = "*_-^:"
+GENE_SEPS = "*_-^:."
 
 
 class Parser:
@@ -75,7 +76,7 @@ class Parser:
         If a haplotype contains a single allele, return the allele directly.
     collapse_singleton_serotypes : bool, default False
         If a serotype contains a single allele, return the allele directly.
-    gene_seps : str, default "*_-^:"
+    gene_seps : str, default "*_-^:."
         Characters that can separate gene name from allele fields.
     verbose : bool, default False
         Print intermediate parsing steps for debugging.
@@ -227,6 +228,122 @@ class Parser:
 
         return Serotype(
             species=species, name=normalized_name, alleles=alleles, raw_string=serotype_name
+        )
+
+    def get_heterodimer(self, species: Union[Species, str], heterodimer_name: str):
+        """
+        Look up a heterodimer shorthand name (e.g., DQ2.5) and return a Pair object.
+
+        Heterodimer shorthand notation is commonly used for HLA-DQ molecules:
+        - DQ2.5 = DQA1*05:01/DQB1*02:01
+        - DQ2.2 = DQA1*02:01/DQB1*02:02
+        etc.
+
+        Returns Pair or None
+        """
+        species = Species.get(species)
+
+        if species is None:
+            return None
+
+        # Look up the heterodimer name in the species' heterodimers dictionary
+        heterodimer_info = species.heterodimers.get(heterodimer_name)
+        if heterodimer_info is None:
+            return None
+
+        # Get alpha and beta allele names
+        alpha_name = heterodimer_info.get("alpha")
+        beta_name = heterodimer_info.get("beta")
+
+        if not alpha_name or not beta_name:
+            return None
+
+        # Parse the alpha and beta alleles
+        alpha_allele = self.parse(
+            alpha_name, default_species=species, infer_class2_pairing=False, raise_on_error=False
+        )
+        beta_allele = self.parse(
+            beta_name, default_species=species, infer_class2_pairing=False, raise_on_error=False
+        )
+
+        if alpha_allele is None or beta_allele is None:
+            return None
+
+        # Create and return a Pair object
+        return Pair.get(alpha_allele, beta_allele, raw_string=heterodimer_name)
+
+    def get_supertype(self, species: Union[Species, str], supertype_name: str):
+        """
+        Look up a supertype name (e.g., "A02", "B07") and return a Supertype object.
+
+        HLA class I supertypes are functional groupings of alleles that share
+        peptide binding properties. The nine major supertypes (A01, A02, A03,
+        A24, B07, B08, B27, B44, B58, B62) were defined by Sidney et al. 2008.
+
+        Supertype names can be specified with or without leading zeros:
+        - "A2" or "A02" -> A02 supertype
+        - "B7" or "B07" -> B07 supertype
+
+        Returns Supertype or None
+        """
+        species = Species.get(species)
+
+        if species is None:
+            return None
+
+        # Try to find the supertype in the dictionary
+        # The NormalizingDictionary will handle case-insensitivity
+        supertype_info = species.supertypes.get(supertype_name)
+        matched_name = supertype_name
+
+        # Try normalizing: add leading zero if single digit (A2 -> A02)
+        if supertype_info is None and len(supertype_name) >= 2:
+            letter = supertype_name[0]
+            number = supertype_name[1:]
+            if number.isdigit() and len(number) == 1:
+                normalized_name = f"{letter}0{number}"
+                supertype_info = species.supertypes.get(normalized_name)
+                if supertype_info is not None:
+                    matched_name = normalized_name
+
+        if supertype_info is None:
+            return None
+
+        # Get the original (properly-cased) key from the dictionary
+        canonical_name = species.supertypes.original_key(matched_name)
+
+        # Get allele list and representative
+        allele_names = supertype_info.get("alleles", [])
+        representative_name = supertype_info.get("representative")
+
+        # Parse alleles
+        alleles = []
+        for allele_name in allele_names:
+            allele = self.parse(
+                allele_name,
+                default_species=species,
+                infer_class2_pairing=False,
+                raise_on_error=False,
+            )
+            if allele is not None:
+                alleles.append(allele)
+
+        # Parse representative allele
+        representative = None
+        if representative_name:
+            representative = self.parse(
+                representative_name,
+                default_species=species,
+                infer_class2_pairing=False,
+                raise_on_error=False,
+            )
+
+        return Supertype(
+            species=species,
+            name=canonical_name,
+            alleles=alleles,
+            representative=representative,
+            raw_string=supertype_name,
         )
 
     def parse_haplotype_with_class2_locus_from_any_string_split(
@@ -444,7 +561,7 @@ class Parser:
 
         if str_after_species.count("*") == 1:
             # if the sequence conforms to the "A*0201" format, then
-            # just split_token_sequences on the '*' character and return this as the
+            # just split on the '*' character and return this as the
             # only possibility
             gene_name, str_after_gene = smart_split(str_after_species, "*")
             add_to_candidates(gene_name, str_after_gene)
@@ -1077,7 +1194,9 @@ class Parser:
                 fns_with_species = [
                     Class2Locus.get,
                     Gene.get,
+                    self.get_heterodimer,  # Check heterodimers before serotypes (DQ2.5 vs DQ2)
                     self.get_serotype,
+                    self.get_supertype,  # Check supertypes (A02, B07, etc.)
                     self.get_haplotype,
                     self.parse_allele_or_gene_candidates,
                     self.parse_class2_pair_with_hyphen_sep,
@@ -1383,6 +1502,62 @@ class Parser:
                         tokens=tokens[1:], default_species=default_species
                     ),
                     preferred_types=[Gene],
+                )
+            )
+        elif tokens[-1].is_allele:
+            candidates.extend(
+                self.restrict_result_type_if_possible(
+                    results=self.parse_tokens_to_multiple_candidates(
+                        tokens=tokens[:-1], default_species=default_species
+                    ),
+                    preferred_types=[Allele],
+                )
+            )
+        elif tokens[0].is_allele:
+            candidates.extend(
+                self.restrict_result_type_if_possible(
+                    results=self.parse_tokens_to_multiple_candidates(
+                        tokens=tokens[1:], default_species=default_species
+                    ),
+                    preferred_types=[Allele],
+                )
+            )
+        elif tokens[-1].is_serotype:
+            candidates.extend(
+                self.restrict_result_type_if_possible(
+                    results=self.parse_tokens_to_multiple_candidates(
+                        tokens=tokens[:-1], default_species=default_species
+                    ),
+                    preferred_types=[Serotype],
+                )
+            )
+        elif tokens[0].is_serotype:
+            candidates.extend(
+                self.restrict_result_type_if_possible(
+                    results=self.parse_tokens_to_multiple_candidates(
+                        tokens=tokens[1:], default_species=default_species
+                    ),
+                    preferred_types=[Serotype],
+                )
+            )
+        elif tokens[-1].is_supertype:
+            # Handle "A2 supertype", "HLA A2 supertype", etc.
+            candidates.extend(
+                self.restrict_result_type_if_possible(
+                    results=self.parse_tokens_to_multiple_candidates(
+                        tokens=tokens[:-1], default_species=default_species
+                    ),
+                    preferred_types=[Supertype],
+                )
+            )
+        elif tokens[0].is_supertype:
+            # Handle "supertype A2", "supertype B7", etc.
+            candidates.extend(
+                self.restrict_result_type_if_possible(
+                    results=self.parse_tokens_to_multiple_candidates(
+                        tokens=tokens[1:], default_species=default_species
+                    ),
+                    preferred_types=[Supertype],
                 )
             )
         elif len(tokens) == 2:
