@@ -79,7 +79,7 @@ class Mutation(Result):
         pos = int(pos)
         aa_original = aa_original.upper()
         aa_mutant = aa_mutant.upper()
-        return Mutation(pos, aa_original, aa_mutant)
+        return Mutation(pos, aa_original, aa_mutant, raw_string=raw_string)
 
     @classmethod
     def parse(cls, seq, raise_on_error=True):

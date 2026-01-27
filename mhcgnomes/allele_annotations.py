@@ -25,7 +25,14 @@
 # - http://hla.alleles.org/alleles/g_groups.html
 # - https://www.ebi.ac.uk/ipd/mhc/group/NHP/page/nomenclature/
 
-valid_functional_annotations = {"N", "L", "S", "C", "A", "Q", "G", "P", "Ps", "Sp,"}
+valid_functional_annotations = {"N", "L", "S", "C", "A", "Q", "G", "P", "Ps", "Sp"}
+_sorted_functional_annotations = sorted(valid_functional_annotations, key=len, reverse=True)
+
+
+def _has_two_digit_prefix(seq, annot_len):
+    if len(seq) < annot_len + 2:
+        return False
+    return seq[-annot_len - 1].isdigit() and seq[-annot_len - 2].isdigit()
 
 
 def check_for_workshop_prefix(seq):
@@ -51,18 +58,20 @@ def peel_suffix_annotations(seq):
     if len(seq) < 3:
         return seq, []
 
-    # for now let's limit parsing of functional annotations to a single
-    # letter at the end of an allele string following two or more numbers
-    if not (seq[-1].isalpha() and seq[-2].isdigit() and seq[-3].isdigit()):
-        return seq, []
-
     functional_annotations = []
-
-    for annot in valid_functional_annotations:
-        n_annot_chars = len(annot)
-        if seq[-n_annot_chars:].lower() == annot.lower():
-            functional_annotations = [annot, *functional_annotations]
-            seq = seq[:-n_annot_chars]
+    while True:
+        found = False
+        for annot in _sorted_functional_annotations:
+            n_annot_chars = len(annot)
+            if not _has_two_digit_prefix(seq, n_annot_chars):
+                continue
+            if seq[-n_annot_chars:].lower() == annot.lower():
+                functional_annotations = [annot, *functional_annotations]
+                seq = seq[:-n_annot_chars]
+                found = True
+                break
+        if not found:
+            break
     return seq, functional_annotations
 
 

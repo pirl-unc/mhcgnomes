@@ -274,7 +274,7 @@ class Allele(ResultWithGene):
             gene=gene,
             allele_fields=allele_fields,
             annotations=annotations,
-            mutations=mutations,
+            mutations=parsed_mutations,
             raw_string=raw_string,
         )
 

@@ -62,3 +62,21 @@ def test_secreted_B_44020102S():
     eq_(result, Allele.get("HLA", "B", "44", "02", "01", "02", annotation="S"))
     eq_(result.annotations, ("S",))
     assert result.annotation_secreted
+
+
+def test_splice_variant_annotation_Sp():
+    result = parse("Mamu-B*074:03Sp")
+    eq_(result.annotations, ("Sp",))
+    assert result.annotation_splice_variant
+
+
+def test_pseudogene_annotation_Ps():
+    result = parse("Caja-B5*01:01Ps")
+    eq_(result.annotations, ("Ps",))
+    assert result.annotation_pseudogene
+
+
+def test_Ps_in_gene_name_not_annotation():
+    result = parse("Caja-G2Ps*01")
+    eq_(result.gene_name, "G2Ps")
+    eq_(result.annotations, ())

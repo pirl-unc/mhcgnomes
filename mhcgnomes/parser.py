@@ -1729,7 +1729,12 @@ class Parser:
             - MhcClass
             - Gene
             - Allele
+            - AlleleWithoutGene
             - Pair
+            - Haplotype
+            - Serotype
+            - Supertype
+            - Class2Locus
         """
         candidates = self.parse_multiple_candidates(name, default_species=default_species)
 
