@@ -17,7 +17,7 @@ Does (in this order):
   - (optional) fetch remote branch
   - confirm local up-to-date with remote
   - uv build
-  - uv publish
+  - twine upload
   - git tag v<version> (annotated) + push ONLY that tag
 
 Dry-run:
@@ -336,6 +336,7 @@ def ensure_up_to_date(cfg: Config, *, cwd: Path) -> None:
 
 def build_and_publish(cfg: Config, *, cwd: Path) -> None:
     require_cmd("uv", env=cfg.env)
+    require_cmd("python3", env=cfg.env)
 
     note("Cleaning dist/ ...")
     if cfg.dry_run:
@@ -347,8 +348,23 @@ def build_and_publish(cfg: Config, *, cwd: Path) -> None:
     run_effectful(["uv", "build"], cwd=cwd, dry_run=cfg.dry_run, env=cfg.env)
     ok("Build step complete")
 
-    note("Publishing with uv...")
-    run_effectful(["uv", "publish"], cwd=cwd, dry_run=cfg.dry_run, env=cfg.env)
+    note("Checking twine availability...")
+    run_checked(["python3", "-m", "twine", "--version"], cwd=cwd, capture_stdout=True, capture_stderr=True)
+
+    dist_dir = cwd / "dist"
+    if not dist_dir.exists():
+        die("dist/ directory does not exist after build.")
+    dist_files = [p for p in sorted(dist_dir.iterdir()) if p.is_file()]
+    if not dist_files:
+        die("No files in dist/ to publish.")
+
+    note("Publishing with twine...")
+    run_effectful(
+        ["python3", "-m", "twine", "upload", *[str(p) for p in dist_files]],
+        cwd=cwd,
+        dry_run=cfg.dry_run,
+        env=cfg.env,
+    )
     ok("Publish step complete")
 
 
@@ -464,7 +480,7 @@ def main(argv: Sequence[str]) -> int:
     if cfg.dry_run:
         note("Dry run summary:")
         note("  would run: uv build")
-        note("  would run: uv publish")
+        note("  would run: python3 -m twine upload dist/*")
         note(f"  would run: git tag -a {tag} -m 'Release {tag} ({version})'")
         note(f"  would run: git push {cfg.remote} refs/tags/{tag}")
         ok("Dry run complete")
