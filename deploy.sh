@@ -6,4 +6,6 @@ cd "$ROOT"
 
 ./lint.sh
 ./test.sh
-python3 deploy.py "$@"
+
+PYTHON_BIN="${DEPLOY_PYTHON:-python3}"
+"$PYTHON_BIN" deploy.py "$@"

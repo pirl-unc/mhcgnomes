@@ -350,13 +350,13 @@ def build_and_publish(cfg: Config, *, cwd: Path) -> None:
     run_effectful(["uv", "build"], cwd=cwd, dry_run=cfg.dry_run, env=cfg.env)
     ok("Build step complete")
 
+    twine_python = sys.executable or "python3"
     note("Checking twine availability...")
     run_checked(
-        ["python3", "-m", "twine", "--version"],
+        [twine_python, "-m", "twine", "--version"],
         cwd=cwd,
         capture_stdout=True,
         capture_stderr=True,
-        env=cfg.env,
     )
 
     dist_dir = cwd / "dist"
@@ -368,10 +368,9 @@ def build_and_publish(cfg: Config, *, cwd: Path) -> None:
 
     note("Publishing with twine...")
     run_effectful(
-        ["python3", "-m", "twine", "upload", *[str(p) for p in dist_files]],
+        [twine_python, "-m", "twine", "upload", *[str(p) for p in dist_files]],
         cwd=cwd,
         dry_run=cfg.dry_run,
-        env=cfg.env,
     )
     ok("Publish step complete")
 
