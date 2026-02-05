@@ -33,6 +33,7 @@ import shlex
 import shutil
 import subprocess
 import sys
+import tempfile
 from dataclasses import dataclass
 from pathlib import Path
 from typing import List, Optional, Sequence
@@ -406,11 +407,13 @@ def resolve_venv_bin(root: Path) -> Optional[Path]:
     return None
 
 
-def build_run_env(venv_bin: Optional[Path]) -> dict[str, str]:
+def build_run_env(venv_bin: Optional[Path], *, root: Path) -> dict[str, str]:
     env = os.environ.copy()
     if venv_bin is not None:
         env["PATH"] = f"{venv_bin}{os.pathsep}{env.get('PATH', '')}"
         env["VIRTUAL_ENV"] = str(venv_bin.parent)
+    cache_dir = Path(tempfile.gettempdir()) / f"uv-cache-{root.name}"
+    env.setdefault("UV_CACHE_DIR", str(cache_dir))
     return env
 
 
@@ -442,7 +445,7 @@ def main(argv: Sequence[str]) -> int:
 
     root = repo_root()
     venv_bin = resolve_venv_bin(root)
-    run_env = build_run_env(venv_bin)
+    run_env = build_run_env(venv_bin, root=root)
 
     # Interpret configured paths relative to repo root so deploy.sh works from anywhere.
     cfg = Config(
