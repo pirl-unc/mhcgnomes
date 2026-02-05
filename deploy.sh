@@ -1,10 +1,9 @@
-./lint.sh && \
-./test.sh && \
-python3 -m pip install --upgrade build && \
-python3 -m pip install --upgrade twine && \
-rm -rf dist && \
-python3 -m build && \
-git --version && \
-python3 -m twine upload dist/* && \
-git tag "$(python3 mhcgnomes/version.py)" &&  \
-git push --tags
+#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd "$ROOT"
+
+./lint.sh
+./test.sh
+python3 deploy.py "$@"

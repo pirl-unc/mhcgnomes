@@ -127,3 +127,16 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Large data/artifacts
+*.csv
+*.zip
+*.xlsx
+
+# Images
+*.png
+
+# Local/editor/notes
+.idea/
+.vscode/
+blog-post/
