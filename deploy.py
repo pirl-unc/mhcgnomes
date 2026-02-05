@@ -99,6 +99,7 @@ def run_checked(
     cwd: Optional[Path] = None,
     capture_stdout: bool = False,
     capture_stderr: bool = False,
+    env: Optional[dict[str, str]] = None,
 ) -> subprocess.CompletedProcess:
     """
     Run a command (read-only checks, queries). Always executes.
@@ -114,6 +115,7 @@ def run_checked(
         text=True,
         stdout=stdout,
         stderr=stderr,
+        env=env,
     )
     if cp.returncode != 0:
         if cp.stdout:
@@ -349,7 +351,13 @@ def build_and_publish(cfg: Config, *, cwd: Path) -> None:
     ok("Build step complete")
 
     note("Checking twine availability...")
-    run_checked(["python3", "-m", "twine", "--version"], cwd=cwd, capture_stdout=True, capture_stderr=True)
+    run_checked(
+        ["python3", "-m", "twine", "--version"],
+        cwd=cwd,
+        capture_stdout=True,
+        capture_stderr=True,
+        env=cfg.env,
+    )
 
     dist_dir = cwd / "dist"
     if not dist_dir.exists():
