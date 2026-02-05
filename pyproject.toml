@@ -7,7 +7,7 @@ name = "mhcgnomes"
 dynamic = ["version"]
 description = "Python library for parsing MHC nomenclature in the wild"
 readme = "README.md"
-license = "Apache-2.0"
+license = {file = "LICENSE"}
 authors = [
     {name = "Alex Rubinsteyn", email = "alex.rubinsteyn@unc.edu"}
 ]
