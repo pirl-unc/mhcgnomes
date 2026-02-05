@@ -354,8 +354,8 @@ def build_and_publish(cfg: Config, *, cwd: Path) -> None:
         capture_stderr=True,
     )
 
-    note("Building distributions with python -m build...")
-    run_effectful([build_python, "-m", "build"], cwd=cwd, dry_run=cfg.dry_run)
+    note("Building distributions with python -m build (no isolation)...")
+    run_effectful([build_python, "-m", "build", "--no-isolation"], cwd=cwd, dry_run=cfg.dry_run)
     ok("Build step complete")
 
     twine_python = sys.executable or "python3"
@@ -494,7 +494,7 @@ def main(argv: Sequence[str]) -> int:
 
     if cfg.dry_run:
         note("Dry run summary:")
-        note("  would run: python -m build")
+        note("  would run: python -m build --no-isolation")
         note("  would run: python3 -m twine upload dist/*")
         note(f"  would run: git tag -a {tag} -m 'Release {tag} ({version})'")
         note(f"  would run: git push {cfg.remote} refs/tags/{tag}")
