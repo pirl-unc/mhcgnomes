@@ -16,7 +16,7 @@ Does (in this order):
   - preflight checks (repo/branch/clean)
   - (optional) fetch remote branch
   - confirm local up-to-date with remote
-  - uv build
+  - python -m build
   - twine upload
   - git tag v<version> (annotated) + push ONLY that tag
 
@@ -33,7 +33,6 @@ import shlex
 import shutil
 import subprocess
 import sys
-import tempfile
 from dataclasses import dataclass
 from pathlib import Path
 from typing import List, Optional, Sequence
@@ -338,7 +337,6 @@ def ensure_up_to_date(cfg: Config, *, cwd: Path) -> None:
 
 
 def build_and_publish(cfg: Config, *, cwd: Path) -> None:
-    require_cmd("uv", env=cfg.env)
     require_cmd("python3", env=cfg.env)
 
     note("Cleaning dist/ ...")
@@ -347,8 +345,17 @@ def build_and_publish(cfg: Config, *, cwd: Path) -> None:
     else:
         shutil.rmtree(cwd / "dist", ignore_errors=True)
 
-    note("Building distributions with uv...")
-    run_effectful(["uv", "build"], cwd=cwd, dry_run=cfg.dry_run, env=cfg.env)
+    build_python = sys.executable or "python3"
+    note("Checking build availability...")
+    run_checked(
+        [build_python, "-m", "build", "--version"],
+        cwd=cwd,
+        capture_stdout=True,
+        capture_stderr=True,
+    )
+
+    note("Building distributions with python -m build...")
+    run_effectful([build_python, "-m", "build"], cwd=cwd, dry_run=cfg.dry_run)
     ok("Build step complete")
 
     twine_python = sys.executable or "python3"
@@ -407,13 +414,11 @@ def resolve_venv_bin(root: Path) -> Optional[Path]:
     return None
 
 
-def build_run_env(venv_bin: Optional[Path], *, root: Path) -> dict[str, str]:
+def build_run_env(venv_bin: Optional[Path]) -> dict[str, str]:
     env = os.environ.copy()
     if venv_bin is not None:
         env["PATH"] = f"{venv_bin}{os.pathsep}{env.get('PATH', '')}"
         env["VIRTUAL_ENV"] = str(venv_bin.parent)
-    cache_dir = Path(tempfile.gettempdir()) / f"uv-cache-{root.name}"
-    env.setdefault("UV_CACHE_DIR", str(cache_dir))
     return env
 
 
@@ -445,7 +450,7 @@ def main(argv: Sequence[str]) -> int:
 
     root = repo_root()
     venv_bin = resolve_venv_bin(root)
-    run_env = build_run_env(venv_bin, root=root)
+    run_env = build_run_env(venv_bin)
 
     # Interpret configured paths relative to repo root so deploy.sh works from anywhere.
     cfg = Config(
@@ -489,7 +494,7 @@ def main(argv: Sequence[str]) -> int:
 
     if cfg.dry_run:
         note("Dry run summary:")
-        note("  would run: uv build")
+        note("  would run: python -m build")
         note("  would run: python3 -m twine upload dist/*")
         note(f"  would run: git tag -a {tag} -m 'Release {tag} ({version})'")
         note(f"  would run: git push {cfg.remote} refs/tags/{tag}")
