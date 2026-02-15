@@ -235,10 +235,13 @@ class Allele(ResultWithGene):
 
         Examples
         --------
-        >>> Allele.get("HLA", "A", "02", "01")
-        Allele(gene=..., allele_fields=('02', '01'), ...)
-        >>> Allele.get("HLA", "A", "02:01")  # Also valid
-        Allele(gene=..., allele_fields=('02', '01'), ...)
+        >>> allele = Allele.get("HLA", "A", "02", "01")
+        >>> allele is not None
+        True
+        >>> allele.allele_fields
+        ('02', '01')
+        >>> Allele.get("HLA", "A", "02:01").allele_fields  # Also valid
+        ('02', '01')
         """
         gene = Gene.get(species_prefix, gene_name)
         if not gene:

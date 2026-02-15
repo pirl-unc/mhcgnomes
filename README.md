@@ -1,12 +1,12 @@
 [![Tests](https://github.com/pirl-unc/mhcgnomes/actions/workflows/tests.yml/badge.svg)](https://github.com/pirl-unc/mhcgnomes/actions/workflows/tests.yml)
-<a href="https://coveralls.io/github/til-unc/mhcgnomes">
-<img src="https://coveralls.io/repos/github/til-unc/mhcgnomes/badge.svg?branch=main" alt="Coverage Status">
+<a href="https://coveralls.io/github/pirl-unc/mhcgnomes">
+<img src="https://coveralls.io/repos/github/pirl-unc/mhcgnomes/badge.svg?branch=main" alt="Coverage Status">
 </a>
 <a href="https://pypi.python.org/pypi/mhcgnomes/">
 <img src="https://img.shields.io/pypi/v/mhcgnomes.svg?maxAge=1000" alt="PyPI" />
 </a>
 
-![](https://raw.githubusercontent.com/til-unc/mhcgnomes/main/gnome-red-text.png)
+![](https://raw.githubusercontent.com/pirl-unc/mhcgnomes/main/gnome-red-text.png)
 
 # mhcgnomes: Parsing MHC nomenclature in the wild
 
@@ -32,6 +32,38 @@ Out[2]: 'HLA-A*02:01'
 In [3]: mhcgnomes.parse("HLA-A0201").compact_string()
 Out[3]: 'A0201'
 
+```
+
+## CLI
+
+After installation, a `mhcgnomes` CLI is available:
+
+```bash
+mhcgnomes "HLA-A*02:01" "DQ2.5"
+# or:
+python -m mhcgnomes "HLA-A*02:01" "DQ2.5"
+```
+
+This prints a table with:
+
+- input string
+- parsed result type
+- normalized and compact forms
+- species/gene/MHC class
+- parsed properties from `to_record()`
+
+You can also use machine-friendly output:
+
+```bash
+mhcgnomes --format tsv "HLA-A*02:01" "HLA-A2"
+mhcgnomes --format json "HLA-A*02:01" "not a real allele"
+```
+
+By default, unparseable values are shown as `ParseError` rows.
+Use strict mode to fail fast:
+
+```bash
+mhcgnomes --strict "not a real allele"
 ```
 
 ## The problem: MHC nomenclature is nuts

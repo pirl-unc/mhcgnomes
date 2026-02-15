@@ -124,8 +124,11 @@ class Gene(ResultWithMhcClass):
 
         Examples
         --------
-        >>> Gene.get("HLA", "A")
-        Gene(species=..., name='A', ...)
+        >>> gene = Gene.get("HLA", "A")
+        >>> gene is not None
+        True
+        >>> gene.name
+        'A'
         >>> Gene.get("HLA", "INVALID")  # Returns None
         """
         # use the canonical gene name e.g. "A" and not "a"

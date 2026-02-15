@@ -218,6 +218,29 @@ def test_parse_H2_K_valid_types_Haplotype():
         assert type(result) is Haplotype
 
 
+def test_parse_preferred_result_types_fallback_to_non_preferred():
+    parse_fns = [parse, Parser().parse]
+    for fn in parse_fns:
+        result = fn(
+            "HLA-A*02:01",
+            preferred_result_types=[Serotype],
+            raise_on_error=False,
+        )
+        assert result is not None
+        assert type(result) is Allele
+
+
+def test_parse_required_result_types_is_strict():
+    parse_fns = [parse, Parser().parse]
+    for fn in parse_fns:
+        result = fn(
+            "HLA-A*02:01",
+            required_result_types=[Serotype],
+            raise_on_error=False,
+        )
+        assert result is None
+
+
 def test_parse_H2_IAb_I67F_R70Q_T71K_mutant():
     s = "H2-IAb I67F, R70Q, T71K mutant"
     parse_fns = [parse, Parser().parse]

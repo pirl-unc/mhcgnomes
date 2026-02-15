@@ -41,7 +41,9 @@ class AlleleWithoutGene(ResultWithMhcClass):
         species_str = self.species.to_string(
             include_species=include_species, use_old_species_prefix=use_old_species_prefix
         )
-        return f"{species_str}-{self.name}"
+        if species_str:
+            return f"{species_str}-{self.name}"
+        return self.name
 
     def compact_string(self, include_species=False, use_old_species_prefix=False):
         """

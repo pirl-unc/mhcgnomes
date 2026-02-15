@@ -92,7 +92,9 @@ class Class2Locus(ResultWithMhcClass):
         species_string = self.species.to_string(
             include_species=include_species, use_old_species_prefix=use_old_species_prefix
         )
-        return species_string + "-" + self.name
+        if species_string:
+            return f"{species_string}-{self.name}"
+        return self.name
 
     def compact_string(self, include_species=False, use_old_species_prefix=False):
         return self.to_string(

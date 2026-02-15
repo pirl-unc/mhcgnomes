@@ -17,7 +17,7 @@ from serializable import Serializable
 
 class Result(Serializable):
     """
-    Base class for all parsed objects in mhcnames.
+    Base class for all parsed objects in mhcgnomes.
     """
 
     def __init__(self, raw_string=None):

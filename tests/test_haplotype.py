@@ -31,3 +31,9 @@ def test_parse_BF19_haplotype():
     eq_(type(result), Haplotype)
     eq_(result.name, "BF19")
     assert result.species.is_chicken
+
+
+def test_haplotype_to_string_without_species_has_no_leading_dash():
+    result = parse("H2-k", required_result_types=Haplotype)
+    assert result is not None
+    eq_(result.to_string(include_species=False), "k")

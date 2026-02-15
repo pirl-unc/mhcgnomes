@@ -542,10 +542,9 @@ class Parser:
 
     def parse_gene_candidates(
         self, species: Union[Species, str], str_after_species: str
-    ) -> Sequence[Gene]:
+    ) -> Sequence[tuple[Gene, str]]:
         """
-        Returns set of pairs which can be (Gene, str) or (Class2Locus, str)
-
+        Returns list of (Gene, remaining_string) pairs.
         """
         if contains_whitespace(str_after_species):
             return []
@@ -903,7 +902,7 @@ class Parser:
 
     def parse_and_apply_mutations(
         self, result_without_mutation: Union[Gene, Allele, Pair], mutation_tokens: Sequence[Token]
-    ) -> Union[Allele, Pair, None]:
+    ) -> Union[Gene, Allele, Pair, None]:
         """
         Parameters
         ----------
@@ -913,7 +912,7 @@ class Parser:
 
         default_species : str or None
 
-        Returns Allele
+        Returns Gene, Allele, or Pair
         """
         if type(result_without_mutation) in (Serotype, Haplotype):
             result_without_mutation = result_without_mutation.collapse_if_possible()
@@ -1707,10 +1706,12 @@ class Parser:
             Assume this species if it's not obvious in the sequence.
 
         preferred_result_types : list of type or None
-            If a result of this class is available, return it.
+            Prefer returning one of these result types when available.
+            If none of these types match, fall back to other valid parses.
 
         required_result_types : list of type or None
-            If given, only return results with types in this list of classes.
+            Strict filter. If given, only return results with types in this
+            list of classes.
 
         only_class1 : bool
             Only return results which belong to MHC class I
@@ -1722,7 +1723,7 @@ class Parser:
             If not None, restrict number of allele fields to given value.
 
         raise_on_error : bool
-            If False, return False when parsing is impossible.
+            If False, return None when parsing is impossible.
 
         Returns object with one of the following types:
             - Species

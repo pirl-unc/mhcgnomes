@@ -10,6 +10,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from typing import Optional
+
 from .common import cache
 from .parser import (
     COLLAPSE_SINGLETON_HAPLOTYPES,
@@ -20,16 +22,17 @@ from .parser import (
     USE_ALLELE_ALIASES,
     Parser,
 )
+from .result import Result
 
 
 @cache
 def cached_parser(
-    use_allele_aliases=USE_ALLELE_ALIASES,
+    use_allele_aliases: bool = USE_ALLELE_ALIASES,
     gene_seps=GENE_SEPS,
-    collapse_singleton_haplotypes=COLLAPSE_SINGLETON_HAPLOTYPES,
-    collapse_singleton_serotypes=COLLAPSE_SINGLETON_SEROTYPES,
-    verbose=False,
-):
+    collapse_singleton_haplotypes: bool = COLLAPSE_SINGLETON_HAPLOTYPES,
+    collapse_singleton_serotypes: bool = COLLAPSE_SINGLETON_SEROTYPES,
+    verbose: bool = False,
+) -> Parser:
     """
     Get or create a cached Parser instance.
 
@@ -73,20 +76,20 @@ def cached_parser(
 
 
 def parse(
-    raw_string,
+    raw_string: str,
     default_species=DEFAULT_SPECIES_PREFIX,
-    use_allele_aliases=USE_ALLELE_ALIASES,
-    infer_class2_pairing=INFER_CLASS2_PAIRING,
-    collapse_singleton_haplotypes=COLLAPSE_SINGLETON_HAPLOTYPES,
-    collapse_singleton_serotypes=COLLAPSE_SINGLETON_SEROTYPES,
+    use_allele_aliases: bool = USE_ALLELE_ALIASES,
+    infer_class2_pairing: bool = INFER_CLASS2_PAIRING,
+    collapse_singleton_haplotypes: bool = COLLAPSE_SINGLETON_HAPLOTYPES,
+    collapse_singleton_serotypes: bool = COLLAPSE_SINGLETON_SEROTYPES,
     max_allele_fields=None,
     required_result_types=None,
     preferred_result_types=None,
-    only_class1=False,
-    only_class2=False,
-    verbose=False,
-    raise_on_error=True,
-):
+    only_class1: bool = False,
+    only_class2: bool = False,
+    verbose: bool = False,
+    raise_on_error: bool = True,
+) -> Optional[Result]:
     """
     Parse MHC alleles into a structured representation.
 
@@ -117,10 +120,11 @@ def parse(
         If not None, restrict number of allele fields to given value.
 
     required_result_types : list of type
-        Only return results of the given classes.
+        Strict filter. Only return results of the given classes.
 
     preferred_result_types : list of type
-        Return a result that's one of these classes if possible, otherwise None.
+        Prefer returning one of these classes when available.
+        If none match, return the best non-preferred parse.
 
     only_class1 : bool
         Only return MHC Class I results

@@ -45,6 +45,9 @@ dev = [
 Homepage = "https://github.com/pirl-unc/mhcgnomes"
 Repository = "https://github.com/pirl-unc/mhcgnomes"
 
+[project.scripts]
+mhcgnomes = "mhcgnomes.cli:main"
+
 [tool.setuptools.dynamic]
 version = {attr = "mhcgnomes.version.__version__"}
 

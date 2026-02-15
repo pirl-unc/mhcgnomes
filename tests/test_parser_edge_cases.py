@@ -489,6 +489,23 @@ class TestParseFilters:
         assert result is not None
         assert type(result) is Serotype
 
+    def test_preferred_result_types_falls_back_when_no_match(self):
+        """preferred_result_types falls back to non-preferred parse when needed."""
+        parser = Parser()
+        result = parser.parse("HLA-A*02:01", preferred_result_types=[Serotype])
+        assert result is not None
+        assert type(result) is Allele
+
+    def test_required_result_types_is_strict(self):
+        """required_result_types is strict and returns None when no type matches."""
+        parser = Parser()
+        result = parser.parse(
+            "HLA-A*02:01",
+            required_result_types=[Serotype],
+            raise_on_error=False,
+        )
+        assert result is None
+
     def test_max_allele_fields(self):
         """max_allele_fields restricts allele resolution."""
         parser = Parser()

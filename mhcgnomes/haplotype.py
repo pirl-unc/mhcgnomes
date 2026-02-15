@@ -192,15 +192,18 @@ class Haplotype(ResultWithMultipleAlleles):
 
     def to_string(self, include_species=True, use_old_species_prefix=False):
         if self.locus_restriction:
-            result = self.locus_restriction.to_string(
+            prefix = self.locus_restriction.to_string(
                 include_species=include_species, use_old_species_prefix=use_old_species_prefix
             )
         else:
-            result = self.species.to_string(
+            prefix = self.species.to_string(
                 include_species=include_species, use_old_species_prefix=use_old_species_prefix
             )
 
-        result += f"-{self.name}"
+        if prefix:
+            result = f"{prefix}-{self.name}"
+        else:
+            result = self.name
 
         if self.class_restriction:
             result += f" class {self.class_restriction}"
