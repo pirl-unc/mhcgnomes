@@ -1181,6 +1181,27 @@ class TestParseMultipleCandidatesSpeciesThenTokens:
         assert len(results) > 0
 
 
+class TestAdversarialSpeciesStickiness:
+    """Regression tests for species-scoped parsing."""
+
+    def test_explicit_species_does_not_switch_to_other_species(self):
+        for s in ["Onmy-DAA2", "Sasa-DAA2", "Maar-A2"]:
+            assert parse(s, raise_on_error=False) is None
+
+    def test_nested_species_prefix_does_not_override_explicit_species(self):
+        for s in ["Onmy-Nini-DAA1", "HLA-Maar-A*01:01"]:
+            assert parse(s, raise_on_error=False) is None
+
+    def test_malformed_compact_suffix_does_not_become_partial_allele(self):
+        for s in ["BoLA-NC11x", "Saoe-N1x", "Maar-A1x", "Onmy-DAA1x"]:
+            assert parse(s, raise_on_error=False) is None
+
+    def test_valid_species_scoped_compact_names_still_parse(self):
+        eq_(parse("Onmy-DAA1", raise_on_error=True), Gene.get("Onmy", "DAA"))
+        eq_(parse("Saoe-N3", raise_on_error=True), Gene.get("Saoe", "N3"))
+        eq_(parse("BoLA-NC11", raise_on_error=True), Gene.get("BoLA", "NC11"))
+
+
 class TestHaplotypeSlashRestriction:
     """Tests for haplotype slash parsing with class restriction."""
 
