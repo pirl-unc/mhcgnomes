@@ -1,0 +1,172 @@
+schema_version: 1
+description: >
+  Source registry for planned reptile and amphibian MHC expansion. This file is
+  not yet loaded by runtime code; it is a curation ledger for ontology work.
+
+confidence_levels:
+  high_gene_level: >
+    Safe for species and gene-level ontology. Not automatically safe for
+    canonical allele ingestion.
+  medium_genome_backed: >
+    Safe for species plus genome-backed gene-family aliases with provenance.
+  low_alias_only: >
+    Useful for literature aliases and planning, but not safe as canonical
+    allele ontology without extra curation.
+
+taxa:
+  Xela:
+    scientific_name: Xenopus laevis
+    clade: frog
+    ontology_status: existing
+    ingest_confidence: high_gene_level
+    recommended_ingest_level: gene
+    taxonomy_sources:
+      - https://amphibiansoftheworld.amnh.org/
+    structured_sources:
+      - https://www.xenbase.org/
+      - https://www.ncbi.nlm.nih.gov/datasets/
+    literature_sources:
+      - https://pubmed.ncbi.nlm.nih.gov/28695290/
+    canonical_gene_candidates:
+      - UAA
+      - TAP1
+      - TAP2
+      - TAPBP
+      - B2M
+    notes: >
+      Existing frog baseline in mhcgnomes. Xenbase is the preferred source for
+      future Xenopus gene expansion.
+
+  Xetr:
+    scientific_name: Xenopus tropicalis
+    clade: frog
+    ontology_status: pilot_species_only
+    ingest_confidence: high_gene_level
+    recommended_ingest_level: species
+    taxonomy_sources:
+      - https://amphibiansoftheworld.amnh.org/
+    structured_sources:
+      - https://www.xenbase.org/
+      - https://www.ncbi.nlm.nih.gov/datasets/
+    literature_sources:
+      - https://pubmed.ncbi.nlm.nih.gov/28695290/
+    candidate_gene_families:
+      - class I
+      - antigen processing genes
+    notes: >
+      Safe pilot species for Xenopus expansion. Gene symbols should be taken
+      from Xenbase before adding runtime ontology entries beyond species.
+
+  Sica:
+    scientific_name: Sistrurus catenatus
+    clade: snake
+    ontology_status: existing
+    ingest_confidence: medium_genome_backed
+    recommended_ingest_level: revisit
+    taxonomy_sources:
+      - https://www.reptile-database.org/
+    structured_sources:
+      - https://www.ncbi.nlm.nih.gov/datasets/
+    literature_sources:
+      - https://pubmed.ncbi.nlm.nih.gov/39704347/
+    canonical_gene_candidates:
+      - DAA
+      - DAB
+    notes: >
+      Current snake support likely under-models real snake MHC architecture.
+      Rattlesnake genome papers suggest class I and class IIbeta expansion.
+
+  Anca:
+    scientific_name: Anolis carolinensis
+    clade: lizard
+    ontology_status: pilot_species_only
+    ingest_confidence: medium_genome_backed
+    recommended_ingest_level: species
+    taxonomy_sources:
+      - https://www.reptile-database.org/
+    structured_sources:
+      - https://www.ncbi.nlm.nih.gov/datasets/
+    literature_sources:
+      - https://pubmed.ncbi.nlm.nih.gov/36425073/
+    candidate_gene_families:
+      - class I
+      - class II
+      - TAP1
+      - TAP2
+      - TAPBP
+      - B2M
+    notes: >
+      Best first lizard pilot because two Anolis genomes define a core MHC
+      region and associated framework genes.
+
+  Ansa:
+    scientific_name: Anolis sagrei
+    clade: lizard
+    ontology_status: pilot_species_only
+    ingest_confidence: medium_genome_backed
+    recommended_ingest_level: species
+    taxonomy_sources:
+      - https://www.reptile-database.org/
+    structured_sources:
+      - https://www.ncbi.nlm.nih.gov/datasets/
+    literature_sources:
+      - https://pubmed.ncbi.nlm.nih.gov/36425073/
+    candidate_gene_families:
+      - class I
+      - class II
+      - TAP1
+      - TAP2
+      - TAPBP
+      - B2M
+    notes: >
+      Companion Anolis pilot species from the same genome-backed study.
+
+backlog_clades:
+  turtles:
+    ingest_confidence: low_alias_only
+    taxonomy_sources:
+      - https://www.reptile-database.org/
+    structured_sources:
+      - https://www.ncbi.nlm.nih.gov/datasets/
+    literature_sources:
+      - https://pubmed.ncbi.nlm.nih.gov/41575191/
+      - https://pubmed.ncbi.nlm.nih.gov/35154791/
+    recommendation: >
+      Add species and provenance first. Treat paper alleles as aliases until
+      stable cross-study locus naming is demonstrated.
+
+  crocodilians:
+    ingest_confidence: medium_genome_backed
+    taxonomy_sources:
+      - https://www.reptile-database.org/
+    structured_sources:
+      - https://www.ncbi.nlm.nih.gov/datasets/
+    literature_sources:
+      - https://pubmed.ncbi.nlm.nih.gov/24253731/
+    recommendation: >
+      Good target for species plus gene-family support from genome-backed data.
+
+  salamanders:
+    ingest_confidence: low_alias_only
+    taxonomy_sources:
+      - https://amphibiansoftheworld.amnh.org/
+    structured_sources:
+      - https://www.ncbi.nlm.nih.gov/datasets/
+    literature_sources:
+      - https://pubmed.ncbi.nlm.nih.gov/36000494/
+      - https://pubmed.ncbi.nlm.nih.gov/34375431/
+    recommendation: >
+      Defer canonical allele ingestion. Multigene class I architecture is too
+      variable to model from survey papers alone.
+
+  tuatara:
+    ingest_confidence: medium_genome_backed
+    taxonomy_sources:
+      - https://www.reptile-database.org/
+    structured_sources:
+      - https://www.ncbi.nlm.nih.gov/datasets/
+    literature_sources:
+      - https://pubmed.ncbi.nlm.nih.gov/25953959/
+    recommendation: >
+      Use as an architecture stress-test species after the first lizard and
+      snake pilots.
