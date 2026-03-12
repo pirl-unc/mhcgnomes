@@ -1,11 +1,15 @@
-# Underrepresented Taxa MHC Expansion Plan
+# Curation Guide
 
 ## Purpose
 
-This document is a source and ingestion plan for expanding `mhcgnomes`
-beyond its best-covered taxa into reptiles, amphibians, and other
-underrepresented vertebrate groups, including mammals that lack stable
+This document records the rules for placing curated data in `mhcgnomes`
+and the source strategy for taxa that are not yet well served by stable
 committee-curated MHC nomenclature.
+
+Most of the concrete examples here come from reptiles, amphibians, and
+other underrepresented vertebrate groups, but the same rules also apply
+to unusual mammals or any other taxon where source quality is ahead of
+stable nomenclature.
 
 The key constraint is that `mhcgnomes` is strongest when it has:
 
@@ -30,7 +34,7 @@ These live in `mhcgnomes/data/species.yaml` at:
 - `mhcgnomes/data/species.yaml:2251`
 
 These entries parse, but they are not yet backed by a broader ingestion
-strategy or dedicated tests across reptiles/amphibians.
+strategy or dedicated tests across most underrepresented taxa.
 
 This branch also introduces a structured curation ledger at:
 
@@ -88,7 +92,7 @@ behavior.
 | File | Put this here | Why |
 | --- | --- | --- |
 | `mhcgnomes/data/underrepresented_taxa_source_registry.yaml` | Partial but useful source information: candidate species, observed gene-family structure, representative annotation URLs, blockers, example species | This is the holding area for real signal that is not stable enough for runtime ontology |
-| `UNDERREPRESENTED_TAXA_EXPANSION_PLAN.md` | Cross-file policy, source strategy, confidence tiers, implementation order | This explains decisions; it should not be the only place where concrete partial source facts live |
+| `docs/curation.md` | Cross-file policy, source strategy, confidence tiers, implementation order | This explains decisions; it should not be the only place where concrete partial source facts live |
 
 ### Practical decision tree
 
