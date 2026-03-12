@@ -209,6 +209,9 @@ What we know:
   homologs of mammalian core MHC genes.
 - This is one of the clearest reptile cases for genome-backed, gene-level
   ingestion.
+- The strongest current comparative paper is Card et al. 2022, which analyzes
+  the green and brown anole MHC using genome structure, BAC evidence, and
+  comparative annotation.
 
 What can be confidently ingested:
 
@@ -220,11 +223,46 @@ What can be confidently ingested:
 What is not yet safe as canonical allele ontology:
 
 - paper-specific lizard allele numbering not grounded in stable external records
+- paper-local homolog numbering from Card et al. 2022
+- homology-derived NCBI `LOC...` model records treated as if they were settled
+  community locus names
+
+What is ambiguous specifically for `Anolis`:
+
+- The 2022 paper identifies `mhc1` and `mhc2β` homologs, but its phylogenies
+  label homologs with sequential within-paper numbers and point readers to a
+  supplementary mapping table. That is useful comparative biology, but not yet
+  a community nomenclature standard.
+- The same paper reports that one of two `mhc2β` homologs in each anole lacks
+  exon 2, which means that even "gene copy count" is not equivalent to
+  "intact canonical class IIbeta loci".
+- NCBI annotations for these species are still mostly model-based and use names
+  such as `LOC103282626` ("major histocompatibility complex class I-related gene
+  protein-like") and `LOC132766334` ("RLA class II histocompatibility antigen,
+  DP alpha-1 chain-like"). Those are useful evidence for gene-family presence,
+  but they are not strong enough to canonize as runtime gene symbols in
+  `mhcgnomes`.
+- The green anole annotations have already moved between assemblies
+  (`AnoCar2.0` to `rAnoCar3.1.pri`), which is a good sign for the assembly but a
+  reason not to freeze unstable identifiers too early.
 
 Recommendation:
 
 - Lizards are one of the best first reptile targets because the source is genome
   structural, not just amplicon diversity.
+- For `Anolis`, stay at species-level support until we curate a small set of
+  exact gene symbols backed by stable accessions, not just model `LOC` records.
+
+Primary sources for `Anolis`:
+
+- Card et al. 2022, squamate MHC in two `Anolis` genomes:
+  https://pubmed.ncbi.nlm.nih.gov/36425073/
+- Eckalbar et al. 2013, green anole genome reannotation:
+  https://pubmed.ncbi.nlm.nih.gov/23343042/
+- NCBI green anole class I-like model gene example:
+  https://www.ncbi.nlm.nih.gov/gene/103282626
+- NCBI brown anole class II alpha-like model gene example:
+  https://www.ncbi.nlm.nih.gov/gene/132766334
 
 ### Turtles
 

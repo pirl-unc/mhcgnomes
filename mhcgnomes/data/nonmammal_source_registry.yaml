@@ -88,6 +88,9 @@ taxa:
       - https://www.ncbi.nlm.nih.gov/datasets/
     literature_sources:
       - https://pubmed.ncbi.nlm.nih.gov/36425073/
+      - https://pubmed.ncbi.nlm.nih.gov/23343042/
+    representative_annotation_sources:
+      - https://www.ncbi.nlm.nih.gov/gene/103282626
     candidate_gene_families:
       - class I
       - class II
@@ -95,6 +98,24 @@ taxa:
       - TAP2
       - TAPBP
       - B2M
+    ambiguities:
+      - >
+        The 2022 squamate MHC paper identifies mhc1 and mhc2beta homologs, but
+        labels homologs sequentially within the paper rather than proposing a
+        stable comparative nomenclature.
+      - >
+        One of two mhc2beta homologs in each anole species is reported to lack
+        exon 2, so not every annotated homolog corresponds to an intact
+        canonical class IIbeta gene.
+      - >
+        Current NCBI annotation uses provisional model records such as
+        LOC103282626 "major histocompatibility complex class I-related gene
+        protein-like" instead of stable community-recognized MHC locus names.
+      - >
+        The green anole class I-related record has moved from an unplaced
+        scaffold in AnoCar2.0 to chromosome 2 in rAnoCar3.1.pri, which is good
+        evidence of improving assemblies but also a reason to avoid freezing
+        runtime gene symbols too early.
     notes: >
       Best first lizard pilot because two Anolis genomes define a core MHC
       region and associated framework genes.
@@ -111,6 +132,8 @@ taxa:
       - https://www.ncbi.nlm.nih.gov/datasets/
     literature_sources:
       - https://pubmed.ncbi.nlm.nih.gov/36425073/
+    representative_annotation_sources:
+      - https://www.ncbi.nlm.nih.gov/gene/132766334
     candidate_gene_families:
       - class I
       - class II
@@ -118,6 +141,19 @@ taxa:
       - TAP2
       - TAPBP
       - B2M
+    ambiguities:
+      - >
+        The same 2022 Anolis paper provides strong evidence for a core MHC
+        region on chromosome 2, but it does not establish a stable allele or
+        locus naming system suitable for direct mhcgnomes runtime ingestion.
+      - >
+        NCBI currently exposes model records such as LOC132766334 "RLA class II
+        histocompatibility antigen, DP alpha-1 chain-like", which are clearly
+        homology-derived labels rather than a settled Anolis nomenclature.
+      - >
+        The brown anole assembly is newer than the green anole reference work,
+        so annotations are improving quickly and may still shift as assemblies
+        and models stabilize.
     notes: >
       Companion Anolis pilot species from the same genome-backed study.
 
