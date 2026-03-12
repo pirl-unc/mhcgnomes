@@ -302,3 +302,15 @@ def test_DRB5_0108N_with_inferred_alpha():
     assert result is not None
     eq_(type(result), Pair)
     assert result.annotation_null
+
+
+def test_parse_hla_dqb2_01_01_01_01():
+    gene = parse("HLA-DQB2")
+    eq_(gene.gene_name, "DQB2")
+    eq_(gene.mhc_class, "IIa")
+
+    allele = parse("HLA-DQB2*01:01:01:01")
+    eq_(type(allele), Allele)
+    eq_(allele.gene.name, "DQB2")
+    eq_(allele.allele_fields, ("01", "01", "01", "01"))
+    assert allele.is_class2_beta
