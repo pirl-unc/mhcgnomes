@@ -1,10 +1,11 @@
-# Nonmammal MHC Expansion Plan
+# Underrepresented Taxa MHC Expansion Plan
 
 ## Purpose
 
 This document is a source and ingestion plan for expanding `mhcgnomes`
-beyond its current mammal, fish, and bird-heavy coverage into reptiles,
-amphibians, and related underrepresented vertebrate groups.
+beyond its best-covered taxa into reptiles, amphibians, and other
+underrepresented vertebrate groups, including mammals that lack stable
+committee-curated MHC nomenclature.
 
 The key constraint is that `mhcgnomes` is strongest when it has:
 
@@ -18,7 +19,7 @@ yet an `IPD-MHC`-style curated comparative allele registry for these clades.
 
 ## Current Repo State
 
-Current nonmammal, non-fish, non-bird coverage is minimal:
+Current reptile/amphibian coverage is minimal:
 
 - snake: `Sistrurus catenatus` (`Sica`) with `DAA` / `DAB`
 - frog: `Xenopus laevis` (`Xela`) with `UAA`
@@ -33,7 +34,12 @@ strategy or dedicated tests across reptiles/amphibians.
 
 This branch also introduces a structured curation ledger at:
 
-- `mhcgnomes/data/nonmammal_source_registry.yaml`
+- `mhcgnomes/data/underrepresented_taxa_source_registry.yaml`
+
+The right design boundary is not "nonmammal". The right boundary is
+"taxa that are not yet well served by stable IPD-style nomenclature and
+therefore need source-aware ingestion rules". That can include unusual
+mammals such as marsupials or monotremes.
 
 ## Source Inventory
 
@@ -443,7 +449,8 @@ This phase should happen only when one of the following is true:
 
 ## Design Constraints For mhcgnomes
 
-To keep `mhcgnomes` coherent, new nonmammal ingestion should follow these rules:
+To keep `mhcgnomes` coherent, new underrepresented-taxa ingestion should follow
+these rules:
 
 1. Separate canonical ontology from paper-local aliases.
 2. Never invent stable allele names where the source community has not.
@@ -454,7 +461,7 @@ To keep `mhcgnomes` coherent, new nonmammal ingestion should follow these rules:
 
 ## Proposed Next Concrete Tasks
 
-1. Add a source registry module or YAML sidecar for nonmammal species.
+1. Add a source registry module or YAML sidecar for underrepresented taxa.
 2. Add tests for existing `Sica` and `Xela` coverage so the current baseline is
    explicit.
 3. Add `Xenopus tropicalis` and expand `Xenopus` gene metadata from Xenbase.

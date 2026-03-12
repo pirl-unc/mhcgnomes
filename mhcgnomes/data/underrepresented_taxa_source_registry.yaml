@@ -1,7 +1,7 @@
 schema_version: 1
 description: >
-  Source registry for planned reptile and amphibian MHC expansion. This file is
-  not yet loaded by runtime code; it is a curation ledger for ontology work.
+  Source registry for planned MHC expansion in underrepresented taxa. This file
+  is not yet loaded by runtime code; it is a curation ledger for ontology work.
 
 confidence_levels:
   high_gene_level: >
@@ -158,6 +158,18 @@ taxa:
       Companion Anolis pilot species from the same genome-backed study.
 
 backlog_clades:
+  unusual_mammals:
+    ingest_confidence: medium_genome_backed
+    taxonomy_sources:
+      - https://www.ncbi.nlm.nih.gov/datasets/
+    structured_sources:
+      - https://www.ncbi.nlm.nih.gov/datasets/
+    literature_sources: []
+    recommendation: >
+      This registry is not limited to nonmammals. Use it for mammals that are
+      weakly covered by current mhcgnomes ontology or lack stable committee
+      nomenclature, such as marsupials or monotremes.
+
   turtles:
     ingest_confidence: low_alias_only
     taxonomy_sources:
