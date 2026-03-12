@@ -1196,6 +1196,14 @@ class TestAdversarialSpeciesStickiness:
         for s in ["BoLA-NC11x", "Saoe-N1x", "Maar-A1x", "Onmy-DAA1x"]:
             assert parse(s, raise_on_error=False) is None
 
+    def test_explicit_species_does_not_fall_back_to_foreign_haplotype(self):
+        for s in ["Sasa-RT11", "Saoe-RT11"]:
+            assert parse(s, raise_on_error=False) is None
+
+    def test_exact_gene_prefix_blocks_shorter_compact_gene_parse(self):
+        for s in ["BoLA-NC11Q", "BoLA-NC11N"]:
+            assert parse(s, raise_on_error=False) is None
+
     def test_valid_species_scoped_compact_names_still_parse(self):
         eq_(parse("Onmy-DAA1", raise_on_error=True), Gene.get("Onmy", "DAA"))
         eq_(parse("Saoe-N3", raise_on_error=True), Gene.get("Saoe", "N3"))
