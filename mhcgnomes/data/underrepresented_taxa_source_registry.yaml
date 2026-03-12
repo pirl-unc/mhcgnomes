@@ -3,6 +3,13 @@ description: >
   Source registry for planned MHC expansion in underrepresented taxa. This file
   is not yet loaded by runtime code; it is a curation ledger for ontology work.
 
+capture_statuses:
+  runtime_ready: >
+    Ready for inclusion in runtime ontology files such as species.yaml.
+  partial_capture_only: >
+    Valuable source-backed information exists, but it should remain in this
+    registry until nomenclature and scope are stable enough for runtime use.
+
 confidence_levels:
   high_gene_level: >
     Safe for species and gene-level ontology. Not automatically safe for
@@ -18,6 +25,7 @@ taxa:
     scientific_name: Xenopus laevis
     clade: frog
     ontology_status: existing
+    capture_status: runtime_ready
     ingest_confidence: high_gene_level
     recommended_ingest_level: gene
     taxonomy_sources:
@@ -41,6 +49,7 @@ taxa:
     scientific_name: Xenopus tropicalis
     clade: frog
     ontology_status: pilot_species_only
+    capture_status: runtime_ready
     ingest_confidence: high_gene_level
     recommended_ingest_level: species
     taxonomy_sources:
@@ -61,6 +70,7 @@ taxa:
     scientific_name: Sistrurus catenatus
     clade: snake
     ontology_status: existing
+    capture_status: partial_capture_only
     ingest_confidence: medium_genome_backed
     recommended_ingest_level: revisit
     taxonomy_sources:
@@ -72,6 +82,12 @@ taxa:
     canonical_gene_candidates:
       - DAA
       - DAB
+    observed_structure:
+      - current_runtime_baseline: class II DAA/DAB only
+      - literature_signal: duplicated class I and class IIbeta architecture
+    blocked_on:
+      - stable comparative snake locus nomenclature
+      - accession-backed gene labels suitable for runtime aliases
     notes: >
       Current snake support likely under-models real snake MHC architecture.
       Rattlesnake genome papers suggest class I and class IIbeta expansion.
@@ -80,6 +96,7 @@ taxa:
     scientific_name: Anolis carolinensis
     clade: lizard
     ontology_status: pilot_species_only
+    capture_status: partial_capture_only
     ingest_confidence: medium_genome_backed
     recommended_ingest_level: species
     taxonomy_sources:
@@ -98,6 +115,9 @@ taxa:
       - TAP2
       - TAPBP
       - B2M
+    observed_structure:
+      - core MHC region on chromosome 2
+      - two mhc2beta homologs reported, one lacking exon 2
     ambiguities:
       - >
         The 2022 squamate MHC paper identifies mhc1 and mhc2beta homologs, but
@@ -124,6 +144,7 @@ taxa:
     scientific_name: Anolis sagrei
     clade: lizard
     ontology_status: pilot_species_only
+    capture_status: partial_capture_only
     ingest_confidence: medium_genome_backed
     recommended_ingest_level: species
     taxonomy_sources:
@@ -141,6 +162,9 @@ taxa:
       - TAP2
       - TAPBP
       - B2M
+    observed_structure:
+      - core MHC region on chromosome 2
+      - two mhc2beta homologs reported, one lacking exon 2
     ambiguities:
       - >
         The same 2022 Anolis paper provides strong evidence for a core MHC
@@ -159,18 +183,30 @@ taxa:
 
 backlog_clades:
   unusual_mammals:
+    capture_status: partial_capture_only
     ingest_confidence: medium_genome_backed
     taxonomy_sources:
       - https://www.ncbi.nlm.nih.gov/datasets/
     structured_sources:
       - https://www.ncbi.nlm.nih.gov/datasets/
     literature_sources: []
+    example_species:
+      - Monodelphis domestica
+      - Didelphis virginiana
+      - Ornithorhynchus anatinus
+    observed_structure:
+      - may have useful genome-backed MHC annotations without committee nomenclature
+      - may need source-aware ingestion just like reptiles and amphibians
+    blocked_on:
+      - species-specific source review
+      - stable accessions and gene symbols worth canonizing
     recommendation: >
       This registry is not limited to nonmammals. Use it for mammals that are
       weakly covered by current mhcgnomes ontology or lack stable committee
       nomenclature, such as marsupials or monotremes.
 
   turtles:
+    capture_status: partial_capture_only
     ingest_confidence: low_alias_only
     taxonomy_sources:
       - https://www.reptile-database.org/
@@ -179,11 +215,18 @@ backlog_clades:
     literature_sources:
       - https://pubmed.ncbi.nlm.nih.gov/41575191/
       - https://pubmed.ncbi.nlm.nih.gov/35154791/
+    observed_structure:
+      - recent 4-species class I and class II allele survey
+      - strong evidence for species-level and family-level support
+    blocked_on:
+      - stable cross-study locus naming
+      - decision on how to store paper-local aliases
     recommendation: >
       Add species and provenance first. Treat paper alleles as aliases until
       stable cross-study locus naming is demonstrated.
 
   crocodilians:
+    capture_status: partial_capture_only
     ingest_confidence: medium_genome_backed
     taxonomy_sources:
       - https://www.reptile-database.org/
@@ -191,10 +234,16 @@ backlog_clades:
       - https://www.ncbi.nlm.nih.gov/datasets/
     literature_sources:
       - https://pubmed.ncbi.nlm.nih.gov/24253731/
+    observed_structure:
+      - order-level class I evolution signal
+      - genome-backed MHC organization exists for at least some species
+    blocked_on:
+      - curated species-by-species gene symbol pass
     recommendation: >
       Good target for species plus gene-family support from genome-backed data.
 
   salamanders:
+    capture_status: partial_capture_only
     ingest_confidence: low_alias_only
     taxonomy_sources:
       - https://amphibiansoftheworld.amnh.org/
@@ -203,11 +252,18 @@ backlog_clades:
     literature_sources:
       - https://pubmed.ncbi.nlm.nih.gov/36000494/
       - https://pubmed.ncbi.nlm.nih.gov/34375431/
+    observed_structure:
+      - very large class I expansion
+      - APG coevolution signal with TAP genes
+    blocked_on:
+      - stable locus naming
+      - strategy for multigene class I families
     recommendation: >
       Defer canonical allele ingestion. Multigene class I architecture is too
       variable to model from survey papers alone.
 
   tuatara:
+    capture_status: partial_capture_only
     ingest_confidence: medium_genome_backed
     taxonomy_sources:
       - https://www.reptile-database.org/
@@ -215,6 +271,10 @@ backlog_clades:
       - https://www.ncbi.nlm.nih.gov/datasets/
     literature_sources:
       - https://pubmed.ncbi.nlm.nih.gov/25953959/
+    observed_structure:
+      - dispersed MHC organization with class I and class IIbeta support
+    blocked_on:
+      - species-specific accession curation
     recommendation: >
       Use as an architecture stress-test species after the first lizard and
       snake pilots.

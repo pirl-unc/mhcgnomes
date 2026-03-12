@@ -41,6 +41,25 @@ The right design boundary is not "nonmammal". The right boundary is
 therefore need source-aware ingestion rules". That can include unusual
 mammals such as marsupials or monotremes.
 
+## Partial Capture Policy
+
+Not every useful source belongs in `mhcgnomes/data/species.yaml`.
+
+When a source gives us real signal but not runtime-ready nomenclature, the
+information should be captured in
+`mhcgnomes/data/underrepresented_taxa_source_registry.yaml` instead.
+
+That registry is now the place to preserve:
+
+- candidate species that are not ready for runtime ontology
+- observed gene-family structure from papers or genome annotations
+- representative annotation URLs or accessions
+- blockers that prevent runtime ingestion
+- example species for under-reviewed clades, including unusual mammals
+
+This keeps partial information from being lost while avoiding premature
+canonization in runtime parsing tables.
+
 ## Source Inventory
 
 ### Tier 1: Official structured databases
