@@ -60,6 +60,52 @@ That registry is now the place to preserve:
 This keeps partial information from being lost while avoiding premature
 canonization in runtime parsing tables.
 
+## Data Placement Rules
+
+The rule is: put data in the narrowest runtime file that matches its level of
+stability.
+
+### Runtime-loaded files
+
+These are loaded by `mhcgnomes/data.py` and directly affect parser behavior.
+
+| File | Put this here | Do not put this here |
+| --- | --- | --- |
+| `mhcgnomes/data/species.yaml` | Canonical species entries, canonical gene names, MHC class placement, stable parent/prefix relationships | Paper-local aliases, uncertain gene symbols, unresolved candidate loci |
+| `mhcgnomes/data/gene_aliases.yaml` | Alternative gene spellings or retired/provisional names that normalize to an existing canonical gene in `species.yaml` | New genes that do not yet have a canonical destination in `species.yaml` |
+| `mhcgnomes/data/allele_aliases.yaml` | Retired, shorthand, or formatting variants that normalize to a canonical allele string | New literature-only alleles with no stable canonical allele target |
+| `mhcgnomes/data/known_alleles.yaml` | Curated known allele labels for a species/gene where the ontology already exists | A substitute for adding missing species or genes |
+| `mhcgnomes/data/haplotypes.yaml` | Named haplotypes and their member alleles | Partial gene-family observations from papers |
+| `mhcgnomes/data/serotypes.yaml` | Serotype-to-allele mappings | General class I / class II family structure |
+| `mhcgnomes/data/heterodimers.yaml` | Explicit shorthand heterodimer mappings like `DQ2.5` | Speculative alpha/beta combinations from weak literature evidence |
+| `mhcgnomes/data/supertypes.yaml` | Functional supertype groupings with clear representative alleles | Serotypes or paper-local functional clusters |
+
+### Non-runtime curation files
+
+These preserve source-backed information that is not yet ready to affect parser
+behavior.
+
+| File | Put this here | Why |
+| --- | --- | --- |
+| `mhcgnomes/data/underrepresented_taxa_source_registry.yaml` | Partial but useful source information: candidate species, observed gene-family structure, representative annotation URLs, blockers, example species | This is the holding area for real signal that is not stable enough for runtime ontology |
+| `UNDERREPRESENTED_TAXA_EXPANSION_PLAN.md` | Cross-file policy, source strategy, confidence tiers, implementation order | This explains decisions; it should not be the only place where concrete partial source facts live |
+
+### Practical decision tree
+
+1. If the species prefix and canonical gene names are stable, add them to `species.yaml`.
+2. If a new string can normalize to an existing canonical gene, put it in `gene_aliases.yaml`.
+3. If a new string can normalize to an existing canonical allele, put it in `allele_aliases.yaml`.
+4. If the source only tells us "this clade probably has class I / class IIbeta / TAP genes" but not stable canonical names, capture it in `underrepresented_taxa_source_registry.yaml`.
+5. If the source is a survey paper with paper-local allele IDs, do not put those IDs in runtime YAML unless they map cleanly onto stable canonical names.
+6. If the data encodes a derived concept like a serotype, supertype, haplotype, or heterodimer shorthand, use the dedicated file for that concept rather than overloading `species.yaml`.
+
+### Current special cases
+
+- `mhcgnomes/data/default_alleles.yaml` exists but is currently minimal and not
+  part of the main runtime loading path in `mhcgnomes/data.py`.
+- `mhcgnomes/data/common_genes.yaml` is currently empty and should stay that way
+  unless there is a concrete runtime feature that needs it.
+
 ## Source Inventory
 
 ### Tier 1: Official structured databases

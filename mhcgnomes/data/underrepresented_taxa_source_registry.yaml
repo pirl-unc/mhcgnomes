@@ -2,6 +2,10 @@ schema_version: 1
 description: >
   Source registry for planned MHC expansion in underrepresented taxa. This file
   is not yet loaded by runtime code; it is a curation ledger for ontology work.
+placement_rule: >
+  Put information here when it is source-backed and useful but not stable enough
+  to canonize in runtime files like species.yaml, gene_aliases.yaml, or
+  allele_aliases.yaml.
 
 capture_statuses:
   runtime_ready: >
