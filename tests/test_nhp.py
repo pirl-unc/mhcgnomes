@@ -1,3 +1,5 @@
+import pytest
+
 from mhcgnomes import Allele, Gene, Species, parse
 
 from .common import eq_
@@ -56,3 +58,35 @@ def test_monkey_allele_Aoni_DRB3_06_01():
 def test_Mamu_A7_allele_without_seps():
     s = "Mamu-A70103"
     eq_(parse(s).to_string(), "Mamu-A7*01:03")
+
+
+NHP_NOVEL_GENE_EXAMPLES = [
+    ("Paha-AG*02:01:01:01", "Paha", "AG", ("02", "01", "01", "01")),
+    ("Mamu-K*02:01:01:01", "Mamu", "K", ("02", "01", "01", "01")),
+    ("Paan-J*01:01:01:01", "Paan", "J", ("01", "01", "01", "01")),
+    ("Paan-K*01:01:01:01", "Paan", "K", ("01", "01", "01", "01")),
+]
+
+
+@pytest.mark.parametrize(
+    "allele_name,species_prefix,gene_name,_fields",
+    NHP_NOVEL_GENE_EXAMPLES,
+)
+def test_nhp_novel_gene_lookup(allele_name, species_prefix, gene_name, _fields):
+    gene = Gene.get(species_prefix, gene_name)
+    assert gene is not None
+    eq_(gene.name, gene_name)
+    eq_(gene.mhc_class, "I")
+
+
+@pytest.mark.parametrize(
+    "allele_name,species_prefix,gene_name,fields",
+    NHP_NOVEL_GENE_EXAMPLES,
+)
+def test_parse_nhp_novel_gene_alleles(allele_name, species_prefix, gene_name, fields):
+    allele = parse(allele_name)
+    eq_(type(allele), Allele)
+    eq_(allele.species.prefix, species_prefix)
+    eq_(allele.gene.name, gene_name)
+    eq_(allele.allele_fields, fields)
+    assert allele.is_class1
