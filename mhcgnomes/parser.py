@@ -626,6 +626,10 @@ class Parser:
             return []
         candidate_results = []
 
+        exact_gene = Gene.get(species, str_after_species)
+        if exact_gene is not None:
+            return [exact_gene]
+
         known_allele = species.get_known_allele(gene_name=None, allele_name=str_after_species)
 
         if known_allele is not None:
@@ -645,10 +649,29 @@ class Parser:
                 candidate_results.append(gene)
                 continue
 
+            if (
+                "*" not in str_after_species
+                and not any(sep in str_after_species for sep in self.gene_seps)
+                and not self._compact_gene_suffix_can_be_allele(gene, allele_name)
+            ):
+                continue
+
             allele = self.parse_allele_with_gene(gene, allele_name, raw_string=raw_string)
             if allele:
                 candidate_results.append(allele)
         return candidate_results
+
+    def _compact_gene_suffix_can_be_allele(self, gene: Gene, allele_name: str) -> bool:
+        allele_name = self.strip_extra_chars(allele_name)
+        if not allele_name:
+            return False
+        if gene.species.is_mouse:
+            return allele_name.isalnum() and not allele_name.isnumeric()
+        if gene.species.is_rat:
+            return allele_name.isalnum()
+        if gene.species.is_pig:
+            return True
+        return any(char.isdigit() for char in allele_name)
 
     def parse_allele_with_gene(
         self,
@@ -1146,6 +1169,57 @@ class Parser:
                 print("""=== Standard format result """)
                 print(standard_result)
             return [standard_result]
+
+        explicit_species, str_after_explicit_species = self.parse_species_from_prefix(name=seq)
+        if explicit_species is not None:
+            parse_candidates = []
+            str_after_explicit_species = self.strip_extra_chars(str_after_explicit_species)
+            if len(str_after_explicit_species) == 0:
+                parse_candidates.append(explicit_species)
+            else:
+                if self.verbose:
+                    print("=== Functions with explicit species prefix ===")
+                fns_with_species = [
+                    Class2Locus.get,
+                    Gene.get,
+                    self.get_heterodimer,
+                    self.get_serotype,
+                    self.get_supertype,
+                    self.get_haplotype,
+                    self.parse_allele_or_gene_candidates,
+                    self.parse_class2_pair_with_hyphen_sep,
+                    self.parse_haplotype_with_class2_locus_from_any_string_split,
+                ]
+                for fn in fns_with_species:
+                    result = fn(explicit_species, str_after_explicit_species)
+                    if self.verbose:
+                        print(
+                            "{}({}, '{}') = {}".format(
+                                fn.__qualname__,
+                                explicit_species,
+                                seq,
+                                "None" if not result else f"{result}",
+                            )
+                        )
+                    if result is None:
+                        continue
+                    if type(result) in (list, tuple):
+                        parse_candidates.extend(result)
+                    elif isinstance(result, Result):
+                        parse_candidates.append(result)
+                    else:
+                        raise ParseError(
+                            f"Unexpected result '{result}' while parsing '{raw_string}'"
+                        )
+                full_token_haplotype = self.parse_haplotype(seq, default_species=explicit_species)
+                if (
+                    full_token_haplotype is not None
+                    and full_token_haplotype.has_species
+                    and full_token_haplotype.species == explicit_species
+                ):
+                    parse_candidates.append(full_token_haplotype)
+            parse_candidates = unique(parse_candidates)
+            return self.adjust_raw_strings(parse_candidates, raw_string=raw_string)
 
         # list containing all candidate results
         parse_candidates = []

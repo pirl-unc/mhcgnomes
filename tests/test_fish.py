@@ -32,6 +32,34 @@ def test_parse_trout_allele_Onmy_DAB_050101():
     eq_(result, expected)
 
 
+def test_parse_trout_gene_alias_Onmy_DAA1():
+    result = parse("Onmy-DAA1", raise_on_error=True)
+    expected = Gene.get("Onmy", "DAA")
+    assert expected is not None
+    eq_(result, expected)
+
+
+def test_parse_trout_allele_alias_Onmy_DAA1_01_01():
+    result = parse("Onmy-DAA1*01:01", raise_on_error=True)
+    expected = Allele.get("Onmy", "DAA", ["01", "01"])
+    assert expected is not None
+    eq_(result, expected)
+
+
+def test_parse_salmon_gene_alias_Sasa_DAA1():
+    result = parse("Sasa-DAA1", raise_on_error=True)
+    expected = Gene.get("Sasa", "DAA")
+    assert expected is not None
+    eq_(result, expected)
+
+
+def test_parse_salmon_allele_alias_Sasa_DAA1_01_01():
+    result = parse("Sasa-DAA1*01:01", raise_on_error=True)
+    expected = Allele.get("Sasa", "DAA", ["01", "01"])
+    assert expected is not None
+    eq_(result, expected)
+
+
 def test_parse_grass_carp_B2M_1_ii_star_sep():
     expected = Allele.get("Ctid", "B2M-1", "ii")
     result = parse("Ctid-B2M-1*ii")

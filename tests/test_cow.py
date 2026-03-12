@@ -33,6 +33,14 @@ def test_parse_BoLA_N_001001_with_colon_sep():
     eq_(allele.allele_fields, ("001", "01"))
 
 
+def test_bola_nc_does_not_parse_as_n_with_letter_suffix():
+    assert parse("BoLA-NC", raise_on_error=False) is None
+
+
+def test_bola_nc_allele_does_not_parse_as_partial_n_allele():
+    assert parse("BoLA-NC*001:01", raise_on_error=False) is None
+
+
 NOVEL_CATTLE_GENE_EXAMPLES = [
     ("BoLA-DRB4*001:01", "BoLA", "DRB4", "IIa", ("001", "01")),
     ("BoLA-DRB5*001:01", "BoLA", "DRB5", "IIa", ("001", "01")),

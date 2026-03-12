@@ -60,6 +60,34 @@ def test_Mamu_A7_allele_without_seps():
     eq_(parse(s).to_string(), "Mamu-A7*01:03")
 
 
+def test_parse_saoe_gene_alias_N():
+    result = parse("Saoe-N", raise_on_error=True)
+    expected = Gene.get("Saoe", "N1")
+    assert expected is not None
+    eq_(result, expected)
+
+
+def test_parse_saoe_allele_alias_N_01_01():
+    result = parse("Saoe-N*01:01", raise_on_error=True)
+    expected = Allele.get("Saoe", "N1", ("01", "01"))
+    assert expected is not None
+    eq_(result, expected)
+
+
+def test_parse_maar_gene_alias_A():
+    result = parse("Maar-A", raise_on_error=True)
+    expected = Gene.get("Maar", "A1")
+    assert expected is not None
+    eq_(result, expected)
+
+
+def test_parse_maar_allele_alias_A_01_01():
+    result = parse("Maar-A*01:01", raise_on_error=True)
+    expected = Allele.get("Maar", "A1", ("01", "01"))
+    assert expected is not None
+    eq_(result, expected)
+
+
 NHP_NOVEL_GENE_EXAMPLES = [
     ("Paha-AG*02:01:01:01", "Paha", "AG", ("02", "01", "01", "01")),
     ("Mamu-K*02:01:01:01", "Mamu", "K", ("02", "01", "01", "01")),

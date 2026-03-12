@@ -84,5 +84,15 @@ FLA:
   DPB: DPB1
 Ctid:
   B2M: B2M-1
+Onmy:
+  DAA1: DAA
+  DAB1: DAB
+Sasa:
+  DAA1: DAA
+  DAB1: DAB
+Saoe:
+  N: N1
+Maar:
+  A: A1
 MaLA:
   F: F1
