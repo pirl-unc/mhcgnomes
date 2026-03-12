@@ -2247,6 +2247,9 @@ Ailuropoda melanoleuca:
 #
 # Xenopus (frog)
 #
+# Sources:
+# - https://www.xenbase.org/
+#
 ##########################
 Xenopus laevis:
   prefix: Xela
@@ -2259,6 +2262,24 @@ Xenopus laevis:
       - TAP2
       - TAPBP
       - B2M
+Xenopus tropicalis:
+  prefix: Xetr
+  name: Tropical clawed frog
+##########################
+#
+# Lizards
+#
+# Sources:
+# - https://pubmed.ncbi.nlm.nih.gov/36425073/
+# - https://www.reptile-database.org/
+#
+##########################
+Anolis carolinensis:
+  prefix: Anca
+  name: Green anole
+Anolis sagrei:
+  prefix: Ansa
+  name: Brown anole
 ##########################
 #
 # Possum
