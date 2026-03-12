@@ -640,6 +640,17 @@ Cetacea sp.:
     - Cetacean
     - Dolphin
     - Whale
+  genes:
+    I:
+      - N
+      - S
+    IIa:
+      DQ:
+        - DQA
+        - DQB
+      DR:
+        - DRA
+        - DRB1
 Balaenoptera musculus:
   parent: Cetacea sp.
   prefix: Bamu

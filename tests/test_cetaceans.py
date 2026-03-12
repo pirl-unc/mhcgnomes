@@ -113,3 +113,16 @@ def test_cela_old_prefix_round_trip():
 
     allele = parse("Tutr-DQA*001:01:01")
     eq_(allele.to_string(use_old_species_prefix=True), "CELA-DQA*001:01:01")
+
+
+def test_parse_historic_cela_input_uses_generic_species():
+    gene = Gene.get("CELA", "DQA")
+    assert gene is not None
+    eq_(gene.species.prefix, "CELA")
+    eq_(gene.mhc_class, "IIa")
+
+    allele = parse("CELA-DQA*001:01:01")
+    eq_(type(allele), Allele)
+    eq_(allele.species.prefix, "CELA")
+    eq_(allele.gene.name, "DQA")
+    eq_(allele.allele_fields, ("001", "01", "01"))
