@@ -547,10 +547,25 @@ class Parser:
         Returns list of (gene_name, str_after_gene) pairs.
         """
         results = []
+        longest_exact_gene_with_annotation_suffix = 0
+        for n in range(len(seq), 0, -1):
+            substring = seq[:n]
+            parsed = Gene.get(species, substring)
+            if (
+                parsed
+                and self.strip_extra_chars(seq[n:]).lower()
+                in _SINGLE_CHAR_FUNCTIONAL_ANNOTATIONS.lower()
+            ):
+                longest_exact_gene_with_annotation_suffix = n
+                break
         for n in range(len(seq), 0, -1):
             substring = seq[:n]
             parsed = Gene.get(species, substring)
             if parsed:
+                if longest_exact_gene_with_annotation_suffix > n and self.strip_extra_chars(
+                    seq[n:]
+                ):
+                    continue
                 results.append((parsed, seq[n:]))
         return results
 
@@ -608,7 +623,11 @@ class Parser:
             regex_match = Parser.compact_gene_and_allele_regex.fullmatch(str_after_species)
             if regex_match:
                 gene_name, str_after_gene = regex_match.groups()
-                add_to_candidates(gene_name, self.strip_extra_chars(str_after_gene))
+                longer_exact_gene = species.find_matching_gene_name(
+                    self.strip_extra_chars(str_after_species[:-1])
+                )
+                if longer_exact_gene is None:
+                    add_to_candidates(gene_name, self.strip_extra_chars(str_after_gene))
         return unique(candidates)
 
     def split_by_hyphen_except_gene_names(self, species, str_after_species):
@@ -1211,6 +1230,12 @@ class Parser:
 
         explicit_species, str_after_explicit_species = self.parse_species_from_prefix(name=seq)
         if explicit_species is not None:
+            if (
+                strict_default_species
+                and default_species is not None
+                and explicit_species != Species.get(default_species)
+            ):
+                return []
             parse_candidates = []
             str_after_explicit_species = self.strip_extra_chars(str_after_explicit_species)
             if len(str_after_explicit_species) == 0:
