@@ -38,3 +38,37 @@ def test_human_class_1(s):
         f"Expected '{expected_string_repr}' for compact representation of '{s}' "
         f"but got '{compact_str}'"
     )
+
+
+def test_mhc_class_get_rejects_unknown_species_and_invalid_class():
+    assert MhcClass.get("NOT_A_SPECIES", "I") is None
+    assert MhcClass.get("HLA", "not a class") is None
+
+
+def test_mhc_class_genes_returns_matching_gene_objects():
+    result = MhcClass.get("HLA", "I")
+
+    genes = result.genes()
+    gene_names = {gene.name for gene in genes}
+
+    assert "A" in gene_names
+    assert "B" in gene_names
+    assert "DRA" not in gene_names
+    assert all(gene.species_prefix == "HLA" for gene in genes)
+    assert all(gene.is_class1 for gene in genes)
+
+
+def test_mhc_class_to_record_and_strings():
+    result = MhcClass.get("HLA", "II")
+
+    assert result is not None
+    assert result.is_class2
+    assert not result.is_class1
+    assert result.to_string() == "human class II"
+    assert result.to_string(include_species=False) == "class II"
+    assert result.compact_string(include_species=False) == "class II"
+    assert result.to_record() == {
+        "species_prefix": "HLA",
+        "species_name": "Homo sapiens",
+        "mhc_class": "II",
+    }

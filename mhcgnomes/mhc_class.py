@@ -13,6 +13,7 @@
 from typing import Union
 
 from .errors import ParseError
+from .gene import Gene
 from .mhc_class_helpers import (
     is_class1,
     is_class2,
@@ -59,9 +60,9 @@ class MhcClass(ResultWithMhcClass):
         Returns all gene names whose MHC class matches this MHC class
         """
         return [
-            g
-            for g in self.species.genes()
-            if is_valid_restriction(self.mhc_class, self.get_mhc_class_of_gene(g))
+            Gene.get(self.species, gene_name)
+            for gene_name in sorted(self.species.gene_names)
+            if is_valid_restriction(self.mhc_class, self.species.get_mhc_class_of_gene(gene_name))
         ]
 
     def to_record(self):
