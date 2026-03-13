@@ -90,6 +90,49 @@ def test_parse_olive_flounder_species_Paol():
     eq_(parse("Paol", raise_on_error=True), expected)
 
 
+def test_parse_zebrafish_species_Dare():
+    expected = Species.get("Dare")
+    assert expected is not None
+    eq_(parse("Dare", raise_on_error=True), expected)
+
+
+def test_parse_zebrafish_UBA_gene_and_allele():
+    expected_gene = Gene.get("Dare", "UBA")
+    expected_allele = Allele.get("Dare", "UBA", "01")
+    assert expected_gene is not None
+    assert expected_allele is not None
+    eq_(expected_gene.mhc_class, "Ia")
+    eq_(parse("Dare-UBA", raise_on_error=True), expected_gene)
+    eq_(parse("Dare-UBA*01", raise_on_error=True), expected_allele)
+
+
+def test_parse_nile_tilapia_species_Orni():
+    expected = Species.get("Orni")
+    assert expected is not None
+    eq_(parse("Orni", raise_on_error=True), expected)
+
+
+def test_parse_nile_tilapia_genes_and_example_alleles():
+    examples = [
+        ("DAA", ("05", "01")),
+        ("DAB", ("02", "01")),
+    ]
+    for gene_name, fields in examples:
+        expected_gene = Gene.get("Orni", gene_name)
+        expected_allele = Allele.get("Orni", gene_name, fields)
+        assert expected_gene is not None
+        assert expected_allele is not None
+        eq_(expected_gene.mhc_class, "IIa")
+        eq_(parse(f"Orni-{gene_name}", raise_on_error=True), expected_gene)
+        eq_(
+            parse(
+                f"Orni-{gene_name}*{':'.join(fields)}",
+                raise_on_error=True,
+            ),
+            expected_allele,
+        )
+
+
 def test_parse_olive_flounder_genes():
     for gene_name in ["Ia1", "Ia2", "DAA", "DAB"]:
         expected = Gene.get("Paol", gene_name)
@@ -144,6 +187,21 @@ def test_parse_orange_spotted_grouper_alleles():
         eq_(parse(f"Epco-{gene_name}*01:01", raise_on_error=True), expected)
 
 
+def test_parse_brown_trout_species_Satr():
+    expected = Species.get("Satr")
+    assert expected is not None
+    eq_(parse("Satr", raise_on_error=True), expected)
+
+
+def test_parse_brown_trout_supported_gene_families():
+    expected_classes = {"UBA": "Ia", "DAB": "IIa"}
+    for gene_name in ["UBA", "DAB"]:
+        expected = Gene.get("Satr", gene_name)
+        assert expected is not None
+        eq_(expected.mhc_class, expected_classes[gene_name])
+        eq_(parse(f"Satr-{gene_name}", raise_on_error=True), expected)
+
+
 def test_do_not_parse_ambiguous_or_unreviewed_fish_strings():
-    for s in ["Saal-UEA", "Saal-UBA", "Saal-UGA", "Saal-DAB"]:
+    for s in ["Saal-UEA", "Saal-UBA", "Saal-UGA", "Saal-DAB", "Satr-DAA"]:
         assert parse(s, raise_on_error=False) is None

@@ -326,6 +326,181 @@ taxa:
       Orange-spotted grouper currently has source support for DAA, DAB, and DBB
       and those are the only class II genes added to runtime.
 
+  Dare:
+    scientific_name: Danio rerio
+    clade: fish
+    ontology_status: runtime_added
+    capture_status: runtime_ready
+    ingest_confidence: high_gene_level
+    recommended_ingest_level: gene
+    structured_sources:
+      - https://zfin.org/ZDB-GENE-990415-145
+    literature_sources:
+      - https://pubmed.ncbi.nlm.nih.gov/7607709/
+    canonical_gene_candidates:
+      - UBA
+    notes: >
+      Runtime adds only the zebrafish class I UBA family because it is a named
+      gene in ZFIN and longstanding zebrafish MHC class I literature. Broader
+      zebrafish MHC family names seen in external datasets still need review.
+
+  Orni:
+    scientific_name: Oreochromis niloticus
+    clade: fish
+    ontology_status: runtime_added
+    capture_status: runtime_ready
+    ingest_confidence: high_gene_level
+    recommended_ingest_level: gene
+    literature_sources:
+      - https://pubmed.ncbi.nlm.nih.gov/30345515/
+      - https://pubmed.ncbi.nlm.nih.gov/31187732/
+    canonical_gene_candidates:
+      - DAA
+      - DAB
+    observed_structure:
+      - runtime_addition: class II alpha/beta DA family for Nile tilapia
+    notes: >
+      Runtime follows the exact Orni-DAA and Orni-DAB allele naming used in the
+      published tilapia resistance studies.
+
+  Satr:
+    scientific_name: Salmo trutta
+    clade: fish
+    ontology_status: runtime_added_with_registry_holdback
+    capture_status: runtime_ready
+    ingest_confidence: medium_gene_level
+    recommended_ingest_level: gene
+    literature_sources:
+      - https://pubmed.ncbi.nlm.nih.gov/11207285/
+    canonical_gene_candidates:
+      - UBA
+      - DAB
+    ambiguities:
+      - >
+        The current source trail supports brown trout UBA and DAB explicitly,
+        but does not yet justify adding Satr-DAA or other broader salmonid
+        labels surfaced by mhcseqs.
+    blocked_on:
+      - accession-backed confirmation for any Satr genes beyond UBA and DAB
+    notes: >
+      Runtime adds the clearly named classical class I UBA family and class II
+      DAB family only.
+
+  Chpi:
+    scientific_name: Chrysolophus pictus
+    clade: bird
+    ontology_status: runtime_added
+    capture_status: runtime_ready
+    ingest_confidence: high_gene_level
+    recommended_ingest_level: gene
+    literature_sources:
+      - https://pubmed.ncbi.nlm.nih.gov/26700854/
+    canonical_gene_candidates:
+      - IA1
+      - IA2
+      - IA3
+    observed_structure:
+      - runtime_addition: IA1 and IA2 as classical class I genes
+      - runtime_addition: IA3 as nonclassical class I gene
+    notes: >
+      Runtime adds the three named golden pheasant class I loci reported in the
+      locus-characterization paper, including the user-requested IA2. The same
+      paper explicitly distinguishes IA1 and IA2 as classical loci and IA3 as
+      a nonclassical class I gene, which is why IA3 is mapped to Ib.
+
+  Coja:
+    scientific_name: Coturnix japonica
+    clade: bird
+    ontology_status: runtime_added_with_registry_holdback
+    capture_status: runtime_ready
+    ingest_confidence: high_gene_level
+    recommended_ingest_level: gene
+    literature_sources:
+      - https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1769493/
+      - https://pubmed.ncbi.nlm.nih.gov/15258705/
+    canonical_gene_candidates:
+      - DAB1
+      - DBB1
+      - DCB1
+      - DDB1
+      - DEB1
+      - DFB1
+      - DGB1
+    ambiguities:
+      - >
+        The paper also contains study-local II-xx labels. Those strings are
+        held back because they are not cleanly tied to a stable gene family.
+      - >
+        Additional DM-family names in external datasets need separate source
+        review before they enter runtime ontology.
+      - >
+        Coja-DDB1 appears as a named locus in the quail paper and is now
+        runtime-enabled as a class II beta gene on naming-pattern and locus
+        context grounds, but the direct allele-level support is still weaker
+        than for the other D?B1 loci in the same dataset.
+    blocked_on:
+      - canonical mapping for Coja-II-13, Coja-II-16, and Coja-II-17
+      - validation of any Coja DMA/DMB family names not directly curated here
+      - stronger allele-level confirmation for runtime-added Coja-DDB1
+    notes: >
+      Runtime adds the explicitly named quail class II beta loci from the
+      structural-flexibility paper, including Coja-DDB1. DDB1 remains tagged
+      here as follow-up curation debt because the present source trail is
+      strong enough for gene-level runtime support, but still weaker than the
+      other named D?B1 loci for allele-level confidence.
+
+  Fuat:
+    scientific_name: Fulica atra
+    clade: bird
+    ontology_status: runtime_added
+    capture_status: runtime_ready
+    ingest_confidence: high_gene_level
+    recommended_ingest_level: gene
+    literature_sources:
+      - https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3967895/
+    canonical_gene_candidates:
+      - DAB
+    notes: >
+      Runtime follows the exact Fuat-DAB nomenclature used in the Eurasian coot
+      MHC class II B diversity study.
+
+  Sphu:
+    scientific_name: Spheniscus humboldti
+    clade: bird
+    ontology_status: runtime_added
+    capture_status: runtime_ready
+    ingest_confidence: medium_gene_level
+    recommended_ingest_level: gene
+    literature_sources:
+      - https://pubmed.ncbi.nlm.nih.gov/15714307/
+    canonical_gene_candidates:
+      - DRB1
+    observed_structure:
+      - runtime_addition: DRB1-like class II beta family
+    notes: >
+      Runtime adopts DRB1 as a family-level bird class II beta name because the
+      published Humboldt penguin locus is described as DRB1-like throughout.
+
+  Spma:
+    scientific_name: Spheniscus magellanicus
+    clade: bird
+    ontology_status: runtime_added
+    capture_status: runtime_ready
+    ingest_confidence: medium_gene_level
+    recommended_ingest_level: gene
+    literature_sources:
+      - https://pubmed.ncbi.nlm.nih.gov/19319519/
+    canonical_gene_candidates:
+      - DRB1
+    observed_structure:
+      - runtime_addition: DRB1-like class II beta family in banded penguins
+    ambiguities:
+      - >
+        The supporting paper is genus-wide rather than a dedicated Magellanic
+        penguin locus paper, so this should be treated as family-level support.
+    notes: >
+      Runtime adds Spma-DRB1 conservatively as a DRB1-like family label.
+
   Saal:
     scientific_name: Salvelinus alpinus
     clade: fish
@@ -353,6 +528,92 @@ taxa:
     notes: >
       Keep Saal out of species.yaml for now. Revisit when the individual labels
       used by mhcseqs are backed by cleaner accession-level evidence.
+
+  Ritr:
+    scientific_name: Rissa tridactyla
+    clade: bird
+    ontology_status: registry_only
+    capture_status: partial_capture_only
+    ingest_confidence: low_alias_only
+    recommended_ingest_level: revisit
+    literature_sources:
+      - https://pubmed.ncbi.nlm.nih.gov/40874768/
+      - https://pubmed.ncbi.nlm.nih.gov/40795975/
+    candidate_gene_families:
+      - DRB1
+    ambiguities:
+      - >
+        Current source support establishes black-legged kittiwake MHC class II
+        beta diversity, but not a clean species-local DRB1 family name.
+    blocked_on:
+      - source that ties Ritr directly to DRB1 rather than generic MHC-IIB
+    notes: >
+      Keep Ritr out of runtime until the DRB1 naming in mhcseqs is validated.
+
+  Otel:
+    scientific_name: Otus elegans
+    clade: bird
+    ontology_status: registry_only
+    capture_status: partial_capture_only
+    ingest_confidence: low_alias_only
+    recommended_ingest_level: revisit
+    literature_sources:
+      - https://pubmed.ncbi.nlm.nih.gov/32281698/
+    candidate_gene_families:
+      - DAB
+    ambiguities:
+      - >
+        Owl MHC work supports class II beta diversity, but the current source
+        trail does not yet anchor Otel to a stable DAB family name.
+    blocked_on:
+      - exact Otel-DAB nomenclature support
+    notes: >
+      Leave Otel registry-only until a source-backed DAB naming convention is
+      confirmed for Ryukyu scops owl.
+
+  Tyal:
+    scientific_name: Tyto alba
+    clade: bird
+    ontology_status: existing_with_alias_gap
+    capture_status: partial_capture_only
+    ingest_confidence: low_alias_only
+    recommended_ingest_level: alias_review
+    literature_sources:
+      - https://pubmed.ncbi.nlm.nih.gov/27176619/
+    observed_structure:
+      - existing_runtime_support: DAB1, DAB2
+      - external_aliases_seen: UA
+    ambiguities:
+      - >
+        Barn owl class I loci are reported in the literature, but the generic
+        UA label used by mhcseqs is not yet tied to a stable canonical locus.
+    blocked_on:
+      - canonical mapping for Tyal-UA
+    notes: >
+      Keep Tyal-UA out of runtime until the class I nomenclature is reconciled
+      with the existing owl ontology.
+
+  Saha:
+    scientific_name: Sarcophilus harrisii
+    clade: marsupial
+    ontology_status: registry_only
+    capture_status: partial_capture_only
+    ingest_confidence: low_alias_only
+    recommended_ingest_level: revisit
+    literature_sources:
+      - https://pubmed.ncbi.nlm.nih.gov/17610663/
+      - https://pubmed.ncbi.nlm.nih.gov/35578017/
+    candidate_gene_families:
+      - I
+    ambiguities:
+      - >
+        Tasmanian devil class I genes are split across named loci such as UA,
+        UB, UC, UK, and UM. A bare Saha-I string is too generic to normalize.
+    blocked_on:
+      - stable alias policy for generic class I labels in marsupials
+    notes: >
+      Keep Saha-I registry-only. Runtime should not collapse generic class I
+      shorthand onto a specific devil locus without a source-backed rule.
 
   Gaga:
     scientific_name: Gallus gallus

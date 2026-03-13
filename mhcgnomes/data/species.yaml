@@ -479,14 +479,34 @@ Salmo salar:
 # - https://www.jstage.jst.go.jp/article/fishsci1994/70/2/70_2_264/_article
 # - https://pubmed.ncbi.nlm.nih.gov/16874444/
 # - https://pubmed.ncbi.nlm.nih.gov/20580738/
+# - https://zfin.org/ZDB-GENE-990415-145
+# - https://pubmed.ncbi.nlm.nih.gov/7607709/
+# - https://pubmed.ncbi.nlm.nih.gov/30345515/
+# - https://pubmed.ncbi.nlm.nih.gov/31187732/
+# - https://pubmed.ncbi.nlm.nih.gov/11207285/
 # - https://pubmed.ncbi.nlm.nih.gov/30341571/
 # - https://bmcgenomdata.biomedcentral.com/articles/10.1186/1471-2156-12-78
 # - https://www.sciencedirect.com/science/article/abs/pii/S0044848616302113
 # - https://www.sciencedirect.com/science/article/abs/pii/S209592731630130X
+# - https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3967895/
 # - https://www.uniprot.org/uniprotkb/Q6BFC9/entry
 # - https://www.uniprot.org/uniprotkb/Q32L55/entry
 #
 ############################
+Danio rerio:
+  prefix: Dare
+  name: Zebrafish
+  genes:
+    Ia:
+      - UBA
+Oreochromis niloticus:
+  prefix: Orni
+  name: Nile tilapia
+  genes:
+    IIa:
+      DA:
+        - DAA
+        - DAB
 Paralichthys olivaceus:
   prefix: Paol
   name: Olive flounder
@@ -519,6 +539,15 @@ Epinephelus coioides:
         - DAB
       DB:
         - DBB
+Salmo trutta:
+  prefix: Satr
+  name: Brown trout
+  genes:
+    Ia:
+      - UBA
+    IIa:
+      DA:
+        - DAB
 ############################
 #
 # Snakes
@@ -1238,6 +1267,75 @@ Gallus gallus:
       - TAP2
       - TAPBP
       - B2M
+################################################################################
+#
+# Additional birds
+#
+# Sources:
+# - https://pubmed.ncbi.nlm.nih.gov/26700854/
+# - https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1769493/
+# - https://pubmed.ncbi.nlm.nih.gov/15258705/
+# - https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3967895/
+# - https://pubmed.ncbi.nlm.nih.gov/15714307/
+# - https://pubmed.ncbi.nlm.nih.gov/19319519/
+#
+################################################################################
+Chrysolophus pictus:
+  prefix: Chpi
+  name: Golden pheasant
+  genes:
+    Ia:
+      - IA1
+      - IA2
+    Ib:
+      # PMID 26700854: IA3 was defined as a nonclassical class I gene after
+      # showing no expression in multiple tissues and being excluded from the
+      # core MHC-B region.
+      - IA3
+Coturnix japonica:
+  prefix: Coja
+  name: Japanese quail
+  genes:
+    IIa:
+      DA:
+        - DAB1
+      DB:
+        - DBB1
+      DC:
+        - DCB1
+      # TODO: Revisit Coja-DDB1 when stronger allele-level evidence is pinned
+      # down. It fits the quail MHC class IIB naming pattern and is enabled as
+      # a class II beta locus for now, but the current source trail is weaker
+      # than for DAB1/DBB1/DCB1/DEB1/DFB1/DGB1.
+      DD:
+        - DDB1
+      DE:
+        - DEB1
+      DF:
+        - DFB1
+      DG:
+        - DGB1
+Fulica atra:
+  prefix: Fuat
+  name: Eurasian coot
+  genes:
+    IIa:
+      DA:
+        - DAB
+Spheniscus humboldti:
+  prefix: Sphu
+  name: Humboldt penguin
+  genes:
+    IIa:
+      DR:
+        - DRB1
+Spheniscus magellanicus:
+  prefix: Spma
+  name: Magellanic penguin
+  genes:
+    IIa:
+      DR:
+        - DRB1
 ################################################################################
 #
 # Duck
