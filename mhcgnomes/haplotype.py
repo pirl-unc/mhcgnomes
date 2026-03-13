@@ -11,7 +11,7 @@
 # limitations under the License.
 
 from collections.abc import Sequence
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Union
 
 from .allele import Allele
@@ -79,7 +79,7 @@ class Haplotype(ResultWithMultipleAlleles):
 
     class_restriction: Union[str, None] = None
     locus_restriction: Union[Class2Locus, None] = None
-    parent_haplotypes: tuple["Haplotype", ...] = field(default_factory=tuple)
+    parent_haplotypes: Union[tuple["Haplotype", ...], None] = None
 
     def __init__(
         self,
@@ -99,7 +99,7 @@ class Haplotype(ResultWithMultipleAlleles):
         self._set_field(
             self,
             "parent_haplotypes",
-            tuple(parent_haplotypes) if parent_haplotypes is not None else (),
+            tuple(parent_haplotypes) if parent_haplotypes is not None else None,
         )
 
     @classmethod
@@ -219,6 +219,12 @@ class Haplotype(ResultWithMultipleAlleles):
             result += f" class {self.class_restriction}"
 
         return result
+
+    def to_record(self):
+        # TODO: Add a conservative haplotype record schema in a future release.
+        # Keep the historical NotImplemented behavior for now so 3.0.0 preserves
+        # previous public behavior aside from the documented immutability changes.
+        return super().to_record()
 
     def compact_string(self, include_species=False):
         return self.to_string(include_species=include_species)

@@ -53,6 +53,34 @@ class FrozenList(list):
         return list(self)
 
 
+class FrozenSet(set):
+    def _immutable(self, *args, **kwargs):
+        raise TypeError("FrozenSet is immutable")
+
+    add = _immutable
+    clear = _immutable
+    difference_update = _immutable
+    discard = _immutable
+    intersection_update = _immutable
+    pop = _immutable
+    remove = _immutable
+    symmetric_difference_update = _immutable
+    update = _immutable
+    __ior__ = _immutable
+    __iand__ = _immutable
+    __isub__ = _immutable
+    __ixor__ = _immutable
+
+    def copy(self):
+        return set(self)
+
+    def __repr__(self):
+        return repr(set(self))
+
+    def __str__(self):
+        return str(set(self))
+
+
 def _ensure_normalizing_set(values):
     if values is None:
         return NormalizingSet()
@@ -85,7 +113,7 @@ def _freeze_nested_value(value):
     if isinstance(value, (list, tuple)):
         return FrozenList(_freeze_nested_value(v) for v in value)
     if isinstance(value, (set, frozenset)):
-        return frozenset(_freeze_nested_value(v) for v in value)
+        return FrozenSet(_freeze_nested_value(v) for v in value)
     return value
 
 
@@ -113,8 +141,8 @@ class Species(Result):
     supertypes: Any = None
     parent_species: Union["Species", None] = None
     old_mhc_prefix: str = ""
-    other_mhc_prefixes: frozenset[str] = frozenset()
-    other_common_names: tuple[str, ...] = ()
+    other_mhc_prefixes: Any = None
+    other_common_names: Any = None
 
     def __init__(
         self,
@@ -163,9 +191,9 @@ class Species(Result):
 
         self._set_field(self, "name", name)
         self._set_field(self, "common_name", common_name)
-        self._set_field(self, "other_common_names", tuple(other_common_names))
+        self._set_field(self, "other_common_names", FrozenList(other_common_names))
         self._set_field(self, "mhc_prefix", mhc_prefix)
-        self._set_field(self, "other_mhc_prefixes", frozenset(other_mhc_prefixes))
+        self._set_field(self, "other_mhc_prefixes", FrozenSet(other_mhc_prefixes))
         if old_mhc_prefix:
             normalized_old_mhc_prefix = old_mhc_prefix
         else:

@@ -47,6 +47,18 @@ def test_species_serotype_lists_stay_list_like_but_are_read_only():
         alleles.append("A*9999")
 
 
+def test_species_alias_collections_keep_list_and_set_shapes():
+    species = Species.get("Calu")
+
+    assert isinstance(species.other_common_names, list)
+    with pytest.raises(TypeError):
+        species.other_common_names.append("canid")
+
+    assert isinstance(species.other_mhc_prefixes, set)
+    with pytest.raises(TypeError):
+        species.other_mhc_prefixes.add("BAD")
+
+
 def test_token_helpers_round_trip():
     token = Token("class-1", "class I")
     restored = Token.from_dict(token.to_dict())
@@ -69,3 +81,11 @@ def test_direct_mutation_of_constructed_gene_raises():
     gene = Gene.get("HLA", "A")
     with pytest.raises(FrozenInstanceError):
         gene.name = "B"
+
+
+def test_haplotype_preserves_missing_parent_haplotypes_as_none():
+    haplotype = parse("H2-k haplotype")
+
+    assert haplotype.parent_haplotypes is None
+    restored = type(haplotype).from_tuple(haplotype.to_tuple())
+    assert restored.parent_haplotypes is None
