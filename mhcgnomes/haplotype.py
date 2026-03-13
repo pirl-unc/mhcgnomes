@@ -11,6 +11,7 @@
 # limitations under the License.
 
 from collections.abc import Sequence
+from dataclasses import dataclass
 from typing import Union
 
 from .allele import Allele
@@ -24,6 +25,7 @@ from .result_with_multiple_alleles import ResultWithMultipleAlleles
 from .species import Species
 
 
+@dataclass(eq=False, repr=False, frozen=True, init=False)
 class Haplotype(ResultWithMultipleAlleles):
     """
     Represents a named MHC haplotype containing multiple alleles.
@@ -75,6 +77,10 @@ class Haplotype(ResultWithMultipleAlleles):
     'mouse'
     """
 
+    class_restriction: Union[str, None] = None
+    locus_restriction: Union[Class2Locus, None] = None
+    parent_haplotypes: Union[tuple["Haplotype", ...], None] = None
+
     def __init__(
         self,
         species: Species,
@@ -88,9 +94,13 @@ class Haplotype(ResultWithMultipleAlleles):
         ResultWithMultipleAlleles.__init__(
             self, species=species, name=name, alleles=alleles, raw_string=raw_string
         )
-        self.class_restriction = class_restriction
-        self.locus_restriction = locus_restriction
-        self.parent_haplotypes = parent_haplotypes
+        self._set_field(self, "class_restriction", class_restriction)
+        self._set_field(self, "locus_restriction", locus_restriction)
+        self._set_field(
+            self,
+            "parent_haplotypes",
+            tuple(parent_haplotypes) if parent_haplotypes is not None else None,
+        )
 
     @classmethod
     def str_field_names(cls):
@@ -209,6 +219,12 @@ class Haplotype(ResultWithMultipleAlleles):
             result += f" class {self.class_restriction}"
 
         return result
+
+    def to_record(self):
+        # TODO: Add a conservative haplotype record schema in a future release.
+        # Keep the historical NotImplemented behavior for now so 3.0.0 preserves
+        # previous public behavior aside from the documented immutability changes.
+        return super().to_record()
 
     def compact_string(self, include_species=False):
         return self.to_string(include_species=include_species)

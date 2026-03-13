@@ -1,15 +1,21 @@
+from dataclasses import FrozenInstanceError
+
+import pytest
+
 from mhcgnomes import Species, parse
 from mhcgnomes.tokenize import tokenize
 
 
-def test_parse_returns_defensive_copy_from_cache():
+def test_parse_returns_immutable_cached_result():
     result1 = parse("HLA-A*02:01")
     result2 = parse("HLA-A*02:01")
 
-    assert result1 is not result2
+    assert result1 is result2
 
-    result1.raw_string = "MUTATED"
-    result1.gene.name = "Z"
+    with pytest.raises(FrozenInstanceError):
+        result1.raw_string = "MUTATED"
+    with pytest.raises(FrozenInstanceError):
+        result1.gene.name = "Z"
 
     result3 = parse("HLA-A*02:01")
     assert result3.raw_string == "HLA-A*02:01"
@@ -17,14 +23,16 @@ def test_parse_returns_defensive_copy_from_cache():
     assert result3.to_string() == "HLA-A*02:01"
 
 
-def test_tokenize_returns_defensive_copy_from_cache():
+def test_tokenize_returns_immutable_cached_result():
     tokenization1 = tokenize("HLA-A*02:01")
     tokenization2 = tokenize("HLA-A*02:01")
 
-    assert tokenization1 is not tokenization2
+    assert tokenization1 is tokenization2
 
-    tokenization1.attributes["BAD"] = "1"
-    tokenization1.tokens[0].raw_string = "BAD"
+    with pytest.raises(TypeError):
+        tokenization1.attributes["BAD"] = "1"
+    with pytest.raises(FrozenInstanceError):
+        tokenization1.tokens[0].raw_string = "BAD"
 
     tokenization3 = tokenize("HLA-A*02:01")
     assert "BAD" not in tokenization3.attributes
@@ -37,6 +45,8 @@ def test_species_get_multiple_returns_immutable_cached_collection():
 
     assert isinstance(matches, tuple)
     assert all(match.prefix == "HLA" for match in matches)
+    with pytest.raises(TypeError):
+        matches[0].gene_names.add("BAD")
 
     modified = (*matches, "BAD")
     assert modified[-1] == "BAD"

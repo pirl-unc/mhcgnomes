@@ -99,6 +99,22 @@ NHP_NOVEL_GENE_EXAMPLES = [
 ]
 
 
+NHP_PSEUDOGENE_ALLELES = [
+    ("Saoe-G*03:12ps", "Saoe", "G", ("03", "12")),
+    ("Saoe-G*03:13ps", "Saoe", "G", ("03", "13")),
+    ("Saoe-G*03:14ps", "Saoe", "G", ("03", "14")),
+    ("Saoe-G*03:16ps", "Saoe", "G", ("03", "16")),
+    ("Saoe-G*03:17ps", "Saoe", "G", ("03", "17")),
+    ("Saoe-G*03:18ps", "Saoe", "G", ("03", "18")),
+    ("Saoe-G*03:19ps", "Saoe", "G", ("03", "19")),
+    ("Saoe-G*03:20ps", "Saoe", "G", ("03", "20")),
+    ("Caja-B2*01:01ps", "Caja", "B2", ("01", "01")),
+    ("Caja-B5*01:01ps", "Caja", "B5", ("01", "01")),
+    ("Caja-B8*01:01ps", "Caja", "B8", ("01", "01")),
+    ("Caja-B9*01:01ps", "Caja", "B9", ("01", "01")),
+]
+
+
 @pytest.mark.parametrize(
     "allele_name,species_prefix,gene_name,_fields",
     NHP_NOVEL_GENE_EXAMPLES,
@@ -121,3 +137,17 @@ def test_parse_nhp_novel_gene_alleles(allele_name, species_prefix, gene_name, fi
     eq_(allele.gene.name, gene_name)
     eq_(allele.allele_fields, fields)
     assert allele.is_class1
+
+
+@pytest.mark.parametrize(
+    "allele_name,species_prefix,gene_name,fields",
+    NHP_PSEUDOGENE_ALLELES,
+)
+def test_parse_nhp_pseudogene_alleles(allele_name, species_prefix, gene_name, fields):
+    allele = parse(allele_name)
+    eq_(type(allele), Allele)
+    eq_(allele.species.prefix, species_prefix)
+    eq_(allele.gene.name, gene_name)
+    eq_(allele.allele_fields, fields)
+    assert allele.annotation_pseudogene
+    assert allele.to_string().endswith("Ps")

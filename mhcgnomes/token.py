@@ -10,7 +10,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from serializable import Serializable
+from dataclasses import dataclass
+from typing import Union
 
 from .token_canonical_sequences import (
     ALPHA_CHAIN_TOKEN_SEQ,
@@ -21,18 +22,42 @@ from .token_canonical_sequences import (
 )
 
 
-class Token(Serializable):
+@dataclass(eq=False, repr=False, frozen=True, init=False)
+class Token:
+    seq: str = ""
+    raw_string: Union[str, None] = None
+
     def __init__(self, seq, raw_string=None):
-        self.seq = seq
         if raw_string is None:
             raw_string = seq
-        self.raw_string = raw_string
+        object.__setattr__(self, "seq", seq)
+        object.__setattr__(self, "raw_string", raw_string)
 
     def __str__(self):
         return f"Token('{self.seq}')"
 
     def __repr__(self):
         return f"Token(seq='{self.seq}', raw_string='{self.raw_string}')"
+
+    def to_tuple(self):
+        return (self.seq, self.raw_string)
+
+    @classmethod
+    def from_tuple(cls, values):
+        seq, raw_string = values
+        return cls(seq=seq, raw_string=raw_string)
+
+    def to_dict(self):
+        return {"seq": self.seq, "raw_string": self.raw_string}
+
+    @classmethod
+    def from_dict(cls, values):
+        return cls(**values)
+
+    def copy(self, **kwargs):
+        values = self.to_dict()
+        values.update(kwargs)
+        return self.__class__.from_dict(values)
 
     def __eq__(self, other):
         if type(other) is Token:

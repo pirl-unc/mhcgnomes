@@ -31,6 +31,7 @@ class NormalizingDictionary:
         self.normalized_to_original_keys_dict = defaultdict(set)
         self.normalize_fn = normalize_fn
         self.default_value_fn = default_value_fn
+        self._frozen = False
         self.update_pairs(pairs)
 
     def copy(self):
@@ -41,24 +42,41 @@ class NormalizingDictionary:
             *pairs, normalize_fn=self.normalize_fn, default_value_fn=self.default_value_fn
         )
 
+    def freeze(self):
+        self._frozen = True
+        return self
+
+    @property
+    def is_frozen(self):
+        return self._frozen
+
+    def _check_mutable(self):
+        if self._frozen:
+            raise TypeError("NormalizingDictionary is frozen")
+
     def update_pairs(self, pairs):
+        self._check_mutable()
         # populate dictionary with initial values via calls to __setitem__
         for k, v in pairs:
             self[k] = v
 
     def update(self, other_dict):
+        self._check_mutable()
         self.update_pairs(other_dict.items())
 
     def __getitem__(self, k):
         k_normalized = self.normalize_fn(k)
         if k_normalized not in self.store:
             if self.default_value_fn is not None:
+                if self._frozen:
+                    return self.default_value_fn()
                 self[k] = self.default_value_fn()
             else:
                 raise KeyError(k)
         return self.store[k_normalized]
 
     def __setitem__(self, k, v):
+        self._check_mutable()
         k_normalized = self.normalize_fn(k)
         self.original_to_normalized_key_dict[k] = k_normalized
         self.normalized_to_original_keys_dict[k_normalized].add(k)

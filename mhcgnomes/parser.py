@@ -13,7 +13,6 @@
 import re
 from collections import defaultdict
 from collections.abc import Iterable, Mapping, Sequence
-from copy import deepcopy
 from typing import Optional, Union
 
 from .allele import Allele
@@ -1888,21 +1887,18 @@ class Parser:
         raise_on_error: bool = True,
     ):
         """
-        Public parse entrypoint. Returns a defensive copy so callers cannot
-        mutate cached parse results.
+        Public parse entrypoint. Returns an immutable cached result object.
         """
-        return deepcopy(
-            self._parse_cached(
-                name=name,
-                infer_class2_pairing=infer_class2_pairing,
-                default_species=default_species,
-                preferred_result_types=preferred_result_types,
-                required_result_types=required_result_types,
-                only_class1=only_class1,
-                only_class2=only_class2,
-                max_allele_fields=max_allele_fields,
-                raise_on_error=raise_on_error,
-            )
+        return self._parse_cached(
+            name=name,
+            infer_class2_pairing=infer_class2_pairing,
+            default_species=default_species,
+            preferred_result_types=preferred_result_types,
+            required_result_types=required_result_types,
+            only_class1=only_class1,
+            only_class2=only_class2,
+            max_allele_fields=max_allele_fields,
+            raise_on_error=raise_on_error,
         )
 
     @cache

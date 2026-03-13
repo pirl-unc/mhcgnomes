@@ -26,7 +26,6 @@ classifiers = [
 ]
 requires-python = ">=3.9"
 dependencies = [
-    "serializable",
     "PyYAML>=5.4",
     "pandas",
     "numpy",

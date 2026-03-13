@@ -11,6 +11,7 @@
 # limitations under the License.
 
 from collections.abc import Sequence
+from dataclasses import dataclass
 from typing import Union
 
 from .allele import Allele
@@ -18,6 +19,7 @@ from .result_with_multiple_alleles import ResultWithMultipleAlleles
 from .species import Species
 
 
+@dataclass(eq=False, repr=False, frozen=True, init=False)
 class Serotype(ResultWithMultipleAlleles):
     """
     Represents an MHC serotype (serological antigen type).

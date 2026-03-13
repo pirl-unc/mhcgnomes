@@ -11,12 +11,14 @@
 # limitations under the License.
 
 import re
+from dataclasses import dataclass
 from typing import Union
 
 from .errors import ParseError
 from .result import Result
 
 
+@dataclass(eq=False, repr=False, frozen=True, init=False)
 class Mutation(Result):
     """
     Represents a single amino acid mutation in an MHC sequence.
@@ -58,13 +60,17 @@ class Mutation(Result):
     'N80I'
     """
 
+    pos: int = 0
+    aa_original: str = ""
+    aa_mutant: str = ""
+
     def __init__(
         self, pos: int, aa_original: str, aa_mutant: str, raw_string: Union[str, None] = None
     ):
         Result.__init__(self, raw_string=raw_string)
-        self.pos = pos
-        self.aa_original = aa_original
-        self.aa_mutant = aa_mutant
+        self._set_field(self, "pos", pos)
+        self._set_field(self, "aa_original", aa_original)
+        self._set_field(self, "aa_mutant", aa_mutant)
 
     def fields(self):
         return ("pos", "aa_original", "aa_mutant")
