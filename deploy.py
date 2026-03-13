@@ -336,14 +336,25 @@ def ensure_up_to_date(cfg: Config, *, cwd: Path) -> None:
     ok(f"Local {cfg.required_branch} matches {remote_refname}")
 
 
+def clean_build_artifacts(*, cwd: Path, dry_run: bool) -> None:
+    paths_to_remove = [
+        cwd / "dist",
+        cwd / "build",
+        *sorted(cwd.glob("*.egg-info")),
+    ]
+
+    note("Cleaning build artifacts ...")
+    for path in paths_to_remove:
+        note(f"rm -rf {path}")
+        if dry_run:
+            continue
+        shutil.rmtree(path, ignore_errors=True)
+
+
 def build_and_publish(cfg: Config, *, cwd: Path) -> None:
     require_cmd("python3", env=cfg.env)
 
-    note("Cleaning dist/ ...")
-    if cfg.dry_run:
-        note("rm -rf dist")
-    else:
-        shutil.rmtree(cwd / "dist", ignore_errors=True)
+    clean_build_artifacts(cwd=cwd, dry_run=cfg.dry_run)
 
     build_python = sys.executable or "python3"
     note("Checking build availability...")
