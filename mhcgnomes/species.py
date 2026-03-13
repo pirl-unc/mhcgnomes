@@ -13,6 +13,8 @@
 import re
 from collections import OrderedDict, defaultdict
 from collections.abc import Iterable, Mapping
+from dataclasses import dataclass
+from types import MappingProxyType
 from typing import Any, Union
 
 from .common import cache
@@ -30,10 +32,89 @@ from .normalizing_set import NormalizingSet
 from .result import Result
 
 
+class FrozenList(list):
+    def _immutable(self, *args, **kwargs):
+        raise TypeError("FrozenList is immutable")
+
+    append = _immutable
+    clear = _immutable
+    extend = _immutable
+    insert = _immutable
+    pop = _immutable
+    remove = _immutable
+    reverse = _immutable
+    sort = _immutable
+    __delitem__ = _immutable
+    __iadd__ = _immutable
+    __imul__ = _immutable
+    __setitem__ = _immutable
+
+    def copy(self):
+        return list(self)
+
+
+def _ensure_normalizing_set(values):
+    if values is None:
+        return NormalizingSet()
+    if isinstance(values, NormalizingSet):
+        return values.copy()
+    return NormalizingSet(*values)
+
+
+def _ensure_normalizing_dictionary(values, default_value_fn=None):
+    if values is None:
+        return NormalizingDictionary(default_value_fn=default_value_fn)
+    if isinstance(values, NormalizingDictionary):
+        result = values.copy()
+        if default_value_fn is not None and result.default_value_fn is None:
+            result.default_value_fn = default_value_fn
+        return result
+    return NormalizingDictionary.from_dict(values, default_value_fn=default_value_fn)
+
+
+def _freeze_nested_value(value):
+    if isinstance(value, NormalizingDictionary):
+        frozen_dict = value.copy()
+        for key, subvalue in list(frozen_dict.items()):
+            frozen_dict[key] = _freeze_nested_value(subvalue)
+        return frozen_dict.freeze()
+    if isinstance(value, NormalizingSet):
+        return value.copy().freeze()
+    if isinstance(value, dict):
+        return MappingProxyType({k: _freeze_nested_value(v) for k, v in value.items()})
+    if isinstance(value, (list, tuple)):
+        return FrozenList(_freeze_nested_value(v) for v in value)
+    if isinstance(value, (set, frozenset)):
+        return frozenset(_freeze_nested_value(v) for v in value)
+    return value
+
+
+@dataclass(eq=False, repr=False, frozen=True, init=False)
 class Species(Result):
     """
     Representation of a parsed species prefix such as "HLA", "ELA"
     """
+
+    name: str = ""
+    common_name: str = ""
+    mhc_prefix: str = ""
+    gene_names: Any = None
+    gene_name_to_mhc_class: Any = None
+    class2_loci: Any = None
+    class2_locus_to_gene_names: Any = None
+    class2_gene_name_to_chain_type: Any = None
+    gene_aliases: Any = None
+    reverse_gene_aliases: Any = None
+    allele_aliases: Any = None
+    known_alleles: Any = None
+    haplotypes: Any = None
+    serotypes: Any = None
+    heterodimers: Any = None
+    supertypes: Any = None
+    parent_species: Union["Species", None] = None
+    old_mhc_prefix: str = ""
+    other_mhc_prefixes: frozenset[str] = frozenset()
+    other_common_names: tuple[str, ...] = ()
 
     def __init__(
         self,
@@ -59,32 +140,65 @@ class Species(Result):
         raw_string: Union[str, None] = None,
     ):
         Result.__init__(self, raw_string=raw_string)
-        self.name = name
-        self.common_name = common_name
-        self.other_common_names = list(other_common_names)
-        self.mhc_prefix = mhc_prefix
-        self.other_mhc_prefixes = set(other_mhc_prefixes)
+
+        gene_names = _ensure_normalizing_set(gene_names)
+        gene_name_to_mhc_class = _ensure_normalizing_dictionary(gene_name_to_mhc_class)
+        class2_loci = _ensure_normalizing_set(class2_loci)
+        class2_locus_to_gene_names = _ensure_normalizing_dictionary(
+            class2_locus_to_gene_names, default_value_fn=set
+        )
+        class2_gene_name_to_chain_type = _ensure_normalizing_dictionary(
+            class2_gene_name_to_chain_type
+        )
+        gene_aliases = _ensure_normalizing_dictionary(gene_aliases)
+        allele_aliases = _ensure_normalizing_dictionary(allele_aliases)
+        known_alleles = _ensure_normalizing_dictionary(
+            known_alleles, default_value_fn=NormalizingSet
+        )
+        known_alleles = known_alleles.map_values(_ensure_normalizing_set)
+        haplotypes = _ensure_normalizing_dictionary(haplotypes)
+        serotypes = _ensure_normalizing_dictionary(serotypes)
+        heterodimers = _ensure_normalizing_dictionary(heterodimers)
+        supertypes = _ensure_normalizing_dictionary(supertypes)
+
+        self._set_field(self, "name", name)
+        self._set_field(self, "common_name", common_name)
+        self._set_field(self, "other_common_names", tuple(other_common_names))
+        self._set_field(self, "mhc_prefix", mhc_prefix)
+        self._set_field(self, "other_mhc_prefixes", frozenset(other_mhc_prefixes))
         if old_mhc_prefix:
-            self.old_mhc_prefix = old_mhc_prefix
+            normalized_old_mhc_prefix = old_mhc_prefix
         else:
-            self.old_mhc_prefix = mhc_prefix
+            normalized_old_mhc_prefix = mhc_prefix
+        self._set_field(self, "old_mhc_prefix", normalized_old_mhc_prefix)
 
-        self.gene_names = gene_names
-        self.gene_name_to_mhc_class = gene_name_to_mhc_class
-        self.class2_loci = class2_loci
-        self.class2_locus_to_gene_names = class2_locus_to_gene_names
-        self.class2_gene_name_to_chain_type = class2_gene_name_to_chain_type
-        self.gene_aliases = gene_aliases
+        self._set_field(self, "gene_names", _freeze_nested_value(gene_names))
+        self._set_field(
+            self, "gene_name_to_mhc_class", _freeze_nested_value(gene_name_to_mhc_class)
+        )
+        self._set_field(self, "class2_loci", _freeze_nested_value(class2_loci))
+        self._set_field(
+            self,
+            "class2_locus_to_gene_names",
+            _freeze_nested_value(class2_locus_to_gene_names),
+        )
+        self._set_field(
+            self,
+            "class2_gene_name_to_chain_type",
+            _freeze_nested_value(class2_gene_name_to_chain_type),
+        )
+        self._set_field(self, "gene_aliases", _freeze_nested_value(gene_aliases))
         # create a reverse lookup from proper names to their list of aliases
-        self.reverse_gene_aliases = self._create_reverse_gene_aliases(gene_names, gene_aliases)
+        reverse_gene_aliases = self._create_reverse_gene_aliases(self.gene_names, self.gene_aliases)
+        self._set_field(self, "reverse_gene_aliases", _freeze_nested_value(reverse_gene_aliases))
 
-        self.allele_aliases = allele_aliases
-        self.known_alleles = known_alleles
-        self.haplotypes = haplotypes
-        self.serotypes = serotypes
-        self.heterodimers = heterodimers
-        self.supertypes = supertypes
-        self.parent_species = parent_species
+        self._set_field(self, "allele_aliases", _freeze_nested_value(allele_aliases))
+        self._set_field(self, "known_alleles", _freeze_nested_value(known_alleles))
+        self._set_field(self, "haplotypes", _freeze_nested_value(haplotypes))
+        self._set_field(self, "serotypes", _freeze_nested_value(serotypes))
+        self._set_field(self, "heterodimers", _freeze_nested_value(heterodimers))
+        self._set_field(self, "supertypes", _freeze_nested_value(supertypes))
+        self._set_field(self, "parent_species", parent_species)
 
     def __hash__(self):
         return hash(self.name)
@@ -503,7 +617,7 @@ def create_species_for_latin_name(latin_name):
         gene_names = parent_species.gene_names.copy()
         gene_name_to_mhc_class = parent_species.gene_name_to_mhc_class.copy()
         class2_loci = parent_species.class2_loci.copy()
-        class2_locus_to_gene_names = parent_species.class2_locus_to_gene_names.copy()
+        class2_locus_to_gene_names = parent_species.class2_locus_to_gene_names.map_values(set)
         class2_gene_name_to_chain_type = parent_species.class2_gene_name_to_chain_type.copy()
 
     for mhc_class, mhc_class_members in species_info.get("genes", {}).items():

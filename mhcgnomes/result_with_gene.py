@@ -10,9 +10,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from dataclasses import dataclass
+from typing import Any
+
 from .result_with_mhc_class import ResultWithMhcClass
 
 
+@dataclass(eq=False, repr=False, frozen=True, init=False)
 class ResultWithGene(ResultWithMhcClass):
     """
     Common base class for any result object which has a species field.
@@ -20,11 +24,13 @@ class ResultWithGene(ResultWithMhcClass):
     Useful for sharing helper methods that rely on the 'species' field.
     """
 
+    gene: Any = None
+
     def __init__(self, gene, raw_string=None):
         ResultWithMhcClass.__init__(
             self, species=gene.species, mhc_class=gene.mhc_class, raw_string=raw_string
         )
-        self.gene = gene
+        self._set_field(self, "gene", gene)
 
     @property
     def has_gene(self):

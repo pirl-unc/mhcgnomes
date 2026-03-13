@@ -11,6 +11,7 @@
 # limitations under the License.
 
 from collections.abc import Sequence
+from dataclasses import dataclass
 from typing import Union
 
 from .allele import Allele
@@ -18,6 +19,7 @@ from .result_with_multiple_alleles import ResultWithMultipleAlleles
 from .species import Species
 
 
+@dataclass(eq=False, repr=False, frozen=True, init=False)
 class Supertype(ResultWithMultipleAlleles):
     """
     Represents an HLA supertype (functional peptide-binding group).
@@ -75,6 +77,8 @@ class Supertype(ResultWithMultipleAlleles):
     https://pmc.ncbi.nlm.nih.gov/articles/PMC2245908/
     """
 
+    representative: Union[Allele, None] = None
+
     def __init__(
         self,
         species: Species,
@@ -86,7 +90,7 @@ class Supertype(ResultWithMultipleAlleles):
         ResultWithMultipleAlleles.__init__(
             self, species=species, name=name, alleles=alleles, raw_string=raw_string
         )
-        self.representative = representative
+        self._set_field(self, "representative", representative)
 
     def to_string(self, include_species=True, use_old_species_prefix=False):
         if include_species:

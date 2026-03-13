@@ -10,6 +10,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from dataclasses import dataclass
 from typing import Union
 
 from .errors import ParseError
@@ -24,6 +25,7 @@ from .result_with_mhc_class import ResultWithMhcClass
 from .species import Species
 
 
+@dataclass(eq=False, repr=False, frozen=True, init=False)
 class MhcClass(ResultWithMhcClass):
     """
     Wrapper class for species combined with MHC classes such as

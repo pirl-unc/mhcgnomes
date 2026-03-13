@@ -10,9 +10,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from copy import deepcopy
-
-from serializable import Serializable
+from collections.abc import Mapping
+from dataclasses import dataclass, field
+from types import MappingProxyType
 
 from .common import cache
 from .parsing_helpers import strip_chars
@@ -20,13 +20,69 @@ from .token import Token
 from .token_substitution import simplify_tokens
 
 
-class TokenizationResult(Serializable):
+@dataclass(eq=False, repr=False, frozen=True, init=False)
+class TokenizationResult:
+    tokens: tuple[Token, ...] = field(default_factory=tuple)
+    ignored_tokens: tuple[Token, ...] = field(default_factory=tuple)
+    attributes: Mapping[str, str] = field(default_factory=dict)
+    raw_string: str = ""
+    trimmed_string: str = ""
+
     def __init__(self, tokens, ignored_tokens, attributes, raw_string, trimmed_string):
-        self.tokens = tuple(tokens)
-        self.ignored_tokens = tuple(ignored_tokens)
-        self.attributes = attributes
-        self.raw_string = raw_string
-        self.trimmed_string = trimmed_string
+        object.__setattr__(self, "tokens", tuple(tokens))
+        object.__setattr__(self, "ignored_tokens", tuple(ignored_tokens))
+        object.__setattr__(self, "attributes", MappingProxyType(dict(attributes)))
+        object.__setattr__(self, "raw_string", raw_string)
+        object.__setattr__(self, "trimmed_string", trimmed_string)
+
+    def to_tuple(self):
+        return (
+            self.tokens,
+            self.ignored_tokens,
+            dict(self.attributes),
+            self.raw_string,
+            self.trimmed_string,
+        )
+
+    @classmethod
+    def from_tuple(cls, values):
+        tokens, ignored_tokens, attributes, raw_string, trimmed_string = values
+        return cls(
+            tokens=tokens,
+            ignored_tokens=ignored_tokens,
+            attributes=attributes,
+            raw_string=raw_string,
+            trimmed_string=trimmed_string,
+        )
+
+    def to_dict(self):
+        return {
+            "tokens": self.tokens,
+            "ignored_tokens": self.ignored_tokens,
+            "attributes": dict(self.attributes),
+            "raw_string": self.raw_string,
+            "trimmed_string": self.trimmed_string,
+        }
+
+    @classmethod
+    def from_dict(cls, values):
+        return cls(**values)
+
+    def copy(self, **kwargs):
+        values = self.to_dict()
+        values.update(kwargs)
+        return self.__class__.from_dict(values)
+
+    def __repr__(self):
+        return (
+            "TokenizationResult("
+            f"tokens={self.tokens}, "
+            f"ignored_tokens={self.ignored_tokens}, "
+            f"attributes={dict(self.attributes)}, "
+            f"raw_string='{self.raw_string}', "
+            f"trimmed_string='{self.trimmed_string}'"
+            ")"
+        )
 
 
 def deparen(s):
@@ -117,4 +173,4 @@ def _cached_tokenize(name):
 
 
 def tokenize(name):
-    return deepcopy(_cached_tokenize(name))
+    return _cached_tokenize(name)

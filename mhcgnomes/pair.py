@@ -11,7 +11,8 @@
 # limitations under the License.
 
 from collections import OrderedDict
-from typing import Union
+from dataclasses import dataclass
+from typing import Any, Union
 
 from .allele import Allele
 from .allele_without_gene import AlleleWithoutGene
@@ -19,6 +20,7 @@ from .gene import Gene
 from .result_with_mhc_class import ResultWithMhcClass
 
 
+@dataclass(eq=False, repr=False, frozen=True, init=False)
 class Pair(ResultWithMhcClass):
     """
     Represents an alpha/beta pair of MHC Class II chains.
@@ -61,6 +63,9 @@ class Pair(ResultWithMhcClass):
     'HLA-DRA*01:01/DRB1*01:01'
     """
 
+    alpha: Any = None
+    beta: Any = None
+
     def __init__(
         self,
         alpha: Union[Allele, AlleleWithoutGene, Gene],
@@ -71,8 +76,8 @@ class Pair(ResultWithMhcClass):
         ResultWithMhcClass.__init__(
             self, species=alpha.species, mhc_class=mhc_class, raw_string=raw_string
         )
-        self.alpha = alpha
-        self.beta = beta
+        self._set_field(self, "alpha", alpha)
+        self._set_field(self, "beta", beta)
 
     @classmethod
     def hash_field_names(cls):
@@ -220,9 +225,5 @@ def infer_class2_alpha_chain(beta):
     if locus not in default_human_alpha_chains:
         return beta
 
-    alpha = default_human_alpha_chains.get(locus)
-
-    if alpha is None:
-        return beta
-
-    return Pair.get(alpha, beta)
+    alpha = default_human_alpha_chains[locus]
+    return Pair.get(alpha=alpha, beta=beta, raw_string=beta.raw_string)

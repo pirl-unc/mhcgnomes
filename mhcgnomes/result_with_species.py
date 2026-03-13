@@ -10,10 +10,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from dataclasses import dataclass
+from typing import Any
 
 from .result import Result
 
 
+@dataclass(eq=False, repr=False, frozen=True, init=False)
 class ResultWithSpecies(Result):
     """
     Common base class for any result object which has a species field.
@@ -21,9 +24,11 @@ class ResultWithSpecies(Result):
     Useful for sharing helper methods that rely on the 'species' field.
     """
 
+    species: Any = None
+
     def __init__(self, species, raw_string=None):
         Result.__init__(self, raw_string=raw_string)
-        self.species = species
+        self._set_field(self, "species", species)
 
     @property
     def has_species(self):

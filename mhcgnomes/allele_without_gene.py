@@ -10,17 +10,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from dataclasses import dataclass
 from typing import Union
 
 from .result_with_mhc_class import ResultWithMhcClass
 from .species import Species
 
 
+@dataclass(eq=False, repr=False, frozen=True, init=False)
 class AlleleWithoutGene(ResultWithMhcClass):
     """
     Identifier for molecule whose gene is unknown and no proper allele numbering
     is given for.
     """
+
+    name: str = ""
 
     def __init__(
         self,
@@ -32,7 +36,7 @@ class AlleleWithoutGene(ResultWithMhcClass):
         ResultWithMhcClass.__init__(
             self, species=species, mhc_class=mhc_class, raw_string=raw_string
         )
-        self.name = name
+        self._set_field(self, "name", name)
 
     def to_string(self, include_species=True, use_old_species_prefix=False):
         """

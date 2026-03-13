@@ -11,7 +11,8 @@
 # limitations under the License.
 
 from collections.abc import Sequence
-from typing import Union
+from dataclasses import dataclass, field
+from typing import Any, Union
 
 from .common import unique
 from .gene import Gene
@@ -19,7 +20,12 @@ from .result_with_species import ResultWithSpecies
 from .species import Species
 
 
+@dataclass(eq=False, repr=False, frozen=True, init=False)
 class ResultWithMultipleAlleles(ResultWithSpecies):
+    name: str = ""
+    alleles: tuple[Any, ...] = field(default_factory=tuple)
+    genes: tuple[Gene, ...] = field(default_factory=tuple)
+
     def __init__(
         self,
         species: Species,
@@ -28,18 +34,20 @@ class ResultWithMultipleAlleles(ResultWithSpecies):
         raw_string: Union[str, None] = None,
     ):
         ResultWithSpecies.__init__(self, species=species, raw_string=raw_string)
-        self.name = name
-        self.alleles = tuple(sorted(alleles))
+        sorted_alleles = tuple(sorted(alleles))
+        self._set_field(self, "name", name)
+        self._set_field(self, "alleles", sorted_alleles)
 
         genes = []
-        for allele in self.alleles:
+        for allele in sorted_alleles:
             # monomorphic alleles sometimes represented just by the gene name
             if type(allele) is Gene:
                 genes.append(allele)
             elif allele.has_gene:
                 genes.append(allele.gene)
-        self.genes = unique(genes)
-        inferred_species = unique([gene.species for gene in self.genes])
+        unique_genes = tuple(unique(genes))
+        self._set_field(self, "genes", unique_genes)
+        inferred_species = unique([gene.species for gene in unique_genes])
 
         if len(inferred_species) == 1:
             inferred_species = inferred_species[0]

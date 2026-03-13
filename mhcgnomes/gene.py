@@ -11,6 +11,7 @@
 # limitations under the License.
 
 from collections.abc import Iterable
+from dataclasses import dataclass, field
 from typing import Union
 
 from .mutation import Mutation
@@ -18,6 +19,7 @@ from .result_with_mhc_class import ResultWithMhcClass
 from .species import Species
 
 
+@dataclass(eq=False, repr=False, frozen=True, init=False)
 class Gene(ResultWithMhcClass):
     """
     Represents an MHC gene within a species.
@@ -58,6 +60,9 @@ class Gene(ResultWithMhcClass):
     'HLA-A'
     """
 
+    name: str = ""
+    mutations: tuple[Mutation, ...] = field(default_factory=tuple)
+
     def __init__(
         self,
         species: Species,
@@ -71,8 +76,8 @@ class Gene(ResultWithMhcClass):
             mhc_class=species.get_mhc_class_of_gene(name),
             raw_string=raw_string,
         )
-        self.name = name
-        self.mutations = mutations
+        self._set_field(self, "name", name)
+        self._set_field(self, "mutations", tuple(mutations))
 
     def __hash__(self):
         return hash((self.species, self.name, self.mutations))
@@ -202,4 +207,4 @@ class Gene(ResultWithMhcClass):
         return d
 
     def restrict_allele_fields(self, num_fields, drop_annotations=False, drop_mutations=False):
-        return self.copy(mutations=[] if drop_mutations else self.mutations)
+        return self.copy(mutations=() if drop_mutations else self.mutations)

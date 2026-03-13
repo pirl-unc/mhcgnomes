@@ -23,10 +23,23 @@ class NormalizingSet:
         self.item_to_original = {}
         self.items = set()
         self.normalize_fn = normalize_fn
+        self._frozen = False
         self.update(items)
 
     def copy(self):
         return NormalizingSet(*list(self), normalize_fn=self.normalize_fn)
+
+    def freeze(self):
+        self._frozen = True
+        return self
+
+    @property
+    def is_frozen(self):
+        return self._frozen
+
+    def _check_mutable(self):
+        if self._frozen:
+            raise TypeError("NormalizingSet is frozen")
 
     def __contains__(self, item):
         item = self.normalize_fn(item)
@@ -44,11 +57,13 @@ class NormalizingSet:
         return self.item_to_original.get(normalized)
 
     def add(self, extra_item):
+        self._check_mutable()
         normalized = self.normalize_fn(extra_item)
         self.item_to_original[normalized] = extra_item
         self.items.add(normalized)
 
     def update(self, extra_items):
+        self._check_mutable()
         for original in extra_items:
             self.add(original)
 

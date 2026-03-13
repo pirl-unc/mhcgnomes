@@ -11,17 +11,24 @@
 # limitations under the License.
 
 import inspect
+from dataclasses import dataclass
+from typing import Union
 
-from serializable import Serializable
 
-
-class Result(Serializable):
+@dataclass(eq=False, repr=False, frozen=True, init=False)
+class Result:
     """
     Base class for all parsed objects in mhcgnomes.
     """
 
+    raw_string: Union[str, None] = None
+
     def __init__(self, raw_string=None):
-        self.raw_string = raw_string
+        object.__setattr__(self, "raw_string", raw_string)
+
+    @staticmethod
+    def _set_field(instance, field_name, field_value):
+        object.__setattr__(instance, field_name, field_value)
 
     @classmethod
     def init_field_names(cls):
@@ -257,10 +264,3 @@ class Result(Serializable):
     @property
     def has_mhc_class(self):
         return False
-
-    @property
-    def has_gene(self):
-        return False
-
-    def restrict_allele_fields(self, num_fields, drop_annotations=False, drop_mutations=False):
-        return self

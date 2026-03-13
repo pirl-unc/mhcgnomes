@@ -11,6 +11,7 @@
 # limitations under the License.
 
 from collections.abc import Sequence
+from dataclasses import dataclass, field
 from typing import Optional, Union
 
 from .gene import Gene
@@ -18,6 +19,7 @@ from .result_with_mhc_class import ResultWithMhcClass
 from .species import Species
 
 
+@dataclass(eq=False, repr=False, frozen=True, init=False)
 class Class2Locus(ResultWithMhcClass):
     """
     Represents an MHC Class II locus (e.g., DR, DQ, DP).
@@ -62,6 +64,9 @@ class Class2Locus(ResultWithMhcClass):
     ['DRA']
     """
 
+    name: str = ""
+    _genes: tuple[Gene, ...] = field(default_factory=tuple)
+
     def __init__(
         self,
         species: Species,
@@ -73,12 +78,16 @@ class Class2Locus(ResultWithMhcClass):
         ResultWithMhcClass.__init__(
             self, species=species, mhc_class=mhc_class, raw_string=raw_string
         )
-        self.name = name
-        self.genes = genes if genes is not None else []
+        self._set_field(self, "name", name)
+        self._set_field(self, "_genes", tuple(genes) if genes is not None else ())
 
     @property
     def locus_name(self):
         return self.name
+
+    @property
+    def genes(self):
+        return list(self._genes)
 
     @classmethod
     def eq_field_names(cls):
@@ -103,7 +112,7 @@ class Class2Locus(ResultWithMhcClass):
 
     @property
     def gene_names(self):
-        return [g.name for g in self.genes]
+        return [g.name for g in self._genes]
 
     @classmethod
     def endswith_ignore_digits(cls, s1, s2):
@@ -114,7 +123,7 @@ class Class2Locus(ResultWithMhcClass):
     @property
     def alpha_chain_genes(self):
         results = []
-        for g in self.genes:
+        for g in self._genes:
             name = g.name
             if self.endswith_ignore_digits(name.lower(), "a"):
                 results.append(g)
@@ -123,7 +132,7 @@ class Class2Locus(ResultWithMhcClass):
     @property
     def beta_chain_genes(self):
         results = []
-        for g in self.genes:
+        for g in self._genes:
             name = g.name
             if self.endswith_ignore_digits(name.lower(), "b"):
                 results.append(g)

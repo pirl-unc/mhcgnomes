@@ -11,6 +11,7 @@
 # limitations under the License.
 
 from collections.abc import Iterable
+from dataclasses import dataclass, field
 from typing import Union
 
 from .gene import Gene
@@ -18,6 +19,7 @@ from .mutation import Mutation
 from .result_with_gene import ResultWithGene
 
 
+@dataclass(eq=False, repr=False, frozen=True, init=False)
 class Allele(ResultWithGene):
     """
     Represents an MHC allele with gene and allele field information.
@@ -64,6 +66,10 @@ class Allele(ResultWithGene):
     'HLA-A*02:01'
     """
 
+    allele_fields: tuple[str, ...] = field(default_factory=tuple)
+    annotations: tuple[str, ...] = field(default_factory=tuple)
+    mutations: tuple[Mutation, ...] = field(default_factory=tuple)
+
     def __init__(
         self,
         gene: Gene,
@@ -78,9 +84,9 @@ class Allele(ResultWithGene):
         else:
             gene_mutations = ()
         ResultWithGene.__init__(self, gene=gene, raw_string=raw_string)
-        self.allele_fields = tuple(allele_fields)
-        self.annotations = tuple(annotations)
-        self.mutations = gene_mutations + tuple(mutations)
+        self._set_field(self, "allele_fields", tuple(allele_fields))
+        self._set_field(self, "annotations", tuple(annotations))
+        self._set_field(self, "mutations", gene_mutations + tuple(mutations))
 
     def __hash__(self):
         return hash((self.gene, self.allele_fields, self.annotations, self.mutations))
@@ -131,8 +137,8 @@ class Allele(ResultWithGene):
         else:
             return self.copy(
                 allele_fields=self.allele_fields[:num_fields],
-                annotations=[] if drop_annotations else self.annotations,
-                mutations=[] if drop_mutations else self.mutations,
+                annotations=() if drop_annotations else self.annotations,
+                mutations=() if drop_mutations else self.mutations,
             )
 
     @classmethod

@@ -10,10 +10,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from dataclasses import dataclass
+from typing import Union
+
 from .mhc_class_helpers import is_class1, is_class2
 from .result_with_species import ResultWithSpecies
 
 
+@dataclass(eq=False, repr=False, frozen=True, init=False)
 class ResultWithMhcClass(ResultWithSpecies):
     """
     Common base class for any result object which has a species field.
@@ -21,9 +25,11 @@ class ResultWithMhcClass(ResultWithSpecies):
     Useful for sharing helper methods that rely on the 'species' field.
     """
 
+    mhc_class: Union[str, None] = None
+
     def __init__(self, species, mhc_class, raw_string=None):
         ResultWithSpecies.__init__(self, species=species, raw_string=raw_string)
-        self.mhc_class = mhc_class
+        self._set_field(self, "mhc_class", mhc_class)
 
     @property
     def has_mhc_class(self):

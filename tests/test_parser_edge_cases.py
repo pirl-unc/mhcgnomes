@@ -17,6 +17,7 @@ from mhcgnomes import (
     parse,
 )
 from mhcgnomes.token import Token
+from mhcgnomes.tokenize import tokenize
 
 from .common import eq_
 
@@ -1028,8 +1029,7 @@ class TestParseWithClassTokenNoOtherTokens:
         """Parsing class token alone returns MhcClass."""
         # Test lines 1193-1197
         parser = Parser()
-        class_token = Token("class-1", "class I")
-        class_token._is_class1 = True
+        class_token = tokenize("class I").tokens[0]
         results = parser.parse_with_class_token_to_multiple_candidates(
             class_token, [], default_species="HLA"
         )
