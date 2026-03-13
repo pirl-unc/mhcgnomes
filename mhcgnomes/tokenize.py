@@ -10,6 +10,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from copy import deepcopy
+
 from serializable import Serializable
 
 from .common import cache
@@ -92,7 +94,7 @@ def strip_whitespace_and_remove_quotes(name: str):
 
 
 @cache
-def tokenize(name):
+def _cached_tokenize(name):
     """
     Splits name into token sequence and returns TokenizationResult which
     contains a sequence of Token objects.
@@ -112,3 +114,7 @@ def tokenize(name):
         raw_string=name,
         trimmed_string=trimmed_name,
     )
+
+
+def tokenize(name):
+    return deepcopy(_cached_tokenize(name))

@@ -13,6 +13,7 @@
 import re
 from collections import defaultdict
 from collections.abc import Iterable, Mapping, Sequence
+from copy import deepcopy
 from typing import Optional, Union
 
 from .allele import Allele
@@ -1874,8 +1875,38 @@ class Parser:
                 )
         return self.transform_parse_candidates(results)
 
-    @cache
     def parse(
+        self,
+        name: str,
+        infer_class2_pairing: bool = INFER_CLASS2_PAIRING,
+        default_species: Union[Species, str, None] = DEFAULT_SPECIES_PREFIX,
+        preferred_result_types: Union[type, Iterable[type], None] = None,
+        required_result_types: Union[type, Iterable[type], None] = None,
+        only_class1: bool = False,
+        only_class2: bool = False,
+        max_allele_fields: Optional[int] = None,
+        raise_on_error: bool = True,
+    ):
+        """
+        Public parse entrypoint. Returns a defensive copy so callers cannot
+        mutate cached parse results.
+        """
+        return deepcopy(
+            self._parse_cached(
+                name=name,
+                infer_class2_pairing=infer_class2_pairing,
+                default_species=default_species,
+                preferred_result_types=preferred_result_types,
+                required_result_types=required_result_types,
+                only_class1=only_class1,
+                only_class2=only_class2,
+                max_allele_fields=max_allele_fields,
+                raise_on_error=raise_on_error,
+            )
+        )
+
+    @cache
+    def _parse_cached(
         self,
         name: str,
         infer_class2_pairing: bool = INFER_CLASS2_PAIRING,

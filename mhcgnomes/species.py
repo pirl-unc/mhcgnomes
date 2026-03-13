@@ -94,6 +94,10 @@ class Species(Result):
             return False
         return self.name == other.name
 
+    def __deepcopy__(self, memo):
+        memo[id(self)] = self
+        return self
+
     @classmethod
     def _create_reverse_gene_aliases(cls, gene_names, gene_aliases):
         """
@@ -196,7 +200,7 @@ class Species(Result):
         identify one or more species from any of its scientific name,
         common names, MHC prefixes.
         """
-        return find_matching_species_objects(species_name)
+        return tuple(find_matching_species_objects(species_name))
 
     @classmethod
     @cache
