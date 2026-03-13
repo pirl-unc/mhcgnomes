@@ -473,6 +473,54 @@ Salmo salar:
         - DAB
 ############################
 #
+# Additional fish
+#
+# Sources:
+# - https://www.jstage.jst.go.jp/article/fishsci1994/70/2/70_2_264/_article
+# - https://pubmed.ncbi.nlm.nih.gov/16874444/
+# - https://pubmed.ncbi.nlm.nih.gov/20580738/
+# - https://pubmed.ncbi.nlm.nih.gov/30341571/
+# - https://bmcgenomdata.biomedcentral.com/articles/10.1186/1471-2156-12-78
+# - https://www.sciencedirect.com/science/article/abs/pii/S0044848616302113
+# - https://www.sciencedirect.com/science/article/abs/pii/S209592731630130X
+# - https://www.uniprot.org/uniprotkb/Q6BFC9/entry
+# - https://www.uniprot.org/uniprotkb/Q32L55/entry
+#
+############################
+Paralichthys olivaceus:
+  prefix: Paol
+  name: Olive flounder
+  genes:
+    Ia:
+      - Ia1
+      - Ia2
+    IIa:
+      DA:
+        - DAA
+        - DAB
+Cynoglossus semilaevis:
+  prefix: Cyse
+  name: Chinese tongue sole
+  genes:
+    IIa:
+      DA:
+        - DAA
+        - DAB
+      DB:
+        - DBA
+        - DBB
+Epinephelus coioides:
+  prefix: Epco
+  name: Orange-spotted grouper
+  genes:
+    IIa:
+      DA:
+        - DAA
+        - DAB
+      DB:
+        - DBB
+############################
+#
 # Snakes
 #
 ############################
@@ -1120,6 +1168,37 @@ Oryctolagus cuniculus:
   parent: Oryctolagus sp.
   prefix: Orcu
   name: European rabbit
+################################################################################
+#
+# Passerine birds
+#
+# Sources:
+# - https://db.cngb.org/data_resources/protein/A0A0S2N036
+# - https://pubmed.ncbi.nlm.nih.gov/37483599/
+# - https://db.cngb.org/data_resources/protein/A0A1D9C287
+# - https://db.cngb.org/data_resources/protein/I7EHM1
+# - https://academic.oup.com/jhered/article-abstract/101/4/448/905870
+#
+################################################################################
+Acrocephalus arundinaceus:
+  prefix: Acar
+  name: Great reed warbler
+  genes:
+    I:
+      - UA
+Acrocephalus schoenobaenus:
+  prefix: Acsc
+  name: Sedge warbler
+  genes:
+    I:
+      - UA
+Geothlypis trichas:
+  prefix: Getr
+  name: Common yellowthroat
+  genes:
+    IIa:
+      DA:
+        - DAB
 ################################################################################
 #
 # Chicken

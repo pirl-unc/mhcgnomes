@@ -185,6 +185,202 @@ taxa:
     notes: >
       Companion Anolis pilot species from the same genome-backed study.
 
+  Acar:
+    scientific_name: Acrocephalus arundinaceus
+    clade: bird
+    ontology_status: runtime_added
+    capture_status: runtime_ready
+    ingest_confidence: high_gene_level
+    recommended_ingest_level: gene
+    structured_sources:
+      - https://db.cngb.org/data_resources/protein/A0A0S2N036
+    literature_sources:
+      - https://pubmed.ncbi.nlm.nih.gov/37483599/
+    canonical_gene_candidates:
+      - UA
+    observed_structure:
+      - runtime_addition: family-level class I gene UA
+      - literature_signal: duplicated passerine class I architecture exists beyond one locus
+    ambiguities:
+      - >
+        Runtime support is intentionally conservative at the family-label level
+        used in external protein resources. This does not claim that UA is the
+        only or final canonical class I locus name for this species.
+    notes: >
+      Added to runtime because current external data uses the exact gene label
+      Acar-UA. Broader passerine class I locus curation still needs review.
+
+  Acsc:
+    scientific_name: Acrocephalus schoenobaenus
+    clade: bird
+    ontology_status: runtime_added
+    capture_status: runtime_ready
+    ingest_confidence: high_gene_level
+    recommended_ingest_level: gene
+    structured_sources:
+      - https://db.cngb.org/data_resources/protein/A0A1D9C287
+    literature_sources:
+      - https://academic.oup.com/jhered/article-abstract/101/4/448/905870
+    canonical_gene_candidates:
+      - UA
+    observed_structure:
+      - runtime_addition: family-level class I gene UA
+      - literature_signal: passerine MHC class I is highly duplicated and fast-evolving
+    ambiguities:
+      - >
+        The runtime UA label follows the concrete external string Acsc-UA and
+        should be treated as family-level nomenclature rather than a completed
+        locus catalog.
+    notes: >
+      Added to runtime because current external data uses the exact gene label
+      Acsc-UA. This should not block future refinement to more specific loci.
+
+  Getr:
+    scientific_name: Geothlypis trichas
+    clade: bird
+    ontology_status: runtime_added_with_registry_holdback
+    capture_status: runtime_ready
+    ingest_confidence: high_gene_level
+    recommended_ingest_level: gene
+    structured_sources:
+      - https://db.cngb.org/data_resources/protein/I7EHM1
+      - https://www.uniprot.org/uniprotkb/I7EF30/entry
+    literature_sources:
+      - https://academic.oup.com/jhered/article-abstract/101/4/448/905870
+    canonical_gene_candidates:
+      - DAB
+    ambiguities:
+      - >
+        External resources also expose Getr-MHC as a generic class I token, but
+        that string does not identify a stable canonical gene family or locus.
+        Runtime support therefore adds only Getr-DAB.
+    blocked_on:
+      - stable canonical destination for generic Getr-MHC labels
+    notes: >
+      Added Getr-DAB to runtime because it names a specific class II beta
+      family. Getr-MHC stays registry-only until it maps cleanly to a gene.
+
+  Paol:
+    scientific_name: Paralichthys olivaceus
+    clade: fish
+    ontology_status: runtime_added
+    capture_status: runtime_ready
+    ingest_confidence: high_gene_level
+    recommended_ingest_level: gene
+    structured_sources:
+      - https://www.uniprot.org/uniprotkb/Q6BFC9/entry
+      - https://www.uniprot.org/uniprotkb/Q32L55/entry
+    literature_sources:
+      - https://www.jstage.jst.go.jp/article/fishsci1994/70/2/70_2_264/_article
+      - https://pubmed.ncbi.nlm.nih.gov/16874444/
+    canonical_gene_candidates:
+      - Ia1
+      - Ia2
+      - DAA
+      - DAB
+    notes: >
+      Runtime captures the exact gene labels used across protein resources and
+      Japanese flounder MHC literature: two class I alpha genes and one DA
+      class II alpha/beta pair.
+
+  Cyse:
+    scientific_name: Cynoglossus semilaevis
+    clade: fish
+    ontology_status: runtime_added
+    capture_status: runtime_ready
+    ingest_confidence: high_gene_level
+    recommended_ingest_level: gene
+    literature_sources:
+      - https://pubmed.ncbi.nlm.nih.gov/30341571/
+      - https://bmcgenomdata.biomedcentral.com/articles/10.1186/1471-2156-12-78
+    canonical_gene_candidates:
+      - DAA
+      - DAB
+      - DBA
+      - DBB
+    observed_structure:
+      - duplicated class II alpha/beta gene pairs at DA and DB
+    notes: >
+      Runtime captures the duplicated DA and DB class II gene families reported
+      for Chinese tongue sole.
+
+  Epco:
+    scientific_name: Epinephelus coioides
+    clade: fish
+    ontology_status: runtime_added
+    capture_status: runtime_ready
+    ingest_confidence: high_gene_level
+    recommended_ingest_level: gene
+    literature_sources:
+      - https://www.sciencedirect.com/science/article/abs/pii/S209592731630130X
+      - https://www.sciencedirect.com/science/article/abs/pii/S0044848616302113
+    canonical_gene_candidates:
+      - DAA
+      - DAB
+      - DBB
+    ambiguities:
+      - >
+        Runtime adds only the gene families supported directly in the current
+        sources. It does not infer an Epco-DBA gene without a citation.
+    notes: >
+      Orange-spotted grouper currently has source support for DAA, DAB, and DBB
+      and those are the only class II genes added to runtime.
+
+  Saal:
+    scientific_name: Salvelinus alpinus
+    clade: fish
+    ontology_status: registry_only
+    capture_status: partial_capture_only
+    ingest_confidence: low_alias_only
+    recommended_ingest_level: revisit
+    structured_sources:
+      - https://db.cngb.org/data_resources/protein/Q90WJ7
+    literature_sources:
+      - https://pubmed.ncbi.nlm.nih.gov/28343337/
+    candidate_gene_families:
+      - UEA
+      - UBA
+      - UGA
+      - DAB
+    ambiguities:
+      - >
+        The current source trail is strong enough to show that Arctic char has
+        relevant class I and class II families, but not strong enough to commit
+        all mhcseqs labels into runtime ontology with confidence.
+    blocked_on:
+      - accession-backed confirmation for Saal-UBA, Saal-UGA, and Saal-DAB
+      - decision on whether Saal-UEA belongs in runtime as a stable class I name
+    notes: >
+      Keep Saal out of species.yaml for now. Revisit when the individual labels
+      used by mhcseqs are backed by cleaner accession-level evidence.
+
+  Gaga:
+    scientific_name: Gallus gallus
+    clade: bird
+    ontology_status: existing_with_alias_gap
+    capture_status: partial_capture_only
+    ingest_confidence: low_alias_only
+    recommended_ingest_level: alias_review
+    structured_sources:
+      - https://www.ncbi.nlm.nih.gov/gene/427746
+    literature_sources:
+      - https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6971145/
+    observed_structure:
+      - existing_runtime_support: BF1, BF2, YF1, YF2, BLA, BLB1, BLB2
+      - external_aliases_seen: BF, B-LB, YFV
+    ambiguities:
+      - BF is ambiguous between BF1 and BF2 and should not normalize implicitly.
+      - B-LB is broader than the runtime BLA / BLB1 / BLB2 ontology.
+      - >
+        YFV overlaps with newer MHCY-family naming and is not yet reconciled
+        with the older chicken YF runtime nomenclature.
+    blocked_on:
+      - explicit alias policy for BF and B-LB
+      - reconciliation of YFV with current chicken Y-locus naming
+    notes: >
+      Keep these chicken shorthands out of runtime until they map cleanly onto
+      stable canonical genes.
+
 backlog_clades:
   unusual_mammals:
     capture_status: partial_capture_only

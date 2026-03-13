@@ -82,3 +82,68 @@ def test_parse_grass_carp_mhc1_pair_UAA_B2M_1_ii_star_sep():
     expected = Pair(alpha=Gene.get("Ctid", "UAA"), beta=Allele.get("Ctid", "B2M-1", "ii"))
     result = parse("Ctid-UAA/B2M-1*ii")
     eq_(result, expected)
+
+
+def test_parse_olive_flounder_species_Paol():
+    expected = Species.get("Paol")
+    assert expected is not None
+    eq_(parse("Paol", raise_on_error=True), expected)
+
+
+def test_parse_olive_flounder_genes():
+    for gene_name in ["Ia1", "Ia2", "DAA", "DAB"]:
+        expected = Gene.get("Paol", gene_name)
+        assert expected is not None
+        eq_(parse(f"Paol-{gene_name}", raise_on_error=True), expected)
+
+
+def test_parse_olive_flounder_alleles():
+    for gene_name in ["Ia1", "Ia2", "DAA", "DAB"]:
+        expected = Allele.get("Paol", gene_name, "01", "01")
+        assert expected is not None
+        eq_(parse(f"Paol-{gene_name}*01:01", raise_on_error=True), expected)
+
+
+def test_parse_tongue_sole_species_Cyse():
+    expected = Species.get("Cyse")
+    assert expected is not None
+    eq_(parse("Cyse", raise_on_error=True), expected)
+
+
+def test_parse_tongue_sole_genes():
+    for gene_name in ["DAA", "DAB", "DBA", "DBB"]:
+        expected = Gene.get("Cyse", gene_name)
+        assert expected is not None
+        eq_(parse(f"Cyse-{gene_name}", raise_on_error=True), expected)
+
+
+def test_parse_tongue_sole_alleles():
+    for gene_name in ["DAA", "DAB", "DBA", "DBB"]:
+        expected = Allele.get("Cyse", gene_name, "01", "01")
+        assert expected is not None
+        eq_(parse(f"Cyse-{gene_name}*01:01", raise_on_error=True), expected)
+
+
+def test_parse_orange_spotted_grouper_species_Epco():
+    expected = Species.get("Epco")
+    assert expected is not None
+    eq_(parse("Epco", raise_on_error=True), expected)
+
+
+def test_parse_orange_spotted_grouper_genes():
+    for gene_name in ["DAA", "DAB", "DBB"]:
+        expected = Gene.get("Epco", gene_name)
+        assert expected is not None
+        eq_(parse(f"Epco-{gene_name}", raise_on_error=True), expected)
+
+
+def test_parse_orange_spotted_grouper_alleles():
+    for gene_name in ["DAA", "DAB", "DBB"]:
+        expected = Allele.get("Epco", gene_name, "01", "01")
+        assert expected is not None
+        eq_(parse(f"Epco-{gene_name}*01:01", raise_on_error=True), expected)
+
+
+def test_do_not_parse_ambiguous_or_unreviewed_fish_strings():
+    for s in ["Saal-UEA", "Saal-UBA", "Saal-UGA", "Saal-DAB"]:
+        assert parse(s, raise_on_error=False) is None
