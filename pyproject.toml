@@ -39,10 +39,14 @@ dev = [
     "pre-commit",
     "coveralls",
 ]
+docs = [
+    "mkdocs>=1.6",
+]
 
 [project.urls]
 Homepage = "https://github.com/pirl-unc/mhcgnomes"
 Repository = "https://github.com/pirl-unc/mhcgnomes"
+Documentation = "https://pirl-unc.github.io/mhcgnomes/"
 
 [project.scripts]
 mhcgnomes = "mhcgnomes.cli:main"
