@@ -714,18 +714,48 @@ taxa:
     ingest_confidence: low_alias_only
     recommended_ingest_level: revisit
     literature_sources:
-      - https://pubmed.ncbi.nlm.nih.gov/25464689/
+      - https://www.nature.com/articles/6800450
+      - https://pubmed.ncbi.nlm.nih.gov/11132162/
     candidate_gene_families:
       - UA
     ambiguities:
       - >
-        The current source trail is strong for willow warbler class II
-        diversity, but not yet for the exact class I UA naming used in mhcseqs.
+        Willow warbler has published passerine MHC class I and class II signal,
+        but the current source trail still does not anchor the exact external
+        UA family label used in mhcseqs to a species-specific canonical locus
+        name.
     blocked_on:
       - source-backed mapping for Phtr-UA
     notes: >
       Keep Phtr registry-only until the external UA family label is anchored to
       a species-specific class I source.
+
+  Phco:
+    scientific_name: Phylloscopus collybita
+    clade: bird
+    ontology_status: registry_only
+    capture_status: partial_capture_only
+    ingest_confidence: low_alias_only
+    recommended_ingest_level: revisit
+    literature_sources: []
+    candidate_gene_families:
+      - UA
+    ambiguities:
+      - >
+        The external Phco prefix collides across datasets: mhcseqs uses Phco
+        both for common chiffchaff UA-family strings and for pheasant class II
+        strings, so runtime ingestion would require an explicit collision
+        policy rather than a simple species.yaml addition.
+      - >
+        I have not yet found a species-specific class I source that cleanly
+        anchors the exact external UA family label for common chiffchaff.
+    blocked_on:
+      - decision on prefix-collision policy for Phco
+      - source-backed mapping for Phco-UA
+    notes: >
+      Keep Phco registry-only until both the prefix collision and the class I
+      source trail are resolved. A direct runtime Phco mapping would currently
+      be arbitrary.
 
   Zhom:
     scientific_name: Zhangixalus omeimontis

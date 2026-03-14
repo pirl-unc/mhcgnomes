@@ -42,6 +42,7 @@ def test_registry_captures_mhcseqs_review_prefixes():
         "Saha",
         "Gaga",
         "Phtr",
+        "Phco",
         "Zhom",
     ]:
         assert prefix in taxa, prefix
@@ -80,9 +81,11 @@ def test_registry_marks_held_back_strings_as_partial_capture_only():
     assert taxa["Otel"]["capture_status"] == "partial_capture_only"
     assert taxa["Saha"]["capture_status"] == "partial_capture_only"
     assert taxa["Phtr"]["capture_status"] == "partial_capture_only"
+    assert taxa["Phco"]["capture_status"] == "partial_capture_only"
     assert taxa["Zhom"]["capture_status"] == "partial_capture_only"
     assert "Getr-MHC" in " ".join(taxa["Getr"]["ambiguities"])
     assert "Coja-II-13" in " ".join(taxa["Coja"]["ambiguities"] + taxa["Coja"]["blocked_on"])
+    assert "prefix collides" in " ".join(taxa["Phco"]["ambiguities"])
 
 
 def test_registry_tracks_runtime_alias_gap_followups():
