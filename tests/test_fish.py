@@ -106,6 +106,51 @@ def test_parse_zebrafish_UBA_gene_and_allele():
     eq_(parse("Dare-UBA*01", raise_on_error=True), expected_allele)
 
 
+def test_parse_common_carp_species_Cyca():
+    expected = Species.get("Cyca")
+    assert expected is not None
+    eq_(parse("Cyca", raise_on_error=True), expected)
+
+
+def test_parse_common_carp_family_level_genes():
+    expected_classes = {"UA": "I", "ZE": "I", "DXA": "IIa", "DAB": "IIa"}
+    for gene_name in ["UA", "ZE", "DXA", "DAB"]:
+        expected = Gene.get("Cyca", gene_name)
+        assert expected is not None
+        eq_(expected.mhc_class, expected_classes[gene_name])
+        eq_(parse(f"Cyca-{gene_name}", raise_on_error=True), expected)
+
+
+def test_parse_common_carp_aliases_to_conservative_family_genes():
+    examples = [
+        ("Cyca-UA1", Gene.get("Cyca", "UA")),
+        ("Cyca-DXA1", Gene.get("Cyca", "DXA")),
+        ("Cyca-DXA2", Gene.get("Cyca", "DXA")),
+        ("Cyca-DAB1", Gene.get("Cyca", "DAB")),
+        ("Cyca-DAB2", Gene.get("Cyca", "DAB")),
+        ("Cyca-DAB3", Gene.get("Cyca", "DAB")),
+        ("Cyca-DAB4", Gene.get("Cyca", "DAB")),
+    ]
+    for raw_string, expected in examples:
+        assert expected is not None
+        eq_(parse(raw_string, raise_on_error=True), expected)
+
+
+def test_parse_common_carp_alias_alleles():
+    examples = [
+        ("Cyca-UA1*01", Allele.get("Cyca", "UA", "01")),
+        ("Cyca-DXA1*01", Allele.get("Cyca", "DXA", "01")),
+        ("Cyca-DXA2*01", Allele.get("Cyca", "DXA", "01")),
+        ("Cyca-DAB1*01", Allele.get("Cyca", "DAB", "01")),
+        ("Cyca-DAB3*01", Allele.get("Cyca", "DAB", "01")),
+        ("Cyca-DAB4*01", Allele.get("Cyca", "DAB", "01")),
+        ("Cyca-ZE*01:01", Allele.get("Cyca", "ZE", "01", "01")),
+    ]
+    for raw_string, expected in examples:
+        assert expected is not None
+        eq_(parse(raw_string, raise_on_error=True), expected)
+
+
 def test_parse_nile_tilapia_species_Orni():
     expected = Species.get("Orni")
     assert expected is not None
@@ -203,5 +248,5 @@ def test_parse_brown_trout_supported_gene_families():
 
 
 def test_do_not_parse_ambiguous_or_unreviewed_fish_strings():
-    for s in ["Saal-UEA", "Saal-UBA", "Saal-UGA", "Saal-DAB", "Satr-DAA"]:
+    for s in ["Saal-UEA", "Saal-UBA", "Saal-UGA", "Saal-DAB", "SAAL-UBA", "Satr-DAA"]:
         assert parse(s, raise_on_error=False) is None

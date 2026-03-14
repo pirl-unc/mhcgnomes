@@ -1130,7 +1130,35 @@ class Parser:
             result = self.transform_parse_candidate(parse_candidate)
             if result:
                 results.append(result)
-        return unique(results)
+        results = unique(results)
+
+        # Preserve established chicken haplotype behavior such as BF19. If a
+        # haplotype name exactly matches another candidate's compact form, the
+        # haplotype should win instead of surfacing an additional generic
+        # family-level allele candidate.
+        haplotype_names = {
+            result.name.lower()
+            for result in results
+            if isinstance(result, Haplotype) and result.name is not None
+        }
+        if haplotype_names:
+            filtered_results = []
+            for result in results:
+                if isinstance(result, Haplotype):
+                    filtered_results.append(result)
+                    continue
+                if not isinstance(result, Allele):
+                    filtered_results.append(result)
+                    continue
+                try:
+                    compact_name = result.compact_string(with_species=False).lower()
+                except TypeError:
+                    compact_name = result.compact_string().lower()
+                if compact_name not in haplotype_names:
+                    filtered_results.append(result)
+            results = filtered_results
+
+        return results
 
     def parse_gene_without_species(
         self,
