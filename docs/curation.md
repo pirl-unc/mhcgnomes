@@ -103,6 +103,140 @@ behavior.
 5. If the source is a survey paper with paper-local allele IDs, do not put those IDs in runtime YAML unless they map cleanly onto stable canonical names.
 6. If the data encodes a derived concept like a serotype, supertype, haplotype, or heterodimer shorthand, use the dedicated file for that concept rather than overloading `species.yaml`.
 
+## Prefix Conflict Resolution Plan
+
+Four-letter species prefixes are useful, but external datasets reuse them often
+enough that `mhcgnomes` needs an explicit conflict policy instead of ad hoc
+exceptions.
+
+Current examples include:
+
+- `Phco`: used in different datasets for both `Phasianus colchicus` and
+  `Phylloscopus collybita`
+- `Cyca`: reused across multiple taxa in external resources even though runtime
+  now uses it for common carp
+- `Bubu`, `Chpi`, and `Mimi`: reused across unrelated genera in different
+  source collections
+
+The rule is: runtime parsing should only accept a bare prefix when the prefix is
+unambiguous inside `mhcgnomes`.
+
+### Collision types
+
+1. Canonical-prefix conflict
+   A prefix is already claimed in `species.yaml`, and a new dataset uses the
+   same prefix for a different species.
+2. External-only collision
+   Multiple external sources reuse the same prefix, but none of them has been
+   admitted into runtime ontology yet.
+3. Case-only variant
+   The external source uses `SAAL` instead of `Saal`, `MODO` instead of `Modo`,
+   and so on.
+4. Embedded or double prefix
+   The source string contains an old or repeated prefix inside the gene token,
+   such as `Tyal-MhcTyal-DAB1` or `Zhom-Rhom-beta1`.
+
+### Runtime policy
+
+- Do not overwrite an existing canonical runtime prefix with a different
+  species.
+- Do not add a second species to `species.yaml` under an already-claimed
+  prefix.
+- Do not silently infer a winner for a colliding bare prefix.
+- Keep colliding prefixes in
+  `mhcgnomes/data/underrepresented_taxa_source_registry.yaml` until they are
+  resolved.
+
+### How to resolve each type
+
+#### Canonical-prefix conflict
+
+Use this when runtime already owns the prefix.
+
+Required before ingestion:
+
+- an authoritative source showing a better stable prefix for the new species, or
+- an upstream source-specific translation layer keyed by organism metadata, not
+  by the bare string alone
+
+What not to do:
+
+- do not remap old runtime data to the new species
+- do not add an ambiguous alias that changes meaning based only on guesswork
+
+Example:
+
+- `Phco-UA` stays out of runtime because `Phco` is reused externally for both
+  pheasant and chiffchaff strings, and the chiffchaff source trail is not clean
+  enough to justify taking over the prefix
+
+#### External-only collision
+
+Use this when the collision exists only in source data and no runtime species
+has claimed the prefix yet.
+
+Required before ingestion:
+
+- choose one canonical prefix backed by a stable source, and
+- record the rejected alternatives and their provenance in the registry
+
+If no stable winner exists, keep the group registry-only.
+
+#### Case-only variant
+
+Case normalization is safe only when the lowercase or titlecase form maps to a
+single runtime species.
+
+Safe:
+
+- `SAAL -> Saal` if `Saal` is uniquely owned in runtime
+
+Not safe:
+
+- any normalization where the case-folded token could refer to multiple taxa or
+  to a source-local code with different meaning
+
+#### Embedded or double prefix
+
+These are acceptable only when the embedded prefix clearly refers to the same
+species or to a documented old genus synonym.
+
+Safe example:
+
+- `Tyal-MhcTyal-DAB1 -> Tyal-DAB1`
+
+Not safe without more evidence:
+
+- `Zhom-Rhom-beta1`, because the inner prefix preserves an old-genus label but
+  the runtime canonical gene is still unsettled
+
+### Required evidence before runtime admission
+
+At least one of these should be true:
+
+- the exact prefix/gene string is used in a species-specific primary source
+- the exact prefix/gene string is used in a structured protein or genome record
+  with species metadata
+- the string cleanly normalizes to an already-canonical runtime gene
+
+If the exact string is not source-backed, but only the biology is plausible,
+store it in the registry and stop there.
+
+### Implementation order
+
+1. Safe case-normalization for uniquely owned prefixes
+2. Safe same-species embedded-prefix aliases
+3. Source-specific alias handling where the calling code already knows the
+   organism
+4. Revisit true canonical collisions only after steps 1-3 reduce the backlog
+
+### Test policy
+
+Every collision-resolution change should add both:
+
+- a positive test for the accepted normalization or alias, and
+- a negative test proving that colliding unresolved strings still do not parse
+
 ### Current special cases
 
 - `mhcgnomes/data/default_alleles.yaml` exists but is currently minimal and not
