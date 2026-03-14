@@ -75,6 +75,11 @@ Gaga:
   # adding this since NetMHCpan has "Chi-B" as an alias
   # for Gaga-BF2"
   Chi-B: BF2
+  B-F: BF
+  B-LB: BLB
+  B-DMA: DMA
+  B-DMB2: DMB2
+  B-LB12c: B12c
   YF1w: YF1
   YF2w: YF2
 FLA:
@@ -84,12 +89,25 @@ FLA:
   DPB: DPB1
 Ctid:
   B2M: B2M-1
+Cyca:
+  UA1: UA
+  DXA1: DXA
+  DXA2: DXA
+  DAB1: DAB
+  DAB2: DAB
+  DAB3: DAB
+  DAB4: DAB
 Onmy:
   DAA1: DAA
   DAB1: DAB
 Sasa:
   DAA1: DAA
   DAB1: DAB
+Tyal:
+  MhcTyal-DAB1: DAB1
+  MhcTyal-DAB2: DAB2
+  MHCIIB: DAB
+  DRB: DAB
 Saoe:
   N: N1
 Maar:

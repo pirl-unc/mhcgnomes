@@ -111,6 +111,24 @@ def test_parse_eurasian_coot_DAB_gene_and_example_allele():
     eq_(parse("Fuat-DAB*199", raise_on_error=True), expected_allele)
 
 
+def test_parse_common_tern_species_Sthi():
+    expected = Species.get("Sthi")
+    assert expected is not None
+    eq_(parse("Sthi", raise_on_error=True), expected)
+
+
+def test_parse_common_tern_family_level_genes_and_alleles():
+    examples = [("UA", ("01", "01"), "I"), ("DAB", ("01", "01"), "IIa")]
+    for gene_name, fields, mhc_class in examples:
+        expected_gene = Gene.get("Sthi", gene_name)
+        expected_allele = Allele.get("Sthi", gene_name, fields)
+        assert expected_gene is not None
+        assert expected_allele is not None
+        eq_(expected_gene.mhc_class, mhc_class)
+        eq_(parse(f"Sthi-{gene_name}", raise_on_error=True), expected_gene)
+        eq_(parse(f"Sthi-{gene_name}*{':'.join(fields)}", raise_on_error=True), expected_allele)
+
+
 def test_parse_penguin_species_and_DRB1_family():
     for prefix in ["Sphu", "Spma"]:
         species = Species.get(prefix)
@@ -122,16 +140,49 @@ def test_parse_penguin_species_and_DRB1_family():
         eq_(parse(f"{prefix}-DRB1", raise_on_error=True), gene)
 
 
-def test_do_not_parse_ambiguous_bird_strings():
+def test_parse_barn_owl_family_level_and_embedded_prefix_aliases():
+    examples = [
+        ("Tyal-UA", Gene.get("Tyal", "UA")),
+        ("Tyal-MHCIIB", Gene.get("Tyal", "DAB")),
+        ("Tyal-DRB", Gene.get("Tyal", "DAB")),
+        ("Tyal-MhcTyal-DAB1", Gene.get("Tyal", "DAB1")),
+        ("Tyal-MhcTyal-DAB2", Gene.get("Tyal", "DAB2")),
+    ]
+    for raw_string, expected in examples:
+        assert expected is not None
+        eq_(parse(raw_string, raise_on_error=True), expected)
+
+
+def test_parse_chicken_family_level_aliases_without_breaking_specific_loci():
+    expected_pairs = [
+        ("Gaga-BF", Gene.get("Gaga", "BF")),
+        ("Gaga-B-F", Gene.get("Gaga", "BF")),
+        ("Gaga-B-LB", Gene.get("Gaga", "BLB")),
+        ("Gaga-BLB", Gene.get("Gaga", "BLB")),
+        ("Gaga-B-DMA", Gene.get("Gaga", "DMA")),
+        ("Gaga-B-DMB2", Gene.get("Gaga", "DMB2")),
+        ("Gaga-B-LB12c", Gene.get("Gaga", "B12c")),
+        ("Gaga-BF1", Gene.get("Gaga", "BF1")),
+        ("Gaga-BF2", Gene.get("Gaga", "BF2")),
+        ("Gaga-BF12", Allele.get("Gaga", "BF", "12")),
+    ]
+    for raw_string, expected in expected_pairs:
+        assert expected is not None
+        eq_(parse(raw_string, raise_on_error=True), expected)
+
+
+def test_do_not_parse_ambiguous_or_unreviewed_bird_strings():
     for s in [
-        "Gaga-BF",
-        "Gaga-B-LB",
         "Gaga-YFV",
+        "Gaga-BFw-01",
+        "Gaga-BFz-01",
+        "Gaga-B-LBII",
         "Coja-II-13*01",
         "Coja-II-16*01",
         "Coja-II-17*01",
         "Ritr-DRB1",
-        "Tyal-UA",
         "Otel-DAB",
+        "Phtr-UA",
+        "Phco-UA",
     ]:
         assert parse(s, raise_on_error=False) is None

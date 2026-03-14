@@ -21,6 +21,7 @@ def test_registry_captures_mhcseqs_review_prefixes():
     for prefix in [
         "Acar",
         "Acsc",
+        "Cyca",
         "Getr",
         "Dare",
         "Orni",
@@ -31,6 +32,7 @@ def test_registry_captures_mhcseqs_review_prefixes():
         "Chpi",
         "Coja",
         "Fuat",
+        "Sthi",
         "Sphu",
         "Spma",
         "Saal",
@@ -39,6 +41,9 @@ def test_registry_captures_mhcseqs_review_prefixes():
         "Tyal",
         "Saha",
         "Gaga",
+        "Phtr",
+        "Phco",
+        "Zhom",
     ]:
         assert prefix in taxa, prefix
 
@@ -48,6 +53,7 @@ def test_runtime_ready_registry_entries_match_species_ontology():
     for prefix in [
         "Acar",
         "Acsc",
+        "Cyca",
         "Getr",
         "Dare",
         "Orni",
@@ -58,8 +64,11 @@ def test_runtime_ready_registry_entries_match_species_ontology():
         "Chpi",
         "Coja",
         "Fuat",
+        "Sthi",
         "Sphu",
         "Spma",
+        "Tyal",
+        "Gaga",
     ]:
         assert taxa[prefix]["capture_status"] == "runtime_ready"
         assert Species.get(prefix) is not None
@@ -70,11 +79,22 @@ def test_registry_marks_held_back_strings_as_partial_capture_only():
     assert taxa["Saal"]["capture_status"] == "partial_capture_only"
     assert taxa["Ritr"]["capture_status"] == "partial_capture_only"
     assert taxa["Otel"]["capture_status"] == "partial_capture_only"
-    assert taxa["Tyal"]["capture_status"] == "partial_capture_only"
     assert taxa["Saha"]["capture_status"] == "partial_capture_only"
-    assert taxa["Gaga"]["capture_status"] == "partial_capture_only"
+    assert taxa["Phtr"]["capture_status"] == "partial_capture_only"
+    assert taxa["Phco"]["capture_status"] == "partial_capture_only"
+    assert taxa["Zhom"]["capture_status"] == "partial_capture_only"
     assert "Getr-MHC" in " ".join(taxa["Getr"]["ambiguities"])
     assert "Coja-II-13" in " ".join(taxa["Coja"]["ambiguities"] + taxa["Coja"]["blocked_on"])
+    assert "prefix collides" in " ".join(taxa["Phco"]["ambiguities"])
+
+
+def test_registry_tracks_runtime_alias_gap_followups():
+    taxa = load_underrepresented_taxa_registry()["taxa"]
+    cyca_text = " ".join(map(str, taxa["Cyca"]["observed_structure"] + [taxa["Cyca"]["notes"]]))
+    tyal_text = " ".join(map(str, taxa["Tyal"]["observed_structure"] + [taxa["Tyal"]["notes"]]))
+    assert "UA1" in cyca_text
+    assert "MhcTyal-DAB1" in tyal_text
+    assert "YFV" in " ".join(taxa["Gaga"]["ambiguities"] + taxa["Gaga"]["blocked_on"])
 
 
 def test_registry_tracks_followup_for_runtime_added_coja_ddb1():

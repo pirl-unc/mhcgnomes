@@ -481,6 +481,9 @@ Salmo salar:
 # - https://pubmed.ncbi.nlm.nih.gov/20580738/
 # - https://zfin.org/ZDB-GENE-990415-145
 # - https://pubmed.ncbi.nlm.nih.gov/7607709/
+# - https://pubmed.ncbi.nlm.nih.gov/12165519/
+# - https://pubmed.ncbi.nlm.nih.gov/15864912/
+# - https://pubmed.ncbi.nlm.nih.gov/18817879/
 # - https://pubmed.ncbi.nlm.nih.gov/30345515/
 # - https://pubmed.ncbi.nlm.nih.gov/31187732/
 # - https://pubmed.ncbi.nlm.nih.gov/11207285/
@@ -499,6 +502,23 @@ Danio rerio:
   genes:
     Ia:
       - UBA
+Cyprinus carpio:
+  prefix: Cyca
+  name: Common carp
+  genes:
+    # The carp literature and UniProt names in mhcseqs expose numbered or
+    # lineage-local family members such as UA1, DXA1/2, and DAB1-4. Runtime
+    # keeps the conservative family-level genes here and normalizes the
+    # numbered/source-local labels in gene_aliases.yaml.
+    I:
+      - UA
+      - ZE
+    IIa:
+      DA:
+        - DXA
+        - DAB
+    other:
+      - B2M
 Oreochromis niloticus:
   prefix: Orni
   name: Nile tilapia
@@ -1228,6 +1248,18 @@ Geothlypis trichas:
     IIa:
       DA:
         - DAB
+Sterna hirundo:
+  prefix: Sthi
+  name: Common tern
+  genes:
+    # The common tern literature supports class I and class II family-level
+    # diversity. Runtime uses the external UA / DAB family labels that mhcseqs
+    # sees rather than inferring a finer locus split than the sources justify.
+    I:
+      - UA
+    IIa:
+      DA:
+        - DAB
 ################################################################################
 #
 # Chicken
@@ -1242,6 +1274,10 @@ Gallus gallus:
   name: Chicken
   genes:
     Ia:
+      # BF is retained as a family-level class I label because external
+      # resources still use Gaga-BF and Gaga-B-F alongside the locus-specific
+      # BF1 and BF2 names.
+      - BF
       - BF1
       - BF2
     Ib:
@@ -1253,6 +1289,10 @@ Gallus gallus:
     IIa:
       BL:
         - BLA
+        # BLB is retained as a family-level class II beta label because
+        # external sources still use Gaga-BLB and Gaga-B-LB in addition to the
+        # locus-specific BLB1 and BLB2 names.
+        - BLB
         - BLB1
         - BLB2
         #third copy of BLB gene found only in some haplotypes
@@ -1498,8 +1538,16 @@ Tyto alba:
   name: Barn owl
   prefix: Tyal
   genes:
+    # PMID 27176619 reports barn owl class I diversity, but the external
+    # datasets currently use a family-level UA label rather than a stable
+    # locus-specific nomenclature.
+    I:
+      - UA
     IIa:
       DA:
+        # Keep a family-level DAB label to support external MHCIIB / DRB-like
+        # strings without forcing them onto a specific DAB1 or DAB2 locus.
+        - DAB
         - DAB1
         - DAB2
 ################################################################################
