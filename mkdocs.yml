@@ -1,0 +1,21 @@
+site_name: mhcgnomes
+site_description: Parsing MHC nomenclature in the wild
+site_url: https://pirl-unc.github.io/mhcgnomes/
+repo_url: https://github.com/pirl-unc/mhcgnomes
+repo_name: pirl-unc/mhcgnomes
+edit_uri: edit/main/docs/
+docs_dir: docs
+strict: true
+
+theme:
+  name: mkdocs
+
+nav:
+  - Home: index.md
+  - Curation Guide: curation.md
+  - Immutable Data Objects: immutable-data-objects.md
+
+markdown_extensions:
+  - tables
+  - toc:
+      permalink: true
