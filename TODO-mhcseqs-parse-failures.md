@@ -78,17 +78,11 @@ BLA/BLB/BLB1/BLB2/B12c (IIa BL), DMA/DMB1/DMB2 (IIb DM).
 
 ### Barn owl (Tyal) — 156 seqs
 
-Current state: Has UA (I), DAB/DAB1/DAB2 (IIa DA). Has aliases for
-MhcTyal-DAB1, MhcTyal-DAB2, MHCIIB, DRB.
-
-- [ ] **Investigate remaining failures** — 156 seqs still fail despite existing
-  genes/aliases. Likely causes:
-  - Double-prefix patterns like `MhcTyal-UA*01:01` (the `Mhc` prefix before
-    the species code may confuse the parser)
-  - Numbered UA variants (UA1, UA2) not in ontology
-  - Other gene names in external datasets not yet aliased
-- [ ] **Add parser support or aliases for `Mhc<Prefix>-` pattern** — this is a
-  common convention in bird MHC literature. May affect multiple bird species.
+- [x] **Add MhcTyal-UA and MhcTyal-DAB aliases** — DONE. The parser infers
+  species from gene aliases, so standalone `MhcTyal-UA*01:01` now works.
+- [ ] **Audit remaining failures** — The MhcTyal-UA/DAB aliases fix the main
+  gap, but some of the 156 seqs may use other patterns (UA1, UA2, etc.).
+  Need actual failing sequence names to triage further.
 
 ### Chinese egret (Egeu) — 141 seqs
 
