@@ -145,8 +145,20 @@ def test_parse_barn_owl_family_level_and_embedded_prefix_aliases():
         ("Tyal-UA", Gene.get("Tyal", "UA")),
         ("Tyal-MHCIIB", Gene.get("Tyal", "DAB")),
         ("Tyal-DRB", Gene.get("Tyal", "DAB")),
+        ("Tyal-MhcTyal-UA", Gene.get("Tyal", "UA")),
+        ("Tyal-MhcTyal-DAB", Gene.get("Tyal", "DAB")),
         ("Tyal-MhcTyal-DAB1", Gene.get("Tyal", "DAB1")),
         ("Tyal-MhcTyal-DAB2", Gene.get("Tyal", "DAB2")),
+    ]
+    for raw_string, expected in examples:
+        assert expected is not None
+        eq_(parse(raw_string, raise_on_error=True), expected)
+
+
+def test_parse_barn_owl_mhctyal_prefix_alleles():
+    examples = [
+        ("MhcTyal-UA*01:01", Allele.get("Tyal", "UA", "01", "01")),
+        ("MhcTyal-DAB1*01:01", Allele.get("Tyal", "DAB1", "01", "01")),
     ]
     for raw_string, expected in examples:
         assert expected is not None

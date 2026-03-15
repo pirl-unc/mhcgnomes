@@ -104,6 +104,8 @@ Sasa:
   DAA1: DAA
   DAB1: DAB
 Tyal:
+  MhcTyal-UA: UA
+  MhcTyal-DAB: DAB
   MhcTyal-DAB1: DAB1
   MhcTyal-DAB2: DAB2
   MHCIIB: DAB
