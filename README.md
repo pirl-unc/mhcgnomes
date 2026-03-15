@@ -10,6 +10,8 @@
 
 # mhcgnomes: Parsing MHC nomenclature in the wild
 
+Documentation site: <https://pirl-unc.github.io/mhcgnomes/>
+
 MHCgnomes is a parsing library for multi-species MHC nomenclature which
 aims to correctly parse every name in [IEDB](http://www.iedb.org/), [IMGT/HLA](https://www.ebi.ac.uk/ipd/imgt/hla/), [IPD/MHC](https://www.ebi.ac.uk/ipd/mhc/), and the allele lists for both [NetMHCpan](https://services.healthtech.dtu.dk/service.php?NetMHCpan-4.1) and [NetMHCIIpan](https://services.healthtech.dtu.dk/service.php?NetMHCIIpan-4.0) predictors. This allows for standardization between immune databases and tools, which often use different naming conventions.
 
@@ -64,6 +66,14 @@ Use strict mode to fail fast:
 
 ```bash
 mhcgnomes --strict "not a real allele"
+```
+
+## Local docs
+
+```bash
+./develop.sh
+mkdocs serve
+mkdocs build --strict
 ```
 
 ## The problem: MHC nomenclature is nuts
