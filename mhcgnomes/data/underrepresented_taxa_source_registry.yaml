@@ -41,21 +41,33 @@ taxa:
       - https://pubmed.ncbi.nlm.nih.gov/28695290/
     canonical_gene_candidates:
       - UAA
+      - UBA
+      - UCA
+      - UDA
+      - UEA
+      - DAA
+      - DAB
+      - DMA
       - TAP1
       - TAP2
       - TAPBP
       - B2M
+    observed_structure:
+      - runtime_addition: class Ia UAA and UBA, class Ib UCA/UDA/UEA, class IIa DA family, class IIb DMA
+      - xenbase_nomenclature: mhc1-uaa, mhc1-uba*, mhc1-uca, mhc1-uda, mhc1-uea, mhc2-daa, mhc2-dab, mhc2-dma
+      - tetraploid_note: X. laevis has L and S homeologs for many MHC genes
     notes: >
-      Existing frog baseline in mhcgnomes. Xenbase is the preferred source for
-      future Xenopus gene expansion.
+      Expanded from original UAA-only baseline to full Xenbase-backed gene
+      coverage. Class I uses UA/UB/UC/UD/UE family structure; class II uses
+      DA and DM families. Antigen processing genes retained from original entry.
 
   Xetr:
     scientific_name: Xenopus tropicalis
     clade: frog
-    ontology_status: pilot_species_only
+    ontology_status: gene_level_expanded
     capture_status: runtime_ready
     ingest_confidence: high_gene_level
-    recommended_ingest_level: species
+    recommended_ingest_level: gene
     taxonomy_sources:
       - https://amphibiansoftheworld.amnh.org/
     structured_sources:
@@ -63,12 +75,27 @@ taxa:
       - https://www.ncbi.nlm.nih.gov/datasets/
     literature_sources:
       - https://pubmed.ncbi.nlm.nih.gov/28695290/
-    candidate_gene_families:
-      - class I
-      - antigen processing genes
+    canonical_gene_candidates:
+      - UAA
+      - UBA
+      - UCA
+      - UDA
+      - UEA
+      - DAA
+      - DAB
+      - DMA
+      - TAP1
+      - TAP2
+      - TAPBP
+      - B2M
+    observed_structure:
+      - runtime_addition: class Ia UAA and UBA, class Ib UCA/UDA/UEA, class IIa DA family, class IIb DMA
+      - xenbase_nomenclature: mhc1-uaa, mhc1-uba*, mhc1-uca, mhc1-uda, mhc1-uea, mhc2-daa, mhc2-dab, mhc2-dma
+      - diploid_note: X. tropicalis is diploid with simpler gene complement than X. laevis
     notes: >
-      Safe pilot species for Xenopus expansion. Gene symbols should be taken
-      from Xenbase before adding runtime ontology entries beyond species.
+      Expanded from species-only placeholder to full Xenbase-backed gene
+      coverage matching Xela. Gene symbols confirmed via Xenbase gene search
+      and NCBI gene records for X. tropicalis MHC loci.
 
   Sica:
     scientific_name: Sistrurus catenatus

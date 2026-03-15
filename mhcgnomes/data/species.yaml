@@ -2510,6 +2510,18 @@ Xenopus laevis:
   genes:
     Ia:
       - UAA
+      - UBA
+    Ib:
+      - UCA
+      - UDA
+      - UEA
+    IIa:
+      DA:
+        - DAA
+        - DAB
+    IIb:
+      DM:
+        - DMA
     other:
       - TAP1
       - TAP2
@@ -2518,6 +2530,26 @@ Xenopus laevis:
 Xenopus tropicalis:
   prefix: Xetr
   name: Tropical clawed frog
+  genes:
+    Ia:
+      - UAA
+      - UBA
+    Ib:
+      - UCA
+      - UDA
+      - UEA
+    IIa:
+      DA:
+        - DAA
+        - DAB
+    IIb:
+      DM:
+        - DMA
+    other:
+      - TAP1
+      - TAP2
+      - TAPBP
+      - B2M
 ##########################
 #
 # Lizards
