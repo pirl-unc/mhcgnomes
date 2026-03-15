@@ -855,6 +855,19 @@ def infer_species_from_prefix(name):
                     species_object = species_objects[0]
                 return species_object, original_prefix
 
+    # Strip a leading "Mhc" prefix commonly seen in bird MHC literature
+    # (e.g., "MhcTyal-DAB1*01:01" → "Tyal-DAB1*01:01"). Try the stripped
+    # form through the same prefix-matching logic before falling back to
+    # gene-name inference.
+    if name[:3].lower() == "mhc" and len(name) > 3:
+        stripped = name[3:]
+        result = infer_species_from_prefix(stripped)
+        if result is not None:
+            species_object, inner_prefix = result
+            # Return the full original prefix including "Mhc" so the caller
+            # can correctly compute the remaining string.
+            return species_object, name[: 3 + len(inner_prefix)]
+
     # if all else fails, look for a distinctive gene name which is unique
     # to one species
     if "*" in name:
