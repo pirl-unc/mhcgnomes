@@ -171,6 +171,35 @@ def test_parse_chicken_family_level_aliases_without_breaking_specific_loci():
         eq_(parse(raw_string, raise_on_error=True), expected)
 
 
+def test_parse_chinese_egret_species_Egeu():
+    expected = Species.get("Egeu")
+    assert expected is not None
+    eq_(parse("Egeu", raise_on_error=True), expected)
+
+
+def test_parse_chinese_egret_class1_genes():
+    for gene_name in ["UAA", "UBA"]:
+        expected = Gene.get("Egeu", gene_name)
+        assert expected is not None
+        eq_(expected.mhc_class, "I")
+        eq_(parse(f"Egeu-{gene_name}", raise_on_error=True), expected)
+
+
+def test_parse_chinese_egret_class2_genes():
+    for gene_name in ["DRA", "DAB", "DAB1", "DAB2", "DAB3", "DAB4", "DAB5", "DAB6"]:
+        expected = Gene.get("Egeu", gene_name)
+        assert expected is not None
+        eq_(expected.mhc_class, "IIa")
+        eq_(parse(f"Egeu-{gene_name}", raise_on_error=True), expected)
+
+
+def test_parse_chinese_egret_alleles():
+    for gene_name in ["UAA", "DAB1", "DAB3"]:
+        expected = Allele.get("Egeu", gene_name, "01", "01")
+        assert expected is not None
+        eq_(parse(f"Egeu-{gene_name}*01:01", raise_on_error=True), expected)
+
+
 def test_do_not_parse_ambiguous_or_unreviewed_bird_strings():
     for s in [
         "Gaga-YFV",

@@ -247,6 +247,61 @@ def test_parse_brown_trout_supported_gene_families():
         eq_(parse(f"Satr-{gene_name}", raise_on_error=True), expected)
 
 
+def test_parse_zebrafish_class2_genes():
+    for gene_name in ["DAA", "DAB"]:
+        expected = Gene.get("Dare", gene_name)
+        assert expected is not None
+        eq_(expected.mhc_class, "IIa")
+        eq_(parse(f"Dare-{gene_name}", raise_on_error=True), expected)
+
+
+def test_parse_zebrafish_zfin_style_aliases():
+    examples = [
+        ("Dare-mhc1uba", Gene.get("Dare", "UBA")),
+        ("Dare-mhc2daa", Gene.get("Dare", "DAA")),
+        ("Dare-mhc2dab", Gene.get("Dare", "DAB")),
+    ]
+    for raw_string, expected in examples:
+        assert expected is not None
+        eq_(parse(raw_string, raise_on_error=True), expected)
+
+
+def test_parse_olive_flounder_dab_aliases():
+    for alias in ["DAB1", "DAB2", "DAB3", "DAB4", "DAB5", "DAB6"]:
+        expected = Gene.get("Paol", "DAB")
+        assert expected is not None
+        eq_(parse(f"Paol-{alias}", raise_on_error=True), expected)
+
+
+def test_parse_olive_flounder_dab_alias_alleles():
+    for alias in ["DAB1", "DAB3", "DAB6"]:
+        expected = Allele.get("Paol", "DAB", "01", "01")
+        assert expected is not None
+        eq_(parse(f"Paol-{alias}*01:01", raise_on_error=True), expected)
+
+
+def test_parse_golden_pompano_species_Trov():
+    expected = Species.get("Trov")
+    assert expected is not None
+    eq_(parse("Trov", raise_on_error=True), expected)
+
+
+def test_parse_golden_pompano_genes():
+    expected_classes = {"UBA": "Ia", "DAA": "IIa", "DAB": "IIa"}
+    for gene_name in ["UBA", "DAA", "DAB"]:
+        expected = Gene.get("Trov", gene_name)
+        assert expected is not None
+        eq_(expected.mhc_class, expected_classes[gene_name])
+        eq_(parse(f"Trov-{gene_name}", raise_on_error=True), expected)
+
+
+def test_parse_golden_pompano_alleles():
+    for gene_name in ["UBA", "DAA", "DAB"]:
+        expected = Allele.get("Trov", gene_name, "01", "01")
+        assert expected is not None
+        eq_(parse(f"Trov-{gene_name}*01:01", raise_on_error=True), expected)
+
+
 def test_do_not_parse_ambiguous_or_unreviewed_fish_strings():
     for s in ["Saal-UEA", "Saal-UBA", "Saal-UGA", "Saal-DAB", "SAAL-UBA", "Satr-DAA"]:
         assert parse(s, raise_on_error=False) is None

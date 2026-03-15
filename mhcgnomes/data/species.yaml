@@ -502,6 +502,10 @@ Danio rerio:
   genes:
     Ia:
       - UBA
+    IIa:
+      DA:
+        - DAA
+        - DAB
 Cyprinus carpio:
   prefix: Cyca
   name: Common carp
@@ -567,6 +571,16 @@ Salmo trutta:
       - UBA
     IIa:
       DA:
+        - DAB
+Trachinotus ovatus:
+  prefix: Trov
+  name: Golden pompano
+  genes:
+    Ia:
+      - UBA
+    IIa:
+      DA:
+        - DAA
         - DAB
 ############################
 #
@@ -1405,6 +1419,20 @@ Anas platyrhynchos:
 Egretta eulophotes:
   prefix: Egeu
   name: Chinese egret
+  genes:
+    I:
+      - UAA
+      - UBA
+    IIa:
+      DA:
+        - DRA
+        - DAB
+        - DAB1
+        - DAB2
+        - DAB3
+        - DAB4
+        - DAB5
+        - DAB6
 Nipponia nippon:
   prefix: Nini
   name: Japanese crested ibis
