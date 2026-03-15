@@ -1,7 +1,10 @@
 # mhcseqs Parse Failure TODO
 
 Tracking fixes for 8,305 parse failures (51.2%) from 16,208 curated non-IMGT/IPD
-sequences. Organized by category from the error report.
+sequences. Organized by category from the error report (run against mhcgnomes 3.1.0).
+
+NOTE: Several species from the error report were already added to current main
+after 3.1.0. These are marked DONE below.
 
 ---
 
@@ -13,59 +16,40 @@ write tests.
 
 ### Top-10 prefixes (by sequence count)
 
-- [ ] **Epco** — *Epinephelus coioides* (orange-spotted grouper), fish, 276 seqs
-  - Genes: DAB, DBB, DAA
-  - Plan: Add species entry with class II DA/DB loci. Research class I genes
-    from literature/NCBI.
-
-- [ ] **Fuat** — *Fulica atra* (Eurasian coot), bird, 267 seqs
-  - Genes: DAB
-  - Plan: Add species entry with class II DA locus (DAB). Check literature for
-    class I genes.
-
-- [ ] **Satr** — *Salmo trutta* (brown trout), fish, 246 seqs
-  - Genes: DAB, DAA
-  - Plan: Add species entry with class II DA locus. Related to Salmo salar
-    (Sasa) — check if gene structure mirrors Atlantic salmon.
+- [x] **Epco** — already in species.yaml (DAA, DAB, DBB) — DONE pre-3.1.0+
+- [x] **Fuat** — already in species.yaml (DAB) — DONE pre-3.1.0+
+- [x] **Satr** — already in species.yaml (UBA, DAB) — DONE pre-3.1.0+
+- [x] **Sthi** — already in species.yaml (UA, DAB) — DONE pre-3.1.0+
+- [x] **Spma** — already in species.yaml (DRB1) — DONE pre-3.1.0+
+- [x] **Trov** — added in this branch (UBA, DAA, DAB)
 
 - [ ] **Modo** — *Monodelphis domestica* (gray short-tailed opossum), marsupial, 232 seqs
   - Genes: UT3, UG, UT8
-  - Plan: Add species entry. Marsupial MHC uses non-standard gene names (UT/UG
-    families). Research opossum MHC literature for complete gene inventory and
-    class assignments.
+  - Status: In backlog_clades/unusual_mammals, blocked on species-specific
+    source review and stable gene symbols.
+  - Plan: Research opossum MHC literature for complete gene inventory and
+    class assignments. UT/UG families need source-backed canonical names.
 
-- [ ] **Sthi** — *Sterna hirundo* (common tern), bird, 206 seqs
-  - Genes: UA, DAB
-  - Plan: Add species entry with class I UA gene and class II DA locus.
-
-- [ ] **SAAL** — *Salvelinus alpinus* (Arctic char), fish, 200 seqs
+- [ ] **Saal** — *Salvelinus alpinus* (Arctic char), fish, 200 seqs
   - Genes: UBA, UGA, UEA
-  - Plan: Add species entry. Note uppercase prefix convention (SAAL) — may need
-    alias or normalization check. Salmonid-style class I genes.
+  - Status: registry_only, blocked on accession-backed confirmation.
+  - Plan: Find stable accessions for Saal-UBA, Saal-UGA, Saal-DAB.
+    Negative test already exists preventing premature parsing.
 
 - [ ] **Zhom** — *Zhangixalus omeimontis* (Omei tree frog), amphibian, 162 seqs
   - Genes: Rhom-beta1
-  - Plan: Add species entry. Note unusual gene naming (`Rhom-beta1` looks like
-    a legacy/paper-local name). May need gene alias to map to standard class II
-    beta gene.
-
-- [ ] **Spma** — *Spheniscus magellanicus* (Magellanic penguin), bird, 157 seqs
-  - Genes: DRB1
-  - Plan: Add species entry with class II gene. DRB1 naming follows mammalian
-    convention — verify this is correct for penguin or if it should be DAB.
-
-- [ ] **Trov** — *Trachinotus ovatus* (golden pompano), fish, 153 seqs
-  - Genes: DAA, DAB, UBA
-  - Plan: Add species entry with class I (UBA) and class II DA locus.
+  - Status: registry_only, blocked on canonical name decision.
+  - Plan: Map old-genus `Rhom-beta1` label onto standard class II beta gene name.
 
 - [ ] **Saha** — *Sarcophilus harrisii* (Tasmanian devil), marsupial, 112 seqs
   - Genes: I, DAB, UC
-  - Plan: Add species entry. Another marsupial with non-standard naming. Gene
-    "I" is likely a generic class I label. Research devil MHC literature.
+  - Status: registry_only, blocked on alias policy for generic class I labels.
+  - Plan: Research devil MHC loci (UA, UB, UC, UK, UM). Define stable alias
+    policy for bare "I" strings in marsupials.
 
-### Remaining 550 prefixes
+### Remaining ~550 prefixes
 
-- [ ] **Bulk triage**: Sort remaining 550 unknown prefixes by sequence count.
+- [ ] **Bulk triage**: Sort remaining unknown prefixes by sequence count.
   Batch-add species entries for those with >20 sequences first, working down.
   For each batch:
   1. Verify scientific name and 4-letter prefix against taxonomy databases
@@ -108,21 +92,11 @@ MhcTyal-DAB1, MhcTyal-DAB2, MHCIIB, DRB.
 
 ### Chinese egret (Egeu) — 141 seqs
 
-Current state: Species registered but **zero genes defined**.
-
-- [ ] **Add genes**: DAB1-6, DRA, UAA, UBA based on error report
-  - Class I: UAA, UBA
-  - Class II alpha: DRA
-  - Class II beta: DAB, DAB1, DAB2, DAB3, DAB4, DAB5, DAB6
-  - Determine locus groupings from literature
+- [x] **Add genes** — DONE: added UAA, UBA (I), DRA, DAB, DAB1-6 (IIa DA)
 
 ### Japanese flounder (Paol) — 86 seqs
 
-Current state: Has Ia1, Ia2 (Ia), DAA, DAB (IIa DA).
-
-- [ ] **Add numbered DAB variants** — DAB1 through DAB6 as seen in mhcseqs
-  data. Decide: are these separate genes in species.yaml, or aliases mapping
-  to DAB?
+- [x] **Add numbered DAB variants** — DONE: DAB1-6 as aliases to DAB
 
 ### Medaka (Orla) — 82 seqs
 
@@ -140,16 +114,11 @@ Current state: **Not registered.** The prefix `Orla` collides with orangutan
 
 ### Zebrafish (Dare) — 61 seqs
 
-Current state: Only has UBA (Ia). Missing non-standard nomenclature.
-
-- [ ] **Add genes for non-standard nomenclature** — mhcseqs uses `mhc1uma`,
-  `mhc2daa` style names. These need either:
-  - Gene aliases mapping `mhc1uma` → an appropriate class I gene
-  - Gene aliases mapping `mhc2daa` → a class II gene
-  - Or new gene entries if these represent distinct loci (UMA, DAA, etc.)
-- [ ] **Research zebrafish MHC** — Danio rerio has well-studied MHC. Add
-  missing class I (UBA, UCA, UDA, UEA, UGA, UHA, etc.) and class II (DAA, DAB,
-  etc.) genes from ZFIN/literature.
+- [x] **Add class II genes** — DONE: added DAA, DAB
+- [x] **Add ZFIN-style aliases** — DONE: mhc1uba→UBA, mhc2daa→DAA, mhc2dab→DAB
+- [ ] **Research additional class I genes** — Danio rerio has many U-lineage
+  genes (UCA, UDA, UEA, UFA, UGA, UHA, etc.). Add as needed if mhcseqs
+  sequences reference them.
 
 ### Japanese quail (Coja) — 48 seqs
 
@@ -179,27 +148,22 @@ Current state: Has DAB1, DBB1, DCB1, DDB1, DEB1, DFB1, DGB1 (all IIa beta).
   but a general parser rule could fix this for all species at once. Investigate
   feasibility.
 
-- [ ] **Lowercase concatenated gene names** — Zebrafish uses `mhc1uma`,
-  `mhc2daa`. May appear in other fish species too. Determine if this is a
-  parser-level fix or per-species aliasing.
+- [x] **Lowercase concatenated gene names** — DONE for zebrafish (Dare aliases).
+  May need similar treatment for other fish species.
 
 - [ ] **Roman numeral class + number pattern** — `Coja-II-01*01` style. May
   appear in other bird species. Consider parser-level support.
 
 ---
 
-## Execution order
+## Execution order (updated)
 
-Recommended priority (by impact × effort):
-
-1. Bulk unknown-species additions (top 10 prefixes = ~2,011 seqs)
-2. Chicken gene gaps (287 seqs, species already exists)
-3. Chinese egret genes (141 seqs, species exists but empty)
-4. Barn owl parser/alias fixes (156 seqs)
-5. Zebrafish gene expansion (61 seqs)
-6. Flounder DAB variants (86 seqs)
-7. Medaka prefix collision + entry (82 seqs)
-8. Quail numbering pattern (48 seqs)
-9. Remaining 25 known-species/unknown-gene prefixes (~419 seqs)
-10. Bulk triage of remaining 550 unknown prefixes
-11. Cross-cutting parser fixes (Mhc-prefix, lowercase genes, Roman numerals)
+Next priorities:
+1. Chicken gene gaps — 287 seqs, needs research on YFV/MHCY naming
+2. Barn owl alias/parser fixes — 156 seqs
+3. Medaka prefix collision — 82 seqs
+4. Quail numbering pattern — 48 seqs
+5. Blocked species (Modo, Saal, Zhom, Saha) — need source research
+6. Remaining 25 known-species/unknown-gene prefixes (~419 seqs)
+7. Bulk triage of remaining ~550 unknown prefixes
+8. Cross-cutting parser fixes (Mhc-prefix, Roman numerals)
