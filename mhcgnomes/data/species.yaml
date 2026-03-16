@@ -640,6 +640,50 @@ Crocodylus porosus:
     IIa:
       DA:
         - DAB
+Alligator mississippiensis:
+  prefix: Almi
+  name: American alligator
+Alligator sinensis:
+  prefix: Alsi
+  name: Chinese alligator
+############################
+#
+# Turtles
+#
+# Sources:
+# - https://pubmed.ncbi.nlm.nih.gov/41575191/
+# - https://pubmed.ncbi.nlm.nih.gov/35154791/
+#
+############################
+Caretta caretta:
+  prefix: Caca
+  name: Loggerhead sea turtle
+Chelonia mydas:
+  prefix: Chmy
+  name: Green sea turtle
+Dermochelys coriacea:
+  prefix: Deco
+  name: Leatherback sea turtle
+Lepidochelys kempii:
+  prefix: Leke
+  name: Kemp's ridley sea turtle
+############################
+#
+# Ratite birds
+#
+############################
+Struthio camelus:
+  prefix: Stca
+  name: Ostrich
+Dromaius novaehollandiae:
+  prefix: Drno
+  name: Emu
+Rhea pennata:
+  prefix: Rhpe
+  name: Lesser rhea
+Apteryx australis:
+  prefix: Apau
+  name: Brown kiwi
 ##############################################
 #
 # Ovid/sheep
