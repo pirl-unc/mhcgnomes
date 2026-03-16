@@ -678,12 +678,16 @@ def create_species_for_latin_name(latin_name):
     elif other_mhc_prefixes is None:
         other_mhc_prefixes = []
 
-    # Auto-generate a long prefix from the latin name (5+5 capitalized)
-    # so that e.g. "ChrysPicta" always parses for Chrysemys picta.
-    # This is added as an alternative prefix, not the display prefix.
+    # Auto-generate parseable aliases from the latin name:
+    # 1. A 5+5 long prefix (e.g. "ChrysPicta") for collision-free short form
+    # 2. The full concatenated latin name (e.g. "ChrysemysPicta") so that
+    #    the untruncated form always works too
     long_prefix = _make_long_prefix(latin_name)
-    if long_prefix and long_prefix not in other_mhc_prefixes:
-        other_mhc_prefixes = [*list(other_mhc_prefixes), long_prefix]
+    parts = latin_name.split()
+    full_concat = parts[0].capitalize() + parts[1].capitalize() if len(parts) >= 2 else None
+    for alias in [long_prefix, full_concat]:
+        if alias and alias not in other_mhc_prefixes:
+            other_mhc_prefixes = [*list(other_mhc_prefixes), alias]
 
     common_name = species_info.get("name")
     if not common_name:

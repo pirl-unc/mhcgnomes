@@ -147,6 +147,74 @@ def test_long_prefix_always_parseable():
         eq_(species.name, latin)
 
 
+def test_long_prefix_works_for_allele_parsing():
+    """HomoSapie-A*02:01 should parse as HLA-A*02:01."""
+    result = parse("HomoSapie-A*02:01", raise_on_error=True)
+    assert isinstance(result, Allele)
+    eq_(result.species.prefix, "HLA")
+    eq_(result.gene.name, "A")
+    eq_(result.allele_fields, ("02", "01"))
+
+
+def test_long_prefix_works_for_compact_allele():
+    """HomoSapie-A0201 should also parse."""
+    result = parse("HomoSapie-A0201", raise_on_error=True)
+    assert isinstance(result, Allele)
+    eq_(result.species.prefix, "HLA")
+    eq_(result.allele_fields, ("02", "01"))
+
+
+def test_full_latin_name_concatenated_works():
+    """HomoSapiens-A*02:01 should parse (full latin name, no truncation)."""
+    result = parse("HomoSapiens-A*02:01", raise_on_error=True)
+    assert isinstance(result, Allele)
+    eq_(result.species.prefix, "HLA")
+    eq_(result.gene.name, "A")
+    eq_(result.allele_fields, ("02", "01"))
+
+
+def test_full_latin_name_concatenated_various_species():
+    """Full concatenated latin names should work for any species."""
+    for concat, expected_prefix in [
+        ("DanioRerio-UBA", "Dare"),
+        ("GallusGallus-BF1", "Gaga"),
+        ("MusMusculus-K", "H2"),
+    ]:
+        result = parse(concat, raise_on_error=True)
+        assert result is not None, f"parse({concat!r}) returned None"
+        eq_(result.species.prefix, expected_prefix)
+
+
+def test_latin_name_with_space_works():
+    """'Homo sapiens-A*02:01' with a space in the species name should work."""
+    result = parse("Homo sapiens-A*02:01", raise_on_error=True)
+    assert isinstance(result, Allele)
+    eq_(result.species.prefix, "HLA")
+
+
+# ---------------------------------------------------------------------------
+# 6. Failure modes for latin name / long prefix parsing
+# ---------------------------------------------------------------------------
+
+
+def test_nonexistent_latin_name_returns_none():
+    assert parse("FictusSpecius-A*02:01", raise_on_error=False) is None
+
+
+def test_partial_latin_name_too_short_returns_none():
+    """Just 'Homo' should not resolve to a full allele."""
+    assert parse("Homo-A*02:01", raise_on_error=False) is None
+
+
+def test_misspelled_latin_name_returns_none():
+    assert parse("HomoSapeins-A*02:01", raise_on_error=False) is None
+
+
+def test_wrong_gene_for_species_returns_none():
+    """HomoSapiens-BF1 — BF1 is a chicken gene, not human."""
+    assert parse("HomoSapiens-BF1", raise_on_error=False) is None
+
+
 # ---------------------------------------------------------------------------
 # 4. Default species accepts latin name
 # ---------------------------------------------------------------------------
