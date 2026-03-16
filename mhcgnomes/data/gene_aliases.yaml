@@ -112,6 +112,9 @@ Maar:
   A: A1
 MaLA:
   F: F1
+Zhom:
+  # Old-genus Rhacophorus prefix preserved in external gene name
+  Rhom-beta1: DAB
 Paol:
   # Numbered DAB lineage variants seen in mhcseqs, collapsed to family-level DAB
   DAB1: DAB

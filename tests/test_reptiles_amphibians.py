@@ -142,6 +142,43 @@ def test_parse_frog_allele_xetr_dab_01_01():
     eq_(parse("Xetr-DAB*01:01"), expected)
 
 
+# ---------------------------------------------------------------------------
+# Other frogs
+# ---------------------------------------------------------------------------
+
+
+def test_parse_omei_tree_frog_species_zhom():
+    expected = Species.get("Zhom")
+    assert expected is not None
+    eq_(parse("Zhom", raise_on_error=True), expected)
+    eq_(Species.get("Zhangixalus omeimontis"), expected)
+
+
+def test_parse_omei_tree_frog_dab():
+    expected = Gene.get("Zhom", "DAB")
+    assert expected is not None
+    eq_(expected.mhc_class, "IIa")
+    eq_(parse("Zhom-DAB", raise_on_error=True), expected)
+
+
+def test_parse_omei_tree_frog_rhom_beta1_alias():
+    """Old-genus Rhom-beta1 alias should resolve to DAB."""
+    expected = Gene.get("Zhom", "DAB")
+    assert expected is not None
+    eq_(parse("Zhom-Rhom-beta1", raise_on_error=True), expected)
+
+
+def test_parse_omei_tree_frog_allele():
+    expected = Allele.get("Zhom", "DAB", "01")
+    assert expected is not None
+    eq_(parse("Zhom-DAB*01", raise_on_error=True), expected)
+
+
+# ---------------------------------------------------------------------------
+# Lizards
+# ---------------------------------------------------------------------------
+
+
 def test_parse_pilot_lizard_species_anca():
     expected = Species.get("Anca")
     assert expected is not None

@@ -82,7 +82,7 @@ def test_registry_marks_held_back_strings_as_sourced():
     assert taxa["Saha"]["curation_status"] == "active"
     assert taxa["Phtr"]["curation_status"] == "blocked"
     assert taxa["Phco"]["curation_status"] == "blocked"
-    assert taxa["Zhom"]["curation_status"] == "blocked"
+    assert taxa["Zhom"]["curation_status"] == "active"
     assert "Getr-MHC" in " ".join(taxa["Getr"]["ambiguities"])
     assert "Coja-II-13" in " ".join(taxa["Coja"]["ambiguities"] + taxa["Coja"]["blocked_on"])
     assert "prefix collides" in " ".join(taxa["Phco"]["ambiguities"])

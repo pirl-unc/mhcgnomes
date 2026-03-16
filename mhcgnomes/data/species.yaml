@@ -502,11 +502,30 @@ Danio rerio:
   genes:
     Ia:
       - UBA
+      - UEA
+      - UGA
       - UMA
     IIa:
       DA:
         - DAA
         - DAB
+############################
+#
+# Medaka
+#
+# Note: the natural prefix "Orla" collides with orangutan "OrLA" under
+# case-insensitive normalization. Using "Oryl" instead.
+#
+############################
+Oryzias latipes:
+  prefix: Oryl
+  name: Medaka
+  genes:
+    Ia:
+      - UAA
+      - UBA
+      - UGA
+      - UHA
 Cyprinus carpio:
   prefix: Cyca
   name: Common carp
@@ -2579,6 +2598,18 @@ Xenopus tropicalis:
       - TAP2
       - TAPBP
       - B2M
+##########################
+#
+# Other frogs
+#
+##########################
+Zhangixalus omeimontis:
+  prefix: Zhom
+  name: Omei tree frog
+  genes:
+    IIa:
+      DA:
+        - DAB
 ##########################
 #
 # Lizards
