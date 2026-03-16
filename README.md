@@ -243,8 +243,9 @@ normalization:
 | `Bubu` | *Bubalus bubalis* (water buffalo) | *Bubo bubo* (eagle-owl) | Active collision, resolution pending |
 | `Orla`/`OrLA` | *Oryzias latipes* (medaka) | *Pongo sp.* (orangutan) | Blocks medaka from being added |
 
-See [docs/curation.md](docs/curation.md) for the full prefix conflict resolution
-policy and curation guide for underrepresented taxa.
+See the [Curation Guide](https://pirl-unc.github.io/mhcgnomes/curation/) for the
+full prefix conflict resolution policy and curation guide for underrepresented
+taxa ([source](docs/curation.md)).
 
 ## References
 

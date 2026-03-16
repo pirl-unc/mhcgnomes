@@ -12,6 +12,7 @@ def test_supertype_strings_and_record_include_representative_allele():
     assert result.to_record() == {
         "species_prefix": "HLA",
         "species_name": "Homo sapiens",
+        "species_latin_name": "Homo sapiens",
         "supertype": "A02",
         "supertype_string": "HLA A02 supertype",
         "representative_allele": "HLA-A*02:01",

@@ -347,6 +347,12 @@ class Species(Result):
     @classmethod
     @cache
     def get(cls, species_name):
+        """
+        Look up a species by any identifier (latin name, prefix, common name).
+        Returns None if no match or if the alias is ambiguous (maps to
+        multiple species). Use get_multiple() to retrieve all candidates
+        for an ambiguous alias.
+        """
         if type(species_name) is Species:
             return species_name
         elif species_name is None or type(species_name) is not str:
@@ -355,17 +361,39 @@ class Species(Result):
         species_objects = cls.get_multiple(species_name)
         if len(species_objects) == 0:
             return None
-        # sort species by how well their prefix or name matches the given query
-        # and how many genes they have a species with more curated genes
-        # is more likely to be the one we're looking for in case of an
-        # ambiguous MHC prefix
-        return sorted(species_objects, key=create_species_sort_key(species_name))[-1]
+        if len(species_objects) == 1:
+            return species_objects[0]
+        # Multiple species match — try to find an unambiguous winner:
+        # 1. Exact latin name match
+        for sp in species_objects:
+            if sp.name == species_name:
+                return sp
+        # 2. Exact primary prefix match (only one species should own a prefix)
+        prefix_matches = [
+            sp
+            for sp in species_objects
+            if sp.prefix.lower().strip() == species_name.lower().strip()
+        ]
+        if len(prefix_matches) == 1:
+            return prefix_matches[0]
+        # Ambiguous alias: return None instead of picking a heuristic winner
+        return None
+
+    @classmethod
+    @cache
+    def get_by_latin_name(cls, latin_name):
+        """
+        Look up a species by its scientific (latin) name.
+        This is the canonical identity lookup and is never ambiguous.
+        """
+        return latin_name_to_species_object.get(latin_name)
 
     def to_record(self):
         return OrderedDict(
             [
                 ("species_prefix", self.prefix),
                 ("species_name", self.name),
+                ("species_latin_name", self.latin_name),
             ]
         )
 
@@ -760,7 +788,10 @@ def combine_species_aliases(
 
 def create_species_lookup_dictionaries():
     gene_name_to_species_objects = NormalizingDictionary(default_value_fn=set)
-    species_name_to_species_object = NormalizingDictionary()
+    # Canonical index: latin name → species (never ambiguous)
+    latin_name_to_species = NormalizingDictionary()
+    # Legacy index kept for compatibility
+    species_name_to_species = NormalizingDictionary()
 
     # latin name, common names, or MHC prefixes all mapping to multiple
     # species objects
@@ -768,17 +799,26 @@ def create_species_lookup_dictionaries():
 
     for latin_name in raw_species_dict:
         species = create_species_for_latin_name(latin_name)
-        species_name_to_species_object[latin_name] = species
+        latin_name_to_species[latin_name] = species
+        species_name_to_species[latin_name] = species
         for s in species.all_identifiers:
             alias_to_species_objects[s].add(species)
         for gene_name in species.gene_names_and_aliases:
             gene_name_to_species_objects[gene_name].add(species)
-    return (species_name_to_species_object, alias_to_species_objects, gene_name_to_species_objects)
+    return (
+        latin_name_to_species,
+        species_name_to_species,
+        alias_to_species_objects,
+        gene_name_to_species_objects,
+    )
 
 
-species_name_to_species_object, alias_to_species_objects, gene_name_to_species_objects = (
-    create_species_lookup_dictionaries()
-)
+(
+    latin_name_to_species_object,
+    species_name_to_species_object,
+    alias_to_species_objects,
+    gene_name_to_species_objects,
+) = create_species_lookup_dictionaries()
 
 
 def find_matching_species_objects(name):
@@ -847,13 +887,37 @@ def infer_species_from_prefix(name, _allow_mhc_strip=True):
                 original_prefix = candidate
             species_objects = find_matching_species_objects(original_prefix)
             if species_objects:
-                if len(species_objects) > 1:
-                    species_object = sorted(
-                        species_objects, key=create_species_sort_key(original_prefix)
-                    )[-1]
-                else:
-                    species_object = species_objects[0]
-                return species_object, original_prefix
+                if len(species_objects) == 1:
+                    return species_objects[0], original_prefix
+                # Multiple species match this prefix. Try disambiguation:
+                # 1. If exactly one species owns this as its primary prefix,
+                #    use it (covers parent/child cases like SLA, BoLA, RT1).
+                prefix_owners = [
+                    sp
+                    for sp in species_objects
+                    if sp.prefix.lower().strip() == original_prefix.lower().strip()
+                ]
+                if len(prefix_owners) == 1:
+                    return prefix_owners[0], original_prefix
+                # 2. Try gene-context disambiguation from the remaining string.
+                remaining = name[len(original_prefix) :]
+                remaining = remaining.lstrip("-. ")
+                before_star = remaining.split("*")[0] if remaining else ""
+                gene_candidates = [before_star] if before_star else []
+                parts = re.split(r"[-.]", before_star)
+                for i in range(len(parts) - 1, 0, -1):
+                    gene_candidates.append("-".join(parts[:i]))
+                for gene_token in gene_candidates:
+                    compatible = [
+                        sp
+                        for sp in species_objects
+                        if sp.find_matching_gene_name(gene_token) is not None
+                    ]
+                    if len(compatible) == 1:
+                        return compatible[0], original_prefix
+                # Could not disambiguate — skip this candidate length and
+                # try shorter prefixes or other strategies.
+                continue
 
     # Strip a leading "Mhc" prefix commonly seen in bird MHC literature
     # (e.g., "MhcTyal-DAB1*01:01" → "Tyal-DAB1*01:01"). Only attempted

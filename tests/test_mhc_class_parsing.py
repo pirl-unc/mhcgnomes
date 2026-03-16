@@ -70,5 +70,6 @@ def test_mhc_class_to_record_and_strings():
     assert result.to_record() == {
         "species_prefix": "HLA",
         "species_name": "Homo sapiens",
+        "species_latin_name": "Homo sapiens",
         "mhc_class": "II",
     }
