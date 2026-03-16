@@ -100,8 +100,8 @@ taxa:
   Sica:
     scientific_name: Sistrurus catenatus
     clade: snake
-    ontology_status: existing
-    capture_status: partial_capture_only
+    ontology_status: runtime_added
+    capture_status: runtime_ready
     ingest_confidence: medium_genome_backed
     recommended_ingest_level: revisit
     taxonomy_sources:
@@ -120,14 +120,17 @@ taxa:
       - stable comparative snake locus nomenclature
       - accession-backed gene labels suitable for runtime aliases
     notes: >
-      Current snake support likely under-models real snake MHC architecture.
-      Rattlesnake genome papers suggest class I and class IIbeta expansion.
+      Already in runtime with DAA/DAB. Current snake support likely
+      under-models real snake MHC architecture. Rattlesnake genome papers
+      suggest class I and class IIbeta expansion. The blockers above apply
+      to expanding beyond the current DAA/DAB baseline, not to the existing
+      runtime entry.
 
   Anca:
     scientific_name: Anolis carolinensis
     clade: lizard
-    ontology_status: pilot_species_only
-    capture_status: partial_capture_only
+    ontology_status: runtime_added_species_only
+    capture_status: runtime_ready
     ingest_confidence: medium_genome_backed
     recommended_ingest_level: species
     taxonomy_sources:
@@ -168,14 +171,16 @@ taxa:
         evidence of improving assemblies but also a reason to avoid freezing
         runtime gene symbols too early.
     notes: >
-      Best first lizard pilot because two Anolis genomes define a core MHC
-      region and associated framework genes.
+      Already in runtime as species-only placeholder (no genes). Best first
+      lizard pilot because two Anolis genomes define a core MHC region and
+      associated framework genes. The blockers above apply to adding gene-
+      level ontology, not to the existing species entry.
 
   Ansa:
     scientific_name: Anolis sagrei
     clade: lizard
-    ontology_status: pilot_species_only
-    capture_status: partial_capture_only
+    ontology_status: runtime_added_species_only
+    capture_status: runtime_ready
     ingest_confidence: medium_genome_backed
     recommended_ingest_level: species
     taxonomy_sources:
@@ -210,7 +215,10 @@ taxa:
         so annotations are improving quickly and may still shift as assemblies
         and models stabilize.
     notes: >
-      Companion Anolis pilot species from the same genome-backed study.
+      Already in runtime as species-only placeholder (no genes). Companion
+      Anolis pilot species from the same genome-backed study. The blockers
+      above apply to adding gene-level ontology, not to the existing
+      species entry.
 
   Acar:
     scientific_name: Acrocephalus arundinaceus

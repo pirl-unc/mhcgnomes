@@ -191,6 +191,28 @@ unprefixed parsing fails for these common genes.
 
 ---
 
+## Provenance and curation gaps
+
+These were identified by code review and are pre-existing issues, not
+introduced by this PR.
+
+- [ ] **Machine-readable provenance for runtime ontology** — species.yaml
+  uses YAML comments for source citations, which are discarded by the loader.
+  The registry is not loaded at runtime. Consider a provenance sidecar or
+  structured `sources` field in species.yaml so the ontology model can answer
+  where each species/gene came from.
+
+- [ ] **Gene alias provenance** — gene_aliases.yaml is raw mappings with
+  ad-hoc comments. No structured source documentation or provenance schema.
+  Consider adding source annotations or a parallel provenance file.
+
+- [ ] **Lint/tests requiring sources for new entries** — Currently nothing
+  prevents adding a species or alias without any source documentation.
+  Consider a CI check that requires new species.yaml entries to have either
+  a comment citation or a registry entry.
+
+---
+
 ## Execution order (updated)
 
 Next priorities:
