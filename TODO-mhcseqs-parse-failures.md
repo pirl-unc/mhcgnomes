@@ -86,11 +86,13 @@ BLA/BLB/BLB1/BLB2/B12c (IIa BL), DMA/DMB1/DMB2 (IIb DM).
 
 ### Chinese egret (Egeu) — 141 seqs
 
-- [x] **Add genes** — DONE: UAA, UBA (I), DAA, DAB1-6 (IIa DA)
-  - DRA corrected to DAA (bird MHC uses DA nomenclature, not mammalian DR)
+- [x] **Add genes** — DONE: UAA, UBA (I), DRA (IIa DR), DAB1-6 (IIa DA)
   - Family-level DAB removed; numbered loci DAB1-6 are canonical (Nini pattern)
+  - DRA placed under DR locus (cf. penguin DRB1), not DA locus. May be a
+    bird DR-locus alpha gene rather than mammalian HLA-DRA homolog.
 - [ ] **Verify gene set against PLOS ONE source** — the literature source
-  (journal.pone.0108506) should be checked to confirm exact gene names used.
+  (10.1371/journal.pone.0108506) should be checked to confirm exact gene
+  names used, especially whether DRA is the correct name.
 
 ### Japanese flounder (Paol) — 86 seqs
 
@@ -173,8 +175,9 @@ unprefixed parsing fails for these common genes.
   registry entry.
 
 - [ ] **Egeu source verification** — Verify gene names against the PLOS ONE
-  paper. The DRA→DAA correction was based on bird MHC naming conventions
-  but should be confirmed against the actual publication.
+  paper (10.1371/journal.pone.0108506). DRA is placed under the DR locus
+  (alongside penguin DRB1), but could be a mammalian-style name incorrectly
+  applied to bird data. Confirm whether the paper uses DRA or DAA.
 
 - [ ] **Paol DAB1-6 alias vs locus model** — Currently follows Cyca pattern
   (numbered variants as aliases to family-level DAB). If flounder DAB1-6 are

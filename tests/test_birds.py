@@ -198,7 +198,7 @@ def test_parse_chinese_egret_class1_genes():
 
 
 def test_parse_chinese_egret_class2_genes():
-    for gene_name in ["DAA", "DAB1", "DAB2", "DAB3", "DAB4", "DAB5", "DAB6"]:
+    for gene_name in ["DRA", "DAB1", "DAB2", "DAB3", "DAB4", "DAB5", "DAB6"]:
         expected = Gene.get("Egeu", gene_name)
         assert expected is not None
         eq_(expected.mhc_class, "IIa")
