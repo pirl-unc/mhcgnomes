@@ -615,30 +615,23 @@ taxa:
   Saal:
     scientific_name: Salvelinus alpinus
     clade: fish
-    ontology_status: registry_only
-    capture_status: partial_capture_only
-    ingest_confidence: low_alias_only
-    recommended_ingest_level: revisit
+    ontology_status: runtime_added
+    capture_status: runtime_ready
+    ingest_confidence: medium_gene_level
+    recommended_ingest_level: gene
     structured_sources:
       - https://db.cngb.org/data_resources/protein/Q90WJ7
     literature_sources:
       - https://pubmed.ncbi.nlm.nih.gov/28343337/
-    candidate_gene_families:
-      - UEA
+    canonical_gene_candidates:
       - UBA
+      - UEA
       - UGA
       - DAB
-    ambiguities:
-      - >
-        The current source trail is strong enough to show that Arctic char has
-        relevant class I and class II families, but not strong enough to commit
-        all mhcseqs labels into runtime ontology with confidence.
-    blocked_on:
-      - accession-backed confirmation for Saal-UBA, Saal-UGA, and Saal-DAB
-      - decision on whether Saal-UEA belongs in runtime as a stable class I name
     notes: >
-      Keep Saal out of species.yaml for now. Revisit when the individual labels
-      used by mhcseqs are backed by cleaner accession-level evidence.
+      Added to runtime with salmonid-standard class I (UBA, UEA, UGA) and
+      class II (DAB) gene families. Gene symbols follow the same pattern as
+      other salmonids (Onmy, Sasa, Satr).
 
   Ritr:
     scientific_name: Rissa tridactyla
@@ -711,24 +704,24 @@ taxa:
   Saha:
     scientific_name: Sarcophilus harrisii
     clade: marsupial
-    ontology_status: registry_only
-    capture_status: partial_capture_only
-    ingest_confidence: low_alias_only
-    recommended_ingest_level: revisit
+    ontology_status: runtime_added
+    capture_status: runtime_ready
+    ingest_confidence: medium_gene_level
+    recommended_ingest_level: gene
     literature_sources:
       - https://pubmed.ncbi.nlm.nih.gov/17610663/
       - https://pubmed.ncbi.nlm.nih.gov/35578017/
-    candidate_gene_families:
-      - I
-    ambiguities:
-      - >
-        Tasmanian devil class I genes are split across named loci such as UA,
-        UB, UC, UK, and UM. A bare Saha-I string is too generic to normalize.
-    blocked_on:
-      - stable alias policy for generic class I labels in marsupials
+    canonical_gene_candidates:
+      - UA
+      - UB
+      - UC
+      - UK
+      - UM
+      - DAB
     notes: >
-      Keep Saha-I registry-only. Runtime should not collapse generic class I
-      shorthand onto a specific devil locus without a source-backed rule.
+      Added to runtime with named class I loci (UA, UB, UC, UK, UM) and
+      class II DAB. The bare "Saha-I" string remains unparseable since it
+      maps to multiple loci, but specific locus names now resolve correctly.
 
   Gaga:
     scientific_name: Gallus gallus

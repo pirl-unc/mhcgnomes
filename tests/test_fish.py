@@ -255,6 +255,19 @@ def test_parse_zebrafish_class2_genes():
         eq_(parse(f"Dare-{gene_name}", raise_on_error=True), expected)
 
 
+def test_parse_zebrafish_uma_gene():
+    expected = Gene.get("Dare", "UMA")
+    assert expected is not None
+    eq_(expected.mhc_class, "Ia")
+    eq_(parse("Dare-UMA", raise_on_error=True), expected)
+
+
+def test_parse_zebrafish_mhc1uma_alias():
+    expected = Gene.get("Dare", "UMA")
+    assert expected is not None
+    eq_(parse("Dare-mhc1uma", raise_on_error=True), expected)
+
+
 def test_parse_zebrafish_zfin_style_aliases():
     examples = [
         ("Dare-mhc1uba", Gene.get("Dare", "UBA")),
@@ -302,6 +315,28 @@ def test_parse_golden_pompano_alleles():
         eq_(parse(f"Trov-{gene_name}*01:01", raise_on_error=True), expected)
 
 
+def test_parse_arctic_char_species_Saal():
+    expected = Species.get("Saal")
+    assert expected is not None
+    eq_(parse("Saal", raise_on_error=True), expected)
+
+
+def test_parse_arctic_char_genes():
+    expected_classes = {"UBA": "Ia", "UEA": "Ia", "UGA": "Ia", "DAB": "IIa"}
+    for gene_name in ["UBA", "UEA", "UGA", "DAB"]:
+        expected = Gene.get("Saal", gene_name)
+        assert expected is not None
+        eq_(expected.mhc_class, expected_classes[gene_name])
+        eq_(parse(f"Saal-{gene_name}", raise_on_error=True), expected)
+
+
+def test_parse_arctic_char_case_insensitive():
+    """SAAL should resolve to Saal (case-insensitive normalization)."""
+    expected = Gene.get("Saal", "UBA")
+    assert expected is not None
+    eq_(parse("SAAL-UBA", raise_on_error=True), expected)
+
+
 def test_do_not_parse_ambiguous_or_unreviewed_fish_strings():
-    for s in ["Saal-UEA", "Saal-UBA", "Saal-UGA", "Saal-DAB", "SAAL-UBA", "Satr-DAA"]:
+    for s in ["Satr-DAA"]:
         assert parse(s, raise_on_error=False) is None

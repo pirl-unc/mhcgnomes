@@ -76,10 +76,10 @@ def test_runtime_ready_registry_entries_match_species_ontology():
 
 def test_registry_marks_held_back_strings_as_partial_capture_only():
     taxa = load_underrepresented_taxa_registry()["taxa"]
-    assert taxa["Saal"]["capture_status"] == "partial_capture_only"
+    assert taxa["Saal"]["capture_status"] == "runtime_ready"
     assert taxa["Ritr"]["capture_status"] == "partial_capture_only"
     assert taxa["Otel"]["capture_status"] == "partial_capture_only"
-    assert taxa["Saha"]["capture_status"] == "partial_capture_only"
+    assert taxa["Saha"]["capture_status"] == "runtime_ready"
     assert taxa["Phtr"]["capture_status"] == "partial_capture_only"
     assert taxa["Phco"]["capture_status"] == "partial_capture_only"
     assert taxa["Zhom"]["capture_status"] == "partial_capture_only"
