@@ -62,6 +62,8 @@ rows.
   should live
 - `Immutable Data Objects`: the `3.0.0` object-model refactor and behavior
   compatibility notes
+- `Species Identity Proposal`: make scientific name the canonical species key
+  and treat prefixes/common names as aliases
 
 ## Local Docs Commands
 
