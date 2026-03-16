@@ -267,6 +267,7 @@ that block new species from being added.
 | Normalized | Blocked species | Colliding species | Issue |
 | --- | --- | --- | --- |
 | `ORLA` | *Oryzias latipes* (medaka, fish) | *Pongo sp.* (orangutan, prefix `OrLA`) | Case-insensitive normalization makes `Orla` == `OrLA`. Medaka needs an alternative prefix or orangutan needs to be remapped. |
+| `GAGA` | *Gavialis gangeticus* (gharial, crocodilian) | *Gallus gallus* (chicken, prefix `Gaga`) | Chicken owns `Gaga`. Gharial would need a different prefix (e.g., `Gaga` is not available). |
 
 #### Resolution needed
 
@@ -277,6 +278,22 @@ that block new species from being added.
 - **Orla/OrLA**: Check what prefix mhcseqs uses for medaka. Check IPD/literature
   for an established medaka MHC prefix convention. If none exists, use `Oryl`
   (*Or*yzias latipes with y→l) or similar.
+- **Gaga**: Chicken has a large established ontology and owns this prefix.
+  If gharial is ever added, it needs a different prefix (e.g., `Gaga` from
+  *Ga*vialis *ga*ngeticus is not available — perhaps `Gavg` or similar).
+
+#### Why four-letter prefixes are a weak identity model
+
+The collisions above are symptoms of a fundamental problem: four-letter codes
+derived from genus + species binomials are a lossy encoding. With ~160 species
+and growing, collisions are inevitable. Latin names are unambiguous;
+four-letter codes are not.
+
+The species identity model now uses latin names as canonical identity
+(see `Species.latin_name`, `Species.get_by_latin_name()`). Prefixes are
+treated as display aliases that may be ambiguous. When a prefix maps to
+multiple species, the parser uses gene-context disambiguation rather than
+heuristic winner selection.
 
 ### Current special cases
 
