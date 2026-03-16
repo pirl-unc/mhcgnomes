@@ -446,6 +446,25 @@ taxa:
       Runtime adds the clearly named classical class I UBA family and class II
       DAB family only.
 
+  Trov:
+    scientific_name: Trachinotus ovatus
+    clade: fish
+    ontology_status: runtime_added
+    capture_status: runtime_ready
+    ingest_confidence: medium_gene_level
+    recommended_ingest_level: gene
+    canonical_gene_candidates:
+      - UBA
+      - DAA
+      - DAB
+    observed_structure:
+      - runtime_addition: class I UBA and class II DA family (DAA, DAB)
+    notes: >
+      Golden pompano added from mhcseqs error report data. Gene set follows
+      standard teleost pattern. Literature sources for this species have not
+      yet been pinned down — revisit when accession-backed citations are
+      available.
+
   Chpi:
     scientific_name: Chrysolophus pictus
     clade: bird

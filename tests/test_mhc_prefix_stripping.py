@@ -144,15 +144,28 @@ def test_hla_not_stripped():
 
 def test_direct_prefix_preferred_over_strip():
     """
-    If a species prefix itself starts with 'Mhc' (hypothetical), the direct
-    match should win. Verify by checking that known prefixes that happen to
-    start with M are not mangled.
+    Known prefixes that happen to start with M are not mangled.
     """
     # Maar = Macaca arctoides (stump-tailed macaque)
     result = infer_species_from_prefix("Maar-A1")
     assert result is not None
     species, prefix = result
     eq_(species.prefix, "Maar")
+
+
+def test_mhcmafa_direct_prefix_wins():
+    """
+    MhcMafa is a registered alternative prefix for Macaca fascicularis.
+    The direct prefix match must win — stripping 'Mhc' and matching 'Mafa'
+    would also work, but the direct match is preferred and returns the
+    correct full prefix length.
+    """
+    result = infer_species_from_prefix("MhcMafa-I*01:01")
+    assert result is not None
+    species, prefix = result
+    eq_(species.prefix, "Mafa")
+    # The full "MhcMafa" should be consumed as the prefix, not just "Mafa"
+    eq_(prefix, "MhcMafa")
 
 
 def test_gaga_direct_match_not_stripped():

@@ -86,11 +86,19 @@ BLA/BLB/BLB1/BLB2/B12c (IIa BL), DMA/DMB1/DMB2 (IIb DM).
 
 ### Chinese egret (Egeu) — 141 seqs
 
-- [x] **Add genes** — DONE: added UAA, UBA (I), DRA, DAB, DAB1-6 (IIa DA)
+- [x] **Add genes** — DONE: UAA, UBA (I), DAA, DAB1-6 (IIa DA)
+  - DRA corrected to DAA (bird MHC uses DA nomenclature, not mammalian DR)
+  - Family-level DAB removed; numbered loci DAB1-6 are canonical (Nini pattern)
+- [ ] **Verify gene set against PLOS ONE source** — the literature source
+  (journal.pone.0108506) should be checked to confirm exact gene names used.
 
 ### Japanese flounder (Paol) — 86 seqs
 
 - [x] **Add numbered DAB variants** — DONE: DAB1-6 as aliases to DAB
+- [ ] **Verify alias vs canonical locus model** — Paol uses the Cyca (carp)
+  pattern of collapsing numbered variants to family-level DAB via aliases.
+  If flounder DAB1-6 are actually independent loci (like Coja/Nini), they
+  should become canonical genes instead of aliases. Needs source review.
 
 ### Medaka (Orla) — 82 seqs
 
@@ -137,16 +145,46 @@ Current state: Has DAB1, DBB1, DCB1, DDB1, DEB1, DFB1, DGB1 (all IIa beta).
 
 ## Cross-cutting parser issues
 
-- [ ] **`Mhc<Prefix>-Gene` double-prefix pattern** — Common in bird MHC
-  literature (e.g., `MhcTyal-DAB1`). Currently handled via per-species aliases,
-  but a general parser rule could fix this for all species at once. Investigate
-  feasibility.
+- [x] **`Mhc<Prefix>-Gene` double-prefix pattern** — DONE. General parser-level
+  fix in `infer_species_from_prefix()` strips leading "Mhc" as a fallback when
+  normal prefix matching fails. Direct prefix matches always win. Tested with
+  31 unit tests including the MhcMafa edge case (a real species alias).
 
 - [x] **Lowercase concatenated gene names** — DONE for zebrafish (Dare aliases).
   May need similar treatment for other fish species.
 
 - [ ] **Roman numeral class + number pattern** — `Coja-II-01*01` style. May
   appear in other bird species. Consider parser-level support.
+
+---
+
+## Name collision audit
+
+Gene names like DAB, DAA, UBA are shared across many species (DAB: 19 species,
+DAA: 12, UBA: 9). This is by design — `infer_species_from_prefix()` only infers
+species from a gene name when the gene is unique to exactly one species, and
+correctly returns None for ambiguous genes. The collisions are safe but mean
+unprefixed parsing fails for these common genes.
+
+### Items needing follow-up
+
+- [ ] **Trov source documentation** — Golden pompano was added from the mhcseqs
+  error report. Literature sources need to be pinned down and added to the
+  registry entry.
+
+- [ ] **Egeu source verification** — Verify gene names against the PLOS ONE
+  paper. The DRA→DAA correction was based on bird MHC naming conventions
+  but should be confirmed against the actual publication.
+
+- [ ] **Paol DAB1-6 alias vs locus model** — Currently follows Cyca pattern
+  (numbered variants as aliases to family-level DAB). If flounder DAB1-6 are
+  independent paralogous loci (like quail/ibis), they should be canonical genes.
+
+- [ ] **Medaka (Orla) prefix collision** — `Orla` (medaka) collides with
+  `OrLA` (orangutan) under case-insensitive normalization. Options:
+  1. Use an alternative prefix for medaka
+  2. Check what prefix mhcseqs actually uses
+  3. Check IPD/literature for established convention
 
 ---
 

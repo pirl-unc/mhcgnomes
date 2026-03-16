@@ -1424,9 +1424,11 @@ Egretta eulophotes:
       - UAA
       - UBA
     IIa:
+      # Follows the Nini (Japanese crested ibis) pattern: numbered alpha
+      # and beta loci are canonical genes, not aliases. DRA was corrected
+      # to DAA (bird MHC nomenclature, not mammalian DR).
       DA:
-        - DRA
-        - DAB
+        - DAA
         - DAB1
         - DAB2
         - DAB3
