@@ -154,3 +154,84 @@ def test_parse_pilot_lizard_species_ansa():
     assert expected is not None
     eq_(parse("Ansa"), expected)
     eq_(Species.get("Anolis sagrei"), expected)
+
+
+# ---------------------------------------------------------------------------
+# Crocodilians
+# ---------------------------------------------------------------------------
+
+
+def test_parse_crocodile_species_crpo():
+    expected = Species.get("Crpo")
+    assert expected is not None
+    eq_(parse("Crpo", raise_on_error=True), expected)
+    eq_(Species.get("Crocodylus porosus"), expected)
+
+
+def test_parse_crocodile_gene_ua():
+    expected = Gene.get("Crpo", "UA")
+    assert expected is not None
+    eq_(expected.mhc_class, "I")
+    eq_(parse("Crpo-UA", raise_on_error=True), expected)
+
+
+def test_parse_crocodile_gene_dab():
+    expected = Gene.get("Crpo", "DAB")
+    assert expected is not None
+    eq_(expected.mhc_class, "IIa")
+    eq_(parse("Crpo-DAB", raise_on_error=True), expected)
+
+
+# ---------------------------------------------------------------------------
+# Marsupials
+# ---------------------------------------------------------------------------
+
+
+def test_parse_opossum_species_modo():
+    expected = Species.get("Modo")
+    assert expected is not None
+    eq_(parse("Modo", raise_on_error=True), expected)
+    eq_(Species.get("Monodelphis domestica"), expected)
+
+
+def test_parse_opossum_class1_genes():
+    for gene_name in ["UA", "UB", "UC", "UG", "UK", "UM", "UT3", "UT5", "UT7", "UT8"]:
+        expected = Gene.get("Modo", gene_name)
+        assert expected is not None, f"Gene.get('Modo', '{gene_name}') returned None"
+        eq_(expected.mhc_class, "I")
+        eq_(parse(f"Modo-{gene_name}", raise_on_error=True), expected)
+
+
+def test_parse_opossum_class2_dab():
+    expected = Gene.get("Modo", "DAB")
+    assert expected is not None
+    eq_(expected.mhc_class, "IIa")
+    eq_(parse("Modo-DAB", raise_on_error=True), expected)
+
+
+def test_parse_opossum_allele():
+    expected = Allele.get("Modo", "UT3", "01")
+    assert expected is not None
+    eq_(parse("Modo-UT3*01", raise_on_error=True), expected)
+
+
+def test_parse_devil_species_saha():
+    expected = Species.get("Saha")
+    assert expected is not None
+    eq_(parse("Saha", raise_on_error=True), expected)
+    eq_(Species.get("Sarcophilus harrisii"), expected)
+
+
+def test_parse_devil_class1_genes():
+    for gene_name in ["UA", "UB", "UC", "UK", "UM"]:
+        expected = Gene.get("Saha", gene_name)
+        assert expected is not None, f"Gene.get('Saha', '{gene_name}') returned None"
+        eq_(expected.mhc_class, "I")
+        eq_(parse(f"Saha-{gene_name}", raise_on_error=True), expected)
+
+
+def test_parse_devil_class2_dab():
+    expected = Gene.get("Saha", "DAB")
+    assert expected is not None
+    eq_(expected.mhc_class, "IIa")
+    eq_(parse("Saha-DAB", raise_on_error=True), expected)

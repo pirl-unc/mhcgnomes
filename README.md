@@ -68,14 +68,6 @@ Use strict mode to fail fast:
 mhcgnomes --strict "not a real allele"
 ```
 
-## Local docs
-
-```bash
-./develop.sh
-mkdocs serve
-mkdocs build --strict
-```
-
 ## The problem: MHC nomenclature is nuts
 
 Despite the valiant efforts of groups such as the [Comparative MHC Nomenclature Committee](https://www.ebi.ac.uk/ipd/mhc/committee/), the names of MHC alleles you might encounter in different datasets (or accepted by immunoinformatics tools) are frustratingly ill specified. It's not uncommon to see dozens of different forms for the same allele.
@@ -243,16 +235,20 @@ Genes in `species.yaml` are organized by MHC class:
 
 ### Known prefix collisions
 
-A small number of four-letter species prefixes collide under case-insensitive
-normalization:
+Four-letter prefixes derived from genus + species binomials are a lossy
+encoding. With ~160 species and growing, collisions are inevitable:
 
 | Prefix | Species 1 | Species 2 | Status |
 | --- | --- | --- | --- |
-| `Bubu` | *Bubalus bubalis* (water buffalo) | *Bubo bubo* (eagle-owl) | Active collision, resolution pending |
+| `Bubu` | *Bubalus bubalis* (water buffalo) | *Bubo bubo* (eagle-owl) | Active — gene-context disambiguation resolves |
 | `Orla`/`OrLA` | *Oryzias latipes* (medaka) | *Pongo sp.* (orangutan) | Blocks medaka from being added |
+| `Gaga` | *Gallus gallus* (chicken) | *Gavialis gangeticus* (gharial) | Blocks gharial from being added |
 
-See [docs/curation.md](docs/curation.md) for the full prefix conflict resolution
-policy and curation guide for underrepresented taxa.
+The species identity model uses latin names as canonical identity internally
+(`Species.latin_name`, `Species.get_by_latin_name()`). Prefixes are display
+aliases that may be ambiguous. See the
+[Curation Guide](https://pirl-unc.github.io/mhcgnomes/curation/) for the full
+conflict resolution policy ([source](docs/curation.md)).
 
 ## References
 
@@ -262,3 +258,13 @@ policy and curation guide for underrepresented taxa.
   Committee report, 2005](https://link.springer.com/content/pdf/10.1007%2Fs00251-005-0071-4.pdf)
 - [Marsupial MHC Class II β Genes Are Not Orthologous to the Eutherian β Gene Families]()
 - [Nomenclature for factors of the SLA system, update 2008](https://www.ncbi.nlm.nih.gov/pubmed/19317739)
+
+## Development
+
+### Local docs
+
+```bash
+./develop.sh
+mkdocs serve
+mkdocs build --strict
+```

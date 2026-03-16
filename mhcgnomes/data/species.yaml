@@ -502,6 +502,7 @@ Danio rerio:
   genes:
     Ia:
       - UBA
+      - UMA
     IIa:
       DA:
         - DAA
@@ -572,6 +573,17 @@ Salmo trutta:
     IIa:
       DA:
         - DAB
+Salvelinus alpinus:
+  prefix: Saal
+  name: Arctic char
+  genes:
+    Ia:
+      - UBA
+      - UEA
+      - UGA
+    IIa:
+      DA:
+        - DAB
 Trachinotus ovatus:
   prefix: Trov
   name: Golden pompano
@@ -594,6 +606,20 @@ Sistrurus catenatus:
     IIa:
       DA:
         - DAA
+        - DAB
+############################
+#
+# Crocodilians
+#
+############################
+Crocodylus porosus:
+  prefix: Crpo
+  name: Saltwater crocodile
+  genes:
+    I:
+      - UA
+    IIa:
+      DA:
         - DAB
 ##############################################
 #
@@ -2573,6 +2599,44 @@ Anolis sagrei:
 # Possum
 #
 ##########################
+Monodelphis domestica:
+  prefix: Modo
+  name: Gray short-tailed opossum
+  genes:
+    # Marsupial class I uses non-standard UT/UG gene families.
+    # Classification follows Trvu precedent of generic "I".
+    I:
+      - UA
+      - UB
+      - UC
+      - UG
+      - UK
+      - UM
+      - UT3
+      - UT5
+      - UT7
+      - UT8
+    IIa:
+      DA:
+        - DAB
+    other:
+      - TAP1
+      - TAP2
+      - B2M
+Sarcophilus harrisii:
+  prefix: Saha
+  name: Tasmanian devil
+  genes:
+    # Devil class I loci are split across UA, UB, UC, UK, UM.
+    I:
+      - UA
+      - UB
+      - UC
+      - UK
+      - UM
+    IIa:
+      DA:
+        - DAB
 Trichosurus vulpecula:
   prefix: Trvu
   name: Common brushtail possum

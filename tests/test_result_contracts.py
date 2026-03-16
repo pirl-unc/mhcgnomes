@@ -36,6 +36,7 @@ GOLDEN_PARSE_CASES = [
             [
                 ("species_prefix", "HLA"),
                 ("species_name", "Homo sapiens"),
+                ("species_latin_name", "Homo sapiens"),
                 ("gene", "HLA-A"),
                 ("mhc_class", "Ia"),
                 ("mutations", ""),
@@ -54,6 +55,7 @@ GOLDEN_PARSE_CASES = [
             [
                 ("species_prefix", "HLA"),
                 ("species_name", "Homo sapiens"),
+                ("species_latin_name", "Homo sapiens"),
                 ("gene", "HLA-A"),
                 ("mhc_class", "Ia"),
                 ("mutations", ""),
@@ -90,6 +92,7 @@ GOLDEN_PARSE_CASES = [
             [
                 ("species_prefix", "HLA"),
                 ("species_name", "Homo sapiens"),
+                ("species_latin_name", "Homo sapiens"),
                 ("gene", "HLA-A"),
                 ("mhc_class", "Ia"),
                 ("mutations", "N80I"),
@@ -110,6 +113,7 @@ GOLDEN_PARSE_CASES = [
             [
                 ("species_prefix", "Saoe"),
                 ("species_name", "Saguinus oedipus"),
+                ("species_latin_name", "Saguinus oedipus"),
                 ("gene", "Saoe-G"),
                 ("mhc_class", "Ib"),
                 ("mutations", ""),
@@ -130,6 +134,7 @@ GOLDEN_PARSE_CASES = [
             [
                 ("species_prefix", "HLA"),
                 ("species_name", "Homo sapiens"),
+                ("species_latin_name", "Homo sapiens"),
                 ("serotype", "HLA-A2"),
             ]
         ),
@@ -154,6 +159,7 @@ GOLDEN_PARSE_CASES = [
             [
                 ("species_prefix", "HLA"),
                 ("species_name", "Homo sapiens"),
+                ("species_latin_name", "Homo sapiens"),
                 ("supertype", "A02"),
                 ("supertype_string", "HLA A02 supertype"),
                 ("representative_allele", "HLA-A*02:01"),

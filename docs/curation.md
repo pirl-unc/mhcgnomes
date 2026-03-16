@@ -45,6 +45,17 @@ The right design boundary is not "nonmammal". The right boundary is
 therefore need source-aware ingestion rules". That can include unusual
 mammals such as marsupials or monotremes.
 
+## Curation Status
+
+Every taxon in the registry has a `curation_status` field that tracks where it
+sits in the curation pipeline.
+
+| Status | Meaning | Example |
+| --- | --- | --- |
+| `active` | In `species.yaml`, parses at runtime. | `Gaga` (chicken): BF, BLB, DMA, etc. all parse. |
+| `pending` | We have sources downloaded and documented, but the entry hasn't been reviewed for runtime inclusion yet. No known blockers — just needs someone to look at it. | A newly ingested species with papers and gene candidates listed but not yet vetted. |
+| `blocked` | Reviewed and found a specific problem (`blocked_on` field) that prevents activation. | `Zhom` (Omei tree frog): gene name `Rhom-beta1` preserves an old genus prefix; blocked on deciding a stable canonical name. |
+
 ## Partial Capture Policy
 
 Not every useful source belongs in `mhcgnomes/data/species.yaml`.
@@ -256,6 +267,7 @@ that block new species from being added.
 | Normalized | Blocked species | Colliding species | Issue |
 | --- | --- | --- | --- |
 | `ORLA` | *Oryzias latipes* (medaka, fish) | *Pongo sp.* (orangutan, prefix `OrLA`) | Case-insensitive normalization makes `Orla` == `OrLA`. Medaka needs an alternative prefix or orangutan needs to be remapped. |
+| `GAGA` | *Gavialis gangeticus* (gharial, crocodilian) | *Gallus gallus* (chicken, prefix `Gaga`) | Chicken owns `Gaga`. Gharial would need a different prefix (e.g., `Gaga` is not available). |
 
 #### Resolution needed
 
@@ -266,6 +278,22 @@ that block new species from being added.
 - **Orla/OrLA**: Check what prefix mhcseqs uses for medaka. Check IPD/literature
   for an established medaka MHC prefix convention. If none exists, use `Oryl`
   (*Or*yzias latipes with y→l) or similar.
+- **Gaga**: Chicken has a large established ontology and owns this prefix.
+  If gharial is ever added, it needs a different prefix (e.g., `Gaga` from
+  *Ga*vialis *ga*ngeticus is not available — perhaps `Gavg` or similar).
+
+#### Why four-letter prefixes are a weak identity model
+
+The collisions above are symptoms of a fundamental problem: four-letter codes
+derived from genus + species binomials are a lossy encoding. With ~160 species
+and growing, collisions are inevitable. Latin names are unambiguous;
+four-letter codes are not.
+
+The species identity model now uses latin names as canonical identity
+(see `Species.latin_name`, `Species.get_by_latin_name()`). Prefixes are
+treated as display aliases that may be ambiguous. When a prefix maps to
+multiple species, the parser uses gene-context disambiguation rather than
+heuristic winner selection.
 
 ### Current special cases
 

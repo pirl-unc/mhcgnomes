@@ -29,7 +29,7 @@ taxa:
     scientific_name: Xenopus laevis
     clade: frog
     ontology_status: existing
-    capture_status: runtime_ready
+    curation_status: active
     ingest_confidence: high_gene_level
     recommended_ingest_level: gene
     taxonomy_sources:
@@ -65,7 +65,7 @@ taxa:
     scientific_name: Xenopus tropicalis
     clade: frog
     ontology_status: gene_level_expanded
-    capture_status: runtime_ready
+    curation_status: active
     ingest_confidence: high_gene_level
     recommended_ingest_level: gene
     taxonomy_sources:
@@ -101,7 +101,7 @@ taxa:
     scientific_name: Sistrurus catenatus
     clade: snake
     ontology_status: runtime_added
-    capture_status: runtime_ready
+    curation_status: active
     ingest_confidence: medium_genome_backed
     recommended_ingest_level: revisit
     taxonomy_sources:
@@ -130,7 +130,7 @@ taxa:
     scientific_name: Anolis carolinensis
     clade: lizard
     ontology_status: runtime_added_species_only
-    capture_status: runtime_ready
+    curation_status: active
     ingest_confidence: medium_genome_backed
     recommended_ingest_level: species
     taxonomy_sources:
@@ -180,7 +180,7 @@ taxa:
     scientific_name: Anolis sagrei
     clade: lizard
     ontology_status: runtime_added_species_only
-    capture_status: runtime_ready
+    curation_status: active
     ingest_confidence: medium_genome_backed
     recommended_ingest_level: species
     taxonomy_sources:
@@ -224,7 +224,7 @@ taxa:
     scientific_name: Acrocephalus arundinaceus
     clade: bird
     ontology_status: runtime_added
-    capture_status: runtime_ready
+    curation_status: active
     ingest_confidence: high_gene_level
     recommended_ingest_level: gene
     structured_sources:
@@ -249,7 +249,7 @@ taxa:
     scientific_name: Acrocephalus schoenobaenus
     clade: bird
     ontology_status: runtime_added
-    capture_status: runtime_ready
+    curation_status: active
     ingest_confidence: high_gene_level
     recommended_ingest_level: gene
     structured_sources:
@@ -274,7 +274,7 @@ taxa:
     scientific_name: Geothlypis trichas
     clade: bird
     ontology_status: runtime_added_with_registry_holdback
-    capture_status: runtime_ready
+    curation_status: active
     ingest_confidence: high_gene_level
     recommended_ingest_level: gene
     structured_sources:
@@ -299,7 +299,7 @@ taxa:
     scientific_name: Paralichthys olivaceus
     clade: fish
     ontology_status: runtime_added
-    capture_status: runtime_ready
+    curation_status: active
     ingest_confidence: high_gene_level
     recommended_ingest_level: gene
     structured_sources:
@@ -322,7 +322,7 @@ taxa:
     scientific_name: Cynoglossus semilaevis
     clade: fish
     ontology_status: runtime_added
-    capture_status: runtime_ready
+    curation_status: active
     ingest_confidence: high_gene_level
     recommended_ingest_level: gene
     literature_sources:
@@ -343,7 +343,7 @@ taxa:
     scientific_name: Epinephelus coioides
     clade: fish
     ontology_status: runtime_added
-    capture_status: runtime_ready
+    curation_status: active
     ingest_confidence: high_gene_level
     recommended_ingest_level: gene
     literature_sources:
@@ -365,7 +365,7 @@ taxa:
     scientific_name: Danio rerio
     clade: fish
     ontology_status: runtime_added
-    capture_status: runtime_ready
+    curation_status: active
     ingest_confidence: high_gene_level
     recommended_ingest_level: gene
     structured_sources:
@@ -383,7 +383,7 @@ taxa:
     scientific_name: Cyprinus carpio
     clade: fish
     ontology_status: runtime_added_with_alias_gap
-    capture_status: runtime_ready
+    curation_status: active
     ingest_confidence: medium_gene_level
     recommended_ingest_level: gene_family
     literature_sources:
@@ -416,7 +416,7 @@ taxa:
     scientific_name: Oreochromis niloticus
     clade: fish
     ontology_status: runtime_added
-    capture_status: runtime_ready
+    curation_status: active
     ingest_confidence: high_gene_level
     recommended_ingest_level: gene
     literature_sources:
@@ -435,7 +435,7 @@ taxa:
     scientific_name: Salmo trutta
     clade: fish
     ontology_status: runtime_added_with_registry_holdback
-    capture_status: runtime_ready
+    curation_status: active
     ingest_confidence: medium_gene_level
     recommended_ingest_level: gene
     literature_sources:
@@ -458,7 +458,7 @@ taxa:
     scientific_name: Trachinotus ovatus
     clade: fish
     ontology_status: runtime_added
-    capture_status: runtime_ready
+    curation_status: active
     ingest_confidence: medium_gene_level
     recommended_ingest_level: gene
     canonical_gene_candidates:
@@ -477,7 +477,7 @@ taxa:
     scientific_name: Chrysolophus pictus
     clade: bird
     ontology_status: runtime_added
-    capture_status: runtime_ready
+    curation_status: active
     ingest_confidence: high_gene_level
     recommended_ingest_level: gene
     literature_sources:
@@ -499,7 +499,7 @@ taxa:
     scientific_name: Coturnix japonica
     clade: bird
     ontology_status: runtime_added_with_registry_holdback
-    capture_status: runtime_ready
+    curation_status: active
     ingest_confidence: high_gene_level
     recommended_ingest_level: gene
     literature_sources:
@@ -540,7 +540,7 @@ taxa:
     scientific_name: Fulica atra
     clade: bird
     ontology_status: runtime_added
-    capture_status: runtime_ready
+    curation_status: active
     ingest_confidence: high_gene_level
     recommended_ingest_level: gene
     literature_sources:
@@ -555,7 +555,7 @@ taxa:
     scientific_name: Sterna hirundo
     clade: bird
     ontology_status: runtime_added
-    capture_status: runtime_ready
+    curation_status: active
     ingest_confidence: medium_gene_level
     recommended_ingest_level: gene_family
     literature_sources:
@@ -579,7 +579,7 @@ taxa:
     scientific_name: Spheniscus humboldti
     clade: bird
     ontology_status: runtime_added
-    capture_status: runtime_ready
+    curation_status: active
     ingest_confidence: medium_gene_level
     recommended_ingest_level: gene
     literature_sources:
@@ -596,7 +596,7 @@ taxa:
     scientific_name: Spheniscus magellanicus
     clade: bird
     ontology_status: runtime_added
-    capture_status: runtime_ready
+    curation_status: active
     ingest_confidence: medium_gene_level
     recommended_ingest_level: gene
     literature_sources:
@@ -615,36 +615,29 @@ taxa:
   Saal:
     scientific_name: Salvelinus alpinus
     clade: fish
-    ontology_status: registry_only
-    capture_status: partial_capture_only
-    ingest_confidence: low_alias_only
-    recommended_ingest_level: revisit
+    ontology_status: runtime_added
+    curation_status: active
+    ingest_confidence: medium_gene_level
+    recommended_ingest_level: gene
     structured_sources:
       - https://db.cngb.org/data_resources/protein/Q90WJ7
     literature_sources:
       - https://pubmed.ncbi.nlm.nih.gov/28343337/
-    candidate_gene_families:
-      - UEA
+    canonical_gene_candidates:
       - UBA
+      - UEA
       - UGA
       - DAB
-    ambiguities:
-      - >
-        The current source trail is strong enough to show that Arctic char has
-        relevant class I and class II families, but not strong enough to commit
-        all mhcseqs labels into runtime ontology with confidence.
-    blocked_on:
-      - accession-backed confirmation for Saal-UBA, Saal-UGA, and Saal-DAB
-      - decision on whether Saal-UEA belongs in runtime as a stable class I name
     notes: >
-      Keep Saal out of species.yaml for now. Revisit when the individual labels
-      used by mhcseqs are backed by cleaner accession-level evidence.
+      Added to runtime with salmonid-standard class I (UBA, UEA, UGA) and
+      class II (DAB) gene families. Gene symbols follow the same pattern as
+      other salmonids (Onmy, Sasa, Satr).
 
   Ritr:
     scientific_name: Rissa tridactyla
     clade: bird
     ontology_status: registry_only
-    capture_status: partial_capture_only
+    curation_status: blocked
     ingest_confidence: low_alias_only
     recommended_ingest_level: revisit
     literature_sources:
@@ -665,7 +658,7 @@ taxa:
     scientific_name: Otus elegans
     clade: bird
     ontology_status: registry_only
-    capture_status: partial_capture_only
+    curation_status: blocked
     ingest_confidence: low_alias_only
     recommended_ingest_level: revisit
     literature_sources:
@@ -686,7 +679,7 @@ taxa:
     scientific_name: Tyto alba
     clade: bird
     ontology_status: runtime_added_with_alias_gap
-    capture_status: runtime_ready
+    curation_status: active
     ingest_confidence: medium_gene_level
     recommended_ingest_level: alias_review
     literature_sources:
@@ -711,30 +704,30 @@ taxa:
   Saha:
     scientific_name: Sarcophilus harrisii
     clade: marsupial
-    ontology_status: registry_only
-    capture_status: partial_capture_only
-    ingest_confidence: low_alias_only
-    recommended_ingest_level: revisit
+    ontology_status: runtime_added
+    curation_status: active
+    ingest_confidence: medium_gene_level
+    recommended_ingest_level: gene
     literature_sources:
       - https://pubmed.ncbi.nlm.nih.gov/17610663/
       - https://pubmed.ncbi.nlm.nih.gov/35578017/
-    candidate_gene_families:
-      - I
-    ambiguities:
-      - >
-        Tasmanian devil class I genes are split across named loci such as UA,
-        UB, UC, UK, and UM. A bare Saha-I string is too generic to normalize.
-    blocked_on:
-      - stable alias policy for generic class I labels in marsupials
+    canonical_gene_candidates:
+      - UA
+      - UB
+      - UC
+      - UK
+      - UM
+      - DAB
     notes: >
-      Keep Saha-I registry-only. Runtime should not collapse generic class I
-      shorthand onto a specific devil locus without a source-backed rule.
+      Added to runtime with named class I loci (UA, UB, UC, UK, UM) and
+      class II DAB. The bare "Saha-I" string remains unparseable since it
+      maps to multiple loci, but specific locus names now resolve correctly.
 
   Gaga:
     scientific_name: Gallus gallus
     clade: bird
     ontology_status: runtime_added_with_alias_gap
-    capture_status: runtime_ready
+    curation_status: active
     ingest_confidence: medium_gene_level
     recommended_ingest_level: alias_review
     structured_sources:
@@ -764,7 +757,7 @@ taxa:
     scientific_name: Phylloscopus trochilus
     clade: bird
     ontology_status: registry_only
-    capture_status: partial_capture_only
+    curation_status: blocked
     ingest_confidence: low_alias_only
     recommended_ingest_level: revisit
     literature_sources:
@@ -788,7 +781,7 @@ taxa:
     scientific_name: Phylloscopus collybita
     clade: bird
     ontology_status: registry_only
-    capture_status: partial_capture_only
+    curation_status: blocked
     ingest_confidence: low_alias_only
     recommended_ingest_level: revisit
     literature_sources: []
@@ -815,7 +808,7 @@ taxa:
     scientific_name: Zhangixalus omeimontis
     clade: amphibian
     ontology_status: registry_only
-    capture_status: partial_capture_only
+    curation_status: blocked
     ingest_confidence: low_alias_only
     recommended_ingest_level: revisit
     structured_sources:
@@ -834,100 +827,3 @@ taxa:
       Keep Zhom registry-only until the old-genus-prefixed amphibian gene name
       can be mapped onto a stable runtime class II beta ontology.
 
-backlog_clades:
-  unusual_mammals:
-    capture_status: partial_capture_only
-    ingest_confidence: medium_genome_backed
-    taxonomy_sources:
-      - https://www.ncbi.nlm.nih.gov/datasets/
-    structured_sources:
-      - https://www.ncbi.nlm.nih.gov/datasets/
-    literature_sources: []
-    example_species:
-      - Monodelphis domestica
-      - Didelphis virginiana
-      - Ornithorhynchus anatinus
-    observed_structure:
-      - may have useful genome-backed MHC annotations without committee nomenclature
-      - may need source-aware ingestion just like reptiles and amphibians
-    blocked_on:
-      - species-specific source review
-      - stable accessions and gene symbols worth canonizing
-    recommendation: >
-      This registry is not limited to nonmammals. Use it for mammals that are
-      weakly covered by current mhcgnomes ontology or lack stable committee
-      nomenclature, such as marsupials or monotremes.
-
-  turtles:
-    capture_status: partial_capture_only
-    ingest_confidence: low_alias_only
-    taxonomy_sources:
-      - https://www.reptile-database.org/
-    structured_sources:
-      - https://www.ncbi.nlm.nih.gov/datasets/
-    literature_sources:
-      - https://pubmed.ncbi.nlm.nih.gov/41575191/
-      - https://pubmed.ncbi.nlm.nih.gov/35154791/
-    observed_structure:
-      - recent 4-species class I and class II allele survey
-      - strong evidence for species-level and family-level support
-    blocked_on:
-      - stable cross-study locus naming
-      - decision on how to store paper-local aliases
-    recommendation: >
-      Add species and provenance first. Treat paper alleles as aliases until
-      stable cross-study locus naming is demonstrated.
-
-  crocodilians:
-    capture_status: partial_capture_only
-    ingest_confidence: medium_genome_backed
-    taxonomy_sources:
-      - https://www.reptile-database.org/
-    structured_sources:
-      - https://www.ncbi.nlm.nih.gov/datasets/
-    literature_sources:
-      - https://pubmed.ncbi.nlm.nih.gov/24253731/
-    observed_structure:
-      - order-level class I evolution signal
-      - genome-backed MHC organization exists for at least some species
-    blocked_on:
-      - curated species-by-species gene symbol pass
-    recommendation: >
-      Good target for species plus gene-family support from genome-backed data.
-
-  salamanders:
-    capture_status: partial_capture_only
-    ingest_confidence: low_alias_only
-    taxonomy_sources:
-      - https://amphibiansoftheworld.amnh.org/
-    structured_sources:
-      - https://www.ncbi.nlm.nih.gov/datasets/
-    literature_sources:
-      - https://pubmed.ncbi.nlm.nih.gov/36000494/
-      - https://pubmed.ncbi.nlm.nih.gov/34375431/
-    observed_structure:
-      - very large class I expansion
-      - APG coevolution signal with TAP genes
-    blocked_on:
-      - stable locus naming
-      - strategy for multigene class I families
-    recommendation: >
-      Defer canonical allele ingestion. Multigene class I architecture is too
-      variable to model from survey papers alone.
-
-  tuatara:
-    capture_status: partial_capture_only
-    ingest_confidence: medium_genome_backed
-    taxonomy_sources:
-      - https://www.reptile-database.org/
-    structured_sources:
-      - https://www.ncbi.nlm.nih.gov/datasets/
-    literature_sources:
-      - https://pubmed.ncbi.nlm.nih.gov/25953959/
-    observed_structure:
-      - dispersed MHC organization with class I and class IIbeta support
-    blocked_on:
-      - species-specific accession curation
-    recommendation: >
-      Use as an architecture stress-test species after the first lizard and
-      snake pilots.
