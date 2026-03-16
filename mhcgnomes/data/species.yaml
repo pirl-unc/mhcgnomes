@@ -502,6 +502,10 @@ Danio rerio:
   genes:
     Ia:
       - UBA
+    IIa:
+      DA:
+        - DAA
+        - DAB
 Cyprinus carpio:
   prefix: Cyca
   name: Common carp
@@ -567,6 +571,16 @@ Salmo trutta:
       - UBA
     IIa:
       DA:
+        - DAB
+Trachinotus ovatus:
+  prefix: Trov
+  name: Golden pompano
+  genes:
+    Ia:
+      - UBA
+    IIa:
+      DA:
+        - DAA
         - DAB
 ############################
 #
@@ -1405,6 +1419,23 @@ Anas platyrhynchos:
 Egretta eulophotes:
   prefix: Egeu
   name: Chinese egret
+  genes:
+    I:
+      - UAA
+      - UBA
+    IIa:
+      # DRA may be a bird DR-locus alpha gene (cf. penguin DRB1 under
+      # the DR locus), not the mammalian HLA-DRA. Needs verification
+      # against the PLOS ONE source paper (10.1371/journal.pone.0108506).
+      DR:
+        - DRA
+      DA:
+        - DAB1
+        - DAB2
+        - DAB3
+        - DAB4
+        - DAB5
+        - DAB6
 Nipponia nippon:
   prefix: Nini
   name: Japanese crested ibis
@@ -2482,6 +2513,18 @@ Xenopus laevis:
   genes:
     Ia:
       - UAA
+      - UBA
+    Ib:
+      - UCA
+      - UDA
+      - UEA
+    IIa:
+      DA:
+        - DAA
+        - DAB
+    IIb:
+      DM:
+        - DMA
     other:
       - TAP1
       - TAP2
@@ -2490,6 +2533,26 @@ Xenopus laevis:
 Xenopus tropicalis:
   prefix: Xetr
   name: Tropical clawed frog
+  genes:
+    Ia:
+      - UAA
+      - UBA
+    Ib:
+      - UCA
+      - UDA
+      - UEA
+    IIa:
+      DA:
+        - DAA
+        - DAB
+    IIb:
+      DM:
+        - DMA
+    other:
+      - TAP1
+      - TAP2
+      - TAPBP
+      - B2M
 ##########################
 #
 # Lizards

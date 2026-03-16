@@ -41,21 +41,33 @@ taxa:
       - https://pubmed.ncbi.nlm.nih.gov/28695290/
     canonical_gene_candidates:
       - UAA
+      - UBA
+      - UCA
+      - UDA
+      - UEA
+      - DAA
+      - DAB
+      - DMA
       - TAP1
       - TAP2
       - TAPBP
       - B2M
+    observed_structure:
+      - runtime_addition: class Ia UAA and UBA, class Ib UCA/UDA/UEA, class IIa DA family, class IIb DMA
+      - xenbase_nomenclature: mhc1-uaa, mhc1-uba*, mhc1-uca, mhc1-uda, mhc1-uea, mhc2-daa, mhc2-dab, mhc2-dma
+      - tetraploid_note: X. laevis has L and S homeologs for many MHC genes
     notes: >
-      Existing frog baseline in mhcgnomes. Xenbase is the preferred source for
-      future Xenopus gene expansion.
+      Expanded from original UAA-only baseline to full Xenbase-backed gene
+      coverage. Class I uses UA/UB/UC/UD/UE family structure; class II uses
+      DA and DM families. Antigen processing genes retained from original entry.
 
   Xetr:
     scientific_name: Xenopus tropicalis
     clade: frog
-    ontology_status: pilot_species_only
+    ontology_status: gene_level_expanded
     capture_status: runtime_ready
     ingest_confidence: high_gene_level
-    recommended_ingest_level: species
+    recommended_ingest_level: gene
     taxonomy_sources:
       - https://amphibiansoftheworld.amnh.org/
     structured_sources:
@@ -63,18 +75,33 @@ taxa:
       - https://www.ncbi.nlm.nih.gov/datasets/
     literature_sources:
       - https://pubmed.ncbi.nlm.nih.gov/28695290/
-    candidate_gene_families:
-      - class I
-      - antigen processing genes
+    canonical_gene_candidates:
+      - UAA
+      - UBA
+      - UCA
+      - UDA
+      - UEA
+      - DAA
+      - DAB
+      - DMA
+      - TAP1
+      - TAP2
+      - TAPBP
+      - B2M
+    observed_structure:
+      - runtime_addition: class Ia UAA and UBA, class Ib UCA/UDA/UEA, class IIa DA family, class IIb DMA
+      - xenbase_nomenclature: mhc1-uaa, mhc1-uba*, mhc1-uca, mhc1-uda, mhc1-uea, mhc2-daa, mhc2-dab, mhc2-dma
+      - diploid_note: X. tropicalis is diploid with simpler gene complement than X. laevis
     notes: >
-      Safe pilot species for Xenopus expansion. Gene symbols should be taken
-      from Xenbase before adding runtime ontology entries beyond species.
+      Expanded from species-only placeholder to full Xenbase-backed gene
+      coverage matching Xela. Gene symbols confirmed via Xenbase gene search
+      and NCBI gene records for X. tropicalis MHC loci.
 
   Sica:
     scientific_name: Sistrurus catenatus
     clade: snake
-    ontology_status: existing
-    capture_status: partial_capture_only
+    ontology_status: runtime_added
+    capture_status: runtime_ready
     ingest_confidence: medium_genome_backed
     recommended_ingest_level: revisit
     taxonomy_sources:
@@ -93,14 +120,17 @@ taxa:
       - stable comparative snake locus nomenclature
       - accession-backed gene labels suitable for runtime aliases
     notes: >
-      Current snake support likely under-models real snake MHC architecture.
-      Rattlesnake genome papers suggest class I and class IIbeta expansion.
+      Already in runtime with DAA/DAB. Current snake support likely
+      under-models real snake MHC architecture. Rattlesnake genome papers
+      suggest class I and class IIbeta expansion. The blockers above apply
+      to expanding beyond the current DAA/DAB baseline, not to the existing
+      runtime entry.
 
   Anca:
     scientific_name: Anolis carolinensis
     clade: lizard
-    ontology_status: pilot_species_only
-    capture_status: partial_capture_only
+    ontology_status: runtime_added_species_only
+    capture_status: runtime_ready
     ingest_confidence: medium_genome_backed
     recommended_ingest_level: species
     taxonomy_sources:
@@ -141,14 +171,16 @@ taxa:
         evidence of improving assemblies but also a reason to avoid freezing
         runtime gene symbols too early.
     notes: >
-      Best first lizard pilot because two Anolis genomes define a core MHC
-      region and associated framework genes.
+      Already in runtime as species-only placeholder (no genes). Best first
+      lizard pilot because two Anolis genomes define a core MHC region and
+      associated framework genes. The blockers above apply to adding gene-
+      level ontology, not to the existing species entry.
 
   Ansa:
     scientific_name: Anolis sagrei
     clade: lizard
-    ontology_status: pilot_species_only
-    capture_status: partial_capture_only
+    ontology_status: runtime_added_species_only
+    capture_status: runtime_ready
     ingest_confidence: medium_genome_backed
     recommended_ingest_level: species
     taxonomy_sources:
@@ -183,7 +215,10 @@ taxa:
         so annotations are improving quickly and may still shift as assemblies
         and models stabilize.
     notes: >
-      Companion Anolis pilot species from the same genome-backed study.
+      Already in runtime as species-only placeholder (no genes). Companion
+      Anolis pilot species from the same genome-backed study. The blockers
+      above apply to adding gene-level ontology, not to the existing
+      species entry.
 
   Acar:
     scientific_name: Acrocephalus arundinaceus
@@ -418,6 +453,25 @@ taxa:
     notes: >
       Runtime adds the clearly named classical class I UBA family and class II
       DAB family only.
+
+  Trov:
+    scientific_name: Trachinotus ovatus
+    clade: fish
+    ontology_status: runtime_added
+    capture_status: runtime_ready
+    ingest_confidence: medium_gene_level
+    recommended_ingest_level: gene
+    canonical_gene_candidates:
+      - UBA
+      - DAA
+      - DAB
+    observed_structure:
+      - runtime_addition: class I UBA and class II DA family (DAA, DAB)
+    notes: >
+      Golden pompano added from mhcseqs error report data. Gene set follows
+      standard teleost pattern. Literature sources for this species have not
+      yet been pinned down — revisit when accession-backed citations are
+      available.
 
   Chpi:
     scientific_name: Chrysolophus pictus

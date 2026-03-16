@@ -237,6 +237,36 @@ Every collision-resolution change should add both:
 - a positive test for the accepted normalization or alias, and
 - a negative test proving that colliding unresolved strings still do not parse
 
+### Known active prefix collisions
+
+These are prefix collisions that currently exist in the runtime ontology or
+that block new species from being added.
+
+#### Confirmed runtime collisions
+
+| Normalized | Prefix | Species | Type | Status |
+| --- | --- | --- | --- | --- |
+| `BUBU` | `Bubu` | *Bubalus bubalis* (water buffalo) | primary | **Active collision** — both species use the same primary prefix. Parsing `Bubu-X` is ambiguous. |
+| `BUBU` | `Bubu` | *Bubo bubo* (Eurasian eagle-owl) | primary | See above. One species needs a new prefix. |
+| `PREN` | `Pren` | *Semnopithecus entellus* (langur) | old prefix | Low risk — old prefixes are fallbacks, not primary. |
+| `PREN` | `Pren` | *Theropithecus gelada* (gelada) | old prefix | See above. |
+
+#### Blocked by collision (not yet in runtime)
+
+| Normalized | Blocked species | Colliding species | Issue |
+| --- | --- | --- | --- |
+| `ORLA` | *Oryzias latipes* (medaka, fish) | *Pongo sp.* (orangutan, prefix `OrLA`) | Case-insensitive normalization makes `Orla` == `OrLA`. Medaka needs an alternative prefix or orangutan needs to be remapped. |
+
+#### Resolution needed
+
+- **Bubu**: Decide which species keeps `Bubu`. Water buffalo has more MHC
+  literature and is part of IPD-MHC (BoLA family), so it may be the stronger
+  claimant. Eagle-owl could use an alternative like `Bubb` (*Bu*bo *b*ubo) or
+  a different convention.
+- **Orla/OrLA**: Check what prefix mhcseqs uses for medaka. Check IPD/literature
+  for an established medaka MHC prefix convention. If none exists, use `Oryl`
+  (*Or*yzias latipes with y→l) or similar.
+
 ### Current special cases
 
 - `mhcgnomes/data/default_alleles.yaml` exists but is currently minimal and not

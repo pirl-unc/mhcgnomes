@@ -104,8 +104,6 @@ Sasa:
   DAA1: DAA
   DAB1: DAB
 Tyal:
-  MhcTyal-DAB1: DAB1
-  MhcTyal-DAB2: DAB2
   MHCIIB: DAB
   DRB: DAB
 Saoe:
@@ -114,3 +112,16 @@ Maar:
   A: A1
 MaLA:
   F: F1
+Dare:
+  # ZFIN-style lowercase concatenated names seen in mhcseqs
+  mhc1uba: UBA
+  mhc2daa: DAA
+  mhc2dab: DAB
+Paol:
+  # Numbered DAB lineage variants seen in mhcseqs, collapsed to family-level DAB
+  DAB1: DAB
+  DAB2: DAB
+  DAB3: DAB
+  DAB4: DAB
+  DAB5: DAB
+  DAB6: DAB

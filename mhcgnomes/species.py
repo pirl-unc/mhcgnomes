@@ -808,7 +808,7 @@ def create_species_sort_key(query_string):
     return sort_key
 
 
-def infer_species_from_prefix(name):
+def infer_species_from_prefix(name, _allow_mhc_strip=True):
     """
     Trying to parse prefixes of alleles such as:
         HLA-A
@@ -854,6 +854,20 @@ def infer_species_from_prefix(name):
                 else:
                     species_object = species_objects[0]
                 return species_object, original_prefix
+
+    # Strip a leading "Mhc" prefix commonly seen in bird MHC literature
+    # (e.g., "MhcTyal-DAB1*01:01" → "Tyal-DAB1*01:01"). Only attempted
+    # once (_allow_mhc_strip flag prevents recursive stripping) and only
+    # after normal prefix matching has failed, so a direct prefix match
+    # is always preferred.
+    if _allow_mhc_strip and len(name) > 3 and name[:3].lower() == "mhc":
+        stripped = name[3:]
+        result = infer_species_from_prefix(stripped, _allow_mhc_strip=False)
+        if result is not None:
+            species_object, inner_prefix = result
+            # Return the full original prefix including "Mhc" so the caller
+            # can correctly compute the remaining string.
+            return species_object, name[: 3 + len(inner_prefix)]
 
     # if all else fails, look for a distinctive gene name which is unique
     # to one species
