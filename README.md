@@ -233,22 +233,42 @@ Genes in `species.yaml` are organized by MHC class:
 - **IIb**: Accessory or non-classical class II proteins
 - **other**: Antigen processing genes (TAP1, TAP2, TAPBP, B2M)
 
-### Known prefix collisions
+### Species prefix tiers
 
-Four-letter prefixes derived from genus + species binomials are a lossy
-encoding. With ~160 species and growing, collisions are inevitable:
+As mhcgnomes supports more species, short prefix codes increasingly collide.
+One-letter codes like `HLA`/`SLA`/`DLA`, two-letter codes like `OrLA`, and
+four-letter codes like `Calu` all hit collisions as coverage grows. We support
+multiple prefix tiers so that every species is always parseable:
 
-| Prefix | Species 1 | Species 2 | Status |
+| Tier | Form | Example | When used |
 | --- | --- | --- | --- |
-| `Bubu` | *Bubalus bubalis* (water buffalo) | *Bubo bubo* (eagle-owl) | Active — gene-context disambiguation resolves |
-| `Orla`/`OrLA` | *Oryzias latipes* (medaka) | *Pongo sp.* (orangutan) | Blocks medaka from being added |
-| `Gaga` | *Gallus gallus* (chicken) | *Gavialis gangeticus* (gharial) | Blocks gharial from being added |
+| Established short prefix | 1–4 letters | `HLA`, `Gaga`, `Crpo` | Published in MHC literature or IPD-MHC. Preferred for display. |
+| Generated 4-letter prefix | 2+2 from latin name | `Chmy`, `Stca`, `Drno` | When no established prefix exists and the 4-letter code is unique. |
+| 5+5 long prefix | First 5 of genus + first 5 of species | `HomoSapie`, `ChrysPicta` | When the 4-letter code collides. Used as display prefix for collision species. |
+| Full latin name | Concatenated genus + species | `HomoSapiens`, `ChrysemysPicta` | Always parseable as an alternative. Guaranteed collision-free. |
 
-The species identity model uses latin names as canonical identity internally
-(`Species.latin_name`, `Species.get_by_latin_name()`). Prefixes are display
-aliases that may be ambiguous. See the
-[Curation Guide](https://pirl-unc.github.io/mhcgnomes/curation/) for the full
-conflict resolution policy ([source](docs/curation.md)).
+All tiers are parsed case-insensitively. For example, these all parse to the
+same allele:
+
+```
+HLA-A*02:01          # established prefix
+HomoSapie-A*02:01    # 5+5 long prefix
+HomoSapiens-A*02:01  # full latin name
+Homo sapiens-A*02:01 # latin name with space
+```
+
+The 10-letter (5+5) space greatly reduces collision probability compared to
+4-letter codes, but only the full latin name is truly guaranteed to be unique.
+Since we don't yet know what naming conventions the scientific community will
+settle on for newer taxa, we support all tiers simultaneously.
+
+**Which prefixes are established vs generated:** Comments in `species.yaml`
+document which prefixes are attested in MHC literature and which were generated
+by mhcgnomes. Established prefixes are never changed; generated prefixes are
+subject to replacement if a community convention emerges.
+
+See the [Curation Guide](https://pirl-unc.github.io/mhcgnomes/curation/) for
+the full prefix conflict resolution policy ([source](docs/curation.md)).
 
 ## References
 

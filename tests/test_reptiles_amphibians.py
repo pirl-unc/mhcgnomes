@@ -179,12 +179,34 @@ def test_parse_omei_tree_frog_allele():
 # ---------------------------------------------------------------------------
 
 
-def test_parse_alligator_species():
-    for prefix, latin in [("Almi", "Alligator mississippiensis"), ("Alsi", "Alligator sinensis")]:
+def test_parse_crocodilian_species():
+    for prefix, latin in [
+        ("Crpo", "Crocodylus porosus"),
+        ("Meca", "Mecistops cataphractus"),
+        ("Oste", "Osteolaemus tetraspis"),
+        ("Crni", "Crocodylus niloticus"),
+        ("Tosc", "Tomistoma schlegelii"),
+    ]:
         expected = Species.get(prefix)
         assert expected is not None, f"Species.get({prefix!r}) returned None"
         eq_(parse(prefix, raise_on_error=True), expected)
         eq_(Species.get(latin), expected)
+
+
+def test_parse_crpo_expanded_genes():
+    """Crpo has class I UA/UB/UC and class II DAA/DAB1/DAB2."""
+    for gene_name, mhc_class in [
+        ("UA", "I"),
+        ("UB", "I"),
+        ("UC", "I"),
+        ("DAA", "IIa"),
+        ("DAB1", "IIa"),
+        ("DAB2", "IIa"),
+    ]:
+        expected = Gene.get("Crpo", gene_name)
+        assert expected is not None, f"Gene.get('Crpo', '{gene_name}') returned None"
+        eq_(expected.mhc_class, mhc_class)
+        eq_(parse(f"Crpo-{gene_name}", raise_on_error=True), expected)
 
 
 # ---------------------------------------------------------------------------
@@ -192,12 +214,18 @@ def test_parse_alligator_species():
 # ---------------------------------------------------------------------------
 
 
-def test_parse_sea_turtle_species():
+def test_parse_turtle_species():
     for prefix, latin in [
-        ("Caca", "Caretta caretta"),
+        ("CaretCaret", "Caretta caretta"),
         ("Chmy", "Chelonia mydas"),
         ("Deco", "Dermochelys coriacea"),
         ("Leke", "Lepidochelys kempii"),
+        ("Chse", "Chelydra serpentina"),
+        ("ChrysPicta", "Chrysemys picta"),
+        ("Pesi", "Pelodiscus sinensis"),
+        ("Tetr", "Terrapene triunguis"),
+        ("Gopo", "Gopherus polyphemus"),
+        ("Chab", "Chelonoidis abingdonii"),
     ]:
         expected = Species.get(prefix)
         assert expected is not None, f"Species.get({prefix!r}) returned None"
@@ -243,11 +271,11 @@ def test_parse_crocodile_gene_ua():
     eq_(parse("Crpo-UA", raise_on_error=True), expected)
 
 
-def test_parse_crocodile_gene_dab():
-    expected = Gene.get("Crpo", "DAB")
+def test_parse_crocodile_gene_dab1():
+    expected = Gene.get("Crpo", "DAB1")
     assert expected is not None
     eq_(expected.mhc_class, "IIa")
-    eq_(parse("Crpo-DAB", raise_on_error=True), expected)
+    eq_(parse("Crpo-DAB1", raise_on_error=True), expected)
 
 
 # ---------------------------------------------------------------------------

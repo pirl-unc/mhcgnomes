@@ -635,6 +635,24 @@ def guess_class2_chain_type(gene_name):
     return "alpha" if is_alpha else "beta"
 
 
+def _make_long_prefix(latin_name):
+    """
+    Generate a long prefix from a latin binomial name by taking the first
+    5 characters of each word, capitalized. E.g.:
+        "Chrysemys picta" → "ChrysPicta"
+        "Bubo bubo" → "BuboBubo"
+        "Mus musculus" → "MusMuscu"
+
+    Returns None for names that don't have at least two words (e.g. "Bos sp.").
+    """
+    parts = latin_name.split()
+    if len(parts) < 2 or parts[1].endswith("."):
+        return None
+    genus = parts[0][:5]
+    species = parts[1][:5]
+    return genus.capitalize() + species.capitalize()
+
+
 @cache
 def create_species_for_latin_name(latin_name):
     if latin_name not in raw_species_dict:
@@ -659,6 +677,17 @@ def create_species_for_latin_name(latin_name):
         other_mhc_prefixes = [other_mhc_prefixes]
     elif other_mhc_prefixes is None:
         other_mhc_prefixes = []
+
+    # Auto-generate parseable aliases from the latin name:
+    # 1. A 5+5 long prefix (e.g. "ChrysPicta") for collision-free short form
+    # 2. The full concatenated latin name (e.g. "ChrysemysPicta") so that
+    #    the untruncated form always works too
+    long_prefix = _make_long_prefix(latin_name)
+    parts = latin_name.split()
+    full_concat = parts[0].capitalize() + parts[1].capitalize() if len(parts) >= 2 else None
+    for alias in [long_prefix, full_concat]:
+        if alias and alias not in other_mhc_prefixes:
+            other_mhc_prefixes = [*list(other_mhc_prefixes), alias]
 
     common_name = species_info.get("name")
     if not common_name:
