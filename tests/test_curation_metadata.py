@@ -70,19 +70,19 @@ def test_runtime_ready_registry_entries_match_species_ontology():
         "Tyal",
         "Gaga",
     ]:
-        assert taxa[prefix]["capture_status"] == "runtime_ready"
+        assert taxa[prefix]["curation_status"] == "active"
         assert Species.get(prefix) is not None
 
 
-def test_registry_marks_held_back_strings_as_partial_capture_only():
+def test_registry_marks_held_back_strings_as_sourced():
     taxa = load_underrepresented_taxa_registry()["taxa"]
-    assert taxa["Saal"]["capture_status"] == "runtime_ready"
-    assert taxa["Ritr"]["capture_status"] == "partial_capture_only"
-    assert taxa["Otel"]["capture_status"] == "partial_capture_only"
-    assert taxa["Saha"]["capture_status"] == "runtime_ready"
-    assert taxa["Phtr"]["capture_status"] == "partial_capture_only"
-    assert taxa["Phco"]["capture_status"] == "partial_capture_only"
-    assert taxa["Zhom"]["capture_status"] == "partial_capture_only"
+    assert taxa["Saal"]["curation_status"] == "active"
+    assert taxa["Ritr"]["curation_status"] == "sourced"
+    assert taxa["Otel"]["curation_status"] == "sourced"
+    assert taxa["Saha"]["curation_status"] == "active"
+    assert taxa["Phtr"]["curation_status"] == "sourced"
+    assert taxa["Phco"]["curation_status"] == "sourced"
+    assert taxa["Zhom"]["curation_status"] == "sourced"
     assert "Getr-MHC" in " ".join(taxa["Getr"]["ambiguities"])
     assert "Coja-II-13" in " ".join(taxa["Coja"]["ambiguities"] + taxa["Coja"]["blocked_on"])
     assert "prefix collides" in " ".join(taxa["Phco"]["ambiguities"])

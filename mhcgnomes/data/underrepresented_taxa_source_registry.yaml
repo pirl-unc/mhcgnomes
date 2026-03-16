@@ -29,7 +29,7 @@ taxa:
     scientific_name: Xenopus laevis
     clade: frog
     ontology_status: existing
-    capture_status: runtime_ready
+    curation_status: active
     ingest_confidence: high_gene_level
     recommended_ingest_level: gene
     taxonomy_sources:
@@ -65,7 +65,7 @@ taxa:
     scientific_name: Xenopus tropicalis
     clade: frog
     ontology_status: gene_level_expanded
-    capture_status: runtime_ready
+    curation_status: active
     ingest_confidence: high_gene_level
     recommended_ingest_level: gene
     taxonomy_sources:
@@ -101,7 +101,7 @@ taxa:
     scientific_name: Sistrurus catenatus
     clade: snake
     ontology_status: runtime_added
-    capture_status: runtime_ready
+    curation_status: active
     ingest_confidence: medium_genome_backed
     recommended_ingest_level: revisit
     taxonomy_sources:
@@ -130,7 +130,7 @@ taxa:
     scientific_name: Anolis carolinensis
     clade: lizard
     ontology_status: runtime_added_species_only
-    capture_status: runtime_ready
+    curation_status: active
     ingest_confidence: medium_genome_backed
     recommended_ingest_level: species
     taxonomy_sources:
@@ -180,7 +180,7 @@ taxa:
     scientific_name: Anolis sagrei
     clade: lizard
     ontology_status: runtime_added_species_only
-    capture_status: runtime_ready
+    curation_status: active
     ingest_confidence: medium_genome_backed
     recommended_ingest_level: species
     taxonomy_sources:
@@ -224,7 +224,7 @@ taxa:
     scientific_name: Acrocephalus arundinaceus
     clade: bird
     ontology_status: runtime_added
-    capture_status: runtime_ready
+    curation_status: active
     ingest_confidence: high_gene_level
     recommended_ingest_level: gene
     structured_sources:
@@ -249,7 +249,7 @@ taxa:
     scientific_name: Acrocephalus schoenobaenus
     clade: bird
     ontology_status: runtime_added
-    capture_status: runtime_ready
+    curation_status: active
     ingest_confidence: high_gene_level
     recommended_ingest_level: gene
     structured_sources:
@@ -274,7 +274,7 @@ taxa:
     scientific_name: Geothlypis trichas
     clade: bird
     ontology_status: runtime_added_with_registry_holdback
-    capture_status: runtime_ready
+    curation_status: active
     ingest_confidence: high_gene_level
     recommended_ingest_level: gene
     structured_sources:
@@ -299,7 +299,7 @@ taxa:
     scientific_name: Paralichthys olivaceus
     clade: fish
     ontology_status: runtime_added
-    capture_status: runtime_ready
+    curation_status: active
     ingest_confidence: high_gene_level
     recommended_ingest_level: gene
     structured_sources:
@@ -322,7 +322,7 @@ taxa:
     scientific_name: Cynoglossus semilaevis
     clade: fish
     ontology_status: runtime_added
-    capture_status: runtime_ready
+    curation_status: active
     ingest_confidence: high_gene_level
     recommended_ingest_level: gene
     literature_sources:
@@ -343,7 +343,7 @@ taxa:
     scientific_name: Epinephelus coioides
     clade: fish
     ontology_status: runtime_added
-    capture_status: runtime_ready
+    curation_status: active
     ingest_confidence: high_gene_level
     recommended_ingest_level: gene
     literature_sources:
@@ -365,7 +365,7 @@ taxa:
     scientific_name: Danio rerio
     clade: fish
     ontology_status: runtime_added
-    capture_status: runtime_ready
+    curation_status: active
     ingest_confidence: high_gene_level
     recommended_ingest_level: gene
     structured_sources:
@@ -383,7 +383,7 @@ taxa:
     scientific_name: Cyprinus carpio
     clade: fish
     ontology_status: runtime_added_with_alias_gap
-    capture_status: runtime_ready
+    curation_status: active
     ingest_confidence: medium_gene_level
     recommended_ingest_level: gene_family
     literature_sources:
@@ -416,7 +416,7 @@ taxa:
     scientific_name: Oreochromis niloticus
     clade: fish
     ontology_status: runtime_added
-    capture_status: runtime_ready
+    curation_status: active
     ingest_confidence: high_gene_level
     recommended_ingest_level: gene
     literature_sources:
@@ -435,7 +435,7 @@ taxa:
     scientific_name: Salmo trutta
     clade: fish
     ontology_status: runtime_added_with_registry_holdback
-    capture_status: runtime_ready
+    curation_status: active
     ingest_confidence: medium_gene_level
     recommended_ingest_level: gene
     literature_sources:
@@ -458,7 +458,7 @@ taxa:
     scientific_name: Trachinotus ovatus
     clade: fish
     ontology_status: runtime_added
-    capture_status: runtime_ready
+    curation_status: active
     ingest_confidence: medium_gene_level
     recommended_ingest_level: gene
     canonical_gene_candidates:
@@ -477,7 +477,7 @@ taxa:
     scientific_name: Chrysolophus pictus
     clade: bird
     ontology_status: runtime_added
-    capture_status: runtime_ready
+    curation_status: active
     ingest_confidence: high_gene_level
     recommended_ingest_level: gene
     literature_sources:
@@ -499,7 +499,7 @@ taxa:
     scientific_name: Coturnix japonica
     clade: bird
     ontology_status: runtime_added_with_registry_holdback
-    capture_status: runtime_ready
+    curation_status: active
     ingest_confidence: high_gene_level
     recommended_ingest_level: gene
     literature_sources:
@@ -540,7 +540,7 @@ taxa:
     scientific_name: Fulica atra
     clade: bird
     ontology_status: runtime_added
-    capture_status: runtime_ready
+    curation_status: active
     ingest_confidence: high_gene_level
     recommended_ingest_level: gene
     literature_sources:
@@ -555,7 +555,7 @@ taxa:
     scientific_name: Sterna hirundo
     clade: bird
     ontology_status: runtime_added
-    capture_status: runtime_ready
+    curation_status: active
     ingest_confidence: medium_gene_level
     recommended_ingest_level: gene_family
     literature_sources:
@@ -579,7 +579,7 @@ taxa:
     scientific_name: Spheniscus humboldti
     clade: bird
     ontology_status: runtime_added
-    capture_status: runtime_ready
+    curation_status: active
     ingest_confidence: medium_gene_level
     recommended_ingest_level: gene
     literature_sources:
@@ -596,7 +596,7 @@ taxa:
     scientific_name: Spheniscus magellanicus
     clade: bird
     ontology_status: runtime_added
-    capture_status: runtime_ready
+    curation_status: active
     ingest_confidence: medium_gene_level
     recommended_ingest_level: gene
     literature_sources:
@@ -616,7 +616,7 @@ taxa:
     scientific_name: Salvelinus alpinus
     clade: fish
     ontology_status: runtime_added
-    capture_status: runtime_ready
+    curation_status: active
     ingest_confidence: medium_gene_level
     recommended_ingest_level: gene
     structured_sources:
@@ -637,7 +637,7 @@ taxa:
     scientific_name: Rissa tridactyla
     clade: bird
     ontology_status: registry_only
-    capture_status: partial_capture_only
+    curation_status: sourced
     ingest_confidence: low_alias_only
     recommended_ingest_level: revisit
     literature_sources:
@@ -658,7 +658,7 @@ taxa:
     scientific_name: Otus elegans
     clade: bird
     ontology_status: registry_only
-    capture_status: partial_capture_only
+    curation_status: sourced
     ingest_confidence: low_alias_only
     recommended_ingest_level: revisit
     literature_sources:
@@ -679,7 +679,7 @@ taxa:
     scientific_name: Tyto alba
     clade: bird
     ontology_status: runtime_added_with_alias_gap
-    capture_status: runtime_ready
+    curation_status: active
     ingest_confidence: medium_gene_level
     recommended_ingest_level: alias_review
     literature_sources:
@@ -705,7 +705,7 @@ taxa:
     scientific_name: Sarcophilus harrisii
     clade: marsupial
     ontology_status: runtime_added
-    capture_status: runtime_ready
+    curation_status: active
     ingest_confidence: medium_gene_level
     recommended_ingest_level: gene
     literature_sources:
@@ -727,7 +727,7 @@ taxa:
     scientific_name: Gallus gallus
     clade: bird
     ontology_status: runtime_added_with_alias_gap
-    capture_status: runtime_ready
+    curation_status: active
     ingest_confidence: medium_gene_level
     recommended_ingest_level: alias_review
     structured_sources:
@@ -757,7 +757,7 @@ taxa:
     scientific_name: Phylloscopus trochilus
     clade: bird
     ontology_status: registry_only
-    capture_status: partial_capture_only
+    curation_status: sourced
     ingest_confidence: low_alias_only
     recommended_ingest_level: revisit
     literature_sources:
@@ -781,7 +781,7 @@ taxa:
     scientific_name: Phylloscopus collybita
     clade: bird
     ontology_status: registry_only
-    capture_status: partial_capture_only
+    curation_status: sourced
     ingest_confidence: low_alias_only
     recommended_ingest_level: revisit
     literature_sources: []
@@ -808,7 +808,7 @@ taxa:
     scientific_name: Zhangixalus omeimontis
     clade: amphibian
     ontology_status: registry_only
-    capture_status: partial_capture_only
+    curation_status: sourced
     ingest_confidence: low_alias_only
     recommended_ingest_level: revisit
     structured_sources:
@@ -829,7 +829,7 @@ taxa:
 
 backlog_clades:
   unusual_mammals:
-    capture_status: partial_capture_only
+    curation_status: sourced
     ingest_confidence: medium_genome_backed
     taxonomy_sources:
       - https://www.ncbi.nlm.nih.gov/datasets/
@@ -852,7 +852,7 @@ backlog_clades:
       nomenclature, such as marsupials or monotremes.
 
   turtles:
-    capture_status: partial_capture_only
+    curation_status: sourced
     ingest_confidence: low_alias_only
     taxonomy_sources:
       - https://www.reptile-database.org/
@@ -872,7 +872,7 @@ backlog_clades:
       stable cross-study locus naming is demonstrated.
 
   crocodilians:
-    capture_status: partial_capture_only
+    curation_status: sourced
     ingest_confidence: medium_genome_backed
     taxonomy_sources:
       - https://www.reptile-database.org/
@@ -889,7 +889,7 @@ backlog_clades:
       Good target for species plus gene-family support from genome-backed data.
 
   salamanders:
-    capture_status: partial_capture_only
+    curation_status: sourced
     ingest_confidence: low_alias_only
     taxonomy_sources:
       - https://amphibiansoftheworld.amnh.org/
@@ -909,7 +909,7 @@ backlog_clades:
       variable to model from survey papers alone.
 
   tuatara:
-    capture_status: partial_capture_only
+    curation_status: sourced
     ingest_confidence: medium_genome_backed
     taxonomy_sources:
       - https://www.reptile-database.org/

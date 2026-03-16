@@ -45,6 +45,22 @@ The right design boundary is not "nonmammal". The right boundary is
 therefore need source-aware ingestion rules". That can include unusual
 mammals such as marsupials or monotremes.
 
+## Curation Status
+
+Every taxon in the registry has a `curation_status` field that tracks where it
+sits in the curation pipeline.
+
+| Status | Meaning | Example |
+| --- | --- | --- |
+| `active` | In `species.yaml`, parses at runtime. The species and its genes are live. | `Gaga` (chicken): BF, BLB, DMA, etc. all parse. |
+| `sourced` | We have source-backed information (papers, accessions, gene candidates) documented in the registry, but the species is **not** in `species.yaml` yet. There may or may not be a `blocked_on` field listing specific issues. | `Phtr` (pheasant-tailed jacana): sources exist but gene names haven't been reviewed for runtime inclusion yet. |
+| `blocked` | A `sourced` entry that has an explicit `blocked_on` field with hard blockers that must be resolved before the species can move to `active`. The difference from `sourced` without blockers is emphasis: `blocked` entries have a specific named obstacle, not just "hasn't been reviewed yet". | `Zhom` (Omei tree frog): gene name `Rhom-beta1` preserves an old genus prefix; blocked on deciding a stable canonical name. |
+
+In practice, `sourced` entries often have `blocked_on` fields too, so the
+distinction between `sourced` and `blocked` is soft. Use `blocked` when
+you want to call attention to a specific hard stop; use `sourced` when
+the entry just hasn't been prioritized yet.
+
 ## Partial Capture Policy
 
 Not every useful source belongs in `mhcgnomes/data/species.yaml`.
