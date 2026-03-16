@@ -1535,6 +1535,21 @@ Coturnix japonica:
   prefix: Coja
   name: Japanese quail
   genes:
+    # Class I: 12 loci identified (Hosomichi et al. 1999, PMID 10199914)
+    # Using the established Coja-A/B/C/D/E nomenclature.
+    I:
+      - A
+      - B1
+      - B2
+      - C1
+      - C2
+      - C3
+      - C4
+      - D1
+      - D2
+      - D3
+      - D4
+      - E
     IIa:
       DA:
         - DAB1

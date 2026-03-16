@@ -177,6 +177,9 @@ def test_parse_chicken_family_level_aliases_without_breaking_specific_loci():
         ("Gaga-BF1", Gene.get("Gaga", "BF1")),
         ("Gaga-BF2", Gene.get("Gaga", "BF2")),
         ("Gaga-BF12", Allele.get("Gaga", "BF", "12")),
+        # MHCY / YFV aliases map to YF1
+        ("Gaga-YFV", Gene.get("Gaga", "YF1")),
+        ("Gaga-MHCY", Gene.get("Gaga", "YF1")),
     ]
     for raw_string, expected in expected_pairs:
         assert expected is not None
@@ -229,7 +232,6 @@ def test_parse_ratite_species():
 
 def test_do_not_parse_ambiguous_or_unreviewed_bird_strings():
     for s in [
-        "Gaga-YFV",
         "Gaga-BFw-01",
         "Gaga-BFz-01",
         "Gaga-B-LBII",
