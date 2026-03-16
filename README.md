@@ -68,14 +68,6 @@ Use strict mode to fail fast:
 mhcgnomes --strict "not a real allele"
 ```
 
-## Local docs
-
-```bash
-./develop.sh
-mkdocs serve
-mkdocs build --strict
-```
-
 ## The problem: MHC nomenclature is nuts
 
 Despite the valiant efforts of groups such as the [Comparative MHC Nomenclature Committee](https://www.ebi.ac.uk/ipd/mhc/committee/), the names of MHC alleles you might encounter in different datasets (or accepted by immunoinformatics tools) are frustratingly ill specified. It's not uncommon to see dozens of different forms for the same allele.
@@ -262,3 +254,13 @@ policy and curation guide for underrepresented taxa.
   Committee report, 2005](https://link.springer.com/content/pdf/10.1007%2Fs00251-005-0071-4.pdf)
 - [Marsupial MHC Class II β Genes Are Not Orthologous to the Eutherian β Gene Families]()
 - [Nomenclature for factors of the SLA system, update 2008](https://www.ncbi.nlm.nih.gov/pubmed/19317739)
+
+## Development
+
+### Local docs
+
+```bash
+./develop.sh
+mkdocs serve
+mkdocs build --strict
+```
