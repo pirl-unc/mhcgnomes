@@ -112,12 +112,6 @@ Maar:
   A: A1
 MaLA:
   F: F1
-Dare:
-  # ZFIN-style lowercase concatenated names seen in mhcseqs
-  mhc1uba: UBA
-  mhc1uma: UMA
-  mhc2daa: DAA
-  mhc2dab: DAB
 Paol:
   # Numbered DAB lineage variants seen in mhcseqs, collapsed to family-level DAB
   DAB1: DAB

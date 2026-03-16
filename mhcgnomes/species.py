@@ -449,6 +449,15 @@ class Species(Result):
                 # and not a locus
                 # e.g. H2-IA -> H2-A is a mapping of loci
                 return alt_gene_name
+        # Strip ZFIN-style "mhc1"/"mhc2" prefix from gene tokens
+        # (e.g. "mhc1uba" → "UBA", "mhc2daa" → "DAA"). This is a
+        # convention used in zebrafish and potentially other fish species.
+        lower = gene_name.lower()
+        for prefix in ("mhc1", "mhc2"):
+            if lower.startswith(prefix) and len(gene_name) > len(prefix):
+                stripped = gene_name[len(prefix) :]
+                if stripped in self.gene_names:
+                    return self.gene_names.get_original(stripped)
         return None
 
     def find_matching_class2_locus_name(self, locus_name):
