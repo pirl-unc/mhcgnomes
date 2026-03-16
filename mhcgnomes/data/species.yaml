@@ -646,6 +646,14 @@ Alligator mississippiensis:
 Alligator sinensis:
   prefix: Alsi
   name: Chinese alligator
+Crocodylus niloticus:
+  prefix: Crni
+  name: Nile crocodile
+Gavialis gangeticus:
+  # Natural prefix Gaga collides with chicken (Gallus gallus).
+  # Using Gavg as alternative.
+  prefix: Gavg
+  name: Gharial
 ############################
 #
 # Turtles
@@ -667,6 +675,14 @@ Dermochelys coriacea:
 Lepidochelys kempii:
   prefix: Leke
   name: Kemp's ridley sea turtle
+Chelydra serpentina:
+  prefix: Chse
+  name: Common snapping turtle
+Chrysemys picta:
+  # Natural prefix Chpi collides with golden pheasant (Chrysolophus pictus).
+  # Using Crpi (Chrysemys picta) instead.
+  prefix: Crpi
+  name: Painted turtle
 ############################
 #
 # Ratite birds
@@ -684,6 +700,18 @@ Rhea pennata:
 Apteryx australis:
   prefix: Apau
   name: Brown kiwi
+Apteryx owenii:
+  prefix: Apow
+  name: Little spotted kiwi
+Casuarius casuarius:
+  prefix: Casu
+  name: Southern cassowary
+Rhea americana:
+  prefix: Rham
+  name: Greater rhea
+Tinamus major:
+  prefix: Tima
+  name: Great tinamou
 ##############################################
 #
 # Ovid/sheep
@@ -1503,21 +1531,20 @@ Anas platyrhynchos:
 # Egrets & Ibises
 #
 # Sources:
+# - https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0176671
 # - https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0108506
 ################################################################################
 Egretta eulophotes:
   prefix: Egeu
   name: Chinese egret
   genes:
+    # Class I: Egeu-UAA and Egeu-UBA confirmed by PLOS ONE 10.1371/journal.pone.0176671
     I:
       - UAA
       - UBA
     IIa:
-      # DRA may be a bird DR-locus alpha gene (cf. penguin DRB1 under
-      # the DR locus), not the mammalian HLA-DRA. Needs verification
-      # against the PLOS ONE source paper (10.1371/journal.pone.0108506).
-      DR:
-        - DRA
+      # Class II DAB from ibis/egret studies (PLOS ONE 10.1371/journal.pone.0108506)
+      # DRA was previously listed here but is not attested in the literature.
       DA:
         - DAB1
         - DAB2

@@ -179,8 +179,13 @@ def test_parse_omei_tree_frog_allele():
 # ---------------------------------------------------------------------------
 
 
-def test_parse_alligator_species():
-    for prefix, latin in [("Almi", "Alligator mississippiensis"), ("Alsi", "Alligator sinensis")]:
+def test_parse_crocodilian_species():
+    for prefix, latin in [
+        ("Almi", "Alligator mississippiensis"),
+        ("Alsi", "Alligator sinensis"),
+        ("Crni", "Crocodylus niloticus"),
+        ("Gavg", "Gavialis gangeticus"),
+    ]:
         expected = Species.get(prefix)
         assert expected is not None, f"Species.get({prefix!r}) returned None"
         eq_(parse(prefix, raise_on_error=True), expected)
@@ -192,12 +197,14 @@ def test_parse_alligator_species():
 # ---------------------------------------------------------------------------
 
 
-def test_parse_sea_turtle_species():
+def test_parse_turtle_species():
     for prefix, latin in [
         ("Caca", "Caretta caretta"),
         ("Chmy", "Chelonia mydas"),
         ("Deco", "Dermochelys coriacea"),
         ("Leke", "Lepidochelys kempii"),
+        ("Chse", "Chelydra serpentina"),
+        ("Crpi", "Chrysemys picta"),
     ]:
         expected = Species.get(prefix)
         assert expected is not None, f"Species.get({prefix!r}) returned None"
