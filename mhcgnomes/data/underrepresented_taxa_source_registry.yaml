@@ -637,7 +637,7 @@ taxa:
     scientific_name: Rissa tridactyla
     clade: bird
     ontology_status: registry_only
-    curation_status: sourced
+    curation_status: blocked
     ingest_confidence: low_alias_only
     recommended_ingest_level: revisit
     literature_sources:
@@ -658,7 +658,7 @@ taxa:
     scientific_name: Otus elegans
     clade: bird
     ontology_status: registry_only
-    curation_status: sourced
+    curation_status: blocked
     ingest_confidence: low_alias_only
     recommended_ingest_level: revisit
     literature_sources:
@@ -757,7 +757,7 @@ taxa:
     scientific_name: Phylloscopus trochilus
     clade: bird
     ontology_status: registry_only
-    curation_status: sourced
+    curation_status: blocked
     ingest_confidence: low_alias_only
     recommended_ingest_level: revisit
     literature_sources:
@@ -781,7 +781,7 @@ taxa:
     scientific_name: Phylloscopus collybita
     clade: bird
     ontology_status: registry_only
-    curation_status: sourced
+    curation_status: blocked
     ingest_confidence: low_alias_only
     recommended_ingest_level: revisit
     literature_sources: []
@@ -808,7 +808,7 @@ taxa:
     scientific_name: Zhangixalus omeimontis
     clade: amphibian
     ontology_status: registry_only
-    curation_status: sourced
+    curation_status: blocked
     ingest_confidence: low_alias_only
     recommended_ingest_level: revisit
     structured_sources:
@@ -829,7 +829,7 @@ taxa:
 
 backlog_clades:
   unusual_mammals:
-    curation_status: sourced
+    curation_status: blocked
     ingest_confidence: medium_genome_backed
     taxonomy_sources:
       - https://www.ncbi.nlm.nih.gov/datasets/
@@ -852,7 +852,7 @@ backlog_clades:
       nomenclature, such as marsupials or monotremes.
 
   turtles:
-    curation_status: sourced
+    curation_status: blocked
     ingest_confidence: low_alias_only
     taxonomy_sources:
       - https://www.reptile-database.org/
@@ -872,7 +872,7 @@ backlog_clades:
       stable cross-study locus naming is demonstrated.
 
   crocodilians:
-    curation_status: sourced
+    curation_status: blocked
     ingest_confidence: medium_genome_backed
     taxonomy_sources:
       - https://www.reptile-database.org/
@@ -889,7 +889,7 @@ backlog_clades:
       Good target for species plus gene-family support from genome-backed data.
 
   salamanders:
-    curation_status: sourced
+    curation_status: blocked
     ingest_confidence: low_alias_only
     taxonomy_sources:
       - https://amphibiansoftheworld.amnh.org/
@@ -909,7 +909,7 @@ backlog_clades:
       variable to model from survey papers alone.
 
   tuatara:
-    curation_status: sourced
+    curation_status: blocked
     ingest_confidence: medium_genome_backed
     taxonomy_sources:
       - https://www.reptile-database.org/

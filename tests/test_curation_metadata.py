@@ -77,12 +77,12 @@ def test_runtime_ready_registry_entries_match_species_ontology():
 def test_registry_marks_held_back_strings_as_sourced():
     taxa = load_underrepresented_taxa_registry()["taxa"]
     assert taxa["Saal"]["curation_status"] == "active"
-    assert taxa["Ritr"]["curation_status"] == "sourced"
-    assert taxa["Otel"]["curation_status"] == "sourced"
+    assert taxa["Ritr"]["curation_status"] == "blocked"
+    assert taxa["Otel"]["curation_status"] == "blocked"
     assert taxa["Saha"]["curation_status"] == "active"
-    assert taxa["Phtr"]["curation_status"] == "sourced"
-    assert taxa["Phco"]["curation_status"] == "sourced"
-    assert taxa["Zhom"]["curation_status"] == "sourced"
+    assert taxa["Phtr"]["curation_status"] == "blocked"
+    assert taxa["Phco"]["curation_status"] == "blocked"
+    assert taxa["Zhom"]["curation_status"] == "blocked"
     assert "Getr-MHC" in " ".join(taxa["Getr"]["ambiguities"])
     assert "Coja-II-13" in " ".join(taxa["Coja"]["ambiguities"] + taxa["Coja"]["blocked_on"])
     assert "prefix collides" in " ".join(taxa["Phco"]["ambiguities"])
