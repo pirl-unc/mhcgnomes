@@ -196,6 +196,54 @@ These are not always currently treated as equivalent to allele strings with two 
 
 However, if databases such as [IPD-MHC](https://www.ebi.ac.uk/ipd/mhc/) or [IMGT-HLA](https://www.ebi.ac.uk/ipd/imgt/hla/) recorded an older form of an allele, then MHCgnomes can optionally map it onto the modern version (including capturing differences in numbers of digits per field).
 
+## Species and gene ontology
+
+MHCgnomes maintains a curated ontology of species prefixes and MHC gene names
+in YAML data files under `mhcgnomes/data/`. The key files are:
+
+| File | Purpose |
+| --- | --- |
+| `species.yaml` | Canonical species entries with MHC prefix, gene names, and class assignments |
+| `gene_aliases.yaml` | Alternative gene spellings that normalize to canonical genes |
+| `allele_aliases.yaml` | Retired or shorthand allele names that normalize to canonical alleles |
+| `known_alleles.yaml` | Curated known allele labels per species/gene |
+
+### Species prefix conventions
+
+Each species is identified by a short prefix (usually 2-4 characters) such as
+`HLA` (human), `H2` (mouse), `Gaga` (chicken), or `Dare` (zebrafish). The
+parser uses these prefixes to identify species before parsing gene names and
+allele fields.
+
+Prefixes are matched case-insensitively after stripping punctuation. A leading
+`Mhc` prefix (common in bird MHC literature, e.g. `MhcTyal-DAB1*01:01`) is
+automatically stripped as a fallback when normal prefix matching fails.
+
+### MHC gene class assignments
+
+Genes in `species.yaml` are organized by MHC class:
+
+- **Ia**: Classical class I (associates with B2M, presents peptides)
+- **Ib**: Non-classical class I (in MHC locus, associates with B2M)
+- **Ic**: Related MHC locus genes, no B2M association (e.g. MICA)
+- **Id**: Class I-related genes on other chromosomes
+- **IIa**: Classical class II alpha/beta chains presenting peptides
+- **IIb**: Accessory or non-classical class II proteins
+- **other**: Antigen processing genes (TAP1, TAP2, TAPBP, B2M)
+
+### Known prefix collisions
+
+A small number of four-letter species prefixes collide under case-insensitive
+normalization:
+
+| Prefix | Species 1 | Species 2 | Status |
+| --- | --- | --- | --- |
+| `Bubu` | *Bubalus bubalis* (water buffalo) | *Bubo bubo* (eagle-owl) | Active collision, resolution pending |
+| `Orla`/`OrLA` | *Oryzias latipes* (medaka) | *Pongo sp.* (orangutan) | Blocks medaka from being added |
+
+See [docs/curation.md](docs/curation.md) for the full prefix conflict resolution
+policy and curation guide for underrepresented taxa.
+
 ## References
 
 - [IPD-MHC: nomenclature requirements for the non-human major histocompatibility complex in the next-generation sequencing era](https://link.springer.com/article/10.1007%2Fs00251-018-1072-4)

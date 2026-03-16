@@ -138,7 +138,7 @@ def test_hla_not_stripped():
     """HLA starts with H, not Mhc — should parse normally."""
     result = infer_species_from_prefix("HLA-A*02:01")
     assert result is not None
-    species, prefix = result
+    species, _prefix = result
     eq_(species.prefix, "HLA")
 
 
@@ -149,7 +149,7 @@ def test_direct_prefix_preferred_over_strip():
     # Maar = Macaca arctoides (stump-tailed macaque)
     result = infer_species_from_prefix("Maar-A1")
     assert result is not None
-    species, prefix = result
+    species, _prefix = result
     eq_(species.prefix, "Maar")
 
 
@@ -212,7 +212,7 @@ def test_mhc_strip_remaining_string_gene():
     """After stripping MhcTyal, remaining string should be '-UA'."""
     result = infer_species_from_prefix("MhcTyal-UA")
     assert result is not None
-    species, prefix = result
+    _species, prefix = result
     remaining = "MhcTyal-UA"[len(prefix) :]
     eq_(remaining, "-UA")
 
@@ -221,7 +221,7 @@ def test_mhc_strip_remaining_string_allele():
     """After stripping MhcAcar, remaining string should be '-UA*01:01'."""
     result = infer_species_from_prefix("MhcAcar-UA*01:01")
     assert result is not None
-    species, prefix = result
+    _species, prefix = result
     remaining = "MhcAcar-UA*01:01"[len(prefix) :]
     eq_(remaining, "-UA*01:01")
 
@@ -230,7 +230,7 @@ def test_mhc_strip_prefix_length_equals_mhc_plus_species():
     """The returned prefix should be exactly 'Mhc' + species prefix."""
     result = infer_species_from_prefix("MhcFuat-DAB*199")
     assert result is not None
-    species, prefix = result
+    _species, prefix = result
     eq_(prefix, "MhcFuat")
     eq_(len(prefix), 3 + len("Fuat"))
 
