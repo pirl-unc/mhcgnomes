@@ -635,6 +635,20 @@ Sistrurus catenatus:
 # - https://pubmed.ncbi.nlm.nih.gov/22390536/ (saltwater croc class II)
 #
 ############################
+############################
+#
+# Crocodilians
+#
+# Prefix notes:
+#   Crpo — attested in Jaratlerdsiri et al. 2012 (PMID 22864956)
+#   Others — generated (no established MHC prefix in literature)
+#
+# Sources:
+# - https://pubmed.ncbi.nlm.nih.gov/24253731/ (class I diversity)
+# - https://pubmed.ncbi.nlm.nih.gov/22864956/ (saltwater croc MHC I)
+# - https://pubmed.ncbi.nlm.nih.gov/25503521/ (saltwater croc genome MHC)
+#
+############################
 Crocodylus porosus:
   prefix: Crpo
   name: Saltwater crocodile
@@ -648,35 +662,68 @@ Crocodylus porosus:
         - DAA
         - DAB1
         - DAB2
+Crocodylus niloticus:
+  prefix: Crni
+  name: Nile crocodile
+Alligator mississippiensis:
+  prefix: Almi
+  name: American alligator
+Alligator sinensis:
+  prefix: Alsi
+  name: Chinese alligator
+Gavialis gangeticus:
+  # Natural 4-letter prefix Gaga collides with chicken (Gallus gallus).
+  # No established MHC prefix in literature. Using long prefix as display.
+  prefix: GaviaGange
+  name: Gharial
+Tomistoma schlegelii:
+  prefix: Tosc
+  name: False gharial
 Mecistops cataphractus:
   prefix: Meca
   name: Slender-snouted crocodile
 Osteolaemus tetraspis:
   prefix: Oste
   name: Dwarf crocodile
-Crocodylus niloticus:
-  prefix: Crni
-  name: Nile crocodile
-Tomistoma schlegelii:
-  prefix: Tosc
-  name: False gharial
+Caiman crocodilus:
+  prefix: CaimaCroco
+  name: Spectacled caiman
+Caiman latirostris:
+  prefix: CaimaLatir
+  name: Broad-snouted caiman
 ############################
 #
 # Turtles
+#
+# Prefix notes:
+#   All generated — no established MHC prefixes for turtles in literature.
+#   Chrysemys picta uses long prefix to avoid collision with Chrysolophus
+#   pictus (golden pheasant, Chpi).
 #
 # Sources:
 # - https://pubmed.ncbi.nlm.nih.gov/41575191/ (4-species sea turtle survey)
 # - https://pubmed.ncbi.nlm.nih.gov/35154791/ (green/loggerhead class I)
 #
 ############################
+Caretta caretta:
+  prefix: CaretCaret
+  name: Loggerhead sea turtle
 Chelonia mydas:
   prefix: Chmy
   name: Green sea turtle
+Dermochelys coriacea:
+  prefix: Deco
+  name: Leatherback sea turtle
+Lepidochelys kempii:
+  prefix: Leke
+  name: Kemp's ridley sea turtle
 Chelydra serpentina:
   prefix: Chse
   name: Common snapping turtle
 Chrysemys picta:
-  prefix: Chpc
+  # Natural 4-letter prefix Chpi collides with golden pheasant.
+  # No established MHC prefix. Using long prefix as display.
+  prefix: ChrysPicta
   name: Painted turtle
 Pelodiscus sinensis:
   prefix: Pesi
@@ -694,6 +741,9 @@ Chelonoidis abingdonii:
 #
 # Ratite birds
 #
+# Prefix notes:
+#   All generated — no established MHC prefixes for ratites in literature.
+#
 # Sources:
 # - https://pubmed.ncbi.nlm.nih.gov/21221966/ (kiwi class II B)
 #
@@ -704,18 +754,32 @@ Struthio camelus:
 Dromaius novaehollandiae:
   prefix: Drno
   name: Emu
+Rhea americana:
+  prefix: Rham
+  name: Greater rhea
+Rhea pennata:
+  prefix: Rhpe
+  name: Lesser rhea
 Apteryx owenii:
   prefix: Apow
   name: Little spotted kiwi
 Apteryx mantelli:
   prefix: Apma
   name: North Island brown kiwi
+Apteryx australis:
+  prefix: Apau
+  name: Southern brown kiwi
 Casuarius casuarius:
-  prefix: Casu
+  # Natural 4-letter prefix Caca collides with Caretta caretta and others.
+  # Using long prefix as display.
+  prefix: CasuaCasua
   name: Southern cassowary
 Nothoprocta perdicaria:
   prefix: Nope
   name: Chilean tinamou
+Tinamus major:
+  prefix: Tima
+  name: Great tinamou
 ##############################################
 #
 # Ovid/sheep
@@ -1622,8 +1686,9 @@ Bubo africanus:
         - DAB2
 Bubo bubo:
   name: Eurasian eagle owl
-  # WARNING: same prefix as water buffalo!
-  prefix: Bubu
+  # Natural 4-letter prefix Bubu collides with water buffalo (Bubalus bubalis).
+  # Buffalo keeps Bubu (more MHC literature). Owl uses long prefix.
+  prefix: BuboBubo
   genes:
     IIa:
       DA:

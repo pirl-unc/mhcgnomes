@@ -216,9 +216,12 @@ def test_parse_crpo_expanded_genes():
 
 def test_parse_turtle_species():
     for prefix, latin in [
+        ("CaretCaret", "Caretta caretta"),
         ("Chmy", "Chelonia mydas"),
+        ("Deco", "Dermochelys coriacea"),
+        ("Leke", "Lepidochelys kempii"),
         ("Chse", "Chelydra serpentina"),
-        ("Chpc", "Chrysemys picta"),
+        ("ChrysPicta", "Chrysemys picta"),
         ("Pesi", "Pelodiscus sinensis"),
         ("Tetr", "Terrapene triunguis"),
         ("Gopo", "Gopherus polyphemus"),

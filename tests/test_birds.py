@@ -218,7 +218,7 @@ def test_parse_ratite_species():
         ("Drno", "Dromaius novaehollandiae"),
         ("Apow", "Apteryx owenii"),
         ("Apma", "Apteryx mantelli"),
-        ("Casu", "Casuarius casuarius"),
+        ("CasuaCasua", "Casuarius casuarius"),
         ("Nope", "Nothoprocta perdicaria"),
     ]:
         expected = Species.get(prefix)
