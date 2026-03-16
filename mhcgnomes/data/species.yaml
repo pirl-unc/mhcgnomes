@@ -630,6 +630,10 @@ Sistrurus catenatus:
 #
 # Crocodilians
 #
+# Sources:
+# - https://pubmed.ncbi.nlm.nih.gov/24253731/ (class I diversity)
+# - https://pubmed.ncbi.nlm.nih.gov/22390536/ (saltwater croc class II)
+#
 ############################
 Crocodylus porosus:
   prefix: Crpo
@@ -637,55 +641,61 @@ Crocodylus porosus:
   genes:
     I:
       - UA
+      - UB
+      - UC
     IIa:
       DA:
-        - DAB
-Alligator mississippiensis:
-  prefix: Almi
-  name: American alligator
-Alligator sinensis:
-  prefix: Alsi
-  name: Chinese alligator
+        - DAA
+        - DAB1
+        - DAB2
+Mecistops cataphractus:
+  prefix: Meca
+  name: Slender-snouted crocodile
+Osteolaemus tetraspis:
+  prefix: Oste
+  name: Dwarf crocodile
 Crocodylus niloticus:
   prefix: Crni
   name: Nile crocodile
-Gavialis gangeticus:
-  # Natural prefix Gaga collides with chicken (Gallus gallus).
-  # Using Gavg as alternative.
-  prefix: Gavg
-  name: Gharial
+Tomistoma schlegelii:
+  prefix: Tosc
+  name: False gharial
 ############################
 #
 # Turtles
 #
 # Sources:
-# - https://pubmed.ncbi.nlm.nih.gov/41575191/
-# - https://pubmed.ncbi.nlm.nih.gov/35154791/
+# - https://pubmed.ncbi.nlm.nih.gov/41575191/ (4-species sea turtle survey)
+# - https://pubmed.ncbi.nlm.nih.gov/35154791/ (green/loggerhead class I)
 #
 ############################
-Caretta caretta:
-  prefix: Caca
-  name: Loggerhead sea turtle
 Chelonia mydas:
   prefix: Chmy
   name: Green sea turtle
-Dermochelys coriacea:
-  prefix: Deco
-  name: Leatherback sea turtle
-Lepidochelys kempii:
-  prefix: Leke
-  name: Kemp's ridley sea turtle
 Chelydra serpentina:
   prefix: Chse
   name: Common snapping turtle
 Chrysemys picta:
-  # Natural prefix Chpi collides with golden pheasant (Chrysolophus pictus).
-  # Using Crpi (Chrysemys picta) instead.
-  prefix: Crpi
+  prefix: Chpc
   name: Painted turtle
+Pelodiscus sinensis:
+  prefix: Pesi
+  name: Chinese softshell turtle
+Terrapene triunguis:
+  prefix: Tetr
+  name: Three-toed box turtle
+Gopherus polyphemus:
+  prefix: Gopo
+  name: Gopher tortoise
+Chelonoidis abingdonii:
+  prefix: Chab
+  name: Pinta Island tortoise
 ############################
 #
 # Ratite birds
+#
+# Sources:
+# - https://pubmed.ncbi.nlm.nih.gov/21221966/ (kiwi class II B)
 #
 ############################
 Struthio camelus:
@@ -694,24 +704,18 @@ Struthio camelus:
 Dromaius novaehollandiae:
   prefix: Drno
   name: Emu
-Rhea pennata:
-  prefix: Rhpe
-  name: Lesser rhea
-Apteryx australis:
-  prefix: Apau
-  name: Brown kiwi
 Apteryx owenii:
   prefix: Apow
   name: Little spotted kiwi
+Apteryx mantelli:
+  prefix: Apma
+  name: North Island brown kiwi
 Casuarius casuarius:
   prefix: Casu
   name: Southern cassowary
-Rhea americana:
-  prefix: Rham
-  name: Greater rhea
-Tinamus major:
-  prefix: Tima
-  name: Great tinamou
+Nothoprocta perdicaria:
+  prefix: Nope
+  name: Chilean tinamou
 ##############################################
 #
 # Ovid/sheep

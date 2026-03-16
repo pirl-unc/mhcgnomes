@@ -216,12 +216,10 @@ def test_parse_ratite_species():
     for prefix, latin in [
         ("Stca", "Struthio camelus"),
         ("Drno", "Dromaius novaehollandiae"),
-        ("Rhpe", "Rhea pennata"),
-        ("Rham", "Rhea americana"),
-        ("Apau", "Apteryx australis"),
         ("Apow", "Apteryx owenii"),
+        ("Apma", "Apteryx mantelli"),
         ("Casu", "Casuarius casuarius"),
-        ("Tima", "Tinamus major"),
+        ("Nope", "Nothoprocta perdicaria"),
     ]:
         expected = Species.get(prefix)
         assert expected is not None, f"Species.get({prefix!r}) returned None"
