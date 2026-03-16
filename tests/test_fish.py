@@ -255,6 +255,36 @@ def test_parse_zebrafish_class2_genes():
         eq_(parse(f"Dare-{gene_name}", raise_on_error=True), expected)
 
 
+def test_parse_zebrafish_additional_class1_genes():
+    for gene_name in ["UEA", "UGA"]:
+        expected = Gene.get("Dare", gene_name)
+        assert expected is not None
+        eq_(expected.mhc_class, "Ia")
+        eq_(parse(f"Dare-{gene_name}", raise_on_error=True), expected)
+
+
+def test_parse_medaka_species_Oryl():
+    expected = Species.get("Oryl")
+    assert expected is not None
+    eq_(parse("Oryl", raise_on_error=True), expected)
+    eq_(Species.get("Oryzias latipes"), expected)
+
+
+def test_parse_medaka_genes():
+    for gene_name in ["UAA", "UBA", "UGA", "UHA"]:
+        expected = Gene.get("Oryl", gene_name)
+        assert expected is not None
+        eq_(expected.mhc_class, "Ia")
+        eq_(parse(f"Oryl-{gene_name}", raise_on_error=True), expected)
+
+
+def test_medaka_orla_does_not_collide_with_orangutan():
+    """Orla should still resolve to orangutan, not medaka."""
+    result = Species.get("OrLA")
+    assert result is not None
+    eq_(result.name, "Pongo sp.")
+
+
 def test_parse_zebrafish_uma_gene():
     expected = Gene.get("Dare", "UMA")
     assert expected is not None

@@ -807,23 +807,33 @@ taxa:
   Zhom:
     scientific_name: Zhangixalus omeimontis
     clade: amphibian
-    ontology_status: registry_only
-    curation_status: blocked
-    ingest_confidence: low_alias_only
-    recommended_ingest_level: revisit
+    ontology_status: runtime_added
+    curation_status: active
+    ingest_confidence: medium_gene_level
+    recommended_ingest_level: gene
     structured_sources:
       - https://db.cngb.org/data_resources/protein/W5MTR6
-    candidate_gene_families:
-      - Rhom-beta1
-    ambiguities:
-      - >
-        The external gene string preserves the old Rhacophorus-derived prefix
-        inside the gene name, but the current source trail is not yet strong
-        enough to convert that source-local label into a stable runtime class
-        II beta gene.
-    blocked_on:
-      - decision on canonical runtime name for Zhom-Rhom-beta1
+    canonical_gene_candidates:
+      - DAB
     notes: >
-      Keep Zhom registry-only until the old-genus-prefixed amphibian gene name
-      can be mapped onto a stable runtime class II beta ontology.
+      Added to runtime with class II beta DAB gene following the Xenopus
+      amphibian standard. The old-genus Rhom-beta1 label from external
+      datasets is mapped to DAB via gene alias.
+
+  Oryl:
+    scientific_name: Oryzias latipes
+    clade: fish
+    ontology_status: runtime_added
+    curation_status: active
+    ingest_confidence: medium_gene_level
+    recommended_ingest_level: gene
+    canonical_gene_candidates:
+      - UAA
+      - UBA
+      - UGA
+      - UHA
+    notes: >
+      Medaka added with prefix Oryl instead of the natural Orla because
+      Orla collides with orangutan OrLA under case-insensitive normalization.
+      Class I genes follow teleost U-lineage pattern.
 

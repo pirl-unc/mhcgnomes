@@ -212,6 +212,19 @@ def test_parse_chinese_egret_alleles():
         eq_(parse(f"Egeu-{gene_name}*01:01", raise_on_error=True), expected)
 
 
+def test_parse_ratite_species():
+    for prefix, latin in [
+        ("Stca", "Struthio camelus"),
+        ("Drno", "Dromaius novaehollandiae"),
+        ("Rhpe", "Rhea pennata"),
+        ("Apau", "Apteryx australis"),
+    ]:
+        expected = Species.get(prefix)
+        assert expected is not None, f"Species.get({prefix!r}) returned None"
+        eq_(parse(prefix, raise_on_error=True), expected)
+        eq_(Species.get(latin), expected)
+
+
 def test_do_not_parse_ambiguous_or_unreviewed_bird_strings():
     for s in [
         "Gaga-YFV",
