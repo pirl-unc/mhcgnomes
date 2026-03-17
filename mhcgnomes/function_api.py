@@ -250,7 +250,13 @@ def parse(
     # - Results without .species: always pass.
     if species is not None and result is not None:
         expected = Species.get(species)
-        if expected is not None:
+        if expected is None:
+            # species= was provided but doesn't resolve to a known species.
+            # This is always an error — we can't validate against an unknown species.
+            if raise_on_error:
+                raise ParseError(f"Unknown species '{species}' passed to species= parameter")
+            return None
+        else:
             if type(result) is Species:
                 matches_expected = result == expected
             elif hasattr(result, "species"):
