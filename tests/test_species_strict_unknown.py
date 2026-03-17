@@ -57,10 +57,15 @@ def test_species_strict_ze_with_barbs():
 # --- Known species + wrong gene still rejects ---
 
 
-def test_species_strict_mhciib_with_known_ostrich_rejects():
-    """MHCIIB + species=ostrich (known, but doesn't have MHCIIB) → None."""
+def test_species_strict_mhciib_with_known_ostrich_succeeds():
+    """MHCIIB + species=ostrich → MhcClass(II, beta) for ostrich.
+    MHCIIB is now a region label (class II beta), not a gene."""
+    from mhcgnomes import MhcClass
+
     result = parse("MHCIIB", species="Struthio camelus", raise_on_error=False)
-    assert result is None
+    assert result is not None
+    assert isinstance(result, MhcClass)
+    eq_(result.species.name, "Struthio camelus")
 
 
 def test_species_strict_known_species_correct_gene_works():

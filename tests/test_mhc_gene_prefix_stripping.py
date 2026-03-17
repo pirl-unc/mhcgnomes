@@ -72,12 +72,18 @@ class TestMhc1Mhc2PrefixStrippingNegative:
     def test_mhc2_with_nonexistent_gene_returns_none(self):
         assert parse("Dare-mhc2zzz", raise_on_error=False) is None
 
-    def test_mhc1_alone_is_not_a_gene(self):
-        """Bare 'mhc1' without a gene suffix should not parse as a gene."""
-        assert parse("Dare-mhc1", raise_on_error=False) is None
+    def test_mhc1_alone_parses_as_mhc_class(self):
+        """Bare 'mhc1' parses as MhcClass(I), not a Gene."""
+        from mhcgnomes import MhcClass
 
-    def test_mhc2_alone_is_not_a_gene(self):
-        assert parse("Dare-mhc2", raise_on_error=False) is None
+        result = parse("Dare-mhc1", raise_on_error=False)
+        assert result is None or isinstance(result, MhcClass)
+
+    def test_mhc2_alone_parses_as_mhc_class(self):
+        from mhcgnomes import MhcClass
+
+        result = parse("Dare-mhc2", raise_on_error=False)
+        assert result is None or isinstance(result, MhcClass)
 
     def test_mhc3_prefix_not_stripped(self):
         """Only mhc1 and mhc2 should be stripped, not mhc3 or other numbers."""

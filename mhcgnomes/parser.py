@@ -49,6 +49,40 @@ from .supertype import Supertype
 from .token import Token
 from .tokenize import tokenize
 
+# Regex for MHC region labels like MHCIIB, mhc2a, MHC-IA, mhc1, etc.
+_MHC_REGION_RE = re.compile(
+    r"^mhc[-_]?(I{1,3}|1|2)(a|b)?$",
+    re.IGNORECASE,
+)
+
+
+def _parse_mhc_region_label(seq):
+    """
+    Parse MHC region labels like MHCIIB, mhc2a, MHC-IA, mhc1.
+    Returns (mhc_class_str, chain) or None.
+    """
+    m = _MHC_REGION_RE.match(seq.replace("-", ""))
+    if m is None:
+        return None
+    class_part = m.group(1).upper()
+    chain_letter = m.group(2)
+    if class_part in ("1", "I"):
+        mhc_class = "I"
+    elif class_part in ("2", "II"):
+        mhc_class = "II"
+    else:
+        return None
+    if chain_letter is None:
+        chain = None
+    elif chain_letter.upper() == "A":
+        chain = "alpha"
+    elif chain_letter.upper() == "B":
+        chain = "beta"
+    else:
+        return None
+    return (mhc_class, chain)
+
+
 _SINGLE_CHAR_FUNCTIONAL_ANNOTATIONS = "".join(
     sorted(annot for annot in valid_functional_annotations if len(annot) == 1)
 )
@@ -1242,6 +1276,16 @@ class Parser:
             mhc_class = MhcClass.get(default_species, "I" if token.is_class1 else "II")
             if mhc_class:
                 return [mhc_class]
+
+        # MHC class + chain labels: MHCIIB, MHCIIA, MHCIA, MHC-IIB, mhc2b, mhc1, etc.
+        # These are region labels meaning "class N [alpha/beta], unknown locus"
+        # rather than specific gene names. Return MhcClass with optional chain= set.
+        mhc_region = _parse_mhc_region_label(token.seq)
+        if mhc_region is not None:
+            mhc_class_str, chain = mhc_region
+            result = MhcClass.get(default_species, mhc_class_str, chain=chain)
+            if result:
+                return [result]
 
         seq = token.seq
         raw_string = token.raw_string

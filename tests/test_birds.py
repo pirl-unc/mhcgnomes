@@ -167,7 +167,7 @@ def test_parse_penguin_species_and_DRB1_family():
 def test_parse_barn_owl_family_level_and_embedded_prefix_aliases():
     examples = [
         ("Tyal-UA", Gene.get("Tyal", "UA")),
-        ("Tyal-MHCIIB", Gene.get("Tyal", "DAB")),
+        # MHCIIB is now parsed as MhcClass(II, beta), not Gene(Tyal, DAB)
         ("Tyal-DRB", Gene.get("Tyal", "DAB")),
         ("Tyal-MhcTyal-UA", Gene.get("Tyal", "UA")),
         ("Tyal-MhcTyal-DAB", Gene.get("Tyal", "DAB")),
