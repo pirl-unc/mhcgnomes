@@ -14,6 +14,79 @@
 #
 # Source for MHC Id genes across different species:
 # - https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5002277/
+#
+# ============================================================================
+# Taxonomic root nodes
+#
+# These define shared MHC gene names at higher taxonomic levels.
+# Species inherit genes from their parent node (set via "parent:" field).
+# The inheritance chain is walked recursively, so a species can inherit
+# through multiple levels (e.g., Salmo salar → Salmonidae sp.).
+#
+# Common genes in common_genes.yaml (DMA, DMB, TAP1, TAP2, TAPBP, B2M,
+# MHCIIB) are additionally accepted for ALL species as a last resort,
+# independent of the tree.
+# ============================================================================
+
+######################################################
+#
+# Galliformes — shared galliform MHC genes
+#
+# The B-complex (BF class I, BLB class II) nomenclature is specific to
+# galliform birds (chicken, turkey, quail, pheasant, grouse).
+#
+# Sources:
+# - https://www.ebi.ac.uk/ipd/mhc/group/CHICKEN/
+# - https://link.springer.com/article/10.1007/s00251-019-01145-6
+#
+######################################################
+Galliformes sp.:
+  prefix: Gall
+  name: Galliform bird
+  genes:
+    Ia:
+      - BF
+    IIa:
+      BL:
+        - BLB
+    IIb:
+      DM:
+        - DMA
+        - DMB1
+        - DMB2
+    other:
+      - TAP1
+      - TAP2
+      - TAPBP
+      - B2M
+######################################################
+#
+# Crocodylia — shared crocodilian MHC genes
+#
+# U-lineage class I and DB-series class II beta genes are shared
+# across all Crocodylia (Jaratlerdsiri et al. 2014).
+#
+# Sources:
+# - https://pubmed.ncbi.nlm.nih.gov/24253731/
+# - https://pubmed.ncbi.nlm.nih.gov/22864956/
+#
+######################################################
+Crocodylia sp.:
+  prefix: Croc
+  name: Crocodilian
+  genes:
+    I:
+      - UA
+    IIa:
+      DB:
+        - DB01
+        - DB02
+        - DB03
+        - DB04
+        - DB05
+        - DB06
+        - DB07
+        - DB08
 
 ######################################################
 #
@@ -508,6 +581,7 @@ Salmonidae sp.:
   name: Salmonid
   genes:
     Ia:
+      - UAA
       - UBA
     IIa:
       DA:
@@ -719,11 +793,12 @@ Sistrurus catenatus:
 #
 ############################
 Crocodylus porosus:
+  parent: Crocodylia sp.
   prefix: Crpo
   name: Saltwater crocodile
   genes:
     I:
-      - UA
+      # UB and UC are Crpo-specific (full-length class I alpha chains)
       - UB
       - UC
     IIa:
@@ -731,84 +806,53 @@ Crocodylus porosus:
         - DAA
         - DAB1
         - DAB2
-      # DB01-DB08: trans-specific class II beta lineages across Crocodylia
-      # (Jaratlerdsiri et al. 2014, PMID 24253731)
-      DB:
-        - DB01
-        - DB02
-        - DB03
-        - DB04
-        - DB05
-        - DB06
-        - DB07
-        - DB08
 Crocodylus niloticus:
+  parent: Crocodylia sp.
   prefix: Crni
   name: Nile crocodile
-  genes:
-    IIa:
-      DB:
-        - DB01
-        - DB02
-        - DB03
-        - DB04
-        - DB05
-        - DB06
 Alligator mississippiensis:
+  parent: Crocodylia sp.
   prefix: Almi
   name: American alligator
 Alligator sinensis:
+  parent: Crocodylia sp.
   prefix: Alsi
   name: Chinese alligator
 Gavialis gangeticus:
+  parent: Crocodylia sp.
   # Natural 4-letter prefix Gaga collides with chicken (Gallus gallus).
-  # No established MHC prefix in literature. Using long prefix as display.
   prefix: GaviaGange
   name: Gharial
 Crocodylus moreletii:
+  parent: Crocodylia sp.
   prefix: Crmo
   name: Morelet's crocodile
 Crocodylus mindorensis:
+  parent: Crocodylia sp.
   prefix: Crmi
   name: Philippine crocodile
 Crocodylus siamensis:
+  parent: Crocodylia sp.
   prefix: Crsi
   name: Siamese crocodile
 Tomistoma schlegelii:
+  parent: Crocodylia sp.
   prefix: Tosc
   name: False gharial
 Mecistops cataphractus:
+  parent: Crocodylia sp.
   prefix: Meca
   name: Slender-snouted crocodile
-  genes:
-    IIa:
-      DB:
-        - DB01
-        - DB02
-        - DB03
-        - DB04
-        - DB05
-        - DB06
-        - DB07
-        - DB08
 Osteolaemus tetraspis:
+  parent: Crocodylia sp.
   prefix: Oste
   name: Dwarf crocodile
-  genes:
-    IIa:
-      DB:
-        - DB01
-        - DB02
-        - DB03
-        - DB04
-        - DB05
-        - DB06
-        - DB07
-        - DB08
 Caiman crocodilus:
+  parent: Crocodylia sp.
   prefix: CaimaCroco
   name: Spectacled caiman
 Caiman latirostris:
+  parent: Crocodylia sp.
   prefix: CaimaLatir
   name: Broad-snouted caiman
 ############################
@@ -1694,30 +1738,15 @@ Anarhynchus nivosus:
 #
 ################################################################################
 Meleagris gallopavo:
+  parent: Galliformes sp.
   prefix: Mega
   name: Turkey
-  genes:
-    # Turkey B-complex uses the same gene families as chicken but
-    # locus-specific numbers (BF1/BF2, BLB1/BLB2) are chicken-specific.
-    # Using family-level labels to avoid colliding with chicken loci.
-    Ia:
-      - BF
-    IIa:
-      BL:
-        - BLB
-    IIb:
-      DM:
-        - DMA
-        - DMB1
-        - DMB2
-    other:
-      - TAP1
-      - TAP2
-      - B2M
 Pavo cristatus:
+  parent: Galliformes sp.
   prefix: Pacr
   name: Indian peafowl
 Gallus gallus:
+  parent: Galliformes sp.
   prefix: Gaga
   name: Chicken
   genes:
@@ -1769,6 +1798,7 @@ Gallus gallus:
 #
 ################################################################################
 Chrysolophus pictus:
+  parent: Galliformes sp.
   prefix: Chpi
   name: Golden pheasant
   genes:
@@ -1781,6 +1811,7 @@ Chrysolophus pictus:
       # core MHC-B region.
       - IA3
 Coturnix japonica:
+  parent: Galliformes sp.
   prefix: Coja
   name: Japanese quail
   genes:

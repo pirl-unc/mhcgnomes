@@ -135,6 +135,109 @@ class TestCrossTaxonLeakPrevention:
 # ---------------------------------------------------------------------------
 
 
+class TestGalliformInheritance:
+    """Galliform species inherit BF, BLB, DMA, DMB1/2, TAP1/2 from parent."""
+
+    def test_galliform_parent_has_genes(self):
+        sp = Species.get("Galliformes sp.")
+        assert sp is not None
+        assert sp.find_matching_gene_name("BF") is not None
+        assert sp.find_matching_gene_name("BLB") is not None
+        assert sp.find_matching_gene_name("DMA") is not None
+        assert sp.find_matching_gene_name("TAP1") is not None
+
+    def test_turkey_inherits_bf(self):
+        """Turkey inherits BF from Galliformes sp. parent."""
+        result = parse("Mega-BF", raise_on_error=True)
+        eq_(result.species.name, "Meleagris gallopavo")
+
+    def test_peafowl_inherits_blb(self):
+        result = parse("Pacr-BLB", raise_on_error=True)
+        eq_(result.species.name, "Pavo cristatus")
+
+    def test_chicken_still_has_specific_genes(self):
+        """Chicken should still have BF1, BF2, YF1, YF2 on top of inherited BF."""
+        sp = Species.get("Gaga")
+        assert sp.find_matching_gene_name("BF1") is not None
+        assert sp.find_matching_gene_name("BF2") is not None
+        assert sp.find_matching_gene_name("YF1") is not None
+
+    def test_quail_has_inherited_plus_own(self):
+        """Quail inherits BF/BLB from Galliformes and has own class I/II loci."""
+        sp = Species.get("Coja")
+        assert sp.find_matching_gene_name("BF") is not None  # inherited
+        assert sp.find_matching_gene_name("DAB1") is not None  # own
+
+    def test_galliform_does_not_get_fish_genes(self):
+        """Galliforms should NOT have fish U-lineage genes."""
+        sp = Species.get("Gaga")
+        assert sp.find_matching_gene_name("UAA") is None
+        assert sp.find_matching_gene_name("UBA") is None
+
+    def test_galliform_does_not_get_mammal_genes(self):
+        sp = Species.get("Mega")
+        assert sp.find_matching_gene_name("DRB") is None
+        assert sp.find_matching_gene_name("DRB1") is None
+        assert sp.find_matching_gene_name("DQA1") is None
+
+
+class TestCrocodyliaInheritance:
+    """Crocodilian species inherit UA and DB01-DB08 from Crocodylia sp. parent."""
+
+    def test_crocodylia_parent_has_genes(self):
+        sp = Species.get("Crocodylia sp.")
+        assert sp is not None
+        assert sp.find_matching_gene_name("UA") is not None
+        assert sp.find_matching_gene_name("DB01") is not None
+        assert sp.find_matching_gene_name("DB08") is not None
+
+    def test_alligator_inherits_db_genes(self):
+        """American alligator inherits DB01-DB08 from Crocodylia sp."""
+        result = parse("Almi-DB01", raise_on_error=True)
+        eq_(result.species.name, "Alligator mississippiensis")
+
+    def test_gharial_inherits_ua(self):
+        result = parse("GaviaGange-UA", raise_on_error=True)
+        eq_(result.species.name, "Gavialis gangeticus")
+
+    def test_crpo_has_inherited_plus_own(self):
+        """Crpo inherits UA/DB01-08 and has own UB, UC, DAA, DAB1, DAB2."""
+        sp = Species.get("Crpo")
+        assert sp.find_matching_gene_name("UA") is not None  # inherited
+        assert sp.find_matching_gene_name("DB01") is not None  # inherited
+        assert sp.find_matching_gene_name("UB") is not None  # own
+        assert sp.find_matching_gene_name("DAA") is not None  # own
+
+    def test_croc_does_not_get_mammal_genes(self):
+        sp = Species.get("Crpo")
+        assert sp.find_matching_gene_name("DRB") is None
+        assert sp.find_matching_gene_name("DRB1") is None
+
+    def test_croc_does_not_get_galliform_genes(self):
+        sp = Species.get("Crpo")
+        assert sp.find_matching_gene_name("BF") is None
+        assert sp.find_matching_gene_name("BF1") is None
+        assert sp.find_matching_gene_name("BLB") is None
+
+
+class TestDMBFamilyLevelPriority:
+    """When a species has DMB1/DMB2, bare DMB should NOT shadow them via common genes."""
+
+    def test_chicken_dmb_does_not_shadow_dmb1(self):
+        """Chicken has DMB1/DMB2. Bare DMB should NOT resolve via common genes."""
+        sp = Species.get("Gaga")
+        # DMB1 and DMB2 are species-specific
+        assert sp.find_matching_gene_name("DMB1") is not None
+        assert sp.find_matching_gene_name("DMB2") is not None
+        # Bare DMB should NOT resolve because the species has more specific variants
+        assert sp.find_matching_gene_name("DMB") is None
+
+    def test_species_without_dmb_variants_gets_common_dmb(self):
+        """A species with no DMB variants should accept DMB from common genes."""
+        sp = Species.get("Chelonia mydas")
+        assert sp.find_matching_gene_name("DMB") is not None
+
+
 class TestDefaultSpeciesPriority:
     """When default_species is provided, it takes priority over gene-inferred species."""
 

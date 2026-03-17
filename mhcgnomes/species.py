@@ -487,8 +487,22 @@ class Species(Result):
                     return self.gene_names.get_original(stripped)
         # Fall back to vertebrate-wide common gene names. These are
         # accepted for any species even if not explicitly in species.yaml.
+        # BUT: if the species already has a more specific variant of this
+        # gene (e.g., DMB1/DMB2 when querying DMB), don't use the common
+        # gene — the species has its own definition that should take
+        # priority. This prevents a phantom "DMB" from appearing when
+        # the species only recognizes "DMB1" and "DMB2".
         if gene_name in common_gene_to_mhc_class:
-            return common_gene_to_mhc_class.original_key(gene_name)
+            normalized = common_gene_to_mhc_class.original_key(gene_name)
+            # Check if any species-specific gene starts with this name
+            # (e.g., species has DMB1 and we're querying DMB)
+            has_more_specific = any(
+                str(g).upper().startswith(str(normalized).upper())
+                and str(g).upper() != str(normalized).upper()
+                for g in self.gene_names
+            )
+            if not has_more_specific:
+                return normalized
         return None
 
     def find_matching_class2_locus_name(self, locus_name):
