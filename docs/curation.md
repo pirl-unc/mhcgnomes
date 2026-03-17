@@ -19,29 +19,26 @@ The key constraint is that `mhcgnomes` is strongest when it has:
 
 For most reptiles and amphibians, item 3 is the weak link. There are now
 good genome assemblies and several strong survey papers, but there is not
-yet an `IPD-MHC`-style curated comparative allele registry for these clades.
+yet an [IPD-MHC](https://www.ebi.ac.uk/ipd/mhc/)-style curated comparative
+allele registry for these clades.
 
 ## Current Repo State
 
-Current reptile/amphibian coverage is minimal:
+As of v3.8.0, mhcgnomes has **235 species** across 152 genera, with 135
+species having gene definitions and 100 as species-only placeholders. Coverage
+spans mammals, birds, fish, reptiles, amphibians, and sharks.
 
-- snake: `Sistrurus catenatus` (`Sica`) with `DAA` / `DAB`
-- frog: `Xenopus laevis` (`Xela`) with `UAA`
+The core data files live in
+[`mhcgnomes/data/`](https://github.com/pirl-unc/mhcgnomes/tree/main/mhcgnomes/data):
 
-These live in `mhcgnomes/data/species.yaml` at:
-
-- `mhcgnomes/data/species.yaml:479`
-- `mhcgnomes/data/species.yaml:2251`
-
-These entries parse, but they are not yet backed by a broader ingestion
-strategy or dedicated tests across most underrepresented taxa.
-
-This branch also introduces a structured curation ledger at:
-
-- `mhcgnomes/data/underrepresented_taxa_source_registry.yaml`
+- [`species.yaml`](https://github.com/pirl-unc/mhcgnomes/blob/main/mhcgnomes/data/species.yaml) —
+  canonical species and gene definitions
+- [`underrepresented_taxa_source_registry.yaml`](https://github.com/pirl-unc/mhcgnomes/blob/main/mhcgnomes/data/underrepresented_taxa_source_registry.yaml) —
+  curation ledger for taxa not yet fully ingested
 
 The right design boundary is not "nonmammal". The right boundary is
-"taxa that are not yet well served by stable IPD-style nomenclature and
+"taxa that are not yet well served by stable
+[IPD-MHC](https://www.ebi.ac.uk/ipd/mhc/)-style nomenclature and
 therefore need source-aware ingestion rules". That can include unusual
 mammals such as marsupials or monotremes.
 
@@ -82,18 +79,18 @@ stability.
 
 ### Runtime-loaded files
 
-These are loaded by `mhcgnomes/data.py` and directly affect parser behavior.
+These are loaded by [`mhcgnomes/data.py`](https://github.com/pirl-unc/mhcgnomes/blob/main/mhcgnomes/data.py) and directly affect parser behavior.
 
 | File | Put this here | Do not put this here |
 | --- | --- | --- |
-| `mhcgnomes/data/species.yaml` | Canonical species entries, canonical gene names, MHC class placement, stable parent/prefix relationships | Paper-local aliases, uncertain gene symbols, unresolved candidate loci |
-| `mhcgnomes/data/gene_aliases.yaml` | Alternative gene spellings or retired/provisional names that normalize to an existing canonical gene in `species.yaml` | New genes that do not yet have a canonical destination in `species.yaml` |
-| `mhcgnomes/data/allele_aliases.yaml` | Retired, shorthand, or formatting variants that normalize to a canonical allele string | New literature-only alleles with no stable canonical allele target |
-| `mhcgnomes/data/known_alleles.yaml` | Curated known allele labels for a species/gene where the ontology already exists | A substitute for adding missing species or genes |
-| `mhcgnomes/data/haplotypes.yaml` | Named haplotypes and their member alleles | Partial gene-family observations from papers |
-| `mhcgnomes/data/serotypes.yaml` | Serotype-to-allele mappings | General class I / class II family structure |
-| `mhcgnomes/data/heterodimers.yaml` | Explicit shorthand heterodimer mappings like `DQ2.5` | Speculative alpha/beta combinations from weak literature evidence |
-| `mhcgnomes/data/supertypes.yaml` | Functional supertype groupings with clear representative alleles | Serotypes or paper-local functional clusters |
+| [`species.yaml`](https://github.com/pirl-unc/mhcgnomes/blob/main/mhcgnomes/data/species.yaml) | Canonical species entries, canonical gene names, MHC class placement, stable parent/prefix relationships | Paper-local aliases, uncertain gene symbols, unresolved candidate loci |
+| [`gene_aliases.yaml`](https://github.com/pirl-unc/mhcgnomes/blob/main/mhcgnomes/data/gene_aliases.yaml) | Alternative gene spellings or retired/provisional names that normalize to an existing canonical gene in `species.yaml` | New genes that do not yet have a canonical destination in `species.yaml` |
+| [`allele_aliases.yaml`](https://github.com/pirl-unc/mhcgnomes/blob/main/mhcgnomes/data/allele_aliases.yaml) | Retired, shorthand, or formatting variants that normalize to a canonical allele string | New literature-only alleles with no stable canonical allele target |
+| [`known_alleles.yaml`](https://github.com/pirl-unc/mhcgnomes/blob/main/mhcgnomes/data/known_alleles.yaml) | Curated known allele labels for a species/gene where the ontology already exists | A substitute for adding missing species or genes |
+| [`haplotypes.yaml`](https://github.com/pirl-unc/mhcgnomes/blob/main/mhcgnomes/data/haplotypes.yaml) | Named haplotypes and their member alleles | Partial gene-family observations from papers |
+| [`serotypes.yaml`](https://github.com/pirl-unc/mhcgnomes/blob/main/mhcgnomes/data/serotypes.yaml) | Serotype-to-allele mappings | General class I / class II family structure |
+| [`heterodimers.yaml`](https://github.com/pirl-unc/mhcgnomes/blob/main/mhcgnomes/data/heterodimers.yaml) | Explicit shorthand heterodimer mappings like `DQ2.5` | Speculative alpha/beta combinations from weak literature evidence |
+| [`supertypes.yaml`](https://github.com/pirl-unc/mhcgnomes/blob/main/mhcgnomes/data/supertypes.yaml) | Functional supertype groupings with clear representative alleles | Serotypes or paper-local functional clusters |
 
 ### Non-runtime curation files
 
@@ -102,8 +99,8 @@ behavior.
 
 | File | Put this here | Why |
 | --- | --- | --- |
-| `mhcgnomes/data/underrepresented_taxa_source_registry.yaml` | Partial but useful source information: candidate species, observed gene-family structure, representative annotation URLs, blockers, example species | This is the holding area for real signal that is not stable enough for runtime ontology |
-| `docs/curation.md` | Cross-file policy, source strategy, confidence tiers, implementation order | This explains decisions; it should not be the only place where concrete partial source facts live |
+| [`underrepresented_taxa_source_registry.yaml`](https://github.com/pirl-unc/mhcgnomes/blob/main/mhcgnomes/data/underrepresented_taxa_source_registry.yaml) | Partial but useful source information: candidate species, observed gene-family structure, representative annotation URLs, blockers, example species | This is the holding area for real signal that is not stable enough for runtime ontology |
+| [`docs/curation.md`](https://github.com/pirl-unc/mhcgnomes/blob/main/docs/curation.md) | Cross-file policy, source strategy, confidence tiers, implementation order | This explains decisions; it should not be the only place where concrete partial source facts live |
 
 ### Practical decision tree
 
@@ -248,59 +245,53 @@ Every collision-resolution change should add both:
 - a positive test for the accepted normalization or alias, and
 - a negative test proving that colliding unresolved strings still do not parse
 
-### Known active prefix collisions
+### Known prefix collisions
 
-These are prefix collisions that currently exist in the runtime ontology or
-that block new species from being added.
+#### Resolved collisions
 
-#### Confirmed runtime collisions
+These collisions have been resolved by assigning long (5+5) prefixes to the
+less-established species. See the
+[Species Identity Proposal](species-latin-name-scoping.md) for the design
+rationale.
 
-| Normalized | Prefix | Species | Type | Status |
-| --- | --- | --- | --- | --- |
-| `BUBU` | `Bubu` | *Bubalus bubalis* (water buffalo) | primary | **Active collision** — both species use the same primary prefix. Parsing `Bubu-X` is ambiguous. |
-| `BUBU` | `Bubu` | *Bubo bubo* (Eurasian eagle-owl) | primary | See above. One species needs a new prefix. |
-| `PREN` | `Pren` | *Semnopithecus entellus* (langur) | old prefix | Low risk — old prefixes are fallbacks, not primary. |
-| `PREN` | `Pren` | *Theropithecus gelada* (gelada) | old prefix | See above. |
-
-#### Blocked by collision (not yet in runtime)
-
-| Normalized | Blocked species | Colliding species | Issue |
+| 4-letter code | Species | Resolution | Literature reference |
 | --- | --- | --- | --- |
-| `ORLA` | *Oryzias latipes* (medaka, fish) | *Pongo sp.* (orangutan, prefix `OrLA`) | Case-insensitive normalization makes `Orla` == `OrLA`. Medaka needs an alternative prefix or orangutan needs to be remapped. |
-| `GAGA` | *Gavialis gangeticus* (gharial, crocodilian) | *Gallus gallus* (chicken, prefix `Gaga`) | Chicken owns `Gaga`. Gharial would need a different prefix (e.g., `Gaga` is not available). |
+| `Bubu` | *Bubalus bubalis* (water buffalo) | Keeps `Bubu` — well-established in MHC literature | [Bubu-DQA alleles in swamp buffaloes](https://pubmed.ncbi.nlm.nih.gov/27177904/), [Bubu-DRB polymorphism](https://pubmed.ncbi.nlm.nih.gov/12580780/) |
+| `Bubu` | *Bubo bubo* (Eurasian eagle-owl) | Uses `BuboBubo` | [MHC class II in *Bubo* owls](https://bioone.org/journals/zoological-science/volume-34/issue-6/zs170039/Duplication-and-Variation-in-the-Major-Histocompatibility-Complex-Genes-in/10.2108/zs170039.full) |
+| `Orla` / `OrLA` | *Pongo sp.* (orangutan) / *Oryzias latipes* (medaka) | Orangutan keeps `OrLA`; medaka uses `Oryl` | |
+| `Gaga` | *Gallus gallus* (chicken) / *Gavialis gangeticus* (gharial) | Chicken keeps `Gaga` ([IPD-MHC chicken](https://www.ebi.ac.uk/ipd/mhc/group/CHICKEN/)); gharial uses `GaviaGange` | |
+| `Cyca` | *Cyprinus carpio* (carp) / *Cyclura carinata* (iguana) / *Cyanistes caeruleus* (blue tit) | Carp keeps `Cyca`; iguana uses `CycluCarin`; blue tit uses `CyaniCaeru` | All three attested in literature: carp in [IPD-MHC](https://www.ebi.ac.uk/ipd/mhc/), iguana in Glaberman et al., blue tit in [Schut et al.](https://pubmed.ncbi.nlm.nih.gov/27177904/) |
+| `Chpi` | *Chrysolophus pictus* (golden pheasant) / *Chrysemys picta* (painted turtle) | Pheasant keeps `Chpi`; turtle uses `ChrysPicta` | |
 
-#### Resolution needed
+#### Low-risk collisions
 
-- **Bubu**: Decide which species keeps `Bubu`. Water buffalo has more MHC
-  literature and is part of IPD-MHC (BoLA family), so it may be the stronger
-  claimant. Eagle-owl could use an alternative like `Bubb` (*Bu*bo *b*ubo) or
-  a different convention.
-- **Orla/OrLA**: Check what prefix mhcseqs uses for medaka. Check IPD/literature
-  for an established medaka MHC prefix convention. If none exists, use `Oryl`
-  (*Or*yzias latipes with y→l) or similar.
-- **Gaga**: Chicken has a large established ontology and owns this prefix.
-  If gharial is ever added, it needs a different prefix (e.g., `Gaga` from
-  *Ga*vialis *ga*ngeticus is not available — perhaps `Gavg` or similar).
+| Code | Species | Notes |
+| --- | --- | --- |
+| `Pren` | *Semnopithecus entellus* / *Theropithecus gelada* | Old prefix only — both species have different primary prefixes |
 
 #### Why four-letter prefixes are a weak identity model
 
-The collisions above are symptoms of a fundamental problem: four-letter codes
-derived from genus + species binomials are a lossy encoding. With ~160 species
-and growing, collisions are inevitable. Latin names are unambiguous;
-four-letter codes are not.
+Four-letter codes derived from genus + species binomials are a lossy encoding.
+With 235+ species and growing, collisions are inevitable — sometimes even in
+the published literature (e.g., `Cyca` is used independently for carp, iguana,
+and blue tit by different research groups).
 
-The species identity model now uses latin names as canonical identity
-(see `Species.latin_name`, `Species.get_by_latin_name()`). Prefixes are
-treated as display aliases that may be ambiguous. When a prefix maps to
-multiple species, the parser uses gene-context disambiguation rather than
-heuristic winner selection.
+The [species identity model](species-latin-name-scoping.md) now uses latin
+names as canonical identity (see `Species.latin_name`,
+`Species.get_by_latin_name()`). Every species is also parseable via its full
+concatenated latin name (e.g., `HomoSapiens-A*02:01`) and a 5+5 truncated
+form (e.g., `HomoSapie-A*02:01`). See the
+[prefix tier documentation](https://github.com/pirl-unc/mhcgnomes/blob/main/README.md#species-prefix-tiers)
+in the README.
 
 ### Current special cases
 
-- `mhcgnomes/data/default_alleles.yaml` exists but is currently minimal and not
-  part of the main runtime loading path in `mhcgnomes/data.py`.
-- `mhcgnomes/data/common_genes.yaml` is currently empty and should stay that way
-  unless there is a concrete runtime feature that needs it.
+- [`default_alleles.yaml`](https://github.com/pirl-unc/mhcgnomes/blob/main/mhcgnomes/data/default_alleles.yaml)
+  exists but is currently minimal and not part of the main runtime loading path
+  in [`data.py`](https://github.com/pirl-unc/mhcgnomes/blob/main/mhcgnomes/data.py).
+- [`common_genes.yaml`](https://github.com/pirl-unc/mhcgnomes/blob/main/mhcgnomes/data/common_genes.yaml)
+  is currently empty and should stay that way unless there is a concrete runtime
+  feature that needs it.
 
 ## Source Inventory
 
@@ -311,11 +302,11 @@ stable gene names.
 
 | Source | What it is | Confidence | What we can use it for |
 | --- | --- | --- | --- |
-| `IPD-MHC` | Official curated comparative MHC database | High | Existing official groups, file formats, committee norms, future submission target |
-| `NCBI Datasets` | Official genome/annotation/metadata download portal | High | Genome assemblies, annotations, proteins, transcripts, taxon metadata |
-| `Xenbase` | Official Xenopus knowledgebase with downloads, BLAST, gene nomenclature | High | Frog gene names, genome coordinates, gene aliases, other amphibian genomes |
-| `The Reptile Database` | Widely used reptile taxonomy authority | High for taxonomy | Species normalization and synonyms for snakes, lizards, turtles, crocodilians, tuatara |
-| `Amphibian Species of the World` | Curated amphibian taxonomy reference | High for taxonomy | Species normalization and literature discovery for frogs and salamanders |
+| [IPD-MHC](https://www.ebi.ac.uk/ipd/mhc/) | Official curated comparative MHC database | High | Existing official groups, file formats, committee norms, future submission target |
+| [NCBI Datasets](https://www.ncbi.nlm.nih.gov/datasets/) | Official genome/annotation/metadata download portal | High | Genome assemblies, annotations, proteins, transcripts, taxon metadata |
+| [Xenbase](https://www.xenbase.org/) | Official Xenopus knowledgebase with downloads, BLAST, gene nomenclature | High | Frog gene names, genome coordinates, gene aliases, other amphibian genomes |
+| [The Reptile Database](https://www.reptile-database.org/) | Widely used reptile taxonomy authority | High for taxonomy | Species normalization and synonyms for snakes, lizards, turtles, crocodilians, tuatara |
+| [Amphibian Species of the World](https://amphibiansoftheworld.amnh.org/) | Curated amphibian taxonomy reference | High for taxonomy | Species normalization and literature discovery for frogs and salamanders |
 
 References:
 
@@ -330,14 +321,14 @@ References:
 
 Notes:
 
-- `IPD-MHC` is still the gold standard for canonical allele ingestion, but its
+- [IPD-MHC](https://www.ebi.ac.uk/ipd/mhc/) is still the gold standard for canonical allele ingestion, but its
   current official groups do not yet cover reptiles or amphibians as first-class
   groups. The taxonomy page currently lists primates, felids, canids, salmonids,
   ovids, bovids, equids, suids, murids, `Gallus`, and cetaceans.
-- `Xenbase` is the strongest structured source in this expansion set because it
+- [Xenbase](https://www.xenbase.org/) is the strongest structured source in this expansion set because it
   provides official gene nomenclature, gene search, BLAST, downloadable genomes,
   and "other amphibian genomes" links.
-- `NCBI Datasets` is the best generic fallback when there is no clade-specific
+- [NCBI Datasets](https://www.ncbi.nlm.nih.gov/datasets/) is the best generic fallback when there is no clade-specific
   nomenclature database.
 
 ### Tier 2: Strong clade-specific papers
@@ -385,9 +376,9 @@ References:
 What we know:
 
 - `Xenopus laevis` already exists in the ontology as `Xela-UAA`.
-- `Xenbase` has official gene search, gene nomenclature, downloads, and genome
+- [Xenbase](https://www.xenbase.org/) has official gene search, gene nomenclature, downloads, and genome
   browsers for `X. laevis` and `X. tropicalis`.
-- `Xenbase` also links to "other amphibian genomes", which makes it the best
+- [Xenbase](https://www.xenbase.org/) also links to "other amphibian genomes", which makes it the best
   structured on-ramp for frog expansion.
 - The amphibian review shows that both class I and class II are relevant to
   disease susceptibility, especially chytridiomycosis.
@@ -570,7 +561,7 @@ What we know:
 - Crocodilian class I evolution has been studied across the order.
 - Additional genome papers show structured MHC organization in crocodilians.
 - This is enough to justify species and gene-family support, but still not enough
-  for an `IPD-MHC`-style allele ontology.
+  for an [IPD-MHC](https://www.ebi.ac.uk/ipd/mhc/)-style allele ontology.
 
 What can be confidently ingested:
 
@@ -693,7 +684,7 @@ Constraint:
 
 This phase should happen only when one of the following is true:
 
-- the clade enters `IPD-MHC`,
+- the clade enters [IPD-MHC](https://www.ebi.ac.uk/ipd/mhc/),
 - the species has a stable curated allele registry,
 - or we build a clearly provenance-annotated internal registry with accession-level
   traceability and conservative scope.
