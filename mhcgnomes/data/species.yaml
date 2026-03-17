@@ -498,17 +498,29 @@ Salmo salar:
 ############################
 Danio rerio:
   prefix: Dare
+  other prefixes:
+    # Old genus: Brachydanio rerio → Danio rerio
+    - Brre
   name: Zebrafish
   genes:
     Ia:
       - UBA
       - UEA
       - UGA
+      - UHA
+      - ULA
       - UMA
+      - ZFA
+      - LAA
     IIa:
       DA:
         - DAA
         - DAB
+      DB:
+        - DBB
+      DC:
+        - DCA
+        - DCB
 ############################
 #
 # Medaka
@@ -547,10 +559,22 @@ Oreochromis niloticus:
   prefix: Orni
   name: Nile tilapia
   genes:
+    Ia:
+      - UAA
+      - UBA
     IIa:
       DA:
         - DAA
         - DAB
+      DB:
+        - DBA
+        - DBB
+      DC:
+        - DCA
+        - DCB
+      DD:
+        - DDA
+        - DDB
 Paralichthys olivaceus:
   prefix: Paol
   name: Olive flounder
@@ -727,6 +751,9 @@ Chrysemys picta:
   name: Painted turtle
 Pelodiscus sinensis:
   prefix: Pesi
+  other prefixes:
+    # Old genus: Trionyx sinensis → Pelodiscus sinensis
+    - Trsi
   name: Chinese softshell turtle
 Terrapene triunguis:
   prefix: Tetr
@@ -2791,8 +2818,15 @@ Monodelphis domestica:
   genes:
     # Marsupial class I uses non-standard UT/UG gene families.
     # Classification follows Trvu precedent of generic "I".
+    # UA1-UA6 are numbered class I alpha loci per mhcseqs data.
     I:
       - UA
+      - UA1
+      - UA2
+      - UA3
+      - UA4
+      - UA5
+      - UA6
       - UB
       - UC
       - UG
@@ -2804,7 +2838,13 @@ Monodelphis domestica:
       - UT8
     IIa:
       DA:
+        - DAA
         - DAB
+      DB:
+        - DBA
+        - DBB
+      DR:
+        - DRA
     other:
       - TAP1
       - TAP2
