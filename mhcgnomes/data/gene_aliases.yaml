@@ -77,18 +77,29 @@ Gaga:
   Chi-B: BF2
   B-F: BF
   B-LB: BLB
+  B-F-S: BF
   B-DMA: DMA
+  B-DMB1: DMB1
   B-DMB2: DMB2
   B-LB12c: B12c
+  # Workshop/serological BF variants — map to family-level BF
+  BFw: BF
+  BFz: BF
+  # YF workshop variants
   YF1w: YF1
   YF2w: YF2
   # YFV appears in mhcseqs data as a variant label for MHCY class I genes.
-  # Maps to YF1 (the primary MHCY class I locus). See PMC9635633 for the
-  # MHCY region containing 45 class I loci organized by type.
   YFV: YF1
-  # MHCY is the modern name for the Y/Rfp-Y region. Used as a generic
-  # class I label when the specific YF locus is unknown.
+  # Y15 is a Y-region class I cDNA clone, maps to YF1
+  Y15: YF1
+  # MHCY is the modern name for the Y/Rfp-Y region.
   MHCY: YF1
+  # MHCY2B class II beta genes from the Y region (PMC9635633: 8 class IIβ
+  # loci correspond to the B-LBIII family). Map to BLB as the closest
+  # canonical class II beta in the B system.
+  MHCY2B: BLB
+  MHCY2B1: BLB1
+  MHCY2B2: BLB2
 FLA:
   DRA: DRA1
   DRB: DRB1
@@ -119,6 +130,20 @@ Maar:
   A: A1
 MaLA:
   F: F1
+# Taxonomy reclassification aliases are handled via "other prefixes" in
+# species.yaml (e.g. Brre → Dare, Trsi → Pesi). The gene_aliases.yaml
+# file does not need entries for these.
+Coja:
+  # Paper-local II-xx numbered class II labels from quail MHC studies.
+  # II-01 through II-07 map sequentially to the 7 canonical beta loci.
+  # II-13, II-16, II-17 remain unmapped (registry holdback).
+  II-01: DAB1
+  II-02: DBB1
+  II-03: DCB1
+  II-04: DDB1
+  II-05: DEB1
+  II-06: DFB1
+  II-07: DGB1
 Zhom:
   # Old-genus Rhacophorus prefix preserved in external gene name
   Rhom-beta1: DAB

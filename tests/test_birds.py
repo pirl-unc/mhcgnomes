@@ -95,6 +95,30 @@ def test_parse_japanese_quail_named_class2_beta_loci():
         eq_(parse(f"Coja-{gene_name}*{field}", raise_on_error=True), expected_allele)
 
 
+def test_parse_japanese_quail_numbered_class2_aliases():
+    """Coja-II-01 through II-07 should map to the canonical loci."""
+    mappings = [
+        ("II-01", "DAB1"),
+        ("II-02", "DBB1"),
+        ("II-03", "DCB1"),
+        ("II-04", "DDB1"),
+        ("II-05", "DEB1"),
+        ("II-06", "DFB1"),
+        ("II-07", "DGB1"),
+    ]
+    for alias, canonical in mappings:
+        expected = Gene.get("Coja", canonical)
+        assert expected is not None
+        eq_(parse(f"Coja-{alias}", raise_on_error=True), expected)
+
+
+def test_parse_japanese_quail_numbered_allele():
+    """Coja-II-01*01 should parse as DAB1*01."""
+    expected = Allele.get("Coja", "DAB1", "01")
+    assert expected is not None
+    eq_(parse("Coja-II-01*01", raise_on_error=True), expected)
+
+
 def test_parse_eurasian_coot_species_Fuat():
     expected = Species.get("Fuat")
     assert expected is not None
@@ -180,6 +204,15 @@ def test_parse_chicken_family_level_aliases_without_breaking_specific_loci():
         # MHCY / YFV aliases map to YF1
         ("Gaga-YFV", Gene.get("Gaga", "YF1")),
         ("Gaga-MHCY", Gene.get("Gaga", "YF1")),
+        ("Gaga-Y15", Gene.get("Gaga", "YF1")),
+        # Workshop/serological BF aliases
+        ("Gaga-BFw", Gene.get("Gaga", "BF")),
+        ("Gaga-BFz", Gene.get("Gaga", "BF")),
+        ("Gaga-B-F-S", Gene.get("Gaga", "BF")),
+        # MHCY2B class II aliases
+        ("Gaga-MHCY2B", Gene.get("Gaga", "BLB")),
+        ("Gaga-MHCY2B1", Gene.get("Gaga", "BLB1")),
+        ("Gaga-B-DMB1", Gene.get("Gaga", "DMB1")),
     ]
     for raw_string, expected in expected_pairs:
         assert expected is not None
@@ -232,8 +265,6 @@ def test_parse_ratite_species():
 
 def test_do_not_parse_ambiguous_or_unreviewed_bird_strings():
     for s in [
-        "Gaga-BFw-01",
-        "Gaga-BFz-01",
         "Gaga-B-LBII",
         "Coja-II-13*01",
         "Coja-II-16*01",
