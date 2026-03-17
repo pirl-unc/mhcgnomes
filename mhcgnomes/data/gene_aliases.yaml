@@ -82,6 +82,13 @@ Gaga:
   B-LB12c: B12c
   YF1w: YF1
   YF2w: YF2
+  # YFV appears in mhcseqs data as a variant label for MHCY class I genes.
+  # Maps to YF1 (the primary MHCY class I locus). See PMC9635633 for the
+  # MHCY region containing 45 class I loci organized by type.
+  YFV: YF1
+  # MHCY is the modern name for the Y/Rfp-Y region. Used as a generic
+  # class I label when the specific YF locus is unknown.
+  MHCY: YF1
 FLA:
   DRA: DRA1
   DRB: DRB1
