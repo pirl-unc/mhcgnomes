@@ -9,7 +9,7 @@ Taxon-specific genes must NOT leak across boundaries.
 
 import pytest
 
-from mhcgnomes import Gene, Species, parse
+from mhcgnomes import Gene, MhcClass, Species, parse
 from mhcgnomes.species import raw_species_dict
 
 from .common import eq_
@@ -333,16 +333,24 @@ class TestRootTransportGenesAndAliases:
 class TestMhciibScoping:
     """MHCIIB is only accepted for species that actually use that alias."""
 
-    def test_mhciib_does_not_parse_with_ostrich_default_species(self):
-        assert parse("MHCIIB", default_species="Struthio camelus", raise_on_error=False) is None
+    def test_mhciib_parses_as_mhc_class_for_any_species(self):
+        """MHCIIB is now a generic class II beta label, works for any species."""
+        result = parse("MHCIIB", default_species="Struthio camelus", raise_on_error=True)
+        assert isinstance(result, MhcClass)
+        eq_(result.chain, "beta")
+        eq_(result.species.name, "Struthio camelus")
 
-    def test_mhciib_does_not_parse_with_ostrich_strict_species(self):
-        assert parse("MHCIIB", species="Struthio camelus", raise_on_error=False) is None
+    def test_mhciib_with_strict_species(self):
+        result = parse("MHCIIB", species="Struthio camelus", raise_on_error=True)
+        assert isinstance(result, MhcClass)
+        eq_(result.species.name, "Struthio camelus")
 
-    def test_mhciib_still_parses_for_barn_owl(self):
+    def test_mhciib_parses_as_mhc_class_not_gene(self):
+        """MHCIIB is now a class II beta MhcClass, not a Gene(Tyal, DAB)."""
         result = parse("MHCIIB", default_species="Tyto alba", raise_on_error=True)
-        eq_(result.species.name, "Tyto alba")
-        eq_(result.name, "DAB")
+        assert isinstance(result, MhcClass)
+        eq_(result.mhc_class, "II")
+        eq_(result.chain, "beta")
 
 
 class TestSpeciesStrictness:

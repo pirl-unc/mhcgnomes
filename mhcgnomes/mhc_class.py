@@ -31,15 +31,27 @@ class MhcClass(ResultWithMhcClass):
     Wrapper class for species combined with MHC classes such as
     "I", "Ia", "Ib", "II", "IIa", &c
     which provides some utility functions.
+
+    Optionally includes a chain restriction ("alpha" or "beta") for
+    cases like MHCIIB (class II beta, unknown locus).
     """
 
-    def __init__(self, species: Species, mhc_class: str, raw_string: Union[str, None] = None):
+    chain: Union[str, None] = None
+
+    def __init__(
+        self,
+        species: Species,
+        mhc_class: str,
+        chain: Union[str, None] = None,
+        raw_string: Union[str, None] = None,
+    ):
         ResultWithMhcClass.__init__(
             self, species=species, mhc_class=mhc_class, raw_string=raw_string
         )
+        object.__setattr__(self, "chain", chain)
 
     @classmethod
-    def get(cls, species_prefix, mhc_class):
+    def get(cls, species_prefix, mhc_class, chain=None):
         species = Species.get(species_prefix)
         if species is None:
             return None
@@ -47,7 +59,7 @@ class MhcClass(ResultWithMhcClass):
             mhc_class = normalize_mhc_class_string(mhc_class)
         except ParseError:
             return None
-        return MhcClass(species, mhc_class)
+        return MhcClass(species, mhc_class, chain=chain)
 
     @property
     def is_class1(self):
@@ -70,6 +82,8 @@ class MhcClass(ResultWithMhcClass):
     def to_record(self):
         d = self.species.to_record()
         d["mhc_class"] = self.mhc_class
+        if self.chain is not None:
+            d["chain"] = self.chain
         return d
 
     def to_string(self, include_species=True, use_old_species_prefix=False):
@@ -80,9 +94,13 @@ class MhcClass(ResultWithMhcClass):
                 species_str = self.species.historic_alias
             else:
                 species_str = self.species.prefix
-            return f"{species_str} class {self.mhc_class}"
+            prefix = f"{species_str} "
         else:
-            return f"class {self.mhc_class}"
+            prefix = ""
+        class_str = f"class {self.mhc_class}"
+        if self.chain is not None:
+            class_str = f"{class_str} {self.chain}"
+        return f"{prefix}{class_str}"
 
     def compact_string(self, include_species=True, use_old_species_prefix=False):
         """
