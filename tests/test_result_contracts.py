@@ -2,7 +2,7 @@ from collections import OrderedDict
 
 import pytest
 
-from mhcgnomes import Allele, Gene, Haplotype, Pair, Serotype, Supertype, parse
+from mhcgnomes import Allele, Gene, Haplotype, MhcClass, Pair, Serotype, Supertype, parse
 
 ANNOTATION_FLAGS = (
     "annotation_null",
@@ -167,6 +167,23 @@ GOLDEN_PARSE_CASES = [
         ),
         "expected_annotations": _expected_annotation_values(),
     },
+    {
+        "id": "mhc_class_chain",
+        "raw": "HLA class II beta",
+        "expected_type": MhcClass,
+        "expected_to_string": "human class II beta",
+        "expected_compact": "human class II beta",
+        "expected_record": OrderedDict(
+            [
+                ("species_prefix", "HLA"),
+                ("species_name", "Homo sapiens"),
+                ("species_latin_name", "Homo sapiens"),
+                ("mhc_class", "II"),
+                ("chain", "beta"),
+            ]
+        ),
+        "expected_annotations": _expected_annotation_values(),
+    },
 ]
 
 
@@ -243,6 +260,11 @@ COPY_CHANGE_CASES = [
     pytest.param("A2", lambda result: result.copy(name="A3"), id="serotype"),
     pytest.param("H2-k haplotype", lambda result: result.copy(name="d"), id="haplotype"),
     pytest.param("A2 supertype", lambda result: result.copy(name="A03"), id="supertype"),
+    pytest.param(
+        "HLA class II beta",
+        lambda result: result.copy(chain="alpha"),
+        id="mhc_class_chain",
+    ),
 ]
 
 

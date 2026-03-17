@@ -104,6 +104,27 @@ def test_mhc1_to_string_no_chain():
     eq_(r.to_string(), "human class I")
 
 
+def test_mhciib_to_string_round_trips():
+    original = parse("MHCIIB", default_species="Struthio camelus")
+    reparsed = parse(original.to_string(), raise_on_error=True)
+    assert reparsed == original
+
+
+def test_hla_class_ii_beta_phrase_parses():
+    r = parse("HLA class II beta", raise_on_error=True)
+    assert isinstance(r, MhcClass)
+    eq_(r.mhc_class, "II")
+    eq_(r.chain, "beta")
+
+
+def test_default_species_class_ii_alpha_phrase_parses():
+    r = parse("class II alpha", default_species="Struthio camelus", raise_on_error=True)
+    assert isinstance(r, MhcClass)
+    eq_(r.species.name, "Struthio camelus")
+    eq_(r.mhc_class, "II")
+    eq_(r.chain, "alpha")
+
+
 # --- to_record ---
 
 
@@ -162,4 +183,9 @@ def test_mhc3_does_not_parse():
 def test_mhciic_does_not_parse():
     """MHCIIC — no 'C' chain exists."""
     r = parse("MHCIIC", default_species="Homo sapiens", raise_on_error=False)
+    assert r is None
+
+
+def test_class_iii_beta_phrase_does_not_parse():
+    r = parse("HLA class III beta", raise_on_error=False)
     assert r is None

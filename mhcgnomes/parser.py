@@ -1637,6 +1637,8 @@ class Parser:
                     alpha_genes = candidate.alpha_chain_genes
                     if len(alpha_genes) == 1:
                         candidates.append(alpha_genes[0])
+                elif type(candidate) is MhcClass:
+                    candidates.append(candidate.copy(chain="alpha"))
         elif tokens[-1].is_beta:
             for candidate in self.parse_tokens_to_multiple_candidates(
                 tokens=tokens[:-1],
@@ -1652,6 +1654,8 @@ class Parser:
                     beta_genes = candidate.beta_chain_genes
                     if len(beta_genes) == 1:
                         candidates.append(beta_genes[0])
+                elif type(candidate) is MhcClass:
+                    candidates.append(candidate.copy(chain="beta"))
         elif tokens[-1].is_mutant:
             for without_mutation in self.parse_single_token_to_multiple_candidates(
                 token=tokens[0],
