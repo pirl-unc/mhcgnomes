@@ -597,6 +597,16 @@ Cynoglossus semilaevis:
       DB:
         - DBA
         - DBB
+Dicentrarchus labrax:
+  prefix: Dila
+  name: European seabass
+  genes:
+    Ia:
+      - UA
+    IIa:
+      DA:
+        - DAA
+        - DAB
 Epinephelus coioides:
   prefix: Epco
   name: Orange-spotted grouper
@@ -637,6 +647,28 @@ Trachinotus ovatus:
       DA:
         - DAA
         - DAB
+############################
+#
+# Additional fish
+#
+# All generated prefixes — no established MHC prefixes in literature.
+#
+############################
+Gasterosteus aculeatus:
+  prefix: Gaac
+  name: Three-spined stickleback
+Ictalurus punctatus:
+  prefix: Icpu
+  name: Channel catfish
+Hippocampus abdominalis:
+  prefix: Hiab
+  name: Pot-bellied seahorse
+Carassius auratus:
+  prefix: Caau
+  name: Goldfish
+Clarias magur:
+  prefix: Clma
+  name: Walking catfish
 ############################
 #
 # Snakes
@@ -700,6 +732,15 @@ Gavialis gangeticus:
   # No established MHC prefix in literature. Using long prefix as display.
   prefix: GaviaGange
   name: Gharial
+Crocodylus moreletii:
+  prefix: Crmo
+  name: Morelet's crocodile
+Crocodylus mindorensis:
+  prefix: Crmi
+  name: Philippine crocodile
+Crocodylus siamensis:
+  prefix: Crsi
+  name: Siamese crocodile
 Tomistoma schlegelii:
   prefix: Tosc
   name: False gharial
@@ -807,6 +848,23 @@ Nothoprocta perdicaria:
 Tinamus major:
   prefix: Tima
   name: Great tinamou
+############################
+#
+# Sharks
+#
+############################
+Ginglymostoma cirratum:
+  prefix: Gici
+  name: Nurse shark
+Heterodontus francisci:
+  prefix: Hefr
+  name: Horn shark
+Squalus acanthias:
+  prefix: Sqac
+  name: Spiny dogfish
+Triakis scyllium:
+  prefix: Trsc
+  name: Banded houndshark
 ##############################################
 #
 # Ovid/sheep
@@ -1488,6 +1546,91 @@ Sterna hirundo:
         - DAB
 ################################################################################
 #
+# Raptors (falcons, eagles, hawks)
+#
+# All generated prefixes — no established MHC prefixes in literature.
+#
+################################################################################
+Falco peregrinus:
+  prefix: Fape
+  name: Peregrine falcon
+Falco tinnunculus:
+  prefix: Fati
+  name: Common kestrel
+Aquila chrysaetos:
+  prefix: Aqch
+  name: Golden eagle
+Buteo buteo:
+  # Natural prefix Bubu collides with Bubalus bubalis and Bubo bubo.
+  prefix: ButeoBute
+  name: Common buzzard
+Circus aeruginosus:
+  prefix: Ciae
+  name: Western marsh harrier
+Gyps fulvus:
+  prefix: Gyfu
+  name: Griffon vulture
+################################################################################
+#
+# Cranes
+#
+################################################################################
+Grus japonensis:
+  prefix: Grja
+  name: Red-crowned crane
+Antigone antigone:
+  prefix: Anan
+  name: Sarus crane
+  other prefixes:
+    # Old genus: Grus antigone → Antigone antigone
+    - Gran
+Balearica regulorum:
+  prefix: Bare
+  name: Grey crowned crane
+################################################################################
+#
+# Passerines (sparrows, crows, etc.)
+#
+################################################################################
+Passer domesticus:
+  prefix: Pado
+  name: House sparrow
+Cyanistes caeruleus:
+  # Natural prefix Cyca collides with Cyprinus carpio (carp).
+  # Both are attested in literature (Schut et al., Westerdahl et al.).
+  prefix: CyaniCaeru
+  name: Blue tit
+  genes:
+    I:
+      - UA
+    IIa:
+      DA:
+        - DAB
+Corvus cornix:
+  prefix: Coco
+  name: Hooded crow
+Turdus merula:
+  prefix: Tume
+  name: Common blackbird
+Lanius collurio:
+  prefix: Laco
+  name: Red-backed shrike
+Emberiza citrinella:
+  prefix: Emci
+  name: Yellowhammer
+################################################################################
+#
+# Shorebirds
+#
+################################################################################
+Anarhynchus nivosus:
+  prefix: Anni
+  name: Snowy plover
+  other prefixes:
+    # Old genus: Charadrius nivosus → Anarhynchus nivosus
+    - Chni
+################################################################################
+#
 # Chicken
 #
 # Sources:
@@ -1495,6 +1638,30 @@ Sterna hirundo:
 # - https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6971145/
 #
 ################################################################################
+Meleagris gallopavo:
+  prefix: Mega
+  name: Turkey
+  genes:
+    # Turkey B-complex uses the same gene families as chicken but
+    # locus-specific numbers (BF1/BF2, BLB1/BLB2) are chicken-specific.
+    # Using family-level labels to avoid colliding with chicken loci.
+    Ia:
+      - BF
+    IIa:
+      BL:
+        - BLB
+    IIb:
+      DM:
+        - DMA
+        - DMB1
+        - DMB2
+    other:
+      - TAP1
+      - TAP2
+      - B2M
+Pavo cristatus:
+  prefix: Pacr
+  name: Indian peafowl
 Gallus gallus:
   prefix: Gaga
   name: Chicken
@@ -1596,6 +1763,11 @@ Coturnix japonica:
         - DFB1
       DG:
         - DGB1
+    IIb:
+      DM:
+        - DMA
+        - DMB1
+        - DMB2
 Fulica atra:
   prefix: Fuat
   name: Eurasian coot
@@ -1631,6 +1803,10 @@ Anas platyrhynchos:
   genes:
     Ia:
       - UAA
+      - UEA
+    IIa:
+      DR:
+        - DRA
     other:
       - TAP1
       - TAP2
@@ -2792,6 +2968,37 @@ Zhangixalus omeimontis:
     IIa:
       DA:
         - DAB
+Lithobates catesbeianus:
+  prefix: Lica
+  name: American bullfrog
+  other prefixes:
+    # Old genus: Rana catesbeiana → Lithobates catesbeianus
+    - Raca
+Lithobates clamitans:
+  prefix: Licl
+  name: Green frog
+  other prefixes:
+    # Old genus: Rana clamitans → Lithobates clamitans
+    - Racl
+##########################
+#
+# Salamanders
+#
+##########################
+Ambystoma mexicanum:
+  prefix: Amme
+  name: Axolotl
+Ambystoma tigrinum:
+  prefix: Amti
+  name: Tiger salamander
+##########################
+#
+# Tuatara
+#
+##########################
+Sphenodon punctatus:
+  prefix: Sppu
+  name: Tuatara
 ##########################
 #
 # Lizards
@@ -2801,6 +3008,14 @@ Zhangixalus omeimontis:
 # - https://www.reptile-database.org/
 #
 ##########################
+Cyclura carinata:
+  # Natural prefix Cyca collides with Cyprinus carpio (carp).
+  # Attested in literature (Glaberman et al. iguana MHC studies).
+  prefix: CycluCarin
+  name: Turks and Caicos rock iguana
+  genes:
+    I:
+      - UA
 Anolis carolinensis:
   prefix: Anca
   name: Green anole
@@ -2863,6 +3078,27 @@ Sarcophilus harrisii:
     IIa:
       DA:
         - DAB
+Phascolarctos cinereus:
+  prefix: Phci
+  name: Koala
+  genes:
+    IIa:
+      DA:
+        - DAA
+        - DAB
+Ornithorhynchus anatinus:
+  prefix: Oran
+  name: Platypus
+  genes:
+    IIa:
+      DR:
+        - DRA
+Notamacropus eugenii:
+  prefix: Noeu
+  name: Tammar wallaby
+  other prefixes:
+    # Old genus: Macropus eugenii → Notamacropus eugenii
+    - Maeu
 Trichosurus vulpecula:
   prefix: Trvu
   name: Common brushtail possum
