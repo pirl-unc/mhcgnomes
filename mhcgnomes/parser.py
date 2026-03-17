@@ -1998,16 +1998,34 @@ class Parser:
             - Class2Locus
         """
         candidates = self.parse_multiple_candidates(name, default_species=default_species)
+        explicit_species, _ = self.parse_species_from_prefix(name)
+        has_explicit_species_prefix = explicit_species is not None
+        default_species_object = Species.get(default_species)
+        should_require_default_match = (
+            default_species is not None
+            and default_species_object is not None
+            and default_species_object != Species.get(DEFAULT_SPECIES_PREFIX)
+        )
 
         # When default_species is provided, prefer candidates matching it.
-        # This ensures that e.g. parse("MHCIIB", default_species="Struthio camelus")
-        # returns ostrich, not barn owl (where MHCIIB is a gene alias).
-        if default_species is not None and len(candidates) > 1:
-            ds = Species.get(default_species)
+        # This ensures that generic/root-level names like parse(
+        # "DMA", default_species="Struthio camelus") resolve to the requested
+        # species instead of a different species which also has that gene.
+        if default_species is not None and len(candidates) > 0:
+            ds = default_species_object
             if ds is not None:
-                ds_candidates = [c for c in candidates if hasattr(c, "species") and c.species == ds]
+                ds_candidates = [
+                    c
+                    for c in candidates
+                    if (type(c) is Species and c == ds)
+                    or (hasattr(c, "species") and c.species == ds)
+                ]
                 if ds_candidates:
                     candidates = ds_candidates
+                elif should_require_default_match and not has_explicit_species_prefix:
+                    if raise_on_error:
+                        raise ParseError(f"Could not parse '{name}' for species '{ds.name}'")
+                    return None
 
         if only_class1:
             candidates = [candidate for candidate in candidates if candidate.is_class1]

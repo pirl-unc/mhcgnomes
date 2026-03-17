@@ -119,6 +119,21 @@ This preserves practical parsing while making collisions explicit.
 
 Internally it should normalize to canonical `latin_name` as early as possible.
 
+`default_species` remains lenient: it is only a fallback/default when the input
+does not unambiguously identify another species.
+
+### Strict species
+
+`species` should accept the same identifiers as `default_species`, but it is a
+strict filter:
+
+- mismatched `Species` parses should fail
+- mismatched gene/allele parses should fail
+- generic ancestor-scoped parses such as `BoLA-...` may be converted to a
+  requested descendant species if reparsing there is valid
+- descendant results should not be silently cast up to an ancestor taxon
+- parent taxonomic prefixes should not be treated as aliases for child species
+
 ## Data File Changes
 
 ### `species.yaml`
@@ -158,18 +173,19 @@ identifier associated with a species.
 
 ### Source registry
 
-`underrepresented_taxa_source_registry.yaml` should also move away from
-prefix-keyed entries. Prefix-keyed registry data becomes awkward exactly where
-we most need it: collisions.
+`underrepresented_taxa_source_registry.yaml` currently serves a second purpose
+in addition to curation planning: it is the machine-readable provenance ledger
+for short runtime prefixes added from underrepresented taxa work.
 
-Recommended shape:
+Current requirement:
 
-- top-level keyed by scientific name
-- explicit `primary_prefix`
-- optional `other_prefixes`
-- optional `colliding_external_prefixes`
+- top-level keyed by runtime prefix
+- required `scientific_name`
+- at least one source URL (`taxonomy_sources`, `structured_sources`,
+  `literature_sources`, or `representative_annotation_sources`)
 
-That keeps the curation record aligned with runtime identity.
+That gives every active short prefix an auditable source trail, even when the
+runtime ontology itself is keyed by scientific name.
 
 ## Runtime Data Structures
 
@@ -246,6 +262,13 @@ This proposal does not require changing normalized output strings. End users can
 continue to see `HLA`, `BoLA`, `Gaga`, and similar curated prefixes in rendered
 names.
 
+One subtlety worth calling out explicitly: not every curated prefix is a
+species-level identifier. Some historically important committee prefixes such as
+`DLA`, `SLA`, `OLA`, `BoLA`, and `CELA` are intentionally modeled as umbrella
+taxon nodes (`Canis sp.`, `Sus sp.`, `Ovis sp.`, `Bos sp.`, `Cetacea sp.`).
+Those generic prefixes coexist with more specific descendant species prefixes
+such as `Calu`, `Susc`, `Ovar`, `Bota`, and `Tutr`.
+
 The internal change is that scientific name becomes the primary key and aliases
 become parse helpers.
 
@@ -255,6 +278,6 @@ become parse helpers.
    `AmbiguousSpeciesError`?
 2. Should `Species.name` remain indefinitely as a synonym for `latin_name`, or
    should it eventually be deprecated?
-3. Should parent/child species inheritance continue to merge alias-bearing side
-   tables across all identifiers, or should that merge become strictly
-   scientific-name-based once the YAML migration is complete?
+3. Resolved: parent/child side-table inheritance should flow through ancestor
+   scientific names only. Parent prefixes/common names should not become
+   implicit child aliases.

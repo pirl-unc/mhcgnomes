@@ -461,6 +461,9 @@ taxa:
     curation_status: active
     ingest_confidence: medium_gene_level
     recommended_ingest_level: gene
+    literature_sources:
+      - https://pubmed.ncbi.nlm.nih.gov/28554837/
+      - https://pubmed.ncbi.nlm.nih.gov/29902561/
     canonical_gene_candidates:
       - UBA
       - DAA
@@ -468,10 +471,9 @@ taxa:
     observed_structure:
       - runtime_addition: class I UBA and class II DA family (DAA, DAB)
     notes: >
-      Golden pompano added from mhcseqs error report data. Gene set follows
-      standard teleost pattern. Literature sources for this species have not
-      yet been pinned down — revisit when accession-backed citations are
-      available.
+      Golden pompano added from mhcseqs error report data and now anchored to
+      species-specific class I / class II characterization papers above. Gene
+      set follows the standard teleost pattern.
 
   Chpi:
     scientific_name: Chrysolophus pictus
@@ -827,6 +829,9 @@ taxa:
     curation_status: active
     ingest_confidence: medium_gene_level
     recommended_ingest_level: gene
+    literature_sources:
+      - https://pubmed.ncbi.nlm.nih.gov/20174921/
+      - https://pubmed.ncbi.nlm.nih.gov/19126869/
     canonical_gene_candidates:
       - UAA
       - UBA
@@ -836,4 +841,3 @@ taxa:
       Medaka added with prefix Oryl instead of the natural Orla because
       Orla collides with orangutan OrLA under case-insensitive normalization.
       Class I genes follow teleost U-lineage pattern.
-

@@ -16,6 +16,26 @@ def load_underrepresented_taxa_registry():
         return yaml.safe_load(fd)
 
 
+def active_registry_entries():
+    return {
+        prefix: entry
+        for prefix, entry in load_underrepresented_taxa_registry()["taxa"].items()
+        if entry.get("curation_status") == "active"
+    }
+
+
+def entry_sources(entry):
+    sources = []
+    for key in (
+        "taxonomy_sources",
+        "structured_sources",
+        "literature_sources",
+        "representative_annotation_sources",
+    ):
+        sources.extend(entry.get(key, []))
+    return sources
+
+
 def test_registry_captures_mhcseqs_review_prefixes():
     taxa = load_underrepresented_taxa_registry()["taxa"]
     for prefix in [
@@ -49,29 +69,17 @@ def test_registry_captures_mhcseqs_review_prefixes():
 
 
 def test_runtime_ready_registry_entries_match_species_ontology():
-    taxa = load_underrepresented_taxa_registry()["taxa"]
-    for prefix in [
-        "Acar",
-        "Acsc",
-        "Cyca",
-        "Getr",
-        "Dare",
-        "Orni",
-        "Paol",
-        "Cyse",
-        "Epco",
-        "Satr",
-        "Chpi",
-        "Coja",
-        "Fuat",
-        "Sthi",
-        "Sphu",
-        "Spma",
-        "Tyal",
-        "Gaga",
-    ]:
-        assert taxa[prefix]["curation_status"] == "active"
-        assert Species.get(prefix) is not None
+    for prefix, entry in active_registry_entries().items():
+        species = Species.get(prefix)
+        assert species is not None, prefix
+        assert species.name == entry["scientific_name"], prefix
+
+
+def test_active_registry_entries_have_source_backed_prefix_provenance():
+    for prefix, entry in active_registry_entries().items():
+        sources = entry_sources(entry)
+        assert sources, prefix
+        assert all(source.startswith("http") for source in sources), prefix
 
 
 def test_registry_marks_held_back_strings_as_sourced():

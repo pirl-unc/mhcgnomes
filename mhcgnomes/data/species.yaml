@@ -21,7 +21,7 @@
 # Species inherit genes from their parent node (set via "parent:" field).
 # The inheritance chain is walked recursively:
 #
-#   Gnathostomata sp.  (DMA, DMB, TAP1/2, TAPBP, B2M, MHCIIB)
+#   Gnathostomata sp.  (DMA, DMB, DM, TAP1, TAP2, TAP-L, TAPBP, B2M)
 #   ├── Galliformes sp.    (+ BF, BLB, DMB1/2)
 #   │   ├── Gallus gallus  (+ BF1/2, YF1/2, BLA, BLB1/2, ...)
 #   │   └── ...
@@ -31,7 +31,7 @@
 #   │   └── ...
 #   ├── Testudines sp.     (+ UA, DAA, DAB)
 #   │   └── ...
-#   └── (mammals: no shared root yet, each has own prefix like HLA, BoLA)
+#   └── ...all jawed vertebrate entries descend from this root
 #
 # ============================================================================
 
@@ -49,6 +49,7 @@ Gnathostomata sp.:
     other:
       - TAP1
       - TAP2
+      - TAP-L
       - TAPBP
       - B2M
 
@@ -122,6 +123,7 @@ Crocodylia sp.:
 # - http://www.imgt.org/IMGTrepertoireMHC/LocusGenes/nomenclatures/human/MHC/human_MHCnom.html
 ######################################################
 Homo sapiens:
+  parent: Gnathostomata sp.
   prefix: HLA
   name: Human
   genes:
@@ -196,6 +198,7 @@ Homo sapiens:
 #
 ######################################################
 Mus musculus:
+  parent: Gnathostomata sp.
   prefix: H2
   name: Mouse
   genes:
@@ -308,6 +311,7 @@ Mus musculus:
 #
 ######################################################
 Rattus sp.:
+  parent: Gnathostomata sp.
   prefix: RT1
   name: Rat
   genes:
@@ -414,6 +418,7 @@ Rattus norvegicus:
     - Norway Rat
     - Norwegian Rat
 Rattus rattus:
+  parent: Gnathostomata sp.
   prefix: Rara
   name: Black Rat
 ############################
@@ -425,6 +430,7 @@ Rattus rattus:
 #
 ############################
 Canis sp.:
+  parent: Gnathostomata sp.
   prefix: DLA
   name: Canine
   genes:
@@ -481,6 +487,7 @@ Canis simensis:
 #
 ############################
 Felis sp.:
+  parent: Gnathostomata sp.
   prefix: FLA
   name: Cat
   genes:
@@ -530,6 +537,7 @@ Felis catus:
 #
 ############################
 Ctenopharyngodon idella:
+  parent: Gnathostomata sp.
   prefix: Ctid
   name: Grass carp
   genes:
@@ -615,6 +623,7 @@ Salmonidae sp.:
         - DAA
         - DAB
 Danio rerio:
+  parent: Gnathostomata sp.
   prefix: Dare
   other prefixes:
     # Old genus: Brachydanio rerio → Danio rerio
@@ -648,6 +657,7 @@ Danio rerio:
 #
 ############################
 Oryzias latipes:
+  parent: Gnathostomata sp.
   prefix: Oryl
   name: Medaka
   genes:
@@ -657,6 +667,7 @@ Oryzias latipes:
       - UGA
       - UHA
 Cyprinus carpio:
+  parent: Gnathostomata sp.
   prefix: Cyca
   name: Common carp
   genes:
@@ -674,6 +685,7 @@ Cyprinus carpio:
     other:
       - B2M
 Oreochromis niloticus:
+  parent: Gnathostomata sp.
   prefix: Orni
   name: Nile tilapia
   genes:
@@ -694,6 +706,7 @@ Oreochromis niloticus:
         - DDA
         - DDB
 Paralichthys olivaceus:
+  parent: Gnathostomata sp.
   prefix: Paol
   name: Olive flounder
   genes:
@@ -705,6 +718,7 @@ Paralichthys olivaceus:
         - DAA
         - DAB
 Cynoglossus semilaevis:
+  parent: Gnathostomata sp.
   prefix: Cyse
   name: Chinese tongue sole
   genes:
@@ -716,6 +730,7 @@ Cynoglossus semilaevis:
         - DBA
         - DBB
 Dicentrarchus labrax:
+  parent: Gnathostomata sp.
   prefix: Dila
   name: European seabass
   genes:
@@ -726,6 +741,7 @@ Dicentrarchus labrax:
         - DAA
         - DAB
 Epinephelus coioides:
+  parent: Gnathostomata sp.
   prefix: Epco
   name: Orange-spotted grouper
   genes:
@@ -752,6 +768,7 @@ Salvelinus alpinus:
       DA:
         - DAB
 Trachinotus ovatus:
+  parent: Gnathostomata sp.
   prefix: Trov
   name: Golden pompano
   genes:
@@ -769,18 +786,23 @@ Trachinotus ovatus:
 #
 ############################
 Gasterosteus aculeatus:
+  parent: Gnathostomata sp.
   prefix: Gaac
   name: Three-spined stickleback
 Ictalurus punctatus:
+  parent: Gnathostomata sp.
   prefix: Icpu
   name: Channel catfish
 Hippocampus abdominalis:
+  parent: Gnathostomata sp.
   prefix: Hiab
   name: Pot-bellied seahorse
 Carassius auratus:
+  parent: Gnathostomata sp.
   prefix: Caau
   name: Goldfish
 Clarias magur:
+  parent: Gnathostomata sp.
   prefix: Clma
   name: Walking catfish
 ############################
@@ -789,6 +811,7 @@ Clarias magur:
 #
 ############################
 Sistrurus catenatus:
+  parent: Gnathostomata sp.
   prefix: Sica
   name: Massasauga
   genes:
@@ -989,17 +1012,21 @@ Apteryx mantelli:
   prefix: Apma
   name: North Island brown kiwi
 Apteryx australis:
+  parent: Gnathostomata sp.
   prefix: Apau
   name: Southern brown kiwi
 Casuarius casuarius:
+  parent: Gnathostomata sp.
   # Natural 4-letter prefix Caca collides with Caretta caretta and others.
   # Using long prefix as display.
   prefix: CasuaCasua
   name: Southern cassowary
 Nothoprocta perdicaria:
+  parent: Gnathostomata sp.
   prefix: Nope
   name: Chilean tinamou
 Tinamus major:
+  parent: Gnathostomata sp.
   prefix: Tima
   name: Great tinamou
 ############################
@@ -1008,15 +1035,19 @@ Tinamus major:
 #
 ############################
 Ginglymostoma cirratum:
+  parent: Gnathostomata sp.
   prefix: Gici
   name: Nurse shark
 Heterodontus francisci:
+  parent: Gnathostomata sp.
   prefix: Hefr
   name: Horn shark
 Squalus acanthias:
+  parent: Gnathostomata sp.
   prefix: Sqac
   name: Spiny dogfish
 Triakis scyllium:
+  parent: Gnathostomata sp.
   prefix: Trsc
   name: Banded houndshark
 ##############################################
@@ -1028,6 +1059,7 @@ Triakis scyllium:
 #
 ##############################################
 Ovis sp.:
+  parent: Gnathostomata sp.
   name: Sheep
   prefix: OLA
   genes:
@@ -1066,6 +1098,7 @@ Ovis canadensis:
 #   https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3658703/
 ################################################################################
 Bos sp.:
+  parent: Gnathostomata sp.
   prefix: BoLA
   name: Cattle
   genes:
@@ -1170,6 +1203,7 @@ Bubalus bubalis:
 #
 ################################################################################
 Cetacea sp.:
+  parent: Gnathostomata sp.
   prefix: CELA
   name:
     - Cetacean
@@ -1442,6 +1476,7 @@ Ziphius cavirostris:
 #
 ################################################################################
 Capra sp.:
+  parent: Gnathostomata sp.
   prefix: CLA
   name: Goat
   genes:
@@ -1469,6 +1504,7 @@ Capra hircus:
 # - https://www.ebi.ac.uk/ipd/mhc/group/ELA/species
 ################################################################################
 Equus sp.:
+  parent: Gnathostomata sp.
   prefix: ELA
   name: Equine
   genes:
@@ -1527,6 +1563,7 @@ Equus burchelli:
 #
 ################################################################################
 Sus sp.:
+  parent: Gnathostomata sp.
   prefix: SLA
   name:
     - Pig
@@ -1591,6 +1628,7 @@ Sus scrofa:
 #
 ################################################################################
 Pteropus alecto:
+  parent: Gnathostomata sp.
   prefix: Ptal
   name:
     - Black fruit bat
@@ -1629,6 +1667,7 @@ Pteropus alecto:
 #
 ################################################################################
 Oryctolagus sp.:
+  parent: Gnathostomata sp.
   prefix: RLA
   name: Rabbit
   genes:
@@ -1668,18 +1707,21 @@ Oryctolagus cuniculus:
 #
 ################################################################################
 Acrocephalus arundinaceus:
+  parent: Gnathostomata sp.
   prefix: Acar
   name: Great reed warbler
   genes:
     I:
       - UA
 Acrocephalus schoenobaenus:
+  parent: Gnathostomata sp.
   prefix: Acsc
   name: Sedge warbler
   genes:
     I:
       - UA
 Geothlypis trichas:
+  parent: Gnathostomata sp.
   prefix: Getr
   name: Common yellowthroat
   genes:
@@ -1687,6 +1729,7 @@ Geothlypis trichas:
       DA:
         - DAB
 Sterna hirundo:
+  parent: Gnathostomata sp.
   prefix: Sthi
   name: Common tern
   genes:
@@ -1706,22 +1749,28 @@ Sterna hirundo:
 #
 ################################################################################
 Falco peregrinus:
+  parent: Gnathostomata sp.
   prefix: Fape
   name: Peregrine falcon
 Falco tinnunculus:
+  parent: Gnathostomata sp.
   prefix: Fati
   name: Common kestrel
 Aquila chrysaetos:
+  parent: Gnathostomata sp.
   prefix: Aqch
   name: Golden eagle
 Buteo buteo:
+  parent: Gnathostomata sp.
   # Natural prefix Bubu collides with Bubalus bubalis and Bubo bubo.
   prefix: ButeoBute
   name: Common buzzard
 Circus aeruginosus:
+  parent: Gnathostomata sp.
   prefix: Ciae
   name: Western marsh harrier
 Gyps fulvus:
+  parent: Gnathostomata sp.
   prefix: Gyfu
   name: Griffon vulture
 ################################################################################
@@ -1730,15 +1779,18 @@ Gyps fulvus:
 #
 ################################################################################
 Grus japonensis:
+  parent: Gnathostomata sp.
   prefix: Grja
   name: Red-crowned crane
 Antigone antigone:
+  parent: Gnathostomata sp.
   prefix: Anan
   name: Sarus crane
   other prefixes:
     # Old genus: Grus antigone → Antigone antigone
     - Gran
 Balearica regulorum:
+  parent: Gnathostomata sp.
   prefix: Bare
   name: Grey crowned crane
 ################################################################################
@@ -1747,9 +1799,11 @@ Balearica regulorum:
 #
 ################################################################################
 Passer domesticus:
+  parent: Gnathostomata sp.
   prefix: Pado
   name: House sparrow
 Cyanistes caeruleus:
+  parent: Gnathostomata sp.
   # Natural prefix Cyca collides with Cyprinus carpio (carp).
   # Both are attested in literature (Schut et al., Westerdahl et al.).
   prefix: CyaniCaeru
@@ -1761,15 +1815,19 @@ Cyanistes caeruleus:
       DA:
         - DAB
 Corvus cornix:
+  parent: Gnathostomata sp.
   prefix: Coco
   name: Hooded crow
 Turdus merula:
+  parent: Gnathostomata sp.
   prefix: Tume
   name: Common blackbird
 Lanius collurio:
+  parent: Gnathostomata sp.
   prefix: Laco
   name: Red-backed shrike
 Emberiza citrinella:
+  parent: Gnathostomata sp.
   prefix: Emci
   name: Yellowhammer
 ################################################################################
@@ -1778,6 +1836,7 @@ Emberiza citrinella:
 #
 ################################################################################
 Anarhynchus nivosus:
+  parent: Gnathostomata sp.
   prefix: Anni
   name: Snowy plover
   other prefixes:
@@ -1910,6 +1969,7 @@ Coturnix japonica:
         - DMB1
         - DMB2
 Fulica atra:
+  parent: Gnathostomata sp.
   prefix: Fuat
   name: Eurasian coot
   genes:
@@ -1917,6 +1977,7 @@ Fulica atra:
       DA:
         - DAB
 Spheniscus humboldti:
+  parent: Gnathostomata sp.
   prefix: Sphu
   name: Humboldt penguin
   genes:
@@ -1924,6 +1985,7 @@ Spheniscus humboldti:
       DR:
         - DRB1
 Spheniscus magellanicus:
+  parent: Gnathostomata sp.
   prefix: Spma
   name: Magellanic penguin
   genes:
@@ -1939,6 +2001,7 @@ Spheniscus magellanicus:
 #
 ################################################################################
 Anas platyrhynchos:
+  parent: Gnathostomata sp.
   name: Duck
   prefix: Anpl
   genes:
@@ -1962,6 +2025,7 @@ Anas platyrhynchos:
 # - https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0108506
 ################################################################################
 Egretta eulophotes:
+  parent: Gnathostomata sp.
   prefix: Egeu
   name: Chinese egret
   genes:
@@ -1980,6 +2044,7 @@ Egretta eulophotes:
         - DAB5
         - DAB6
 Nipponia nippon:
+  parent: Gnathostomata sp.
   prefix: Nini
   name: Japanese crested ibis
   genes:
@@ -2004,6 +2069,7 @@ Nipponia nippon:
 #
 ################################################################################
 Aegolius funereus:
+  parent: Gnathostomata sp.
   name: Tengmalm's owl
   prefix: Aefu
   genes:
@@ -2012,6 +2078,7 @@ Aegolius funereus:
         - DAB1
         - DAB2
 Asio flammeus:
+  parent: Gnathostomata sp.
   name: Short-eared owl
   prefix: Asfl
   genes:
@@ -2020,6 +2087,7 @@ Asio flammeus:
         - DAB1
         - DAB2
 Asio otus:
+  parent: Gnathostomata sp.
   name: Long-eared owl
   prefix: Asot
   genes:
@@ -2028,6 +2096,7 @@ Asio otus:
         - DAB1
         - DAB2
 Athene noctua:
+  parent: Gnathostomata sp.
   name: Little owl
   prefix: Atno
   genes:
@@ -2036,6 +2105,7 @@ Athene noctua:
         - DAB1
         - DAB2
 Bubo africanus:
+  parent: Gnathostomata sp.
   name: Spotted eagle owl
   prefix: Buaf
   genes:
@@ -2044,6 +2114,7 @@ Bubo africanus:
         - DAB1
         - DAB2
 Bubo bubo:
+  parent: Gnathostomata sp.
   name: Eurasian eagle owl
   # Natural 4-letter prefix Bubu collides with water buffalo (Bubalus bubalis).
   # Buffalo keeps Bubu (more MHC literature). Owl uses long prefix.
@@ -2054,6 +2125,7 @@ Bubo bubo:
         - DAB1
         - DAB2
 Bubo scandiacus:
+  parent: Gnathostomata sp.
   prefix: Busc
   name: Snowy owl
   genes:
@@ -2062,6 +2134,7 @@ Bubo scandiacus:
         - DAB1
         - DAB2
 Glaucidium passerinum:
+  parent: Gnathostomata sp.
   name: Eurasian pygmy owl
   prefix: Glpa
   genes:
@@ -2070,6 +2143,7 @@ Glaucidium passerinum:
         - DAB1
         - DAB2
 Otus scops:
+  parent: Gnathostomata sp.
   name: European scops owl
   prefix: Otsc
   genes:
@@ -2078,6 +2152,7 @@ Otus scops:
         - DAB1
         - DAB2
 Strix aluco:
+  parent: Gnathostomata sp.
   name: Tawny owl
   prefix: Stal
   genes:
@@ -2086,6 +2161,7 @@ Strix aluco:
         - DAB1
         - DAB2
 Strix nebulosa:
+  parent: Gnathostomata sp.
   name: Great gray owl
   prefix: Stne
   genes:
@@ -2094,6 +2170,7 @@ Strix nebulosa:
         - DAB1
         - DAB2
 Strix uralensis:
+  parent: Gnathostomata sp.
   name: Ural owl
   prefix: Stur
   genes:
@@ -2102,6 +2179,7 @@ Strix uralensis:
         - DAB1
         - DAB2
 Surnia ulula:
+  parent: Gnathostomata sp.
   name: Northern hawk owl
   prefix: Suul
   genes:
@@ -2110,6 +2188,7 @@ Surnia ulula:
         - DAB1
         - DAB2
 Tyto alba:
+  parent: Gnathostomata sp.
   name: Barn owl
   prefix: Tyal
   genes:
@@ -2135,6 +2214,7 @@ Tyto alba:
 #
 ################################################################################
 Primata sp.:
+  parent: Gnathostomata sp.
   prefix: NHP
   name: Primate
   genes:
@@ -3033,6 +3113,7 @@ Theropithecus gelada:
 #
 ##########################
 Ailuropoda melanoleuca:
+  parent: Gnathostomata sp.
   prefix: Aime
   name: Giant panda
   genes:
@@ -3052,6 +3133,7 @@ Ailuropoda melanoleuca:
 #
 ##########################
 Xenopus laevis:
+  parent: Gnathostomata sp.
   prefix: Xela
   name: African clawed frog
   genes:
@@ -3075,6 +3157,7 @@ Xenopus laevis:
       - TAPBP
       - B2M
 Xenopus tropicalis:
+  parent: Gnathostomata sp.
   prefix: Xetr
   name: Tropical clawed frog
   genes:
@@ -3103,6 +3186,7 @@ Xenopus tropicalis:
 #
 ##########################
 Zhangixalus omeimontis:
+  parent: Gnathostomata sp.
   prefix: Zhom
   name: Omei tree frog
   genes:
@@ -3110,12 +3194,14 @@ Zhangixalus omeimontis:
       DA:
         - DAB
 Lithobates catesbeianus:
+  parent: Gnathostomata sp.
   prefix: Lica
   name: American bullfrog
   other prefixes:
     # Old genus: Rana catesbeiana → Lithobates catesbeianus
     - Raca
 Lithobates clamitans:
+  parent: Gnathostomata sp.
   prefix: Licl
   name: Green frog
   other prefixes:
@@ -3127,9 +3213,11 @@ Lithobates clamitans:
 #
 ##########################
 Ambystoma mexicanum:
+  parent: Gnathostomata sp.
   prefix: Amme
   name: Axolotl
 Ambystoma tigrinum:
+  parent: Gnathostomata sp.
   prefix: Amti
   name: Tiger salamander
 ##########################
@@ -3151,6 +3239,7 @@ Sphenodon punctatus:
 #
 ##########################
 Cyclura carinata:
+  parent: Gnathostomata sp.
   # Natural prefix Cyca collides with Cyprinus carpio (carp).
   # Attested in literature (Glaberman et al. iguana MHC studies).
   prefix: CycluCarin
@@ -3159,9 +3248,11 @@ Cyclura carinata:
     I:
       - UA
 Anolis carolinensis:
+  parent: Gnathostomata sp.
   prefix: Anca
   name: Green anole
 Anolis sagrei:
+  parent: Gnathostomata sp.
   prefix: Ansa
   name: Brown anole
 ##########################
@@ -3170,6 +3261,7 @@ Anolis sagrei:
 #
 ##########################
 Monodelphis domestica:
+  parent: Gnathostomata sp.
   prefix: Modo
   name: Gray short-tailed opossum
   genes:
@@ -3207,6 +3299,7 @@ Monodelphis domestica:
       - TAP2
       - B2M
 Sarcophilus harrisii:
+  parent: Gnathostomata sp.
   prefix: Saha
   name: Tasmanian devil
   genes:
@@ -3221,6 +3314,7 @@ Sarcophilus harrisii:
       DA:
         - DAB
 Phascolarctos cinereus:
+  parent: Gnathostomata sp.
   prefix: Phci
   name: Koala
   genes:
@@ -3229,6 +3323,7 @@ Phascolarctos cinereus:
         - DAA
         - DAB
 Ornithorhynchus anatinus:
+  parent: Gnathostomata sp.
   prefix: Oran
   name: Platypus
   genes:
@@ -3236,12 +3331,14 @@ Ornithorhynchus anatinus:
       DR:
         - DRA
 Notamacropus eugenii:
+  parent: Gnathostomata sp.
   prefix: Noeu
   name: Tammar wallaby
   other prefixes:
     # Old genus: Macropus eugenii → Notamacropus eugenii
     - Maeu
 Trichosurus vulpecula:
+  parent: Gnathostomata sp.
   prefix: Trvu
   name: Common brushtail possum
   genes:

@@ -367,8 +367,8 @@ def test_parse_arctic_char_case_insensitive():
     eq_(parse("SAAL-UBA", raise_on_error=True), expected)
 
 
-def test_satr_daa_parses_via_common_genes():
-    """Satr-DAA now parses because DAA is a vertebrate-wide common gene."""
+def test_satr_daa_parses_via_salmonid_inheritance():
+    """Satr-DAA parses via Salmonidae inheritance, not via a global common-gene table."""
     result = parse("Satr-DAA", raise_on_error=True)
     assert result is not None
     eq_(result.species.name, "Salmo trutta")

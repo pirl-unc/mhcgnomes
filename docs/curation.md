@@ -129,6 +129,16 @@ Current examples include:
 The rule is: runtime parsing should only accept a bare prefix when the prefix is
 unambiguous inside `mhcgnomes`.
 
+Related rule: taxonomic node labels such as `Gnathostomata`, `Galliformes`,
+`Crocodylia`, `Salmonidae`, and `Testudines` are internal tree prefixes, not
+species prefixes to inherit onto child species. Short canonical species
+prefixes should either be tied to an explicit source in nearby section comments
+or be clearly marked as generated/collision-avoidance prefixes. For
+underrepresented/runtime-added species, the machine-readable source of truth is
+`underrepresented_taxa_source_registry.yaml`: every active short prefix should
+have a matching registry entry with `scientific_name` plus at least one source
+URL.
+
 ### Collision types
 
 1. Canonical-prefix conflict
@@ -289,9 +299,10 @@ in the README.
 - [`default_alleles.yaml`](https://github.com/pirl-unc/mhcgnomes/blob/main/mhcgnomes/data/default_alleles.yaml)
   exists but is currently minimal and not part of the main runtime loading path
   in [`data.py`](https://github.com/pirl-unc/mhcgnomes/blob/main/mhcgnomes/data.py).
-- [`common_genes.yaml`](https://github.com/pirl-unc/mhcgnomes/blob/main/mhcgnomes/data/common_genes.yaml)
-  is currently empty and should stay that way unless there is a concrete runtime
-  feature that needs it.
+- Root-level transport and DM genes now live directly in
+  [`species.yaml`](https://github.com/pirl-unc/mhcgnomes/blob/main/mhcgnomes/data/species.yaml)
+  under `Gnathostomata sp.`. There is no separate runtime `common_genes.yaml`
+  fallback anymore.
 
 ## Source Inventory
 

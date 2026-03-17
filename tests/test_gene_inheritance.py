@@ -2,15 +2,31 @@
 Tests for taxonomic gene inheritance and cross-taxon leak prevention.
 
 Species inherit genes from their parent node (e.g., salmonids from
-Salmonidae sp.). Common genes (DMA, TAP1, B2M) are accepted universally.
+Salmonidae sp.). Root-level transport and DM genes come from
+Gnathostomata sp. through the tree.
 Taxon-specific genes must NOT leak across boundaries.
 """
 
 import pytest
 
-from mhcgnomes import Species, parse
+from mhcgnomes import Gene, Species, parse
+from mhcgnomes.species import raw_species_dict
 
 from .common import eq_
+
+GNATHOSTOMATA = "Gnathostomata sp."
+ROOTED_SPECIES = sorted(latin for latin in raw_species_dict if latin != GNATHOSTOMATA)
+INTENTIONALLY_UNROOTED = set()
+
+
+def has_ancestor(species, ancestor_name):
+    current = species
+    while current is not None:
+        if current.name == ancestor_name:
+            return True
+        current = current.parent_species
+    return False
+
 
 # ---------------------------------------------------------------------------
 # Salmonid inheritance
@@ -255,3 +271,112 @@ class TestDefaultSpeciesPriority:
         """Ostrich inherits DMB from Gnathostomata root."""
         result = parse("DMB", default_species="Struthio camelus", raise_on_error=True)
         eq_(result.species.name, "Struthio camelus")
+
+
+class TestRootTransportGenesAndAliases:
+    """All rooted species inherit the jawed-vertebrate transport/DM core."""
+
+    @pytest.mark.parametrize("latin", ROOTED_SPECIES)
+    def test_all_species_descend_from_gnathostomata(self, latin):
+        sp = Species.get(latin)
+        assert sp is not None
+        assert has_ancestor(sp, GNATHOSTOMATA), latin
+
+    def test_only_intentionally_unrooted_species_lack_root_ancestor(self):
+        unrooted = {
+            latin
+            for latin in raw_species_dict
+            if latin != GNATHOSTOMATA and not has_ancestor(Species.get(latin), GNATHOSTOMATA)
+        }
+        eq_(unrooted, INTENTIONALLY_UNROOTED)
+
+    @pytest.mark.parametrize("latin", ROOTED_SPECIES)
+    def test_all_species_inherit_root_transport_and_dm_genes(self, latin):
+        sp = Species.get(latin)
+        assert sp is not None
+        for gene_name in ["DMA", "DMB", "TAP1", "TAP2", "TAP-L", "TAPBP", "B2M"]:
+            assert sp.find_matching_gene_name(gene_name) is not None, (latin, gene_name)
+        assert sp.find_matching_class2_locus_name("DM") is not None, latin
+
+    @pytest.mark.parametrize(
+        "alias, expected",
+        [
+            ("ABCB2", "TAP1"),
+            ("RING4", "TAP1"),
+            ("PSF1", "TAP1"),
+            ("HAM1", "TAP1"),
+            ("ABCB3", "TAP2"),
+            ("RING11", "TAP2"),
+            ("PSF2", "TAP2"),
+            ("HAM2", "TAP2"),
+            ("ABCB9", "TAP-L"),
+            ("TAPL", "TAP-L"),
+        ],
+    )
+    def test_transport_aliases_parse_to_canonical_root_genes(self, alias, expected):
+        result = parse(alias, default_species="Struthio camelus", raise_on_error=True)
+        eq_(result.species.name, "Struthio camelus")
+        eq_(result.name, expected)
+
+    @pytest.mark.parametrize("raw", ["TAP1", "TAP2", "TAP-L", "TAPBP", "B2M"])
+    def test_root_other_genes_parse_with_default_species(self, raw):
+        result = parse(raw, default_species="Struthio camelus", raise_on_error=True)
+        eq_(result.species.name, "Struthio camelus")
+        eq_(result.name, raw)
+
+    def test_dm_locus_parses_with_default_species(self):
+        result = parse("DM", default_species="Struthio camelus", raise_on_error=True)
+        eq_(result.species.name, "Struthio camelus")
+        eq_(result.name, "DM")
+
+
+class TestMhciibScoping:
+    """MHCIIB is only accepted for species that actually use that alias."""
+
+    def test_mhciib_does_not_parse_with_ostrich_default_species(self):
+        assert parse("MHCIIB", default_species="Struthio camelus", raise_on_error=False) is None
+
+    def test_mhciib_does_not_parse_with_ostrich_strict_species(self):
+        assert parse("MHCIIB", species="Struthio camelus", raise_on_error=False) is None
+
+    def test_mhciib_still_parses_for_barn_owl(self):
+        result = parse("MHCIIB", default_species="Tyto alba", raise_on_error=True)
+        eq_(result.species.name, "Tyto alba")
+        eq_(result.name, "DAB")
+
+
+class TestSpeciesStrictness:
+    """species= should reject mismatched species, including Species results."""
+
+    def test_species_argument_rejects_mismatched_species_result(self):
+        assert parse("HLA", species="H-2", raise_on_error=False) is None
+
+    def test_species_argument_rejects_mismatched_taxonomic_node(self):
+        assert parse("Galliformes", species="Gallus gallus", raise_on_error=False) is None
+
+    def test_species_argument_accepts_matching_taxonomic_node(self):
+        result = parse("Galliformes", species="Galliformes sp.", raise_on_error=True)
+        eq_(result.name, "Galliformes sp.")
+
+
+class TestTaxonomicPrefixLeakage:
+    """Taxonomic node prefixes must not resolve child-only genes or outputs."""
+
+    @pytest.mark.parametrize("raw", ["Galliformes-BF1", "Crocodylia-UB", "Salmonidae-UEA"])
+    def test_taxonomic_prefixes_do_not_resolve_child_specific_genes(self, raw):
+        assert parse(raw, raise_on_error=False) is None
+
+    @pytest.mark.parametrize(
+        "species_prefix, gene_name, expected_string",
+        [
+            ("Crpo", "UB", "Crpo-UB"),
+            ("Gaga", "BF1", "Gaga-BF1"),
+            ("Satr", "UBA", "Satr-UBA"),
+        ],
+    )
+    def test_use_old_species_prefix_does_not_emit_taxonomic_prefix(
+        self, species_prefix, gene_name, expected_string
+    ):
+        gene = Gene.get(species_prefix, gene_name)
+        assert gene is not None
+        eq_(gene.to_string(use_old_species_prefix=True), expected_string)

@@ -77,6 +77,39 @@ def cached_parser(
     )
 
 
+def _reparse_result_for_species(
+    parser: Parser,
+    result: Result,
+    expected_species: Species,
+    infer_class2_pairing: bool,
+    required_result_types,
+    preferred_result_types,
+    only_class1: bool,
+    only_class2: bool,
+    max_allele_fields,
+):
+    if type(result) is Species or not hasattr(result, "species"):
+        return None
+
+    speciesless_string = result.to_string(include_species=False)
+    reparsed = parser.parse(
+        f"{expected_species.prefix}-{speciesless_string}",
+        default_species=expected_species,
+        infer_class2_pairing=infer_class2_pairing,
+        raise_on_error=False,
+        required_result_types=required_result_types,
+        preferred_result_types=preferred_result_types,
+        only_class1=only_class1,
+        only_class2=only_class2,
+        max_allele_fields=max_allele_fields,
+    )
+    if reparsed is None or type(reparsed) is not type(result):
+        return None
+    if not hasattr(reparsed, "species") or reparsed.species != expected_species:
+        return None
+    return reparsed.copy(raw_string=result.raw_string)
+
+
 def parse(
     raw_string: str,
     default_species=DEFAULT_SPECIES_PREFIX,
@@ -104,6 +137,14 @@ def parse(
     default_species : str
        By default, parse alleles like "A*02:01" as human but it's possible
        to change this to some other species.
+
+    species : str or None
+       Strict species constraint. If provided, the final parse result must have
+       this species exactly. Unlike default_species, this does not allow the
+       parser to fall back to a different species when the input is explicit
+       or ambiguous. If a non-Species result is first parsed at a generic
+       ancestor taxon, it may be reparsed for the requested descendant species
+       when that conversion is valid.
 
     use_allele_aliases : bool
 
@@ -177,7 +218,7 @@ def parse(
         verbose=verbose,
     )
 
-    # species= is the strict form: the result must match this species.
+    # species= is the strict form: the final result must have this species.
     # default_species= is the lenient form: used only when the string
     # doesn't specify a species.
     # They are mutually exclusive.
@@ -198,15 +239,57 @@ def parse(
         max_allele_fields=max_allele_fields,
     )
 
-    # Strict species check: if species= was provided, verify the result matches
-    if species is not None and result is not None and hasattr(result, "species"):
+    # Strict species check: if species= was provided, the final result must
+    # have that exact species.
+    #
+    # Rules:
+    # - Species results: exact match only.
+    # - Non-Species results with .species: allow ancestor→descendant conversion
+    #   only when reparsing under the requested descendant species succeeds.
+    # - Descendant→ancestor conversion is never allowed.
+    # - Results without .species: always pass.
+    if species is not None and result is not None:
         expected = Species.get(species)
-        if expected is not None and result.species != expected:
-            if raise_on_error:
-                raise ParseError(
-                    f"Parsed species '{result.species.name}' does not match "
-                    f"expected species '{expected.name}' for '{raw_string}'"
+        if expected is not None:
+            if type(result) is Species:
+                matches_expected = result == expected
+            elif hasattr(result, "species"):
+                result_species = result.species
+                if result_species == expected:
+                    matches_expected = True
+                elif result_species.is_ancestor_of(expected):
+                    converted = _reparse_result_for_species(
+                        parser=parser,
+                        result=result,
+                        expected_species=expected,
+                        infer_class2_pairing=infer_class2_pairing,
+                        required_result_types=required_result_types,
+                        preferred_result_types=preferred_result_types,
+                        only_class1=only_class1,
+                        only_class2=only_class2,
+                        max_allele_fields=max_allele_fields,
+                    )
+                    if converted is not None:
+                        result = converted
+                        matches_expected = True
+                    else:
+                        matches_expected = False
+                else:
+                    matches_expected = False
+            else:
+                matches_expected = True
+
+            if not matches_expected:
+                parsed_species = (
+                    result.name
+                    if type(result) is Species
+                    else getattr(result.species, "name", None)
                 )
-            return None
+                if raise_on_error:
+                    raise ParseError(
+                        f"Parsed species '{parsed_species}' does not match "
+                        f"expected species '{expected.name}' for '{raw_string}'"
+                    )
+                return None
 
     return result
