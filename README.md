@@ -36,6 +36,24 @@ Out[3]: 'A0201'
 
 ```
 
+### Species-directed parsing
+
+`default_species=` is a fallback hint for speciesless inputs such as
+`A*02:01` or `DRB3*01:01`.
+
+`species=` is stricter: the final parsed object must have exactly that species.
+For generic ancestor-scoped prefixes, mhcgnomes can rewrite the result to a
+requested descendant species when that conversion is valid:
+
+```python
+>>> mhcgnomes.parse("BoLA-DRB3*01:01").species.name
+'Bos sp.'
+>>> mhcgnomes.parse("BoLA-DRB3*01:01", species="Bos taurus").to_string()
+'Bota-DRB3*01:01'
+>>> mhcgnomes.parse("HLA-A*02:01", species="Bos taurus", raise_on_error=False) is None
+True
+```
+
 ## CLI
 
 After installation, a `mhcgnomes` CLI is available:
