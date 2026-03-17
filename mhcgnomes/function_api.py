@@ -10,9 +10,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Optional
+from typing import Optional, Union
 
 from .common import cache
+from .errors import ParseError
 from .parser import (
     COLLAPSE_SINGLETON_HAPLOTYPES,
     COLLAPSE_SINGLETON_SEROTYPES,
@@ -23,6 +24,7 @@ from .parser import (
     Parser,
 )
 from .result import Result
+from .species import Species
 
 
 @cache
@@ -78,6 +80,7 @@ def cached_parser(
 def parse(
     raw_string: str,
     default_species=DEFAULT_SPECIES_PREFIX,
+    species: Union[str, None] = None,
     use_allele_aliases: bool = USE_ALLELE_ALIASES,
     infer_class2_pairing: bool = INFER_CLASS2_PAIRING,
     collapse_singleton_haplotypes: bool = COLLAPSE_SINGLETON_HAPLOTYPES,
@@ -174,9 +177,18 @@ def parse(
         verbose=verbose,
     )
 
-    return parser.parse(
+    # species= is the strict form: the result must match this species.
+    # default_species= is the lenient form: used only when the string
+    # doesn't specify a species.
+    # They are mutually exclusive.
+    if species is not None and default_species != DEFAULT_SPECIES_PREFIX:
+        raise ValueError("Cannot specify both 'species' and 'default_species'")
+
+    effective_default = species if species is not None else default_species
+
+    result = parser.parse(
         raw_string,
-        default_species=default_species,
+        default_species=effective_default,
         infer_class2_pairing=infer_class2_pairing,
         raise_on_error=raise_on_error,
         required_result_types=required_result_types,
@@ -185,3 +197,16 @@ def parse(
         only_class2=only_class2,
         max_allele_fields=max_allele_fields,
     )
+
+    # Strict species check: if species= was provided, verify the result matches
+    if species is not None and result is not None and hasattr(result, "species"):
+        expected = Species.get(species)
+        if expected is not None and result.species != expected:
+            if raise_on_error:
+                raise ParseError(
+                    f"Parsed species '{result.species.name}' does not match "
+                    f"expected species '{expected.name}' for '{raw_string}'"
+                )
+            return None
+
+    return result

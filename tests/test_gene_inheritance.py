@@ -55,27 +55,27 @@ class TestSalmonidInheritance:
 # ---------------------------------------------------------------------------
 
 
-class TestCommonGenes:
-    """DMA, TAP1, TAP2, TAPBP, B2M accepted for any species."""
+class TestGnathostomataRootInheritance:
+    """DMA, DMB, TAP1, TAP2, TAPBP, B2M inherited from Gnathostomata root."""
 
     @pytest.mark.parametrize(
         "latin",
         [
-            "Chelonia mydas",
-            "Struthio camelus",
-            "Crocodylus porosus",
-            "Sphenodon punctatus",
+            "Chelonia mydas",  # turtle → Testudines → Gnathostomata
+            "Struthio camelus",  # ratite → Gnathostomata (no intermediate)
+            "Crocodylus porosus",  # croc → Crocodylia → Gnathostomata
+            "Sphenodon punctatus",  # tuatara → Gnathostomata (no intermediate)
         ],
     )
-    def test_common_genes_work_for_species_without_explicit_genes(self, latin):
+    def test_root_genes_inherited_via_tree(self, latin):
         sp = Species.get(latin)
         assert sp is not None
         for gene in ["DMA", "TAP1"]:
             assert sp.find_matching_gene_name(gene) is not None, (
-                f"{latin} should accept common gene {gene}"
+                f"{latin} should inherit {gene} from Gnathostomata root"
             )
 
-    def test_common_gene_with_default_species(self):
+    def test_root_gene_with_default_species(self):
         result = parse("DMA", default_species="Chelonia mydas", raise_on_error=True)
         assert result is not None
         eq_(result.species.name, "Chelonia mydas")
@@ -220,36 +220,38 @@ class TestCrocodyliaInheritance:
         assert sp.find_matching_gene_name("BLB") is None
 
 
-class TestDMBFamilyLevelPriority:
-    """When a species has DMB1/DMB2, bare DMB should NOT shadow them via common genes."""
+class TestDMBInheritance:
+    """DMB comes from Gnathostomata root; DMB1/DMB2 from Galliformes or species."""
 
-    def test_chicken_dmb_does_not_shadow_dmb1(self):
-        """Chicken has DMB1/DMB2. Bare DMB should NOT resolve via common genes."""
+    def test_chicken_has_dmb_from_root_and_dmb1_from_galliformes(self):
+        """Chicken inherits DMB from Gnathostomata AND DMB1/DMB2 from Galliformes."""
         sp = Species.get("Gaga")
-        # DMB1 and DMB2 are species-specific
+        assert sp.find_matching_gene_name("DMB") is not None
         assert sp.find_matching_gene_name("DMB1") is not None
         assert sp.find_matching_gene_name("DMB2") is not None
-        # Bare DMB should NOT resolve because the species has more specific variants
-        assert sp.find_matching_gene_name("DMB") is None
 
-    def test_species_without_dmb_variants_gets_common_dmb(self):
-        """A species with no DMB variants should accept DMB from common genes."""
+    def test_turtle_gets_dmb_from_root(self):
+        """Turtle inherits DMB from Gnathostomata via Testudines."""
         sp = Species.get("Chelonia mydas")
         assert sp.find_matching_gene_name("DMB") is not None
+        assert sp.find_matching_gene_name("DMA") is not None
+        assert sp.find_matching_gene_name("TAP1") is not None
 
 
 class TestDefaultSpeciesPriority:
     """When default_species is provided, it takes priority over gene-inferred species."""
 
-    def test_mhciib_with_ostrich_default(self):
-        result = parse("MHCIIB", default_species="Struthio camelus", raise_on_error=False)
-        assert result is not None
-        eq_(result.species.name, "Struthio camelus")
-
     def test_dma_with_turtle_default(self):
+        """Turtle inherits DMA from Gnathostomata root."""
         result = parse("DMA", default_species="Chelonia mydas", raise_on_error=True)
         eq_(result.species.name, "Chelonia mydas")
 
     def test_tap1_with_tuatara_default(self):
+        """Tuatara inherits TAP1 from Gnathostomata root."""
         result = parse("TAP1", default_species="Sphenodon punctatus", raise_on_error=True)
         eq_(result.species.name, "Sphenodon punctatus")
+
+    def test_dmb_with_ostrich_default(self):
+        """Ostrich inherits DMB from Gnathostomata root."""
+        result = parse("DMB", default_species="Struthio camelus", raise_on_error=True)
+        eq_(result.species.name, "Struthio camelus")

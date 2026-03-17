@@ -19,7 +19,6 @@ from typing import Any, Union
 
 from .common import cache
 from .data import allele_aliases as raw_allele_aliases_dict
-from .data import common_genes as raw_common_genes
 from .data import gene_aliases as raw_gene_aliases_dict
 from .data import haplotypes as raw_haplotypes_dict
 from .data import heterodimers as raw_heterodimers_dict
@@ -31,32 +30,6 @@ from .mhc_class_helpers import class1_restrictions, class2_restrictions
 from .normalizing_dictionary import NormalizingDictionary
 from .normalizing_set import NormalizingSet
 from .result import Result
-
-
-def _build_common_gene_lookup():
-    """
-    Build a NormalizingDictionary mapping common MHC gene names to their
-    MHC class assignment. These are vertebrate-wide genes that any species
-    should accept even if not explicitly listed in species.yaml.
-    """
-    lookup = NormalizingDictionary()
-    if raw_common_genes is None:
-        return lookup
-    class_map = {
-        "class_I": "I",
-        "class_II_alpha": "IIa",
-        "class_II_beta": "IIa",
-        "other": "other",
-    }
-    for category, genes in raw_common_genes.items():
-        mhc_class = class_map.get(category, "I")
-        if genes:
-            for gene in genes:
-                lookup[str(gene)] = mhc_class
-    return lookup
-
-
-common_gene_to_mhc_class = _build_common_gene_lookup()
 
 
 class FrozenList(list):
@@ -386,6 +359,12 @@ class Species(Result):
             return None
 
         species_objects = cls.get_multiple(species_name)
+
+        # Try underscore-to-space normalization if no results
+        # (common in bioinformatics: "Canis_lupus" for "Canis lupus")
+        if len(species_objects) == 0 and "_" in species_name:
+            species_objects = cls.get_multiple(species_name.replace("_", " "))
+
         if len(species_objects) == 0:
             return None
         if len(species_objects) == 1:
@@ -403,6 +382,11 @@ class Species(Result):
         ]
         if len(prefix_matches) == 1:
             return prefix_matches[0]
+        # 3. For auto-generated long prefixes (e.g., CanisLupus), prefer
+        # the species that isn't a subspecies (no parent with same identifier)
+        non_child = [sp for sp in species_objects if sp.parent_species is None]
+        if len(non_child) == 1:
+            return non_child[0]
         # Ambiguous alias: return None instead of picking a heuristic winner
         return None
 
@@ -485,24 +469,6 @@ class Species(Result):
                 stripped = gene_name[len(prefix) :]
                 if stripped in self.gene_names:
                     return self.gene_names.get_original(stripped)
-        # Fall back to vertebrate-wide common gene names. These are
-        # accepted for any species even if not explicitly in species.yaml.
-        # BUT: if the species already has a more specific variant of this
-        # gene (e.g., DMB1/DMB2 when querying DMB), don't use the common
-        # gene — the species has its own definition that should take
-        # priority. This prevents a phantom "DMB" from appearing when
-        # the species only recognizes "DMB1" and "DMB2".
-        if gene_name in common_gene_to_mhc_class:
-            normalized = common_gene_to_mhc_class.original_key(gene_name)
-            # Check if any species-specific gene starts with this name
-            # (e.g., species has DMB1 and we're querying DMB)
-            has_more_specific = any(
-                str(g).upper().startswith(str(normalized).upper())
-                and str(g).upper() != str(normalized).upper()
-                for g in self.gene_names
-            )
-            if not has_more_specific:
-                return normalized
         return None
 
     def find_matching_class2_locus_name(self, locus_name):
@@ -547,11 +513,7 @@ class Species(Result):
         or None if gene can't be found
         """
         gene_name = self.normalize_gene_name_if_exists(gene_name)
-        result = self.gene_name_to_mhc_class.get(gene_name)
-        if result is None:
-            # Fall back to vertebrate-wide common gene class assignments
-            result = common_gene_to_mhc_class.get(gene_name)
-        return result
+        return self.gene_name_to_mhc_class.get(gene_name)
 
     def get_known_allele(self, gene_name, allele_name):
         gene_name_candidates = {gene_name}

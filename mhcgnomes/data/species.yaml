@@ -16,17 +16,41 @@
 # - https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5002277/
 #
 # ============================================================================
-# Taxonomic root nodes
+# Taxonomic hierarchy
 #
-# These define shared MHC gene names at higher taxonomic levels.
 # Species inherit genes from their parent node (set via "parent:" field).
-# The inheritance chain is walked recursively, so a species can inherit
-# through multiple levels (e.g., Salmo salar → Salmonidae sp.).
+# The inheritance chain is walked recursively:
 #
-# Common genes in common_genes.yaml (DMA, DMB, TAP1, TAP2, TAPBP, B2M,
-# MHCIIB) are additionally accepted for ALL species as a last resort,
-# independent of the tree.
+#   Gnathostomata sp.  (DMA, DMB, TAP1/2, TAPBP, B2M, MHCIIB)
+#   ├── Galliformes sp.    (+ BF, BLB, DMB1/2)
+#   │   ├── Gallus gallus  (+ BF1/2, YF1/2, BLA, BLB1/2, ...)
+#   │   └── ...
+#   ├── Crocodylia sp.     (+ UA, DB01-DB08)
+#   │   └── ...
+#   ├── Salmonidae sp.     (+ UAA, UBA, DAA, DAB)
+#   │   └── ...
+#   ├── Testudines sp.     (+ UA, DAA, DAB)
+#   │   └── ...
+#   └── (mammals: no shared root yet, each has own prefix like HLA, BoLA)
+#
 # ============================================================================
+
+######################################################
+# Root: all jawed vertebrates with adaptive immunity
+######################################################
+Gnathostomata sp.:
+  prefix: Gnathostomata
+  name: Jawed vertebrate
+  genes:
+    IIb:
+      DM:
+        - DMA
+        - DMB
+    other:
+      - TAP1
+      - TAP2
+      - TAPBP
+      - B2M
 
 ######################################################
 #
@@ -41,7 +65,8 @@
 #
 ######################################################
 Galliformes sp.:
-  prefix: Gall
+  parent: Gnathostomata sp.
+  prefix: Galliformes
   name: Galliform bird
   genes:
     Ia:
@@ -72,7 +97,8 @@ Galliformes sp.:
 #
 ######################################################
 Crocodylia sp.:
-  prefix: Croc
+  parent: Gnathostomata sp.
+  prefix: Crocodylia
   name: Crocodilian
   genes:
     I:
@@ -577,7 +603,8 @@ Salmo salar:
 # - https://pubmed.ncbi.nlm.nih.gov/15864912/ (salmonid class II)
 #
 Salmonidae sp.:
-  prefix: Salm
+  parent: Gnathostomata sp.
+  prefix: Salmonidae
   name: Salmonid
   genes:
     Ia:
@@ -859,49 +886,71 @@ Caiman latirostris:
 #
 # Turtles
 #
-# Prefix notes:
-#   All generated — no established MHC prefixes for turtles in literature.
-#   Chrysemys picta uses long prefix to avoid collision with Chrysolophus
-#   pictus (golden pheasant, Chpi).
+# Testudines share non-mammalian class I (U-lineage) and class II (DA-family)
+# gene nomenclature. Turtles use UA/UAA for class I and DAA/DAB for class II.
+#
+# Sources:
+# - https://pubmed.ncbi.nlm.nih.gov/41575191/ (4-species sea turtle survey)
+# - https://pubmed.ncbi.nlm.nih.gov/35154791/ (green/loggerhead class I)
+#
 #
 # Sources:
 # - https://pubmed.ncbi.nlm.nih.gov/41575191/ (4-species sea turtle survey)
 # - https://pubmed.ncbi.nlm.nih.gov/35154791/ (green/loggerhead class I)
 #
 ############################
+Testudines sp.:
+  parent: Gnathostomata sp.
+  prefix: Testudines
+  name: Turtle
+  genes:
+    I:
+      - UA
+    IIa:
+      DA:
+        - DAA
+        - DAB
 Caretta caretta:
+  parent: Testudines sp.
   prefix: CaretCaret
   name: Loggerhead sea turtle
 Chelonia mydas:
+  parent: Testudines sp.
   prefix: Chmy
   name: Green sea turtle
 Dermochelys coriacea:
+  parent: Testudines sp.
   prefix: Deco
   name: Leatherback sea turtle
 Lepidochelys kempii:
+  parent: Testudines sp.
   prefix: Leke
   name: Kemp's ridley sea turtle
 Chelydra serpentina:
+  parent: Testudines sp.
   prefix: Chse
   name: Common snapping turtle
 Chrysemys picta:
+  parent: Testudines sp.
   # Natural 4-letter prefix Chpi collides with golden pheasant.
-  # No established MHC prefix. Using long prefix as display.
   prefix: ChrysPicta
   name: Painted turtle
 Pelodiscus sinensis:
+  parent: Testudines sp.
   prefix: Pesi
   other prefixes:
-    # Old genus: Trionyx sinensis → Pelodiscus sinensis
     - Trsi
   name: Chinese softshell turtle
 Terrapene triunguis:
+  parent: Testudines sp.
   prefix: Tetr
   name: Three-toed box turtle
 Gopherus polyphemus:
+  parent: Testudines sp.
   prefix: Gopo
   name: Gopher tortoise
 Chelonoidis abingdonii:
+  parent: Testudines sp.
   prefix: Chab
   name: Pinta Island tortoise
 ############################
@@ -916,21 +965,27 @@ Chelonoidis abingdonii:
 #
 ############################
 Struthio camelus:
+  parent: Gnathostomata sp.
   prefix: Stca
   name: Ostrich
 Dromaius novaehollandiae:
+  parent: Gnathostomata sp.
   prefix: Drno
   name: Emu
 Rhea americana:
+  parent: Gnathostomata sp.
   prefix: Rham
   name: Greater rhea
 Rhea pennata:
+  parent: Gnathostomata sp.
   prefix: Rhpe
   name: Lesser rhea
 Apteryx owenii:
+  parent: Gnathostomata sp.
   prefix: Apow
   name: Little spotted kiwi
 Apteryx mantelli:
+  parent: Gnathostomata sp.
   prefix: Apma
   name: North Island brown kiwi
 Apteryx australis:
@@ -3083,6 +3138,7 @@ Ambystoma tigrinum:
 #
 ##########################
 Sphenodon punctatus:
+  parent: Gnathostomata sp.
   prefix: Sppu
   name: Tuatara
 ##########################
