@@ -639,6 +639,28 @@ Trachinotus ovatus:
         - DAB
 ############################
 #
+# Additional fish
+#
+# All generated prefixes — no established MHC prefixes in literature.
+#
+############################
+Gasterosteus aculeatus:
+  prefix: Gaac
+  name: Three-spined stickleback
+Ictalurus punctatus:
+  prefix: Icpu
+  name: Channel catfish
+Hippocampus abdominalis:
+  prefix: Hiab
+  name: Pot-bellied seahorse
+Carassius auratus:
+  prefix: Caau
+  name: Goldfish
+Clarias magur:
+  prefix: Clma
+  name: Walking catfish
+############################
+#
 # Snakes
 #
 ############################
@@ -807,6 +829,23 @@ Nothoprocta perdicaria:
 Tinamus major:
   prefix: Tima
   name: Great tinamou
+############################
+#
+# Sharks
+#
+############################
+Ginglymostoma cirratum:
+  prefix: Gici
+  name: Nurse shark
+Heterodontus francisci:
+  prefix: Hefr
+  name: Horn shark
+Squalus acanthias:
+  prefix: Sqac
+  name: Spiny dogfish
+Triakis scyllium:
+  prefix: Trsc
+  name: Banded houndshark
 ##############################################
 #
 # Ovid/sheep
@@ -1486,6 +1525,80 @@ Sterna hirundo:
     IIa:
       DA:
         - DAB
+################################################################################
+#
+# Raptors (falcons, eagles, hawks)
+#
+# All generated prefixes — no established MHC prefixes in literature.
+#
+################################################################################
+Falco peregrinus:
+  prefix: Fape
+  name: Peregrine falcon
+Falco tinnunculus:
+  prefix: Fati
+  name: Common kestrel
+Aquila chrysaetos:
+  prefix: Aqch
+  name: Golden eagle
+Buteo buteo:
+  # Natural prefix Bubu collides with Bubalus bubalis and Bubo bubo.
+  prefix: ButeoBute
+  name: Common buzzard
+Circus aeruginosus:
+  prefix: Ciae
+  name: Western marsh harrier
+Gyps fulvus:
+  prefix: Gyfu
+  name: Griffon vulture
+################################################################################
+#
+# Cranes
+#
+################################################################################
+Grus japonensis:
+  prefix: Grja
+  name: Red-crowned crane
+Antigone antigone:
+  prefix: Anan
+  name: Sarus crane
+  other prefixes:
+    # Old genus: Grus antigone → Antigone antigone
+    - Gran
+Balearica regulorum:
+  prefix: Bare
+  name: Grey crowned crane
+################################################################################
+#
+# Passerines (sparrows, crows, etc.)
+#
+################################################################################
+Passer domesticus:
+  prefix: Pado
+  name: House sparrow
+Corvus cornix:
+  prefix: Coco
+  name: Hooded crow
+Turdus merula:
+  prefix: Tume
+  name: Common blackbird
+Lanius collurio:
+  prefix: Laco
+  name: Red-backed shrike
+Emberiza citrinella:
+  prefix: Emci
+  name: Yellowhammer
+################################################################################
+#
+# Shorebirds
+#
+################################################################################
+Anarhynchus nivosus:
+  prefix: Anni
+  name: Snowy plover
+  other prefixes:
+    # Old genus: Charadrius nivosus → Anarhynchus nivosus
+    - Chni
 ################################################################################
 #
 # Chicken
@@ -2792,6 +2905,37 @@ Zhangixalus omeimontis:
     IIa:
       DA:
         - DAB
+Lithobates catesbeianus:
+  prefix: Lica
+  name: American bullfrog
+  other prefixes:
+    # Old genus: Rana catesbeiana → Lithobates catesbeianus
+    - Raca
+Lithobates clamitans:
+  prefix: Licl
+  name: Green frog
+  other prefixes:
+    # Old genus: Rana clamitans → Lithobates clamitans
+    - Racl
+##########################
+#
+# Salamanders
+#
+##########################
+Ambystoma mexicanum:
+  prefix: Amme
+  name: Axolotl
+Ambystoma tigrinum:
+  prefix: Amti
+  name: Tiger salamander
+##########################
+#
+# Tuatara
+#
+##########################
+Sphenodon punctatus:
+  prefix: Sppu
+  name: Tuatara
 ##########################
 #
 # Lizards
@@ -2863,6 +3007,12 @@ Sarcophilus harrisii:
     IIa:
       DA:
         - DAB
+Notamacropus eugenii:
+  prefix: Noeu
+  name: Tammar wallaby
+  other prefixes:
+    # Old genus: Macropus eugenii → Notamacropus eugenii
+    - Maeu
 Trichosurus vulpecula:
   prefix: Trvu
   name: Common brushtail possum
