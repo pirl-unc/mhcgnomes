@@ -16,10 +16,12 @@
 class_II_alpha:
   - DMA
 
+# Note: only family-level names here, not numbered variants.
+# Species that need DMB1/DMB2 define them specifically in species.yaml.
+# This avoids bypassing species-specific aliases (e.g., if a species
+# maps DMB → DMB1, the common gene shouldn't offer bare DMB).
 class_II_beta:
   - DMB
-  - DMB1
-  - DMB2
   # MHCIIB is a generic "MHC class II beta" label used across many
   # non-mammalian species (birds, reptiles, amphibians, fish).
   - MHCIIB
