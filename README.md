@@ -36,6 +36,24 @@ Out[3]: 'A0201'
 
 ```
 
+### Species-directed parsing
+
+`default_species=` is a fallback hint for speciesless inputs such as
+`A*02:01` or `DRB3*01:01`.
+
+`species=` is stricter: the final parsed object must have exactly that species.
+For generic ancestor-scoped prefixes, mhcgnomes can rewrite the result to a
+requested descendant species when that conversion is valid:
+
+```python
+>>> mhcgnomes.parse("BoLA-DRB3*01:01").species.name
+'Bos sp.'
+>>> mhcgnomes.parse("BoLA-DRB3*01:01", species="Bos taurus").to_string()
+'Bota-DRB3*01:01'
+>>> mhcgnomes.parse("HLA-A*02:01", species="Bos taurus", raise_on_error=False) is None
+True
+```
+
 ## CLI
 
 After installation, a `mhcgnomes` CLI is available:
@@ -221,6 +239,21 @@ Prefixes are matched case-insensitively after stripping punctuation. A leading
 `Mhc` prefix (common in bird MHC literature, e.g. `MhcTyal-DAB1*01:01`) is
 automatically stripped as a fallback when normal prefix matching fails.
 
+Some historically important prefixes are not single-species codes. Prefixes
+such as `DLA`, `SLA`, `OLA`, `BoLA`, and `CELA` are curated as umbrella taxon
+nodes in the ontology because the external nomenclature itself is genus- or
+clade-level rather than species-specific. For example:
+
+- `DLA` maps to `Canis sp.`, while `Calu` maps specifically to `Canis lupus`
+- `SLA` maps to `Sus sp.`, while `Susc` maps specifically to `Sus scrofa`
+- `BoLA` maps to `Bos sp.`, while `Bota` maps specifically to `Bos taurus`
+- `OLA` maps to `Ovis sp.`, while `Ovar` maps specifically to `Ovis aries`
+- `CELA` maps to `Cetacea sp.`, while `Tutr` maps specifically to `Tursiops truncatus`
+
+This distinction matters when interpreting parsed objects: an allele parsed
+from `BoLA-...` is attached to the generic cattle node unless the parse is
+explicitly constrained or rewritten to a descendant species.
+
 ### MHC gene class assignments
 
 Genes in `species.yaml` are organized by MHC class:
@@ -246,6 +279,12 @@ multiple prefix tiers so that every species is always parseable:
 | Generated 4-letter prefix | 2+2 from latin name | `Chmy`, `Stca`, `Drno` | When no established prefix exists and the 4-letter code is unique. |
 | 5+5 long prefix | First 5 of genus + first 5 of species | `HomoSapie`, `ChrysPicta` | When the 4-letter code collides. Used as display prefix for collision species. |
 | Full latin name | Concatenated genus + species | `HomoSapiens`, `ChrysemysPicta` | Always parseable as an alternative. Guaranteed collision-free. |
+
+Legacy committee-style prefixes are not always at the same taxonomic level as
+modern four-letter species prefixes. `DLA`, `SLA`, `OLA`, `BoLA`, and `CELA`
+behave as generic umbrella prefixes for curated taxon nodes, while descendants
+may also have their own species-specific prefixes such as `Calu`, `Susc`,
+`Ovar`, `Bota`, or `Tutr`.
 
 All tiers are parsed case-insensitively. For example, these all parse to the
 same allele:

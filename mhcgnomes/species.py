@@ -284,6 +284,38 @@ class Species(Result):
     def parent(self):
         return self.parent_species
 
+    # TODO: If taxonomy-aware operations keep expanding, promote these lineage
+    # helpers into a fuller Taxon API instead of growing Species ad hoc.
+    def is_parent_of(self, other):
+        other = Species.get(other)
+        return other is not None and other.parent_species == self
+
+    def is_child_of(self, other):
+        other = Species.get(other)
+        return other is not None and self.parent_species == other
+
+    def is_ancestor_of(self, other):
+        other = Species.get(other)
+        if other is None:
+            return False
+        current = other.parent_species
+        while current is not None:
+            if current == self:
+                return True
+            current = current.parent_species
+        return False
+
+    def is_descendant_of(self, other):
+        other = Species.get(other)
+        if other is None:
+            return False
+        current = self.parent_species
+        while current is not None:
+            if current == other:
+                return True
+            current = current.parent_species
+        return False
+
     @property
     def historic_mhc_prefix(self):
         """
@@ -359,6 +391,12 @@ class Species(Result):
             return None
 
         species_objects = cls.get_multiple(species_name)
+
+        # Try underscore-to-space normalization if no results
+        # (common in bioinformatics: "Canis_lupus" for "Canis lupus")
+        if len(species_objects) == 0 and "_" in species_name:
+            species_objects = cls.get_multiple(species_name.replace("_", " "))
+
         if len(species_objects) == 0:
             return None
         if len(species_objects) == 1:
@@ -376,6 +414,11 @@ class Species(Result):
         ]
         if len(prefix_matches) == 1:
             return prefix_matches[0]
+        # 3. For auto-generated long prefixes (e.g., CanisLupus), prefer
+        # the species that isn't a subspecies (no parent with same identifier)
+        non_child = [sp for sp in species_objects if sp.parent_species is None]
+        if len(non_child) == 1:
+            return non_child[0]
         # Ambiguous alias: return None instead of picking a heuristic winner
         return None
 
@@ -411,7 +454,7 @@ class Species(Result):
         Returns all MHC prefixes used for this species
         """
         prefixes = set(self.other_mhc_prefixes)
-        if self.old_mhc_prefix:
+        if self.old_mhc_prefix and self.old_mhc_prefix != self.prefix:
             prefixes.add(self.old_mhc_prefix)
         return [self.prefix, *sorted(prefixes)]
 
@@ -653,6 +696,20 @@ def _make_long_prefix(latin_name):
     return genus.capitalize() + species.capitalize()
 
 
+def _is_taxonomic_prefix(prefix, latin_name):
+    """
+    Taxonomic helper prefixes like "Galliformes" or "Crocodylia" should not
+    become inherited old MHC prefixes for child species.
+    """
+    normalized_prefix = re.sub(r"[^A-Za-z0-9]+", "", prefix).lower()
+    latin_parts = [part for part in latin_name.split() if part.lower() != "sp."]
+    if not latin_parts:
+        return False
+    normalized_first = re.sub(r"[^A-Za-z0-9]+", "", latin_parts[0]).lower()
+    normalized_concat = "".join(re.sub(r"[^A-Za-z0-9]+", "", part).lower() for part in latin_parts)
+    return normalized_prefix in {normalized_first, normalized_concat}
+
+
 @cache
 def create_species_for_latin_name(latin_name):
     if latin_name not in raw_species_dict:
@@ -670,7 +727,9 @@ def create_species_for_latin_name(latin_name):
 
     old_mhc_prefix = species_info.get("old prefix")
     if not old_mhc_prefix and parent_species:
-        old_mhc_prefix = parent_species.prefix
+        parent_prefix = parent_species.prefix
+        if not _is_taxonomic_prefix(parent_prefix, parent_species.name):
+            old_mhc_prefix = parent_prefix
 
     other_mhc_prefixes = species_info.get("other prefixes")
     if type(other_mhc_prefixes) is str:
@@ -745,12 +804,19 @@ def create_species_for_latin_name(latin_name):
                     chain_type = guess_class2_chain_type(gene_name)
                     class2_gene_name_to_chain_type[gene_name] = chain_type
 
-    if parent_species is None:
-        all_identifiers = []
-    else:
-        all_identifiers = list(parent_species.all_identifiers)
+    # Side tables inherit by lineage, but parent prefixes/common names must not
+    # become implicit aliases for child species.
+    ancestor_latin_names = []
+    current_parent = parent_species
+    while current_parent is not None:
+        ancestor_latin_names.append(current_parent.name)
+        current_parent = current_parent.parent_species
+
+    all_identifiers = list(reversed(ancestor_latin_names))
     all_identifiers.append(latin_name)
     all_identifiers.append(prefix)
+    if old_mhc_prefix and old_mhc_prefix != prefix:
+        all_identifiers.append(old_mhc_prefix)
     all_identifiers.extend(other_mhc_prefixes)
     all_identifiers.extend(common_names)
 
@@ -787,6 +853,7 @@ def create_species_for_latin_name(latin_name):
         serotypes=serotypes,
         heterodimers=heterodimers,
         supertypes=supertypes,
+        parent_species=parent_species,
         other_mhc_prefixes=other_mhc_prefixes,
         other_common_names=[name for name in common_names if name != shortest_common_name],
         raw_string=latin_name,
