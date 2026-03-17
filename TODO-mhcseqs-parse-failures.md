@@ -25,12 +25,10 @@ sequences. Error report was run against mhcgnomes 3.1.0; many items fixed since.
 
 ### Chicken (Gaga) — 287 seqs
 
-- [x] **Add YFV alias** — DONE: maps to YF1 (MHCY class I). YFV is a variant
-  label from mhcseqs, not a distinct gene. Per PMC9635633, the MHCY region
-  has 45 class I loci but YF1 is the primary characterized one.
-- [x] **Add MHCY alias** — DONE: maps to YF1 as generic MHCY class I label.
-- [ ] **Add BLB-related aliases** — BLB3, BLB4, etc.
-- [ ] **Add any missing gene aliases** — check actual failing sequence names.
+- [x] **Add YFV/MHCY/Y15 aliases** — DONE in 3.6.0-3.7.0
+- [x] **Add BFw/BFz/B-F-S aliases** — DONE in 3.7.0
+- [x] **Add MHCY2B/MHCY2B1/MHCY2B2 aliases** — DONE in 3.7.0
+- [x] **Add B-DMB1 alias** — DONE in 3.7.0
 
 ### Barn owl (Tyal) — 156 seqs
 
@@ -59,10 +57,10 @@ sequences. Error report was run against mhcgnomes 3.1.0; many items fixed since.
 
 ### Japanese quail (Coja) — 48 seqs
 
-- [ ] **Add support for `Coja-II-01*01` numbering** — gene aliases mapping
-  II-01 → DAB1, II-02 → DBB1, etc.
-- [x] **Add class I genes** — DONE: A, B1-B2, C1-C4, D1-D4, E per
-  Hosomichi et al. 1999 (PMID 10199914).
+- [x] **Add II-01 through II-07 numbering** — DONE in 3.7.0: gene aliases
+  mapping II-01→DAB1, II-02→DBB1, ..., II-07→DGB1. II-13/16/17 remain
+  held back (unmapped paper-local labels).
+- [x] **Add class I genes** — DONE in 3.6.0
 
 ### Remaining 25 prefixes (~419 seqs)
 
@@ -75,7 +73,7 @@ sequences. Error report was run against mhcgnomes 3.1.0; many items fixed since.
 - [x] **Mhc prefix stripping** — DONE in 3.2.0
 - [x] **mhc1/mhc2 gene prefix stripping** — DONE in 3.3.0
 - [x] **5+5 and full latin name prefixes** — DONE in 3.5.0
-- [ ] **Roman numeral class + number pattern** — `Coja-II-01*01` style.
+- [x] **Roman numeral class + number pattern** — DONE in 3.7.0 (Coja aliases)
 
 ---
 
