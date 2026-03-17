@@ -597,6 +597,16 @@ Cynoglossus semilaevis:
       DB:
         - DBA
         - DBB
+Dicentrarchus labrax:
+  prefix: Dila
+  name: European seabass
+  genes:
+    Ia:
+      - UA
+    IIa:
+      DA:
+        - DAA
+        - DAB
 Epinephelus coioides:
   prefix: Epco
   name: Orange-spotted grouper
@@ -722,6 +732,15 @@ Gavialis gangeticus:
   # No established MHC prefix in literature. Using long prefix as display.
   prefix: GaviaGange
   name: Gharial
+Crocodylus moreletii:
+  prefix: Crmo
+  name: Morelet's crocodile
+Crocodylus mindorensis:
+  prefix: Crmi
+  name: Philippine crocodile
+Crocodylus siamensis:
+  prefix: Crsi
+  name: Siamese crocodile
 Tomistoma schlegelii:
   prefix: Tosc
   name: False gharial
@@ -1576,6 +1595,17 @@ Balearica regulorum:
 Passer domesticus:
   prefix: Pado
   name: House sparrow
+Cyanistes caeruleus:
+  # Natural prefix Cyca collides with Cyprinus carpio (carp).
+  # Both are attested in literature (Schut et al., Westerdahl et al.).
+  prefix: CyaniCaeru
+  name: Blue tit
+  genes:
+    I:
+      - UA
+    IIa:
+      DA:
+        - DAB
 Corvus cornix:
   prefix: Coco
   name: Hooded crow
@@ -1608,6 +1638,30 @@ Anarhynchus nivosus:
 # - https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6971145/
 #
 ################################################################################
+Meleagris gallopavo:
+  prefix: Mega
+  name: Turkey
+  genes:
+    # Turkey B-complex uses the same gene families as chicken but
+    # locus-specific numbers (BF1/BF2, BLB1/BLB2) are chicken-specific.
+    # Using family-level labels to avoid colliding with chicken loci.
+    Ia:
+      - BF
+    IIa:
+      BL:
+        - BLB
+    IIb:
+      DM:
+        - DMA
+        - DMB1
+        - DMB2
+    other:
+      - TAP1
+      - TAP2
+      - B2M
+Pavo cristatus:
+  prefix: Pacr
+  name: Indian peafowl
 Gallus gallus:
   prefix: Gaga
   name: Chicken
@@ -1709,6 +1763,11 @@ Coturnix japonica:
         - DFB1
       DG:
         - DGB1
+    IIb:
+      DM:
+        - DMA
+        - DMB1
+        - DMB2
 Fulica atra:
   prefix: Fuat
   name: Eurasian coot
@@ -1744,6 +1803,10 @@ Anas platyrhynchos:
   genes:
     Ia:
       - UAA
+      - UEA
+    IIa:
+      DR:
+        - DRA
     other:
       - TAP1
       - TAP2
@@ -2945,6 +3008,14 @@ Sphenodon punctatus:
 # - https://www.reptile-database.org/
 #
 ##########################
+Cyclura carinata:
+  # Natural prefix Cyca collides with Cyprinus carpio (carp).
+  # Attested in literature (Glaberman et al. iguana MHC studies).
+  prefix: CycluCarin
+  name: Turks and Caicos rock iguana
+  genes:
+    I:
+      - UA
 Anolis carolinensis:
   prefix: Anca
   name: Green anole
@@ -3007,6 +3078,21 @@ Sarcophilus harrisii:
     IIa:
       DA:
         - DAB
+Phascolarctos cinereus:
+  prefix: Phci
+  name: Koala
+  genes:
+    IIa:
+      DA:
+        - DAA
+        - DAB
+Ornithorhynchus anatinus:
+  prefix: Oran
+  name: Platypus
+  genes:
+    IIa:
+      DR:
+        - DRA
 Notamacropus eugenii:
   prefix: Noeu
   name: Tammar wallaby
