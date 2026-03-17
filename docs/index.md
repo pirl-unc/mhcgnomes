@@ -58,12 +58,12 @@ rows.
 
 ## Docs In This Site
 
-- `Curation Guide`: where new species, genes, aliases, and partial-source data
-  should live
-- `Immutable Data Objects`: the `3.0.0` object-model refactor and behavior
-  compatibility notes
-- `Species Identity Proposal`: make scientific name the canonical species key
-  and treat prefixes/common names as aliases
+- [Curation Guide](curation.md): where new species, genes, aliases, and
+  partial-source data should live
+- [Immutable Data Objects](immutable-data-objects.md): the `3.0.0` object-model
+  refactor and behavior compatibility notes
+- [Species Identity Proposal](species-latin-name-scoping.md): make scientific
+  name the canonical species key and treat prefixes/common names as aliases
 
 ## Local Docs Commands
 
