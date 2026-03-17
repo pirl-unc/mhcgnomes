@@ -448,25 +448,23 @@ Ctenopharyngodon idella:
       - B2M-1
       - B2M-2
 Oncorhynchus mykiss:
+  parent: Salmonidae sp.
   prefix: Onmy
   name:
     - Rainbow Trout
     - Trout
   genes:
-    Ia:
-      - UBA
     IIa:
       DA:
         - DAA
         - DAB
 Salmo salar:
+  parent: Salmonidae sp.
   prefix: Sasa
   name:
     - Atlantic Salmon
     - Salmon
   genes:
-    Ia:
-      - UBA
     IIa:
       DA:
         - DAA
@@ -496,6 +494,25 @@ Salmo salar:
 # - https://www.uniprot.org/uniprotkb/Q32L55/entry
 #
 ############################
+#
+# Salmonidae — shared salmonid MHC genes inherited by all salmonid species.
+# The U-lineage class I and DA-family class II genes are conserved across
+# Oncorhynchus, Salmo, and Salvelinus.
+#
+# Sources:
+# - https://pubmed.ncbi.nlm.nih.gov/16874444/ (salmonid MHC class I)
+# - https://pubmed.ncbi.nlm.nih.gov/15864912/ (salmonid class II)
+#
+Salmonidae sp.:
+  prefix: Salm
+  name: Salmonid
+  genes:
+    Ia:
+      - UBA
+    IIa:
+      DA:
+        - DAA
+        - DAB
 Danio rerio:
   prefix: Dare
   other prefixes:
@@ -618,21 +635,16 @@ Epinephelus coioides:
       DB:
         - DBB
 Salmo trutta:
+  parent: Salmonidae sp.
   prefix: Satr
   name: Brown trout
-  genes:
-    Ia:
-      - UBA
-    IIa:
-      DA:
-        - DAA
-        - DAB
 Salvelinus alpinus:
+  parent: Salmonidae sp.
   prefix: Saal
   name: Arctic char
   genes:
     Ia:
-      - UBA
+      # UEA and UGA are additional to the inherited salmonid UBA
       - UEA
       - UGA
     IIa:

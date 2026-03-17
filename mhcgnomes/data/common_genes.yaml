@@ -20,6 +20,9 @@ class_II_beta:
   - DMB
   - DMB1
   - DMB2
+  # MHCIIB is a generic "MHC class II beta" label used across many
+  # non-mammalian species (birds, reptiles, amphibians, fish).
+  - MHCIIB
 
 # Antigen processing / transport genes
 other:
