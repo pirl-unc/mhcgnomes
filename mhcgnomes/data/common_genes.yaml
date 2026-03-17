@@ -1,55 +1,27 @@
-# Vertebrate-wide MHC gene names
+# Common MHC gene names accepted for any vertebrate species
 #
-# These genes appear across fish, amphibians, reptiles, birds, and mammals.
-# Any vertebrate species in the ontology should accept these gene names,
-# even if the species doesn't explicitly list them in species.yaml.
+# IMPORTANT: Only genes that are genuinely universal across vertebrates
+# belong here. Taxon-specific gene naming systems must be defined
+# per-species in species.yaml:
 #
-# This enables mhcseqs (and other callers) to pass a gene name like "DAB"
-# with a default_species and have it parse, without requiring every species
-# to individually list every standard MHC gene.
+#   - U-lineage (UA, UAA, UBA, etc.): fish, amphibians, reptiles, some birds
+#   - DR/DQ/DP system (DRA, DRB1, etc.): mammals only
+#   - BF/BLB system: galliform birds only
+#   - DA-series (DAA, DAB): fish, amphibians, reptiles, birds (not mammals)
 #
-# Sources: mhcseqs v0.9.0 analysis of 1,610 unique gene+organism pairs
-# from UniProt, cross-referenced against the comparative MHC literature.
+# These genes are conserved across all jawed vertebrates and safe to
+# accept for any species:
 
-# Class I alpha chain genes (U-lineage and classical)
-# Note: single-letter genes (A, B, F) are excluded because they conflict
-# with haplotype names (H2-a, H2-b) and serotypes (BoLA-A11). These
-# must be defined per-species in species.yaml.
-class_I:
-  - UA
-  - UAA
-  - UBA
-  - UCA
-  - UDA
-  - UEA
-  - UGA
-  - UHA
-  - UMA
-  - ULA
-  - BF
-
-# Class II alpha chain genes
+# Non-classical class II (antigen processing)
 class_II_alpha:
-  - DAA
-  - DRA
-  - DBA
   - DMA
 
-# Class II beta chain genes
 class_II_beta:
-  - DAB
-  - DAB1
-  - DAB2
-  - DRB
-  - DRB1
-  - DBB
-  - DXB
   - DMB
   - DMB1
   - DMB2
-  - MHCIIB
 
-# Antigen processing genes
+# Antigen processing / transport genes
 other:
   - TAP1
   - TAP2

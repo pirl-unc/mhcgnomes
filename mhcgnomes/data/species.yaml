@@ -625,6 +625,7 @@ Salmo trutta:
       - UBA
     IIa:
       DA:
+        - DAA
         - DAB
 Salvelinus alpinus:
   prefix: Saal
