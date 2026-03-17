@@ -1999,6 +1999,16 @@ class Parser:
         """
         candidates = self.parse_multiple_candidates(name, default_species=default_species)
 
+        # When default_species is provided, prefer candidates matching it.
+        # This ensures that e.g. parse("MHCIIB", default_species="Struthio camelus")
+        # returns ostrich, not barn owl (where MHCIIB is a gene alias).
+        if default_species is not None and len(candidates) > 1:
+            ds = Species.get(default_species)
+            if ds is not None:
+                ds_candidates = [c for c in candidates if hasattr(c, "species") and c.species == ds]
+                if ds_candidates:
+                    candidates = ds_candidates
+
         if only_class1:
             candidates = [candidate for candidate in candidates if candidate.is_class1]
 

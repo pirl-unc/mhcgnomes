@@ -19,6 +19,7 @@ from typing import Any, Union
 
 from .common import cache
 from .data import allele_aliases as raw_allele_aliases_dict
+from .data import common_genes as raw_common_genes
 from .data import gene_aliases as raw_gene_aliases_dict
 from .data import haplotypes as raw_haplotypes_dict
 from .data import heterodimers as raw_heterodimers_dict
@@ -30,6 +31,32 @@ from .mhc_class_helpers import class1_restrictions, class2_restrictions
 from .normalizing_dictionary import NormalizingDictionary
 from .normalizing_set import NormalizingSet
 from .result import Result
+
+
+def _build_common_gene_lookup():
+    """
+    Build a NormalizingDictionary mapping common MHC gene names to their
+    MHC class assignment. These are vertebrate-wide genes that any species
+    should accept even if not explicitly listed in species.yaml.
+    """
+    lookup = NormalizingDictionary()
+    if raw_common_genes is None:
+        return lookup
+    class_map = {
+        "class_I": "I",
+        "class_II_alpha": "IIa",
+        "class_II_beta": "IIa",
+        "other": "other",
+    }
+    for category, genes in raw_common_genes.items():
+        mhc_class = class_map.get(category, "I")
+        if genes:
+            for gene in genes:
+                lookup[str(gene)] = mhc_class
+    return lookup
+
+
+common_gene_to_mhc_class = _build_common_gene_lookup()
 
 
 class FrozenList(list):
@@ -458,6 +485,10 @@ class Species(Result):
                 stripped = gene_name[len(prefix) :]
                 if stripped in self.gene_names:
                     return self.gene_names.get_original(stripped)
+        # Fall back to vertebrate-wide common gene names. These are
+        # accepted for any species even if not explicitly in species.yaml.
+        if gene_name in common_gene_to_mhc_class:
+            return common_gene_to_mhc_class.original_key(gene_name)
         return None
 
     def find_matching_class2_locus_name(self, locus_name):
@@ -502,7 +533,11 @@ class Species(Result):
         or None if gene can't be found
         """
         gene_name = self.normalize_gene_name_if_exists(gene_name)
-        return self.gene_name_to_mhc_class.get(gene_name)
+        result = self.gene_name_to_mhc_class.get(gene_name)
+        if result is None:
+            # Fall back to vertebrate-wide common gene class assignments
+            result = common_gene_to_mhc_class.get(gene_name)
+        return result
 
     def get_known_allele(self, gene_name, allele_name):
         gene_name_candidates = {gene_name}

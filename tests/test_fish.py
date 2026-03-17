@@ -367,6 +367,8 @@ def test_parse_arctic_char_case_insensitive():
     eq_(parse("SAAL-UBA", raise_on_error=True), expected)
 
 
-def test_do_not_parse_ambiguous_or_unreviewed_fish_strings():
-    for s in ["Satr-DAA"]:
-        assert parse(s, raise_on_error=False) is None
+def test_satr_daa_parses_via_common_genes():
+    """Satr-DAA now parses because DAA is a vertebrate-wide common gene."""
+    result = parse("Satr-DAA", raise_on_error=True)
+    assert result is not None
+    eq_(result.species.name, "Salmo trutta")

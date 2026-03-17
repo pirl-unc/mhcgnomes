@@ -82,3 +82,7 @@ heterodimers = load(
 supertypes = load(
     "supertypes.yaml", normalize_first_level_keys=True, normalize_second_level_keys=True
 )
+
+# Vertebrate-wide MHC gene names that should be accepted for any species.
+# Organized by MHC class category.
+common_genes = load("common_genes.yaml")

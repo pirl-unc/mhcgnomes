@@ -718,9 +718,29 @@ Crocodylus porosus:
         - DAA
         - DAB1
         - DAB2
+      # DB01-DB08: trans-specific class II beta lineages across Crocodylia
+      # (Jaratlerdsiri et al. 2014, PMID 24253731)
+      DB:
+        - DB01
+        - DB02
+        - DB03
+        - DB04
+        - DB05
+        - DB06
+        - DB07
+        - DB08
 Crocodylus niloticus:
   prefix: Crni
   name: Nile crocodile
+  genes:
+    IIa:
+      DB:
+        - DB01
+        - DB02
+        - DB03
+        - DB04
+        - DB05
+        - DB06
 Alligator mississippiensis:
   prefix: Almi
   name: American alligator
@@ -747,9 +767,31 @@ Tomistoma schlegelii:
 Mecistops cataphractus:
   prefix: Meca
   name: Slender-snouted crocodile
+  genes:
+    IIa:
+      DB:
+        - DB01
+        - DB02
+        - DB03
+        - DB04
+        - DB05
+        - DB06
+        - DB07
+        - DB08
 Osteolaemus tetraspis:
   prefix: Oste
   name: Dwarf crocodile
+  genes:
+    IIa:
+      DB:
+        - DB01
+        - DB02
+        - DB03
+        - DB04
+        - DB05
+        - DB06
+        - DB07
+        - DB08
 Caiman crocodilus:
   prefix: CaimaCroco
   name: Spectacled caiman
