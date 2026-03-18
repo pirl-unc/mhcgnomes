@@ -804,7 +804,76 @@ Carassius auratus:
 Clarias magur:
   parent: Gnathostomata sp.
   prefix: Clma
+  name: Asian catfish
+Clarias batrachus:
+  parent: Gnathostomata sp.
+  prefix: Clba
   name: Walking catfish
+############################
+#
+# Batch-added fish from mhcseqs unknown species report.
+# Prefixes are from UniProt gene_names field unless noted.
+#
+############################
+Coregonus sp.:
+  parent: Gnathostomata sp.
+  prefix: Cosp
+  name: Whitefish
+Tropheus sp.:
+  parent: Gnathostomata sp.
+  prefix: Trsp
+  name: Tropheus cichlid
+Kareius bicoloratus:
+  parent: Gnathostomata sp.
+  prefix: Kabi
+  name: Stone flounder
+Labeobarbus intermedius:
+  parent: Gnathostomata sp.
+  prefix: Bain
+  name: Lake Tana barb
+Scophthalmus maximus:
+  parent: Gnathostomata sp.
+  prefix: Scma
+  name: Turbot
+Monopterus albus:
+  parent: Gnathostomata sp.
+  # mhcseqs report lists prefix as "Mhc" which collides; using 5+5
+  prefix: MonopAlbus
+  name: Asian swamp eel
+Astyanax mexicanus:
+  parent: Gnathostomata sp.
+  prefix: Asme
+  name: Blind cavefish
+Sinocyclocheilus grahami:
+  parent: Gnathostomata sp.
+  prefix: Sigr
+  name: Golden-line barbel
+Silurus asotus:
+  parent: Gnathostomata sp.
+  prefix: Sias
+  name: Amur catfish
+Oryzias dancena:
+  parent: Gnathostomata sp.
+  prefix: Orda
+  name: Indian medaka
+Oryzias luzonensis:
+  parent: Gnathostomata sp.
+  prefix: Orlu
+  name: Luzon ricefish
+Scatophagus argus:
+  parent: Gnathostomata sp.
+  prefix: Scar
+  name: Spotted scat
+Rutilus rutilus:
+  parent: Gnathostomata sp.
+  # mhcseqs uses Arbr (old genus Abramis-related)
+  prefix: Arbr
+  name: Roach
+Parachondrostoma toxostoma:
+  parent: Gnathostomata sp.
+  # mhcseqs uses Pctn
+  prefix: Pctn
+  name: Softnose
 ############################
 #
 # Snakes
@@ -819,6 +888,69 @@ Sistrurus catenatus:
       DA:
         - DAA
         - DAB
+############################
+#
+# Batch-added snakes from mhcseqs unknown species report.
+# Prefixes from UniProt gene_names field.
+#
+############################
+Naja naja:
+  parent: Gnathostomata sp.
+  prefix: Nana
+  name: Indian cobra
+Ophiophagus hannah:
+  parent: Gnathostomata sp.
+  prefix: Opha
+  name: King cobra
+Crotalus adamanteus:
+  parent: Gnathostomata sp.
+  prefix: Crad
+  name: Eastern diamondback rattlesnake
+Notechis scutatus:
+  parent: Gnathostomata sp.
+  prefix: Nosc
+  name: Tiger snake
+Pantherophis guttatus:
+  parent: Gnathostomata sp.
+  prefix: Pagu
+  name: Corn snake
+Pseudonaja textilis:
+  parent: Gnathostomata sp.
+  prefix: Pste
+  name: Eastern brown snake
+Laticauda laticaudata:
+  parent: Gnathostomata sp.
+  prefix: Lala
+  name: Blue-ringed sea krait
+############################
+#
+# Batch-added lizards from mhcseqs unknown species report.
+#
+############################
+Amblyrhynchus cristatus:
+  parent: Gnathostomata sp.
+  prefix: Amcr
+  name: Marine iguana
+Eublepharis macularius:
+  parent: Gnathostomata sp.
+  prefix: Euma
+  name: Leopard gecko
+Salvator merianae:
+  parent: Gnathostomata sp.
+  prefix: Same
+  name: Argentine tegu
+Pogona vitticeps:
+  parent: Gnathostomata sp.
+  prefix: Povi
+  name: Bearded dragon
+Podarcis muralis:
+  parent: Gnathostomata sp.
+  prefix: Pomu
+  name: Common wall lizard
+Lacerta agilis:
+  parent: Gnathostomata sp.
+  prefix: Laag
+  name: Sand lizard
 ############################
 #
 # Crocodilians
@@ -976,6 +1108,10 @@ Chelonoidis abingdonii:
   parent: Testudines sp.
   prefix: Chab
   name: Pinta Island tortoise
+Gopherus evgoodei:
+  parent: Testudines sp.
+  prefix: Goev
+  name: Goode's thornscrub tortoise
 ############################
 #
 # Ratite birds
@@ -1840,8 +1976,50 @@ Anarhynchus nivosus:
   prefix: Anni
   name: Snowy plover
   other prefixes:
-    # Old genus: Charadrius nivosus → Anarhynchus nivosus
     - Chni
+############################
+#
+# Batch-added birds from mhcseqs unknown species report.
+# Prefixes from UniProt gene_names field.
+#
+############################
+Ciconia boyciana:
+  parent: Gnathostomata sp.
+  prefix: Cibo
+  name: Oriental stork
+Agelaius phoeniceus:
+  parent: Gnathostomata sp.
+  prefix: Agph
+  name: Red-winged blackbird
+Oceanodroma leucorhoa:
+  parent: Gnathostomata sp.
+  prefix: Ocle
+  name: Leach's storm petrel
+Eudyptula minor:
+  parent: Gnathostomata sp.
+  prefix: Eumi
+  name: Little penguin
+Columba livia:
+  parent: Gnathostomata sp.
+  prefix: Coli
+  name: Rock dove
+Egretta garzetta:
+  parent: Gnathostomata sp.
+  prefix: Egga
+  name: Little egret
+Chroicocephalus scopulinus:
+  parent: Gnathostomata sp.
+  # mhcseqs uses Lasc (old genus Larus)
+  prefix: Lasc
+  name: Red-billed gull
+Pipra filicauda:
+  parent: Gnathostomata sp.
+  prefix: Pifi
+  name: Wire-tailed manakin
+Spheniscus mendiculus:
+  parent: Gnathostomata sp.
+  prefix: Spme
+  name: Galapagos penguin
 ################################################################################
 #
 # Chicken
@@ -1859,6 +2037,17 @@ Pavo cristatus:
   parent: Galliformes sp.
   prefix: Pacr
   name: Indian peafowl
+Phasianus colchicus:
+  parent: Galliformes sp.
+  # Phco collides with Phylloscopus collybita in some datasets.
+  # Using 5+5 for display prefix.
+  prefix: PhasiColch
+  name: Common pheasant
+Tympanuchus cupido:
+  parent: Galliformes sp.
+  # mhcseqs uses Iibi — unusual but attested
+  prefix: Iibi
+  name: Greater prairie chicken
 Gallus gallus:
   parent: Galliformes sp.
   prefix: Gaga
@@ -3205,8 +3394,19 @@ Lithobates clamitans:
   prefix: Licl
   name: Green frog
   other prefixes:
-    # Old genus: Rana clamitans → Lithobates clamitans
     - Racl
+Rhinella marina:
+  parent: Gnathostomata sp.
+  prefix: Rhma
+  name: Cane toad
+Geotrypetes seraphini:
+  parent: Gnathostomata sp.
+  prefix: Gese
+  name: Gaboon caecilian
+Pelobates cultripes:
+  parent: Gnathostomata sp.
+  prefix: Pecu
+  name: Western spadefoot toad
 ##########################
 #
 # Salamanders
@@ -3349,3 +3549,29 @@ Trichosurus vulpecula:
       - TAP2
       - TAPBP
       - B2M
+Vombatus ursinus:
+  parent: Gnathostomata sp.
+  prefix: Vour
+  name: Common wombat
+############################
+#
+# Batch-added bats from mhcseqs unknown species report.
+# Prefixes from UniProt gene_names field.
+#
+############################
+Rhinolophus ferrumequinum:
+  parent: Gnathostomata sp.
+  prefix: Rhfe
+  name: Greater horseshoe bat
+Myotis lucifugus:
+  parent: Gnathostomata sp.
+  prefix: Mylu
+  name: Little brown bat
+Hipposideros armiger:
+  parent: Gnathostomata sp.
+  prefix: Hiar
+  name: Great roundleaf bat
+Myotis brandtii:
+  parent: Gnathostomata sp.
+  prefix: Mybr
+  name: Brandt's bat
