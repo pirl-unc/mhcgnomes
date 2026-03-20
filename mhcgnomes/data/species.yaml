@@ -71,6 +71,7 @@ Chondrichthyes sp.:
   genes:
     Ia:
       - UAA
+      - UBA
     I:
       - UA
     IIa:
@@ -976,6 +977,13 @@ Kareius bicoloratus:
   other prefixes:
     - Kabi
   name: Stone flounder
+  genes:
+    IIa:
+      DR:
+        - DRB2
+        - DRB3
+        - DRB4
+        - DRB5
 Labeobarbus intermedius:
   parent: Actinopterygii sp.
   prefix: LabeInte
@@ -1045,6 +1053,22 @@ Parachondrostoma toxostoma:
   other prefixes:
     - Pctn
   name: Softnose
+Abramis brama:
+  parent: Actinopterygii sp.
+  prefix: AbraBram
+  name: Common bream
+Gobio gobio:
+  parent: Actinopterygii sp.
+  prefix: GobiGobi
+  name: Gudgeon
+Nothobranchius korthausae:
+  parent: Actinopterygii sp.
+  prefix: NothKort
+  name: Korthausae killifish
+Nothobranchius kuhntae:
+  parent: Actinopterygii sp.
+  prefix: NothKuhn
+  name: Kuhntae killifish
 ############################
 #
 # Killifish and other fish from mhcseqs report
@@ -1465,6 +1489,9 @@ Ginglymostoma cirratum:
   other prefixes:
     - Gici
   name: Nurse shark
+  genes:
+    I:
+      - UFA
 Heterodontus francisci:
   parent: Chondrichthyes sp.
   prefix: HeteFran
@@ -2320,6 +2347,10 @@ Chroicocephalus scopulinus:
   other prefixes:
     - Lasc
   name: Red-billed gull
+  genes:
+    Ib:
+      - UCA
+      - UDA
 Pipra filicauda:
   parent: Aves sp.
   prefix: PiprFili
@@ -2365,6 +2396,30 @@ Rhodinocichla rosea:
   parent: Aves sp.
   prefix: RhodRose
   name: Rosy thrush-tanager
+Corvus corax:
+  parent: Aves sp.
+  prefix: CorvCora
+  name: Common raven
+Eudyptes filholi:
+  parent: Aves sp.
+  prefix: EudyFilh
+  name: Eastern rockhopper penguin
+Eudyptes sclateri:
+  parent: Aves sp.
+  prefix: EudyScla
+  name: Erect-crested penguin
+Lonchura striata:
+  parent: Aves sp.
+  prefix: LoncStri
+  name: White-rumped munia
+Pandion haliaetus:
+  parent: Aves sp.
+  prefix: PandHali
+  name: Osprey
+Lanius collaris:
+  parent: Aves sp.
+  prefix: LaniColl
+  name: Fiscal shrike
 Lagopus scotica:
   parent: Galliformes sp.
   prefix: LagoScot
@@ -3695,6 +3750,7 @@ Chiroptera sp.:
         - DQB1
       DR:
         - DRA
+        - DRB
         - DRB1
       DP:
         - DPA1
@@ -3748,11 +3804,15 @@ Zhangixalus omeimontis:
 Lithobates catesbeianus:
   parent: Amphibia sp.
   prefix: LithCate
-  name: American bullfrog
+  name:
+    - American bullfrog
+    - Aquarana catesbeiana
   other prefixes:
     - Lica
     # Old genus: Rana catesbeiana → Lithobates catesbeianus
     - Raca
+    # Synonym genus: Aquarana catesbeiana
+    - AquaCate
 Lithobates clamitans:
   parent: Amphibia sp.
   prefix: LithClam
@@ -3806,6 +3866,10 @@ Sphenodon punctatus:
   other prefixes:
     - Sppu
   name: Tuatara
+  genes:
+    I:
+      - UBB
+      - UZ
 ##########################
 #
 # Lizards
@@ -3877,6 +3941,11 @@ Phascolarctos cinereus:
   other prefixes:
     - Phci
   name: Koala
+  genes:
+    I:
+      - UI
+      - UJ
+      - UK
 Ornithorhynchus anatinus:
   parent: Gnathostomata sp.
   prefix: OrniAnat
@@ -3904,6 +3973,12 @@ Trichosurus vulpecula:
   genes:
     I:
       - UB
+    IIa:
+      DR:
+        - DRB2
+        - DRB3
+        - DRB4
+        - DRB5
 Vombatus ursinus:
   parent: Marsupialia sp.
   prefix: VombUrsi
