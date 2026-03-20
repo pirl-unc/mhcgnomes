@@ -695,7 +695,9 @@ Felis catus:
 ############################
 Ctenopharyngodon idella:
   parent: Actinopterygii sp.
-  prefix: Ctid
+  prefix: CtenIdel
+  other prefixes:
+    - Ctid
   name: Grass carp
   genes:
     other:
@@ -777,7 +779,9 @@ Danio rerio:
 ############################
 Oryzias latipes:
   parent: Actinopterygii sp.
-  prefix: Oryl
+  prefix: OryzLati
+  other prefixes:
+    - Oryl
   name: Medaka
   genes:
     Ia:
@@ -794,7 +798,9 @@ Cyprinus carpio:
       - B2M
 Oreochromis niloticus:
   parent: Actinopterygii sp.
-  prefix: Orni
+  prefix: OreoNilo
+  other prefixes:
+    - Orni
   name: Nile tilapia
   genes:
     IIa:
@@ -803,7 +809,9 @@ Oreochromis niloticus:
         - DDB
 Paralichthys olivaceus:
   parent: Actinopterygii sp.
-  prefix: Paol
+  prefix: ParaOliv
+  other prefixes:
+    - Paol
   name: Olive flounder
   genes:
     Ia:
@@ -811,15 +819,21 @@ Paralichthys olivaceus:
       - Ia2
 Cynoglossus semilaevis:
   parent: Actinopterygii sp.
-  prefix: Cyse
+  prefix: CynoSemi
+  other prefixes:
+    - Cyse
   name: Chinese tongue sole
 Dicentrarchus labrax:
   parent: Actinopterygii sp.
-  prefix: Dila
+  prefix: DiceLabr
+  other prefixes:
+    - Dila
   name: European seabass
 Epinephelus coioides:
   parent: Actinopterygii sp.
-  prefix: Epco
+  prefix: EpinCoio
+  other prefixes:
+    - Epco
   name: Orange-spotted grouper
 Salmo trutta:
   parent: Salmonidae sp.
@@ -836,7 +850,9 @@ Salvelinus alpinus:
       - UGA
 Trachinotus ovatus:
   parent: Actinopterygii sp.
-  prefix: Trov
+  prefix: TracOvat
+  other prefixes:
+    - Trov
   name: Golden pompano
 ############################
 #
@@ -847,27 +863,39 @@ Trachinotus ovatus:
 ############################
 Gasterosteus aculeatus:
   parent: Actinopterygii sp.
-  prefix: Gaac
+  prefix: GastAcul
+  other prefixes:
+    - Gaac
   name: Three-spined stickleback
 Ictalurus punctatus:
   parent: Actinopterygii sp.
-  prefix: Icpu
+  prefix: IctaPunc
+  other prefixes:
+    - Icpu
   name: Channel catfish
 Hippocampus abdominalis:
   parent: Actinopterygii sp.
-  prefix: Hiab
+  prefix: HippAbdo
+  other prefixes:
+    - Hiab
   name: Pot-bellied seahorse
 Carassius auratus:
   parent: Actinopterygii sp.
-  prefix: Caau
+  prefix: CaraAura
+  other prefixes:
+    - Caau
   name: Goldfish
 Clarias magur:
   parent: Actinopterygii sp.
-  prefix: Clma
+  prefix: ClarMagu
+  other prefixes:
+    - Clma
   name: Asian catfish
 Clarias batrachus:
   parent: Actinopterygii sp.
-  prefix: Clba
+  prefix: ClarBatr
+  other prefixes:
+    - Clba
   name: Walking catfish
 ############################
 #
@@ -891,54 +919,78 @@ Tropheus sp.:
         - DDB2
 Kareius bicoloratus:
   parent: Actinopterygii sp.
-  prefix: Kabi
+  prefix: KareBico
+  other prefixes:
+    - Kabi
   name: Stone flounder
 Labeobarbus intermedius:
   parent: Actinopterygii sp.
-  prefix: Bain
+  prefix: LabeInte
+  other prefixes:
+    - Bain
   name: Lake Tana barb
 Scophthalmus maximus:
   parent: Actinopterygii sp.
-  prefix: Scma
+  prefix: ScopMaxi
+  other prefixes:
+    - Scma
   name: Turbot
 Monopterus albus:
   parent: Actinopterygii sp.
   # mhcseqs report lists prefix as "Mhc" which collides; using 5+5
-  prefix: MonopAlbus
+  prefix: MonoAlbu
+  other prefixes:
+    - MonopAlbus
   name: Asian swamp eel
 Astyanax mexicanus:
   parent: Actinopterygii sp.
-  prefix: Asme
+  prefix: AstyMexi
+  other prefixes:
+    - Asme
   name: Blind cavefish
 Sinocyclocheilus grahami:
   parent: Actinopterygii sp.
-  prefix: Sigr
+  prefix: SinoGrah
+  other prefixes:
+    - Sigr
   name: Golden-line barbel
 Silurus asotus:
   parent: Actinopterygii sp.
-  prefix: Sias
+  prefix: SiluAsot
+  other prefixes:
+    - Sias
   name: Amur catfish
 Oryzias dancena:
   parent: Actinopterygii sp.
-  prefix: Orda
+  prefix: OryzDanc
+  other prefixes:
+    - Orda
   name: Indian medaka
 Oryzias luzonensis:
   parent: Actinopterygii sp.
-  prefix: Orlu
+  prefix: OryzLuzo
+  other prefixes:
+    - Orlu
   name: Luzon ricefish
 Scatophagus argus:
   parent: Actinopterygii sp.
-  prefix: Scar
+  prefix: ScatArgu
+  other prefixes:
+    - Scar
   name: Spotted scat
 Rutilus rutilus:
   parent: Actinopterygii sp.
   # mhcseqs uses Arbr (old genus Abramis-related)
-  prefix: Arbr
+  prefix: RutiRuti
+  other prefixes:
+    - Arbr
   name: Roach
 Parachondrostoma toxostoma:
   parent: Actinopterygii sp.
   # mhcseqs uses Pctn
-  prefix: Pctn
+  prefix: ParaToxo
+  other prefixes:
+    - Pctn
   name: Softnose
 ############################
 #
@@ -947,7 +999,9 @@ Parachondrostoma toxostoma:
 ############################
 Sistrurus catenatus:
   parent: Reptilia sp.
-  prefix: Sica
+  prefix: SistCate
+  other prefixes:
+    - Sica
   name: Massasauga
 ############################
 #
@@ -957,31 +1011,45 @@ Sistrurus catenatus:
 ############################
 Naja naja:
   parent: Reptilia sp.
-  prefix: Nana
+  prefix: NajaNaja
+  other prefixes:
+    - Nana
   name: Indian cobra
 Ophiophagus hannah:
   parent: Reptilia sp.
-  prefix: Opha
+  prefix: OphiHann
+  other prefixes:
+    - Opha
   name: King cobra
 Crotalus adamanteus:
   parent: Reptilia sp.
-  prefix: Crad
+  prefix: CrotAdam
+  other prefixes:
+    - Crad
   name: Eastern diamondback rattlesnake
 Notechis scutatus:
   parent: Reptilia sp.
-  prefix: Nosc
+  prefix: NoteScut
+  other prefixes:
+    - Nosc
   name: Tiger snake
 Pantherophis guttatus:
   parent: Reptilia sp.
-  prefix: Pagu
+  prefix: PantGutt
+  other prefixes:
+    - Pagu
   name: Corn snake
 Pseudonaja textilis:
   parent: Reptilia sp.
-  prefix: Pste
+  prefix: PseuText
+  other prefixes:
+    - Pste
   name: Eastern brown snake
 Laticauda laticaudata:
   parent: Reptilia sp.
-  prefix: Lala
+  prefix: LatiLati
+  other prefixes:
+    - Lala
   name: Blue-ringed sea krait
 ############################
 #
@@ -990,27 +1058,39 @@ Laticauda laticaudata:
 ############################
 Amblyrhynchus cristatus:
   parent: Reptilia sp.
-  prefix: Amcr
+  prefix: AmblCris
+  other prefixes:
+    - Amcr
   name: Marine iguana
 Eublepharis macularius:
   parent: Reptilia sp.
-  prefix: Euma
+  prefix: EublMacu
+  other prefixes:
+    - Euma
   name: Leopard gecko
 Salvator merianae:
   parent: Reptilia sp.
-  prefix: Same
+  prefix: SalvMeri
+  other prefixes:
+    - Same
   name: Argentine tegu
 Pogona vitticeps:
   parent: Reptilia sp.
-  prefix: Povi
+  prefix: PogoVitt
+  other prefixes:
+    - Povi
   name: Bearded dragon
 Podarcis muralis:
   parent: Reptilia sp.
-  prefix: Pomu
+  prefix: PodaMura
+  other prefixes:
+    - Pomu
   name: Common wall lizard
 Lacerta agilis:
   parent: Reptilia sp.
-  prefix: Laag
+  prefix: LaceAgil
+  other prefixes:
+    - Laag
   name: Sand lizard
 ############################
 #
@@ -1051,52 +1131,76 @@ Crocodylus porosus:
         - DAB2
 Crocodylus niloticus:
   parent: Crocodylia sp.
-  prefix: Crni
+  prefix: CrocNilo
+  other prefixes:
+    - Crni
   name: Nile crocodile
 Alligator mississippiensis:
   parent: Crocodylia sp.
-  prefix: Almi
+  prefix: AlliMiss
+  other prefixes:
+    - Almi
   name: American alligator
 Alligator sinensis:
   parent: Crocodylia sp.
-  prefix: Alsi
+  prefix: AlliSine
+  other prefixes:
+    - Alsi
   name: Chinese alligator
 Gavialis gangeticus:
   parent: Crocodylia sp.
   # Natural 4-letter prefix Gaga collides with chicken (Gallus gallus).
-  prefix: GaviaGange
+  prefix: GaviGang
+  other prefixes:
+    - GaviaGange
   name: Gharial
 Crocodylus moreletii:
   parent: Crocodylia sp.
-  prefix: Crmo
+  prefix: CrocMore
+  other prefixes:
+    - Crmo
   name: Morelet's crocodile
 Crocodylus mindorensis:
   parent: Crocodylia sp.
-  prefix: Crmi
+  prefix: CrocMind
+  other prefixes:
+    - Crmi
   name: Philippine crocodile
 Crocodylus siamensis:
   parent: Crocodylia sp.
-  prefix: Crsi
+  prefix: CrocSiam
+  other prefixes:
+    - Crsi
   name: Siamese crocodile
 Tomistoma schlegelii:
   parent: Crocodylia sp.
-  prefix: Tosc
+  prefix: TomiSchl
+  other prefixes:
+    - Tosc
   name: False gharial
 Mecistops cataphractus:
   parent: Crocodylia sp.
-  prefix: Meca
+  prefix: MeciCata
+  other prefixes:
+    - Meca
   name: Slender-snouted crocodile
 Osteolaemus tetraspis:
   parent: Crocodylia sp.
-  prefix: Oste
+  prefix: OsteTetr
+  other prefixes:
+    - Oste
   name: Dwarf crocodile
 Caiman crocodilus:
   parent: Crocodylia sp.
-  prefix: CaimaCroco
+  prefix: CaimCroc
+  other prefixes:
+    - CaimaCroco
   name: Spectacled caiman
 Caiman latirostris:
   parent: Crocodylia sp.
-  prefix: CaimaLatir
+  prefix: CaimLati
+  other prefixes:
+    - CaimaLatir
   name: Broad-snouted caiman
 ############################
 #
@@ -1121,50 +1225,71 @@ Testudines sp.:
   name: Turtle
 Caretta caretta:
   parent: Testudines sp.
-  prefix: CaretCaret
+  prefix: CareCare
+  other prefixes:
+    - CaretCaret
   name: Loggerhead sea turtle
 Chelonia mydas:
   parent: Testudines sp.
-  prefix: Chmy
+  prefix: ChelMyda
+  other prefixes:
+    - Chmy
   name: Green sea turtle
 Dermochelys coriacea:
   parent: Testudines sp.
-  prefix: Deco
+  prefix: DermCori
+  other prefixes:
+    - Deco
   name: Leatherback sea turtle
 Lepidochelys kempii:
   parent: Testudines sp.
-  prefix: Leke
+  prefix: LepiKemp
+  other prefixes:
+    - Leke
   name: Kemp's ridley sea turtle
 Chelydra serpentina:
   parent: Testudines sp.
-  prefix: Chse
+  prefix: ChelSerp
+  other prefixes:
+    - Chse
   name: Common snapping turtle
 Chrysemys picta:
   parent: Testudines sp.
   # Natural 4-letter prefix Chpi collides with golden pheasant.
-  prefix: ChrysPicta
+  prefix: ChryPict
+  other prefixes:
+    - ChrysPicta
   name: Painted turtle
 Pelodiscus sinensis:
   parent: Testudines sp.
-  prefix: Pesi
+  prefix: PeloSine
   other prefixes:
     - Trsi
+    - Pesi
   name: Chinese softshell turtle
 Terrapene triunguis:
   parent: Testudines sp.
-  prefix: Tetr
+  prefix: TerrTriu
+  other prefixes:
+    - Tetr
   name: Three-toed box turtle
 Gopherus polyphemus:
   parent: Testudines sp.
-  prefix: Gopo
+  prefix: GophPoly
+  other prefixes:
+    - Gopo
   name: Gopher tortoise
 Chelonoidis abingdonii:
   parent: Testudines sp.
-  prefix: Chab
+  prefix: ChelAbin
+  other prefixes:
+    - Chab
   name: Pinta Island tortoise
 Gopherus evgoodei:
   parent: Testudines sp.
-  prefix: Goev
+  prefix: GophEvgo
+  other prefixes:
+    - Goev
   name: Goode's thornscrub tortoise
 ############################
 #
@@ -1179,45 +1304,65 @@ Gopherus evgoodei:
 ############################
 Struthio camelus:
   parent: Aves sp.
-  prefix: Stca
+  prefix: StruCame
+  other prefixes:
+    - Stca
   name: Ostrich
 Dromaius novaehollandiae:
   parent: Aves sp.
-  prefix: Drno
+  prefix: DromNova
+  other prefixes:
+    - Drno
   name: Emu
 Rhea americana:
   parent: Aves sp.
-  prefix: Rham
+  prefix: RheaAmer
+  other prefixes:
+    - Rham
   name: Greater rhea
 Rhea pennata:
   parent: Aves sp.
-  prefix: Rhpe
+  prefix: RheaPenn
+  other prefixes:
+    - Rhpe
   name: Lesser rhea
 Apteryx owenii:
   parent: Aves sp.
-  prefix: Apow
+  prefix: ApteOwen
+  other prefixes:
+    - Apow
   name: Little spotted kiwi
 Apteryx mantelli:
   parent: Aves sp.
-  prefix: Apma
+  prefix: ApteMant
+  other prefixes:
+    - Apma
   name: North Island brown kiwi
 Apteryx australis:
   parent: Aves sp.
-  prefix: Apau
+  prefix: ApteAust
+  other prefixes:
+    - Apau
   name: Southern brown kiwi
 Casuarius casuarius:
   parent: Aves sp.
   # Natural 4-letter prefix Caca collides with Caretta caretta and others.
   # Using long prefix as display.
-  prefix: CasuaCasua
+  prefix: CasuCasu
+  other prefixes:
+    - CasuaCasua
   name: Southern cassowary
 Nothoprocta perdicaria:
   parent: Aves sp.
-  prefix: Nope
+  prefix: NothPerd
+  other prefixes:
+    - Nope
   name: Chilean tinamou
 Tinamus major:
   parent: Aves sp.
-  prefix: Tima
+  prefix: TinaMajo
+  other prefixes:
+    - Tima
   name: Great tinamou
 ############################
 #
@@ -1226,19 +1371,27 @@ Tinamus major:
 ############################
 Ginglymostoma cirratum:
   parent: Chondrichthyes sp.
-  prefix: Gici
+  prefix: GingCirr
+  other prefixes:
+    - Gici
   name: Nurse shark
 Heterodontus francisci:
   parent: Chondrichthyes sp.
-  prefix: Hefr
+  prefix: HeteFran
+  other prefixes:
+    - Hefr
   name: Horn shark
 Squalus acanthias:
   parent: Chondrichthyes sp.
-  prefix: Sqac
+  prefix: SquaAcan
+  other prefixes:
+    - Sqac
   name: Spiny dogfish
 Triakis scyllium:
   parent: Chondrichthyes sp.
-  prefix: Trsc
+  prefix: TriaScyl
+  other prefixes:
+    - Trsc
   name: Banded houndshark
 ##############################################
 #
@@ -1898,19 +2051,27 @@ Oryctolagus cuniculus:
 ################################################################################
 Acrocephalus arundinaceus:
   parent: Aves sp.
-  prefix: Acar
+  prefix: AcroArun
+  other prefixes:
+    - Acar
   name: Great reed warbler
 Acrocephalus schoenobaenus:
   parent: Aves sp.
-  prefix: Acsc
+  prefix: AcroScho
+  other prefixes:
+    - Acsc
   name: Sedge warbler
 Geothlypis trichas:
   parent: Aves sp.
-  prefix: Getr
+  prefix: GeotTric
+  other prefixes:
+    - Getr
   name: Common yellowthroat
 Sterna hirundo:
   parent: Aves sp.
-  prefix: Sthi
+  prefix: SterHiru
+  other prefixes:
+    - Sthi
   name: Common tern
 ################################################################################
 #
@@ -1921,28 +2082,40 @@ Sterna hirundo:
 ################################################################################
 Falco peregrinus:
   parent: Aves sp.
-  prefix: Fape
+  prefix: FalcPere
+  other prefixes:
+    - Fape
   name: Peregrine falcon
 Falco tinnunculus:
   parent: Aves sp.
-  prefix: Fati
+  prefix: FalcTinn
+  other prefixes:
+    - Fati
   name: Common kestrel
 Aquila chrysaetos:
   parent: Aves sp.
-  prefix: Aqch
+  prefix: AquiChry
+  other prefixes:
+    - Aqch
   name: Golden eagle
 Buteo buteo:
   parent: Aves sp.
   # Natural prefix Bubu collides with Bubalus bubalis and Bubo bubo.
-  prefix: ButeoBute
+  prefix: ButeBute
+  other prefixes:
+    - ButeoBute
   name: Common buzzard
 Circus aeruginosus:
   parent: Aves sp.
-  prefix: Ciae
+  prefix: CircAeru
+  other prefixes:
+    - Ciae
   name: Western marsh harrier
 Gyps fulvus:
   parent: Aves sp.
-  prefix: Gyfu
+  prefix: GypsFulv
+  other prefixes:
+    - Gyfu
   name: Griffon vulture
 ################################################################################
 #
@@ -1951,18 +2124,23 @@ Gyps fulvus:
 ################################################################################
 Grus japonensis:
   parent: Aves sp.
-  prefix: Grja
+  prefix: GrusJapo
+  other prefixes:
+    - Grja
   name: Red-crowned crane
 Antigone antigone:
   parent: Aves sp.
-  prefix: Anan
+  prefix: AntiAnti
   name: Sarus crane
   other prefixes:
+    - Anan
     # Old genus: Grus antigone → Antigone antigone
     - Gran
 Balearica regulorum:
   parent: Aves sp.
-  prefix: Bare
+  prefix: BaleRegu
+  other prefixes:
+    - Bare
   name: Grey crowned crane
 ################################################################################
 #
@@ -1971,29 +2149,41 @@ Balearica regulorum:
 ################################################################################
 Passer domesticus:
   parent: Aves sp.
-  prefix: Pado
+  prefix: PassDome
+  other prefixes:
+    - Pado
   name: House sparrow
 Cyanistes caeruleus:
   parent: Aves sp.
   # Natural prefix Cyca collides with Cyprinus carpio (carp).
-  # Both are attested in literature (Schut et al., Westerdahl et al.).
-  prefix: CyaniCaeru
+  # Cyca for blue tit attested in Westerdahl et al.; Cyca for carp in fish MHC literature.
+  prefix: CyanCaer
+  other prefixes:
+    - CyaniCaeru
   name: Blue tit
 Corvus cornix:
   parent: Aves sp.
-  prefix: Coco
+  prefix: CorvCorn
+  other prefixes:
+    - Coco
   name: Hooded crow
 Turdus merula:
   parent: Aves sp.
-  prefix: Tume
+  prefix: TurdMeru
+  other prefixes:
+    - Tume
   name: Common blackbird
 Lanius collurio:
   parent: Aves sp.
-  prefix: Laco
+  prefix: LaniColl
+  other prefixes:
+    - Laco
   name: Red-backed shrike
 Emberiza citrinella:
   parent: Aves sp.
-  prefix: Emci
+  prefix: EmbeCitr
+  other prefixes:
+    - Emci
   name: Yellowhammer
 ################################################################################
 #
@@ -2002,10 +2192,11 @@ Emberiza citrinella:
 ################################################################################
 Anarhynchus nivosus:
   parent: Aves sp.
-  prefix: Anni
+  prefix: AnarNivo
   name: Snowy plover
   other prefixes:
     - Chni
+    - Anni
 ############################
 #
 # Batch-added birds from mhcseqs unknown species report.
@@ -2014,40 +2205,58 @@ Anarhynchus nivosus:
 ############################
 Ciconia boyciana:
   parent: Aves sp.
-  prefix: Cibo
+  prefix: CicoBoyc
+  other prefixes:
+    - Cibo
   name: Oriental stork
 Agelaius phoeniceus:
   parent: Aves sp.
-  prefix: Agph
+  prefix: AgelPhoe
+  other prefixes:
+    - Agph
   name: Red-winged blackbird
 Oceanodroma leucorhoa:
   parent: Aves sp.
-  prefix: Ocle
+  prefix: OceaLeuc
+  other prefixes:
+    - Ocle
   name: Leach's storm petrel
 Eudyptula minor:
   parent: Aves sp.
-  prefix: Eumi
+  prefix: EudyMino
+  other prefixes:
+    - Eumi
   name: Little penguin
 Columba livia:
   parent: Aves sp.
-  prefix: Coli
+  prefix: ColuLivi
+  other prefixes:
+    - Coli
   name: Rock dove
 Egretta garzetta:
   parent: Aves sp.
-  prefix: Egga
+  prefix: EgreGarz
+  other prefixes:
+    - Egga
   name: Little egret
 Chroicocephalus scopulinus:
   parent: Aves sp.
   # mhcseqs uses Lasc (old genus Larus)
-  prefix: Lasc
+  prefix: ChroScop
+  other prefixes:
+    - Lasc
   name: Red-billed gull
 Pipra filicauda:
   parent: Aves sp.
-  prefix: Pifi
+  prefix: PiprFili
+  other prefixes:
+    - Pifi
   name: Wire-tailed manakin
 Spheniscus mendiculus:
   parent: Aves sp.
-  prefix: Spme
+  prefix: SpheMend
+  other prefixes:
+    - Spme
   name: Galapagos penguin
 ################################################################################
 #
@@ -2070,7 +2279,9 @@ Phasianus colchicus:
   parent: Galliformes sp.
   # Phco collides with Phylloscopus collybita in some datasets.
   # Using 5+5 for display prefix.
-  prefix: PhasiColch
+  prefix: PhasColc
+  other prefixes:
+    - PhasiColch
   name: Common pheasant
 Tympanuchus cupido:
   parent: Galliformes sp.
@@ -2188,11 +2399,15 @@ Coturnix japonica:
         - DMB2
 Fulica atra:
   parent: Aves sp.
-  prefix: Fuat
+  prefix: FuliAtra
+  other prefixes:
+    - Fuat
   name: Eurasian coot
 Spheniscus humboldti:
   parent: Aves sp.
-  prefix: Sphu
+  prefix: SpheHumb
+  other prefixes:
+    - Sphu
   name: Humboldt penguin
   genes:
     IIa:
@@ -2200,7 +2415,9 @@ Spheniscus humboldti:
         - DRB1
 Spheniscus magellanicus:
   parent: Aves sp.
-  prefix: Spma
+  prefix: SpheMage
+  other prefixes:
+    - Spma
   name: Magellanic penguin
   genes:
     IIa:
@@ -2217,7 +2434,9 @@ Spheniscus magellanicus:
 Anas platyrhynchos:
   parent: Aves sp.
   name: Duck
-  prefix: Anpl
+  prefix: AnasPlat
+  other prefixes:
+    - Anpl
   genes:
     Ia:
       - UEA
@@ -2231,7 +2450,9 @@ Anas platyrhynchos:
 ################################################################################
 Egretta eulophotes:
   parent: Aves sp.
-  prefix: Egeu
+  prefix: EgreEulo
+  other prefixes:
+    - Egeu
   name: Chinese egret
   genes:
     IIa:
@@ -2244,7 +2465,9 @@ Egretta eulophotes:
         - DAB6
 Nipponia nippon:
   parent: Aves sp.
-  prefix: Nini
+  prefix: NippNipp
+  other prefixes:
+    - Nini
   name: Japanese crested ibis
   genes:
     IIa:
@@ -2265,7 +2488,9 @@ Nipponia nippon:
 Aegolius funereus:
   parent: Aves sp.
   name: Tengmalm's owl
-  prefix: Aefu
+  prefix: AegoFune
+  other prefixes:
+    - Aefu
   genes:
     IIa:
       DA:
@@ -2274,7 +2499,9 @@ Aegolius funereus:
 Asio flammeus:
   parent: Aves sp.
   name: Short-eared owl
-  prefix: Asfl
+  prefix: AsioFlam
+  other prefixes:
+    - Asfl
   genes:
     IIa:
       DA:
@@ -2283,7 +2510,9 @@ Asio flammeus:
 Asio otus:
   parent: Aves sp.
   name: Long-eared owl
-  prefix: Asot
+  prefix: AsioOtus
+  other prefixes:
+    - Asot
   genes:
     IIa:
       DA:
@@ -2292,7 +2521,9 @@ Asio otus:
 Athene noctua:
   parent: Aves sp.
   name: Little owl
-  prefix: Atno
+  prefix: AtheNoct
+  other prefixes:
+    - Atno
   genes:
     IIa:
       DA:
@@ -2301,7 +2532,9 @@ Athene noctua:
 Bubo africanus:
   parent: Aves sp.
   name: Spotted eagle owl
-  prefix: Buaf
+  prefix: BuboAfri
+  other prefixes:
+    - Buaf
   genes:
     IIa:
       DA:
@@ -2320,7 +2553,9 @@ Bubo bubo:
         - DAB2
 Bubo scandiacus:
   parent: Aves sp.
-  prefix: Busc
+  prefix: BuboScan
+  other prefixes:
+    - Busc
   name: Snowy owl
   genes:
     IIa:
@@ -2330,7 +2565,9 @@ Bubo scandiacus:
 Glaucidium passerinum:
   parent: Aves sp.
   name: Eurasian pygmy owl
-  prefix: Glpa
+  prefix: GlauPass
+  other prefixes:
+    - Glpa
   genes:
     IIa:
       DA:
@@ -2339,7 +2576,9 @@ Glaucidium passerinum:
 Otus scops:
   parent: Aves sp.
   name: European scops owl
-  prefix: Otsc
+  prefix: OtusScop
+  other prefixes:
+    - Otsc
   genes:
     IIa:
       DA:
@@ -2348,7 +2587,9 @@ Otus scops:
 Strix aluco:
   parent: Aves sp.
   name: Tawny owl
-  prefix: Stal
+  prefix: StriAluc
+  other prefixes:
+    - Stal
   genes:
     IIa:
       DA:
@@ -2357,7 +2598,9 @@ Strix aluco:
 Strix nebulosa:
   parent: Aves sp.
   name: Great gray owl
-  prefix: Stne
+  prefix: StriNebu
+  other prefixes:
+    - Stne
   genes:
     IIa:
       DA:
@@ -2366,7 +2609,9 @@ Strix nebulosa:
 Strix uralensis:
   parent: Aves sp.
   name: Ural owl
-  prefix: Stur
+  prefix: StriUral
+  other prefixes:
+    - Stur
   genes:
     IIa:
       DA:
@@ -2375,7 +2620,9 @@ Strix uralensis:
 Surnia ulula:
   parent: Aves sp.
   name: Northern hawk owl
-  prefix: Suul
+  prefix: SurnUlul
+  other prefixes:
+    - Suul
   genes:
     IIa:
       DA:
@@ -2384,7 +2631,9 @@ Surnia ulula:
 Tyto alba:
   parent: Aves sp.
   name: Barn owl
-  prefix: Tyal
+  prefix: TytoAlba
+  other prefixes:
+    - Tyal
   genes:
     IIa:
       DA:
@@ -3300,7 +3549,9 @@ Theropithecus gelada:
 ##########################
 Ailuropoda melanoleuca:
   parent: Gnathostomata sp.
-  prefix: Aime
+  prefix: AiluMela
+  other prefixes:
+    - Aime
   name: Giant panda
   genes:
     I:
@@ -3339,32 +3590,42 @@ Xenopus tropicalis:
 ##########################
 Zhangixalus omeimontis:
   parent: Amphibia sp.
-  prefix: Zhom
+  prefix: ZhanOmei
+  other prefixes:
+    - Zhom
   name: Omei tree frog
 Lithobates catesbeianus:
   parent: Amphibia sp.
-  prefix: Lica
+  prefix: LithCate
   name: American bullfrog
   other prefixes:
+    - Lica
     # Old genus: Rana catesbeiana → Lithobates catesbeianus
     - Raca
 Lithobates clamitans:
   parent: Amphibia sp.
-  prefix: Licl
+  prefix: LithClam
   name: Green frog
   other prefixes:
     - Racl
+    - Licl
 Rhinella marina:
   parent: Amphibia sp.
-  prefix: Rhma
+  prefix: RhinMari
+  other prefixes:
+    - Rhma
   name: Cane toad
 Geotrypetes seraphini:
   parent: Amphibia sp.
-  prefix: Gese
+  prefix: GeotSera
+  other prefixes:
+    - Gese
   name: Gaboon caecilian
 Pelobates cultripes:
   parent: Amphibia sp.
-  prefix: Pecu
+  prefix: PeloCult
+  other prefixes:
+    - Pecu
   name: Western spadefoot toad
 ##########################
 #
@@ -3373,11 +3634,15 @@ Pelobates cultripes:
 ##########################
 Ambystoma mexicanum:
   parent: Amphibia sp.
-  prefix: Amme
+  prefix: AmbyMexi
+  other prefixes:
+    - Amme
   name: Axolotl
 Ambystoma tigrinum:
   parent: Amphibia sp.
-  prefix: Amti
+  prefix: AmbyTigr
+  other prefixes:
+    - Amti
   name: Tiger salamander
 ##########################
 #
@@ -3386,7 +3651,9 @@ Ambystoma tigrinum:
 ##########################
 Sphenodon punctatus:
   parent: Reptilia sp.
-  prefix: Sppu
+  prefix: SphePunc
+  other prefixes:
+    - Sppu
   name: Tuatara
 ##########################
 #
@@ -3401,15 +3668,21 @@ Cyclura carinata:
   parent: Reptilia sp.
   # Natural prefix Cyca collides with Cyprinus carpio (carp).
   # Attested in literature (Glaberman et al. iguana MHC studies).
-  prefix: CycluCarin
+  prefix: CyclCari
+  other prefixes:
+    - CycluCarin
   name: Turks and Caicos rock iguana
 Anolis carolinensis:
   parent: Reptilia sp.
-  prefix: Anca
+  prefix: AnolCaro
+  other prefixes:
+    - Anca
   name: Green anole
 Anolis sagrei:
   parent: Reptilia sp.
-  prefix: Ansa
+  prefix: AnolSagr
+  other prefixes:
+    - Ansa
   name: Brown anole
 ##########################
 #
@@ -3449,11 +3722,15 @@ Sarcophilus harrisii:
       - UM
 Phascolarctos cinereus:
   parent: Marsupialia sp.
-  prefix: Phci
+  prefix: PhasCine
+  other prefixes:
+    - Phci
   name: Koala
 Ornithorhynchus anatinus:
   parent: Gnathostomata sp.
-  prefix: Oran
+  prefix: OrniAnat
+  other prefixes:
+    - Oran
   name: Platypus
   genes:
     IIa:
@@ -3461,21 +3738,26 @@ Ornithorhynchus anatinus:
         - DRA
 Notamacropus eugenii:
   parent: Marsupialia sp.
-  prefix: Noeu
+  prefix: NotaEuge
   name: Tammar wallaby
   other prefixes:
+    - Noeu
     # Old genus: Macropus eugenii → Notamacropus eugenii
     - Maeu
 Trichosurus vulpecula:
   parent: Marsupialia sp.
-  prefix: Trvu
+  prefix: TricVulp
+  other prefixes:
+    - Trvu
   name: Common brushtail possum
   genes:
     I:
       - UB
 Vombatus ursinus:
   parent: Marsupialia sp.
-  prefix: Vour
+  prefix: VombUrsi
+  other prefixes:
+    - Vour
   name: Common wombat
 ############################
 #
@@ -3485,17 +3767,25 @@ Vombatus ursinus:
 ############################
 Rhinolophus ferrumequinum:
   parent: Gnathostomata sp.
-  prefix: Rhfe
+  prefix: RhinFerr
+  other prefixes:
+    - Rhfe
   name: Greater horseshoe bat
 Myotis lucifugus:
   parent: Gnathostomata sp.
-  prefix: Mylu
+  prefix: MyotLuci
+  other prefixes:
+    - Mylu
   name: Little brown bat
 Hipposideros armiger:
   parent: Gnathostomata sp.
-  prefix: Hiar
+  prefix: HippArmi
+  other prefixes:
+    - Hiar
   name: Great roundleaf bat
 Myotis brandtii:
   parent: Gnathostomata sp.
-  prefix: Mybr
+  prefix: MyotBran
+  other prefixes:
+    - Mybr
   name: Brandt's bat

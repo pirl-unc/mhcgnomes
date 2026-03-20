@@ -21,30 +21,30 @@ def test_mhc_strip_tyal_species_inferred():
     result = infer_species_from_prefix("MhcTyal-DAB1*01:01")
     assert result is not None
     species, prefix = result
-    eq_(species.prefix, "Tyal")
+    eq_(species.prefix, "TytoAlba")
     eq_(prefix, "MhcTyal")
 
 
 def test_mhc_strip_tyal_gene():
-    eq_(parse("MhcTyal-UA", raise_on_error=True), Gene.get("Tyal", "UA"))
+    eq_(parse("MhcTyal-UA", raise_on_error=True), Gene.get("TytoAlba", "UA"))
 
 
 def test_mhc_strip_tyal_gene_dab1():
-    eq_(parse("MhcTyal-DAB1", raise_on_error=True), Gene.get("Tyal", "DAB1"))
+    eq_(parse("MhcTyal-DAB1", raise_on_error=True), Gene.get("TytoAlba", "DAB1"))
 
 
 def test_mhc_strip_tyal_gene_dab2():
-    eq_(parse("MhcTyal-DAB2", raise_on_error=True), Gene.get("Tyal", "DAB2"))
+    eq_(parse("MhcTyal-DAB2", raise_on_error=True), Gene.get("TytoAlba", "DAB2"))
 
 
 def test_mhc_strip_tyal_allele_ua():
-    expected = Allele.get("Tyal", "UA", "01", "01")
+    expected = Allele.get("TytoAlba", "UA", "01", "01")
     assert expected is not None
     eq_(parse("MhcTyal-UA*01:01", raise_on_error=True), expected)
 
 
 def test_mhc_strip_tyal_allele_dab1():
-    expected = Allele.get("Tyal", "DAB1", "01", "01")
+    expected = Allele.get("TytoAlba", "DAB1", "01", "01")
     assert expected is not None
     eq_(parse("MhcTyal-DAB1*01:01", raise_on_error=True), expected)
 
@@ -56,11 +56,11 @@ def test_mhc_strip_tyal_allele_dab1():
 
 def test_mhc_strip_acar_gene():
     """Great reed warbler — MhcAcar-UA should parse."""
-    eq_(parse("MhcAcar-UA", raise_on_error=True), Gene.get("Acar", "UA"))
+    eq_(parse("MhcAcar-UA", raise_on_error=True), Gene.get("AcroArun", "UA"))
 
 
 def test_mhc_strip_acar_allele():
-    expected = Allele.get("Acar", "UA", "01", "01")
+    expected = Allele.get("AcroArun", "UA", "01", "01")
     assert expected is not None
     eq_(parse("MhcAcar-UA*01:01", raise_on_error=True), expected)
 
@@ -118,15 +118,15 @@ def test_mhc_strip_sasa_allele():
 
 
 def test_mhc_strip_lowercase():
-    eq_(parse("mhcTyal-UA", raise_on_error=True), Gene.get("Tyal", "UA"))
+    eq_(parse("mhcTyal-UA", raise_on_error=True), Gene.get("TytoAlba", "UA"))
 
 
 def test_mhc_strip_uppercase():
-    eq_(parse("MHCTyal-UA", raise_on_error=True), Gene.get("Tyal", "UA"))
+    eq_(parse("MHCTyal-UA", raise_on_error=True), Gene.get("TytoAlba", "UA"))
 
 
 def test_mhc_strip_mixed_case():
-    eq_(parse("mHcTyal-UA", raise_on_error=True), Gene.get("Tyal", "UA"))
+    eq_(parse("mHcTyal-UA", raise_on_error=True), Gene.get("TytoAlba", "UA"))
 
 
 # ---------------------------------------------------------------------------
@@ -244,7 +244,7 @@ def test_mhc_strip_round_trip_gene_to_string():
     """Parsed MhcTyal-UA should normalize to 'Tyal-UA' in to_string()."""
     result = parse("MhcTyal-UA", raise_on_error=True)
     assert isinstance(result, Gene)
-    eq_(result.species.prefix, "Tyal")
+    eq_(result.species.prefix, "TytoAlba")
     eq_(result.name, "UA")
 
 
@@ -252,7 +252,7 @@ def test_mhc_strip_round_trip_allele_to_string():
     """Parsed MhcAcar-UA*01:01 should produce a valid Allele with Acar species."""
     result = parse("MhcAcar-UA*01:01", raise_on_error=True)
     assert isinstance(result, Allele)
-    eq_(result.species.prefix, "Acar")
+    eq_(result.species.prefix, "AcroArun")
     eq_(result.gene.name, "UA")
 
 
@@ -260,6 +260,6 @@ def test_mhc_strip_round_trip_allele_fields():
     """Allele fields should be correctly parsed after Mhc stripping."""
     result = parse("MhcTyal-DAB1*03:02", raise_on_error=True)
     assert isinstance(result, Allele)
-    eq_(result.species.prefix, "Tyal")
+    eq_(result.species.prefix, "TytoAlba")
     eq_(result.gene.name, "DAB1")
     eq_(result.allele_fields, ("03", "02"))
