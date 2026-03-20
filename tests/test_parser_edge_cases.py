@@ -1205,7 +1205,7 @@ class TestAdversarialSpeciesStickiness:
             assert parse(s, raise_on_error=False) is None
 
     def test_valid_species_scoped_compact_names_still_parse(self):
-        eq_(parse("Onmy-DAA1", raise_on_error=True), Gene.get("Onmy", "DAA"))
+        eq_(parse("Onmy-DAA1", raise_on_error=True), Gene.get("Onmy", "DAA1"))
         eq_(parse("Saoe-N3", raise_on_error=True), Gene.get("Saoe", "N3"))
         eq_(parse("BoLA-NC11", raise_on_error=True), Gene.get("BoLA", "NC11"))
 
