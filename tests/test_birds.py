@@ -168,7 +168,7 @@ def test_parse_barn_owl_family_level_and_embedded_prefix_aliases():
     examples = [
         ("Tyal-UA", Gene.get("Tyal", "UA")),
         # MHCIIB is now parsed as MhcClass(II, beta), not Gene(Tyal, DAB)
-        ("Tyal-DRB", Gene.get("Tyal", "DAB")),
+        ("Tyal-DRB", Gene.get("Tyal", "DRB")),
         ("Tyal-MhcTyal-UA", Gene.get("Tyal", "UA")),
         ("Tyal-MhcTyal-DAB", Gene.get("Tyal", "DAB")),
         ("Tyal-MhcTyal-DAB1", Gene.get("Tyal", "DAB1")),
@@ -229,7 +229,7 @@ def test_parse_chinese_egret_class1_genes():
     for gene_name in ["UAA", "UBA"]:
         expected = Gene.get("Egeu", gene_name)
         assert expected is not None
-        eq_(expected.mhc_class, "I")
+        eq_(expected.mhc_class, "Ia")
         eq_(parse(f"Egeu-{gene_name}", raise_on_error=True), expected)
 
 
