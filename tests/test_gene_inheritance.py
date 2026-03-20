@@ -125,15 +125,18 @@ class TestCrossTaxonLeakPrevention:
         sp = Species.get("Dare")
         assert sp.find_matching_gene_name("DRB1") is None
 
-    def test_chicken_does_not_get_fish_uaa(self):
+    def test_chicken_inherits_uaa_from_aves(self):
+        """Chicken now inherits UAA from Aves (non-mammalian class I gene)."""
         sp = Species.get("Gaga")
-        assert sp.find_matching_gene_name("UAA") is None
+        assert sp.find_matching_gene_name("UAA") is not None
 
-    def test_chicken_does_not_get_mammal_drb(self):
+    def test_chicken_inherits_drb_from_aves(self):
+        """Chicken now inherits DRB from Aves clade node."""
         sp = Species.get("Gaga")
-        assert sp.find_matching_gene_name("DRB") is None
+        assert sp.find_matching_gene_name("DRB") is not None
 
-    def test_frog_does_not_get_mammal_drb(self):
+    def test_frog_does_not_get_drb(self):
+        """Amphibia has DA/DB/DC but not DR — frogs should not have DRB."""
         sp = Species.get("Xela")
         assert sp.find_matching_gene_name("DRB") is None
 
@@ -184,15 +187,16 @@ class TestGalliformInheritance:
         assert sp.find_matching_gene_name("BF") is not None  # inherited
         assert sp.find_matching_gene_name("DAB1") is not None  # own
 
-    def test_galliform_does_not_get_fish_genes(self):
-        """Galliforms should NOT have fish U-lineage genes."""
+    def test_galliform_inherits_aves_genes(self):
+        """Galliforms now inherit non-mammalian U-lineage and DR genes from Aves."""
         sp = Species.get("Gaga")
-        assert sp.find_matching_gene_name("UAA") is None
-        assert sp.find_matching_gene_name("UBA") is None
+        assert sp.find_matching_gene_name("UAA") is not None
+        assert sp.find_matching_gene_name("UBA") is not None
+        assert sp.find_matching_gene_name("DRB") is not None
 
-    def test_galliform_does_not_get_mammal_genes(self):
+    def test_galliform_does_not_get_mammal_specific_genes(self):
+        """Galliforms should NOT have mammal-specific numbered loci."""
         sp = Species.get("Mega")
-        assert sp.find_matching_gene_name("DRB") is None
         assert sp.find_matching_gene_name("DRB1") is None
         assert sp.find_matching_gene_name("DQA1") is None
 
@@ -388,3 +392,344 @@ class TestTaxonomicPrefixLeakage:
         gene = Gene.get(species_prefix, gene_name)
         assert gene is not None
         eq_(gene.to_string(use_old_species_prefix=True), expected_string)
+
+
+# ---------------------------------------------------------------------------
+# Intermediate clade node inheritance
+# ---------------------------------------------------------------------------
+
+
+class TestChondrichthyesInheritance:
+    """Chondrichthyes sp. provides UA, DA, DB, DC genes to sharks."""
+
+    def test_clade_has_genes(self):
+        sp = Species.get("Chondrichthyes sp.")
+        assert sp is not None
+        assert sp.find_matching_gene_name("UA") is not None
+        assert sp.find_matching_gene_name("DAA") is not None
+        assert sp.find_matching_gene_name("DAB") is not None
+        assert sp.find_matching_gene_name("DBA") is not None
+        assert sp.find_matching_gene_name("DCB") is not None
+
+    def test_shark_inherits_ua(self):
+        sp = Species.get("Gici")
+        assert sp.find_matching_gene_name("UA") is not None
+
+    def test_shark_inherits_dab(self):
+        sp = Species.get("Hefr")
+        assert sp.find_matching_gene_name("DAB") is not None
+
+    def test_shark_inherits_root_genes(self):
+        sp = Species.get("Sqac")
+        assert sp.find_matching_gene_name("DMA") is not None
+        assert sp.find_matching_gene_name("TAP1") is not None
+
+    def test_shark_does_not_get_mammal_genes(self):
+        sp = Species.get("Trsc")
+        assert sp.find_matching_gene_name("DRB") is None
+        assert sp.find_matching_gene_name("DRB1") is None
+
+
+class TestActinopterygiiInheritance:
+    """Actinopterygii sp. provides fish-wide class I/II genes."""
+
+    def test_clade_has_genes(self):
+        sp = Species.get("Actinopterygii sp.")
+        assert sp is not None
+        for gene in [
+            "UAA",
+            "UBA",
+            "UA",
+            "UCA",
+            "UDA",
+            "DAA",
+            "DAB",
+            "DBA",
+            "DBB",
+            "DCA",
+            "DCB",
+            "DXA",
+            "DXB",
+        ]:
+            assert sp.find_matching_gene_name(gene) is not None, gene
+
+    def test_salmonidae_inherits_from_actinopterygii(self):
+        sp = Species.get("Salmonidae sp.")
+        assert sp.find_matching_gene_name("UAA") is not None
+        assert sp.find_matching_gene_name("DAB") is not None
+        assert sp.find_matching_gene_name("DCA") is not None
+
+    def test_zebrafish_inherits_actinopterygii_genes(self):
+        sp = Species.get("Dare")
+        assert sp.find_matching_gene_name("UAA") is not None
+        assert sp.find_matching_gene_name("DAA") is not None
+        assert sp.find_matching_gene_name("DXA") is not None
+
+    def test_tropheus_has_dd_genes(self):
+        sp = Species.get("Trsp")
+        assert sp.find_matching_gene_name("DDA") is not None
+        assert sp.find_matching_gene_name("DDB1") is not None
+        assert sp.find_matching_gene_name("DDB2") is not None
+
+    def test_coregonus_inherits_actinopterygii(self):
+        sp = Species.get("Cosp")
+        assert sp.find_matching_gene_name("UAA") is not None
+
+    def test_fish_does_not_get_drb(self):
+        sp = Species.get("Dare")
+        assert sp.find_matching_gene_name("DRB") is None
+
+
+class TestAmphibiaInheritance:
+    """Amphibia sp. provides class I/II genes to frogs, salamanders, caecilians."""
+
+    def test_clade_has_genes(self):
+        sp = Species.get("Amphibia sp.")
+        assert sp is not None
+        for gene in ["UAA", "UBA", "UA", "UCA", "UDA", "DAA", "DAB", "DBA", "DBB", "DCA", "DCB"]:
+            assert sp.find_matching_gene_name(gene) is not None, gene
+
+    def test_xenopus_inherits_class1(self):
+        sp = Species.get("Xela")
+        assert sp.find_matching_gene_name("UAA") is not None
+        assert sp.find_matching_gene_name("UBA") is not None
+        assert sp.find_matching_gene_name("UCA") is not None
+
+    def test_xenopus_keeps_own_uea(self):
+        sp = Species.get("Xela")
+        assert sp.find_matching_gene_name("UEA") is not None
+
+    def test_axolotl_inherits_amphibia(self):
+        sp = Species.get("Amme")
+        assert sp.find_matching_gene_name("DAA") is not None
+        assert sp.find_matching_gene_name("UA") is not None
+
+    def test_amphibian_does_not_get_drb(self):
+        sp = Species.get("Xela")
+        assert sp.find_matching_gene_name("DRB") is None
+
+    def test_amphibian_does_not_get_dra(self):
+        sp = Species.get("Xela")
+        assert sp.find_matching_gene_name("DRA") is None
+
+
+class TestReptiliaInheritance:
+    """Reptilia sp. provides class I/II genes to lizards, snakes, tuatara."""
+
+    def test_clade_has_genes(self):
+        sp = Species.get("Reptilia sp.")
+        assert sp is not None
+        for gene in [
+            "UAA",
+            "UBA",
+            "UA",
+            "UCA",
+            "UDA",
+            "DAA",
+            "DAB",
+            "DBA",
+            "DBB",
+            "DCA",
+            "DCB",
+            "DRA",
+        ]:
+            assert sp.find_matching_gene_name(gene) is not None, gene
+
+    def test_reptilia_does_not_have_drb(self):
+        sp = Species.get("Reptilia sp.")
+        assert sp.find_matching_gene_name("DRB") is None
+
+    def test_testudines_under_reptilia(self):
+        sp = Species.get("Testudines sp.")
+        assert has_ancestor(sp, "Reptilia sp.")
+        assert sp.find_matching_gene_name("UA") is not None
+        assert sp.find_matching_gene_name("DAA") is not None
+
+    def test_crocodylia_under_reptilia(self):
+        sp = Species.get("Crocodylia sp.")
+        assert has_ancestor(sp, "Reptilia sp.")
+        assert sp.find_matching_gene_name("UA") is not None
+        assert sp.find_matching_gene_name("DB01") is not None
+
+    def test_tuatara_inherits_reptilia(self):
+        sp = Species.get("Sppu")
+        assert sp.find_matching_gene_name("UA") is not None
+        assert sp.find_matching_gene_name("DAA") is not None
+        assert sp.find_matching_gene_name("DRA") is not None
+
+    def test_snake_inherits_reptilia(self):
+        sp = Species.get("Nana")
+        assert sp.find_matching_gene_name("DAB") is not None
+
+    def test_lizard_inherits_reptilia(self):
+        sp = Species.get("Anca")
+        assert sp.find_matching_gene_name("UA") is not None
+
+
+class TestAvesInheritance:
+    """Aves sp. provides class I/II genes to all birds."""
+
+    def test_clade_has_genes(self):
+        sp = Species.get("Aves sp.")
+        assert sp is not None
+        for gene in ["UAA", "UBA", "UA", "DAA", "DAB", "DBA", "DBB", "DCA", "DCB", "DRA", "DRB"]:
+            assert sp.find_matching_gene_name(gene) is not None, gene
+
+    def test_aves_does_not_have_uca(self):
+        """UCA/UDA not on Aves per plan (few/no birds use them)."""
+        sp = Species.get("Aves sp.")
+        assert sp.find_matching_gene_name("UCA") is None
+        assert sp.find_matching_gene_name("UDA") is None
+
+    def test_galliformes_under_aves(self):
+        sp = Species.get("Galliformes sp.")
+        assert has_ancestor(sp, "Aves sp.")
+
+    def test_aves_to_galliformes_to_chicken_chain(self):
+        """Full inheritance chain: Aves → Galliformes → Gallus gallus."""
+        sp = Species.get("Gaga")
+        assert has_ancestor(sp, "Aves sp.")
+        assert has_ancestor(sp, "Galliformes sp.")
+        # From Aves
+        assert sp.find_matching_gene_name("UAA") is not None
+        assert sp.find_matching_gene_name("DRB") is not None
+        # From Galliformes
+        assert sp.find_matching_gene_name("BF") is not None
+        assert sp.find_matching_gene_name("BLB") is not None
+        # Own
+        assert sp.find_matching_gene_name("BF1") is not None
+        assert sp.find_matching_gene_name("YF1") is not None
+
+    def test_ratite_inherits_aves(self):
+        sp = Species.get("Stca")
+        assert has_ancestor(sp, "Aves sp.")
+        assert sp.find_matching_gene_name("UA") is not None
+        assert sp.find_matching_gene_name("DAB") is not None
+        assert sp.find_matching_gene_name("DRB") is not None
+
+    def test_owl_inherits_aves(self):
+        sp = Species.get("Tyal")
+        assert has_ancestor(sp, "Aves sp.")
+        assert sp.find_matching_gene_name("UA") is not None
+        assert sp.find_matching_gene_name("DAB") is not None
+        # Owl keeps own numbered loci
+        assert sp.find_matching_gene_name("DAB1") is not None
+        assert sp.find_matching_gene_name("DAB2") is not None
+
+    def test_penguin_keeps_drb1(self):
+        """DRB1 is species-specific, not the same as DRB from Aves."""
+        sp = Species.get("Sphu")
+        assert sp.find_matching_gene_name("DRB1") is not None
+        assert sp.find_matching_gene_name("DRB") is not None  # inherited from Aves
+
+    def test_duck_inherits_aves_plus_own(self):
+        sp = Species.get("Anpl")
+        assert sp.find_matching_gene_name("UAA") is not None  # from Aves
+        assert sp.find_matching_gene_name("DRA") is not None  # from Aves
+        assert sp.find_matching_gene_name("UEA") is not None  # own
+
+
+class TestMarsupialiaInheritance:
+    """Marsupialia sp. provides UA, DA, DB, DC, DRA genes to marsupials."""
+
+    def test_clade_has_genes(self):
+        sp = Species.get("Marsupialia sp.")
+        assert sp is not None
+        for gene in ["UA", "DAA", "DAB", "DBA", "DBB", "DCA", "DCB", "DRA"]:
+            assert sp.find_matching_gene_name(gene) is not None, gene
+
+    def test_marsupialia_does_not_have_uaa(self):
+        """UAA/UBA not on Marsupialia (only Actinopterygii through Aves)."""
+        sp = Species.get("Marsupialia sp.")
+        assert sp.find_matching_gene_name("UAA") is None
+        assert sp.find_matching_gene_name("UBA") is None
+
+    def test_opossum_inherits_marsupial_genes(self):
+        sp = Species.get("Modo")
+        assert sp.find_matching_gene_name("UA") is not None  # from Marsupialia
+        assert sp.find_matching_gene_name("DAA") is not None  # from Marsupialia
+        assert sp.find_matching_gene_name("DRA") is not None  # from Marsupialia
+        # Own genes
+        assert sp.find_matching_gene_name("UA1") is not None
+        assert sp.find_matching_gene_name("UB") is not None
+        assert sp.find_matching_gene_name("UT3") is not None
+
+    def test_devil_inherits_plus_own(self):
+        sp = Species.get("Saha")
+        assert sp.find_matching_gene_name("UA") is not None  # from Marsupialia
+        assert sp.find_matching_gene_name("DAB") is not None  # from Marsupialia
+        assert sp.find_matching_gene_name("UB") is not None  # own
+        assert sp.find_matching_gene_name("UK") is not None  # own
+
+    def test_koala_inherits_marsupial(self):
+        sp = Species.get("Phci")
+        assert sp.find_matching_gene_name("DAA") is not None
+        assert sp.find_matching_gene_name("DAB") is not None
+
+    def test_possum_inherits_marsupial(self):
+        sp = Species.get("Trvu")
+        assert sp.find_matching_gene_name("UA") is not None  # from Marsupialia
+        assert sp.find_matching_gene_name("UB") is not None  # own
+
+    def test_marsupial_does_not_get_mammal_drb1(self):
+        sp = Species.get("Modo")
+        assert sp.find_matching_gene_name("DRB1") is None
+
+
+class TestCrossTaxonBoundariesWithClades:
+    """Ensure clade genes don't leak across major taxon boundaries."""
+
+    def test_mammal_does_not_get_uaa(self):
+        """UAA is on Actinopterygii/Amphibia/Reptilia/Aves, not mammals."""
+        for prefix in ["HLA", "H2", "BoLA"]:
+            sp = Species.get(prefix)
+            assert sp.find_matching_gene_name("UAA") is None, prefix
+
+    def test_mammal_does_not_get_uba(self):
+        for prefix in ["HLA", "H2", "BoLA"]:
+            sp = Species.get(prefix)
+            assert sp.find_matching_gene_name("UBA") is None, prefix
+
+    def test_mammal_does_not_get_non_mammalian_dab(self):
+        """DAB (non-mammalian class II) should not leak to mammals."""
+        for prefix in ["HLA", "H2", "BoLA"]:
+            sp = Species.get(prefix)
+            assert sp.find_matching_gene_name("DAB") is None, prefix
+
+    def test_fish_does_not_get_dra(self):
+        """DRA is on Reptilia/Aves/Marsupialia, not fish."""
+        sp = Species.get("Dare")
+        assert sp.find_matching_gene_name("DRA") is None
+
+    def test_fish_does_not_get_drb(self):
+        sp = Species.get("Dare")
+        assert sp.find_matching_gene_name("DRB") is None
+
+    def test_amphibian_does_not_get_dra(self):
+        """DRA is not on Amphibia."""
+        sp = Species.get("Xela")
+        assert sp.find_matching_gene_name("DRA") is None
+
+    def test_shark_does_not_get_uaa(self):
+        """UAA is on Actinopterygii but not Chondrichthyes."""
+        sp = Species.get("Gici")
+        assert sp.find_matching_gene_name("UAA") is None
+
+    def test_platypus_stays_at_gnathostomata(self):
+        """Platypus is directly under Gnathostomata, no intermediate clade."""
+        sp = Species.get("Oran")
+        assert not has_ancestor(sp, "Marsupialia sp.")
+        assert has_ancestor(sp, "Gnathostomata sp.")
+
+
+class TestRattusRattusBugFix:
+    """Rattus rattus should be under Rattus sp., not Gnathostomata."""
+
+    def test_rattus_rattus_parent(self):
+        sp = Species.get("Rara")
+        assert sp is not None
+        assert has_ancestor(sp, "Rattus sp.")
+
+    def test_rattus_rattus_inherits_rat_genes(self):
+        sp = Species.get("Rara")
+        assert sp.find_matching_gene_name("Da") is not None
