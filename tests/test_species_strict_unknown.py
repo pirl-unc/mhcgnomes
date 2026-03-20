@@ -34,8 +34,10 @@ def test_species_strict_unknown_species_does_not_return_wrong_species():
 
 
 def test_species_strict_blb2_with_grouse():
-    """BLB2 is chicken-specific. species=grouse (unknown) should error, not return chicken."""
-    assert parse("BLB2", species="Lagopus scotica", raise_on_error=False) is None
+    """Grouse is now in the ontology under Galliformes and inherits BLB2."""
+    result = parse("BLB2", species="Lagopus scotica", raise_on_error=True)
+    assert result is not None
+    eq_(result.species.name, "Lagopus scotica")
 
 
 def test_species_strict_bf2_with_guinea_fowl():
@@ -47,7 +49,10 @@ def test_species_strict_ddb1_with_cichlid():
 
 
 def test_species_strict_uaa1_with_ricefish():
-    assert parse("UAA1", species="Oryzias dancena", raise_on_error=False) is None
+    """UAA1 is now on Actinopterygii — ricefish inherits it."""
+    result = parse("UAA1", species="Oryzias dancena", raise_on_error=True)
+    assert result is not None
+    eq_(result.species.name, "Oryzias dancena")
 
 
 def test_species_strict_ze_with_barbs():

@@ -138,9 +138,10 @@ def test_bat_does_not_get_fish_uaa():
     assert sp.find_matching_gene_name("UAA") is None
 
 
-def test_toad_does_not_get_mammal_drb1():
+def test_toad_inherits_drb1_from_amphibia():
+    """DRB1 is now on Amphibia — attested in amphibian MHC literature."""
     sp = Species.get("Rhinella marina")
-    assert sp.find_matching_gene_name("DRB1") is None
+    assert sp.find_matching_gene_name("DRB1") is not None
 
 
 # --- species= strict parameter ---

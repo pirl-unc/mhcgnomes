@@ -69,6 +69,8 @@ Chondrichthyes sp.:
   prefix: Chondrichthyes
   name: Cartilaginous fish
   genes:
+    Ia:
+      - UAA
     I:
       - UA
     IIa:
@@ -92,7 +94,12 @@ Actinopterygii sp.:
   genes:
     Ia:
       - UAA
+      - UAA1
+      - UAA2
+      - UAA3
+      - UAA4
       - UBA
+      - UBA2
     I:
       - UA
     Ib:
@@ -101,13 +108,23 @@ Actinopterygii sp.:
     IIa:
       DA:
         - DAA
+        - DAA1
         - DAB
+        - DAB1
+        - DAB2
+        - DAB3
       DB:
         - DBA
+        - DBA1
         - DBB
+        - DBB1
+        - DBB2
+        - DBB3
+        - DBB4
       DC:
         - DCA
         - DCB
+        - DCB2
       DX:
         - DXA
         - DXB
@@ -123,6 +140,7 @@ Amphibia sp.:
     Ia:
       - UAA
       - UBA
+      - UBA4
     I:
       - UA
     Ib:
@@ -132,12 +150,17 @@ Amphibia sp.:
       DA:
         - DAA
         - DAB
+        - DAB1
+        - DAB2
+        - DAB3
       DB:
         - DBA
         - DBB
       DC:
         - DCA
         - DCB
+      DR:
+        - DRB1
 
 ######################################################
 # Reptilia — lizards, snakes, tuatara, turtles, crocodilians
@@ -158,7 +181,14 @@ Reptilia sp.:
     IIa:
       DA:
         - DAA
+        - DAA-1
+        - DAA-2
         - DAB
+        - DAB1
+        - DAB2
+        - DAB3
+        - DAB4
+        - DAB5
       DB:
         - DBA
         - DBB
@@ -167,6 +197,7 @@ Reptilia sp.:
         - DCB
       DR:
         - DRA
+        - DRB1
 
 ######################################################
 # Aves — all birds
@@ -185,6 +216,9 @@ Aves sp.:
       DA:
         - DAA
         - DAB
+        - DAB1
+        - DAB2
+        - DAB3
       DB:
         - DBA
         - DBB
@@ -194,6 +228,12 @@ Aves sp.:
       DR:
         - DRA
         - DRB
+        - DRB1
+    IIb:
+      DM:
+        - DMA1
+        - DMB1
+        - DMB2
 
 ######################################################
 # Marsupialia — marsupials
@@ -205,10 +245,20 @@ Marsupialia sp.:
   genes:
     I:
       - UA
+      - UB
+      - UC
+      - UD
+      - UE
+      - UF
+      - UG
+      - UM
     IIa:
       DA:
         - DAA
         - DAB
+        - DAB1
+        - DAB2
+        - DAB3
       DB:
         - DBA
         - DBB
@@ -240,6 +290,9 @@ Galliformes sp.:
     IIa:
       BL:
         - BLB
+        - BLB1
+        - BLB2
+        - BLB3
     IIb:
       DM:
         - DMB1
@@ -940,6 +993,43 @@ Parachondrostoma toxostoma:
   # mhcseqs uses Pctn
   prefix: Pctn
   name: Softnose
+############################
+#
+# Killifish and other fish from mhcseqs report
+#
+############################
+Nothobranchius furzeri:
+  parent: Actinopterygii sp.
+  prefix: NothFurz
+  name: Turquoise killifish
+Nothobranchius rachovii:
+  parent: Actinopterygii sp.
+  prefix: NothRach
+  name: Bluefin notho
+Nothobranchius kadleci:
+  parent: Actinopterygii sp.
+  prefix: NothKadl
+  name: Kadlec's notho
+Nothobranchius orthonotus:
+  parent: Actinopterygii sp.
+  prefix: NothOrth
+  name: Spotted killifish
+Nothobranchius pienaari:
+  parent: Actinopterygii sp.
+  prefix: NothPien
+  name: Pienaar's notho
+Iconisemion striatum:
+  parent: Actinopterygii sp.
+  prefix: IconStri
+  name: Striped killifish
+Hypophthalmichthys molitrix:
+  parent: Actinopterygii sp.
+  prefix: HypoMoli
+  name: Silver carp
+Carassius langsdorfii:
+  parent: Actinopterygii sp.
+  prefix: CaraLang
+  name: Ginbuna
 ############################
 #
 # Snakes
@@ -1818,7 +1908,7 @@ Sus scrofa:
 #
 ################################################################################
 Pteropus alecto:
-  parent: Gnathostomata sp.
+  parent: Chiroptera sp.
   prefix: Ptal
   name:
     - Black fruit bat
@@ -1828,26 +1918,10 @@ Pteropus alecto:
       - N
     IIa:
       DQ:
-        - DQA1
         - DQA2
-        - DQB1
         - DQB2
       DR:
-        - DRA
-        - DRB1
         - DRB2
-    IIb:
-      DO:
-        - DOA
-        - DOB
-      DM:
-        - DMA
-        - DMB
-    other:
-      - TAP1
-      - TAP2
-      - TAPBP
-      - B2M
 ################################################################################
 #
 # Rabbit
@@ -2049,7 +2123,44 @@ Spheniscus mendiculus:
   parent: Aves sp.
   prefix: Spme
   name: Galapagos penguin
-################################################################################
+  genes:
+    IIb:
+      DM:
+        - DMB-0
+        - DMB-1
+Grus grus:
+  parent: Aves sp.
+  prefix: GrusGrus
+  name: Common crane
+Limosa limosa:
+  parent: Aves sp.
+  prefix: LimoLimo
+  name: Black-tailed godwit
+Spinus spinus:
+  parent: Aves sp.
+  prefix: SpinSpin
+  name: Eurasian siskin
+Emberiza cioides:
+  parent: Aves sp.
+  prefix: EmbeCioi
+  name: Meadow bunting
+Leucopsar rothschildi:
+  parent: Aves sp.
+  prefix: LeucRoth
+  name: Bali myna
+Menura novaehollandiae:
+  parent: Aves sp.
+  prefix: MenuNova
+  name: Superb lyrebird
+Rhodinocichla rosea:
+  parent: Aves sp.
+  prefix: RhodRose
+  name: Rosy thrush-tanager
+Lagopus scotica:
+  parent: Galliformes sp.
+  prefix: LagoScot
+  name: Red grouse
+######################################################
 #
 # Chicken
 #
@@ -3310,6 +3421,46 @@ Ailuropoda melanoleuca:
       - TAP2
       - TAPBP
       - B2M
+######################################################
+# Chiroptera — bats
+#
+# Bats are placental mammals that use standard mammalian MHC class II
+# nomenclature (DR, DQ, DP, DO families).
+#
+# Sources:
+# - https://bmcgenomics.biomedcentral.com/articles/10.1186/s12864-017-3760-0
+# - https://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.3000436
+#
+######################################################
+Chiroptera sp.:
+  parent: Gnathostomata sp.
+  prefix: Chiroptera
+  name: Bat
+  genes:
+    IIa:
+      DQ:
+        - DQA1
+        - DQB
+        - DQB1
+      DR:
+        - DRA
+        - DRB1
+      DP:
+        - DPA1
+        - DPB1
+    IIb:
+      DO:
+        - DOA
+        - DOB
+      DM:
+        - DMA
+        - DMB
+    other:
+      - TAP1
+      - TAP2
+      - TAPBP
+      - B2M
+
 ##########################
 #
 # Xenopus (frog)
@@ -3484,18 +3635,22 @@ Vombatus ursinus:
 #
 ############################
 Rhinolophus ferrumequinum:
-  parent: Gnathostomata sp.
+  parent: Chiroptera sp.
   prefix: Rhfe
   name: Greater horseshoe bat
 Myotis lucifugus:
-  parent: Gnathostomata sp.
+  parent: Chiroptera sp.
   prefix: Mylu
   name: Little brown bat
 Hipposideros armiger:
-  parent: Gnathostomata sp.
+  parent: Chiroptera sp.
   prefix: Hiar
   name: Great roundleaf bat
 Myotis brandtii:
-  parent: Gnathostomata sp.
+  parent: Chiroptera sp.
   prefix: Mybr
   name: Brandt's bat
+Rhinolophus macrotis:
+  parent: Chiroptera sp.
+  prefix: RhinMacr
+  name: Big-eared horseshoe bat
