@@ -194,10 +194,14 @@ class TestGalliformInheritance:
         assert sp.find_matching_gene_name("UBA") is not None
         assert sp.find_matching_gene_name("DRB") is not None
 
-    def test_galliform_does_not_get_mammal_specific_genes(self):
-        """Galliforms should NOT have mammal-specific numbered loci."""
+    def test_galliform_inherits_drb1_from_aves(self):
+        """DRB1 is now on Aves — galliforms inherit it."""
         sp = Species.get("Mega")
-        assert sp.find_matching_gene_name("DRB1") is None
+        assert sp.find_matching_gene_name("DRB1") is not None
+
+    def test_galliform_does_not_get_mammal_specific_genes(self):
+        """Galliforms should NOT have mammal-specific DQ genes."""
+        sp = Species.get("Mega")
         assert sp.find_matching_gene_name("DQA1") is None
 
 
@@ -231,7 +235,9 @@ class TestCrocodyliaInheritance:
     def test_croc_does_not_get_mammal_genes(self):
         sp = Species.get("Crpo")
         assert sp.find_matching_gene_name("DRB") is None
-        assert sp.find_matching_gene_name("DRB1") is None
+        # DRB1 is now on Reptilia
+        assert sp.find_matching_gene_name("DRB1") is not None
+        assert sp.find_matching_gene_name("DQA1") is None
 
     def test_croc_does_not_get_galliform_genes(self):
         sp = Species.get("Crpo")
@@ -710,10 +716,10 @@ class TestCrossTaxonBoundariesWithClades:
         sp = Species.get("Xela")
         assert sp.find_matching_gene_name("DRA") is None
 
-    def test_shark_does_not_get_uaa(self):
-        """UAA is on Actinopterygii but not Chondrichthyes."""
+    def test_shark_inherits_uaa(self):
+        """UAA is now on Chondrichthyes (shark literature uses UAA)."""
         sp = Species.get("Gici")
-        assert sp.find_matching_gene_name("UAA") is None
+        assert sp.find_matching_gene_name("UAA") is not None
 
     def test_platypus_stays_at_gnathostomata(self):
         """Platypus is directly under Gnathostomata, no intermediate clade."""

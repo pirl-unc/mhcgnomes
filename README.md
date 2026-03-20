@@ -276,8 +276,8 @@ multiple prefix tiers so that every species is always parseable:
 | Tier | Form | Example | When used |
 | --- | --- | --- | --- |
 | Established short prefix | 1–4 letters | `HLA`, `Gaga`, `Crpo` | Published in MHC literature or IPD-MHC. Preferred for display. |
-| Generated 4-letter prefix | 2+2 from latin name | `Chmy`, `Stca`, `Drno` | When no established prefix exists and the 4-letter code is unique. |
-| 5+5 long prefix | First 5 of genus + first 5 of species | `HomoSapie`, `ChrysPicta` | When the 4-letter code collides. Used as display prefix for collision species. |
+| Novel 4+4 prefix | First 4 of genus + first 4 of species | `OryzLati`, `StruCame` | Standard display prefix for species without an established literature prefix. |
+| 5+5 long prefix | First 5 of genus + first 5 of species | `HomoSapie`, `OryziLatip` | Auto-generated alias for all binomial species. Always parseable. |
 | Full latin name | Concatenated genus + species | `HomoSapiens`, `ChrysemysPicta` | Always parseable as an alternative. Guaranteed collision-free. |
 
 Legacy committee-style prefixes are not always at the same taxonomic level as
@@ -291,12 +291,13 @@ same allele:
 
 ```
 HLA-A*02:01          # established prefix
-HomoSapie-A*02:01    # 5+5 long prefix
+HomoSapi-A*02:01     # 4+4 novel prefix (auto-generated alias)
+HomoSapie-A*02:01    # 5+5 long prefix (auto-generated alias)
 HomoSapiens-A*02:01  # full latin name
 Homo sapiens-A*02:01 # latin name with space
 ```
 
-The 10-letter (5+5) space greatly reduces collision probability compared to
+The 8-letter (4+4) novel prefix space greatly reduces collision probability compared to
 4-letter codes, but only the full latin name is truly guaranteed to be unique.
 Since we don't yet know what naming conventions the scientific community will
 settle on for newer taxa, we support all tiers simultaneously.

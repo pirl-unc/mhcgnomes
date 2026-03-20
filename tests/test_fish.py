@@ -32,30 +32,31 @@ def test_parse_trout_allele_Onmy_DAB_050101():
     eq_(result, expected)
 
 
-def test_parse_trout_gene_alias_Onmy_DAA1():
+def test_parse_trout_gene_Onmy_DAA1():
+    """DAA1 is now a real gene on Actinopterygii."""
     result = parse("Onmy-DAA1", raise_on_error=True)
-    expected = Gene.get("Onmy", "DAA")
+    expected = Gene.get("Onmy", "DAA1")
     assert expected is not None
     eq_(result, expected)
 
 
-def test_parse_trout_allele_alias_Onmy_DAA1_01_01():
+def test_parse_trout_allele_Onmy_DAA1_01_01():
     result = parse("Onmy-DAA1*01:01", raise_on_error=True)
-    expected = Allele.get("Onmy", "DAA", ["01", "01"])
+    expected = Allele.get("Onmy", "DAA1", ["01", "01"])
     assert expected is not None
     eq_(result, expected)
 
 
-def test_parse_salmon_gene_alias_Sasa_DAA1():
+def test_parse_salmon_gene_Sasa_DAA1():
     result = parse("Sasa-DAA1", raise_on_error=True)
-    expected = Gene.get("Sasa", "DAA")
+    expected = Gene.get("Sasa", "DAA1")
     assert expected is not None
     eq_(result, expected)
 
 
-def test_parse_salmon_allele_alias_Sasa_DAA1_01_01():
+def test_parse_salmon_allele_Sasa_DAA1_01_01():
     result = parse("Sasa-DAA1*01:01", raise_on_error=True)
-    expected = Allele.get("Sasa", "DAA", ["01", "01"])
+    expected = Allele.get("Sasa", "DAA1", ["01", "01"])
     assert expected is not None
     eq_(result, expected)
 
@@ -121,14 +122,15 @@ def test_parse_common_carp_family_level_genes():
         eq_(parse(f"Cyca-{gene_name}", raise_on_error=True), expected)
 
 
-def test_parse_common_carp_aliases_to_conservative_family_genes():
+def test_parse_common_carp_numbered_loci_and_aliases():
+    """DAB1-3 are now real genes on Actinopterygii. DXA1/2 and UA1 remain aliases."""
     examples = [
         ("Cyca-UA1", Gene.get("Cyca", "UA")),
         ("Cyca-DXA1", Gene.get("Cyca", "DXA")),
         ("Cyca-DXA2", Gene.get("Cyca", "DXA")),
-        ("Cyca-DAB1", Gene.get("Cyca", "DAB")),
-        ("Cyca-DAB2", Gene.get("Cyca", "DAB")),
-        ("Cyca-DAB3", Gene.get("Cyca", "DAB")),
+        ("Cyca-DAB1", Gene.get("Cyca", "DAB1")),
+        ("Cyca-DAB2", Gene.get("Cyca", "DAB2")),
+        ("Cyca-DAB3", Gene.get("Cyca", "DAB3")),
         ("Cyca-DAB4", Gene.get("Cyca", "DAB")),
     ]
     for raw_string, expected in examples:
@@ -141,8 +143,8 @@ def test_parse_common_carp_alias_alleles():
         ("Cyca-UA1*01", Allele.get("Cyca", "UA", "01")),
         ("Cyca-DXA1*01", Allele.get("Cyca", "DXA", "01")),
         ("Cyca-DXA2*01", Allele.get("Cyca", "DXA", "01")),
-        ("Cyca-DAB1*01", Allele.get("Cyca", "DAB", "01")),
-        ("Cyca-DAB3*01", Allele.get("Cyca", "DAB", "01")),
+        ("Cyca-DAB1*01", Allele.get("Cyca", "DAB1", "01")),
+        ("Cyca-DAB3*01", Allele.get("Cyca", "DAB3", "01")),
         ("Cyca-DAB4*01", Allele.get("Cyca", "DAB", "01")),
         ("Cyca-ZE*01:01", Allele.get("Cyca", "ZE", "01", "01")),
     ]
@@ -309,18 +311,26 @@ def test_parse_zebrafish_zfin_style_aliases():
         eq_(parse(raw_string, raise_on_error=True), expected)
 
 
-def test_parse_olive_flounder_dab_aliases():
-    for alias in ["DAB1", "DAB2", "DAB3", "DAB4", "DAB5", "DAB6"]:
+def test_parse_olive_flounder_dab_numbered_loci():
+    """DAB1-3 are real genes; DAB4-6 alias to DAB."""
+    for alias in ["DAB1", "DAB2", "DAB3"]:
+        expected = Gene.get("Paol", alias)
+        assert expected is not None
+        eq_(parse(f"Paol-{alias}", raise_on_error=True), expected)
+    for alias in ["DAB4", "DAB5", "DAB6"]:
         expected = Gene.get("Paol", "DAB")
         assert expected is not None
         eq_(parse(f"Paol-{alias}", raise_on_error=True), expected)
 
 
-def test_parse_olive_flounder_dab_alias_alleles():
-    for alias in ["DAB1", "DAB3", "DAB6"]:
-        expected = Allele.get("Paol", "DAB", "01", "01")
+def test_parse_olive_flounder_dab_alleles():
+    for alias in ["DAB1", "DAB3"]:
+        expected = Allele.get("Paol", alias, "01", "01")
         assert expected is not None
         eq_(parse(f"Paol-{alias}*01:01", raise_on_error=True), expected)
+    expected = Allele.get("Paol", "DAB", "01", "01")
+    assert expected is not None
+    eq_(parse("Paol-DAB6*01:01", raise_on_error=True), expected)
 
 
 def test_parse_golden_pompano_species_Trov():

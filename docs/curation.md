@@ -259,7 +259,7 @@ Every collision-resolution change should add both:
 
 #### Resolved collisions
 
-These collisions have been resolved by assigning long (5+5) prefixes to the
+These collisions have been resolved by assigning long (4+4) prefixes to the
 less-established species. See the
 [Species Identity Proposal](species-latin-name-scoping.md) for the design
 rationale.
@@ -268,10 +268,10 @@ rationale.
 | --- | --- | --- | --- |
 | `Bubu` | *Bubalus bubalis* (water buffalo) | Keeps `Bubu` — well-established in MHC literature | [Bubu-DQA alleles in swamp buffaloes](https://pubmed.ncbi.nlm.nih.gov/27177904/), [Bubu-DRB polymorphism](https://pubmed.ncbi.nlm.nih.gov/12580780/) |
 | `Bubu` | *Bubo bubo* (Eurasian eagle-owl) | Uses `BuboBubo` | [MHC class II in *Bubo* owls](https://bioone.org/journals/zoological-science/volume-34/issue-6/zs170039/Duplication-and-Variation-in-the-Major-Histocompatibility-Complex-Genes-in/10.2108/zs170039.full) |
-| `Orla` / `OrLA` | *Pongo sp.* (orangutan) / *Oryzias latipes* (medaka) | Orangutan keeps `OrLA`; medaka uses `Oryl` | |
-| `Gaga` | *Gallus gallus* (chicken) / *Gavialis gangeticus* (gharial) | Chicken keeps `Gaga` ([IPD-MHC chicken](https://www.ebi.ac.uk/ipd/mhc/group/CHICKEN/)); gharial uses `GaviaGange` | |
-| `Cyca` | *Cyprinus carpio* (carp) / *Cyclura carinata* (iguana) / *Cyanistes caeruleus* (blue tit) | Carp keeps `Cyca`; iguana uses `CycluCarin`; blue tit uses `CyaniCaeru` | All three attested in literature: carp in [IPD-MHC](https://www.ebi.ac.uk/ipd/mhc/), iguana in Glaberman et al., blue tit in [Schut et al.](https://pubmed.ncbi.nlm.nih.gov/27177904/) |
-| `Chpi` | *Chrysolophus pictus* (golden pheasant) / *Chrysemys picta* (painted turtle) | Pheasant keeps `Chpi`; turtle uses `ChrysPicta` | |
+| `Orla` / `OrLA` | *Pongo sp.* (orangutan) / *Oryzias latipes* (medaka) | Orangutan keeps `OrLA`; medaka uses `OryzLati` | |
+| `Gaga` | *Gallus gallus* (chicken) / *Gavialis gangeticus* (gharial) | Chicken keeps `Gaga` ([IPD-MHC chicken](https://www.ebi.ac.uk/ipd/mhc/group/CHICKEN/)); gharial uses `GaviGang` | |
+| `Cyca` | *Cyprinus carpio* (carp) / *Cyclura carinata* (iguana) / *Cyanistes caeruleus* (blue tit) | Carp keeps `Cyca`; iguana uses `CyclCari`; blue tit uses `CyanCaer` | All three attested in literature: carp in [IPD-MHC](https://www.ebi.ac.uk/ipd/mhc/), iguana in Glaberman et al., blue tit in Westerdahl et al. |
+| `Chpi` | *Chrysolophus pictus* (golden pheasant) / *Chrysemys picta* (painted turtle) | Pheasant keeps `Chpi`; turtle uses `ChryPict` | |
 
 #### Low-risk collisions
 
@@ -289,8 +289,8 @@ and blue tit by different research groups).
 The [species identity model](species-latin-name-scoping.md) now uses latin
 names as canonical identity (see `Species.latin_name`,
 `Species.get_by_latin_name()`). Every species is also parseable via its full
-concatenated latin name (e.g., `HomoSapiens-A*02:01`) and a 5+5 truncated
-form (e.g., `HomoSapie-A*02:01`). See the
+concatenated latin name (e.g., `HomoSapiens-A*02:01`) and a 4+4 truncated
+form (e.g., `HomoSapi-A*02:01`). See the
 [prefix tier documentation](https://github.com/pirl-unc/mhcgnomes/blob/main/README.md#species-prefix-tiers)
 in the README.
 
