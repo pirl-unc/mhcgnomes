@@ -38,20 +38,31 @@ Out[3]: 'A0201'
 
 ### Species-directed parsing
 
-`default_species=` is a fallback hint for speciesless inputs such as
-`A*02:01` or `DRB3*01:01`.
-
-`species=` is stricter: the final parsed object must have exactly that species.
-For generic ancestor-scoped prefixes, mhcgnomes can rewrite the result to a
-requested descendant species when that conversion is valid:
+`species=` constrains parsing to a single species. The final parsed object
+must match that species exactly, or parsing fails. This is useful when you
+know the organism and want to reject cross-species mismatches:
 
 ```python
->>> mhcgnomes.parse("BoLA-DRB3*01:01").species.name
-'Bos sp.'
 >>> mhcgnomes.parse("BoLA-DRB3*01:01", species="Bos taurus").to_string()
 'Bota-DRB3*01:01'
 >>> mhcgnomes.parse("HLA-A*02:01", species="Bos taurus", raise_on_error=False) is None
 True
+>>> mhcgnomes.parse("A*02:01", species="Homo sapiens").species.name
+'Homo sapiens'
+```
+
+When the input uses an ancestor prefix (like `BoLA` for genus-level *Bos sp.*),
+`species=` rewrites the result to the requested descendant species if valid.
+
+`default_species=` is a less strict alternative — it provides a fallback
+species hint for inputs that don't contain a species prefix, but does not
+reject inputs that resolve to a different species:
+
+```python
+>>> mhcgnomes.parse("A*02:01", default_species="Homo sapiens").species.name
+'Homo sapiens'
+>>> mhcgnomes.parse("DMA", default_species="Chelonia mydas").species.name
+'Chelonia mydas'
 ```
 
 ## CLI
