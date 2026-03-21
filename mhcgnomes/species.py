@@ -729,6 +729,9 @@ def create_species_for_latin_name(latin_name):
         raise ValueError(f"Species not found: '{latin_name}'")
     species_info = raw_species_dict[latin_name]
     parent_species_latin_name = species_info.get("parent")
+    if not parent_species_latin_name and latin_name != "Gnathostomata sp.":
+        # Default: all species descend from the jawed-vertebrate root
+        parent_species_latin_name = "Gnathostomata sp."
     if parent_species_latin_name:
         parent_species = create_species_for_latin_name(parent_species_latin_name)
     else:
