@@ -19,6 +19,7 @@
 # Taxonomic hierarchy
 #
 # Species inherit genes from their parent node (set via "parent:" field).
+# Entries without an explicit parent default to Gnathostomata sp. (the root).
 # The inheritance chain is walked recursively:
 #
 #   Gnathostomata sp.  (DMA, DMB, DM, TAP1, TAP2, TAP-L, TAPBP, B2M)
@@ -65,7 +66,6 @@ Gnathostomata sp.:
 # Chondrichthyes — sharks and rays
 ######################################################
 Chondrichthyes sp.:
-  parent: Gnathostomata sp.
   prefix: Chondrichthyes
   name: Cartilaginous fish
   genes:
@@ -89,7 +89,6 @@ Chondrichthyes sp.:
 # Actinopterygii — bony fish
 ######################################################
 Actinopterygii sp.:
-  parent: Gnathostomata sp.
   prefix: Actinopterygii
   name: Bony fish
   genes:
@@ -134,7 +133,6 @@ Actinopterygii sp.:
 # Amphibia — frogs, salamanders, caecilians
 ######################################################
 Amphibia sp.:
-  parent: Gnathostomata sp.
   prefix: Amphibia
   name: Amphibian
   genes:
@@ -167,7 +165,6 @@ Amphibia sp.:
 # Reptilia — lizards, snakes, tuatara, turtles, crocodilians
 ######################################################
 Reptilia sp.:
-  parent: Gnathostomata sp.
   prefix: Reptilia
   name: Reptile
   genes:
@@ -204,7 +201,6 @@ Reptilia sp.:
 # Aves — all birds
 ######################################################
 Aves sp.:
-  parent: Gnathostomata sp.
   prefix: Aves
   name: Bird
   genes:
@@ -240,7 +236,6 @@ Aves sp.:
 # Marsupialia — marsupials
 ######################################################
 Marsupialia sp.:
-  parent: Gnathostomata sp.
   prefix: Marsupialia
   name: Marsupial
   genes:
@@ -325,6 +320,7 @@ Crocodylia sp.:
         - DB06
         - DB07
         - DB08
+        - DB09
 
 ######################################################
 #
@@ -334,7 +330,6 @@ Crocodylia sp.:
 # - http://www.imgt.org/IMGTrepertoireMHC/LocusGenes/nomenclatures/human/MHC/human_MHCnom.html
 ######################################################
 Homo sapiens:
-  parent: Gnathostomata sp.
   prefix: HLA
   name: Human
   genes:
@@ -409,7 +404,6 @@ Homo sapiens:
 #
 ######################################################
 Mus musculus:
-  parent: Gnathostomata sp.
   prefix: H2
   name: Mouse
   genes:
@@ -522,7 +516,6 @@ Mus musculus:
 #
 ######################################################
 Rattus sp.:
-  parent: Gnathostomata sp.
   prefix: RT1
   name: Rat
   genes:
@@ -641,7 +634,6 @@ Rattus rattus:
 #
 ############################
 Canis sp.:
-  parent: Gnathostomata sp.
   prefix: DLA
   name: Canine
   genes:
@@ -698,7 +690,6 @@ Canis simensis:
 #
 ############################
 Felis sp.:
-  parent: Gnathostomata sp.
   prefix: FLA
   name: Cat
   genes:
@@ -1069,6 +1060,26 @@ Nothobranchius kuhntae:
   parent: Actinopterygii sp.
   prefix: NothKuhn
   name: Kuhntae killifish
+Channa argus:
+  parent: Actinopterygii sp.
+  prefix: ChanArgu
+  name: Northern snakehead
+Gadus morhua:
+  parent: Actinopterygii sp.
+  prefix: GaduMorh
+  name: Atlantic cod
+Anabarilius grahami:
+  parent: Actinopterygii sp.
+  prefix: AnabGrah
+  name: Kanglang fish
+Larimichthys crocea:
+  parent: Actinopterygii sp.
+  prefix: LariCroc
+  name: Large yellow croaker
+Kryptolebias marmoratus:
+  parent: Actinopterygii sp.
+  prefix: KrypMarm
+  name: Mangrove killifish
 ############################
 #
 # Killifish and other fish from mhcseqs report
@@ -1316,6 +1327,26 @@ Caiman latirostris:
   other prefixes:
     - CaimaLatir
   name: Broad-snouted caiman
+Crocodylus acutus:
+  parent: Crocodylia sp.
+  prefix: Crac
+  name: American crocodile
+Crocodylus palustris:
+  parent: Crocodylia sp.
+  prefix: CrocPalu
+  name: Mugger crocodile
+Crocodylus rhombifer:
+  parent: Crocodylia sp.
+  prefix: CrocRhom
+  name: Cuban crocodile
+Crocodylus johnstoni:
+  parent: Crocodylia sp.
+  prefix: CrocJohn
+  name: Freshwater crocodile
+Crocodylus intermedius:
+  parent: Crocodylia sp.
+  prefix: CrocInte
+  name: Orinoco crocodile
 ############################
 #
 # Turtles
@@ -1519,7 +1550,6 @@ Triakis scyllium:
 #
 ##############################################
 Ovis sp.:
-  parent: Gnathostomata sp.
   name: Sheep
   prefix: OLA
   genes:
@@ -1558,7 +1588,6 @@ Ovis canadensis:
 #   https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3658703/
 ################################################################################
 Bos sp.:
-  parent: Gnathostomata sp.
   prefix: BoLA
   name: Cattle
   genes:
@@ -1663,7 +1692,6 @@ Bubalus bubalis:
 #
 ################################################################################
 Cetacea sp.:
-  parent: Gnathostomata sp.
   prefix: CELA
   name:
     - Cetacean
@@ -1936,7 +1964,6 @@ Ziphius cavirostris:
 #
 ################################################################################
 Capra sp.:
-  parent: Gnathostomata sp.
   prefix: CLA
   name: Goat
   genes:
@@ -1964,7 +1991,6 @@ Capra hircus:
 # - https://www.ebi.ac.uk/ipd/mhc/group/ELA/species
 ################################################################################
 Equus sp.:
-  parent: Gnathostomata sp.
   prefix: ELA
   name: Equine
   genes:
@@ -2023,7 +2049,6 @@ Equus burchelli:
 #
 ################################################################################
 Sus sp.:
-  parent: Gnathostomata sp.
   prefix: SLA
   name:
     - Pig
@@ -2111,7 +2136,6 @@ Pteropus alecto:
 #
 ################################################################################
 Oryctolagus sp.:
-  parent: Gnathostomata sp.
   prefix: RLA
   name: Rabbit
   genes:
@@ -2420,6 +2444,22 @@ Lanius collaris:
   parent: Aves sp.
   prefix: LaniColl
   name: Fiscal shrike
+Turdus naumanni:
+  parent: Aves sp.
+  prefix: TurdNaum
+  name: Dusky thrush
+Turdus eunomus:
+  parent: Aves sp.
+  prefix: TurdEuno
+  name: Naumann's thrush
+Turdus ruficollis:
+  parent: Aves sp.
+  prefix: TurdRufi
+  name: Dark-throated thrush
+Turdus atrogularis:
+  parent: Aves sp.
+  prefix: TurdAtro
+  name: Black-throated thrush
 Lagopus scotica:
   parent: Galliformes sp.
   prefix: LagoScot
@@ -2815,7 +2855,6 @@ Tyto alba:
 #
 ################################################################################
 Primata sp.:
-  parent: Gnathostomata sp.
   prefix: NHP
   name: Primate
   genes:
@@ -3714,7 +3753,6 @@ Theropithecus gelada:
 #
 ##########################
 Ailuropoda melanoleuca:
-  parent: Gnathostomata sp.
   prefix: AiluMela
   other prefixes:
     - Aime
@@ -3739,7 +3777,6 @@ Ailuropoda melanoleuca:
 #
 ######################################################
 Chiroptera sp.:
-  parent: Gnathostomata sp.
   prefix: Chiroptera
   name: Bat
   genes:
@@ -3947,7 +3984,6 @@ Phascolarctos cinereus:
       - UJ
       - UK
 Ornithorhynchus anatinus:
-  parent: Gnathostomata sp.
   prefix: OrniAnat
   other prefixes:
     - Oran
@@ -3956,8 +3992,12 @@ Ornithorhynchus anatinus:
     IIa:
       DR:
         - DRA
-Notamacropus eugenii:
+Notamacropus sp.:
   parent: Marsupialia sp.
+  prefix: Notamacropus
+  name: Wallaby
+Notamacropus eugenii:
+  parent: Notamacropus sp.
   prefix: NotaEuge
   name: Tammar wallaby
   other prefixes:
