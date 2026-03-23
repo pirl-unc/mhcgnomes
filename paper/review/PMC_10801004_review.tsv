@@ -1,0 +1,438 @@
+raw_string	parsed	parsed_as	result_type	species	correct	notes	source
+Clgl-DQA	no						PMC:PMC10801004
+Clgl-DQA*06:02	no						PMC:PMC10801004
+Clgl-DQA*07:01	no						PMC:PMC10801004
+Clgl-DQA*07:01/Clgl-DQA*07:02/Clgl-DQA*07:03	no						PMC:PMC10801004
+Clgl-DQA*07:02	no						PMC:PMC10801004
+Clgl-DQA*07:03	no						PMC:PMC10801004
+Clgl-DQA*08:01	no						PMC:PMC10801004
+Clgl-DQA*08:02	no						PMC:PMC10801004
+Clgl-DQA*08:02/Clgl-DQA*08:01	no						PMC:PMC10801004
+Clgl-DQA*19:02	no						PMC:PMC10801004
+Clgl-DQA*21	no						PMC:PMC10801004
+Clgl-DQA*35	no						PMC:PMC10801004
+Clgl-DQA*37	no						PMC:PMC10801004
+Clgl-DQA*38	no						PMC:PMC10801004
+Clgl-DQA*39	no						PMC:PMC10801004
+Clgl-DQA*40	no						PMC:PMC10801004
+Clgl-DQA*42	no						PMC:PMC10801004
+Clgl-DQA*44	no						PMC:PMC10801004
+Clgl-DQA*44/Clgl-DQA*44:02	no						PMC:PMC10801004
+Clgl-DQA*44:02	no						PMC:PMC10801004
+Clgl-DQA*49	no						PMC:PMC10801004
+Clgl-DQA*51	no						PMC:PMC10801004
+Clgl-DQA*52	no						PMC:PMC10801004
+Clgl-DQA*52/Clgl-DQA*73	no						PMC:PMC10801004
+Clgl-DQA*53	no						PMC:PMC10801004
+Clgl-DQA*54	no						PMC:PMC10801004
+Clgl-DQA*58	no						PMC:PMC10801004
+Clgl-DQA*59	no						PMC:PMC10801004
+Clgl-DQA*61	no						PMC:PMC10801004
+Clgl-DQA*62	no						PMC:PMC10801004
+Clgl-DQA*62/Clgl-DQA*76	no						PMC:PMC10801004
+Clgl-DQA*63	no						PMC:PMC10801004
+Clgl-DQA*70	no						PMC:PMC10801004
+Clgl-DQA*73	no						PMC:PMC10801004
+Clgl-DQA*74	no						PMC:PMC10801004
+Clgl-DQA*75	no						PMC:PMC10801004
+Clgl-DQA*76	no						PMC:PMC10801004
+DQA*06:02	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('06', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DQA*07:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('07', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DQA*07:02	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('07', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DQA*07:03	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('07', '03'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DQA*08:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('08', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DQA*08:02	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('08', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DQA*19:02	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('19', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DQA*21	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('21',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DQA*35	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('35',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DQA*37	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('37',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DQA*38	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('38',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DQA*39	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('39',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DQA*40	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('40',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DQA*42	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('42',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DQA*44	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('44',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DQA*44:02	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('44', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DQA*49	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('49',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DQA*51	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('51',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DQA*52	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('52',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DQA*53	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('53',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DQA*54	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('54',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DQA*58	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('58',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DQA*59	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('59',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DQA*61	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('61',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DQA*62	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('62',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DQA*63	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('63',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DQA*70	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('70',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DQA*73	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('73',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DQA*76	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('76',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DQA-159041/Clgl-DQA*39	no						PMC:PMC10801004
+DQA-159042/Clgl-DQA*38	no						PMC:PMC10801004
+DQA-159043/Clgl-DQA*49	no						PMC:PMC10801004
+DQA-159044/Clgl-DQA*52	no						PMC:PMC10801004
+DQA-159046/Clgl-DQA*37	no						PMC:PMC10801004
+DQA-159047/Clgl-DQA*58	no						PMC:PMC10801004
+DQA-159048/Clgl-DQA*59	no						PMC:PMC10801004
+DQA-159050/Clgl-DQA*07:01	no						PMC:PMC10801004
+DQA-159051/Clgl-DQA*06:02	no						PMC:PMC10801004
+DQA-159052/Clgl-DQA*08:02	no						PMC:PMC10801004
+DQA-159053/Clgl-DQA*44	no						PMC:PMC10801004
+DQA-159054/Clgl-DQA*54	no						PMC:PMC10801004
+DQA-159055/Clgl-DQA*63	no						PMC:PMC10801004
+DQA-159056/Clgl-DQA*61	no						PMC:PMC10801004
+DQA-159057/Clgl-DQA*40	no						PMC:PMC10801004
+DQA-159058/Clgl-DQA*62	no						PMC:PMC10801004
+DQA-159059/Clgl-DQA*21	no						PMC:PMC10801004
+DQA-159060/Clgl-DQA*07:02	no						PMC:PMC10801004
+DQA-159061/Clgl-DQA*51	no						PMC:PMC10801004
+DQA-159068/Clgl-DQA*42	no						PMC:PMC10801004
+DQA-159100/Clgl-DQA*53	no						PMC:PMC10801004
+DQA-159112/Clgl-DQA*35	no						PMC:PMC10801004
+DQA-159118/Clgl-DQA*08:01	no						PMC:PMC10801004
+DQA-159123/Clgl-DQA*19:02	no						PMC:PMC10801004
+DQA-159260/Clgl-DQA*70	no						PMC:PMC10801004
+DQB*01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('01',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DQB*02	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('02',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DQB*06	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('06',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DQB*08	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('08',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DQB*15	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('15',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DQB*15:02	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('15', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DQB*31	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('31',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DQB*40	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('40',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DQB*41	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('41',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DQB*42	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('42',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DQB*43	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('43',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DQB*44	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('44',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DQB*46	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('46',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DQB*47	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('47',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DQB*48	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('48',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DQB*49	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('49',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DQB*50	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('50',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DQB*51	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('51',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DQB*52	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('52',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DQB*54	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('54',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DQB*56	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('56',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DQB*58	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('58',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DQB*62	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('62',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DQB*63	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('63',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DQB*64	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('64',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DQB*65	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('65',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DQB*68	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('68',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DQB*69	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('69',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DQB-85355/Mygl-DQB*52	no						PMC:PMC10801004
+DQB-85356/Mygl-DQB*54	no						PMC:PMC10801004
+DQB-85357/Mygl-DQB*15	no						PMC:PMC10801004
+DQB-85358/Mygl-DQB*41	no						PMC:PMC10801004
+DQB-85359/Mygl-DQB*06	no						PMC:PMC10801004
+DQB-85360/Mygl-DQB*02	no						PMC:PMC10801004
+DQB-85361/Mygl-DQB*42	no						PMC:PMC10801004
+DQB-85362/Mygl-DQB*01	no						PMC:PMC10801004
+DQB-85363/Mygl-DQB*46	no						PMC:PMC10801004
+DQB-85364/Mygl-DQB*08	no						PMC:PMC10801004
+DQB-85365/Mygl-DQB*63	no						PMC:PMC10801004
+DQB-85366/Mygl-DQB*50	no						PMC:PMC10801004
+DQB-85367/Mygl-DQB*40	no						PMC:PMC10801004
+DQB-85368/Mygl-DQB*31	no						PMC:PMC10801004
+DQB-85369/Mygl-DQB*47	no						PMC:PMC10801004
+DQB-85372/Mygl-DQB*44	no						PMC:PMC10801004
+DQB-85373/Mygl-DQB*49	no						PMC:PMC10801004
+DQB-85376/Mygl-DQB*48	no						PMC:PMC10801004
+DQB-85377/Mygl-DQB*51	no						PMC:PMC10801004
+DQB-85380/Mygl-DQB*43	no						PMC:PMC10801004
+DQB-85394/Mygl-DQB*62	no						PMC:PMC10801004
+DQB-85440/Mygl-DQB*68	no						PMC:PMC10801004
+DQB-85473/Mygl-DQB*56	no						PMC:PMC10801004
+DQB-85474/Mygl-DQB*65	no						PMC:PMC10801004
+DQB-85491/Mygl-DQB*64	no						PMC:PMC10801004
+DQB-85517/Mygl-DQB*69	no						PMC:PMC10801004
+DQB-85553/Mygl-DQB*58	no						PMC:PMC10801004
+DRB*120	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('120',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DRB*153	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('153',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DRB*155	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('155',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DRB*156	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('156',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DRB*157	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('157',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DRB*158	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('158',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DRB*162	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('162',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DRB*165	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('165',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DRB*28	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('28',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DRB*30	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('30',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DRB*33	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('33',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DRB*38	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('38',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DRB*39	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('39',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DRB*40	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('40',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DRB*40:02	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('40', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DRB*40:03	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('40', '03'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DRB*41:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('41', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DRB*42:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('42', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DRB*45	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('45',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DRB*58	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('58',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DRB*59	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('59',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DRB*72	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('72',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10801004
+DRB-00001/Mygl-DRB*153	no						PMC:PMC10801004
+DRB-00003/Mygl-DRB*38	no						PMC:PMC10801004
+DRB-00004/Mygl-DRB*30	no						PMC:PMC10801004
+DRB-00005/Mygl-DRB*72	no						PMC:PMC10801004
+DRB-00006/Mygl-DRB*39	no						PMC:PMC10801004
+DRB-00007/Mygl-DRB*58	no						PMC:PMC10801004
+DRB-00008/Mygl-DRB*155	no						PMC:PMC10801004
+DRB-00010/Mygl-DRB*40_151	no						PMC:PMC10801004
+DRB-00011/Mygl-DRB*158	no						PMC:PMC10801004
+DRB-00012/Mygl-DRB*33	no						PMC:PMC10801004
+DRB-00014/Mygl-DRB*45	no						PMC:PMC10801004
+DRB-00025/Mygl-DRB*28	no						PMC:PMC10801004
+DRB-00073/Mygl-DRB*42:01	no						PMC:PMC10801004
+DRB-00117/Mygl-DRB*165	no						PMC:PMC10801004
+DRB-00120/Mygl-DRB*120	no						PMC:PMC10801004
+DRB-00127/Mygl-DRB*41:01	no						PMC:PMC10801004
+DRB-00142/Mygl-DRB*59	no						PMC:PMC10801004
+DRB-00151/Mygl-DRB*162	no						PMC:PMC10801004
+DRB-00408/Mygl-DRB*156	no						PMC:PMC10801004
+DRB-00449/Mygl-DRB*157	no						PMC:PMC10801004
+EX3-000001/Mygl-IA*07	no						PMC:PMC10801004
+EX3-000002/Mygl-IA*03	no						PMC:PMC10801004
+EX3-000003/Mygl-IA*10	no						PMC:PMC10801004
+EX3-000004/Mygl-IA*02	no						PMC:PMC10801004
+EX3-000005/Mygl-IA*09	no						PMC:PMC10801004
+EX3-000006/Mygl-IA*15	no						PMC:PMC10801004
+EX3-000008/Mygl-IA*11	no						PMC:PMC10801004
+EX3-000011/Mygl-IA*118	no						PMC:PMC10801004
+EX3-000013/Mygl-IA*83	no						PMC:PMC10801004
+EX3-000015/Mygl-IA*22	no						PMC:PMC10801004
+EX3-000017/Mygl-IA*109	no						PMC:PMC10801004
+EX3-000018/Mygl-IA*54	no						PMC:PMC10801004
+EX3-000019/Mygl-IA*52	no						PMC:PMC10801004
+EX3-000020/Mygl-IA*20	no						PMC:PMC10801004
+EX3-000021/Mygl-IA*92	no						PMC:PMC10801004
+EX3-000022/Mygl-IA*13	no						PMC:PMC10801004
+EX3-000023/Mygl-IA*28	no						PMC:PMC10801004
+EX3-000024/Mygl-IA*105	no						PMC:PMC10801004
+EX3-000025/Mygl-IA*33	no						PMC:PMC10801004
+EX3-000027/Mygl-IA*40	no						PMC:PMC10801004
+EX3-000029/Mygl-IA*76	no						PMC:PMC10801004
+EX3-000031/Mygl-IA*34	no						PMC:PMC10801004
+EX3-000033/Mygl-IA*51	no						PMC:PMC10801004
+EX3-000034/Mygl-IA*56	no						PMC:PMC10801004
+EX3-000037/Mygl-IA*58	no						PMC:PMC10801004
+EX3-000039/Mygl-IA*16	no						PMC:PMC10801004
+EX3-000041/Mygl-IA*30	no						PMC:PMC10801004
+EX3-000052/Mygl-IA*35	no						PMC:PMC10801004
+EX3-000055/Mygl-IA*61	no						PMC:PMC10801004
+EX3-000065/Mygl-IA*72	no						PMC:PMC10801004
+EX3-000075/Mygl-IA*117	no						PMC:PMC10801004
+EX3-000086/Mygl-IA*75	no						PMC:PMC10801004
+EX3-000101/Mygl-IA*24	no						PMC:PMC10801004
+EX3-000105/Mygl-IA*91	no						PMC:PMC10801004
+EX3-000118/Mygl-IA*31	no						PMC:PMC10801004
+EX3-000121/Mygl-IA*69	no						PMC:PMC10801004
+EX3-000133/Mygl-IA*41	no						PMC:PMC10801004
+EX3-000157/Mygl-IA*48	no						PMC:PMC10801004
+EX3-000160/Mygl-IA*95	no						PMC:PMC10801004
+EX3-000227/Mygl-IA*101	no						PMC:PMC10801004
+EX3-000232/Mygl-IA*113	no						PMC:PMC10801004
+EX3-000298/Mygl-IA*43	no						PMC:PMC10801004
+EX3-000462/Mygl-IA*62	no						PMC:PMC10801004
+EX3-000467/Mygl-IA*36	no						PMC:PMC10801004
+EX3-000559/Mygl-IA*67	no						PMC:PMC10801004
+EX3-001850/Mygl-IA*42	no						PMC:PMC10801004
+IA*02	no						PMC:PMC10801004
+IA*03	no						PMC:PMC10801004
+IA*07	no						PMC:PMC10801004
+IA*09	no						PMC:PMC10801004
+IA*10	no						PMC:PMC10801004
+IA*101	no						PMC:PMC10801004
+IA*102	no						PMC:PMC10801004
+IA*105	no						PMC:PMC10801004
+IA*109	no						PMC:PMC10801004
+IA*11	no						PMC:PMC10801004
+IA*113	no						PMC:PMC10801004
+IA*117	no						PMC:PMC10801004
+IA*118	no						PMC:PMC10801004
+IA*13	no						PMC:PMC10801004
+IA*147	no						PMC:PMC10801004
+IA*15	no						PMC:PMC10801004
+IA*152	no						PMC:PMC10801004
+IA*16	no						PMC:PMC10801004
+IA*163	no						PMC:PMC10801004
+IA*20	no						PMC:PMC10801004
+IA*22	no						PMC:PMC10801004
+IA*24	no						PMC:PMC10801004
+IA*28	no						PMC:PMC10801004
+IA*30	no						PMC:PMC10801004
+IA*31	no						PMC:PMC10801004
+IA*33	no						PMC:PMC10801004
+IA*34	no						PMC:PMC10801004
+IA*35	no						PMC:PMC10801004
+IA*36	no						PMC:PMC10801004
+IA*37	no						PMC:PMC10801004
+IA*40	no						PMC:PMC10801004
+IA*41	no						PMC:PMC10801004
+IA*42	no						PMC:PMC10801004
+IA*43	no						PMC:PMC10801004
+IA*48	no						PMC:PMC10801004
+IA*51	no						PMC:PMC10801004
+IA*52	no						PMC:PMC10801004
+IA*54	no						PMC:PMC10801004
+IA*56	no						PMC:PMC10801004
+IA*58	no						PMC:PMC10801004
+IA*61	no						PMC:PMC10801004
+IA*62	no						PMC:PMC10801004
+IA*67	no						PMC:PMC10801004
+IA*69	no						PMC:PMC10801004
+IA*72	no						PMC:PMC10801004
+IA*75	no						PMC:PMC10801004
+IA*76	no						PMC:PMC10801004
+IA*83	no						PMC:PMC10801004
+IA*91	no						PMC:PMC10801004
+IA*92	no						PMC:PMC10801004
+IA*95	no						PMC:PMC10801004
+Mygl-DQB	no						PMC:PMC10801004
+Mygl-DQB*01	no						PMC:PMC10801004
+Mygl-DQB*02	no						PMC:PMC10801004
+Mygl-DQB*06	no						PMC:PMC10801004
+Mygl-DQB*08	no						PMC:PMC10801004
+Mygl-DQB*15	no						PMC:PMC10801004
+Mygl-DQB*15/Mygl-DQB*15:02	no						PMC:PMC10801004
+Mygl-DQB*15:02	no						PMC:PMC10801004
+Mygl-DQB*187	no						PMC:PMC10801004
+Mygl-DQB*188	no						PMC:PMC10801004
+Mygl-DQB*189	no						PMC:PMC10801004
+Mygl-DQB*190	no						PMC:PMC10801004
+Mygl-DQB*191	no						PMC:PMC10801004
+Mygl-DQB*192	no						PMC:PMC10801004
+Mygl-DQB*31	no						PMC:PMC10801004
+Mygl-DQB*40	no						PMC:PMC10801004
+Mygl-DQB*41	no						PMC:PMC10801004
+Mygl-DQB*42	no						PMC:PMC10801004
+Mygl-DQB*43	no						PMC:PMC10801004
+Mygl-DQB*44	no						PMC:PMC10801004
+Mygl-DQB*46	no						PMC:PMC10801004
+Mygl-DQB*47	no						PMC:PMC10801004
+Mygl-DQB*48	no						PMC:PMC10801004
+Mygl-DQB*49	no						PMC:PMC10801004
+Mygl-DQB*50	no						PMC:PMC10801004
+Mygl-DQB*51	no						PMC:PMC10801004
+Mygl-DQB*52	no						PMC:PMC10801004
+Mygl-DQB*54	no						PMC:PMC10801004
+Mygl-DQB*56	no						PMC:PMC10801004
+Mygl-DQB*58	no						PMC:PMC10801004
+Mygl-DQB*62	no						PMC:PMC10801004
+Mygl-DQB*63	no						PMC:PMC10801004
+Mygl-DQB*64	no						PMC:PMC10801004
+Mygl-DQB*65	no						PMC:PMC10801004
+Mygl-DQB*68	no						PMC:PMC10801004
+Mygl-DQB*69	no						PMC:PMC10801004
+Mygl-DRB	no						PMC:PMC10801004
+Mygl-DRB*120	no						PMC:PMC10801004
+Mygl-DRB*153	no						PMC:PMC10801004
+Mygl-DRB*155	no						PMC:PMC10801004
+Mygl-DRB*156	no						PMC:PMC10801004
+Mygl-DRB*157	no						PMC:PMC10801004
+Mygl-DRB*158	no						PMC:PMC10801004
+Mygl-DRB*162	no						PMC:PMC10801004
+Mygl-DRB*165	no						PMC:PMC10801004
+Mygl-DRB*165/Mygl-DRB*162	no						PMC:PMC10801004
+Mygl-DRB*17:03	no						PMC:PMC10801004
+Mygl-DRB*229	no						PMC:PMC10801004
+Mygl-DRB*28	no						PMC:PMC10801004
+Mygl-DRB*30	no						PMC:PMC10801004
+Mygl-DRB*33	no						PMC:PMC10801004
+Mygl-DRB*38	no						PMC:PMC10801004
+Mygl-DRB*39	no						PMC:PMC10801004
+Mygl-DRB*40	no						PMC:PMC10801004
+Mygl-DRB*40/Mygl-DRB*40:02/Mygl-DRB*40:03	no						PMC:PMC10801004
+Mygl-DRB*40:02	no						PMC:PMC10801004
+Mygl-DRB*40:03	no						PMC:PMC10801004
+Mygl-DRB*41:01	no						PMC:PMC10801004
+Mygl-DRB*42:01	no						PMC:PMC10801004
+Mygl-DRB*45	no						PMC:PMC10801004
+Mygl-DRB*58	no						PMC:PMC10801004
+Mygl-DRB*59	no						PMC:PMC10801004
+Mygl-DRB*59/Mygl-DRB*41:01	no						PMC:PMC10801004
+Mygl-DRB*72	no						PMC:PMC10801004
+Mygl-IA	no						PMC:PMC10801004
+Mygl-IA*02	no						PMC:PMC10801004
+Mygl-IA*03	no						PMC:PMC10801004
+Mygl-IA*07	no						PMC:PMC10801004
+Mygl-IA*09	no						PMC:PMC10801004
+Mygl-IA*10	no						PMC:PMC10801004
+Mygl-IA*101	no						PMC:PMC10801004
+Mygl-IA*102	no						PMC:PMC10801004
+Mygl-IA*105	no						PMC:PMC10801004
+Mygl-IA*109	no						PMC:PMC10801004
+Mygl-IA*109/Mygl-IA*163	no						PMC:PMC10801004
+Mygl-IA*11	no						PMC:PMC10801004
+Mygl-IA*113	no						PMC:PMC10801004
+Mygl-IA*117	no						PMC:PMC10801004
+Mygl-IA*118	no						PMC:PMC10801004
+Mygl-IA*121	no						PMC:PMC10801004
+Mygl-IA*13	no						PMC:PMC10801004
+Mygl-IA*141	no						PMC:PMC10801004
+Mygl-IA*142	no						PMC:PMC10801004
+Mygl-IA*143	no						PMC:PMC10801004
+Mygl-IA*144	no						PMC:PMC10801004
+Mygl-IA*145	no						PMC:PMC10801004
+Mygl-IA*146	no						PMC:PMC10801004
+Mygl-IA*147	no						PMC:PMC10801004
+Mygl-IA*148	no						PMC:PMC10801004
+Mygl-IA*149	no						PMC:PMC10801004
+Mygl-IA*15	no						PMC:PMC10801004
+Mygl-IA*150	no						PMC:PMC10801004
+Mygl-IA*151	no						PMC:PMC10801004
+Mygl-IA*152	no						PMC:PMC10801004
+Mygl-IA*153	no						PMC:PMC10801004
+Mygl-IA*154	no						PMC:PMC10801004
+Mygl-IA*155	no						PMC:PMC10801004
+Mygl-IA*156	no						PMC:PMC10801004
+Mygl-IA*157	no						PMC:PMC10801004
+Mygl-IA*158	no						PMC:PMC10801004
+Mygl-IA*159	no						PMC:PMC10801004
+Mygl-IA*16	no						PMC:PMC10801004
+Mygl-IA*160	no						PMC:PMC10801004
+Mygl-IA*161	no						PMC:PMC10801004
+Mygl-IA*162	no						PMC:PMC10801004
+Mygl-IA*163	no						PMC:PMC10801004
+Mygl-IA*164	no						PMC:PMC10801004
+Mygl-IA*165	no						PMC:PMC10801004
+Mygl-IA*166	no						PMC:PMC10801004
+Mygl-IA*167	no						PMC:PMC10801004
+Mygl-IA*168	no						PMC:PMC10801004
+Mygl-IA*169	no						PMC:PMC10801004
+Mygl-IA*170	no						PMC:PMC10801004
+Mygl-IA*171	no						PMC:PMC10801004
+Mygl-IA*172	no						PMC:PMC10801004
+Mygl-IA*20	no						PMC:PMC10801004
+Mygl-IA*22	no						PMC:PMC10801004
+Mygl-IA*23	no						PMC:PMC10801004
+Mygl-IA*24	no						PMC:PMC10801004
+Mygl-IA*28	no						PMC:PMC10801004
+Mygl-IA*30	no						PMC:PMC10801004
+Mygl-IA*31	no						PMC:PMC10801004
+Mygl-IA*33	no						PMC:PMC10801004
+Mygl-IA*34	no						PMC:PMC10801004
+Mygl-IA*35	no						PMC:PMC10801004
+Mygl-IA*36	no						PMC:PMC10801004
+Mygl-IA*37	no						PMC:PMC10801004
+Mygl-IA*37/Mygl-IA*102	no						PMC:PMC10801004
+Mygl-IA*40	no						PMC:PMC10801004
+Mygl-IA*41	no						PMC:PMC10801004
+Mygl-IA*42	no						PMC:PMC10801004
+Mygl-IA*43	no						PMC:PMC10801004
+Mygl-IA*48	no						PMC:PMC10801004
+Mygl-IA*48/Mygl-IA*152	no						PMC:PMC10801004
+Mygl-IA*50	no						PMC:PMC10801004
+Mygl-IA*51	no						PMC:PMC10801004
+Mygl-IA*52	no						PMC:PMC10801004
+Mygl-IA*54	no						PMC:PMC10801004
+Mygl-IA*56	no						PMC:PMC10801004
+Mygl-IA*58	no						PMC:PMC10801004
+Mygl-IA*61	no						PMC:PMC10801004
+Mygl-IA*62	no						PMC:PMC10801004
+Mygl-IA*67	no						PMC:PMC10801004
+Mygl-IA*69	no						PMC:PMC10801004
+Mygl-IA*72	no						PMC:PMC10801004
+Mygl-IA*75	no						PMC:PMC10801004
+Mygl-IA*76	no						PMC:PMC10801004
+Mygl-IA*83	no						PMC:PMC10801004
+Mygl-IA*91	no						PMC:PMC10801004
+Mygl-IA*92	no						PMC:PMC10801004
+Mygl-IA*92/Mygl-IA*147	no						PMC:PMC10801004
+Mygl-IA*95	no						PMC:PMC10801004

@@ -1,0 +1,90 @@
+raw_string	parsed	parsed_as	result_type	species	correct	notes	source
+FASTX-Toolkit	no						PMC:PMC6155461
+0.2 Units Phusion High-Fidelity	no						PMC:PMC6155461
+0.4 Units Phusion High-Fidelity	no						PMC:PMC6155461
+High-Fidelity	no						PMC:PMC6155461
+AB302047.1 Tutr-DQB*04	no						PMC:PMC6155461
+AB302050.1 Tutr-DQB*07	no						PMC:PMC6155461
+AB302051.1 Tutr-DQB*08	no						PMC:PMC6155461
+AB302052.1 Tutr-DQB*09	no						PMC:PMC6155461
+AB302055.1 Tutr-DQB*12	no						PMC:PMC6155461
+AB302056.1 Tutr-DQB*13	no						PMC:PMC6155461
+AB302057.1 Tutr-DQB*14	no						PMC:PMC6155461
+AB302059.1 Tutr-DQB*16	no						PMC:PMC6155461
+AB302065.1 Tutr-DQB*22	no						PMC:PMC6155461
+AB302067.1 Tutr-DQB*24	no						PMC:PMC6155461
+DQB*01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('01',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC6155461
+DQB*0101	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('01', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC6155461
+DQB*04	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('04',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC6155461
+DQB*07	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('07',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC6155461
+DQB*08	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('08',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC6155461
+DQB*09	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('09',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC6155461
+DQB*12	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('12',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC6155461
+DQB*13	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('13',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC6155461
+DQB*14	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('14',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC6155461
+DQB*16	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('16',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC6155461
+DQB*22	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('22',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC6155461
+DQB*24	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('24',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC6155461
+DQB*25	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('25',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC6155461
+DQB*26	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('26',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC6155461
+EF690293.1 Tutr-DQB*01 allele, partial cds	no						PMC:PMC6155461
+KJ722710.1 Tutr-DQB*25 allele, exon 2 and partial cds	no						PMC:PMC6155461
+KJ722711.1 Tutr-DQB*26 allele, exon 2 and partial cds	no						PMC:PMC6155461
+TUTR-DQB	yes	Gene(species=Species(name='Tursiops truncatus', mhc_prefix='Tutr'), name='DQB', mutations=())	Gene	Tursiops truncatus			PMC:PMC6155461
+Tutr-DQB	yes	Gene(species=Species(name='Tursiops truncatus', mhc_prefix='Tutr'), name='DQB', mutations=())	Gene	Tursiops truncatus			PMC:PMC6155461
+Tutr-DQB*01	yes	Allele(gene=Gene(species=Species(name='Tursiops truncatus', mhc_prefix='Tutr'), name='DQB', mutations=()), allele_fields=('01',), annotations=(), mutations=())	Allele	Tursiops truncatus			PMC:PMC6155461
+Tutr-DQB*0101	yes	Allele(gene=Gene(species=Species(name='Tursiops truncatus', mhc_prefix='Tutr'), name='DQB', mutations=()), allele_fields=('01', '01'), annotations=(), mutations=())	Allele	Tursiops truncatus			PMC:PMC6155461
+Tutr-DQB*04	yes	Allele(gene=Gene(species=Species(name='Tursiops truncatus', mhc_prefix='Tutr'), name='DQB', mutations=()), allele_fields=('04',), annotations=(), mutations=())	Allele	Tursiops truncatus			PMC:PMC6155461
+Tutr-DQB*07	yes	Allele(gene=Gene(species=Species(name='Tursiops truncatus', mhc_prefix='Tutr'), name='DQB', mutations=()), allele_fields=('07',), annotations=(), mutations=())	Allele	Tursiops truncatus			PMC:PMC6155461
+Tutr-DQB*08	yes	Allele(gene=Gene(species=Species(name='Tursiops truncatus', mhc_prefix='Tutr'), name='DQB', mutations=()), allele_fields=('08',), annotations=(), mutations=())	Allele	Tursiops truncatus			PMC:PMC6155461
+Tutr-DQB*09	yes	Allele(gene=Gene(species=Species(name='Tursiops truncatus', mhc_prefix='Tutr'), name='DQB', mutations=()), allele_fields=('09',), annotations=(), mutations=())	Allele	Tursiops truncatus			PMC:PMC6155461
+Tutr-DQB*12	yes	Allele(gene=Gene(species=Species(name='Tursiops truncatus', mhc_prefix='Tutr'), name='DQB', mutations=()), allele_fields=('12',), annotations=(), mutations=())	Allele	Tursiops truncatus			PMC:PMC6155461
+Tutr-DQB*13	yes	Allele(gene=Gene(species=Species(name='Tursiops truncatus', mhc_prefix='Tutr'), name='DQB', mutations=()), allele_fields=('13',), annotations=(), mutations=())	Allele	Tursiops truncatus			PMC:PMC6155461
+Tutr-DQB*14	yes	Allele(gene=Gene(species=Species(name='Tursiops truncatus', mhc_prefix='Tutr'), name='DQB', mutations=()), allele_fields=('14',), annotations=(), mutations=())	Allele	Tursiops truncatus			PMC:PMC6155461
+Tutr-DQB*16	yes	Allele(gene=Gene(species=Species(name='Tursiops truncatus', mhc_prefix='Tutr'), name='DQB', mutations=()), allele_fields=('16',), annotations=(), mutations=())	Allele	Tursiops truncatus			PMC:PMC6155461
+Tutr-DQB*22	yes	Allele(gene=Gene(species=Species(name='Tursiops truncatus', mhc_prefix='Tutr'), name='DQB', mutations=()), allele_fields=('22',), annotations=(), mutations=())	Allele	Tursiops truncatus			PMC:PMC6155461
+Tutr-DQB*24	yes	Allele(gene=Gene(species=Species(name='Tursiops truncatus', mhc_prefix='Tutr'), name='DQB', mutations=()), allele_fields=('24',), annotations=(), mutations=())	Allele	Tursiops truncatus			PMC:PMC6155461
+Tutr-DQB*25	yes	Allele(gene=Gene(species=Species(name='Tursiops truncatus', mhc_prefix='Tutr'), name='DQB', mutations=()), allele_fields=('25',), annotations=(), mutations=())	Allele	Tursiops truncatus			PMC:PMC6155461
+Tutr-DQB*26	yes	Allele(gene=Gene(species=Species(name='Tursiops truncatus', mhc_prefix='Tutr'), name='DQB', mutations=()), allele_fields=('26',), annotations=(), mutations=())	Allele	Tursiops truncatus			PMC:PMC6155461
+Tutr-DQB1*01	no						PMC:PMC6155461
+Tutr-DQB1*02	no						PMC:PMC6155461
+Tutr-DQB1*03	no						PMC:PMC6155461
+Tutr-DQB1*04	no						PMC:PMC6155461
+Tutr-DQB1*05	no						PMC:PMC6155461
+Tutr-DQB1*06	no						PMC:PMC6155461
+Tutr-DQB1*07	no						PMC:PMC6155461
+Tutr-DQB1*08	no						PMC:PMC6155461
+Tutr-DQB1*09	no						PMC:PMC6155461
+Tutr-DQB1*10	no						PMC:PMC6155461
+DQA*02	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('02',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC6155461
+DQA*03	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('03',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC6155461
+DQA*07	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('07',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC6155461
+DQA*11	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('11',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC6155461
+DQA*12	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('12',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC6155461
+DQA*13	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('13',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC6155461
+DQA*14	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('14',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC6155461
+DQA*15	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('15',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC6155461
+DQA*17	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('17',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC6155461
+Tutr-DQA	yes	Gene(species=Species(name='Tursiops truncatus', mhc_prefix='Tutr'), name='DQA', mutations=())	Gene	Tursiops truncatus			PMC:PMC6155461
+Tutr-DQA*02	yes	Allele(gene=Gene(species=Species(name='Tursiops truncatus', mhc_prefix='Tutr'), name='DQA', mutations=()), allele_fields=('02',), annotations=(), mutations=())	Allele	Tursiops truncatus			PMC:PMC6155461
+Tutr-DQA*03	yes	Allele(gene=Gene(species=Species(name='Tursiops truncatus', mhc_prefix='Tutr'), name='DQA', mutations=()), allele_fields=('03',), annotations=(), mutations=())	Allele	Tursiops truncatus			PMC:PMC6155461
+Tutr-DQA*07	yes	Allele(gene=Gene(species=Species(name='Tursiops truncatus', mhc_prefix='Tutr'), name='DQA', mutations=()), allele_fields=('07',), annotations=(), mutations=())	Allele	Tursiops truncatus			PMC:PMC6155461
+Tutr-DQA*11	yes	Allele(gene=Gene(species=Species(name='Tursiops truncatus', mhc_prefix='Tutr'), name='DQA', mutations=()), allele_fields=('11',), annotations=(), mutations=())	Allele	Tursiops truncatus			PMC:PMC6155461
+Tutr-DQA*12	yes	Allele(gene=Gene(species=Species(name='Tursiops truncatus', mhc_prefix='Tutr'), name='DQA', mutations=()), allele_fields=('12',), annotations=(), mutations=())	Allele	Tursiops truncatus			PMC:PMC6155461
+Tutr-DQA*13	yes	Allele(gene=Gene(species=Species(name='Tursiops truncatus', mhc_prefix='Tutr'), name='DQA', mutations=()), allele_fields=('13',), annotations=(), mutations=())	Allele	Tursiops truncatus			PMC:PMC6155461
+Tutr-DQA*14	yes	Allele(gene=Gene(species=Species(name='Tursiops truncatus', mhc_prefix='Tutr'), name='DQA', mutations=()), allele_fields=('14',), annotations=(), mutations=())	Allele	Tursiops truncatus			PMC:PMC6155461
+Tutr-DQA*15	yes	Allele(gene=Gene(species=Species(name='Tursiops truncatus', mhc_prefix='Tutr'), name='DQA', mutations=()), allele_fields=('15',), annotations=(), mutations=())	Allele	Tursiops truncatus			PMC:PMC6155461
+Tutr-DQA*17	yes	Allele(gene=Gene(species=Species(name='Tursiops truncatus', mhc_prefix='Tutr'), name='DQA', mutations=()), allele_fields=('17',), annotations=(), mutations=())	Allele	Tursiops truncatus			PMC:PMC6155461
+Tutr-DQA1*01	no						PMC:PMC6155461
+Tutr-DQA1*02	no						PMC:PMC6155461
+Tutr-DQA1*03	no						PMC:PMC6155461
+Tutr-DQA1*04	no						PMC:PMC6155461
+Tutr-DQA1*05	no						PMC:PMC6155461
+Tutr-DQA1*06	no						PMC:PMC6155461
+Tutr-DQA1*07	no						PMC:PMC6155461
+Tutr-DQA1*08	no						PMC:PMC6155461
+Tutr-DQA1*09	no						PMC:PMC6155461
+Tutr-DQA1*10	no						PMC:PMC6155461
+Tutr-DQB	yes	Gene(species=Species(name='Tursiops truncatus', mhc_prefix='Tutr'), name='DQB', mutations=())	Gene	Tursiops truncatus			PMC:PMC6155461
+FASTX-Toolkit	no						PMC:PMC6155461
+Primer-BLAST	no						PMC:PMC6155461

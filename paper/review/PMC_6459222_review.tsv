@@ -1,0 +1,267 @@
+raw_string	parsed	parsed_as	result_type	species	correct	notes	source
+Baac-DMA	no						PMC:PMC6459222
+Baac-DMB	no						PMC:PMC6459222
+Baac-DOA	no						PMC:PMC6459222
+Baac-DOB	no						PMC:PMC6459222
+Baac-DPBp	no						PMC:PMC6459222
+Baac-DRA	yes	Gene(species=Species(name='Balaenoptera acutorostrata', mhc_prefix='Baac'), name='DRA', mutations=())	Gene	Balaenoptera acutorostrata			PMC:PMC6459222
+Baac-DRB	no						PMC:PMC6459222
+Baac-DRBp	no						PMC:PMC6459222
+BoLA-DMA	no						PMC:PMC6459222
+BoLA-DMB	no						PMC:PMC6459222
+BoLA-DOA	yes	Gene(species=Species(name='Bos sp.', mhc_prefix='BoLA'), name='DOA', mutations=())	Gene	Bos sp.			PMC:PMC6459222
+BoLA-DOB	yes	Gene(species=Species(name='Bos sp.', mhc_prefix='BoLA'), name='DOB', mutations=())	Gene	Bos sp.			PMC:PMC6459222
+BoLA-DQA1	yes	Gene(species=Species(name='Bos sp.', mhc_prefix='BoLA'), name='DQA1', mutations=())	Gene	Bos sp.			PMC:PMC6459222
+BoLA-DQA2	yes	Gene(species=Species(name='Bos sp.', mhc_prefix='BoLA'), name='DQA2', mutations=())	Gene	Bos sp.			PMC:PMC6459222
+BoLA-DQA5	no						PMC:PMC6459222
+BoLA-DQB	yes	Gene(species=Species(name='Bos sp.', mhc_prefix='BoLA'), name='DQB1', mutations=())	Gene	Bos sp.			PMC:PMC6459222
+BoLA-DRA	yes	Gene(species=Species(name='Bos sp.', mhc_prefix='BoLA'), name='DRA', mutations=())	Gene	Bos sp.			PMC:PMC6459222
+BoLA-DRB	yes	Gene(species=Species(name='Bos sp.', mhc_prefix='BoLA'), name='DRB3', mutations=())	Gene	Bos sp.			PMC:PMC6459222
+BoLA-DRB2	yes	Gene(species=Species(name='Bos sp.', mhc_prefix='BoLA'), name='DRB2', mutations=())	Gene	Bos sp.			PMC:PMC6459222
+BoLA-DRB3	yes	Gene(species=Species(name='Bos sp.', mhc_prefix='BoLA'), name='DRB3', mutations=())	Gene	Bos sp.			PMC:PMC6459222
+Caur-DMA	no						PMC:PMC6459222
+Caur-DMB	no						PMC:PMC6459222
+Caur-DOA	no						PMC:PMC6459222
+Caur-DOB	no						PMC:PMC6459222
+Caur-DPA	no						PMC:PMC6459222
+Caur-DPBp	no						PMC:PMC6459222
+Caur-DQA	no						PMC:PMC6459222
+Caur-DQB	no						PMC:PMC6459222
+Caur-DRA	no						PMC:PMC6459222
+Caur-DRB	no						PMC:PMC6459222
+Caur-DRBp	no						PMC:PMC6459222
+Chas-DMA	no						PMC:PMC6459222
+Chas-DMB	no						PMC:PMC6459222
+Chas-DOA	no						PMC:PMC6459222
+Chas-DOBp	no						PMC:PMC6459222
+Chas-DPA	no						PMC:PMC6459222
+Chas-DPB	no						PMC:PMC6459222
+Chas-DRA	no						PMC:PMC6459222
+Chas-DRB	no						PMC:PMC6459222
+Chas-DRBp	no						PMC:PMC6459222
+DLA-DMA	no						PMC:PMC6459222
+DLA-DMB	no						PMC:PMC6459222
+DLA-DOA	no						PMC:PMC6459222
+DLA-DOB	no						PMC:PMC6459222
+DLA-DPAp	no						PMC:PMC6459222
+DLA-DPBp	no						PMC:PMC6459222
+DLA-DQA	no						PMC:PMC6459222
+DLA-DQB	no						PMC:PMC6459222
+DLA-DRA	yes	Gene(species=Species(name='Canis sp.', mhc_prefix='DLA'), name='DRA', mutations=())	Gene	Canis sp.			PMC:PMC6459222
+DLA-DRB	no						PMC:PMC6459222
+DLA-DRBp	no						PMC:PMC6459222
+Dano-DMA	no						PMC:PMC6459222
+Dano-DMB	no						PMC:PMC6459222
+Dano-DOA	no						PMC:PMC6459222
+Dano-DOB	no						PMC:PMC6459222
+Dano-DPA	no						PMC:PMC6459222
+Dano-DPB	no						PMC:PMC6459222
+Dano-DQA	no						PMC:PMC6459222
+Dano-DQB	no						PMC:PMC6459222
+Dano-DRA	no						PMC:PMC6459222
+Dano-DRB	no						PMC:PMC6459222
+Dele-DMA	no						PMC:PMC6459222
+Dele-DMB	no						PMC:PMC6459222
+Dele-DOA	no						PMC:PMC6459222
+Dele-DOB	no						PMC:PMC6459222
+Dele-DQA	no						PMC:PMC6459222
+Dele-DQB	no						PMC:PMC6459222
+Dele-DRA	no						PMC:PMC6459222
+Dele-DRB	no						PMC:PMC6459222
+Dele-DRBp	no						PMC:PMC6459222
+Ecte-DMA	no						PMC:PMC6459222
+Ecte-DMB	no						PMC:PMC6459222
+Ecte-DOA	no						PMC:PMC6459222
+Ecte-DOB	no						PMC:PMC6459222
+Ecte-DRA	no						PMC:PMC6459222
+Ecte-DRB	no						PMC:PMC6459222
+Ecte-DRBp	no						PMC:PMC6459222
+Eled-DMA	no						PMC:PMC6459222
+Eled-DMB	no						PMC:PMC6459222
+Eled-DOA	no						PMC:PMC6459222
+Eled-DOB	no						PMC:PMC6459222
+Eled-DPA	no						PMC:PMC6459222
+Eled-DPBp	no						PMC:PMC6459222
+Eled-DQA	no						PMC:PMC6459222
+Eled-DQB	no						PMC:PMC6459222
+Eled-DQBp	no						PMC:PMC6459222
+Eled-DRA	no						PMC:PMC6459222
+Eled-DRB	no						PMC:PMC6459222
+Eled-DRBp	no						PMC:PMC6459222
+Eqca-DMA	yes	Gene(species=Species(name='Equus caballus', mhc_prefix='Eqca'), name='DMA', mutations=())	Gene	Equus caballus			PMC:PMC6459222
+Eqca-DMB	yes	Gene(species=Species(name='Equus caballus', mhc_prefix='Eqca'), name='DMB', mutations=())	Gene	Equus caballus			PMC:PMC6459222
+Eqca-DOA	yes	Gene(species=Species(name='Equus caballus', mhc_prefix='Eqca'), name='DOA', mutations=())	Gene	Equus caballus			PMC:PMC6459222
+Eqca-DOB	yes	Gene(species=Species(name='Equus caballus', mhc_prefix='Eqca'), name='DOB', mutations=())	Gene	Equus caballus			PMC:PMC6459222
+Eqca-DOBp	no						PMC:PMC6459222
+Eqca-DPBp	no						PMC:PMC6459222
+Eqca-DQA	no						PMC:PMC6459222
+Eqca-DQAp	no						PMC:PMC6459222
+Eqca-DQB	no						PMC:PMC6459222
+Eqca-DQBp	no						PMC:PMC6459222
+Eqca-DRA	yes	Gene(species=Species(name='Equus caballus', mhc_prefix='Eqca'), name='DRA', mutations=())	Gene	Equus caballus			PMC:PMC6459222
+Eqca-DRB	no						PMC:PMC6459222
+Eqca-DRBp	no						PMC:PMC6459222
+H2-Aa	yes	Pair(alpha=Allele(gene=Gene(species=Species(name='Mus musculus', mhc_prefix='H2'), name='AA', mutations=()), allele_fields=('k',), annotations=(), mutations=()), beta=Allele(gene=Gene(species=Species(name='Mus musculus', mhc_prefix='H2'), name='AB', mutations=()), allele_fields=('k',), annotations=(), mutations=()), mhc_class='II')	Pair	Mus musculus			PMC:PMC6459222
+H2-Ab1	no						PMC:PMC6459222
+H2-DMA	yes	Gene(species=Species(name='Mus musculus', mhc_prefix='H2'), name='DMA', mutations=())	Gene	Mus musculus			PMC:PMC6459222
+H2-DMB1	yes	Gene(species=Species(name='Mus musculus', mhc_prefix='H2'), name='DMB1', mutations=())	Gene	Mus musculus			PMC:PMC6459222
+H2-DMB2	yes	Gene(species=Species(name='Mus musculus', mhc_prefix='H2'), name='DMB2', mutations=())	Gene	Mus musculus			PMC:PMC6459222
+H2-Ea	yes	Pair(alpha=Allele(gene=Gene(species=Species(name='Mus musculus', mhc_prefix='H2'), name='EA', mutations=()), allele_fields=('k',), annotations=(), mutations=()), beta=Allele(gene=Gene(species=Species(name='Mus musculus', mhc_prefix='H2'), name='EB', mutations=()), allele_fields=('k',), annotations=(), mutations=()), mhc_class='II')	Pair	Mus musculus			PMC:PMC6459222
+H2-Ea-ps	yes	Allele(gene=Gene(species=Species(name='Mus musculus', mhc_prefix='H2'), name='EA', mutations=()), allele_fields=('ps',), annotations=(), mutations=())	Allele	Mus musculus			PMC:PMC6459222
+H2-Ea-ps_100504404_nt	no						PMC:PMC6459222
+H2-Eb1	yes	Gene(species=Species(name='Mus musculus', mhc_prefix='H2'), name='EB', mutations=())	Gene	Mus musculus			PMC:PMC6459222
+H2-Eb2	yes	Gene(species=Species(name='Mus musculus', mhc_prefix='H2'), name='EB2', mutations=())	Gene	Mus musculus			PMC:PMC6459222
+H2-OA	yes	Gene(species=Species(name='Mus musculus', mhc_prefix='H2'), name='OA', mutations=())	Gene	Mus musculus			PMC:PMC6459222
+H2-Ob	yes	Gene(species=Species(name='Mus musculus', mhc_prefix='H2'), name='OB', mutations=())	Gene	Mus musculus			PMC:PMC6459222
+H2-PA	yes	Gene(species=Species(name='Mus musculus', mhc_prefix='H2'), name='PA', mutations=())	Gene	Mus musculus			PMC:PMC6459222
+H2-Pb	yes	Gene(species=Species(name='Mus musculus', mhc_prefix='H2'), name='PB', mutations=())	Gene	Mus musculus			PMC:PMC6459222
+HLA-DMA	yes	Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DMA', mutations=())	Gene	Homo sapiens			PMC:PMC6459222
+HLA-DMB	yes	Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DMB', mutations=())	Gene	Homo sapiens			PMC:PMC6459222
+HLA-DOA	yes	Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DOA', mutations=())	Gene	Homo sapiens			PMC:PMC6459222
+HLA-DOB	yes	Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DOB', mutations=())	Gene	Homo sapiens			PMC:PMC6459222
+HLA-DPA	no						PMC:PMC6459222
+HLA-DPB	yes	Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DPB1', mutations=())	Gene	Homo sapiens			PMC:PMC6459222
+HLA-DQA	yes	Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=())	Gene	Homo sapiens			PMC:PMC6459222
+HLA-DQB	yes	Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=())	Gene	Homo sapiens			PMC:PMC6459222
+HLA-DRA	yes	Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRA', mutations=())	Gene	Homo sapiens			PMC:PMC6459222
+HLA-DRB1	yes	Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=())	Gene	Homo sapiens			PMC:PMC6459222
+HLA-DRB3	yes	Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB3', mutations=())	Gene	Homo sapiens			PMC:PMC6459222
+HLA-DRB5	yes	Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB5', mutations=())	Gene	Homo sapiens			PMC:PMC6459222
+Laob-DMA	no						PMC:PMC6459222
+Laob-DMB	no						PMC:PMC6459222
+Laob-DOA	no						PMC:PMC6459222
+Laob-DOB	no						PMC:PMC6459222
+Laob-DQA	yes	Gene(species=Species(name='Lagenorhynchus obscurus', mhc_prefix='Laob'), name='DQA', mutations=())	Gene	Lagenorhynchus obscurus			PMC:PMC6459222
+Laob-DQB	yes	Gene(species=Species(name='Lagenorhynchus obscurus', mhc_prefix='Laob'), name='DQB', mutations=())	Gene	Lagenorhynchus obscurus			PMC:PMC6459222
+Laob-DRA	yes	Gene(species=Species(name='Lagenorhynchus obscurus', mhc_prefix='Laob'), name='DRA', mutations=())	Gene	Lagenorhynchus obscurus			PMC:PMC6459222
+Laob-DRB	no						PMC:PMC6459222
+Laob-DRBp	no						PMC:PMC6459222
+Lewe-DMA	no						PMC:PMC6459222
+Lewe-DMB	no						PMC:PMC6459222
+Lewe-DOA	no						PMC:PMC6459222
+Lewe-DOB	no						PMC:PMC6459222
+Lewe-DPAp	no						PMC:PMC6459222
+Lewe-DPB	no						PMC:PMC6459222
+Lewe-DQA	no						PMC:PMC6459222
+Lewe-DQB	no						PMC:PMC6459222
+Lewe-DRA	no						PMC:PMC6459222
+Lewe-DRB	no						PMC:PMC6459222
+Live-DMA	no						PMC:PMC6459222
+Live-DMB	no						PMC:PMC6459222
+Live-DOA	no						PMC:PMC6459222
+Live-DOBp	no						PMC:PMC6459222
+Live-DQA	no						PMC:PMC6459222
+Live-DQB	no						PMC:PMC6459222
+Live-DRA	no						PMC:PMC6459222
+Live-DRB	no						PMC:PMC6459222
+Live-DRBp	no						PMC:PMC6459222
+Loaf-DMA	no						PMC:PMC6459222
+Loaf-DMB	no						PMC:PMC6459222
+Loaf-DOA	no						PMC:PMC6459222
+Loaf-DOB	no						PMC:PMC6459222
+Loaf-DPA	no						PMC:PMC6459222
+Loaf-DPAp	no						PMC:PMC6459222
+Loaf-DPB	no						PMC:PMC6459222
+Loaf-DPBp	no						PMC:PMC6459222
+Loaf-DQA	no						PMC:PMC6459222
+Loaf-DQB	no						PMC:PMC6459222
+Loaf-DQBp	no						PMC:PMC6459222
+Loaf-DRA	no						PMC:PMC6459222
+Loaf-DRAp	no						PMC:PMC6459222
+Loaf-DRB	no						PMC:PMC6459222
+Loaf-DRBp	no						PMC:PMC6459222
+Neas-DMA	no						PMC:PMC6459222
+Neas-DMB	no						PMC:PMC6459222
+Neas-DOA	no						PMC:PMC6459222
+Neas-DOB	no						PMC:PMC6459222
+Neas-DQA	no						PMC:PMC6459222
+Neas-DQB	no						PMC:PMC6459222
+Neas-DRA	no						PMC:PMC6459222
+Neas-DRB	no						PMC:PMC6459222
+Neas-DRBp	no						PMC:PMC6459222
+Nesc-DMA	no						PMC:PMC6459222
+Nesc-DMB	no						PMC:PMC6459222
+Nesc-DOA	no						PMC:PMC6459222
+Nesc-DOB	no						PMC:PMC6459222
+Nesc-DPAp	no						PMC:PMC6459222
+Nesc-DPBp	no						PMC:PMC6459222
+Nesc-DQA	no						PMC:PMC6459222
+Nesc-DQB	no						PMC:PMC6459222
+Nesc-DRAp	no						PMC:PMC6459222
+Nesc-DRB	no						PMC:PMC6459222
+Odro-DMA	no						PMC:PMC6459222
+Odro-DMB	no						PMC:PMC6459222
+Odro-DOA	no						PMC:PMC6459222
+Odro-DOB	no						PMC:PMC6459222
+Odro-DPAp	no						PMC:PMC6459222
+Odro-DPBp	no						PMC:PMC6459222
+Odro-DQA	no						PMC:PMC6459222
+Odro-DQB	no						PMC:PMC6459222
+Odro-DRA	no						PMC:PMC6459222
+Odro-DRB	no						PMC:PMC6459222
+Odro-DRBp	no						PMC:PMC6459222
+Oraf-DMA	no						PMC:PMC6459222
+Oraf-DMB	no						PMC:PMC6459222
+Oraf-DOA	no						PMC:PMC6459222
+Oraf-DOB	no						PMC:PMC6459222
+Oraf-DPA	no						PMC:PMC6459222
+Oraf-DPAp	no						PMC:PMC6459222
+Oraf-DPB	no						PMC:PMC6459222
+Oraf-DPBp	no						PMC:PMC6459222
+Oraf-DQA	no						PMC:PMC6459222
+Oraf-DQB	no						PMC:PMC6459222
+Oraf-DRA	no						PMC:PMC6459222
+Oraf-DRAp	no						PMC:PMC6459222
+Oraf-DRB	no						PMC:PMC6459222
+Oraf-DRBp	no						PMC:PMC6459222
+Oror-DMA	no						PMC:PMC6459222
+Oror-DMB	no						PMC:PMC6459222
+Oror-DOA	no						PMC:PMC6459222
+Oror-DOB	no						PMC:PMC6459222
+Oror-DQA	no						PMC:PMC6459222
+Oror-DQB	no						PMC:PMC6459222
+Oror-DRA	no						PMC:PMC6459222
+Oror-DRB	no						PMC:PMC6459222
+Oror-DRBp	no						PMC:PMC6459222
+Phca-DMA	no						PMC:PMC6459222
+Phca-DMB	no						PMC:PMC6459222
+Phca-DOA	no						PMC:PMC6459222
+Phca-DOB	no						PMC:PMC6459222
+Phca-DQA	no						PMC:PMC6459222
+Phca-DQB	no						PMC:PMC6459222
+Phca-DRA	no						PMC:PMC6459222
+Phca-DRB	no						PMC:PMC6459222
+Phca-DRBp	no						PMC:PMC6459222
+Ptal-DMA	yes	Gene(species=Species(name='Pteropus alecto', mhc_prefix='Ptal'), name='DMA', mutations=())	Gene	Pteropus alecto			PMC:PMC6459222
+Ptal-DMB	yes	Gene(species=Species(name='Pteropus alecto', mhc_prefix='Ptal'), name='DMB', mutations=())	Gene	Pteropus alecto			PMC:PMC6459222
+Ptal-DOA	yes	Gene(species=Species(name='Pteropus alecto', mhc_prefix='Ptal'), name='DOA', mutations=())	Gene	Pteropus alecto			PMC:PMC6459222
+Ptal-DOB	yes	Gene(species=Species(name='Pteropus alecto', mhc_prefix='Ptal'), name='DOB', mutations=())	Gene	Pteropus alecto			PMC:PMC6459222
+Ptal-DPBp	no						PMC:PMC6459222
+Ptal-DQA	no						PMC:PMC6459222
+Ptal-DQB	no						PMC:PMC6459222
+Ptal-DRA	yes	Gene(species=Species(name='Pteropus alecto', mhc_prefix='Ptal'), name='DRA', mutations=())	Gene	Pteropus alecto			PMC:PMC6459222
+Ptal-DRB	no						PMC:PMC6459222
+Ptal-DRBp	no						PMC:PMC6459222
+Trma-DMA	no						PMC:PMC6459222
+Trma-DMB	no						PMC:PMC6459222
+Trma-DOA	no						PMC:PMC6459222
+Trma-DOB	no						PMC:PMC6459222
+Trma-DPA	no						PMC:PMC6459222
+Trma-DPAp	no						PMC:PMC6459222
+Trma-DPB	no						PMC:PMC6459222
+Trma-DPBp	no						PMC:PMC6459222
+Trma-DQA	no						PMC:PMC6459222
+Trma-DQB	no						PMC:PMC6459222
+Trma-DQBp	no						PMC:PMC6459222
+Trma-DRA	no						PMC:PMC6459222
+Trma-DRB	no						PMC:PMC6459222
+Trma-DRBp	no						PMC:PMC6459222
+Tutr-DMA	no						PMC:PMC6459222
+Tutr-DMB	no						PMC:PMC6459222
+Tutr-DOB	no						PMC:PMC6459222
+Tutr-DQA	yes	Gene(species=Species(name='Tursiops truncatus', mhc_prefix='Tutr'), name='DQA', mutations=())	Gene	Tursiops truncatus			PMC:PMC6459222
+Tutr-DQB	yes	Gene(species=Species(name='Tursiops truncatus', mhc_prefix='Tutr'), name='DQB', mutations=())	Gene	Tursiops truncatus			PMC:PMC6459222
+Tutr-DRA	yes	Gene(species=Species(name='Tursiops truncatus', mhc_prefix='Tutr'), name='DRA', mutations=())	Gene	Tursiops truncatus			PMC:PMC6459222
+Tutr-DRB	no						PMC:PMC6459222
+Tutr-DRBp	no						PMC:PMC6459222
+Illumina Hi-Seq	no						PMC:PMC6459222

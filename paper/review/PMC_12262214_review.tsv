@@ -1,0 +1,83 @@
+raw_string	parsed	parsed_as	result_type	species	correct	notes	source
+CTACC-ARGATCAA	no						PMC:PMC12262214
+GC-CTCCGGC	no						PMC:PMC12262214
+KI-Score	no						PMC:PMC12262214
+KO-Score	no						PMC:PMC12262214
+AF-A9ZPF3	no						PMC:PMC12262214
+Amcr-UA	no						PMC:PMC12262214
+Amcr-UB	no						PMC:PMC12262214
+Amcr-UB*01	no						PMC:PMC12262214
+Anolis carolinensis clone Anolis-CR1-289 CR 1 LINE sequence	no						PMC:PMC12262214
+Anolis-CR1	no						PMC:PMC12262214
+Bardet-Biedl	no						PMC:PMC12262214
+CAP-Gly	no						PMC:PMC12262214
+CC-SPRY	no						PMC:PMC12262214
+CCR4-NOT	no						PMC:PMC12262214
+Cosu-UB	no						PMC:PMC12262214
+Cosu-UB*0101	no						PMC:PMC12262214
+Cosu-UB*0102	no						PMC:PMC12262214
+DRC-Itaito	no						PMC:PMC12262214
+ESCRT-I	no						PMC:PMC12262214
+ESCRT-II	no						PMC:PMC12262214
+ESCRT-III	no						PMC:PMC12262214
+FG-GAP	no						PMC:PMC12262214
+GDP-D	no						PMC:PMC12262214
+GDP-L	no						PMC:PMC12262214
+GMP-AMP	no						PMC:PMC12262214
+GTPase-GDP	no						PMC:PMC12262214
+H2-Q9	yes	Gene(species=Species(name='Mus musculus', mhc_prefix='H2'), name='Q9', mutations=())	Gene	Mus musculus			PMC:PMC12262214
+H2A-IV	no						PMC:PMC12262214
+Hippel-Lindau	no						PMC:PMC12262214
+HoxA10-HoxA9	no						PMC:PMC12262214
+HoxD12-HoxD11	no						PMC:PMC12262214
+II-I	no						PMC:PMC12262214
+Igig-UB	no						PMC:PMC12262214
+Igig-UB*0101	no						PMC:PMC12262214
+Igig-UB*0102	no						PMC:PMC12262214
+Igig-UB*02	no						PMC:PMC12262214
+JAK-STAT	no						PMC:PMC12262214
+LJAMM-CNP	no						PMC:PMC12262214
+Log2-FC ( 24h)	no						PMC:PMC12262214
+Log2-FC (6h)	no						PMC:PMC12262214
+MON1-CCZ1	no						PMC:PMC12262214
+McKusick-Kaufman	no						PMC:PMC12262214
+NGFI-A	no						PMC:PMC12262214
+PP-Dol	no						PMC:PMC12262214
+PREDICTED: Columba livia histone H2A-IV (LOC102094275), mRNA	no						PMC:PMC12262214
+PRY-SPRY	no						PMC:PMC12262214
+PSI-BLAST	no						PMC:PMC12262214
+Plasmodium sp. DRC-Itaito	no						PMC:PMC12262214
+Plasmodium sp. DRC-Itaito genome assembly, chromosome: 13	no						PMC:PMC12262214
+Receptor signaling pathway via JAK-STAT	no						PMC:PMC12262214
+S100-A2	no						PMC:PMC12262214
+S100-A6	no						PMC:PMC12262214
+SLIT-ROBO	no						PMC:PMC12262214
+SMC5-SMC6	no						PMC:PMC12262214
+SMCR8-C9orf72	no						PMC:PMC12262214
+UB*01	yes	Allele(gene=Gene(species=Species(name='Trichosurus vulpecula', mhc_prefix='Trvu'), name='UB', mutations=()), allele_fields=('01',), annotations=(), mutations=())	Allele	Trichosurus vulpecula			PMC:PMC12262214
+UB*0101	yes	Allele(gene=Gene(species=Species(name='Trichosurus vulpecula', mhc_prefix='Trvu'), name='UB', mutations=()), allele_fields=('01', '01'), annotations=(), mutations=())	Allele	Trichosurus vulpecula			PMC:PMC12262214
+UB*0102	yes	Allele(gene=Gene(species=Species(name='Trichosurus vulpecula', mhc_prefix='Trvu'), name='UB', mutations=()), allele_fields=('01', '02'), annotations=(), mutations=())	Allele	Trichosurus vulpecula			PMC:PMC12262214
+UB*02	yes	Allele(gene=Gene(species=Species(name='Trichosurus vulpecula', mhc_prefix='Trvu'), name='UB', mutations=()), allele_fields=('02',), annotations=(), mutations=())	Allele	Trichosurus vulpecula			PMC:PMC12262214
+UDP-GlcNAc	no						PMC:PMC12262214
+UDP-N	no						PMC:PMC12262214
+Williams-Beuren	no						PMC:PMC12262214
+X9-C	no						PMC:PMC12262214
+Xaa-Pro	no						PMC:PMC12262214
+Bio-Rad	no						PMC:PMC12262214
+CVB-GFP	no						PMC:PMC12262214
+Fluormount-G	no						PMC:PMC12262214
+Hi-C	no						PMC:PMC12262214
+IQ-TREE	no						PMC:PMC12262214
+MAD-IC	no						PMC:PMC12262214
+Nano-Glo	no						PMC:PMC12262214
+Omni-C	no						PMC:PMC12262214
+PacBio Sequel II HiFi; Arima Hi-C v2	no						PMC:PMC12262214
+PacBio Sequel II HiFi; Bionano DLS; Arima Hi-C v2	no						PMC:PMC12262214
+PacBio Sequel IIe; Dovetail Omni-C	no						PMC:PMC12262214
+RNA-Bloom	no						PMC:PMC12262214
+TBS-T	no						PMC:PMC12262214
+TRIS-HCl	no						PMC:PMC12262214
+Trans-Blot	no						PMC:PMC12262214
+Triton-X100	no						PMC:PMC12262214
+VEEV-GFP	no						PMC:PMC12262214
+PRY-SPRY TREE	no						PMC:PMC12262214

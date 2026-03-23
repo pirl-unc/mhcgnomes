@@ -1,0 +1,15 @@
+raw_string	expected_species	source
+C-X3-C chemokine binding		PMC:9325493
+CCR4-NOT		PMC:9325493
+DC-STAMP		PMC:9325493
+Epstein-Barr		PMC:9325493
+FG-GAP		PMC:9325493
+HLA-DMA		PMC:9325493
+Phci-DAA		PMC:9325493
+Phci-DBA		PMC:9325493
+Phci-DMB		PMC:9325493
+RIG-I		PMC:9325493
+X3-C		PMC:9325493
+negative regulation of RIG-I signaling pathway		PMC:9325493
+positive regulation of RIG-I signaling pathway		PMC:9325493
+regulation of RIG-I signaling pathway		PMC:9325493

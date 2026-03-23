@@ -1,0 +1,393 @@
+raw_string	parsed	parsed_as	result_type	species	correct	notes	source
+MACHEREY-NAGEL	no						PMC:PMC7079943
+Cape-A*026	no						PMC:PMC7079943
+Cape-A*032	no						PMC:PMC7079943
+Cape-A*043	no						PMC:PMC7079943
+Cape-A*086	no						PMC:PMC7079943
+Cape-A*103	no						PMC:PMC7079943
+Cape-A*104	no						PMC:PMC7079943
+Cape-A*116	no						PMC:PMC7079943
+Cape-A*120	no						PMC:PMC7079943
+Cape-A*121	no						PMC:PMC7079943
+Cape-A*125	no						PMC:PMC7079943
+Cape-A*128	no						PMC:PMC7079943
+Cape-A*161	no						PMC:PMC7079943
+Cape-A*162	no						PMC:PMC7079943
+Cape-A*177	no						PMC:PMC7079943
+Cape-A*220	no						PMC:PMC7079943
+Cape-A*223	no						PMC:PMC7079943
+Cape-A*232	no						PMC:PMC7079943
+Cape-A*239	no						PMC:PMC7079943
+A*001	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('001',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*002	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('002',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*003	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('003',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*004	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('004',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*005	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('005',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*006	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('006',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*007	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('007',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*008	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('008',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*009	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('009',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*010	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('010',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*011	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('011',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*012	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('012',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*014	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('014',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*015	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('015',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*016	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('016',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*017	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('017',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*018	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('018',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*020	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('020',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*021	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('021',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*022	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('022',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*023	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('023',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*024	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('024',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*025	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('025',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*027	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('027',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*028	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('028',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*031	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('031',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*032	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('032',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*035	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('035',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*036	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('036',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*037	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('037',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*038	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('038',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*039	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('039',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*040	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('040',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*041	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('041',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*042	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('042',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*043	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('043',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*044	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('044',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*045	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('045',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*047	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('047',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*048	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('048',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*049	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('049',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*050	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('050',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*051	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('051',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*052	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('052',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*053	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('053',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*054	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('054',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*055	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('055',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*057	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('057',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*058	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('058',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*059	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('059',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*060	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('060',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*061	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('061',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*062	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('062',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*063	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('063',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*064	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('064',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*065	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('065',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*068	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('068',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*069	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('069',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*070	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('070',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*071	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('071',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*073	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('073',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*075	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('075',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*076	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('076',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*077	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('077',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*078	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('078',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*079	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('079',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*080	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('080',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*081	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('081',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*082	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('082',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*083	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('083',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*084	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('084',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*085	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('085',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*088	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('088',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*089	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('089',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*090	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('090',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*091	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('091',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*093	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('093',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*094	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('094',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*095	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('095',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*096	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('096',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*098	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('098',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*099	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('099',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*100	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('100',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*101	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('101',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*104	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('104',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*105	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('105',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*106	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('106',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*107	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('107',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*108	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('108',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*111	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('111',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*112	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('112',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*113	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('113',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*114	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('114',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*115	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('115',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*117	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('117',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*118	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('118',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*119	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('119',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*120	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('120',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*121	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('121',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*122	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('122',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*124	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('124',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*126	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('126',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*128	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('128',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*129	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('129',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*131	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('131',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*132	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('132',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*133	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('133',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*134	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('134',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*135	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('135',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*136	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('136',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*137	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('137',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*138	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('138',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*139	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('139',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*140	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('140',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*141	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('141',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*142	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('142',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*145	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('145',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*146	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('146',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*147	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('147',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*149	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('149',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*150	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('150',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*151	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('151',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*152	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('152',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*153	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('153',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*154	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('154',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*156	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('156',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*157	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('157',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*158	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('158',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*159	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('159',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*160	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('160',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*161	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('161',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*164	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('164',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*166	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('166',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*169	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('169',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*170	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('170',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*171	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('171',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*172	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('172',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*176	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('176',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*177	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('177',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*178	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('178',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*179	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('179',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*180	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('180',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*182	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('182',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*183	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('183',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*187	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('187',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*188	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('188',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*191	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('191',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*192	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('192',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*193	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('193',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*194	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('194',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*195	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('195',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*196	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('196',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*197	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('197',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*199	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('199',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*200	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('200',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*202	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('202',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*204	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('204',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*205	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('205',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*206	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('206',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*207	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('207',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*208	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('208',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*209	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('209',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*210	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('210',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*211	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('211',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*214	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('214',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*215	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('215',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*216	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('216',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*217	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('217',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*219	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('219',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*221	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('221',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*222	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('222',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*224	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('224',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*225	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('225',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*226	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('226',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*228	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('228',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*230	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('230',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*231	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('231',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*233	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('233',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*234	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('234',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*235	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('235',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*236	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('236',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*237	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('237',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*238	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('238',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*240	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('240',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+A*241	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('241',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7079943
+AA-EE	no						PMC:PMC7079943
+AV-EE	no						PMC:PMC7079943
+Cape-A	no						PMC:PMC7079943
+Cape-A*001	no						PMC:PMC7079943
+Cape-A*002	no						PMC:PMC7079943
+Cape-A*003	no						PMC:PMC7079943
+Cape-A*004	no						PMC:PMC7079943
+Cape-A*005	no						PMC:PMC7079943
+Cape-A*006	no						PMC:PMC7079943
+Cape-A*007	no						PMC:PMC7079943
+Cape-A*008	no						PMC:PMC7079943
+Cape-A*009	no						PMC:PMC7079943
+Cape-A*010	no						PMC:PMC7079943
+Cape-A*011	no						PMC:PMC7079943
+Cape-A*012	no						PMC:PMC7079943
+Cape-A*014	no						PMC:PMC7079943
+Cape-A*015	no						PMC:PMC7079943
+Cape-A*016	no						PMC:PMC7079943
+Cape-A*017	no						PMC:PMC7079943
+Cape-A*018	no						PMC:PMC7079943
+Cape-A*020	no						PMC:PMC7079943
+Cape-A*021	no						PMC:PMC7079943
+Cape-A*022	no						PMC:PMC7079943
+Cape-A*023	no						PMC:PMC7079943
+Cape-A*024	no						PMC:PMC7079943
+Cape-A*025	no						PMC:PMC7079943
+Cape-A*027	no						PMC:PMC7079943
+Cape-A*028	no						PMC:PMC7079943
+Cape-A*031	no						PMC:PMC7079943
+Cape-A*032	no						PMC:PMC7079943
+Cape-A*035	no						PMC:PMC7079943
+Cape-A*036	no						PMC:PMC7079943
+Cape-A*037	no						PMC:PMC7079943
+Cape-A*038	no						PMC:PMC7079943
+Cape-A*039	no						PMC:PMC7079943
+Cape-A*040	no						PMC:PMC7079943
+Cape-A*041	no						PMC:PMC7079943
+Cape-A*042	no						PMC:PMC7079943
+Cape-A*043	no						PMC:PMC7079943
+Cape-A*044	no						PMC:PMC7079943
+Cape-A*045	no						PMC:PMC7079943
+Cape-A*047	no						PMC:PMC7079943
+Cape-A*048	no						PMC:PMC7079943
+Cape-A*049	no						PMC:PMC7079943
+Cape-A*050	no						PMC:PMC7079943
+Cape-A*051	no						PMC:PMC7079943
+Cape-A*052	no						PMC:PMC7079943
+Cape-A*053	no						PMC:PMC7079943
+Cape-A*054	no						PMC:PMC7079943
+Cape-A*055	no						PMC:PMC7079943
+Cape-A*057	no						PMC:PMC7079943
+Cape-A*058	no						PMC:PMC7079943
+Cape-A*059	no						PMC:PMC7079943
+Cape-A*060	no						PMC:PMC7079943
+Cape-A*061	no						PMC:PMC7079943
+Cape-A*062	no						PMC:PMC7079943
+Cape-A*063	no						PMC:PMC7079943
+Cape-A*064	no						PMC:PMC7079943
+Cape-A*065	no						PMC:PMC7079943
+Cape-A*068	no						PMC:PMC7079943
+Cape-A*069	no						PMC:PMC7079943
+Cape-A*070	no						PMC:PMC7079943
+Cape-A*071	no						PMC:PMC7079943
+Cape-A*073	no						PMC:PMC7079943
+Cape-A*075	no						PMC:PMC7079943
+Cape-A*076	no						PMC:PMC7079943
+Cape-A*077	no						PMC:PMC7079943
+Cape-A*078	no						PMC:PMC7079943
+Cape-A*079	no						PMC:PMC7079943
+Cape-A*080	no						PMC:PMC7079943
+Cape-A*081	no						PMC:PMC7079943
+Cape-A*082	no						PMC:PMC7079943
+Cape-A*083	no						PMC:PMC7079943
+Cape-A*084	no						PMC:PMC7079943
+Cape-A*085	no						PMC:PMC7079943
+Cape-A*088	no						PMC:PMC7079943
+Cape-A*089	no						PMC:PMC7079943
+Cape-A*090	no						PMC:PMC7079943
+Cape-A*091	no						PMC:PMC7079943
+Cape-A*093	no						PMC:PMC7079943
+Cape-A*094	no						PMC:PMC7079943
+Cape-A*095	no						PMC:PMC7079943
+Cape-A*096	no						PMC:PMC7079943
+Cape-A*098	no						PMC:PMC7079943
+Cape-A*099	no						PMC:PMC7079943
+Cape-A*100	no						PMC:PMC7079943
+Cape-A*101	no						PMC:PMC7079943
+Cape-A*104	no						PMC:PMC7079943
+Cape-A*105	no						PMC:PMC7079943
+Cape-A*106	no						PMC:PMC7079943
+Cape-A*107	no						PMC:PMC7079943
+Cape-A*108	no						PMC:PMC7079943
+Cape-A*111	no						PMC:PMC7079943
+Cape-A*112	no						PMC:PMC7079943
+Cape-A*113	no						PMC:PMC7079943
+Cape-A*114	no						PMC:PMC7079943
+Cape-A*115	no						PMC:PMC7079943
+Cape-A*117	no						PMC:PMC7079943
+Cape-A*118	no						PMC:PMC7079943
+Cape-A*119	no						PMC:PMC7079943
+Cape-A*120	no						PMC:PMC7079943
+Cape-A*121	no						PMC:PMC7079943
+Cape-A*122	no						PMC:PMC7079943
+Cape-A*124	no						PMC:PMC7079943
+Cape-A*126	no						PMC:PMC7079943
+Cape-A*128	no						PMC:PMC7079943
+Cape-A*129	no						PMC:PMC7079943
+Cape-A*131	no						PMC:PMC7079943
+Cape-A*132	no						PMC:PMC7079943
+Cape-A*133	no						PMC:PMC7079943
+Cape-A*134	no						PMC:PMC7079943
+Cape-A*135	no						PMC:PMC7079943
+Cape-A*136	no						PMC:PMC7079943
+Cape-A*137	no						PMC:PMC7079943
+Cape-A*138	no						PMC:PMC7079943
+Cape-A*139	no						PMC:PMC7079943
+Cape-A*140	no						PMC:PMC7079943
+Cape-A*141	no						PMC:PMC7079943
+Cape-A*142	no						PMC:PMC7079943
+Cape-A*145	no						PMC:PMC7079943
+Cape-A*146	no						PMC:PMC7079943
+Cape-A*147	no						PMC:PMC7079943
+Cape-A*149	no						PMC:PMC7079943
+Cape-A*150	no						PMC:PMC7079943
+Cape-A*151	no						PMC:PMC7079943
+Cape-A*152	no						PMC:PMC7079943
+Cape-A*153	no						PMC:PMC7079943
+Cape-A*154	no						PMC:PMC7079943
+Cape-A*156	no						PMC:PMC7079943
+Cape-A*157	no						PMC:PMC7079943
+Cape-A*158	no						PMC:PMC7079943
+Cape-A*159	no						PMC:PMC7079943
+Cape-A*160	no						PMC:PMC7079943
+Cape-A*161	no						PMC:PMC7079943
+Cape-A*164	no						PMC:PMC7079943
+Cape-A*166	no						PMC:PMC7079943
+Cape-A*169	no						PMC:PMC7079943
+Cape-A*170	no						PMC:PMC7079943
+Cape-A*171	no						PMC:PMC7079943
+Cape-A*172	no						PMC:PMC7079943
+Cape-A*176	no						PMC:PMC7079943
+Cape-A*177	no						PMC:PMC7079943
+Cape-A*178	no						PMC:PMC7079943
+Cape-A*179	no						PMC:PMC7079943
+Cape-A*180	no						PMC:PMC7079943
+Cape-A*182	no						PMC:PMC7079943
+Cape-A*183	no						PMC:PMC7079943
+Cape-A*187	no						PMC:PMC7079943
+Cape-A*188	no						PMC:PMC7079943
+Cape-A*191	no						PMC:PMC7079943
+Cape-A*192	no						PMC:PMC7079943
+Cape-A*193	no						PMC:PMC7079943
+Cape-A*194	no						PMC:PMC7079943
+Cape-A*195	no						PMC:PMC7079943
+Cape-A*196	no						PMC:PMC7079943
+Cape-A*197	no						PMC:PMC7079943
+Cape-A*199	no						PMC:PMC7079943
+Cape-A*200	no						PMC:PMC7079943
+Cape-A*202	no						PMC:PMC7079943
+Cape-A*204	no						PMC:PMC7079943
+Cape-A*205	no						PMC:PMC7079943
+Cape-A*206	no						PMC:PMC7079943
+Cape-A*207	no						PMC:PMC7079943
+Cape-A*208	no						PMC:PMC7079943
+Cape-A*209	no						PMC:PMC7079943
+Cape-A*210	no						PMC:PMC7079943
+Cape-A*211	no						PMC:PMC7079943
+Cape-A*214	no						PMC:PMC7079943
+Cape-A*215	no						PMC:PMC7079943
+Cape-A*216	no						PMC:PMC7079943
+Cape-A*217	no						PMC:PMC7079943
+Cape-A*219	no						PMC:PMC7079943
+Cape-A*221	no						PMC:PMC7079943
+Cape-A*222	no						PMC:PMC7079943
+Cape-A*224	no						PMC:PMC7079943
+Cape-A*225	no						PMC:PMC7079943
+Cape-A*226	no						PMC:PMC7079943
+Cape-A*228	no						PMC:PMC7079943
+Cape-A*230	no						PMC:PMC7079943
+Cape-A*231	no						PMC:PMC7079943
+Cape-A*233	no						PMC:PMC7079943
+Cape-A*234	no						PMC:PMC7079943
+Cape-A*235	no						PMC:PMC7079943
+Cape-A*236	no						PMC:PMC7079943
+Cape-A*237	no						PMC:PMC7079943
+Cape-A*238	no						PMC:PMC7079943
+Cape-A*240	no						PMC:PMC7079943
+Cape-A*241	no						PMC:PMC7079943

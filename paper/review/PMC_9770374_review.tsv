@@ -1,0 +1,13 @@
+raw_string	parsed	parsed_as	result_type	species	correct	notes	source
+Feb-Mar	no						PMC:PMC9770374
+PONE-D	no						PMC:PMC9770374
+Response to comments of editor, Dr. Ruiz-Rodriguez,	no						PMC:PMC9770374
+Ruiz-Rodriguez	no						PMC:PMC9770374
+MHC-I	yes	MhcClass(species=Species(name='Homo sapiens', mhc_prefix='HLA'), mhc_class='I')	MhcClass	Homo sapiens			PMC:PMC9770374
+MHC-II	yes	MhcClass(species=Species(name='Homo sapiens', mhc_prefix='HLA'), mhc_class='II')	MhcClass	Homo sapiens			PMC:PMC9770374
+Feb-Mar	no						PMC:PMC9770374
+MHC-I	yes	MhcClass(species=Species(name='Homo sapiens', mhc_prefix='HLA'), mhc_class='I')	MhcClass	Homo sapiens			PMC:PMC9770374
+MHC-II	yes	MhcClass(species=Species(name='Homo sapiens', mhc_prefix='HLA'), mhc_class='II')	MhcClass	Homo sapiens			PMC:PMC9770374
+Response: Thanks, we have written MHC-I throughout the text.	no						PMC:PMC9770374
+Response: We have now added MHC-I.	no						PMC:PMC9770374
+Sanchez-Tojar	no						PMC:PMC9770374

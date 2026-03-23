@@ -1,0 +1,306 @@
+stratum	pmid	first_author	year	title	journal	doi
+bird_passerine	9770374	Amo L	2022	House sparrows do not exhibit a preference for the scent of potential partners with different MHC-I diversity and genetic distances.	PloS one	10.1371/journal.pone.0278892
+bird_passerine	6925233	Drews A	2019	Not all birds have a single dominantly expressed MHC-I gene: Transcription suggests that siskins have many highly expressed MHC-I genes.	Scientific reports	10.1038/s41598-019-55800-9
+bird_passerine	8178356	Minias P	2021	Distinct evolutionary trajectories of MHC class I and class II genes in Old World finches and buntings.	Heredity	10.1038/s41437-021-00427-8
+bird_passerine	8055405	Ghani MU	2021	Molecular Characterization of MHC Class I Genes in Four Species of the Turdidae Family to Assess Genetic Diversity and Selection.	BioMed research international	10.1155/2021/5585687
+bird_passerine	6829271	O'Connor EA	2019	Avian MHC Evolution in the Era of Genomics: Phase 1.0.	Cells	10.3390/cells8101152
+bird_passerine	10878800	Watson H	2024	Only rare classical MHC-I alleles are highly expressed in the European house sparrow.	Proceedings. Biological sciences	10.1098/rspb.2023.2857
+bird_passerine	11562119	Ruesink-Bueno IL	2024	Expansion of MHC-IIB Has Constrained the Evolution of MHC-IIA in Passerines.	Genome biology and evolution	10.1093/gbe/evae236
+bird_passerine	10290333	Winternitz J	2023	High functional allelic diversity and copy number in both MHC classes in the common buzzard.	BMC ecology and evolution	10.1186/s12862-023-02135-9
+bird_passerine	6509439	Slade JWG	2019	"""Balancing"" balancing selection? Assortative mating at the major histocompatibility complex despite molecular signatures of balancing selection."	Ecology and evolution	10.1002/ece3.5087
+bird_passerine	9795730	Worsley SF	2022	Assessing the causes and consequences of gut mycobiome variation in a wild population of the Seychelles warbler.	Microbiome	10.1186/s40168-022-01432-7
+bird_passerine	12583234	Venskutonytė R	2025	MHC I of the Great Reed Warbler Promotes a Flat Peptide Binding Mode.	Immunology	10.1111/imm.70015
+bird_passerine	10349553	Mellinger S	2023	Improved haplotype resolution of highly duplicated MHC genes in a long-read genome assembly using MiSeq amplicons.	PeerJ	10.7717/peerj.15480
+bird_passerine	9543685	Roved J	2022	MHCtools - an R package for MHC high-throughput sequencing data: Genotyping, haplotype and supertype inference, and downstream genetic analyses in non-model organisms.	Molecular ecology resources	10.1111/1755-0998.13645
+bird_passerine	11255377	Rivero de Aguilar J	2024	Associations among MHC genes, latitude, and avian malaria infections in the rufous-collared sparrow (Zonotrichia capensis).	Ecology and evolution	10.1002/ece3.11634
+bird_passerine	7663051	Nandakumar M	2020	Genetic drift and bottleneck do not influence diversity in Toll-like receptor genes at a small spatial scale in a Himalayan passerine.	Ecology and evolution	10.1002/ece3.6855
+bird_raptor	6321662	Minias P	2019	Allelic diversity and selection at the MHC class I and class II in a bottlenecked bird of prey, the White-tailed Eagle.	BMC evolutionary biology	10.1186/s12862-018-1338-3
+bird_raptor	12957727	Penttinen I	2026	Habitat imprinting in breeding territory selection of a long-lived bird of prey.	The Journal of animal ecology	10.1111/1365-2656.70202
+bird_raptor	10732417	Attili L	2023	Genetic distinctiveness of an endangered falcon: Implications for conservation in Europe.	PloS one	10.1371/journal.pone.0295424
+bird_raptor	12007228	Ouyang X	2025	Seasonal variation in gut microbiota of migratory wild raptors: a case study in white-tailed eagles.	Animal microbiome	10.1186/s42523-025-00406-y
+bird_raptor	5889407	Gaigher A	2018	Lack of evidence for selection favouring MHC haplotypes that combine high functional diversity.	Heredity	10.1038/s41437-017-0047-9
+bird_raptor	8560365	Hayes CD	2021	Is the grass always greener on the other side? Weak relationships between vegetation cover and parasitic fly infestations.	Parasitology research	10.1007/s00436-021-07287-5
+bird_raptor	7488298	Cruz-López M	2020	Allelic diversity and patterns of selection at the major histocompatibility complex class I and II loci in a threatened shorebird, the Snowy Plover (Charadrius nivosus).	BMC evolutionary biology	10.1186/s12862-020-01676-7
+bird_raptor	8360539	Buckner JC	2021	Major histocompatibility complex class II DR and DQ evolution and variation in wild capuchin monkey species (Cebinae).	PloS one	10.1371/journal.pone.0254604
+bird_raptor	10879840	Ferreira D	2024	Limited associations between MHC diversity and reproductive success in a bird species with biparental care.	Ecology and evolution	10.1002/ece3.10950
+bird_raptor	10361364	Johnson JA	2023	Whole-genome survey reveals extensive variation in genetic diversity and inbreeding levels among peregrine falcon subspecies.	Ecology and evolution	10.1002/ece3.10347
+bird_raptor	8854852	Ordoñez D	2022	Comparing Class II MHC DRB3 Diversity in Colombian Simmental and Simbrah Cattle Across Worldwide Bovine Populations.	Frontiers in genetics	10.3389/fgene.2022.772885
+bird_raptor	11043450	Buthasane W	2024	Comprehensive genome assembly reveals genetic diversity and carcass consumption insights in critically endangered Asian king vultures.	Scientific reports	10.1038/s41598-024-59990-9
+bird_raptor	6972932	Talarico L	2019	MHC structuring and divergent allele advantage in a urodele amphibian: a hierarchical multi-scale approach.	Heredity	10.1038/s41437-019-0221-3
+bird_raptor	8988406	Cook RM	2022	Selection and demography drive range-wide patterns of MHC-DRB variation in mule deer.	BMC ecology and evolution	10.1186/s12862-022-01998-8
+bird_seabird	9140796	Mancilla-Morales MD	2022	Characterization, Selection, and Trans-Species Polymorphism in the MHC Class II of Heermann's Gull (Charadriiformes).	Genes	10.3390/genes13050917
+bird_seabird	6946592	Arauco-Shapiro G	2020	The role of demographic history and selection in shaping genetic diversity of the Galápagos penguin (Spheniscus mendiculus).	PloS one	10.1371/journal.pone.0226439
+bird_seabird	10348050	Huynh S	2023	Whole-genome Analyses Reveal Past Population Fluctuations and Low Genetic Diversities of the North Pacific Albatrosses.	Molecular biology and evolution	10.1093/molbev/msad155
+bird_seabird	7253215	Levy H	2020	Evidence of Pathogen-Induced Immunogenetic Selection across the Large Geographic Range of a Wild Seabird.	Molecular biology and evolution	10.1093/molbev/msaa040
+bird_seabird	11686313	Gousy-Leblanc M	2024	Differences between mates at the TLR1Lb locus are associated with lower reproductive success in a long-lived seabird.	Scientific reports	10.1038/s41598-024-77750-7
+bird_seabird	11168636	Wojczulanis-Jakubas K	2024	Diversity of major histocompatibility complex of II B gene and mate choice in a monogamous and long-lived seabird, the Little Auk (Alle alle).	PloS one	10.1371/journal.pone.0304275
+bird_seabird	10539538	Minias P	2023	Genetic variation at innate and adaptive immune genes - contrasting patterns of differentiation and local adaptation in a wild gull.	Heredity	10.1038/s41437-023-00645-2
+bird_seabird	7050443	Rand LM	2019	Divergence between genes but limited allelic polymorphism in two MHC class II A genes in Leach's storm-petrels Oceanodroma leucorhoa.	Immunogenetics	10.1007/s00251-019-01130-z
+bird_seabird	7182547	Podlaszczuk P	2020	Relaxation of selective constraints shapes variation of toll-like receptors in a colonial waterbird, the black-headed gull.	Immunogenetics	10.1007/s00251-020-01156-8
+bird_seabird	12343132	Thel L	2025	Major histocompatibility complex class IIB disassortative mate choice in a genetically monogamous seabird.	Proceedings. Biological sciences	10.1098/rspb.2025.1265
+bird_seabird	7652296	Hipfner JM	2020	Geolocator tagging links distributions in the non-breeding season to population genetic structure in a sentinel North Pacific seabird.	PloS one	10.1371/journal.pone.0240056
+bird_seabird	10067942	Rohrer SD	2023	Composition and function of the Galapagos penguin gut microbiome vary with age, location, and a putative bacterial pathogen.	Scientific reports	10.1038/s41598-023-31826-y
+bird_seabird	9208644	Sin SYW	2022	Olfactory receptor subgenome and expression in a highly olfactory procellariiform seabird.	Genetics	10.1093/genetics/iyab210
+bird_galliform	6900278	Potts ND	2019	Development and optimization of a hybridization technique to type the classical class I and class II B genes of the chicken MHC.	Immunogenetics	10.1007/s00251-019-01149-2
+bird_galliform	6971145	Afrache H	2020	A potential nomenclature for the Immuno Polymorphism Database (IPD) of chicken MHC genes: progress and problems.	Immunogenetics	10.1007/s00251-019-01145-6
+bird_galliform	7702127	Abdalla EA	2020	Discovering lethal alleles across the turkey genome using a transmission ratio distortion approach.	Animal genetics	10.1111/age.13003
+bird_galliform	5961004	Wu Y	2018	Population genomic data reveal genes related to important traits of quail.	GigaScience	10.1093/gigascience/giy049
+bird_galliform	7598131	Manjula P	2020	Major histocompatibility complex B variability in Korean native chicken breeds.	Poultry science	10.1016/j.psj.2020.05.049
+bird_galliform	7915948	Manjula P	2021	High Levels of Genetic Variation in MHC-Linked Microsatellite Markers from Native Chicken Breeds.	Genes	10.3390/genes12020240
+bird_galliform	11958417	Rota A	2025	Allele co-segregation and haplotype diversity of MHC IIβ genes in the small-spotted catshark Scyliorhinus canicula.	Immunogenetics	10.1007/s00251-025-01376-w
+bird_galliform	9186122	Bertzbach LD	2022	The Diverse Major Histocompatibility Complex Haplotypes of a Common Commercial Chicken Line and Their Effect on Marek's Disease Virus Pathogenesis and Tumorigenesis.	Frontiers in immunology	10.3389/fimmu.2022.908305
+bird_galliform	10360393	Barros CP	2022	A new haplotype-resolved turkey genome to enable turkey genetics and genomics research.	GigaScience	10.1093/gigascience/giad051
+bird_galliform	10514180	Rocos NIE	2023	The minor chicken class I gene BF1 is deleted between short imperfect direct repeats in the B14 and typical B15 major histocompatibility complex (MHC) haplotypes.	Immunogenetics	10.1007/s00251-023-01313-9
+bird_galliform	10550962	Arnaiz-Villena A	2023	Major histocompatibility complex complement (MHC) Bf alleles show trans species evolution between man and chimpanzee.	Scientific reports	10.1038/s41598-023-42016-1
+bird_galliform	5938342	Chen L	2018	Functional Alleles of Chicken BG Genes, Members of the Butyrophilin Gene Family, in Peripheral T Cells.	Frontiers in immunology	10.3389/fimmu.2018.00930
+bird_galliform	8741507	Zhang J	2022	Association of MHCY genotypes in lines of chickens divergently selected for high or low antibody response to sheep red blood cells.	Poultry science	10.1016/j.psj.2021.101621
+bird_waterfowl	7822670	Zhang X	2021	Development of Microsatellite Marker System to Determine the Genetic Diversity of Experimental Chicken, Duck, Goose, and Pigeon Populations.	BioMed research international	10.1155/2021/8851888
+bird_waterfowl	11249561	Zeng Q	2024	Partial molecular characterization, expression pattern and polymorphism analysis of MHC I genes in Chinese domestic goose (Anser cygnoides).	Genetics and molecular biology	10.1590/1678-4685-GMB-2022-0252
+bird_waterfowl	10136318	Chen L	2023	Population Structure and Selection Signatures of Domestication in Geese.	Biology	10.3390/biology12040532
+bird_waterfowl	7236763	Campbell LK	2020	Pattern Recognition Receptor Signaling and Innate Responses to Influenza A Viruses in the Mallard Duck, Compared to Humans and Chickens.	Frontiers in cellular and infection microbiology	10.3389/fcimb.2020.00209
+bird_waterfowl	7940990	Luo Q	2021	An altered gut microbiota in duck-origin parvovirus infection on cherry valley ducklings is associated with mucosal barrier dysfunction.	Poultry science	10.1016/j.psj.2021.101021
+bird_waterfowl	11768540	Ren D	2025	Current Situation of Goose Astrovirus in China: A Review.	Viruses	10.3390/v17010084
+bird_waterfowl	12466213	Zhang Y	2025	Screening of polymorphic loci in candidate genes for colobomus eyelid and their application in phenotypic purification of geese.	Poultry science	10.1016/j.psj.2025.105827
+bird_waterfowl	6148804	Rehman ZU	2018	Pathobiology of Avian avulavirus 1: special focus on waterfowl.	Veterinary research	10.1186/s13567-018-0587-x
+bird_waterfowl	10845735	Hu J	2024	A new chromosome-scale duck genome shows a major histocompatibility complex with several expanded multigene families.	BMC biology	10.1186/s12915-024-01817-0
+bird_waterfowl	9996257	Chang YY	2023	Monitoring changes in the genetic structure of Brown Tsaiya duck selected for feeding efficiency by microsatellite markers.	Animal bioscience	10.5713/ab.22.0213
+bird_waterfowl	6203259	Wu Y	2018	Proteome and microbiota analysis reveals alterations of liver-gut axis under different stocking density of Peking ducks.	PloS one	10.1371/journal.pone.0198985
+bird_waterfowl	9867998	Karawita AC	2023	The swan genome and transcriptome, it is not all black and white.	Genome biology	10.1186/s13059-022-02838-0
+fish_salmonid	6970960	Sundaram AYM	2020	An Illumina approach to MHC typing of Atlantic salmon.	Immunogenetics	10.1007/s00251-019-01143-8
+fish_salmonid	8559430	Edholm ES	2021	Profiling the T Cell Receptor Alpha/Delta Locus in Salmonids.	Frontiers in immunology	10.3389/fimmu.2021.753960
+fish_salmonid	12586779	Graziano M	2025	Limited inbreeding avoidance at the gamete level despite inbreeding depression in Atlantic salmon (Salmo salar).	The Journal of animal ecology	10.1111/1365-2656.70123
+fish_salmonid	11673393	Talarico L	2024	Unveiling MHC-DAB Polymorphism Within the Western Balkan Salmonid Hotspot: Preliminary Outcomes from Native Trouts of Ohrid Lake and the Drin-Skadar Drainage (Albania).	Biology	10.3390/biology13121060
+fish_salmonid	6343427	Wessel Ø	2018	Antiviral Responses and Biological Concequences of Piscine orthoreovirus Infection in Salmonid Erythrocytes.	Frontiers in immunology	10.3389/fimmu.2018.03182
+fish_salmonid	12006720	Buso P	2025	Parallel Selection in Domesticated Atlantic Salmon from Divergent Founders Including on Whole-Genome Duplication-derived Homeologous Regions.	Genome biology and evolution	10.1093/gbe/evaf063
+fish_salmonid	11373506	Roh H	2024	Nanopore sequencing provides snapshots of the genetic variation within salmonid alphavirus-3 (SAV3) during an ongoing infection in Atlantic salmon (Salmo salar) and brown trout (Salmo trutta).	Veterinary research	10.1186/s13567-024-01349-z
+fish_salmonid	12488018	Cowell F	2025	Post-pleistocene colonisation rather than the contemporary environment has most influenced the current population structure of Scottish Atlantic salmon (Salmo salar).	PloS one	10.1371/journal.pone.0333164
+fish_salmonid	7346428	Hansen TJ	2020	Production and verification of the first Atlantic salmon (Salmo salar L.) clonal lines.	BMC genetics	10.1186/s12863-020-00878-8
+fish_salmonid	11287951	Salisbury SJ	2024	Keratinocytes drive the epithelial hyperplasia key to sea lice resistance in coho salmon.	BMC biology	10.1186/s12915-024-01952-8
+fish_salmonid	10899339	Tsoulia T	2024	Transcriptomics of early responses to purified Piscine orthoreovirus-1 in Atlantic salmon (Salmo salar L.) red blood cells compared to non-susceptible cell lines.	Frontiers in immunology	10.3389/fimmu.2024.1359552
+fish_salmonid	7268189	Hillestad B	2020	Identification of genetic loci associated with higher resistance to pancreas disease (PD) in Atlantic salmon (Salmo salar L.).	BMC genomics	10.1186/s12864-020-06788-4
+fish_salmonid	7894865	Brown R	2021	Effects of ploidy and salmonid alphavirus infection on the skin and gill microbiome of Atlantic salmon (Salmo salar).	PloS one	10.1371/journal.pone.0243684
+fish_salmonid	6668776	Andresen AMS	2019	Interaction between dietary fatty acids and genotype on immune response in Atlantic salmon (Salmo salar) after vaccination: A transcriptome study.	PloS one	10.1371/journal.pone.0219625
+fish_salmonid	12568307	Espinoza D	2025	Toward Effective Vaccines Against Piscine Orthoreovirus: Challenges and Current Strategies.	Viruses	10.3390/v17101372
+fish_cichlid	10306275	Lozano-Martín C	2023	Evolution of MHC IIB Diversity Across Cichlid Fish Radiations.	Genome biology and evolution	10.1093/gbe/evad110
+fish_cichlid	8974093	Bracamonte SE	2022	Divergent and non-parallel evolution of MHC IIB in the Neotropical Midas cichlid species complex.	BMC ecology and evolution	10.1186/s12862-022-01997-9
+fish_cichlid	7423275	Rometsch SJ	2020	Evolutionary dynamics of pre- and postzygotic reproductive isolation in cichlid fishes.	Philosophical transactions of the Royal Society of London. Series B, Biological sciences	10.1098/rstb.2019.0535
+fish_cichlid	6394741	Meyer BS	2019	An exploration of the links between parasites, trophic ecology, morphology, and immunogenetics in the Lake Tanganyika cichlid radiation.	Hydrobiologia	10.1007/s10750-018-3798-2
+fish_cichlid	8913791	Santacruz A	2022	The macroparasite fauna of cichlid fish from Nicaraguan lakes, a model system for understanding host-parasite diversification and speciation.	Scientific reports	10.1038/s41598-022-07647-w
+fish_cichlid	6447674	Conte MA	2019	Chromosome-scale assemblies reveal the structural evolution of African cichlid genomes.	GigaScience	10.1093/gigascience/giz030
+fish_cichlid	7309985	Penso-Dolfin L	2020	Analysis of structural variants in four African cichlids highlights an association with developmental and immune related genes.	BMC evolutionary biology	10.1186/s12862-020-01629-0
+fish_cichlid	8376869	Šimková A	2021	Diversity of MHC IIB genes and parasitism in hybrids of evolutionarily divergent cyprinoid species indicate heterosis advantage.	Scientific reports	10.1038/s41598-021-96205-x
+fish_cichlid	6523485	Yamaguchi T	2019	Major Histocompatibility Complex (MHC) Genes and Disease Resistance in Fish.	Cells	10.3390/cells8040378
+fish_cichlid	9542035	Pikus E	2022	High MHC diversity confers no advantage for phenotypic quality and reproductive performance in a wild bird.	The Journal of animal ecology	10.1111/1365-2656.13737
+fish_cichlid	11310952	Yan J	2024	Moderate Genetic Diversity of MHC Genes in an Isolated Small Population of Black-and-White Snub-Nosed Monkeys (Rhinopithecus bieti).	Animals : an open access journal from MDPI	10.3390/ani14152276
+fish_cichlid	7318199	Gobbin TP	2020	Temporally consistent species differences in parasite infection but no evidence for rapid parasite-mediated speciation in Lake Victoria cichlid fish.	Journal of evolutionary biology	10.1111/jeb.13615
+fish_cichlid	12470123	Nguyen THD	2025	Genetic Diversity and Selection of MHC I-UAA in Clariid Catfish from Thailand: Implications for Breeding and Conservation.	Genes	10.3390/genes16091106
+fish_cichlid	6795240	Faber-Hammond JJ	2019	The Genomic Substrate for Adaptive Radiation: Copy Number Variation across 12 Tribes of African Cichlid Species.	Genome biology and evolution	10.1093/gbe/evz185
+fish_cichlid	6743125	Jeon HB	2019	Polymorphism of MHC class IIB in an acheilognathid species, Rhodeus sinensis shaped by historical selection and recombination.	BMC genetics	10.1186/s12863-019-0775-3
+fish_other	6303515	Gahr CL	2018	Female assortative mate choice functionally validates synthesized male odours of evolving stickleback river-lake ecotypes.	Biology letters	10.1098/rsbl.2018.0730
+fish_other	8346906	Roberts Kingman GA	2021	Longer or shorter spines: Reciprocal trait evolution in stickleback via triallelic regulatory changes in Stanniocalcin2a.	Proceedings of the National Academy of Sciences of the United States of America	10.1073/pnas.2100694118
+fish_other	8415275	Reid K	2021	Threespine Stickleback: A Model System For Evolutionary Genomics.	Annual review of genomics and human genetics	10.1146/annurev-genom-111720-081402
+fish_other	5816137	Phillips KP	2018	Immunogenetic novelty confers a selective advantage in host-pathogen coevolution.	Proceedings of the National Academy of Sciences of the United States of America	10.1073/pnas.1708597115
+fish_other	8027376	Herdegen-Radwan M	2021	Balancing selection versus allele and supertype turnover in MHC class II genes in guppies.	Heredity	10.1038/s41437-020-00369-7
+fish_other	6173838	Kim OTP	2018	A draft genome of the striped catfish, Pangasianodon hypophthalmus, for comparative analysis of genes relevant to development and a resource for aquaculture improvement.	BMC genomics	10.1186/s12864-018-5079-x
+fish_other	8049082	Peng F	2021	What evolutionary processes maintain MHC IIꞵ diversity within and among populations of stickleback?	Molecular ecology	10.1111/mec.15840
+fish_other	8656973	Crider J	2021	A Comprehensive Annotation of the Channel Catfish (Ictalurus punctatus) T Cell Receptor Alpha/Delta, Beta, and Gamma Loci.	Frontiers in immunology	10.3389/fimmu.2021.786402
+fish_other	6282957	Lenz TL	2018	Cryptic haplotype-specific gamete selection yields offspring with optimal MHC immune genes.	Evolution; international journal of organic evolution	10.1111/evo.13591
+fish_other	10981415	Auclert LZ	2024	Interwoven processes in fish development: microbial community succession and immune maturation.	PeerJ	10.7717/peerj.17051
+fish_other	6735750	Huang Y	2019	Genome-Wide Genotype-Expression Relationships Reveal Both Copy Number and Single Nucleotide Differentiation Contribute to Differential Gene Expression between Stickleback Ecotypes.	Genome biology and evolution	10.1093/gbe/evz148
+fish_other	7898906	Smallbone W	2021	Depletion of MHC supertype during domestication can compromise immunocompetence.	Molecular ecology	10.1111/mec.15763
+fish_other	12568915	Roldán GMG	2025	Association of MHC class II β domain polymorphism in channel catfish (Ictalurus punctatus) with natural infection by Ligictaluridus floridanus.	Parasitology research	10.1007/s00436-025-08575-0
+reptile_turtle	5292096	Elbers JP	2017	Population genetic inferences using immune gene SNPs mirror patterns inferred by microsatellites.	Molecular ecology resources	10.1111/1755-0998.12591
+reptile_turtle	8825991	Martin KR	2022	Adaptive evolution of major histocompatibility complex class I immune genes and disease associations in coastal juvenile sea turtles.	Royal Society open science	10.1098/rsos.211190
+reptile_turtle	12448945	Arantes LS	2025	Haplotype-resolved reference genomes of the sea turtle clade unveil ultra-syntenic genomes with hotspots of divergence.	GigaScience	10.1093/gigascience/giaf105
+reptile_turtle	5775545	Elbers JP	2018	Identifying genome-wide immune gene variation underlying infectious disease in wildlife populations - a next generation sequencing approach in the gopher tortoise.	BMC genomics	10.1186/s12864-018-4452-0
+reptile_turtle	9962930	Bentley BP	2023	Divergent sensory and immune gene evolution in sea turtles with contrasting demographic and life histories.	Proceedings of the National Academy of Sciences of the United States of America	10.1073/pnas.2201076120
+reptile_turtle	9951749	Nash A	2023	Immunity in Sea Turtles: Review of a Host-Pathogen Arms Race Millions of Years in the Running.	Animals : an open access journal from MDPI	10.3390/ani13040556
+reptile_turtle	9130144	White NFD	2022	A population genetic analysis of the Critically Endangered Madagascar big-headed turtle, Erymnochelys madagascariensis across captive and wild populations.	Scientific reports	10.1038/s41598-022-12422-y
+reptile_turtle	6314442	Quesada V	2019	Giant tortoise genomes provide insights into longevity and age-related disease.	Nature ecology & evolution	10.1038/s41559-018-0733-x
+reptile_turtle	8117300	Banerjee SM	2021	Species and population specific gene expression in blood transcriptomes of marine turtles.	BMC genomics	10.1186/s12864-021-07656-5
+reptile_turtle	11508015	Ge L	2024	Transcriptomic and Proteomic Analyses of the Immune Mechanism in Pathogenetic and Resistant Chinese Soft-Shelled Turtle (Pelodiscus sinensis) Infected with Aeromonas hydrophila.	Genes	10.3390/genes15101273
+reptile_turtle	12055648	Nelson HV	2025	Genome-wide diversity and MHC characterisation in a critically endangered freshwater turtle susceptible to disease.	Immunogenetics	10.1007/s00251-025-01378-8
+reptile_turtle	7596700	Lockley EC	2020	Long-term survey of sea turtles (Caretta caretta) reveals correlations between parasite infection, feeding ecology, reproductive success and population dynamics.	Scientific reports	10.1038/s41598-020-75498-4
+reptile_turtle	8518602	Greene W	2021	The Use of Bacteriophages and Immunological Monitoring for the Treatment of a Case of Chronic Septicemic Cutaneous Ulcerative Disease in a Loggerhead Sea Turtle Caretta caretta.	Journal of aquatic animal health	10.1002/aah.10130
+reptile_turtle	7468070	Abdali SS	2020	Distribution of cells expressing vomeronasal receptors in the olfactory organ of turtles.	The Journal of veterinary medical science	10.1292/jvms.20-0207
+reptile_turtle	5293771	Valentin-Kahan A	2017	Gene Expression Profiling in the Injured Spinal Cord of Trachemys scripta elegans: An Amniote with Self-Repair Capabilities.	Frontiers in molecular neuroscience	10.3389/fnmol.2017.00017
+reptile_lizard_snake	12142722	Dodge TO	2025	Genomes of two Extinct-in-the-Wild reptiles from Christmas Island reveal distinct evolutionary histories and conservation insights.	Molecular ecology resources	10.1111/1755-0998.13780
+reptile_lizard_snake	9000839	Ibáñez A	2022	Functional Protein Composition in Femoral Glands of Sand Lizards (Lacerta agilis).	Molecules (Basel, Switzerland)	10.3390/molecules27072371
+reptile_lizard_snake	7661455	Friesen CR	2020	Sperm competition in squamate reptiles.	Philosophical transactions of the Royal Society of London. Series B, Biological sciences	10.1098/rstb.2020.0079
+reptile_lizard_snake	8788223	Xie HX	2022	Ancient Demographics Determine the Effectiveness of Genetic Purging in Endangered Lizards.	Molecular biology and evolution	10.1093/molbev/msab359
+reptile_lizard_snake	5484412	Lozito TP	2017	Lizard tail regeneration as an instructive model of enhanced healing capabilities in an adult amniote.	Connective tissue research	10.1080/03008207.2016.1215444
+reptile_lizard_snake	6460769	Sagonas K	2019	Selection, drift, and introgression shape MHC polymorphism in lizards.	Heredity	10.1038/s41437-018-0146-2
+reptile_lizard_snake	6557888	Mangiacotti M	2019	Morph-specific protein patterns in the femoral gland secretions of a colour polymorphic lizard.	Scientific reports	10.1038/s41598-019-44889-7
+reptile_lizard_snake	7182658	Liu W	2020	Genetic diversity of major histocompatibility complex class I genes in Zootoca vivipara.	Bioscience reports	10.1042/BSR20193809
+reptile_lizard_snake	7116210	Gemmell NJ	2020	The tuatara genome reveals ancient features of amniote evolution.	Nature	10.1038/s41586-020-2561-9
+reptile_lizard_snake	10947082	Xu C	2024	Comparative proteomic analysis of tail regeneration in the green anole lizard, Anolis carolinensis.	Natural sciences (Weinheim, Germany)	10.1002/ntls.20210421
+reptile_lizard_snake	12262214	Boys IN	2025	A trove of antiviral TRIM family E3 ligases in reptiles.	bioRxiv : the preprint server for biology	10.1101/2025.06.23.661133
+reptile_lizard_snake	6202711	Hacking JD	2018	Specific MHC class I supertype associated with parasite infection and color morph in a wild lizard population.	Ecology and evolution	10.1002/ece3.4479
+reptile_lizard_snake	5673626	Londono R	2017	Cartilage and Muscle Cell Fate and Origins during Lizard Tail Regeneration.	Frontiers in bioengineering and biotechnology	10.3389/fbioe.2017.00070
+reptile_lizard_snake	5804213	Mangiacotti M	2017	Inter- and intra-population variability of the protein content of femoral gland secretions from a lacertid lizard.	Current zoology	10.1093/cz/zow113
+reptile_lizard_snake	7542809	Nguyen A	2020	Fatigue resistant jaw muscles facilitate long-lasting courtship behaviour in the southern alligator lizard (Elgaria multicarinata).	Proceedings. Biological sciences	10.1098/rspb.2020.1578
+reptile_croc	10087395	Yang S	2023	Genomic investigation of the Chinese alligator reveals wild-extinct genetic diversity and genomic consequences of their continuous decline.	Molecular ecology resources	10.1111/1755-0998.13702
+reptile_croc	12014949	Piras IM	2025	The pathogenesis of West Nile virus-associated lymphohistiocytic proliferative cutaneous lesions of American alligators (Alligator mississippiensis).	Veterinary pathology	10.1177/03009858251317481
+reptile_croc	7674433	Xu C	2020	Anatomical and histological analyses reveal that tail repair is coupled with regrowth in wild-caught, juvenile American alligators (Alligator mississippiensis).	Scientific reports	10.1038/s41598-020-77052-8
+reptile_croc	6781117	Han QH	2019	MHC class I diversity predicts non-random mating in Chinese alligators (Alligator sinensis).	Heredity	10.1038/s41437-018-0177-8
+reptile_croc	6946029	Ghosh A	2020	A High-Quality Reference Genome Assembly of the Saltwater Crocodile, Crocodylus porosus, Reveals Patterns of Selection in Crocodylidae.	Genome biology and evolution	10.1093/gbe/evz269
+reptile_croc	5514082	Zhai T	2017	Effects of Population Bottleneck and Balancing Selection on the Chinese Alligator Are Revealed by Locus-Specific Characterization of MHC Genes.	Scientific reports	10.1038/s41598-017-05640-2
+reptile_croc	9925794	Lourenço-de-Moraes R	2023	Global conservation prioritization areas in three dimensions of crocodilian diversity.	Scientific reports	10.1038/s41598-023-28413-6
+reptile_croc	7721049	Gillich A	2020	Capillary cell-type specialization in the alveolus.	Nature	10.1038/s41586-020-2822-7
+reptile_croc	7810574	Michel KB	2020	Appendicular Muscle Physiology and Biomechanics in Crocodylus niloticus.	Integrative organismal biology (Oxford, England)	10.1093/iob/obaa038
+reptile_croc	7400489	Habarugira G	2020	"West Nile Virus: An Update on Pathobiology, Epidemiology, Diagnostics, Control and ""One Health"" Implications."	Pathogens (Basel, Switzerland)	10.3390/pathogens9070589
+reptile_croc	8427611	Barajas-Valero S	2021	Hematology, Biochemistry Reference Intervals, and Morphological Description of Peripheral Blood Cells for a Captive Population of Crocodylus intermedius in Colombia.	Frontiers in veterinary science	10.3389/fvets.2021.694354
+reptile_croc	11945822	Bruno L	2025	West Nile Virus (WNV): One-Health and Eco-Health Global Risks.	Veterinary sciences	10.3390/vetsci12030288
+reptile_croc	11949993	Hall RA	2025	Insect-specific virus platforms for arbovirus vaccine development.	Frontiers in immunology	10.3389/fimmu.2025.1521104
+reptile_croc	5002281	Rogers SL	2016	Location, location, location: the evolutionary history of CD1 genes and the NKR-P1/ligand systems.	Immunogenetics	10.1007/s00251-016-0938-6
+reptile_croc	7759136	Ristevski J	2020	Australia's prehistoric 'swamp king': revision of the Plio-Pleistocene crocodylian genus Pallimnarchus de Vis, 1886.	PeerJ	10.7717/peerj.10466
+amphibian	11850509	Sabino-Pinto J	2025	The Amphibian Major Histocompatibility Complex-A Review and Future Outlook.	Journal of molecular evolution	10.1007/s00239-024-10223-7
+amphibian	8557411	Palomar G	2021	Coevolution between MHC Class I and Antigen-Processing Genes in Salamanders.	Molecular biology and evolution	10.1093/molbev/msab237
+amphibian	10258673	Ruiz VL	2023	The amphibian immune system.	Philosophical transactions of the Royal Society of London. Series B, Biological sciences	10.1098/rstb.2022.0123
+amphibian	8524050	Jiang N	2021	The Immune System and the Antiviral Responses in Chinese Giant Salamander, Andrias davidianus.	Frontiers in immunology	10.3389/fimmu.2021.718627
+amphibian	7883663	Palomar G	2021	Molecular Evolution of Antigen-Processing Genes in Salamanders: Do They Coevolve with MHC Class I Genes?	Genome biology and evolution	10.1093/gbe/evaa259
+amphibian	12698447	Migalska M	2025	Unique TCR loci architecture in newts: TRA and TRD separation in Pleurodeles waltl.	Frontiers in immunology	10.3389/fimmu.2025.1696217
+amphibian	6926391	Ma L	2020	A Glimpse of the Peptide Profile Presentation by Xenopus laevis MHC Class I: Crystal Structure of pXela-UAA Reveals a Distinct Peptide-Binding Groove.	Journal of immunology (Baltimore, Md. : 1950)	10.4049/jimmunol.1900865
+amphibian	10108261	Gaczorek TS	2023	Interspecific introgression of MHC genes in Triturus newts: Evidence from multiple contact zones.	Molecular ecology	10.1111/mec.16804
+amphibian	12070741	Madison JD	2025	Probiotic colonization of Xenopus laevis skin causes short-term changes in skin microbiomes and gene expression.	Infection and immunity	10.1128/iai.00569-24
+amphibian	11244923	Kosch TA	2024	The Amphibian Genomics Consortium: advancing genomic and genetic resources for amphibian research and conservation.	bioRxiv : the preprint server for biology	10.1101/2024.06.27.601086
+amphibian	10210626	He K	2023	MHC architecture in amphibians - ancestral reconstruction, gene rearrangements and duplication patterns.	Genome biology and evolution	10.1093/gbe/evad079
+amphibian	7873119	Weiss L	2021	Olfaction across the water-air interface in anuran amphibians.	Cell and tissue research	10.1007/s00441-020-03377-5
+amphibian	6006221	Cortázar-Chinarro M	2018	Signatures of historical selection on MHC reveal different selection patterns in the moor frog (Rana arvalis).	Immunogenetics	10.1007/s00251-017-1051-1
+amphibian	8115231	Trujillo AL	2021	Spatiotemporal adaptive evolution of an MHC immune gene in a frog-fungus disease system.	Heredity	10.1038/s41437-020-00402-9
+mammal_bat	7079943	Qurkhuli T	2019	Can extreme MHC class I diversity be a feature of a wide geographic range? The example of Seba's short-tailed bat (Carollia perspicillata).	Immunogenetics	10.1007/s00251-019-01128-7
+mammal_bat	7263666	Lilley TM	2020	Genome-Wide Changes in Genetic Diversity in a Population of Myotis lucifugus Affected by White-Nose Syndrome.	G3 (Bethesda, Md.)	10.1534/g3.119.400966
+mammal_bat	7520216	Yi X	2020	Major histocompatibility complex variation is similar in little brown bats before and after white-nose syndrome outbreak.	Ecology and evolution	10.1002/ece3.6662
+mammal_bat	12412728	Becker DJ	2025	Diverse hosts, diverse immune systems: Evolutionary variation in bat immunology.	Annals of the New York Academy of Sciences	10.1111/nyas.15395
+mammal_bat	10879000	Foley NM	2024	Karyotypic stasis and swarming influenced the evolution of viral tolerance in a species-rich bat radiation.	Cell genomics	10.1016/j.xgen.2023.100482
+mammal_bat	10033860	Li X	2023	Diversifying selection and climatic effects on major histocompatibility complex class II gene diversity in the greater horseshoe bat.	Evolutionary applications	10.1111/eva.13528
+mammal_bat	12717984	Kwait R	2025	Low-Coverage Whole-Genome Analysis of Population Structure, Bottlenecks, and Selection in Indiana Bats Before and After White-Nose Syndrome.	Molecular ecology	10.1111/mec.70172
+mammal_bat	11491789	Zhao L	2024	Chromosome-level genome and population genomics of the intermediate horseshoe bat ( Rhinolophus affinis) reveal the molecular basis of virus tolerance in Rhinolophus and echolocation call frequency variation.	Zoological research	10.24272/j.issn.2095-8137.2024.027
+mammal_bat	10083501	Zhou H	2023	New insights into the germline genes and CDR3 repertoire of the TCRβ chain in Chiroptera.	Frontiers in immunology	10.3389/fimmu.2023.1147859
+mammal_bat	7112298	Pavlovich SS	2018	The Egyptian Rousette Genome Reveals Unexpected Features of Bat Antiviral Immunity.	Cell	10.1016/j.cell.2018.03.070
+mammal_bat	10903922	Olayemi A	2024	MHC-I alleles mediate clearance and antibody response to the zoonotic Lassa virus in Mastomys rodent reservoirs.	PLoS neglected tropical diseases	10.1371/journal.pntd.0011984
+mammal_bat	6797855	Edenborough KM	2019	Dendritic Cells Generated From Mops condylurus, a Likely Filovirus Reservoir Host, Are Susceptible to and Activated by Zaire Ebolavirus Infection.	Frontiers in immunology	10.3389/fimmu.2019.02414
+mammal_bat	6752855	Lu D	2019	Peptide presentation by bat MHC class I provides new insight into the antiviral immunity of bats.	PLoS biology	10.1371/journal.pbio.3000436
+mammal_marsupial	6197426	Johnson RN	2018	Adaptation and conservation insights from the koala genome.	Nature genetics	10.1038/s41588-018-0153-5
+mammal_marsupial	11305139	Silver LW	2024	Plethora of New Marsupial Genomes Informs Our Knowledge of Marsupial MHC Class II.	Genome biology and evolution	10.1093/gbe/evae156
+mammal_marsupial	5054531	Morris KM	2016	Characterisation of the immune compounds in koala milk using a combined transcriptomic and proteomic approach.	Scientific reports	10.1038/srep35011
+mammal_marsupial	4370664	Cui J	2015	SNP marker discovery in koala TLR genes.	PloS one	10.1371/journal.pone.0121068
+mammal_marsupial	7725693	Quigley BL	2020	High-throughput immunogenetic typing of koalas suggests possible link between MHC alleles and cancers.	Immunogenetics	10.1007/s00251-020-01181-7
+mammal_marsupial	6461856	Kjeldsen SR	2019	Genomic comparisons reveal biogeographic and anthropogenic impacts in the koala (Phascolarctos cinereus): a dietary-specialist species distributed across heterogeneous environments.	Heredity	10.1038/s41437-018-0144-4
+mammal_marsupial	11681110	Kidd A	2024	Koala MHCII association with chlamydia infertility remains equivocal: a need for new research approaches.	Scientific reports	10.1038/s41598-024-82217-w
+mammal_marsupial	9325493	Silver LW	2022	A targeted approach to investigating immune genes of an iconic Australian marsupial.	Molecular ecology	10.1111/mec.16493
+mammal_marsupial	11334065	Harding EF	2024	Invasion and Amplification of Endogenous Retroviruses in Dasyuridae Marsupial Genomes.	Molecular biology and evolution	10.1093/molbev/msae160
+mammal_marsupial	11711154	Petrohilos C	2025	AMPed up immunity: 418 whole genomes reveal intraspecific diversity of koala antimicrobial peptides.	Immunogenetics	10.1007/s00251-024-01368-2
+mammal_marsupial	4608214	Morris KM	2015	Identification, characterisation and expression analysis of natural killer receptor genes in Chlamydia pecorum infected koalas (Phascolarctos cinereus).	BMC genomics	10.1186/s12864-015-2035-x
+mammal_marsupial	11608166	Cui J	2024	Spatial variation in toll-like receptor diversity in koala populations across their geographic distribution.	Immunogenetics	10.1007/s00251-024-01365-5
+mammal_marsupial	11496358	Silver LW	2024	Using bioinformatics to investigate functional diversity: a case study of MHC diversity in koalas.	Immunogenetics	10.1007/s00251-024-01356-6
+mammal_marsupial	6322743	Nyari S	2019	Therapeutic effect of a Chlamydia pecorum recombinant major outer membrane protein vaccine on ocular disease in koalas (Phascolarctos cinereus).	PloS one	10.1371/journal.pone.0210245
+mammal_marsupial	6541247	Mella VSA	2019	Needing a drink: Rainfall and temperature drive the use of free water by a threatened arboreal folivore.	PloS one	10.1371/journal.pone.0216964
+mammal_marine	9323584	Mohr DW	2022	"A Chromosome-Length Assembly of the Hawaiian Monk Seal (Neomonachus schauinslandi): A History of ""Genetic Purging"" and Genomic Stability."	Genes	10.3390/genes13071270
+mammal_marine	9584807	Gigliotti AK	2022	Sequence Diversity and Differences at the Highly Duplicated MHC-I Gene Reflect Viral Susceptibility in Sympatric Pinniped Species.	The Journal of heredity	10.1093/jhered/esac030
+mammal_marine	6155461	Pagán HJT	2018	Positive selection in coding regions and motif duplication in regulatory regions of bottlenose dolphin MHC class II genes.	PloS one	10.1371/journal.pone.0203450
+mammal_marine	11540311	Hench K	2024	Refinement of the Antarctic fur seal (Arctocephalus gazella) reference genome increases continuity and completeness.	G3 (Bethesda, Md.)	10.1093/g3journal/jkae179
+mammal_marine	6072028	Dooley CT	2018	Bridging immunogenetics and immunoproteomics: Model positional scanning library analysis for Major Histocompatibility Complex class II DQ in Tursiops truncatus.	PloS one	10.1371/journal.pone.0201299
+mammal_marine	9606363	Tebbe J	2022	Intronic primers reveal unexpectedly high major histocompatibility complex diversity in Antarctic fur seals.	Scientific reports	10.1038/s41598-022-21658-7
+mammal_marine	12288799	McCosker CM	2025	Molecular Mechanisms Underlying Response to Influenza in Grey Seals (Halichoerus grypus), a Potential Wild Reservoir.	Molecular ecology	10.1111/mec.70012
+mammal_marine	11353456	Ruiz-García M	2024	Are There Barriers Separating the Pink River Dolphin Populations (Inia boliviensis, Iniidae, Cetacea) within the Mamoré-Iténez River Basins (Bolivia)? An Analysis of Its Genetic Structure by Means of Mitochondrial and Nuclear DNA Markers.	Genes	10.3390/genes15081012
+mammal_marine	11022044	Day G	2024	Organisation and evolution of the major histocompatibility complex class I genes in cetaceans.	iScience	10.1016/j.isci.2024.109590
+mammal_marine	11701557	Maccari G	2025	The 2024 IPD-MHC database update: a comprehensive resource for major histocompatibility complex studies.	Nucleic acids research	10.1093/nar/gkae932
+mammal_marine	6712047	Rivera-León VE	2019	Long-term isolation at a low effective population size greatly reduced genetic diversity in Gulf of California fin whales.	Scientific reports	10.1038/s41598-019-48700-5
+mammal_marine	7126063	Gkafas GA	2020	Sex-specific impact of inbreeding on pathogen load in the striped dolphin.	Proceedings. Biological sciences	10.1098/rspb.2020.0195
+mammal_marine	10497599	Nigenda-Morales SF	2023	The genomic footprint of whaling and isolation in fin whale populations.	Nature communications	10.1038/s41467-023-40052-z
+mammal_marine	6459222	de Sá ALA	2019	The Marine Mammal Class II Major Histocompatibility Complex Organization.	Frontiers in immunology	10.3389/fimmu.2019.00696
+mammal_marine	11009102	Hoelzel AR	2024	Genomics of post-bottleneck recovery in the northern elephant seal.	Nature ecology & evolution	10.1038/s41559-024-02337-4
+mammal_carnivore	10866938	Meißner R	2024	Diversity of selected toll-like receptor genes in cheetahs (Acinonyx jubatus) and African leopards (Panthera pardus pardus).	Scientific reports	10.1038/s41598-024-54076-y
+mammal_carnivore	9540975	Prost S	2022	Genomic analyses show extremely perilous conservation status of African and Asiatic cheetahs (Acinonyx jubatus).	Molecular ecology	10.1111/mec.16577
+mammal_carnivore	8924298	Plasil M	2022	Comparative Genomics of the Major Histocompatibility Complex (MHC) of Felids.	Frontiers in genetics	10.3389/fgene.2022.829891
+mammal_carnivore	11113348	Al Hikmani H	2024	Can genetic rescue help save Arabia's last big cat?	Evolutionary applications	10.1111/eva.13701
+mammal_carnivore	12519839	Schubert N	2025	Inbreeding does not reduce major histocompatibility complex diversity in the banded mongoose.	BMC ecology and evolution	10.1186/s12862-025-02456-x
+mammal_carnivore	12091599	Fabiano EC	2025	Inferring the historical demography of southern African cheetahs (Acinonyx jubatus) using Bayesian analyses of molecular genetic data.	Genetics and molecular biology	10.1590/1678-4685-GMB-2024-0253
+mammal_carnivore	7149701	Schmidt-Küntzel A	2018	Conservation Genetics of the Cheetah: Genetic History and Implications for Conservation.	Cheetahs: Biology and Conservation	10.1016/B978-0-12-804088-1.00006-X
+mammal_carnivore	12683877	Meißner R	2025	Unraveling genome- and immunome-wide genetic diversity in modern and historical Jaguars.	Genome biology	10.1186/s13059-025-03868-0
+mammal_carnivore	9225391	Weyrich A	2022	First Steps towards the Development of Epigenetic Biomarkers in Female Cheetahs (Acinonyx jubatus).	Life (Basel, Switzerland)	10.3390/life12060920
+mammal_carnivore	6460805	Rocha RG	2019	Alternated selection mechanisms maintain adaptive diversity in different demographic scenarios of a large carnivore.	BMC evolutionary biology	10.1186/s12862-019-1420-5
+mammal_carnivore	9028982	Mangiaterra S	2022	Chronic Stress-Related Gastroenteric Pathology in Cheetah: Relation between Intrinsic and Extrinsic Factors.	Biology	10.3390/biology11040606
+mammal_carnivore	8625435	Marino ME	2021	Full Viral Genome Sequencing and Phylogenomic Analysis of Feline Herpesvirus Type 1 (FHV-1) in Cheetahs (Acinonyx jubatus).	Viruses	10.3390/v13112307
+mammal_carnivore	6567154	Esson C	2019	Health and zoonotic Infections of snow leopards Panthera unica in the South Gobi desert of Mongolia.	Infection ecology & epidemiology	10.1080/20008686.2019.1604063
+mammal_carnivore	11418166	Kohn TA	2024	Does sex matter in the cheetah? Insights into the skeletal muscle of the fastest land animal.	The Journal of experimental biology	10.1242/jeb.247284
+mammal_carnivore	10093629	Sun Y	2023	Crystal Structure of a Classical MHC Class I Molecule in Dogs; Comparison of DLA-88*0 and DLA-88*5 Category Molecules.	Cells	10.3390/cells12071097
+mammal_ungulate	9140943	Tang Y	2022	Major Histocompatibility Complex (MHC) Diversity of the Reintroduction Populations of Endangered Przewalski's Horse.	Genes	10.3390/genes13050928
+mammal_ungulate	10815642	Youk S	2023	Genetic Diversity and Sequence Conservation of Peptide-Binding Regions of MHC Class I Genes in Pig, Cattle, Chimpanzee, and Human.	Genes	10.3390/genes15010007
+mammal_ungulate	6525122	Dicks KL	2019	Characterisation of major histocompatibility complex class IIa haplotypes in an island sheep population.	Immunogenetics	10.1007/s00251-019-01109-w
+mammal_ungulate	12445162	Crooijmans RPMA	2025	IMAGE001: A new livestock multispecies SNP array to characterize genomic variation in European livestock gene bank collections.	Animal genetics	10.1111/age.70039
+mammal_ungulate	7900169	Celis-Giraldo CT	2021	A comparative analysis of SLA-DRB1 genetic diversity in Colombian (creoles and commercial line) and worldwide swine populations.	Scientific reports	10.1038/s41598-021-83637-8
+mammal_ungulate	9809118	Buitkamp J	2023	Uncovering novel MHC alleles from RNA-Seq data: expanding the spectrum of MHC class I alleles in sheep.	BMC genomic data	10.1186/s12863-022-01102-5
+mammal_ungulate	9949681	Cheng H	2023	Long divergent haplotypes introgressed from wild sheep are associated with distinct morphological and adaptive characteristics in domestic sheep.	PLoS genetics	10.1371/journal.pgen.1010615
+mammal_ungulate	7392685	Ivy-Israel NMD	2020	Characterization of two MHC II genes (DOB, DRB) in white-tailed deer (Odocoileus virginianus).	BMC genetics	10.1186/s12863-020-00889-5
+mammal_ungulate	8602413	Chen ZH	2021	Whole-genome sequence analysis unveils different origins of European and Asiatic mouflon and domestication-related genes in sheep.	Communications biology	10.1038/s42003-021-02817-4
+mammal_ungulate	8387388	Salim B	2021	BoLA-DRB3 gene haplotypes show divergence in native Sudanese cattle from taurine and indicine breeds.	Scientific reports	10.1038/s41598-021-96330-7
+mammal_ungulate	6182402	Maccari G	2018	IPD-MHC: nomenclature requirements for the non-human major histocompatibility complex in the next-generation sequencing era.	Immunogenetics	10.1007/s00251-018-1072-4
+mammal_ungulate	6402107	Portanier E	2019	Both candidate gene and neutral genetic diversity correlate with parasite resistance in female Mediterranean mouflon.	BMC ecology	10.1186/s12898-019-0228-x
+mammal_ungulate	10851530	Salim B	2024	Exploring genetic diversity and variation of Ovar-DRB1 gene in Sudan Desert Sheep using targeted next-generation sequencing.	BMC genomics	10.1186/s12864-024-10053-3
+mammal_primate	11741996	Dodd GK	2025	In silico functional analysis of the human, chimpanzee, and gorilla MHC-A repertoires.	Immunogenetics	10.1007/s00251-024-01369-1
+mammal_primate	6389700	Wroblewski EE	2019	Two to Tango: Co-evolution of Hominid Natural Killer Cell Receptors and MHC.	Frontiers in immunology	10.3389/fimmu.2019.00177
+mammal_primate	7491122	Vangenot C	2020	Similar patterns of genetic diversity and linkage disequilibrium in Western chimpanzees (Pan troglodytes verus) and humans indicate highly conserved mechanisms of MHC molecular evolution.	BMC evolutionary biology	10.1186/s12862-020-01669-6
+mammal_primate	6790196	de Groot N	2019	Analysis of macaque BTN3A genes and transcripts in the extended MHC: conserved orthologs of human γδ T cell modulators.	Immunogenetics	10.1007/s00251-019-01126-9
+mammal_primate	12674619	Fortier AL	2025	The primate Major Histocompatibility Complex as a case study of gene family evolution.	eLife	10.7554/eLife.103545
+mammal_primate	11526555	Fedele E	2024	Sequencing the orthologs of human autosomal forensic short tandem repeats provides individual- and species-level identification in African great apes.	BMC ecology and evolution	10.1186/s12862-024-02324-0
+mammal_primate	7725694	Otting N	2020	Evolution of HLA-F and its orthologues in primate species: a complex tale of conservation, diversification and inactivation.	Immunogenetics	10.1007/s00251-020-01187-1
+mammal_primate	11429698	Fortier AL	2025	The Primate Major Histocompatibility Complex: A Case Study of Gene Family Evolution.	bioRxiv : the preprint server for biology	10.1101/2024.09.16.613318
+mammal_primate	6096839	Robinson J	2018	Nomenclature for the KIR of non-human species.	Immunogenetics	10.1007/s00251-018-1064-4
+mammal_primate	10078292	Karl JA	2023	Complete sequencing of a cynomolgus macaque major histocompatibility complex haplotype.	Genome research	10.1101/gr.277429.122
+mammal_primate	6234885	Henkel S	2018	Group and kin recognition via olfactory cues in chimpanzees (Pan troglodytes).	Proceedings. Biological sciences	10.1098/rspb.2018.1527
+mammal_primate	10947866	Mao Y	2024	Structurally divergent and recurrently mutated regions of primate genomes.	Cell	10.1016/j.cell.2024.01.052
+mammal_primate	11499206	Debbagh C	2024	Deciphering Gorilla gorilla gorilla immunoglobulin loci in multiple genome assemblies and enrichment of IMGT resources.	Frontiers in immunology	10.3389/fimmu.2024.1475003
+mammal_primate	10679654	Anwised P	2023	An expedition in the jungle of pluripotent stem cells of non-human primates.	Stem cell reports	10.1016/j.stemcr.2023.09.013
+mammal_primate	6643899	Vangenot C	2019	Humans and Chimpanzees Display Opposite Patterns of Diversity in Arylamine N-Acetyltransferase Genes.	G3 (Bethesda, Md.)	10.1534/g3.119.400223
+mammal_rodent	8209723	Fountain K	2021	Fatal exudative dermatitis in island populations of red squirrels (Sciurus vulgaris): spillover of a virulent Staphylococcus aureus clone (ST49) from reservoir hosts.	Microbial genomics	10.1099/mgen.0.000565
+mammal_rodent	10379431	Liu P	2023	Neutral Forces and Balancing Selection Interplay to Shape the Major Histocompatibility Complex Spatial Patterns in the Striped Hamster in Inner Mongolia: Suggestive of Broad-Scale Local Adaptation.	Genes	10.3390/genes14071500
+mammal_rodent	11806934	Arshad H	2023	A single protective polymorphism in the prion protein blocks cross-species prion replication in cultured cells.	Journal of neurochemistry	10.1111/jnc.15739
+mammal_rodent	6403406	Joshi S	2019	Immunogenicity and Protective Efficacy of T-Cell Epitopes Derived From Potential Th1 Stimulatory Proteins of Leishmania (Leishmania) donovani.	Frontiers in immunology	10.3389/fimmu.2019.00288
+mammal_rodent	12439417	Reiners TE	2025	Chromosome-level genome of the European hamster (Cricetus cricetus) and its genome-wide population structure across Western Europe.	BMC biology	10.1186/s12915-025-02384-8
+mammal_rodent	6580283	Hardouin EA	2019	Conservation of genetic uniqueness in remaining populations of red squirrels (Sciurus vulgaris L.) in the South of England.	Ecology and evolution	10.1002/ece3.5233
+mammal_rodent	11591111	Ruiz-Rubio S	2024	The Accessory Olfactory Bulb in Arvicola scherman: A Neuroanatomical Study in a Subterranean Mammal.	Animals : an open access journal from MDPI	10.3390/ani14223285
+mammal_rodent	12487395	Górska J	2025	Beyond the laboratory: the bank vole (Clethrionomys glareolus) as a novel model organism in biological research.	Frontiers in zoology	10.1186/s12983-025-00578-y
+mammal_rodent	10801004	Migalska M	2023	Evolutionary trade-offs constraining the MHC gene expansion: beyond simple TCR depletion model.	Frontiers in immunology	10.3389/fimmu.2023.1240723
+mammal_rodent	7459204	Miao JX	2020	Promising xenograft animal model recapitulating the features of human pancreatic cancer.	World journal of gastroenterology	10.3748/wjg.v26.i32.4802
+mammal_rodent	9291387	Cooper TK	2021	Research-Relevant Conditions and Pathology of Laboratory Mice, Rats, Gerbils, Guinea Pigs, Hamsters, Naked Mole Rats, and Rabbits.	ILAR journal	10.1093/ilar/ilab022
+mammal_rodent	6421458	Migalska M	2019	Major histocompatibility complex class I diversity limits the repertoire of T cell receptors.	Proceedings of the National Academy of Sciences of the United States of America	10.1073/pnas.1807864116
+mammal_rodent	5977225	Campbell CL	2018	Involvement of Pro-Inflammatory Macrophages in Liver Pathology of Pirital Virus-Infected Syrian Hamsters.	Viruses	10.3390/v10050232
+mammal_rodent	7997389	Vandyck K	2021	ALG-097111, a potent and selective SARS-CoV-2 3-chymotrypsin-like cysteine protease inhibitor exhibits in vivo efficacy in a Syrian Hamster model.	Biochemical and biophysical research communications	10.1016/j.bbrc.2021.03.096
+mammal_rodent	9960357	Castellan M	2023	Host Response of Syrian Hamster to SARS-CoV-2 Infection including Differences with Humans and between Sexes.	Viruses	10.3390/v15020428
+conservation	6523929	Lan H	2019	Genetic Diversity and Differentiation at Structurally Varying MHC Haplotypes and Microsatellites in Bottlenecked Populations of Endangered Crested Ibis.	Cells	10.3390/cells8040377
+conservation	8640931	Kardos M	2021	The crucial role of genome-wide genetic variation in conservation.	Proceedings of the National Academy of Sciences of the United States of America	10.1073/pnas.2104642118
+conservation	6383737	Montero BK	2019	Challenges of next-generation sequencing in conservation management: Insights from long-term monitoring of corridor effects on the genetic diversity of mouse lemurs in a fragmented landscape.	Evolutionary applications	10.1111/eva.12723
+conservation	10630338	Dong PP	2023	Diversity and evolution of the MHC class II DRB gene in the Capra sibirica experienced a demographic fluctuation in China.	Scientific reports	10.1038/s41598-023-46717-5
+conservation	11192967	Allendorf FW	2024	What does effective population size tell us about loss of allelic variation?	Evolutionary applications	10.1111/eva.13733
+conservation	5941765	Angelone S	2018	Hidden MHC genetic diversity in the Iberian ibex (Capra pyrenaica).	BMC genetics	10.1186/s12863-018-0616-9
+human_population	8202064	Baaqeel RH	2021	TagSNP approach for HLA risk allele genotyping of Saudi celiac disease patients: effectiveness and pitfalls.	Bioscience reports	10.1042/BSR20210509
+human_population	7756484	Gudeta AN	2020	Distribution of HLA-DQ risk genotypes for celiac disease in Ethiopian children.	HLA	10.1111/tan.14119
+human_population	9825418	Zhao X	2023	PGG.MHC: toward understanding the diversity of major histocompatibility complexes in human populations.	Nucleic acids research	10.1093/nar/gkac997
+human_population	11027949	Tao S	2024	High-resolution KIR and HLA genotyping in three Chinese ethnic minorities reveals distinct origins.	HLA	10.1111/tan.15482
+human_population	12054343	Kim H	2025	MultiCook: A Tool That Improves Accuracy of HLA Imputation by Combining Probabilities From Multiple Reference Panels and Methods.	HLA	10.1111/tan.70153
+human_population	11774482	Al-Tamimi J	2025	Association of killer immunoglobulin-like receptor genotypes and haplotypes with acute lymphoblastic leukemia risk.	Innate immunity	10.1177/17534259251314774
+human_population	9496851	Castrillon M	2022	Killer-Cell Immunoglobulin-like Receptor Diversity in an Admixed South American Population.	Cells	10.3390/cells11182776
+human_population	10691135	Zhao Y	2023	HLA-DR genetic polymorphisms and hepatitis B virus mutations affect the risk of hepatocellular carcinoma in Han Chinese population.	Virology journal	10.1186/s12985-023-02253-2
+human_population	7261677	Pérez-Rubio G	2020	Heterozygous Genotype rs17580 AT (PiS) in SERPINA1 is Associated with COPD Secondary to Biomass-Burning and Tobacco Smoking: A Case-Control and Populational Study.	International journal of chronic obstructive pulmonary disease	10.2147/COPD.S247446
+human_population	8545853	Osoegawa K	2021	Challenges for the standardized reporting of NGS HLA genotyping: Surveying gaps between clinical and research laboratories.	Human immunology	10.1016/j.humimm.2021.08.011
+human_population	7170860	Santos DC	2020	HLA class II genotyping of admixed Brazilian patients with type 1 diabetes according to self-reported color/race in a nationwide study.	Scientific reports	10.1038/s41598-020-63322-y
+human_population	9926114	Feng Y	2023	A Kmer-based paired-end read de novo assembler and genotyper for canine MHC class I genotyping.	iScience	10.1016/j.isci.2023.105996
+human_population	7141133	Graciano-Machuca O	2020	Diversity of KIR/HLA Genotypes and Their Association with Psoriasis Vulgaris in the Western Mexican Population.	Genes	10.3390/genes11030338
+human_population	12368854	Liu S (刘帅)	2025	Pathogen Adaptation of HLA Alleles and Its Correlation with Autoimmune Diseases in the Han Chinese.	Genomics, proteomics & bioinformatics	10.1093/gpbjnl/qzaf038
+human_population	7178719	Li C	2020	Polymorphisms in endoplasmic reticulum aminopeptidase genes are associated with cervical cancer risk in a Chinese Han population.	BMC cancer	10.1186/s12885-020-06832-2
+shark	7002201	Almeida T	2020	An Ancient, MHC-Linked, Nonclassical Class I Lineage in Cartilaginous Fish.	Journal of immunology (Baltimore, Md. : 1950)	10.4049/jimmunol.1901025
+shark	3832898	Richards VP	2013	Characterization of the heart transcriptome of the white shark (Carcharodon carcharias).	BMC genomics	10.1186/1471-2164-14-697
+shark	5278576	Marra NJ	2017	Comparative transcriptomics of elasmobranchs and teleosts highlight important processes in adaptive immunity and regional endothermy.	BMC genomics	10.1186/s12864-016-3411-x
+shark	10707392	Bachar-Wikstrom E	2023	Mass Spectrometry Analysis of Shark Skin Proteins.	International journal of molecular sciences	10.3390/ijms242316954
+shark	8454915	Almeida T	2021	A Highly Complex, MHC-Linked, 350 Million-Year-Old Shark Nonclassical Class I Lineage.	Journal of immunology (Baltimore, Md. : 1950)	10.4049/jimmunol.2000851
+shark	10530332	Flajnik MF	2023	An Ancient MHC-Linked Gene Encodes a Nonrearranging Shark Antibody, UrIg, Convergent with IgG.	Journal of immunology (Baltimore, Md. : 1950)	10.4049/jimmunol.2300361
+shark	3260380	Criscitiello MF	2012	Shark class II invariant chain reveals ancient conserved relationships with cathepsins and MHC class II.	Developmental and comparative immunology	10.1016/j.dci.2011.09.008
+shark	8010645	Almeida T	2020	Cartilaginous fish class II genes reveal unprecedented old allelic lineages and confirm the late evolutionary emergence of DM.	Molecular immunology	10.1016/j.molimm.2020.10.003
+shark	3780621	Tanaka K	2013	Evolutionary relations of Hexanchiformes deep-sea sharks elucidated by whole mitochondrial genome sequences.	BioMed research international	10.1155/2013/147064
+shark	10924892	Harshan P	2024	De novo transcriptome for Chiloscyllium griseum, a long-tail carpet shark of the Indian waters.	Scientific data	10.1038/s41597-024-03093-7
+shark	3222143	Criscitiello MF	2010	Evolutionarily conserved TCR binding sites, identification of T cells in primary lymphoid tissues, and surprising trans-rearrangements in nurse shark.	Journal of immunology (Baltimore, Md. : 1950)	10.4049/jimmunol.0902774
+shark	3842027	Fitzpatrick JL	2012	Assessing the potential for post-copulatory sexual selection in elasmobranchs.	Journal of fish biology	10.1111/j.1095-8649.2012.03256.x
+shark	3123226	Pinhal D	2011	The 5S rDNA family evolves through concerted and birth-and-death evolution in fish genomes: an example from freshwater stingrays.	BMC evolutionary biology	10.1186/1471-2148-11-151
+shark	7909615	Ott JA	2021	Lost structural and functional inter-relationships between Ig and TCR loci in mammals revealed in sharks.	Immunogenetics	10.1007/s00251-020-01183-5

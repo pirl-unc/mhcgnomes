@@ -1,0 +1,225 @@
+raw_string	expected_species	source
+APC-Axin		PMC:3832898
+Axin-APC		PMC:3832898
+BRCA1-A		PMC:3832898
+BRCA1-A complex; BRCA1-BARD1 complex; cytoplasm;		PMC:3832898
+BRCA1-BARD1		PMC:3832898
+BRCA2-BRAF35		PMC:3832898
+BRCA2-MAGE		PMC:3832898
+BRISC complex; BRCA1-A complex; cytoplasm;		PMC:3832898
+C-X3-C chemokine receptor activity; protein binding;		PMC:3832898
+C:ER-Golgi intermediate compartment; F:protein binding		PMC:3832898
+C:Smc5-Smc6 complex; P:developmental process;		PMC:3832898
+C:nucleolus; ; P:histone H4-K16 acetylation		PMC:3832898
+CCR4-NOT		PMC:3832898
+CH-CH		PMC:3832898
+CH-NH2		PMC:3832898
+CH-OH		PMC:3832898
+Cajal-Retzius		PMC:3832898
+Cdc48p-Npl4p		PMC:3832898
+Cdc48p-Npl4p-Ufd1p AAA ATPase complex; lipid particle;		PMC:3832898
+Cul2-RING		PMC:3832898
+Cul2-RING ubiquitin ligase complex;		PMC:3832898
+Cul3-RING		PMC:3832898
+Cul3-RING ubiquitin ligase complex; cytoplasm;		PMC:3832898
+Cul4A-RING		PMC:3832898
+Cul4A-RING ubiquitin ligase complex;		PMC:3832898
+Cul4B-RING		PMC:3832898
+DNA-N1		PMC:3832898
+ER-Golgi		PMC:3832898
+ER-Golgi intermediate compartment;		PMC:3832898
+ER-Golgi intermediate compartment; cytoplasmic vesicle;		PMC:3832898
+ER-Golgi intermediate compartment; endoplasmic reticulum;		PMC:3832898
+FAD-AMP		PMC:3832898
+GABA-A		PMC:3832898
+GDP-L		PMC:3832898
+GPI-GnT		PMC:3832898
+GTP-Rho		PMC:3832898
+GTP-Rho binding; protein serine/threonine kinase activity;		PMC:3832898
+Grb2-Sos		PMC:3832898
+H2A-S1		PMC:3832898
+H3-K14		PMC:3832898
+H3-K16		PMC:3832898
+H3-K27		PMC:3832898
+H3-K36		PMC:3832898
+H3-K4		PMC:3832898
+H3-K9		PMC:3832898
+H3-R17		PMC:3832898
+H3-R2		PMC:3832898
+H3-S10		PMC:3832898
+H3-S28		PMC:3832898
+H3-T11		PMC:3832898
+H3-T6		PMC:3832898
+H3-Y41		PMC:3832898
+H4-K12		PMC:3832898
+H4-K16		PMC:3832898
+H4-K20		PMC:3832898
+H4-K5		PMC:3832898
+H4-K8		PMC:3832898
+H4-R3		PMC:3832898
+HLA-A		PMC:3832898
+His-Purkinje		PMC:3832898
+JAK-STAT		PMC:3832898
+MLL5-L		PMC:3832898
+Nem1-Spo7		PMC:3832898
+Noc1p-Noc2p		PMC:3832898
+Noc4p-Nop14p		PMC:3832898
+P granule; cytosol; Grb2-Sos complex; nucleolus;		PMC:3832898
+P:defense response; P:JAK-STAT cascade; C:cytoplasm		PMC:3832898
+Rb-E2F		PMC:3832898
+SREBP-SCAP		PMC:3832898
+SREBP-SCAP-Insig complex;		PMC:3832898
+SUN-KASH		PMC:3832898
+SUN-KASH complex; nuclear membrane;		PMC:3832898
+SUN-KASH complex; nuclear membrane; cytoplasm;		PMC:3832898
+Schmidt-Lanterman		PMC:3832898
+Scrib-APC		PMC:3832898
+Shc-EGFR		PMC:3832898
+Shc-EGFR complex; cytosol; nucleus; endosome membrane;		PMC:3832898
+Smc5-Smc6		PMC:3832898
+Smc5-Smc6 complex;		PMC:3832898
+Stn1-Ten1		PMC:3832898
+Swi5-Sfr1		PMC:3832898
+TSC1-TSC2		PMC:3832898
+Tle3-Aes		PMC:3832898
+Tle3-Aes complex;		PMC:3832898
+UBC13-MMS2		PMC:3832898
+UBC13-UEV1A		PMC:3832898
+UDP-N		PMC:3832898
+ULK1-ATG13		PMC:3832898
+ULK1-ATG13-FIP200 complex;		PMC:3832898
+UV-A		PMC:3832898
+UV-B		PMC:3832898
+UV-C		PMC:3832898
+Weibel-Palade		PMC:3832898
+X3-C		PMC:3832898
+chromosome, telomeric region; PML body; Smc5-Smc6 complex;		PMC:3832898
+cytoplasm; midbody; Cul3-RING ubiquitin ligase complex;		PMC:3832898
+cytoplasm; nucleolus; Grb2-Sos complex;		PMC:3832898
+cytosol; CCR4-NOT complex; cytoplasmic mRNA processing body;		PMC:3832898
+cytosol; Cdc48p-Npl4p-Ufd1p AAA ATPase complex; nucleus;		PMC:3832898
+defense response; JAK-STAT cascade;		PMC:3832898
+histone H3-K4 methylation;		PMC:3832898
+histone H4-K16 acetylation;		PMC:3832898
+histone lysine methylation; regulation of JAK-STAT cascade;		PMC:3832898
+histone methyltransferase activity (H4-K20 specific);		PMC:3832898
+intermediate filament cytoskeleton; Stn1-Ten1 complex;		PMC:3832898
+midbody; Cul3-RING ubiquitin ligase complex;		PMC:3832898
+midbody; Cul3-RING ubiquitin ligase complex; cytoplasm;		PMC:3832898
+nuclear membrane; SUN-KASH complex;		PMC:3832898
+H3-K14		PMC:3832898
+H4-K12		PMC:3832898
+H4-K16		PMC:3832898
+H4-K5		PMC:3832898
+H4-K8		PMC:3832898
+APC-Axin		PMC:3832898
+Axin-APC		PMC:3832898
+BRCA1-A		PMC:3832898
+BRCA1-BARD1		PMC:3832898
+BRCA2-BRAF35		PMC:3832898
+BRCA2-MAGE		PMC:3832898
+BRISC complex; BRCA1-A complex; cytoplasm;		PMC:3832898
+C-X3-C chemokine receptor activity; protein binding;		PMC:3832898
+C:ER-Golgi intermediate compartment; F:protein binding		PMC:3832898
+C:Smc5-Smc6 complex;		PMC:3832898
+C:nucleolus; ; P:histone H4-K16 acetylation		PMC:3832898
+CCR4-NOT		PMC:3832898
+CH-CH		PMC:3832898
+CH-NH2		PMC:3832898
+CH-OH		PMC:3832898
+Cajal-Retzius		PMC:3832898
+Cdc48p-Npl4p		PMC:3832898
+Cdc48p-Npl4p-Ufd1p AAA ATPase complex; lipid particle;		PMC:3832898
+Cul2-RING		PMC:3832898
+Cul2-RING ubiquitin ligase complex;		PMC:3832898
+Cul3-RING		PMC:3832898
+Cul3-RING ubiquitin ligase complex; cytoplasm;		PMC:3832898
+Cul4A-RING		PMC:3832898
+Cul4A-RING ubiquitin ligase complex;		PMC:3832898
+Cul4B-RING		PMC:3832898
+DNA-N1		PMC:3832898
+ER-Golgi		PMC:3832898
+ER-Golgi intermediate compartment;		PMC:3832898
+ER-Golgi intermediate compartment; cytoplasmic vesicle;		PMC:3832898
+ER-Golgi intermediate compartment; endoplasmic reticulum;		PMC:3832898
+FAD-AMP		PMC:3832898
+GABA-A		PMC:3832898
+GDP-L		PMC:3832898
+GPI-GnT		PMC:3832898
+GTP-Rho		PMC:3832898
+Grb2-Sos		PMC:3832898
+H2A-S1		PMC:3832898
+H3-K14		PMC:3832898
+H3-K16		PMC:3832898
+H3-K27		PMC:3832898
+H3-K36		PMC:3832898
+H3-K4		PMC:3832898
+H3-K9		PMC:3832898
+H3-R17		PMC:3832898
+H3-R2		PMC:3832898
+H3-S10		PMC:3832898
+H3-S28		PMC:3832898
+H3-T11		PMC:3832898
+H3-T6		PMC:3832898
+H3-Y41		PMC:3832898
+H4-K12		PMC:3832898
+H4-K16		PMC:3832898
+H4-K20		PMC:3832898
+H4-K5		PMC:3832898
+H4-K8		PMC:3832898
+H4-R3		PMC:3832898
+HLA-A		PMC:3832898
+His-Purkinje		PMC:3832898
+JAK-STAT		PMC:3832898
+MLL5-L		PMC:3832898
+Nem1-Spo7		PMC:3832898
+Noc1p-Noc2p		PMC:3832898
+Noc4p-Nop14p		PMC:3832898
+P granule; cytosol; Grb2-Sos complex; nucleolus;		PMC:3832898
+P:defense response; P:JAK-STAT cascade; C:cytoplasm		PMC:3832898
+Rb-E2F		PMC:3832898
+SREBP-SCAP		PMC:3832898
+SREBP-SCAP-Insig complex;		PMC:3832898
+SUN-KASH		PMC:3832898
+SUN-KASH complex; nuclear membrane;		PMC:3832898
+SUN-KASH complex; nuclear membrane; cytoplasm;		PMC:3832898
+SWI/SNF complex; PML body; Rb-E2F complex; chromatin;		PMC:3832898
+Schmidt-Lanterman		PMC:3832898
+Scrib-APC		PMC:3832898
+Shc-EGFR		PMC:3832898
+Shc-EGFR complex; cytosol; nucleus; endosome membrane;		PMC:3832898
+Smc5-Smc6		PMC:3832898
+Smc5-Smc6 complex;		PMC:3832898
+Smc5-Smc6 complex; nucleus;		PMC:3832898
+Stn1-Ten1		PMC:3832898
+Swi5-Sfr1		PMC:3832898
+TSC1-TSC2		PMC:3832898
+Tle3-Aes		PMC:3832898
+Tle3-Aes complex;		PMC:3832898
+UBC13-MMS2		PMC:3832898
+UBC13-UEV1A		PMC:3832898
+UDP-N		PMC:3832898
+ULK1-ATG13		PMC:3832898
+ULK1-ATG13-FIP200 complex;		PMC:3832898
+UV-A		PMC:3832898
+UV-B		PMC:3832898
+UV-C		PMC:3832898
+Weibel-Palade		PMC:3832898
+X3-C		PMC:3832898
+chromosome, telomeric region; PML body; Smc5-Smc6 complex;		PMC:3832898
+cytoplasm; midbody; Cul3-RING ubiquitin ligase complex;		PMC:3832898
+cytoplasm; nucleolus; Grb2-Sos complex;		PMC:3832898
+cytosol; CCR4-NOT complex; cytoplasmic mRNA processing body;		PMC:3832898
+cytosol; Cdc48p-Npl4p-Ufd1p AAA ATPase complex; nucleus;		PMC:3832898
+defense response; JAK-STAT cascade;		PMC:3832898
+histone H3-K4 methylation;		PMC:3832898
+histone H4-K16 acetylation;		PMC:3832898
+histone lysine methylation; regulation of JAK-STAT cascade;		PMC:3832898
+histone methyltransferase activity (H4-K20 specific);		PMC:3832898
+intermediate filament cytoskeleton; Stn1-Ten1 complex;		PMC:3832898
+lipid particle; Cdc48p-Npl4p-Ufd1p AAA ATPase complex;		PMC:3832898
+midbody; Cul3-RING ubiquitin ligase complex;		PMC:3832898
+midbody; Cul3-RING ubiquitin ligase complex; cytoplasm;		PMC:3832898
+nuclear membrane; Nem1-Spo7 phosphatase complex; cytoplasm;		PMC:3832898
+nuclear membrane; SUN-KASH complex;		PMC:3832898
+oxidoreductase activity, acting on CH-OH group of donors;		PMC:3832898

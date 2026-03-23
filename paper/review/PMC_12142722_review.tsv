@@ -1,0 +1,54 @@
+raw_string	parsed	parsed_as	result_type	species	correct	notes	source
+Amcr-DAB1	no						PMC:PMC12142722
+Amcr-DAB3	no						PMC:PMC12142722
+Amcr-DAB4	no						PMC:PMC12142722
+Amcr-UA	no						PMC:PMC12142722
+Amcr-UB	no						PMC:PMC12142722
+Amcr-UB*01	no						PMC:PMC12142722
+Amcr-UB*02	no						PMC:PMC12142722
+Amcr-UB*03	no						PMC:PMC12142722
+Amcr-UB*0401	no						PMC:PMC12142722
+Amcr-UB*0402	no						PMC:PMC12142722
+Cosu-UB	no						PMC:PMC12142722
+Cosu-UB*0101	no						PMC:PMC12142722
+Cosu-UB*0102	no						PMC:PMC12142722
+Cosu-UB*02	no						PMC:PMC12142722
+Cosu-UB*03	no						PMC:PMC12142722
+Ctde-UA	no						PMC:PMC12142722
+Ctde-UA*001	no						PMC:PMC12142722
+Ctde-UA*002	no						PMC:PMC12142722
+Ctde-UA*003	no						PMC:PMC12142722
+Ctde-UA*004	no						PMC:PMC12142722
+Ctde-UA*005	no						PMC:PMC12142722
+Ctde-UA*006	no						PMC:PMC12142722
+DAB1*01	no						PMC:PMC12142722
+DAB3*01	yes	Allele(gene=Gene(species=Species(name='Nipponia nippon', mhc_prefix='Nini'), name='DAB3', mutations=()), allele_fields=('01',), annotations=(), mutations=())	Allele	Nipponia nippon			PMC:PMC12142722
+DAB3*02	yes	Allele(gene=Gene(species=Species(name='Nipponia nippon', mhc_prefix='Nini'), name='DAB3', mutations=()), allele_fields=('02',), annotations=(), mutations=())	Allele	Nipponia nippon			PMC:PMC12142722
+DAB4*01	no						PMC:PMC12142722
+DAB4*02	no						PMC:PMC12142722
+Figure S1. Hi-C contact map for Lister’s gecko assembly.	no						PMC:PMC12142722
+Hi-C	no						PMC:PMC12142722
+Igig-UB	no						PMC:PMC12142722
+Igig-UB*0101	no						PMC:PMC12142722
+Igig-UB*0102	no						PMC:PMC12142722
+Igig-UB*02	no						PMC:PMC12142722
+Sppu-U	no						PMC:PMC12142722
+Sppu-U*01	no						PMC:PMC12142722
+Sppu-U*02	no						PMC:PMC12142722
+SppuDAB*01	no						PMC:PMC12142722
+SppuDAB*02	no						PMC:PMC12142722
+U*01	no						PMC:PMC12142722
+U*02	no						PMC:PMC12142722
+UA*001	no						PMC:PMC12142722
+UA*002	no						PMC:PMC12142722
+UA*003	no						PMC:PMC12142722
+UA*004	no						PMC:PMC12142722
+UA*005	no						PMC:PMC12142722
+UA*006	no						PMC:PMC12142722
+UB*01	yes	Allele(gene=Gene(species=Species(name='Trichosurus vulpecula', mhc_prefix='Trvu'), name='UB', mutations=()), allele_fields=('01',), annotations=(), mutations=())	Allele	Trichosurus vulpecula			PMC:PMC12142722
+UB*0101	yes	Allele(gene=Gene(species=Species(name='Trichosurus vulpecula', mhc_prefix='Trvu'), name='UB', mutations=()), allele_fields=('01', '01'), annotations=(), mutations=())	Allele	Trichosurus vulpecula			PMC:PMC12142722
+UB*0102	yes	Allele(gene=Gene(species=Species(name='Trichosurus vulpecula', mhc_prefix='Trvu'), name='UB', mutations=()), allele_fields=('01', '02'), annotations=(), mutations=())	Allele	Trichosurus vulpecula			PMC:PMC12142722
+UB*02	yes	Allele(gene=Gene(species=Species(name='Trichosurus vulpecula', mhc_prefix='Trvu'), name='UB', mutations=()), allele_fields=('02',), annotations=(), mutations=())	Allele	Trichosurus vulpecula			PMC:PMC12142722
+UB*03	yes	Allele(gene=Gene(species=Species(name='Trichosurus vulpecula', mhc_prefix='Trvu'), name='UB', mutations=()), allele_fields=('03',), annotations=(), mutations=())	Allele	Trichosurus vulpecula			PMC:PMC12142722
+UB*0401	yes	Allele(gene=Gene(species=Species(name='Trichosurus vulpecula', mhc_prefix='Trvu'), name='UB', mutations=()), allele_fields=('04', '01'), annotations=(), mutations=())	Allele	Trichosurus vulpecula			PMC:PMC12142722
+UB*0402	yes	Allele(gene=Gene(species=Species(name='Trichosurus vulpecula', mhc_prefix='Trvu'), name='UB', mutations=()), allele_fields=('04', '02'), annotations=(), mutations=())	Allele	Trichosurus vulpecula			PMC:PMC12142722

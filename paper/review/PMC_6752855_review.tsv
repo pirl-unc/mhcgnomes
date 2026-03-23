@@ -1,0 +1,101 @@
+raw_string	parsed	parsed_as	result_type	species	correct	notes	source
+Maeu-I*07	no						PMC:PMC6752855
+Maeu-I*08	no						PMC:PMC6752855
+Maeu-I*09	no						PMC:PMC6752855
+Maeu-I*10	no						PMC:PMC6752855
+Maeu-I*11	no						PMC:PMC6752855
+Maeu-I*12	no						PMC:PMC6752855
+Maeu-I*13	no						PMC:PMC6752855
+Maeu-I*14	no						PMC:PMC6752855
+Maeu-I*15	no						PMC:PMC6752855
+Maeu-I*16	no						PMC:PMC6752855
+Maeu-I*17	no						PMC:PMC6752855
+Phci-UA*01:01	no						PMC:PMC6752855
+Phci-UA*02:01	no						PMC:PMC6752855
+Phci-UA*03:01	no						PMC:PMC6752855
+Phci-UA*04:01	no						PMC:PMC6752855
+Phci-UA*05:01	no						PMC:PMC6752855
+Phci-UA*06:01	no						PMC:PMC6752855
+Phci-UA*07:01	no						PMC:PMC6752855
+Phci-UB*01:01	no						PMC:PMC6752855
+Phci-UB*01:02	no						PMC:PMC6752855
+Phci-UB*02:01	no						PMC:PMC6752855
+Phci-UB*03:01	no						PMC:PMC6752855
+Phci-UB*04:01	no						PMC:PMC6752855
+Phci-UC*01:01	no						PMC:PMC6752855
+Phci-UC*02:01	no						PMC:PMC6752855
+Phci-UC*03:01	no						PMC:PMC6752855
+Phci-UD*01:01	no						PMC:PMC6752855
+Phci-UE*01:01	no						PMC:PMC6752855
+Phci-UE*01:02	no						PMC:PMC6752855
+Phci-UF*01:01	no						PMC:PMC6752855
+Phci-UG*01:01	no						PMC:PMC6752855
+Phci-UH*01:01	no						PMC:PMC6752855
+Phci-UH*01:02	no						PMC:PMC6752855
+Phci-UH*01:03	no						PMC:PMC6752855
+Phci-UI*01:01	no						PMC:PMC6752855
+Phci-UI*01:02	no						PMC:PMC6752855
+Phci-UI*02:01	no						PMC:PMC6752855
+Phci-UJ*01:01	no						PMC:PMC6752855
+Phci-UK*01:01	no						PMC:PMC6752855
+Ptal-N*0101	yes	Allele(gene=Gene(species=Species(name='Pteropus alecto', mhc_prefix='Ptal'), name='N', mutations=()), allele_fields=('01', '01'), annotations=(), mutations=())	Allele	Pteropus alecto			PMC:PMC6752855
+Saha-I*01	no						PMC:PMC6752855
+Saha-I*12	no						PMC:PMC6752855
+Saha-I*13	no						PMC:PMC6752855
+Saha-UA	no						PMC:PMC6752855
+Saha-UB	no						PMC:PMC6752855
+Saha-UC	no						PMC:PMC6752855
+N*01:01	no						PMC:PMC6752855
+Ptal-N	yes	Gene(species=Species(name='Pteropus alecto', mhc_prefix='Ptal'), name='N', mutations=())	Gene	Pteropus alecto			PMC:PMC6752855
+Ptal-N*01:01	yes	Allele(gene=Gene(species=Species(name='Pteropus alecto', mhc_prefix='Ptal'), name='N', mutations=()), allele_fields=('01', '01'), annotations=(), mutations=())	Allele	Pteropus alecto			PMC:PMC6752855
+DL9-A2	no						PMC:PMC6752855
+DL9-A2M	no						PMC:PMC6752855
+GL9-A2	no						PMC:PMC6752855
+EBOV-GP1	no						PMC:PMC6752855
+EBOV-GP2	no						PMC:PMC6752855
+EBOV-GP3	no						PMC:PMC6752855
+EBOV-GP4	no						PMC:PMC6752855
+EBOV-GP5	no						PMC:PMC6752855
+EBOV-NP1e	no						PMC:PMC6752855
+EBOV-NP2	no						PMC:PMC6752855
+EBOV-NP3	no						PMC:PMC6752855
+EBOV-NP4	no						PMC:PMC6752855
+H17N10-NP	no						PMC:PMC6752855
+H17N10-PB1-1	no						PMC:PMC6752855
+H17N10-PB1-2	no						PMC:PMC6752855
+H17N10-PB2-1	no						PMC:PMC6752855
+H17N10-PB2-2	no						PMC:PMC6752855
+H18N11-PB1-1	no						PMC:PMC6752855
+H18N11-PB1-2	no						PMC:PMC6752855
+H18N11-PB1-3	no						PMC:PMC6752855
+MERS-CoV-S1	no						PMC:PMC6752855
+MERS-CoV-S2	no						PMC:PMC6752855
+MERS-CoV-S3	no						PMC:PMC6752855
+MERS-CoV-S4	no						PMC:PMC6752855
+MERS-CoV-S5	no						PMC:PMC6752855
+MERS-CoV-S6	no						PMC:PMC6752855
+MERS-CoV-S7	no						PMC:PMC6752855
+N*01:01	no						PMC:PMC6752855
+Ptal-N	yes	Gene(species=Species(name='Pteropus alecto', mhc_prefix='Ptal'), name='N', mutations=())	Gene	Pteropus alecto			PMC:PMC6752855
+Ptal-N*01:01	yes	Allele(gene=Gene(species=Species(name='Pteropus alecto', mhc_prefix='Ptal'), name='N', mutations=()), allele_fields=('01', '01'), annotations=(), mutations=())	Allele	Pteropus alecto			PMC:PMC6752855
+HeV1-D1A	no						PMC:PMC6752855
+HeV1-F2A	no						PMC:PMC6752855
+HeV1-P8A	no						PMC:PMC6752855
+HeV1-T5A	no						PMC:PMC6752855
+HeV2-D1A	no						PMC:PMC6752855
+HeV2-N6A	no						PMC:PMC6752855
+HeV2-P9A	no						PMC:PMC6752855
+HeV2-Y2A	no						PMC:PMC6752855
+N*01:01	no						PMC:PMC6752855
+Ptal-N	yes	Gene(species=Species(name='Pteropus alecto', mhc_prefix='Ptal'), name='N', mutations=())	Gene	Pteropus alecto			PMC:PMC6752855
+Ptal-N*01:01	yes	Allele(gene=Gene(species=Species(name='Pteropus alecto', mhc_prefix='Ptal'), name='N', mutations=()), allele_fields=('01', '01'), annotations=(), mutations=())	Allele	Pteropus alecto			PMC:PMC6752855
+EBOV-NP1	no						PMC:PMC6752855
+EBOV-NP1-N2	no						PMC:PMC6752855
+HeV1-N2	no						PMC:PMC6752855
+MERS-CoV-S7	no						PMC:PMC6752855
+MERS-CoV-S7-N2	no						PMC:PMC6752855
+MERS-CoV-S7-N4	no						PMC:PMC6752855
+MERS-CoV-S7-N6	no						PMC:PMC6752855
+N*01:01	no						PMC:PMC6752855
+Ptal-N	yes	Gene(species=Species(name='Pteropus alecto', mhc_prefix='Ptal'), name='N', mutations=())	Gene	Pteropus alecto			PMC:PMC6752855
+Ptal-N*01:01	yes	Allele(gene=Gene(species=Species(name='Pteropus alecto', mhc_prefix='Ptal'), name='N', mutations=()), allele_fields=('01', '01'), annotations=(), mutations=())	Allele	Pteropus alecto			PMC:PMC6752855

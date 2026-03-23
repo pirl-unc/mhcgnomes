@@ -1,0 +1,59 @@
+raw_string	parsed	parsed_as	result_type	species	correct	notes	source
+Asp-Glu	no						PMC:PMC5293771
+CCR5-L	no						PMC:PMC5293771
+CD3-TCR	no						PMC:PMC5293771
+CD3e molecule, epsilon (CD3-TCR complex)	no						PMC:PMC5293771
+CHIA-L	no						PMC:PMC5293771
+CHIA-Like	no						PMC:PMC5293771
+CHIT1-L	no						PMC:PMC5293771
+CLEC2D-L	no						PMC:PMC5293771
+CTSS-L	no						PMC:PMC5293771
+DEXH (Asp-Glu-X-His) box polypeptide 58	no						PMC:PMC5293771
+GPR83-L	no						PMC:PMC5293771
+HLA-DPA1	yes	Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DPA1', mutations=())	Gene	Homo sapiens			PMC:PMC5293771
+Niemann-Pick	no						PMC:PMC5293771
+Niemann-Pick disease, type C2	no						PMC:PMC5293771
+SH-PTP3	no						PMC:PMC5293771
+SLIT-ROBO	no						PMC:PMC5293771
+SLIT-ROBO Rho GTPase activating protein 3	no						PMC:PMC5293771
+TATDN3-A	no						PMC:PMC5293771
+TRNAT-UGU	no						PMC:PMC5293771
+UDP-Gal	no						PMC:PMC5293771
+UDP-GlcNAc	no						PMC:PMC5293771
+UDP-N	no						PMC:PMC5293771
+UDP-N-acteylglucosamine pyrophosphorylase 1-like 1	no						PMC:PMC5293771
+ATP-DEPENDENT	no						PMC:PMC5293771
+ATP-DEPENDENT RNA HELICASE DHX58-RELATED (PTHR14074:SF7)	no						PMC:PMC5293771
+DAMAGE-INDUCIBLE	no						PMC:PMC5293771
+DHX58-RELATED	no						PMC:PMC5293771
+PROTO-ONCOGENE	no						PMC:PMC5293771
+TYROSINE-PROTEIN	no						PMC:PMC5293771
+Wnt-Frizzled	no						PMC:PMC5293771
+Alpha-Tectorin like	no						PMC:PMC5293771
+Claw-Keratin	no						PMC:PMC5293771
+Claw-Keratin (XLOC_001868)	no						PMC:PMC5293771
+FG-GAP	no						PMC:PMC5293771
+H3-K27	no						PMC:PMC5293771
+H3-K9	no						PMC:PMC5293771
+JAK-STAT	no						PMC:PMC5293771
+JAK-STAT cascade	no						PMC:PMC5293771
+NR-Xenopus	no						PMC:PMC5293771
+RIG-I	no						PMC:PMC5293771
+UDP-N	no						PMC:PMC5293771
+UDP-N-acetylglucosamine biosynthetic process	no						PMC:PMC5293771
+UDP-N-acetylglucosamine metabolic process	no						PMC:PMC5293771
+UV-B	no						PMC:PMC5293771
+UV-C	no						PMC:PMC5293771
+cellular response to UV-B	no						PMC:PMC5293771
+cellular response to UV-C	no						PMC:PMC5293771
+histone H3-K27 methylation	no						PMC:PMC5293771
+negative regulation of RIG-I signaling pathway	no						PMC:PMC5293771
+positive regulation of JAK-STAT cascade	no						PMC:PMC5293771
+positive regulation of RIG-I signaling pathway	no						PMC:PMC5293771
+regulation of JAK-STAT cascade	no						PMC:PMC5293771
+regulation of RIG-I signaling pathway	no						PMC:PMC5293771
+regulation of histone H3-K9 methylation	no						PMC:PMC5293771
+response to UV-B	no						PMC:PMC5293771
+response to UV-C	no						PMC:PMC5293771
+GPR83-L	no						PMC:PMC5293771
+JAK-STAT	no						PMC:PMC5293771

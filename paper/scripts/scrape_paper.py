@@ -145,6 +145,33 @@ def read_text(path):
         return [line.strip() for line in f if line.strip()]
 
 
+def read_docx(path):
+    """Read a .docx file and return paragraphs + table cells as text."""
+    try:
+        import zipfile
+        import xml.etree.ElementTree as ET
+    except ImportError:
+        return []
+
+    texts = []
+    try:
+        with zipfile.ZipFile(path) as z:
+            # Read main document
+            if "word/document.xml" in z.namelist():
+                tree = ET.parse(z.open("word/document.xml"))
+                ns = {"w": "http://schemas.openxmlformats.org/wordprocessingml/2006/main"}
+                for para in tree.iter("{http://schemas.openxmlformats.org/wordprocessingml/2006/main}p"):
+                    text = "".join(
+                        node.text or ""
+                        for node in para.iter("{http://schemas.openxmlformats.org/wordprocessingml/2006/main}t")
+                    )
+                    if text.strip():
+                        texts.append(text.strip())
+    except Exception:
+        pass
+    return texts
+
+
 def process_file(path):
     """Read a file and extract MHC-like strings."""
     path = Path(path)
@@ -154,6 +181,8 @@ def process_file(path):
         cells = read_excel(path)
     elif suffix in (".csv", ".tsv", ".txt"):
         cells = read_csv_tsv(path)
+    elif suffix == ".docx":
+        cells = read_docx(path)
     else:
         cells = read_text(path)
 

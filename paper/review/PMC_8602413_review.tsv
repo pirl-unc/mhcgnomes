@@ -1,0 +1,31 @@
+raw_string	parsed	parsed_as	result_type	species	correct	notes	source
+PI3K-Akt	no						PMC:PMC8602413
+oas04151:PI3K-Akt signaling pathway	no						PMC:PMC8602413
+Naval-Sanchez	no						PMC:PMC8602413
+Williams-Beuren	no						PMC:PMC8602413
+Meng-Hua Li	no						PMC:PMC8602413
+ABBA-BABA	no						PMC:PMC8602413
+AMUF-BIGS	no						PMC:PMC8602413
+AMUF-SNWS	no						PMC:PMC8602413
+AMUF-THNS	no						PMC:PMC8602413
+AMUF-URIS	no						PMC:PMC8602413
+ARGS-AMUF	no						PMC:PMC8602413
+Average value: -20.45 (Z5:EMUF-AMUF)	no						PMC:PMC8602413
+Average value: -47.09 (D1:EMUF-SNWS)	no						PMC:PMC8602413
+Average value: -47.58 (D3:EMUF-BIGS)	no						PMC:PMC8602413
+Average value: -78.45 (D7:AMUF-URIS)	no						PMC:PMC8602413
+Average value: -87.8 (Z4:ARGS-AMUF)	no						PMC:PMC8602413
+Average value: -95.55 (D4:AMUF-SNWS)	no						PMC:PMC8602413
+Average value: -96.7 (D5:AMUF-THNS)	no						PMC:PMC8602413
+Average value: -96.93 (D6:AMUF-BIGS)	no						PMC:PMC8602413
+Average value:-47.42 (D2:EMUF-THNS)	no						PMC:PMC8602413
+Dstat=(ABBA-BABA)/(ABBA+BABA).	no						PMC:PMC8602413
+EMUF-AMUF	no						PMC:PMC8602413
+EMUF-BIGS	no						PMC:PMC8602413
+EMUF-SNWS	no						PMC:PMC8602413
+EMUF-THNS	no						PMC:PMC8602413
+PI3K-Akt	no						PMC:PMC8602413
+Z1:URIS-BIGS	no						PMC:PMC8602413
+Z2:URIS-THNS	no						PMC:PMC8602413
+Z3:URIS-SNWS	no						PMC:PMC8602413
+oas04151:PI3K-Akt signaling pathway	no						PMC:PMC8602413

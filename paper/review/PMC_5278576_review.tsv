@@ -1,0 +1,19 @@
+raw_string	parsed	parsed_as	result_type	species	correct	notes	source
+KRR-R	no						PMC:PMC5278576
+RPN-II	no						PMC:PMC5278576
+Swiss-Prot Entry	no						PMC:PMC5278576
+Acyl-CoA	no						PMC:PMC5278576
+Acyl-CoA dehydrogenase family member 10	no						PMC:PMC5278576
+Cyclin-L2	no						PMC:PMC5278576
+Cystatin-B	no						PMC:PMC5278576
+Di-Ras2	no						PMC:PMC5278576
+GO-ID	no						PMC:PMC5278576
+GTP-binding protein Di-Ras2	no						PMC:PMC5278576
+General transcription factor II-I	no						PMC:PMC5278576
+II-I	no						PMC:PMC5278576
+P65-A	yes	Pair(alpha=Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='P', mutations=()), allele_fields=('65',), annotations=(), mutations=()), beta=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), mhc_class='II')	Pair	Homo sapiens			PMC:PMC5278576
+SPT4-A	no						PMC:PMC5278576
+Swiss-Prot ID	no						PMC:PMC5278576
+Swiss-Prot name	no						PMC:PMC5278576
+Synaptotagmin-A	no						PMC:PMC5278576
+Transcription elongation factor SPT4-A	no						PMC:PMC5278576

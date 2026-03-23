@@ -1,0 +1,225 @@
+raw_string	parsed	parsed_as	result_type	species	correct	notes	source
+APC-Axin	no						PMC:PMC3832898
+Axin-APC	no						PMC:PMC3832898
+BRCA1-A	no						PMC:PMC3832898
+BRCA1-A complex; BRCA1-BARD1 complex; cytoplasm;	no						PMC:PMC3832898
+BRCA1-BARD1	no						PMC:PMC3832898
+BRCA2-BRAF35	no						PMC:PMC3832898
+BRCA2-MAGE	no						PMC:PMC3832898
+BRISC complex; BRCA1-A complex; cytoplasm;	no						PMC:PMC3832898
+C-X3-C chemokine receptor activity; protein binding;	no						PMC:PMC3832898
+C:ER-Golgi intermediate compartment; F:protein binding	no						PMC:PMC3832898
+C:Smc5-Smc6 complex; P:developmental process;	no						PMC:PMC3832898
+C:nucleolus; ; P:histone H4-K16 acetylation	no						PMC:PMC3832898
+CCR4-NOT	no						PMC:PMC3832898
+CH-CH	no						PMC:PMC3832898
+CH-NH2	no						PMC:PMC3832898
+CH-OH	no						PMC:PMC3832898
+Cajal-Retzius	no						PMC:PMC3832898
+Cdc48p-Npl4p	no						PMC:PMC3832898
+Cdc48p-Npl4p-Ufd1p AAA ATPase complex; lipid particle;	no						PMC:PMC3832898
+Cul2-RING	no						PMC:PMC3832898
+Cul2-RING ubiquitin ligase complex;	no						PMC:PMC3832898
+Cul3-RING	no						PMC:PMC3832898
+Cul3-RING ubiquitin ligase complex; cytoplasm;	no						PMC:PMC3832898
+Cul4A-RING	no						PMC:PMC3832898
+Cul4A-RING ubiquitin ligase complex;	no						PMC:PMC3832898
+Cul4B-RING	no						PMC:PMC3832898
+DNA-N1	no						PMC:PMC3832898
+ER-Golgi	no						PMC:PMC3832898
+ER-Golgi intermediate compartment;	no						PMC:PMC3832898
+ER-Golgi intermediate compartment; cytoplasmic vesicle;	no						PMC:PMC3832898
+ER-Golgi intermediate compartment; endoplasmic reticulum;	no						PMC:PMC3832898
+FAD-AMP	no						PMC:PMC3832898
+GABA-A	no						PMC:PMC3832898
+GDP-L	no						PMC:PMC3832898
+GPI-GnT	no						PMC:PMC3832898
+GTP-Rho	no						PMC:PMC3832898
+GTP-Rho binding; protein serine/threonine kinase activity;	no						PMC:PMC3832898
+Grb2-Sos	no						PMC:PMC3832898
+H2A-S1	no						PMC:PMC3832898
+H3-K14	no						PMC:PMC3832898
+H3-K16	no						PMC:PMC3832898
+H3-K27	no						PMC:PMC3832898
+H3-K36	no						PMC:PMC3832898
+H3-K4	no						PMC:PMC3832898
+H3-K9	no						PMC:PMC3832898
+H3-R17	no						PMC:PMC3832898
+H3-R2	no						PMC:PMC3832898
+H3-S10	no						PMC:PMC3832898
+H3-S28	no						PMC:PMC3832898
+H3-T11	no						PMC:PMC3832898
+H3-T6	no						PMC:PMC3832898
+H3-Y41	no						PMC:PMC3832898
+H4-K12	no						PMC:PMC3832898
+H4-K16	no						PMC:PMC3832898
+H4-K20	no						PMC:PMC3832898
+H4-K5	no						PMC:PMC3832898
+H4-K8	no						PMC:PMC3832898
+H4-R3	no						PMC:PMC3832898
+HLA-A	yes	Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=())	Gene	Homo sapiens			PMC:PMC3832898
+His-Purkinje	no						PMC:PMC3832898
+JAK-STAT	no						PMC:PMC3832898
+MLL5-L	no						PMC:PMC3832898
+Nem1-Spo7	no						PMC:PMC3832898
+Noc1p-Noc2p	no						PMC:PMC3832898
+Noc4p-Nop14p	no						PMC:PMC3832898
+P granule; cytosol; Grb2-Sos complex; nucleolus;	no						PMC:PMC3832898
+P:defense response; P:JAK-STAT cascade; C:cytoplasm	no						PMC:PMC3832898
+Rb-E2F	no						PMC:PMC3832898
+SREBP-SCAP	no						PMC:PMC3832898
+SREBP-SCAP-Insig complex;	no						PMC:PMC3832898
+SUN-KASH	no						PMC:PMC3832898
+SUN-KASH complex; nuclear membrane;	no						PMC:PMC3832898
+SUN-KASH complex; nuclear membrane; cytoplasm;	no						PMC:PMC3832898
+Schmidt-Lanterman	no						PMC:PMC3832898
+Scrib-APC	no						PMC:PMC3832898
+Shc-EGFR	no						PMC:PMC3832898
+Shc-EGFR complex; cytosol; nucleus; endosome membrane;	no						PMC:PMC3832898
+Smc5-Smc6	no						PMC:PMC3832898
+Smc5-Smc6 complex;	no						PMC:PMC3832898
+Stn1-Ten1	no						PMC:PMC3832898
+Swi5-Sfr1	no						PMC:PMC3832898
+TSC1-TSC2	no						PMC:PMC3832898
+Tle3-Aes	no						PMC:PMC3832898
+Tle3-Aes complex;	no						PMC:PMC3832898
+UBC13-MMS2	no						PMC:PMC3832898
+UBC13-UEV1A	no						PMC:PMC3832898
+UDP-N	no						PMC:PMC3832898
+ULK1-ATG13	no						PMC:PMC3832898
+ULK1-ATG13-FIP200 complex;	no						PMC:PMC3832898
+UV-A	no						PMC:PMC3832898
+UV-B	no						PMC:PMC3832898
+UV-C	no						PMC:PMC3832898
+Weibel-Palade	no						PMC:PMC3832898
+X3-C	no						PMC:PMC3832898
+chromosome, telomeric region; PML body; Smc5-Smc6 complex;	no						PMC:PMC3832898
+cytoplasm; midbody; Cul3-RING ubiquitin ligase complex;	no						PMC:PMC3832898
+cytoplasm; nucleolus; Grb2-Sos complex;	no						PMC:PMC3832898
+cytosol; CCR4-NOT complex; cytoplasmic mRNA processing body;	no						PMC:PMC3832898
+cytosol; Cdc48p-Npl4p-Ufd1p AAA ATPase complex; nucleus;	no						PMC:PMC3832898
+defense response; JAK-STAT cascade;	no						PMC:PMC3832898
+histone H3-K4 methylation;	no						PMC:PMC3832898
+histone H4-K16 acetylation;	no						PMC:PMC3832898
+histone lysine methylation; regulation of JAK-STAT cascade;	no						PMC:PMC3832898
+histone methyltransferase activity (H4-K20 specific);	no						PMC:PMC3832898
+intermediate filament cytoskeleton; Stn1-Ten1 complex;	no						PMC:PMC3832898
+midbody; Cul3-RING ubiquitin ligase complex;	no						PMC:PMC3832898
+midbody; Cul3-RING ubiquitin ligase complex; cytoplasm;	no						PMC:PMC3832898
+nuclear membrane; SUN-KASH complex;	no						PMC:PMC3832898
+H3-K14	no						PMC:PMC3832898
+H4-K12	no						PMC:PMC3832898
+H4-K16	no						PMC:PMC3832898
+H4-K5	no						PMC:PMC3832898
+H4-K8	no						PMC:PMC3832898
+APC-Axin	no						PMC:PMC3832898
+Axin-APC	no						PMC:PMC3832898
+BRCA1-A	no						PMC:PMC3832898
+BRCA1-BARD1	no						PMC:PMC3832898
+BRCA2-BRAF35	no						PMC:PMC3832898
+BRCA2-MAGE	no						PMC:PMC3832898
+BRISC complex; BRCA1-A complex; cytoplasm;	no						PMC:PMC3832898
+C-X3-C chemokine receptor activity; protein binding;	no						PMC:PMC3832898
+C:ER-Golgi intermediate compartment; F:protein binding	no						PMC:PMC3832898
+C:Smc5-Smc6 complex;	no						PMC:PMC3832898
+C:nucleolus; ; P:histone H4-K16 acetylation	no						PMC:PMC3832898
+CCR4-NOT	no						PMC:PMC3832898
+CH-CH	no						PMC:PMC3832898
+CH-NH2	no						PMC:PMC3832898
+CH-OH	no						PMC:PMC3832898
+Cajal-Retzius	no						PMC:PMC3832898
+Cdc48p-Npl4p	no						PMC:PMC3832898
+Cdc48p-Npl4p-Ufd1p AAA ATPase complex; lipid particle;	no						PMC:PMC3832898
+Cul2-RING	no						PMC:PMC3832898
+Cul2-RING ubiquitin ligase complex;	no						PMC:PMC3832898
+Cul3-RING	no						PMC:PMC3832898
+Cul3-RING ubiquitin ligase complex; cytoplasm;	no						PMC:PMC3832898
+Cul4A-RING	no						PMC:PMC3832898
+Cul4A-RING ubiquitin ligase complex;	no						PMC:PMC3832898
+Cul4B-RING	no						PMC:PMC3832898
+DNA-N1	no						PMC:PMC3832898
+ER-Golgi	no						PMC:PMC3832898
+ER-Golgi intermediate compartment;	no						PMC:PMC3832898
+ER-Golgi intermediate compartment; cytoplasmic vesicle;	no						PMC:PMC3832898
+ER-Golgi intermediate compartment; endoplasmic reticulum;	no						PMC:PMC3832898
+FAD-AMP	no						PMC:PMC3832898
+GABA-A	no						PMC:PMC3832898
+GDP-L	no						PMC:PMC3832898
+GPI-GnT	no						PMC:PMC3832898
+GTP-Rho	no						PMC:PMC3832898
+Grb2-Sos	no						PMC:PMC3832898
+H2A-S1	no						PMC:PMC3832898
+H3-K14	no						PMC:PMC3832898
+H3-K16	no						PMC:PMC3832898
+H3-K27	no						PMC:PMC3832898
+H3-K36	no						PMC:PMC3832898
+H3-K4	no						PMC:PMC3832898
+H3-K9	no						PMC:PMC3832898
+H3-R17	no						PMC:PMC3832898
+H3-R2	no						PMC:PMC3832898
+H3-S10	no						PMC:PMC3832898
+H3-S28	no						PMC:PMC3832898
+H3-T11	no						PMC:PMC3832898
+H3-T6	no						PMC:PMC3832898
+H3-Y41	no						PMC:PMC3832898
+H4-K12	no						PMC:PMC3832898
+H4-K16	no						PMC:PMC3832898
+H4-K20	no						PMC:PMC3832898
+H4-K5	no						PMC:PMC3832898
+H4-K8	no						PMC:PMC3832898
+H4-R3	no						PMC:PMC3832898
+HLA-A	yes	Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=())	Gene	Homo sapiens			PMC:PMC3832898
+His-Purkinje	no						PMC:PMC3832898
+JAK-STAT	no						PMC:PMC3832898
+MLL5-L	no						PMC:PMC3832898
+Nem1-Spo7	no						PMC:PMC3832898
+Noc1p-Noc2p	no						PMC:PMC3832898
+Noc4p-Nop14p	no						PMC:PMC3832898
+P granule; cytosol; Grb2-Sos complex; nucleolus;	no						PMC:PMC3832898
+P:defense response; P:JAK-STAT cascade; C:cytoplasm	no						PMC:PMC3832898
+Rb-E2F	no						PMC:PMC3832898
+SREBP-SCAP	no						PMC:PMC3832898
+SREBP-SCAP-Insig complex;	no						PMC:PMC3832898
+SUN-KASH	no						PMC:PMC3832898
+SUN-KASH complex; nuclear membrane;	no						PMC:PMC3832898
+SUN-KASH complex; nuclear membrane; cytoplasm;	no						PMC:PMC3832898
+SWI/SNF complex; PML body; Rb-E2F complex; chromatin;	no						PMC:PMC3832898
+Schmidt-Lanterman	no						PMC:PMC3832898
+Scrib-APC	no						PMC:PMC3832898
+Shc-EGFR	no						PMC:PMC3832898
+Shc-EGFR complex; cytosol; nucleus; endosome membrane;	no						PMC:PMC3832898
+Smc5-Smc6	no						PMC:PMC3832898
+Smc5-Smc6 complex;	no						PMC:PMC3832898
+Smc5-Smc6 complex; nucleus;	no						PMC:PMC3832898
+Stn1-Ten1	no						PMC:PMC3832898
+Swi5-Sfr1	no						PMC:PMC3832898
+TSC1-TSC2	no						PMC:PMC3832898
+Tle3-Aes	no						PMC:PMC3832898
+Tle3-Aes complex;	no						PMC:PMC3832898
+UBC13-MMS2	no						PMC:PMC3832898
+UBC13-UEV1A	no						PMC:PMC3832898
+UDP-N	no						PMC:PMC3832898
+ULK1-ATG13	no						PMC:PMC3832898
+ULK1-ATG13-FIP200 complex;	no						PMC:PMC3832898
+UV-A	no						PMC:PMC3832898
+UV-B	no						PMC:PMC3832898
+UV-C	no						PMC:PMC3832898
+Weibel-Palade	no						PMC:PMC3832898
+X3-C	no						PMC:PMC3832898
+chromosome, telomeric region; PML body; Smc5-Smc6 complex;	no						PMC:PMC3832898
+cytoplasm; midbody; Cul3-RING ubiquitin ligase complex;	no						PMC:PMC3832898
+cytoplasm; nucleolus; Grb2-Sos complex;	no						PMC:PMC3832898
+cytosol; CCR4-NOT complex; cytoplasmic mRNA processing body;	no						PMC:PMC3832898
+cytosol; Cdc48p-Npl4p-Ufd1p AAA ATPase complex; nucleus;	no						PMC:PMC3832898
+defense response; JAK-STAT cascade;	no						PMC:PMC3832898
+histone H3-K4 methylation;	no						PMC:PMC3832898
+histone H4-K16 acetylation;	no						PMC:PMC3832898
+histone lysine methylation; regulation of JAK-STAT cascade;	no						PMC:PMC3832898
+histone methyltransferase activity (H4-K20 specific);	no						PMC:PMC3832898
+intermediate filament cytoskeleton; Stn1-Ten1 complex;	no						PMC:PMC3832898
+lipid particle; Cdc48p-Npl4p-Ufd1p AAA ATPase complex;	no						PMC:PMC3832898
+midbody; Cul3-RING ubiquitin ligase complex;	no						PMC:PMC3832898
+midbody; Cul3-RING ubiquitin ligase complex; cytoplasm;	no						PMC:PMC3832898
+nuclear membrane; Nem1-Spo7 phosphatase complex; cytoplasm;	no						PMC:PMC3832898
+nuclear membrane; SUN-KASH complex;	no						PMC:PMC3832898
+oxidoreductase activity, acting on CH-OH group of donors;	no						PMC:PMC3832898

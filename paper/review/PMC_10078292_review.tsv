@@ -1,0 +1,252 @@
+raw_string	parsed	parsed_as	result_type	species	correct	notes	source
+AG5*07	no						PMC:PMC10078292
+B02Ps*01:03:01:01	no						PMC:PMC10078292
+B11L*01:06:01:01N	no						PMC:PMC10078292
+B19Ps*01:01:01:01	no						PMC:PMC10078292
+B22*01:01:01:01N	no						PMC:PMC10078292
+DPA1*13:01:01:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DPA1', mutations=()), allele_fields=('13', '01', '01', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10078292
+DPB1*09:02:01:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DPB1', mutations=()), allele_fields=('09', '02', '01', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10078292
+DPB2*01:01:01:01N	no						PMC:PMC10078292
+DQA1*05:03:01:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('05', '03', '01', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10078292
+DQB1*16:01:01:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('16', '01', '01', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10078292
+DRB1*10:02:01:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('10', '02', '01', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10078292
+DRB6*01:09:01:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB6', mutations=()), allele_fields=('01', '09', '01', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10078292
+IPD-MHC	no						PMC:PMC10078292
+IPD-MHC NHP number	no						PMC:PMC10078292
+Mafa-A1*063:02:01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='A1', mutations=()), allele_fields=('063', '02', '01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-A2*05:11:01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='A2', mutations=()), allele_fields=('05', '11', '01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-A4*01:01:01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='A4', mutations=()), allele_fields=('01', '01', '01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-AG1*05:09:02:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='AG1', mutations=()), allele_fields=('05', '09', '02', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-AG2*01:05:01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='AG2', mutations=()), allele_fields=('01', '05', '01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-AG3*03:03:02:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='AG3', mutations=()), allele_fields=('03', '03', '02', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-AG5*06:04:01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='AG5', mutations=()), allele_fields=('06', '04', '01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-AG6*04:05:03:03	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='AG6', mutations=()), allele_fields=('04', '05', '03', '03'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-AG6*04:08:01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='AG6', mutations=()), allele_fields=('04', '08', '01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-B*011:01:01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='B', mutations=()), allele_fields=('011', '01', '01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-B*070:02:01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='B', mutations=()), allele_fields=('070', '02', '01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-B*075:01:01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='B', mutations=()), allele_fields=('075', '01', '01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-B*079:01:01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='B', mutations=()), allele_fields=('079', '01', '01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-B*098:05:01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='B', mutations=()), allele_fields=('098', '05', '01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-B*109:02:01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='B', mutations=()), allele_fields=('109', '02', '01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-B*207:01:01:01N	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='B', mutations=()), allele_fields=('207', '01', '01', '01'), annotations=('N',), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-B02Ps	yes	Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='B02Ps', mutations=())	Gene	Macaca fascicularis			PMC:PMC10078292
+Mafa-B02Ps*01:03:01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='B02Ps', mutations=()), allele_fields=('01', '03', '01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-B11L	yes	Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='B11L', mutations=())	Gene	Macaca fascicularis			PMC:PMC10078292
+Mafa-B11L*01:06:01:01N	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='B11L', mutations=()), allele_fields=('01', '06', '01', '01'), annotations=('N',), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-B17*01:05:01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='B17', mutations=()), allele_fields=('01', '05', '01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-B19Ps	yes	Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='B19Ps', mutations=())	Gene	Macaca fascicularis			PMC:PMC10078292
+Mafa-B19Ps*01:01:01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='B19Ps', mutations=()), allele_fields=('01', '01', '01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-B22	yes	Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='B22', mutations=())	Gene	Macaca fascicularis			PMC:PMC10078292
+Mafa-B22*01:01:01:01N	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='B22', mutations=()), allele_fields=('01', '01', '01', '01'), annotations=('N',), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-DMA*02:04:01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='DMA', mutations=()), allele_fields=('02', '04', '01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-DMB*03:02:01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='DMB', mutations=()), allele_fields=('03', '02', '01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-DOA*01:06:01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='DOA', mutations=()), allele_fields=('01', '06', '01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-DOB*01:04:03:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='DOB', mutations=()), allele_fields=('01', '04', '03', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-DPA1	yes	Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='DPA1', mutations=())	Gene	Macaca fascicularis			PMC:PMC10078292
+Mafa-DPA1*13:01:01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='DPA1', mutations=()), allele_fields=('13', '01', '01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-DPA3	no						PMC:PMC10078292
+Mafa-DPB1	yes	Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='DPB1', mutations=())	Gene	Macaca fascicularis			PMC:PMC10078292
+Mafa-DPB1*09:02:01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='DPB1', mutations=()), allele_fields=('09', '02', '01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-DPB2	yes	Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='DPB2', mutations=())	Gene	Macaca fascicularis			PMC:PMC10078292
+Mafa-DPB2*01:01:01:01N	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='DPB2', mutations=()), allele_fields=('01', '01', '01', '01'), annotations=('N',), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-DQA1	yes	Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='DQA1', mutations=())	Gene	Macaca fascicularis			PMC:PMC10078292
+Mafa-DQA1*05:03:01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='DQA1', mutations=()), allele_fields=('05', '03', '01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-DQB1	yes	Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='DQB1', mutations=())	Gene	Macaca fascicularis			PMC:PMC10078292
+Mafa-DQB1*16:01:01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='DQB1', mutations=()), allele_fields=('16', '01', '01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-DQB1-AS1	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='DQB1', mutations=()), allele_fields=('as1',), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-DRA*01:02:01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='DRA', mutations=()), allele_fields=('01', '02', '01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-DRB	yes	Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='DRB', mutations=())	Gene	Macaca fascicularis			PMC:PMC10078292
+Mafa-DRB*W049:01:01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='DRB', mutations=()), allele_fields=('W049', '01', '01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-DRB1	yes	Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='DRB1', mutations=())	Gene	Macaca fascicularis			PMC:PMC10078292
+Mafa-DRB1*10:02:01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='DRB1', mutations=()), allele_fields=('10', '02', '01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-DRB6	yes	Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='DRB6', mutations=())	Gene	Macaca fascicularis			PMC:PMC10078292
+Mafa-DRB6*01:09:01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='DRB6', mutations=()), allele_fields=('01', '09', '01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-DRB9*01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='DRB9', mutations=()), allele_fields=('01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-E*02:03:02:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='E', mutations=()), allele_fields=('02', '03', '02', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-E*02:15:01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='E', mutations=()), allele_fields=('02', '15', '01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-E*02:16:01:01N	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='E', mutations=()), allele_fields=('02', '16', '01', '01'), annotations=('N',), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-F*02:23:01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='F', mutations=()), allele_fields=('02', '23', '01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-G*02:10:01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='G', mutations=()), allele_fields=('02', '10', '01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-G*02:11:01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='G', mutations=()), allele_fields=('02', '11', '01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-G*02:12:01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='G', mutations=()), allele_fields=('02', '12', '01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-I*01:10:01:02	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='I', mutations=()), allele_fields=('01', '10', '01', '02'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-J*02:01:01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='J', mutations=()), allele_fields=('02', '01', '01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-K*01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='K', mutations=()), allele_fields=('01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-K*01:02	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='K', mutations=()), allele_fields=('01', '02'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-L*01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='L', mutations=()), allele_fields=('01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-N*01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='N', mutations=()), allele_fields=('01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-S*01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='S', mutations=()), allele_fields=('01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-S*01:02	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='S', mutations=()), allele_fields=('01', '02'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-S*01:03	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='S', mutations=()), allele_fields=('01', '03'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-S*01:04	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='S', mutations=()), allele_fields=('01', '04'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-S*01:05	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='S', mutations=()), allele_fields=('01', '05'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-V*01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='V', mutations=()), allele_fields=('01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-V*01:02	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='V', mutations=()), allele_fields=('01', '02'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-V*01:03	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='V', mutations=()), allele_fields=('01', '03'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-V*01:04	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='V', mutations=()), allele_fields=('01', '04'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-W*01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='W', mutations=()), allele_fields=('01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-W*01:02	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='W', mutations=()), allele_fields=('01', '02'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-W*01:04	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='W', mutations=()), allele_fields=('01', '04'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-W*01:05	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='W', mutations=()), allele_fields=('01', '05'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-W*01:06	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='W', mutations=()), allele_fields=('01', '06'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-W*01:07	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='W', mutations=()), allele_fields=('01', '07'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-W*01:08	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='W', mutations=()), allele_fields=('01', '08'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-W*01:09	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='W', mutations=()), allele_fields=('01', '09'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-W*01:10	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='W', mutations=()), allele_fields=('01', '10'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-W*01:11	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='W', mutations=()), allele_fields=('01', '11'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-W*01:12	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='W', mutations=()), allele_fields=('01', '12'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-X	no						PMC:PMC10078292
+Mafa-Z	no						PMC:PMC10078292
+Mamu-AG5	yes	Gene(species=Species(name='Macaca mulatta', mhc_prefix='Mamu'), name='AG5', mutations=())	Gene	Macaca mulatta			PMC:PMC10078292
+ABCF1-DT	no						PMC:PMC10078292
+B02Ps*01:03:01:01	no						PMC:PMC10078292
+B11L*01:06:01:01N	no						PMC:PMC10078292
+B19Ps*01:01:01:01	no						PMC:PMC10078292
+B22*01:01:01:01N	no						PMC:PMC10078292
+C2-AS1	no						PMC:PMC10078292
+DDX39B-AS1	no						PMC:PMC10078292
+DPA1*13:01:01:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DPA1', mutations=()), allele_fields=('13', '01', '01', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10078292
+DPB1*09:02:01:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DPB1', mutations=()), allele_fields=('09', '02', '01', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10078292
+DPB2*01:01:01:01N	no						PMC:PMC10078292
+DQA1*05:03:01:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('05', '03', '01', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10078292
+DQB1*16:01:01:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('16', '01', '01', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10078292
+DRB1*10:02:01:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('10', '02', '01', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10078292
+DRB6*01:09:01:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB6', mutations=()), allele_fields=('01', '09', '01', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC10078292
+EHMT2-AS1	no						PMC:PMC10078292
+HLA-A / Mafa-A	no						PMC:PMC10078292
+HLA-B / Mafa-B	no						PMC:PMC10078292
+HLA-C	yes	Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='C', mutations=())	Gene	Homo sapiens			PMC:PMC10078292
+HLA-DMA / Mafa-DMA	no						PMC:PMC10078292
+HLA-DMB / Mafa-DMB	no						PMC:PMC10078292
+HLA-DOA / Mafa-DOA	no						PMC:PMC10078292
+HLA-DOB / Mafa-DOB	no						PMC:PMC10078292
+HLA-DPA1 / Mafa-DPA1	no						PMC:PMC10078292
+HLA-DPA2	no						PMC:PMC10078292
+HLA-DPA3 / Mafa-DPA3	no						PMC:PMC10078292
+HLA-DPB1 / Mafa-DPB1	no						PMC:PMC10078292
+HLA-DPB2 / Mafa-DPB2	no						PMC:PMC10078292
+HLA-DQA1	yes	Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=())	Gene	Homo sapiens			PMC:PMC10078292
+HLA-DQA1 / Mafa-DQA1	no						PMC:PMC10078292
+HLA-DQA1 antisense RNA 1	no						PMC:PMC10078292
+HLA-DQA1-AS1	no						PMC:PMC10078292
+HLA-DQA2	yes	Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA2', mutations=())	Gene	Homo sapiens			PMC:PMC10078292
+HLA-DQB1	yes	Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=())	Gene	Homo sapiens			PMC:PMC10078292
+HLA-DQB1 / Mafa-DQB1	no						PMC:PMC10078292
+HLA-DQB1 antisense RNA 1	no						PMC:PMC10078292
+HLA-DQB1-AS1 / Mafa-DQB1-AS1	no						PMC:PMC10078292
+HLA-DQB2	yes	Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB2', mutations=())	Gene	Homo sapiens			PMC:PMC10078292
+HLA-DRA / Mafa-DRA	no						PMC:PMC10078292
+HLA-DRB1 / Mafa-DRB1	no						PMC:PMC10078292
+HLA-DRB5 / Mafa-DRB	no						PMC:PMC10078292
+HLA-DRB6 / Mafa-DRB6	no						PMC:PMC10078292
+HLA-DRB9 / Mafa-DRB9	no						PMC:PMC10078292
+HLA-E / Mafa-E	no						PMC:PMC10078292
+HLA-F	yes	Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='F', mutations=())	Gene	Homo sapiens			PMC:PMC10078292
+HLA-F / Mafa-F	no						PMC:PMC10078292
+HLA-F antisense RNA 1	no						PMC:PMC10078292
+HLA-F-AS1	no						PMC:PMC10078292
+HLA-G / Mafa-G	no						PMC:PMC10078292
+HLA-H	yes	Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='H', mutations=())	Gene	Homo sapiens			PMC:PMC10078292
+HLA-J / Mafa-J	no						PMC:PMC10078292
+HLA-K / Mafa-K	no						PMC:PMC10078292
+HLA-L / Mafa-L	no						PMC:PMC10078292
+HLA-N / Mafa-N	no						PMC:PMC10078292
+HLA-P	yes	Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='P', mutations=())	Gene	Homo sapiens			PMC:PMC10078292
+HLA-S / Mafa-S	no						PMC:PMC10078292
+HLA-T	no						PMC:PMC10078292
+HLA-U	no						PMC:PMC10078292
+HLA-V / Mafa-V	no						PMC:PMC10078292
+HLA-W / Mafa-W	no						PMC:PMC10078292
+HLA-X / Mafa-X	no						PMC:PMC10078292
+HLA-Z / Mafa-Z	no						PMC:PMC10078292
+IER3-AS1	no						PMC:PMC10078292
+MDC1-AS1	no						PMC:PMC10078292
+MICA-AS1	no						PMC:PMC10078292
+MICB-DT	no						PMC:PMC10078292
+MT-CO3 pseudogene 1	no						PMC:PMC10078292
+Mafa-A1*063:02:01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='A1', mutations=()), allele_fields=('063', '02', '01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-A2*05:11:01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='A2', mutations=()), allele_fields=('05', '11', '01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-A4*01:01:01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='A4', mutations=()), allele_fields=('01', '01', '01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-AG	yes	Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='AG', mutations=())	Gene	Macaca fascicularis			PMC:PMC10078292
+Mafa-AG1*05:09:02:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='AG1', mutations=()), allele_fields=('05', '09', '02', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-AG2*01:05:01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='AG2', mutations=()), allele_fields=('01', '05', '01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-AG3*03:03:02:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='AG3', mutations=()), allele_fields=('03', '03', '02', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-AG5*06:04:01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='AG5', mutations=()), allele_fields=('06', '04', '01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-AG6*04:05:03:03	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='AG6', mutations=()), allele_fields=('04', '05', '03', '03'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-AG6*04:08:01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='AG6', mutations=()), allele_fields=('04', '08', '01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-B*011:01:01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='B', mutations=()), allele_fields=('011', '01', '01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-B*070:02:01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='B', mutations=()), allele_fields=('070', '02', '01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-B*075:01:01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='B', mutations=()), allele_fields=('075', '01', '01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-B*079:01:01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='B', mutations=()), allele_fields=('079', '01', '01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-B*098:05:01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='B', mutations=()), allele_fields=('098', '05', '01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-B*109:02:01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='B', mutations=()), allele_fields=('109', '02', '01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-B*207:01:01:01N	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='B', mutations=()), allele_fields=('207', '01', '01', '01'), annotations=('N',), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-B02Ps	yes	Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='B02Ps', mutations=())	Gene	Macaca fascicularis			PMC:PMC10078292
+Mafa-B02Ps*01:03:01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='B02Ps', mutations=()), allele_fields=('01', '03', '01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-B11L	yes	Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='B11L', mutations=())	Gene	Macaca fascicularis			PMC:PMC10078292
+Mafa-B11L*01:06:01:01N	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='B11L', mutations=()), allele_fields=('01', '06', '01', '01'), annotations=('N',), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-B17*01:05:01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='B17', mutations=()), allele_fields=('01', '05', '01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-B19Ps	yes	Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='B19Ps', mutations=())	Gene	Macaca fascicularis			PMC:PMC10078292
+Mafa-B19Ps*01:01:01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='B19Ps', mutations=()), allele_fields=('01', '01', '01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-B22	yes	Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='B22', mutations=())	Gene	Macaca fascicularis			PMC:PMC10078292
+Mafa-B22*01:01:01:01N	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='B22', mutations=()), allele_fields=('01', '01', '01', '01'), annotations=('N',), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-DMA*02:04:01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='DMA', mutations=()), allele_fields=('02', '04', '01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-DMB*03:02:01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='DMB', mutations=()), allele_fields=('03', '02', '01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-DOA*01:06:01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='DOA', mutations=()), allele_fields=('01', '06', '01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-DOB*01:04:03:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='DOB', mutations=()), allele_fields=('01', '04', '03', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-DPA1	yes	Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='DPA1', mutations=())	Gene	Macaca fascicularis			PMC:PMC10078292
+Mafa-DPA1*13:01:01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='DPA1', mutations=()), allele_fields=('13', '01', '01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-DPB1	yes	Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='DPB1', mutations=())	Gene	Macaca fascicularis			PMC:PMC10078292
+Mafa-DPB1*09:02:01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='DPB1', mutations=()), allele_fields=('09', '02', '01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-DPB2	yes	Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='DPB2', mutations=())	Gene	Macaca fascicularis			PMC:PMC10078292
+Mafa-DPB2*01:01:01:01N	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='DPB2', mutations=()), allele_fields=('01', '01', '01', '01'), annotations=('N',), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-DQA1	yes	Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='DQA1', mutations=())	Gene	Macaca fascicularis			PMC:PMC10078292
+Mafa-DQA1*05:03:01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='DQA1', mutations=()), allele_fields=('05', '03', '01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-DQB1	yes	Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='DQB1', mutations=())	Gene	Macaca fascicularis			PMC:PMC10078292
+Mafa-DQB1*16:01:01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='DQB1', mutations=()), allele_fields=('16', '01', '01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-DRA*01:02:01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='DRA', mutations=()), allele_fields=('01', '02', '01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-DRB	yes	Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='DRB', mutations=())	Gene	Macaca fascicularis			PMC:PMC10078292
+Mafa-DRB*W049:01:01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='DRB', mutations=()), allele_fields=('W049', '01', '01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-DRB1	yes	Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='DRB1', mutations=())	Gene	Macaca fascicularis			PMC:PMC10078292
+Mafa-DRB1*10:02:01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='DRB1', mutations=()), allele_fields=('10', '02', '01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-DRB6	yes	Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='DRB6', mutations=())	Gene	Macaca fascicularis			PMC:PMC10078292
+Mafa-DRB6*01:09:01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='DRB6', mutations=()), allele_fields=('01', '09', '01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-DRB9*01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='DRB9', mutations=()), allele_fields=('01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-E*02:03:02:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='E', mutations=()), allele_fields=('02', '03', '02', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-E*02:15:01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='E', mutations=()), allele_fields=('02', '15', '01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-E*02:16:01:01N	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='E', mutations=()), allele_fields=('02', '16', '01', '01'), annotations=('N',), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-F*02:23:01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='F', mutations=()), allele_fields=('02', '23', '01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-G*02:10:01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='G', mutations=()), allele_fields=('02', '10', '01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-G*02:11:01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='G', mutations=()), allele_fields=('02', '11', '01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-G*02:12:01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='G', mutations=()), allele_fields=('02', '12', '01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-I*01:10:01:02	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='I', mutations=()), allele_fields=('01', '10', '01', '02'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-J*02:01:01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='J', mutations=()), allele_fields=('02', '01', '01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-K*01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='K', mutations=()), allele_fields=('01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-K*01:02	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='K', mutations=()), allele_fields=('01', '02'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-L*01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='L', mutations=()), allele_fields=('01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-N*01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='N', mutations=()), allele_fields=('01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-S*01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='S', mutations=()), allele_fields=('01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-S*01:02	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='S', mutations=()), allele_fields=('01', '02'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-S*01:03	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='S', mutations=()), allele_fields=('01', '03'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-S*01:04	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='S', mutations=()), allele_fields=('01', '04'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-S*01:05	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='S', mutations=()), allele_fields=('01', '05'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-V*01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='V', mutations=()), allele_fields=('01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-V*01:02a	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='V', mutations=()), allele_fields=('01', '02'), annotations=('A',), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-V*01:02b	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='V', mutations=()), allele_fields=('01', '02'), annotations=('B',), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-V*01:03	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='V', mutations=()), allele_fields=('01', '03'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-V*01:04	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='V', mutations=()), allele_fields=('01', '04'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-W*01:01	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='W', mutations=()), allele_fields=('01', '01'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-W*01:02	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='W', mutations=()), allele_fields=('01', '02'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-W*01:04	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='W', mutations=()), allele_fields=('01', '04'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-W*01:05	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='W', mutations=()), allele_fields=('01', '05'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-W*01:06	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='W', mutations=()), allele_fields=('01', '06'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-W*01:07	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='W', mutations=()), allele_fields=('01', '07'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-W*01:08	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='W', mutations=()), allele_fields=('01', '08'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-W*01:09	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='W', mutations=()), allele_fields=('01', '09'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-W*01:10	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='W', mutations=()), allele_fields=('01', '10'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-W*01:11	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='W', mutations=()), allele_fields=('01', '11'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+Mafa-W*01:12	yes	Allele(gene=Gene(species=Species(name='Macaca fascicularis', mhc_prefix='Mafa'), name='W', mutations=()), allele_fields=('01', '12'), annotations=(), mutations=())	Allele	Macaca fascicularis			PMC:PMC10078292
+PSMB8-AS1	no						PMC:PMC10078292
+SAPCD1-AS1	no						PMC:PMC10078292
+TRIM31-AS1	no						PMC:PMC10078292
+TSBP1-AS1	no						PMC:PMC10078292

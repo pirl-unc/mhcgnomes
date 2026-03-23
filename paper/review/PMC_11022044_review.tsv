@@ -1,0 +1,8 @@
+raw_string	parsed	parsed_as	result_type	species	correct	notes	source
+C*0203	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='C', mutations=()), allele_fields=('02', '03'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC11022044
+FALCON-Unzip	no						PMC:PMC11022044
+Gogo-C	yes	Gene(species=Species(name='Gorilla gorilla', mhc_prefix='Gogo'), name='C', mutations=())	Gene	Gorilla gorilla			PMC:PMC11022044
+Gogo-C*0203	yes	Allele(gene=Gene(species=Species(name='Gorilla gorilla', mhc_prefix='Gogo'), name='C', mutations=()), allele_fields=('02', '03'), annotations=(), mutations=())	Allele	Gorilla gorilla			PMC:PMC11022044
+Hi-C	no						PMC:PMC11022044
+PacBio Sequel II HiFi; 3D-DNA Hi-C	no						PMC:PMC11022044
+PacBio Sequel II HiFi; Bionano DLS; 3D DNA Hi-C	no						PMC:PMC11022044
