@@ -2691,9 +2691,6 @@ Turdus atrogularis:
 Manacus sp.:
   parent: Aves sp.
   prefix: Mana
-  other prefixes:
-    # Bird literature uses ManaMHC- prefix (trailing MHC suffix pattern)
-    - ManaMHC
   name: Manakin
 Lagopus scotica:
   parent: Galliformes sp.

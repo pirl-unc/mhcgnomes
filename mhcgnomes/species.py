@@ -986,6 +986,23 @@ def infer_species_from_prefix(name, _allow_mhc_strip=True):
 
     Returns the Species and the original string that matched it or None.
     """
+    # Strip a trailing "MHC" suffix on the species prefix portion before
+    # normal prefix scanning. Common in bird/bat literature, e.g.:
+    #   "ManaMHC-DAB*01" → "Mana-DAB*01"
+    #   "MaerMHC-UA*01"  → "Maer-UA*01"
+    # Must run first so the base prefix ("Mana") is found by normal scanning
+    # instead of matching and leaving "MHC-DAB*01" as an unparseable remainder.
+    if _allow_mhc_strip and "-" in name:
+        prefix_part, rest = name.split("-", 1)
+        if len(prefix_part) > 3 and prefix_part[-3:].upper() == "MHC":
+            stripped_name = prefix_part[:-3] + "-" + rest
+            result = infer_species_from_prefix(stripped_name, _allow_mhc_strip=False)
+            if result is not None:
+                species_object, inner_prefix = result
+                # Return the full original prefix (with MHC suffix) so the
+                # caller correctly computes the remaining string.
+                return species_object, prefix_part
+
     # Try parsing a few different substrings to get the species,
     # and then use the species gene list to determine what the gene is in this string
     candidate_species_substrings = {name}
@@ -1054,22 +1071,6 @@ def infer_species_from_prefix(name, _allow_mhc_strip=True):
             # Return the full original prefix including "Mhc" so the caller
             # can correctly compute the remaining string.
             return species_object, name[: 3 + len(inner_prefix)]
-
-    # Strip a trailing "MHC" suffix from the species prefix, commonly seen
-    # in bird and bat literature (e.g., "ManaMHC-DAB*01" → "Mana-DAB*01",
-    # "MaerMHC-UA*01" → "Maer-UA*01"). Only attempted after leading-Mhc
-    # stripping has failed.
-    if _allow_mhc_strip and "-" in name:
-        prefix_part, rest = name.split("-", 1)
-        if len(prefix_part) > 3 and prefix_part[-3:].upper() == "MHC":
-            stripped_prefix = prefix_part[:-3]
-            stripped_name = stripped_prefix + "-" + rest
-            result = infer_species_from_prefix(stripped_name, _allow_mhc_strip=False)
-            if result is not None:
-                species_object, inner_prefix = result
-                # Return original prefix (with MHC) so caller computes
-                # remaining string correctly.
-                return species_object, prefix_part
 
     # if all else fails, look for a distinctive gene name which is unique
     # to one species
