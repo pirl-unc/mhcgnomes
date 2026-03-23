@@ -403,7 +403,38 @@ Homo sapiens:
 # - http://www.imgt.org/IMGTrepertoireMHC/LocusGenes/nomenclatures/mouse/MHC/Mu_MHCnom.html
 #
 ######################################################
+######################################################
+#
+# Wild mice — share core H2 MHC genes with Mus musculus
+#
+######################################################
+Mus sp.:
+  prefix: MusSp
+  name: Mus
+  genes:
+    Ia:
+      - D
+      - K
+      - L
+    IIa:
+      A:
+        - AA
+        - AB
+      E:
+        - EA
+        - EB
+    IIb:
+      DM:
+        - DMA
+        - DMB1
+        - DMB2
+    other:
+      - TAP1
+      - TAP2
+      - TAPBP
+      - B2M
 Mus musculus:
+  parent: Mus sp.
   prefix: H2
   name: Mouse
   genes:
@@ -500,6 +531,18 @@ Mus musculus:
       - TAP2
       - TAPBP
       - B2M
+Mus caroli:
+  parent: Mus sp.
+  prefix: MusCaro
+  name: Ryukyu mouse
+Mus spretus:
+  parent: Mus sp.
+  prefix: MusSpre
+  name: Western wild mouse
+Mus macedonicus:
+  parent: Mus sp.
+  prefix: MusMace
+  name: Macedonian mouse
 ######################################################
 #
 # Rats
@@ -975,6 +1018,11 @@ Kareius bicoloratus:
         - DRB3
         - DRB4
         - DRB5
+        - DRB6
+        - DRB7
+        - DRB8
+        - DRB9
+        - DRB10
 Labeobarbus intermedius:
   parent: Actinopterygii sp.
   prefix: LabeInte
@@ -2103,6 +2151,99 @@ Sus scrofa:
   # TODO: reflect this in the Species object
   haplotype prefix: Hp
   name: Feral Pig
+######################################################
+# Rodentia — rodents
+#
+# Rodents without established MHC nomenclature systems (i.e. not H2/RT1)
+# inherit standard mammalian class II gene names from this clade.
+# Mus musculus (H2) and Rattus sp. (RT1) keep their own nomenclature
+# and remain directly under Gnathostomata.
+#
+######################################################
+Rodentia sp.:
+  prefix: Rodentia
+  name: Rodent
+  genes:
+    IIa:
+      DQ:
+        - DQA1
+        - DQB1
+      DR:
+        - DRA
+        - DRB1
+      DP:
+        - DPA1
+        - DPB1
+    IIb:
+      DO:
+        - DOA
+        - DOB
+      DM:
+        - DMA
+        - DMB
+    other:
+      - TAP1
+      - TAP2
+      - TAPBP
+      - B2M
+Marmota marmota:
+  parent: Rodentia sp.
+  prefix: MarmMarm
+  name: Alpine marmot
+Marmota monax:
+  parent: Rodentia sp.
+  prefix: MarmMona
+  name: Groundhog
+Sciurus vulgaris:
+  parent: Rodentia sp.
+  prefix: SciuVulg
+  name: Red squirrel
+Chinchilla lanigera:
+  parent: Rodentia sp.
+  prefix: ChinLani
+  name: Long-tailed chinchilla
+Ictidomys tridecemlineatus:
+  parent: Rodentia sp.
+  prefix: IctiTrid
+  name: Thirteen-lined ground squirrel
+Urocitellus parryii:
+  parent: Rodentia sp.
+  prefix: UrocParr
+  name: Arctic ground squirrel
+Cavia porcellus:
+  parent: Rodentia sp.
+  prefix: CaviPorc
+  name: Guinea pig
+Phodopus roborovskii:
+  parent: Rodentia sp.
+  prefix: PhodRobo
+  name: Roborovski hamster
+  genes:
+    # H2-style gene names used in hamster MHC literature
+    IIa:
+      A:
+        - Aa
+        - Ab1
+      E:
+        - Ea
+        - Eb1
+Mesocricetus auratus:
+  parent: Rodentia sp.
+  prefix: MesoCriAu
+  name: Golden hamster
+Cricetulus griseus:
+  parent: Rodentia sp.
+  prefix: CricGris
+  name: Chinese hamster
+Microtus ochrogaster:
+  parent: Rodentia sp.
+  prefix: MicrOchr
+  name: Prairie vole
+Castor canadensis:
+  parent: Rodentia sp.
+  prefix: CastCana
+  name: North American beaver
+
 ################################################################################
 #
 # Bats
@@ -2141,18 +2282,26 @@ Oryctolagus sp.:
   genes:
     I:
       - A
+      - A1
+      - A2
+      - A3
       - D
     II:
       DP:
         - DPA
         - DPB
+        - DPB1
       DR:
         - DRA
         - DRB
       DQ:
         - DQA
         - DQB
+        - DQB1
       DN: {}  # couldn't tell which genes in DN locus
+    IIb:
+      DO:
+        - DOB
     other:
       - TAP1
       - TAP2
@@ -2506,6 +2655,9 @@ Gallus gallus:
       - BF
       - BF1
       - BF2
+      # B-F-minor and BFIV21 are additional B-complex class I variants
+      - B-F-minor
+      - BFIV21
     Ib:
       - YF1
       - YF2
@@ -2523,6 +2675,10 @@ Gallus gallus:
         - BLB2
         #third copy of BLB gene found only in some haplotypes
         - B12c
+        # Roman numeral locus variants from literature
+        - B-LBI
+        - B-LBII
+        - B-LBVI
     IIb:
       DM:
         - DMA
