@@ -1,0 +1,55 @@
+raw_string	expected_species	source	qualifier
+mhc2daa	Danio rerio	genbank:NM_001004521.4	gene
+mhc2daa	Danio rerio	genbank:NM_001004521.4	gene
+mhc2daa	Danio rerio	genbank:NM_001004521.4	gene
+mhc2daa	Danio rerio	genbank:NM_001004521.4	gene
+major histocompatibility complex class II DAA precursor	Danio rerio	genbank:NM_001004521.4	product
+mhc2daa	Danio rerio	genbank:NM_001004521.4	gene
+mhc2daa	Danio rerio	genbank:NM_001004521.4	gene
+mhc2daa	Danio rerio	genbank:NM_001004521.4	gene
+mhc2daa	Danio rerio	genbank:NM_001004521.4	gene
+H2-Aa	Mus musculus	genbank:NM_010378.3	gene
+H2-Aa	Mus musculus	genbank:NM_010378.3	gene
+H2-Aa	Mus musculus	genbank:NM_010378.3	gene
+histocompatibility 2, class II antigen A, alpha precursor	Mus musculus	genbank:NM_010378.3	product
+H2-Aa	Mus musculus	genbank:NM_010378.3	gene
+H2-Aa	Mus musculus	genbank:NM_010378.3	gene
+H-2 class II histocompatibility antigen, A-B alpha chain. /id=PRO_0000018975	Mus musculus	genbank:NM_010378.3	product
+H2-Aa	Mus musculus	genbank:NM_010378.3	gene
+H2-Aa	Mus musculus	genbank:NM_010378.3	gene
+H2-Aa	Mus musculus	genbank:NM_010378.3	gene
+H2-Aa	Mus musculus	genbank:NM_010378.3	gene
+H2-Aa	Mus musculus	genbank:NM_010378.3	gene
+H2-Aa	Mus musculus	genbank:NM_010378.3	gene
+H2-Aa	Mus musculus	genbank:NM_010378.3	gene
+H2-Aa	Mus musculus	genbank:NM_010378.3	gene
+H2-Aa	Mus musculus	genbank:NM_010378.3	gene
+H2-Aa	Mus musculus	genbank:NM_010378.3	gene
+H2-Aa	Mus musculus	genbank:NM_010378.3	gene
+mhc2dgb	Danio rerio	genbank:NM_001007206.2	gene
+mhc2dgb	Danio rerio	genbank:NM_001007206.2	gene
+mhc2dgb	Danio rerio	genbank:NM_001007206.2	gene
+major histocompatibility complex class II DGB precursor	Danio rerio	genbank:NM_001007206.2	product
+mhc2dgb	Danio rerio	genbank:NM_001007206.2	gene
+butyrophilin subfamily 2 member A2 isoform e precursor	Homo sapiens	genbank:NM_001197240.2	product
+butyrophilin subfamily 2 member A2 isoform e	Homo sapiens	genbank:NM_001197240.2	product
+butyrophilin subfamily 2 member A2 isoform a precursor	Homo sapiens	genbank:NM_006995.5	product
+butyrophilin subfamily 2 member A2 isoform a	Homo sapiens	genbank:NM_006995.5	product
+butyrophilin subfamily 2 member A2 isoform b precursor	Homo sapiens	genbank:NM_181531.3	product
+butyrophilin subfamily 2 member A2 isoform b	Homo sapiens	genbank:NM_181531.3	product
+butyrophilin subfamily 3 member A1 isoform b precursor	Homo sapiens	genbank:NM_194441.3	product
+butyrophilin subfamily 3 member A1 isoform d precursor	Homo sapiens	genbank:NM_001145009.2	product
+butyrophilin subfamily 2 member A2 isoform a precursor	Homo sapiens	genbank:NM_001197237.2	product
+butyrophilin subfamily 2 member A2 isoform a	Homo sapiens	genbank:NM_001197237.2	product
+butyrophilin subfamily 2 member A2 isoform d precursor	Homo sapiens	genbank:NM_001197239.2	product
+butyrophilin subfamily 2 member A2 isoform d	Homo sapiens	genbank:NM_001197239.2	product
+butyrophilin subfamily 2 member A2 isoform c precursor	Homo sapiens	genbank:NM_001197238.2	product
+butyrophilin subfamily 2 member A2 isoform c	Homo sapiens	genbank:NM_001197238.2	product
+butyrophilin subfamily 3 member A1 isoform c precursor	Homo sapiens	genbank:NM_001145008.2	product
+butyrophilin subfamily 3 member A1 isoform a precursor	Homo sapiens	genbank:NM_007048.6	product
+Butyrophilin subfamily 3 member A1. /id=PRO_0000014532	Homo sapiens	genbank:NM_007048.6	product
+MHC class II transactivator isoform X3	Melanerpes formicivorus	genbank:XM_068147136.1	product
+MHC class II transactivator isoform X2	Melanerpes formicivorus	genbank:XM_068147135.1	product
+MHC class II transactivator isoform X1	Melanerpes formicivorus	genbank:XM_068147134.1	product
+MHC class II transactivator isoform X1	Melanerpes formicivorus	genbank:XM_068147133.1	product
+MHC class II transactivator	Chamaea fasciata	genbank:XM_066198102.1	product

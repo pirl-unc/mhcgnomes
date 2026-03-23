@@ -1,0 +1,56 @@
+# Validation data sources for mhcgnomes paper.
+#
+# Each source must NOT have been used during library development.
+# Sources are organized by species group.
+#
+# Status values:
+#   candidate  — identified, not yet downloaded
+#   downloaded — raw data saved to this directory
+#   extracted  — allele strings extracted into .tsv format
+#   audited    — manual correctness audit complete
+
+# ============================================================================
+# Bird MHC diversity studies
+# ============================================================================
+
+# Bird MHC ecology papers use highly variable nomenclature (DAB, UA, BLB,
+# species-specific numbering). These are among the messiest MHC names in
+# the literature and represent a strong test of parser robustness.
+
+# ============================================================================
+# Fish MHC studies
+# ============================================================================
+
+# Fish MHC nomenclature mixes U-lineage class I (UAA, UBA) with D-family
+# class II (DAA, DAB) across dozens of species with no unified standard.
+
+# ============================================================================
+# HLA population genetics
+# ============================================================================
+
+# Population studies from underrepresented groups often use older or
+# non-standard HLA notation in their supplementary tables.
+
+# ============================================================================
+# Wildlife disease / conservation genetics
+# ============================================================================
+
+# MHC diversity studies in threatened species (devils, cheetahs, etc.)
+# use species-specific nomenclature that tests non-human parsing.
+
+# ============================================================================
+# Bulk database exports
+# ============================================================================
+
+# AFND (Allele Frequency Net Database)
+# http://www.allelefrequencies.net/
+# Bulk allele frequency data with lab-submitted allele names
+afnd:
+  url: http://www.allelefrequencies.net/
+  species: multi (primarily human)
+  format: web export / downloadable tables
+  status: candidate
+  notes: |
+    Allele names are submitted by individual labs and may use older
+    nomenclature or non-standard formatting. Good source of real-world
+    human HLA string variation.
