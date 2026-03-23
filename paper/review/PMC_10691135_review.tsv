@@ -1,23 +1,4 @@
 raw_string	parsed	parsed_as	result_type	species	correct	notes	source
-(HLA-DRA +380bp C>A)	no						PMC:PMC10691135
-(HLA-DRA -18kb A>G)	no						PMC:PMC10691135
-(HLA-DRA -7.5kb T>C)	no						PMC:PMC10691135
-(HLA-DRB1 +10.7kb A>G)	no						PMC:PMC10691135
-(HLA-DRB1 A>G)	no						PMC:PMC10691135
-AAGTAAGACGATTCTC-MGB	no						PMC:PMC10691135
-AATAGCAAGGTCCTGC-MGB	no						PMC:PMC10691135
-AATAGCACGGTCCTG-MGB	no						PMC:PMC10691135
-CCAAGGATATGTTTGT-MGB	no						PMC:PMC10691135
-CTCAGGAATCCTGCAA-MGB	no						PMC:PMC10691135
-FAM-AAGTAAGACGATTCTC-MGB	no						PMC:PMC10691135
-FAM-AATAGCACGGTCCTG-MGB	no						PMC:PMC10691135
-FAM-CCAAGGATATGTTTGT-MGB	no						PMC:PMC10691135
-FAM-CTCAGGAATCCTGCAA-MGB	no						PMC:PMC10691135
-FAM-TTCCTACTGTCTGTCT-MGB	no						PMC:PMC10691135
-HEX-AATAGCAAGGTCCTGC-MGB	no						PMC:PMC10691135
-HLA-DR	yes	Class2Locus(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DR')	Class2Locus	Homo sapiens			PMC:PMC10691135
-HLA-DRB1	yes	Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=())	Gene	Homo sapiens			PMC:PMC10691135
-TTCCTACTGTCTGTCT-MGB	no						PMC:PMC10691135
-HLA-DR	yes	Class2Locus(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DR')	Class2Locus	Homo sapiens			PMC:PMC10691135
-HLA-DR	yes	Class2Locus(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DR')	Class2Locus	Homo sapiens			PMC:PMC10691135
-Hardy-Weinberg	no						PMC:PMC10691135
+HLA-DR	yes	Class2Locus(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DR')	Class2Locus	Homo sapiens			PMC:10691135
+HLA-DRA	yes	Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRA', mutations=())	Gene	Homo sapiens			PMC:10691135
+HLA-DRB1	yes	Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=())	Gene	Homo sapiens			PMC:10691135

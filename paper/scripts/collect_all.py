@@ -13,13 +13,11 @@ Usage:
 """
 
 import csv
-import os
 import re
 import subprocess
 import sys
 import time
 import urllib.request
-import urllib.error
 from pathlib import Path
 
 try:
@@ -35,6 +33,7 @@ CANDIDATES = ROOT / "paper" / "validation" / "candidate_papers.tsv"
 RAW_DIR = ROOT / "paper" / "raw"
 VAL_DIR = ROOT / "paper" / "validation"
 SCRAPE_SCRIPT = ROOT / "paper" / "scripts" / "scrape_paper.py"
+SCRAPEABLE_SUFFIXES = {".xlsx", ".xls", ".csv", ".tsv", ".txt", ".docx"}
 
 
 def pmid_to_pmc(pmid):
@@ -68,7 +67,7 @@ def get_pmc_supp_urls(pmc_id):
             # Parse XML for links
             for m in re.finditer(r'href="(https?://[^"]+)"', text):
                 href = m.group(1)
-                if any(ext in href.lower() for ext in [".xlsx", ".xls", ".csv", ".tsv", ".zip", ".tar"]):
+                if any(ext in href.lower() for ext in [".xlsx", ".xls", ".csv", ".tsv", ".txt", ".docx", ".zip", ".tar"]):
                     urls.append(href)
     except Exception:
         pass
@@ -108,7 +107,7 @@ def get_doi_supp_urls(doi):
         # Look for supplementary file links
         for m in re.finditer(
             r'href="([^"]*(?:supplementa|supp|S\d+|table_S|Table_S|additional)[^"]*'
-            r'\.(?:xlsx|xls|csv|tsv|zip|txt))"',
+            r'\.(?:xlsx|xls|csv|tsv|zip|txt|docx))"',
             text,
             re.IGNORECASE,
         ):
@@ -229,7 +228,7 @@ def main():
                 print(f"  Already have {filename}", file=sys.stderr)
 
             # Skip non-scrapeable files
-            if dest.suffix.lower() in (".zip", ".tar", ".gz", ".pdf", ".docx", ".doc"):
+            if dest.suffix.lower() not in SCRAPEABLE_SUFFIXES:
                 print(f"  Skipping {dest.suffix} file", file=sys.stderr)
                 continue
 

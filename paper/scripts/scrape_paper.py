@@ -5,6 +5,7 @@ Extract MHC allele strings from a published paper's supplementary data.
 Supports:
   - Excel files (.xlsx, .xls)
   - CSV/TSV files
+  - Word documents (.docx)
   - Plain text (one allele per line or whitespace-separated)
 
 The script scans all columns/cells for strings that look like MHC allele
@@ -38,28 +39,24 @@ import re
 import sys
 from pathlib import Path
 
-# Patterns that look like MHC allele/gene names
-MHC_PATTERNS = [
-    # Standard allele: HLA-A*02:01, Mamu-B*017:01, BoLA-DRB3*01:01
-    re.compile(
-        r"\b[A-Z][A-Za-z0-9]{1,15}-[A-Za-z]{1,10}\*[\d:]+[A-Za-z]?\b"
-    ),
-    # Gene with prefix: HLA-A, Gaga-BF1, Dare-UBA, Modo-UA1
-    re.compile(
-        r"\b[A-Z][A-Za-z0-9]{1,15}-[A-Z][A-Za-z0-9]{0,8}\b"
-    ),
-    # Allele without prefix: A*02:01, DRB1*01:01, BF*21
-    re.compile(r"\b[A-Z][A-Za-z0-9]{0,6}\*[\d:]+[A-Za-z]?\b"),
-    # Mouse/rat style: H2-Kk, H2-Db, H-2Kb, RT1-Aa
-    re.compile(r"\bH-?2-[A-Z][a-z0-9]*\b"),
-    re.compile(r"\bRT1-[A-Za-z0-9.]+\b"),
-    # Bird MHC with Mhc prefix: MhcPama-DAB1*01
-    re.compile(r"\bMhc[A-Z][A-Za-z]+-[A-Za-z0-9*:]+\b"),
-    # Non-mammalian: UAA*01, DAB*02:01, BLB1*04
-    re.compile(r"\b(?:UA[A-Z]?|UB[A-Z]?|DA[AB]|DB[AB]|DC[AB]|DR[AB]|BLB|BF)\d?\*[\d:]+\b"),
-    # Serotype-style: HLA-A2, HLA-B27, A2, B44
-    re.compile(r"\bHLA-[A-Z]\d{1,3}\b"),
-]
+SUPPORTED_SUFFIXES = (".xlsx", ".xls", ".csv", ".tsv", ".txt", ".docx")
+TOKEN_PATTERN = re.compile(r"[A-Za-z0-9][A-Za-z0-9*:+/_.-]*")
+ALLELE_FIELDS_PATTERN = re.compile(r"^\d+(?::\d+)*[A-Za-z]?$")
+UNPREFIXED_ALLELE_PATTERN = re.compile(r"^[A-Z][A-Za-z0-9]{0,6}\*[\d:]+[A-Za-z]?$")
+NONMAMMALIAN_ALLELE_PATTERN = re.compile(
+    r"^(?:UA[A-Z]?|UB[A-Z]?|DA[AB]|DB[AB]|DC[AB]|DR[AB]|BLB|BF)\d?\*[\d:]+$"
+)
+H2_PATTERN = re.compile(r"^(?:H-?2-[A-Z][A-Za-z0-9]*|H-?2[A-Z][a-z0-9]+)$")
+RT1_PATTERN = re.compile(r"^RT1-[A-Za-z0-9.]+$")
+MHC_PREFIX_PATTERN = re.compile(r"^Mhc[A-Z][A-Za-z]+-[A-Za-z0-9*:]+$")
+HLA_SEROTYPE_PATTERN = re.compile(r"^HLA-[A-Z]\d{1,3}$")
+GENE_SUFFIX_PATTERN = re.compile(r"^[A-Z][A-Z0-9]{0,7}$")
+GENERIC_MHC_LABEL_PATTERN = re.compile(
+    r"^MHC(?:[- ]?(?:CLASS[- ]?)?)?(?:I{1,3}|IA|IB|IIA|IIB|IIIA|IIIB)$",
+    re.IGNORECASE,
+)
+ALL_CAPS_GENE_PREFIXES = {"HLA", "DLA", "SLA", "ELA", "FLA", "MIC"}
+STRIP_CHARS = "[](){}<>,;.!?\"'#`"
 
 # Strings that match patterns but are NOT MHC names
 FALSE_POSITIVE_PATTERNS = [
@@ -73,29 +70,114 @@ FALSE_POSITIVE_PATTERNS = [
 ]
 
 
-def looks_like_mhc(s):
-    """Check if a string looks like an MHC allele/gene name."""
-    s = s.strip()
-    if len(s) < 3 or len(s) > 60:
-        return False
+def clean_candidate_token(token):
+    """Strip lightweight wrappers while preserving allele punctuation."""
+    return token.strip(STRIP_CHARS)
+
+
+def has_false_positive_shape(token):
     for fp in FALSE_POSITIVE_PATTERNS:
-        if fp.match(s):
-            return False
-    for pat in MHC_PATTERNS:
-        if pat.search(s):
+        if fp.match(token):
             return True
     return False
 
 
+def looks_like_gene_prefix(prefix):
+    """Prefer common immunogenetics prefixes and four-letter species codes."""
+    if prefix in ALL_CAPS_GENE_PREFIXES:
+        return True
+    if len(prefix) == 4 and prefix[0].isupper() and any(ch.islower() for ch in prefix[1:]):
+        return all(ch.isalnum() for ch in prefix)
+    return (
+        len(prefix) >= 4
+        and prefix[0].isupper()
+        and any(ch.islower() for ch in prefix)
+        and any(ch.isupper() for ch in prefix[1:])
+        and all(ch.isalnum() for ch in prefix)
+    )
+
+
+def looks_like_gene_suffix(suffix):
+    if GENERIC_MHC_LABEL_PATTERN.match(suffix):
+        return False
+    return bool(GENE_SUFFIX_PATTERN.match(suffix))
+
+
+def looks_like_mhc_token(token):
+    """Check if a single token looks like an MHC allele or gene string."""
+    token = clean_candidate_token(token)
+    if len(token) < 3 or len(token) > 60:
+        return False
+    if has_false_positive_shape(token):
+        return False
+    if GENERIC_MHC_LABEL_PATTERN.match(token):
+        return False
+    if (
+        H2_PATTERN.match(token)
+        or RT1_PATTERN.match(token)
+        or MHC_PREFIX_PATTERN.match(token)
+        or HLA_SEROTYPE_PATTERN.match(token)
+        or UNPREFIXED_ALLELE_PATTERN.match(token)
+        or NONMAMMALIAN_ALLELE_PATTERN.match(token)
+    ):
+        return True
+
+    if "-" not in token:
+        return False
+
+    prefix, suffix = token.split("-", 1)
+    if not prefix or not suffix:
+        return False
+
+    if "*" in suffix:
+        gene, allele_fields = suffix.split("*", 1)
+        return (
+            looks_like_gene_prefix(prefix)
+            and looks_like_gene_suffix(gene)
+            and bool(ALLELE_FIELDS_PATTERN.match(allele_fields))
+        )
+
+    return looks_like_gene_prefix(prefix) and looks_like_gene_suffix(suffix)
+
+
+def split_compound_tokens(token):
+    """Split lightweight list-style compounds like A*01:01/A*02:01."""
+    if "/" not in token or token.startswith("http"):
+        return [token]
+    return [part for part in token.split("/") if part]
+
+
+def looks_like_mhc(s):
+    """Check if a string itself looks like an MHC allele/gene token."""
+    s = clean_candidate_token(s.strip())
+    if not s:
+        return False
+    return looks_like_mhc_token(s)
+
+
 def extract_from_text(text):
-    """Extract MHC-like strings from free text."""
+    """Extract MHC-like tokens from free text."""
     candidates = set()
-    for pat in MHC_PATTERNS:
-        for match in pat.finditer(text):
-            s = match.group()
-            if not any(fp.match(s) for fp in FALSE_POSITIVE_PATTERNS):
-                candidates.add(s)
+    for match in TOKEN_PATTERN.finditer(text):
+        raw_token = match.group()
+        for token in split_compound_tokens(raw_token):
+            cleaned = clean_candidate_token(token)
+            if looks_like_mhc_token(cleaned):
+                candidates.add(cleaned)
     return candidates
+
+
+def collect_input_files(input_path=None, input_dir=None):
+    """Collect scrapeable files from CLI inputs."""
+    input_files = []
+    if input_path:
+        input_files.append(Path(input_path))
+    if input_dir:
+        directory = Path(input_dir)
+        input_files.extend(
+            sorted(p for p in directory.iterdir() if p.suffix.lower() in SUPPORTED_SUFFIXES)
+        )
+    return input_files
 
 
 def read_excel(path):
@@ -159,7 +241,6 @@ def read_docx(path):
             # Read main document
             if "word/document.xml" in z.namelist():
                 tree = ET.parse(z.open("word/document.xml"))
-                ns = {"w": "http://schemas.openxmlformats.org/wordprocessingml/2006/main"}
                 for para in tree.iter("{http://schemas.openxmlformats.org/wordprocessingml/2006/main}p"):
                     text = "".join(
                         node.text or ""
@@ -186,17 +267,9 @@ def process_file(path):
     else:
         cells = read_text(path)
 
-    # Strategy 1: check if whole cells are MHC names
     mhc_strings = set()
     for cell in cells:
-        cell = cell.strip()
-        if looks_like_mhc(cell):
-            mhc_strings.add(cell)
-
-    # Strategy 2: extract MHC patterns from longer text cells
-    for cell in cells:
-        if len(cell) > 20:  # likely a sentence or description
-            mhc_strings.update(extract_from_text(cell))
+        mhc_strings.update(extract_from_text(cell))
 
     return sorted(mhc_strings)
 
@@ -219,18 +292,7 @@ def main():
         parser.error("Provide --input or --input-dir")
 
     # Collect input files
-    input_files = []
-    if args.input:
-        input_files.append(Path(args.input))
-    if args.input_dir:
-        d = Path(args.input_dir)
-        input_files.extend(
-            sorted(
-                p
-                for p in d.iterdir()
-                if p.suffix.lower() in (".xlsx", ".xls", ".csv", ".tsv", ".txt")
-            )
-        )
+    input_files = collect_input_files(args.input, args.input_dir)
 
     if not input_files:
         print("No input files found.", file=sys.stderr)

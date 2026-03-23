@@ -1,111 +1,25 @@
 raw_string	parsed	parsed_as	result_type	species	correct	notes	source
-Aotr-DRB3	yes	Gene(species=Species(name='Aotus trivirgatus', mhc_prefix='Aotr'), name='DRB3', mutations=())	Gene	Aotus trivirgatus			PMC:PMC11429698
-Cat MHC-DPA	yes	Gene(species=Species(name='Felis sp.', mhc_prefix='FLA'), name='DPA1', mutations=())	Gene	Felis sp.			PMC:PMC11429698
-DPA1*02:04	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DPA1', mutations=()), allele_fields=('02', '04'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC11429698
-DPB1*01:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DPB1', mutations=()), allele_fields=('01', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC11429698
-DQA1*01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('01',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC11429698
-DQA1*05	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('05',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC11429698
-DRB3*06:02	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB3', mutations=()), allele_fields=('06', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC11429698
-MHC-DMA	yes	Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DMA', mutations=())	Gene	Homo sapiens			PMC:PMC11429698
-MHC-DMA Group	no						PMC:PMC11429698
-MHC-DMB	yes	Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DMB', mutations=())	Gene	Homo sapiens			PMC:PMC11429698
-MHC-DMB Group	no						PMC:PMC11429698
-MHC-DOA	yes	Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DOA', mutations=())	Gene	Homo sapiens			PMC:PMC11429698
-MHC-DOA Group	no						PMC:PMC11429698
-MHC-DPA	no						PMC:PMC11429698
-MHC-DPA Group	no						PMC:PMC11429698
-MHC-DPB	yes	Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DPB1', mutations=())	Gene	Homo sapiens			PMC:PMC11429698
-MHC-DPB Group	no						PMC:PMC11429698
-MHC-DQA	yes	Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=())	Gene	Homo sapiens			PMC:PMC11429698
-MHC-DQA Group	no						PMC:PMC11429698
-MHC-DQA1	yes	Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=())	Gene	Homo sapiens			PMC:PMC11429698
-MHC-DQB	yes	Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=())	Gene	Homo sapiens			PMC:PMC11429698
-MHC-DQB Group	no						PMC:PMC11429698
-MHC-DRA	yes	Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRA', mutations=())	Gene	Homo sapiens			PMC:PMC11429698
-MHC-DRA Group	no						PMC:PMC11429698
-MHC-DRB	yes	Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=())	Gene	Homo sapiens			PMC:PMC11429698
-MHC-DRB Group	no						PMC:PMC11429698
-Macaque Math-DPA1*02:04	yes	Allele(gene=Gene(species=Species(name='Macaca thibetana', mhc_prefix='Math'), name='DPA1', mutations=()), allele_fields=('02', '04'), annotations=(), mutations=())	Allele	Macaca thibetana			PMC:PMC11429698
-Math-DPA1	yes	Gene(species=Species(name='Macaca thibetana', mhc_prefix='Math'), name='DPA1', mutations=())	Gene	Macaca thibetana			PMC:PMC11429698
-Night Monkey Aotr-DRB3*06:02	yes	Allele(gene=Gene(species=Species(name='Aotus trivirgatus', mhc_prefix='Aotr'), name='DRB3', mutations=()), allele_fields=('06', '02'), annotations=(), mutations=())	Allele	Aotus trivirgatus			PMC:PMC11429698
-OWM MHC-DPA1*11	no						PMC:PMC11429698
-Saoe-DPB1	yes	Gene(species=Species(name='Saguinus oedipus', mhc_prefix='Saoe'), name='DPB1', mutations=())	Gene	Saguinus oedipus			PMC:PMC11429698
-Tamarin Saoe-DPB1*01:01	no						PMC:PMC11429698
-ape/OWM MHC-DQA1*05 ape/OWM MHC-DQA1*01	no						PMC:PMC11429698
-Abi-Rached	no						PMC:PMC11429698
-Abi-Rached (2010)	no						PMC:PMC11429698
-Abi-Rached (2010),  this work	no						PMC:PMC11429698
-Abi-Rached (2010), Karl (2023),  this work	no						PMC:PMC11429698
-B*07	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('07',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC11429698
-Daza-Vamenta	no						PMC:PMC11429698
-Karl (2023), Daza-Vamenta (2004),  this work	no						PMC:PMC11429698
-Snub-Nosed Monkey	no						PMC:PMC11429698
-Ape MHC-A	no						PMC:PMC11429698
-Ape MHC-C	no						PMC:PMC11429698
-Ape/OWM MHC-A/AG and NWM MHC-G	no						PMC:PMC11429698
-Atbe-B	yes	Gene(species=Species(name='Ateles belzebuth', mhc_prefix='Atbe'), name='B', mutations=())	Gene	Ateles belzebuth			PMC:PMC11429698
-Atbe-B*01	yes	Allele(gene=Gene(species=Species(name='Ateles belzebuth', mhc_prefix='Atbe'), name='B', mutations=()), allele_fields=('01',), annotations=(), mutations=())	Allele	Ateles belzebuth			PMC:PMC11429698
-B*01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('01',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC11429698
-B*07	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('07',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC11429698
-B*11	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('11',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC11429698
-B9*01:	no						PMC:PMC11429698
-Caja-B9	yes	Gene(species=Species(name='Callithrix jacchus', mhc_prefix='Caja'), name='B9', mutations=())	Gene	Callithrix jacchus			PMC:PMC11429698
-Chimpanzee MHC-B	yes	Gene(species=Species(name='Pan sp.', mhc_prefix='ChLA'), name='B', mutations=())	Gene	Pan sp.			PMC:PMC11429698
-Chimpanzee MHC-B*07/14/25/33	no						PMC:PMC11429698
-Chimpanzee MHC-B*11/12/17	no						PMC:PMC11429698
-Chimpanzee Patr-AL	no						PMC:PMC11429698
-G*06	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='G', mutations=()), allele_fields=('06',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC11429698
-Gorilla Gogo-B	no						PMC:PMC11429698
-Gorilla Gogo-B*01	yes	Allele(gene=Gene(species=Species(name='Gorilla gorilla', mhc_prefix='Gogo'), name='B', mutations=()), allele_fields=('01',), annotations=(), mutations=())	Allele	Gorilla gorilla			PMC:PMC11429698
-Gorilla Gogo-B*03	yes	Allele(gene=Gene(species=Species(name='Gorilla gorilla', mhc_prefix='Gogo'), name='B', mutations=()), allele_fields=('03',), annotations=(), mutations=())	Allele	Gorilla gorilla			PMC:PMC11429698
-HLA-A	yes	Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=())	Gene	Homo sapiens			PMC:PMC11429698
-HLA-A*01/02/30/31	no						PMC:PMC11429698
-HLA-A*23/24/25	no						PMC:PMC11429698
-HLA-A*32	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('32',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC11429698
-HLA-B*38	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('38',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC11429698
-HLA-B*46	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('46',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC11429698
-HLA-B*57	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('57',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC11429698
-HLA-B*67:02	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('67', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC11429698
-HLA-C*17	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='C', mutations=()), allele_fields=('17',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC11429698
-HLA-H	yes	Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='H', mutations=())	Gene	Homo sapiens			PMC:PMC11429698
-Human/Chimpanzee MHC-B	no						PMC:PMC11429698
-MHC-A	yes	Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=())	Gene	Homo sapiens			PMC:PMC11429698
-MHC-A Group	no						PMC:PMC11429698
-MHC-B	yes	Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=())	Gene	Homo sapiens			PMC:PMC11429698
-MHC-B Group	no						PMC:PMC11429698
-MHC-B*07	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('07',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC11429698
-MHC-B*11	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('11',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC11429698
-MHC-C Group	no						PMC:PMC11429698
-MHC-E Group	no						PMC:PMC11429698
-MHC-F Group	no						PMC:PMC11429698
-MHC-G	yes	Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='G', mutations=())	Gene	Homo sapiens			PMC:PMC11429698
-MHC-G Group	no						PMC:PMC11429698
-MHC-G*06	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='G', mutations=()), allele_fields=('06',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC11429698
-MHC-I	yes	MhcClass(species=Species(name='Homo sapiens', mhc_prefix='HLA'), mhc_class='I')	MhcClass	Homo sapiens			PMC:PMC11429698
-MHC-J	yes	Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='J', mutations=())	Gene	Homo sapiens			PMC:PMC11429698
-MHC-K	yes	Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='K', mutations=())	Gene	Homo sapiens			PMC:PMC11429698
-MHC-W/H/A/G	no						PMC:PMC11429698
-MHC-Y	no						PMC:PMC11429698
-Macaque Mamu-B14Ps	no						PMC:PMC11429698
-Macaque Mamu-G	no						PMC:PMC11429698
-Macaque Mane-F*02:06	yes	Allele(gene=Gene(species=Species(name='Macaca nemestrina', mhc_prefix='Mane'), name='F', mutations=()), allele_fields=('02', '06'), annotations=(), mutations=())	Allele	Macaca nemestrina			PMC:PMC11429698
-Marmoset Caja-B9*01:01Ps	no						PMC:PMC11429698
-Marmoset Caja-G	no						PMC:PMC11429698
-NWM MHC-F	no						PMC:PMC11429698
-NWM MHC-G	no						PMC:PMC11429698
-OWM MHC-A	no						PMC:PMC11429698
-OWM MHC-A and -AG	no						PMC:PMC11429698
-OWM MHC-AG	no						PMC:PMC11429698
-OWM MHC-B	no						PMC:PMC11429698
-OWM MHC-L	no						PMC:PMC11429698
-Orangutan MHC-B	yes	Gene(species=Species(name='Pongo sp.', mhc_prefix='OrLA'), name='B', mutations=())	Gene	Pongo sp.			PMC:PMC11429698
-Orangutan Popy-Ap	no						PMC:PMC11429698
-Patr-A*26:01	yes	Allele(gene=Gene(species=Species(name='Pan troglodytes', mhc_prefix='Patr'), name='A', mutations=()), allele_fields=('26', '01'), annotations=(), mutations=())	Allele	Pan troglodytes			PMC:PMC11429698
-Spider Monkey Atbe-B*01	no						PMC:PMC11429698
-Spider Monkey MHC-G*06	no						PMC:PMC11429698
-Tamarin Saoe-G*03:08	no						PMC:PMC11429698
-Maccari (2017), Maccari (2020), Rosal-Sanchez (1998)	no						PMC:PMC11429698
-Nino-Vasquez	no						PMC:PMC11429698
-Ring-Tailed Lemur	no						PMC:PMC11429698
-Rosal-Sanchez	no						PMC:PMC11429698
-Snub-Nosed Monkey	no						PMC:PMC11429698
+B*07	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('07',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:11429698
+Atbe-B*01	yes	Allele(gene=Gene(species=Species(name='Ateles belzebuth', mhc_prefix='Atbe'), name='B', mutations=()), allele_fields=('01',), annotations=(), mutations=())	Allele	Ateles belzebuth			PMC:11429698
+Caja-G	yes	Gene(species=Species(name='Callithrix jacchus', mhc_prefix='Caja'), name='G', mutations=())	Gene	Callithrix jacchus			PMC:11429698
+Gogo-B	yes	Gene(species=Species(name='Gorilla gorilla', mhc_prefix='Gogo'), name='B', mutations=())	Gene	Gorilla gorilla			PMC:11429698
+Gogo-B*01	yes	Allele(gene=Gene(species=Species(name='Gorilla gorilla', mhc_prefix='Gogo'), name='B', mutations=()), allele_fields=('01',), annotations=(), mutations=())	Allele	Gorilla gorilla			PMC:11429698
+Gogo-B*03	yes	Allele(gene=Gene(species=Species(name='Gorilla gorilla', mhc_prefix='Gogo'), name='B', mutations=()), allele_fields=('03',), annotations=(), mutations=())	Allele	Gorilla gorilla			PMC:11429698
+HLA-A	yes	Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=())	Gene	Homo sapiens			PMC:11429698
+HLA-A*01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('01',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:11429698
+HLA-A*23	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('23',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:11429698
+HLA-A*32	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('32',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:11429698
+HLA-B*38	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('38',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:11429698
+HLA-B*46	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('46',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:11429698
+HLA-B*57	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('57',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:11429698
+HLA-B*67:02	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('67', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:11429698
+HLA-C*17	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='C', mutations=()), allele_fields=('17',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:11429698
+HLA-H	yes	Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='H', mutations=())	Gene	Homo sapiens			PMC:11429698
+Mamu-G	yes	Gene(species=Species(name='Macaca mulatta', mhc_prefix='Mamu'), name='G', mutations=())	Gene	Macaca mulatta			PMC:11429698
+Mane-F*02:06	yes	Allele(gene=Gene(species=Species(name='Macaca nemestrina', mhc_prefix='Mane'), name='F', mutations=()), allele_fields=('02', '06'), annotations=(), mutations=())	Allele	Macaca nemestrina			PMC:11429698
+Patr-A*26:01	yes	Allele(gene=Gene(species=Species(name='Pan troglodytes', mhc_prefix='Patr'), name='A', mutations=()), allele_fields=('26', '01'), annotations=(), mutations=())	Allele	Pan troglodytes			PMC:11429698
+Patr-AL	yes	Gene(species=Species(name='Pan troglodytes', mhc_prefix='Patr'), name='AL', mutations=())	Gene	Pan troglodytes			PMC:11429698
+Saoe-G*03:08	yes	Allele(gene=Gene(species=Species(name='Saguinus oedipus', mhc_prefix='Saoe'), name='G', mutations=()), allele_fields=('03', '08'), annotations=(), mutations=())	Allele	Saguinus oedipus			PMC:11429698
+Aotr-DRB3*06:02	yes	Allele(gene=Gene(species=Species(name='Aotus trivirgatus', mhc_prefix='Aotr'), name='DRB3', mutations=()), allele_fields=('06', '02'), annotations=(), mutations=())	Allele	Aotus trivirgatus			PMC:11429698
+Math-DPA1*02:04	yes	Allele(gene=Gene(species=Species(name='Macaca thibetana', mhc_prefix='Math'), name='DPA1', mutations=()), allele_fields=('02', '04'), annotations=(), mutations=())	Allele	Macaca thibetana			PMC:11429698
+Saoe-DPB1*01:01	yes	Allele(gene=Gene(species=Species(name='Saguinus oedipus', mhc_prefix='Saoe'), name='DPB1', mutations=()), allele_fields=('01', '01'), annotations=(), mutations=())	Allele	Saguinus oedipus			PMC:11429698

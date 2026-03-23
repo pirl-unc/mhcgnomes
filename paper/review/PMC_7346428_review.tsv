@@ -1,7 +1,5 @@
 raw_string	parsed	parsed_as	result_type	species	correct	notes	source
-SSsp2210-F/R*	no						PMC:PMC7346428
-SSspG7-F/R*	no						PMC:PMC7346428
-Sp2201-F/R*	no						PMC:PMC7346428
-Ssa202-F/R*	no						PMC:PMC7346428
-SsaD144-F/R*	no						PMC:PMC7346428
-SsaD157-F/R*	no						PMC:PMC7346428
+SSsp2210-F	no						PMC:7346428
+SSspG7-F	no						PMC:7346428
+SsaD144-F	no						PMC:7346428
+SsaD157-F	no						PMC:7346428

@@ -1,28 +1,19 @@
 raw_string	parsed	parsed_as	result_type	species	correct	notes	source
-BoLA-DRB3	yes	Gene(species=Species(name='Bos sp.', mhc_prefix='BoLA'), name='DRB3', mutations=())	Gene	Bos sp.			PMC:PMC8387388
-BoLA-DRB3 Allele	yes	Gene(species=Species(name='Bos sp.', mhc_prefix='BoLA'), name='DRB3', mutations=())	Gene	Bos sp.			PMC:PMC8387388
-BoLA-DRB3*003:02:01	yes	Allele(gene=Gene(species=Species(name='Bos sp.', mhc_prefix='BoLA'), name='DRB3', mutations=()), allele_fields=('003', '02', '01'), annotations=(), mutations=())	Allele	Bos sp.			PMC:PMC8387388
-BoLA-DRB3*005:02	yes	Allele(gene=Gene(species=Species(name='Bos sp.', mhc_prefix='BoLA'), name='DRB3', mutations=()), allele_fields=('005', '02'), annotations=(), mutations=())	Allele	Bos sp.			PMC:PMC8387388
-BoLA-DRB3*020:03	yes	Allele(gene=Gene(species=Species(name='Bos sp.', mhc_prefix='BoLA'), name='DRB3', mutations=()), allele_fields=('020', '03'), annotations=(), mutations=())	Allele	Bos sp.			PMC:PMC8387388
-BoLA-DRB3*022:10	yes	Allele(gene=Gene(species=Species(name='Bos sp.', mhc_prefix='BoLA'), name='DRB3', mutations=()), allele_fields=('022', '10'), annotations=(), mutations=())	Allele	Bos sp.			PMC:PMC8387388
-BoLA-DRB3*022:12	yes	Allele(gene=Gene(species=Species(name='Bos sp.', mhc_prefix='BoLA'), name='DRB3', mutations=()), allele_fields=('022', '12'), annotations=(), mutations=())	Allele	Bos sp.			PMC:PMC8387388
-BoLA-DRB3*023:01	yes	Allele(gene=Gene(species=Species(name='Bos sp.', mhc_prefix='BoLA'), name='DRB3', mutations=()), allele_fields=('023', '01'), annotations=(), mutations=())	Allele	Bos sp.			PMC:PMC8387388
-BoLA-DRB3*024:01	yes	Allele(gene=Gene(species=Species(name='Bos sp.', mhc_prefix='BoLA'), name='DRB3', mutations=()), allele_fields=('024', '01'), annotations=(), mutations=())	Allele	Bos sp.			PMC:PMC8387388
-BoLA-DRB3*024:06	yes	Allele(gene=Gene(species=Species(name='Bos sp.', mhc_prefix='BoLA'), name='DRB3', mutations=()), allele_fields=('024', '06'), annotations=(), mutations=())	Allele	Bos sp.			PMC:PMC8387388
-BoLA-DRB3*025:01:01	yes	Allele(gene=Gene(species=Species(name='Bos sp.', mhc_prefix='BoLA'), name='DRB3', mutations=()), allele_fields=('025', '01', '01'), annotations=(), mutations=())	Allele	Bos sp.			PMC:PMC8387388
-BoLA-DRB3*027:04	yes	Allele(gene=Gene(species=Species(name='Bos sp.', mhc_prefix='BoLA'), name='DRB3', mutations=()), allele_fields=('027', '04'), annotations=(), mutations=())	Allele	Bos sp.			PMC:PMC8387388
-BoLA-DRB3*030:01	yes	Allele(gene=Gene(species=Species(name='Bos sp.', mhc_prefix='BoLA'), name='DRB3', mutations=()), allele_fields=('030', '01'), annotations=(), mutations=())	Allele	Bos sp.			PMC:PMC8387388
-BoLA-DRB3*032:03	yes	Allele(gene=Gene(species=Species(name='Bos sp.', mhc_prefix='BoLA'), name='DRB3', mutations=()), allele_fields=('032', '03'), annotations=(), mutations=())	Allele	Bos sp.			PMC:PMC8387388
-BoLA-DRB3*039:01	yes	Allele(gene=Gene(species=Species(name='Bos sp.', mhc_prefix='BoLA'), name='DRB3', mutations=()), allele_fields=('039', '01'), annotations=(), mutations=())	Allele	Bos sp.			PMC:PMC8387388
-BoLA-DRB3*100:01	yes	Allele(gene=Gene(species=Species(name='Bos sp.', mhc_prefix='BoLA'), name='DRB3', mutations=()), allele_fields=('100', '01'), annotations=(), mutations=())	Allele	Bos sp.			PMC:PMC8387388
-BoLA-DRB3*107:01	yes	Allele(gene=Gene(species=Species(name='Bos sp.', mhc_prefix='BoLA'), name='DRB3', mutations=()), allele_fields=('107', '01'), annotations=(), mutations=())	Allele	Bos sp.			PMC:PMC8387388
-BoLa-DRB3	yes	Gene(species=Species(name='Bos sp.', mhc_prefix='BoLA'), name='DRB3', mutations=())	Gene	Bos sp.			PMC:PMC8387388
-DRB3*004:	no						PMC:PMC8387388
-DRB3*011:	no						PMC:PMC8387388
-DRB3*018:	no						PMC:PMC8387388
-DRB3*021:	no						PMC:PMC8387388
-DRB3*024:	no						PMC:PMC8387388
-DRB3*027:	no						PMC:PMC8387388
-DRB3*032:	no						PMC:PMC8387388
-Mohamed-Khair	no						PMC:PMC8387388
-Salim*1	no						PMC:PMC8387388
+BoLA-DRB3	yes	Gene(species=Species(name='Bos sp.', mhc_prefix='BoLA'), name='DRB3', mutations=())	Gene	Bos sp.			PMC:8387388
+BoLA-DRB3*003:02:01	yes	Allele(gene=Gene(species=Species(name='Bos sp.', mhc_prefix='BoLA'), name='DRB3', mutations=()), allele_fields=('003', '02', '01'), annotations=(), mutations=())	Allele	Bos sp.			PMC:8387388
+BoLA-DRB3*005:02	yes	Allele(gene=Gene(species=Species(name='Bos sp.', mhc_prefix='BoLA'), name='DRB3', mutations=()), allele_fields=('005', '02'), annotations=(), mutations=())	Allele	Bos sp.			PMC:8387388
+BoLA-DRB3*020:03	yes	Allele(gene=Gene(species=Species(name='Bos sp.', mhc_prefix='BoLA'), name='DRB3', mutations=()), allele_fields=('020', '03'), annotations=(), mutations=())	Allele	Bos sp.			PMC:8387388
+BoLA-DRB3*022:10	yes	Allele(gene=Gene(species=Species(name='Bos sp.', mhc_prefix='BoLA'), name='DRB3', mutations=()), allele_fields=('022', '10'), annotations=(), mutations=())	Allele	Bos sp.			PMC:8387388
+BoLA-DRB3*022:12	yes	Allele(gene=Gene(species=Species(name='Bos sp.', mhc_prefix='BoLA'), name='DRB3', mutations=()), allele_fields=('022', '12'), annotations=(), mutations=())	Allele	Bos sp.			PMC:8387388
+BoLA-DRB3*023:01	yes	Allele(gene=Gene(species=Species(name='Bos sp.', mhc_prefix='BoLA'), name='DRB3', mutations=()), allele_fields=('023', '01'), annotations=(), mutations=())	Allele	Bos sp.			PMC:8387388
+BoLA-DRB3*024:01	yes	Allele(gene=Gene(species=Species(name='Bos sp.', mhc_prefix='BoLA'), name='DRB3', mutations=()), allele_fields=('024', '01'), annotations=(), mutations=())	Allele	Bos sp.			PMC:8387388
+BoLA-DRB3*024:06	yes	Allele(gene=Gene(species=Species(name='Bos sp.', mhc_prefix='BoLA'), name='DRB3', mutations=()), allele_fields=('024', '06'), annotations=(), mutations=())	Allele	Bos sp.			PMC:8387388
+BoLA-DRB3*025:01:01	yes	Allele(gene=Gene(species=Species(name='Bos sp.', mhc_prefix='BoLA'), name='DRB3', mutations=()), allele_fields=('025', '01', '01'), annotations=(), mutations=())	Allele	Bos sp.			PMC:8387388
+BoLA-DRB3*027:04	yes	Allele(gene=Gene(species=Species(name='Bos sp.', mhc_prefix='BoLA'), name='DRB3', mutations=()), allele_fields=('027', '04'), annotations=(), mutations=())	Allele	Bos sp.			PMC:8387388
+BoLA-DRB3*030:01	yes	Allele(gene=Gene(species=Species(name='Bos sp.', mhc_prefix='BoLA'), name='DRB3', mutations=()), allele_fields=('030', '01'), annotations=(), mutations=())	Allele	Bos sp.			PMC:8387388
+BoLA-DRB3*032:03	yes	Allele(gene=Gene(species=Species(name='Bos sp.', mhc_prefix='BoLA'), name='DRB3', mutations=()), allele_fields=('032', '03'), annotations=(), mutations=())	Allele	Bos sp.			PMC:8387388
+BoLA-DRB3*039:01	yes	Allele(gene=Gene(species=Species(name='Bos sp.', mhc_prefix='BoLA'), name='DRB3', mutations=()), allele_fields=('039', '01'), annotations=(), mutations=())	Allele	Bos sp.			PMC:8387388
+BoLA-DRB3*100:01	yes	Allele(gene=Gene(species=Species(name='Bos sp.', mhc_prefix='BoLA'), name='DRB3', mutations=()), allele_fields=('100', '01'), annotations=(), mutations=())	Allele	Bos sp.			PMC:8387388
+BoLA-DRB3*107:01	yes	Allele(gene=Gene(species=Species(name='Bos sp.', mhc_prefix='BoLA'), name='DRB3', mutations=()), allele_fields=('107', '01'), annotations=(), mutations=())	Allele	Bos sp.			PMC:8387388
+BoLa-DRB3	yes	Gene(species=Species(name='Bos sp.', mhc_prefix='BoLA'), name='DRB3', mutations=())	Gene	Bos sp.			PMC:8387388
+Salim*1	no						PMC:8387388

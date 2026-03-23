@@ -1,8 +1,2 @@
 raw_string	parsed	parsed_as	result_type	species	correct	notes	source
-Bar-PCR	no						PMC:PMC10033860
-Bio5-Bio6	no						PMC:PMC10033860
-HLA-DR1	yes	Serotype(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DR1', num_alleles=6)	Serotype	Homo sapiens			PMC:PMC10033860
-II-DRB	no						PMC:PMC10033860
-MHC-DRB	yes	Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=())	Gene	Homo sapiens			PMC:PMC10033860
-Non-ABS	no						PMC:PMC10033860
-Temperature Annual Range (Bio5-Bio6)	no						PMC:PMC10033860
+HLA-DR1	yes	Serotype(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DR1', num_alleles=6)	Serotype	Homo sapiens			PMC:10033860

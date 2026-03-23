@@ -10,13 +10,11 @@ Usage:
 """
 
 import csv
-import os
 import re
 import subprocess
 import sys
 import time
 import urllib.request
-import urllib.error
 from pathlib import Path
 
 try:
@@ -32,6 +30,14 @@ RAW_DIR = ROOT / "paper" / "raw"
 VAL_DIR = ROOT / "paper" / "validation"
 REVIEW_DIR = ROOT / "paper" / "review"
 SCRAPE_SCRIPT = ROOT / "paper" / "scripts" / "scrape_paper.py"
+TITLE_KEYWORD_PATTERN = re.compile(
+    r"\b("
+    r"mhc|major histocompatibility complex|immunogenetic\w*|hla|bola|sla|dla|ela|fla|"
+    r"mamu|mafa|patr|gogo|papa|drb\d*|dqb\d*|dqa\d*|dpa\d*|dpb\d*|"
+    r"dab\d*|bf\d*|blb\d*|uaa\d*|uba\d*|mhcy\d*"
+    r")\b",
+    re.IGNORECASE,
+)
 
 # Open-access focused queries targeting species diversity.
 # "open access"[filter] restricts to PMC OA subset.
@@ -109,6 +115,29 @@ def fetch_paper_metadata(pmc_ids):
                 "title": "", "journal": "", "doi": "",
             })
     return papers
+
+
+def title_looks_mhc_related(title):
+    """Drop obvious off-target papers that only matched broad search recall."""
+    if not title:
+        return True
+    return bool(TITLE_KEYWORD_PATTERN.search(title))
+
+
+def deduplicate_validation_rows(rows):
+    seen = set()
+    deduped = []
+    for row in rows:
+        key = (
+            row.get("raw_string", ""),
+            row.get("expected_species", ""),
+            row.get("source", ""),
+        )
+        if key in seen:
+            continue
+        seen.add(key)
+        deduped.append(row)
+    return deduped
 
 
 def pmid_to_pmc(pmid):
@@ -216,7 +245,7 @@ def scrape_file(filepath, species, source, output):
     return 0
 
 
-def generate_review_file(scrape_tsv, review_path, pmid, title):
+def generate_review_file(scrape_tsv, review_path):
     """Create a review TSV with parsed/unparsed status for manual audit."""
     try:
         from mhcgnomes import parse as mhc_parse
@@ -229,15 +258,16 @@ def generate_review_file(scrape_tsv, review_path, pmid, title):
         for row in reader:
             raw = row["raw_string"]
             result = mhc_parse(raw, raise_on_error=False)
+            parsed = result is not None
             rows.append({
                 "raw_string": raw,
-                "parsed": "yes" if result else "no",
-                "parsed_as": str(result) if result else "",
-                "result_type": type(result).__name__ if result else "",
-                "species": result.species.name if result and hasattr(result, "species") and result.species else "",
+                "parsed": "yes" if parsed else "no",
+                "parsed_as": str(result) if parsed else "",
+                "result_type": type(result).__name__ if parsed else "",
+                "species": result.species.name if parsed and hasattr(result, "species") and result.species else "",
                 "correct": "",  # for manual review
                 "notes": "",    # for manual review
-                "source": f"PMC:{pmid}",
+                "source": row.get("source", ""),
             })
 
     with open(review_path, "w") as f:
@@ -267,9 +297,13 @@ def main():
 
         if new_pmids:
             papers = fetch_paper_metadata(new_pmids)
+            kept = [p for p in papers if title_looks_mhc_related(p.get("title", ""))]
+            filtered = len(papers) - len(kept)
+            if filtered:
+                print(f"  Filtered {filtered} off-target titles", file=sys.stderr)
             for p in papers:
                 p["stratum"] = stratum
-            stratum_papers[stratum] = papers
+            stratum_papers[stratum] = kept
         time.sleep(0.4)
 
     # Save expanded candidate list
@@ -338,18 +372,22 @@ def main():
             # Merge all TSVs for this paper into one review file
             review_path = REVIEW_DIR / f"{safe_id}_review.tsv"
             merged_tsv = VAL_DIR / f"{safe_id}_merged.tsv"
+            merged_rows = []
+            for tsv in paper_tsvs:
+                with open(tsv) as tf:
+                    reader = csv.DictReader(tf, delimiter="\t")
+                    merged_rows.extend(reader)
+            merged_rows = deduplicate_validation_rows(merged_rows)
+
             with open(merged_tsv, "w") as f:
                 writer = csv.DictWriter(
                     f, fieldnames=["raw_string", "expected_species", "source"],
                     delimiter="\t",
                 )
                 writer.writeheader()
-                for tsv in paper_tsvs:
-                    with open(tsv) as tf:
-                        reader = csv.DictReader(tf, delimiter="\t")
-                        writer.writerows(reader)
+                writer.writerows(merged_rows)
 
-            generate_review_file(merged_tsv, review_path, f"PMC{pmid}", paper["title"])
+            generate_review_file(merged_tsv, review_path)
             review_lines = sum(1 for _ in open(review_path)) - 1
             print(f"  Review file: {review_path} ({review_lines} entries)", file=sys.stderr)
 
@@ -363,7 +401,7 @@ def main():
             delimiter="\t",
         )
         writer.writeheader()
-        writer.writerows(consolidated_rows)
+        writer.writerows(deduplicate_validation_rows(consolidated_rows))
 
     print(f"\n{'='*60}", file=sys.stderr)
     print(f"Papers with data:  {papers_with_data}", file=sys.stderr)

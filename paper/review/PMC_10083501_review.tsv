@@ -1,9 +1,1 @@
 raw_string	parsed	parsed_as	result_type	species	correct	notes	source
-"/collected_by=""Pedro Rodenas-Cuadrado, Uwe Firzlaff,"	yes	Species(name='Homo sapiens', mhc_prefix='HLA')	Species				PMC:PMC10083501
-"/isolate=""MPI-CBG mRhiFer1"""	yes	Species(name='Homo sapiens', mhc_prefix='HLA')	Species				PMC:PMC10083501
-"/isolate=""MPI-MPIP mPhyDis1"""	yes	Species(name='Homo sapiens', mhc_prefix='HLA')	Species				PMC:PMC10083501
-"/label=""Donor-Splice"""	yes	Species(name='Homo sapiens', mhc_prefix='HLA')	Species				PMC:PMC10083501
-Donor-Splice	no						PMC:PMC10083501
-MPI-CBG	no						PMC:PMC10083501
-MPI-MPIP	no						PMC:PMC10083501
-Rodenas-Cuadrado	no						PMC:PMC10083501

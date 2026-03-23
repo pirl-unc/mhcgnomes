@@ -1,1421 +1,214 @@
 raw_string	parsed	parsed_as	result_type	species	correct	notes	source
-Australia / Northern Territory / Groote-Eylandt	no						PMC:PMC7491122
-China / Hong-Kong	no						PMC:PMC7491122
-Croatia / North-West, Zagreb	no						PMC:PMC7491122
-Flanders-Picardie	no						PMC:PMC7491122
-France, North, Flanders-Picardie	no						PMC:PMC7491122
-Groote-Eylandt	no						PMC:PMC7491122
-Guarani-Kaiowa	no						PMC:PMC7491122
-Guarani-Nandewa	no						PMC:PMC7491122
-HLA_DQB1DRB1_USAERL-Nusa-Tenggara.unif	no						PMC:PMC7491122
-Hsin-I	no						PMC:PMC7491122
-Kenyan-Lowlander	no						PMC:PMC7491122
-Mongolia / Oulan-Bator	no						PMC:PMC7491122
-North-West	no						PMC:PMC7491122
-Novosibirsk-Kyzyl	no						PMC:PMC7491122
-Nusa-Tenggara	no						PMC:PMC7491122
-Oulan-Bator	no						PMC:PMC7491122
-Russia / Novosibirsk-Kyzyl	no						PMC:PMC7491122
-Taiwan / Hsin-I, Taitung	no						PMC:PMC7491122
-Taiwan / Lai-I	no						PMC:PMC7491122
-Taiwan / Lan-Yu	no						PMC:PMC7491122
-dlHLA_DQA1DQB1_USAERL-Nusa-Tenggara.txt	no						PMC:PMC7491122
-propHLA_AB_USAMFV-Kenyan-Lowlander.txt	no						PMC:PMC7491122
-propHLA_ACw_USAMFV-Kenyan-Lowlander.txt	no						PMC:PMC7491122
-propHLA_BCw_USAMFV-Kenyan-Lowlander.txt	no						PMC:PMC7491122
-propHLA_DRB1DPB1_USAERL-Nusa-Tenggara.txt	no						PMC:PMC7491122
-tempoHLA_DQA1_USAERL-Nusa-Tenggara	no						PMC:PMC7491122
-A*01:01,A*01:01	no						PMC:PMC7491122
-A*01:01,A*04:04	no						PMC:PMC7491122
-A*01:01,A*06:02	no						PMC:PMC7491122
-A*01:01,A*07:01	no						PMC:PMC7491122
-A*01:01,A*08:02	no						PMC:PMC7491122
-A*01:01,A*14:01	no						PMC:PMC7491122
-A*02:01,A*02:01	no						PMC:PMC7491122
-A*02:01,A*04:01	no						PMC:PMC7491122
-A*03:01,A*01:01	no						PMC:PMC7491122
-A*03:01,A*03:01	no						PMC:PMC7491122
-A*03:01,A*04:01	no						PMC:PMC7491122
-A*03:01,A*07:01	no						PMC:PMC7491122
-A*03:01,A*08:03	no						PMC:PMC7491122
-A*03:01,A*09:01	no						PMC:PMC7491122
-A*03:01,A*14:01	no						PMC:PMC7491122
-A*03:01,A*15:01	no						PMC:PMC7491122
-A*03:01,A*18:01	no						PMC:PMC7491122
-A*03:02,A*05:01	no						PMC:PMC7491122
-A*04:01,A*01:01	no						PMC:PMC7491122
-A*04:01,A*04:01	no						PMC:PMC7491122
-A*04:01,A*05:01	no						PMC:PMC7491122
-A*04:01,A*06:01	no						PMC:PMC7491122
-A*04:01,A*06:02	no						PMC:PMC7491122
-A*04:01,A*09:01	no						PMC:PMC7491122
-A*04:01,A*11:01	no						PMC:PMC7491122
-A*04:01,A*14:01	no						PMC:PMC7491122
-A*05:01,A*03:01	no						PMC:PMC7491122
-A*05:01,A*05:01	no						PMC:PMC7491122
-A*06:01,A*04:02	no						PMC:PMC7491122
-A*06:01,A*06:01	no						PMC:PMC7491122
-A*06:01,A*09:01	no						PMC:PMC7491122
-A*06:01,A*11:01	no						PMC:PMC7491122
-A*07:01,A*06:01	no						PMC:PMC7491122
-A*07:01,A*07:01	no						PMC:PMC7491122
-A*07:01,A*09:01	no						PMC:PMC7491122
-A*07:01,A*11:01	no						PMC:PMC7491122
-A*07:01,A*14:01	no						PMC:PMC7491122
-A*07:01,A*17:01	no						PMC:PMC7491122
-A*07:01,A*22:01	no						PMC:PMC7491122
-A*09:01,A*01:01	no						PMC:PMC7491122
-A*09:01,A*09:01	no						PMC:PMC7491122
-A*09:01,A*14:01	no						PMC:PMC7491122
-A*14:01,A*14:01	no						PMC:PMC7491122
-B*01:01,B*01:01	no						PMC:PMC7491122
-B*01:01,B*03:01	no						PMC:PMC7491122
-B*01:01,B*04:01	no						PMC:PMC7491122
-B*01:01,B*05:01	no						PMC:PMC7491122
-B*01:01,B*05:02	no						PMC:PMC7491122
-B*01:01,B*09:01	no						PMC:PMC7491122
-B*01:01,B*13:01	no						PMC:PMC7491122
-B*01:01,B*14:01	no						PMC:PMC7491122
-B*01:01,B*16:01	no						PMC:PMC7491122
-B*01:01,B*20:02	no						PMC:PMC7491122
-B*01:01,B*24:01	no						PMC:PMC7491122
-B*01:01,B*24:02	no						PMC:PMC7491122
-B*01:01,B*29:01	no						PMC:PMC7491122
-B*03:01,B*03:01	no						PMC:PMC7491122
-B*04:01,B*03:01	no						PMC:PMC7491122
-B*05:01,B*05:01	no						PMC:PMC7491122
-B*05:01,B*09:01	no						PMC:PMC7491122
-B*05:01,B*10:01	no						PMC:PMC7491122
-B*05:01,B*16:01	no						PMC:PMC7491122
-B*05:01,B*23:02	no						PMC:PMC7491122
-B*05:01,B*23:04	no						PMC:PMC7491122
-B*05:01,B*24:01	no						PMC:PMC7491122
-B*08:02,B*22:01	no						PMC:PMC7491122
-B*13:01,B*05:01	no						PMC:PMC7491122
-B*13:01,B*24:01	no						PMC:PMC7491122
-B*13:01,B*24:02	no						PMC:PMC7491122
-B*13:01,B*29:01	no						PMC:PMC7491122
-B*14:01,B*03:01	no						PMC:PMC7491122
-B*14:01,B*05:01	no						PMC:PMC7491122
-B*16:02,B*19:01	no						PMC:PMC7491122
-B*17:01,B*01:01	no						PMC:PMC7491122
-B*17:01,B*05:01	no						PMC:PMC7491122
-B*17:01,B*16:01	no						PMC:PMC7491122
-B*17:01,B*20:01	no						PMC:PMC7491122
-B*20:01,B*05:01	no						PMC:PMC7491122
-B*23:01,B*24:01	no						PMC:PMC7491122
-B*24:01,B*06:02	no						PMC:PMC7491122
-B*24:01,B*22:02	no						PMC:PMC7491122
-B*24:01,B*24:01	no						PMC:PMC7491122
-B*24:02,B*03:01	no						PMC:PMC7491122
-B*24:02,B*09:01	no						PMC:PMC7491122
-B*24:02,B*24:02	no						PMC:PMC7491122
-C*01:01,C*01:01	no						PMC:PMC7491122
-C*02:02,C*09:02	no						PMC:PMC7491122
-C*02:03,C*06:01	no						PMC:PMC7491122
-C*02:03,C*09:01	no						PMC:PMC7491122
-C*03:01,C*04:01	no						PMC:PMC7491122
-C*04:01,C*02:03	no						PMC:PMC7491122
-C*04:01,C*04:01	no						PMC:PMC7491122
-C*04:01,C*05:01	no						PMC:PMC7491122
-C*04:01,C*06:01	no						PMC:PMC7491122
-C*04:01,C*08:01	no						PMC:PMC7491122
-C*04:01,C*09:01	no						PMC:PMC7491122
-C*04:01,C*11:01	no						PMC:PMC7491122
-C*05:01,C*13:02	no						PMC:PMC7491122
-C*06:01,C*05:01	no						PMC:PMC7491122
-C*06:01,C*05:02	no						PMC:PMC7491122
-C*06:01,C*06:01	no						PMC:PMC7491122
-C*06:01,C*09:01	no						PMC:PMC7491122
-C*06:01,C*11:01	no						PMC:PMC7491122
-C*06:01,C*12:01	no						PMC:PMC7491122
-C*09:01,C*09:01	no						PMC:PMC7491122
-C*09:01,C*11:01	no						PMC:PMC7491122
-C*12:01,C*12:01	no						PMC:PMC7491122
-DPB1*01:07	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DPB1', mutations=()), allele_fields=('01', '07'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DPB1*01:07,DPB1*01:07	no						PMC:PMC7491122
-DPB1*01:09	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DPB1', mutations=()), allele_fields=('01', '09'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DPB1*01:09,DPB1*01:07	no						PMC:PMC7491122
-DPB1*01:09,DPB1*01:09	no						PMC:PMC7491122
-DPB1*01:09,DPB1*01:11	no						PMC:PMC7491122
-DPB1*01:09,DPB1*01:12	no						PMC:PMC7491122
-DPB1*01:09,DPB1*01:13	no						PMC:PMC7491122
-DPB1*01:11	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DPB1', mutations=()), allele_fields=('01', '11'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DPB1*01:11,DPB1*01:07	no						PMC:PMC7491122
-DPB1*01:11,DPB1*01:11	no						PMC:PMC7491122
-DPB1*01:11,DPB1*01:12	no						PMC:PMC7491122
-DPB1*01:11,DPB1*01:13	no						PMC:PMC7491122
-DPB1*01:12	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DPB1', mutations=()), allele_fields=('01', '12'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DPB1*01:12,DPB1*01:07	no						PMC:PMC7491122
-DPB1*01:12,DPB1*01:18	no						PMC:PMC7491122
-DPB1*01:12,DPB1*03:04	no						PMC:PMC7491122
-DPB1*01:13	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DPB1', mutations=()), allele_fields=('01', '13'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DPB1*01:13,DPB1*01:12	no						PMC:PMC7491122
-DPB1*01:18	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DPB1', mutations=()), allele_fields=('01', '18'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DPB1*03:04	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DPB1', mutations=()), allele_fields=('03', '04'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DQA1*01:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('01', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DQA1*01:01,DQA1*01:01	no						PMC:PMC7491122
-DQA1*01:01,DQA1*05:02	no						PMC:PMC7491122
-DQA1*01:01,DQA1*05:03	no						PMC:PMC7491122
-DQA1*01:01,DQA1*20:01	no						PMC:PMC7491122
-DQA1*01:01,DQA1*20:04	no						PMC:PMC7491122
-DQA1*05:02	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('05', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DQA1*05:02,DQA1*05:03	no						PMC:PMC7491122
-DQA1*05:02,DQA1*20:01	no						PMC:PMC7491122
-DQA1*05:02,DQA1*20:04	no						PMC:PMC7491122
-DQA1*05:03	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('05', '03'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DQA1*20:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('20', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DQA1*20:01,DQA1*05:03	no						PMC:PMC7491122
-DQA1*20:01,DQA1*20:01	no						PMC:PMC7491122
-DQA1*20:04	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('20', '04'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DQA1*20:04,DQA1*20:04	no						PMC:PMC7491122
-DQB1*03:02	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('03', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DQB1*03:02,DQB1*03:02	no						PMC:PMC7491122
-DQB1*03:02,DQB1*03:05	no						PMC:PMC7491122
-DQB1*03:02,DQB1*06:01	no						PMC:PMC7491122
-DQB1*03:02,DQB1*06:02	no						PMC:PMC7491122
-DQB1*03:02,DQB1*06:07	no						PMC:PMC7491122
-DQB1*03:03	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('03', '03'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DQB1*03:03/04,DQB1*03:03/04	no						PMC:PMC7491122
-DQB1*03:05	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('03', '05'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DQB1*06:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('06', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DQB1*06:01,DQB1*06:01	no						PMC:PMC7491122
-DQB1*06:02	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('06', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DQB1*06:02,DQB1*03:05	no						PMC:PMC7491122
-DQB1*06:02,DQB1*06:02	no						PMC:PMC7491122
-DQB1*06:02,DQB1*06:07	no						PMC:PMC7491122
-DQB1*06:02,DQB1*15:01	no						PMC:PMC7491122
-DQB1*06:07	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('06', '07'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DQB1*15:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('15', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DQB1*15:01,DQB1*03:02	no						PMC:PMC7491122
-DRB1*02:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('02', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DRB1*02:01,DRB1*02:01	no						PMC:PMC7491122
-DRB1*02:01,DRB1*02:04	no						PMC:PMC7491122
-DRB1*02:01,DRB1*03:07	no						PMC:PMC7491122
-DRB1*02:01,DRB1*03:11	no						PMC:PMC7491122
-DRB1*02:01,DRB1*10:01	no						PMC:PMC7491122
-DRB1*02:04	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('02', '04'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DRB1*02:04,DRB1*02:04	no						PMC:PMC7491122
-DRB1*02:04,DRB1*03:05	no						PMC:PMC7491122
-DRB1*02:04,DRB1*03:07	no						PMC:PMC7491122
-DRB1*02:04,DRB1*03:13	no						PMC:PMC7491122
-DRB1*02:04,DRB1*03:14	no						PMC:PMC7491122
-DRB1*02:04,DRB1*10:01	no						PMC:PMC7491122
-DRB1*03:02	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('03', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DRB1*03:02,DRB1*02:04	no						PMC:PMC7491122
-DRB1*03:02,DRB1*03:02	no						PMC:PMC7491122
-DRB1*03:02,DRB1*03:07	no						PMC:PMC7491122
-DRB1*03:02,DRB1*03:09	no						PMC:PMC7491122
-DRB1*03:02,DRB1*10:01	no						PMC:PMC7491122
-DRB1*03:05	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('03', '05'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DRB1*03:05,DRB1*02:01	no						PMC:PMC7491122
-DRB1*03:05,DRB1*03:07	no						PMC:PMC7491122
-DRB1*03:05,DRB1*07:01	no						PMC:PMC7491122
-DRB1*03:06	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('03', '06'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DRB1*03:07	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('03', '07'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DRB1*03:07,DRB1*03:07	no						PMC:PMC7491122
-DRB1*03:07,DRB1*03:12	no						PMC:PMC7491122
-DRB1*03:07,DRB1*10:01	no						PMC:PMC7491122
-DRB1*03:09	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('03', '09'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DRB1*03:09,DRB1*03:09	no						PMC:PMC7491122
-DRB1*03:09,DRB1*10:01	no						PMC:PMC7491122
-DRB1*03:11	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('03', '11'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DRB1*03:12	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('03', '12'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DRB1*03:13	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('03', '13'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DRB1*03:14	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('03', '14'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DRB1*07:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('07', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DRB1*07:01,DRB1*02:01	no						PMC:PMC7491122
-DRB1*07:01,DRB1*03:06	no						PMC:PMC7491122
-DRB1*07:01,DRB1*03:07	no						PMC:PMC7491122
-DRB1*07:02	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('07', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DRB1*07:02,DRB1*07:02	no						PMC:PMC7491122
-DRB1*10:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('10', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DRB1*10:01,DRB1*02:01	no						PMC:PMC7491122
-A*01:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('01', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-A*02:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('02', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-A*03:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('03', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-A*03:02	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('03', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-A*04:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('04', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-A*04:02	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('04', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-A*04:04	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('04', '04'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-A*05:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('05', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-A*06:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('06', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-A*06:02	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('06', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-A*07:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('07', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-A*08:02	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('08', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-A*08:03	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('08', '03'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-A*09:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('09', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-A*11:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('11', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-A*14:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('14', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-A*15:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('15', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-A*17:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('17', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-A*18:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('18', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-A*22:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('22', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-B*01:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('01', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-B*03:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('03', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-B*04:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('04', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-B*05:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('05', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-B*05:02	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('05', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-B*06:02	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('06', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-B*08:02	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('08', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-B*09:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('09', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-B*10:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('10', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-B*13:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('13', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-B*14:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('14', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-B*16:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('16', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-B*16:02	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('16', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-B*17:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('17', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-B*19:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('19', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-B*20:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('20', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-B*20:02	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('20', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-B*22:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('22', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-B*22:02	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('22', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-B*23:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('23', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-B*23:02	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('23', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-B*23:04	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('23', '04'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-B*24:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('24', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-B*24:02	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('24', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-B*29:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('29', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-C*01:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='C', mutations=()), allele_fields=('01', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-C*02:02	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='C', mutations=()), allele_fields=('02', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-C*02:03	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='C', mutations=()), allele_fields=('02', '03'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-C*03:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='C', mutations=()), allele_fields=('03', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-C*04:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='C', mutations=()), allele_fields=('04', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-C*05:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='C', mutations=()), allele_fields=('05', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-C*05:02	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='C', mutations=()), allele_fields=('05', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-C*06:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='C', mutations=()), allele_fields=('06', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-C*08:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='C', mutations=()), allele_fields=('08', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-C*09:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='C', mutations=()), allele_fields=('09', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-C*09:02	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='C', mutations=()), allele_fields=('09', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-C*11:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='C', mutations=()), allele_fields=('11', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-C*12:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='C', mutations=()), allele_fields=('12', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-C*13:02	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='C', mutations=()), allele_fields=('13', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DPB1*01:07	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DPB1', mutations=()), allele_fields=('01', '07'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DPB1*01:09	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DPB1', mutations=()), allele_fields=('01', '09'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DPB1*01:11	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DPB1', mutations=()), allele_fields=('01', '11'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DPB1*01:12	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DPB1', mutations=()), allele_fields=('01', '12'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DPB1*01:13	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DPB1', mutations=()), allele_fields=('01', '13'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DPB1*01:18	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DPB1', mutations=()), allele_fields=('01', '18'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DPB1*03:04	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DPB1', mutations=()), allele_fields=('03', '04'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DQA1*01:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('01', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DQA1*05:02	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('05', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DQA1*05:03	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('05', '03'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DQA1*20:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('20', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DQA1*20:04	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('20', '04'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DQB1*03:02	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('03', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DQB1*03:03/04	no						PMC:PMC7491122
-DQB1*03:05	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('03', '05'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DQB1*06:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('06', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DQB1*06:02	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('06', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DQB1*06:07	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('06', '07'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DQB1*15:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('15', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DRB1*02:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('02', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DRB1*02:04	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('02', '04'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DRB1*03:02	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('03', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DRB1*03:05	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('03', '05'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DRB1*03:06	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('03', '06'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DRB1*03:07	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('03', '07'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DRB1*03:09	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('03', '09'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DRB1*03:11	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('03', '11'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DRB1*03:12	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('03', '12'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DRB1*03:13	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('03', '13'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DRB1*03:14	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('03', '14'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DRB1*07:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('07', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DRB1*07:02	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('07', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DRB1*10:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('10', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-A*01:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('01', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-A*01:01,A*01:01|A*01:01,blank	no						PMC:PMC7491122
-A*01:01,A*04:04	no						PMC:PMC7491122
-A*01:01,A*06:02	no						PMC:PMC7491122
-A*01:01,A*07:01	no						PMC:PMC7491122
-A*01:01,A*08:02	no						PMC:PMC7491122
-A*01:01,A*14:01	no						PMC:PMC7491122
-A*02:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('02', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-A*02:01,A*04:01	no						PMC:PMC7491122
-A*03:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('03', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-A*03:01,A*01:01	no						PMC:PMC7491122
-A*03:01,A*03:01|A*03:01,blank	no						PMC:PMC7491122
-A*03:01,A*04:01	no						PMC:PMC7491122
-A*03:01,A*07:01	no						PMC:PMC7491122
-A*03:01,A*08:03	no						PMC:PMC7491122
-A*03:01,A*09:01	no						PMC:PMC7491122
-A*03:01,A*09:01|A*03:01,A*04:01|A*03:01,blank	no						PMC:PMC7491122
-A*03:01,A*14:01	no						PMC:PMC7491122
-A*03:01,A*15:01	no						PMC:PMC7491122
-A*03:01,A*18:01	no						PMC:PMC7491122
-A*03:02,A*05:01	no						PMC:PMC7491122
-A*04:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('04', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-A*04:01,A*01:01	no						PMC:PMC7491122
-A*04:01,A*02:01	no						PMC:PMC7491122
-A*04:01,A*03:01	no						PMC:PMC7491122
-A*04:01,A*04:01|A*04:01,blank|A*04:01,A*09:01	no						PMC:PMC7491122
-A*04:01,A*11:01	no						PMC:PMC7491122
-A*04:01,A*14:01	no						PMC:PMC7491122
-A*05:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('05', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-A*05:01,A*03:01	no						PMC:PMC7491122
-A*05:01,A*03:02	no						PMC:PMC7491122
-A*06:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('06', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-A*06:01,A*04:01	no						PMC:PMC7491122
-A*06:01,A*04:02	no						PMC:PMC7491122
-A*06:01,A*09:01	no						PMC:PMC7491122
-A*06:01,A*11:01	no						PMC:PMC7491122
-A*06:02	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('06', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-A*07:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('07', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-A*07:01,A*03:01	no						PMC:PMC7491122
-A*07:01,A*06:01	no						PMC:PMC7491122
-A*07:01,A*09:01	no						PMC:PMC7491122
-A*07:01,A*11:01	no						PMC:PMC7491122
-A*07:01,A*14:01	no						PMC:PMC7491122
-A*07:01,A*17:01	no						PMC:PMC7491122
-A*07:01,A*22:01	no						PMC:PMC7491122
-A*09:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('09', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-A*09:01,A*01:01	no						PMC:PMC7491122
-A*09:01,A*03:01	no						PMC:PMC7491122
-A*09:01,A*04:01	no						PMC:PMC7491122
-A*09:01,A*06:01	no						PMC:PMC7491122
-A*09:01,A*09:01|A*09:01,blank	no						PMC:PMC7491122
-A*09:01,A*09:01|A*09:01,blank|A*09:01,A*04:01	no						PMC:PMC7491122
-A*09:01,A*14:01	no						PMC:PMC7491122
-A*14:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('14', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-A*14:01,A*03:01	no						PMC:PMC7491122
-A*14:01,A*04:01	no						PMC:PMC7491122
-A*14:01,A*09:01	no						PMC:PMC7491122
-B*01:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('01', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-B*01:01,B*01:01	no						PMC:PMC7491122
-B*01:01,B*03:01	no						PMC:PMC7491122
-B*01:01,B*04:01	no						PMC:PMC7491122
-B*01:01,B*05:01	no						PMC:PMC7491122
-B*01:01,B*05:02	no						PMC:PMC7491122
-B*01:01,B*09:01	no						PMC:PMC7491122
-B*01:01,B*13:01	no						PMC:PMC7491122
-B*01:01,B*13:01|B*01:01,blank	no						PMC:PMC7491122
-B*01:01,B*14:01	no						PMC:PMC7491122
-B*01:01,B*16:01	no						PMC:PMC7491122
-B*01:01,B*20:02	no						PMC:PMC7491122
-B*01:01,B*24:01	no						PMC:PMC7491122
-B*01:01,B*24:02	no						PMC:PMC7491122
-B*01:01,B*29:01	no						PMC:PMC7491122
-B*03:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('03', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-B*04:01,B*03:01	no						PMC:PMC7491122
-B*05:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('05', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-B*05:01,B*09:01	no						PMC:PMC7491122
-B*05:01,B*10:01	no						PMC:PMC7491122
-B*05:01,B*16:01	no						PMC:PMC7491122
-B*05:01,B*23:02	no						PMC:PMC7491122
-B*05:01,B*23:04	no						PMC:PMC7491122
-B*05:01,B*24:01	no						PMC:PMC7491122
-B*08:02,B*22:01	no						PMC:PMC7491122
-B*09:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('09', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-B*13:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('13', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-B*13:01,B*05:01	no						PMC:PMC7491122
-B*13:01,B*24:01	no						PMC:PMC7491122
-B*13:01,B*24:02	no						PMC:PMC7491122
-B*13:01,B*29:01	no						PMC:PMC7491122
-B*14:01,B*03:01	no						PMC:PMC7491122
-B*14:01,B*05:01	no						PMC:PMC7491122
-B*16:02,B*19:01	no						PMC:PMC7491122
-B*17:01,B*01:01	no						PMC:PMC7491122
-B*17:01,B*05:01	no						PMC:PMC7491122
-B*17:01,B*16:01	no						PMC:PMC7491122
-B*17:01,B*20:01	no						PMC:PMC7491122
-B*20:01,B*05:01	no						PMC:PMC7491122
-B*23:01,B*24:01	no						PMC:PMC7491122
-B*24:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('24', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-B*24:01,B*06:02	no						PMC:PMC7491122
-B*24:01,B*22:02	no						PMC:PMC7491122
-B*24:02	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('24', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-C*01:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='C', mutations=()), allele_fields=('01', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-C*02:02,C*09:02	no						PMC:PMC7491122
-C*02:03,C*06:01	no						PMC:PMC7491122
-C*02:03,C*09:01	no						PMC:PMC7491122
-C*03:01,C*04:01	no						PMC:PMC7491122
-C*04:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='C', mutations=()), allele_fields=('04', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-C*04:01,C*02:03	no						PMC:PMC7491122
-C*04:01,C*03:01	no						PMC:PMC7491122
-C*04:01,C*04:01	no						PMC:PMC7491122
-C*04:01,C*04:01|C*04:01,blank	no						PMC:PMC7491122
-C*04:01,C*05:01	no						PMC:PMC7491122
-C*04:01,C*06:01	no						PMC:PMC7491122
-C*04:01,C*08:01	no						PMC:PMC7491122
-C*04:01,C*09:01	no						PMC:PMC7491122
-C*04:01,C*11:01	no						PMC:PMC7491122
-C*05:01,C*13:02	no						PMC:PMC7491122
-C*06:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='C', mutations=()), allele_fields=('06', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-C*06:01,C*04:01	no						PMC:PMC7491122
-C*06:01,C*05:01	no						PMC:PMC7491122
-C*06:01,C*05:02	no						PMC:PMC7491122
-C*06:01,C*06:01	no						PMC:PMC7491122
-C*06:01,C*09:01	no						PMC:PMC7491122
-C*06:01,C*11:01	no						PMC:PMC7491122
-C*06:01,C*12:01	no						PMC:PMC7491122
-C*09:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='C', mutations=()), allele_fields=('09', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-C*09:01,C*06:01	no						PMC:PMC7491122
-C*09:01,C*09:01|C*09:01,blank	no						PMC:PMC7491122
-C*09:01,C*11:01	no						PMC:PMC7491122
-C*12:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='C', mutations=()), allele_fields=('12', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DPB1*01:07	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DPB1', mutations=()), allele_fields=('01', '07'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DPB1*01:09	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DPB1', mutations=()), allele_fields=('01', '09'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DPB1*01:09,DPB1*01:07	no						PMC:PMC7491122
-DPB1*01:09,DPB1*01:09	no						PMC:PMC7491122
-DPB1*01:09,DPB1*01:11	no						PMC:PMC7491122
-DPB1*01:09,DPB1*01:12	no						PMC:PMC7491122
-DPB1*01:09,DPB1*01:13	no						PMC:PMC7491122
-DPB1*01:11	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DPB1', mutations=()), allele_fields=('01', '11'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DPB1*01:11,DPB1*01:07	no						PMC:PMC7491122
-DPB1*01:11,DPB1*01:09	no						PMC:PMC7491122
-DPB1*01:11,DPB1*01:11	no						PMC:PMC7491122
-DPB1*01:11,DPB1*01:12	no						PMC:PMC7491122
-DPB1*01:11,DPB1*01:12|DPB1*01:12,DPB1*01:09	no						PMC:PMC7491122
-DPB1*01:11,DPB1*01:13	no						PMC:PMC7491122
-DPB1*01:12	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DPB1', mutations=()), allele_fields=('01', '12'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DPB1*01:12,DPB1*01:07	no						PMC:PMC7491122
-DPB1*01:12,DPB1*01:09	no						PMC:PMC7491122
-DPB1*01:12,DPB1*01:11	no						PMC:PMC7491122
-DPB1*01:12,DPB1*01:18	no						PMC:PMC7491122
-DPB1*01:12,DPB1*03:04	no						PMC:PMC7491122
-DPB1*01:13	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DPB1', mutations=()), allele_fields=('01', '13'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DPB1*01:13,DPB1*01:09	no						PMC:PMC7491122
-DPB1*01:13,DPB1*01:11	no						PMC:PMC7491122
-DPB1*01:13,DPB1*01:12	no						PMC:PMC7491122
-DPB1*01:18	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DPB1', mutations=()), allele_fields=('01', '18'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DPB1*03:04	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DPB1', mutations=()), allele_fields=('03', '04'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DQA1*01:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('01', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DQA1*01:01,DQA1*01:01	no						PMC:PMC7491122
-DQA1*01:01,DQA1*05:02	no						PMC:PMC7491122
-DQA1*01:01,DQA1*05:03	no						PMC:PMC7491122
-DQA1*01:01,DQA1*20:01	no						PMC:PMC7491122
-DQA1*01:01,DQA1*20:04	no						PMC:PMC7491122
-DQA1*05:02	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('05', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DQA1*05:02,DQA1*05:03	no						PMC:PMC7491122
-DQA1*05:02,DQA1*20:01	no						PMC:PMC7491122
-DQA1*05:02,DQA1*20:04	no						PMC:PMC7491122
-DQA1*05:03	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('05', '03'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DQA1*20:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('20', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DQA1*20:01,DQA1*05:03	no						PMC:PMC7491122
-DQA1*20:01,DQA1*20:01	no						PMC:PMC7491122
-DQA1*20:04	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('20', '04'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DQA1*20:04,DQA1*20:04	no						PMC:PMC7491122
-DQB1*03:02	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('03', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DQB1*03:02,DQB1*03:02	no						PMC:PMC7491122
-DQB1*03:02,DQB1*03:05	no						PMC:PMC7491122
-DQB1*03:02,DQB1*06:01	no						PMC:PMC7491122
-DQB1*03:02,DQB1*06:02	no						PMC:PMC7491122
-DQB1*03:02,DQB1*06:07	no						PMC:PMC7491122
-DQB1*03:02,blank|DQB1*03:02,DQB1*03:02	no						PMC:PMC7491122
-DQB1*03:03	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('03', '03'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DQB1*03:05	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('03', '05'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DQB1*03:05,DQB1*03:02	no						PMC:PMC7491122
-DQB1*06:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('06', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DQB1*06:01,blank|DQB1*06:01,DQB1*06:01	no						PMC:PMC7491122
-DQB1*06:02	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('06', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DQB1*06:02,DQB1*03:02	no						PMC:PMC7491122
-DQB1*06:02,DQB1*03:05	no						PMC:PMC7491122
-DQB1*06:02,DQB1*06:02	no						PMC:PMC7491122
-DQB1*06:02,DQB1*06:07	no						PMC:PMC7491122
-DQB1*06:02,DQB1*15:01	no						PMC:PMC7491122
-DQB1*06:02,blank|DQB1*06:02,DQB1*06:02	no						PMC:PMC7491122
-DQB1*06:07	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('06', '07'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DQB1*15:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('15', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DQB1*15:01,DQB1*03:02	no						PMC:PMC7491122
-DRB1*02:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('02', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DRB1*02:01,DRB1*02:01	no						PMC:PMC7491122
-DRB1*02:01,DRB1*02:04	no						PMC:PMC7491122
-DRB1*02:01,DRB1*03:07	no						PMC:PMC7491122
-DRB1*02:01,DRB1*03:11	no						PMC:PMC7491122
-DRB1*02:01,DRB1*10:01	no						PMC:PMC7491122
-DRB1*02:04	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('02', '04'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DRB1*02:04,DRB1*02:01	no						PMC:PMC7491122
-DRB1*02:04,DRB1*02:04	no						PMC:PMC7491122
-DRB1*02:04,DRB1*03:05	no						PMC:PMC7491122
-DRB1*02:04,DRB1*03:07	no						PMC:PMC7491122
-DRB1*02:04,DRB1*03:13	no						PMC:PMC7491122
-DRB1*02:04,DRB1*03:14	no						PMC:PMC7491122
-DRB1*02:04,DRB1*10:01	no						PMC:PMC7491122
-DRB1*02:04,blank	no						PMC:PMC7491122
-DRB1*03:02	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('03', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DRB1*03:02,DRB1*02:04	no						PMC:PMC7491122
-DRB1*03:02,DRB1*03:02	no						PMC:PMC7491122
-DRB1*03:02,DRB1*03:07	no						PMC:PMC7491122
-DRB1*03:02,DRB1*03:09	no						PMC:PMC7491122
-DRB1*03:02,DRB1*10:01	no						PMC:PMC7491122
-DRB1*03:05	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('03', '05'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DRB1*03:05,DRB1*02:01	no						PMC:PMC7491122
-DRB1*03:05,DRB1*02:04	no						PMC:PMC7491122
-DRB1*03:05,DRB1*03:07	no						PMC:PMC7491122
-DRB1*03:05,DRB1*07:01	no						PMC:PMC7491122
-DRB1*03:06	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('03', '06'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DRB1*03:07	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('03', '07'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DRB1*03:07,DRB1*02:01	no						PMC:PMC7491122
-DRB1*03:07,DRB1*02:04	no						PMC:PMC7491122
-DRB1*03:07,DRB1*03:12	no						PMC:PMC7491122
-DRB1*03:07,DRB1*10:01	no						PMC:PMC7491122
-DRB1*03:07,blank	no						PMC:PMC7491122
-DRB1*03:09	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('03', '09'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DRB1*03:09,DRB1*10:01	no						PMC:PMC7491122
-DRB1*03:09,blank	no						PMC:PMC7491122
-DRB1*03:11	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('03', '11'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DRB1*03:12	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('03', '12'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DRB1*03:13	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('03', '13'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DRB1*03:14	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('03', '14'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DRB1*07:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('07', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DRB1*07:01,DRB1*02:01	no						PMC:PMC7491122
-DRB1*07:01,DRB1*03:06	no						PMC:PMC7491122
-DRB1*07:01,DRB1*03:07	no						PMC:PMC7491122
-DRB1*07:01,blank	no						PMC:PMC7491122
-DRB1*07:02	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('07', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DRB1*10:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('10', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DRB1*10:01,DRB1*02:01	no						PMC:PMC7491122
-blank,A*01:01|A*01:01,A*01:01	no						PMC:PMC7491122
-blank,A*02:01|A*02:01,A*02:01	no						PMC:PMC7491122
-blank,A*03:01|A*03:01,A*03:01	no						PMC:PMC7491122
-blank,A*04:01|A*04:01,A*04:01	no						PMC:PMC7491122
-blank,A*05:01|A*05:01,A*05:01	no						PMC:PMC7491122
-blank,A*06:01|A*06:01,A*06:01	no						PMC:PMC7491122
-blank,A*07:01|A*07:01,A*07:01	no						PMC:PMC7491122
-blank,A*09:01|A*09:01,A*09:01	no						PMC:PMC7491122
-blank,A*14:01|A*14:01,A*14:01	no						PMC:PMC7491122
-blank,B*03:01|B*03:01,B*03:01	no						PMC:PMC7491122
-blank,B*05:01|B*05:01,B*05:01	no						PMC:PMC7491122
-blank,B*24:01|B*24:01,B*24:01	no						PMC:PMC7491122
-blank,B*24:02|B*24:02,B*24:02	no						PMC:PMC7491122
-blank,C*01:01|C*01:01,C*01:01	no						PMC:PMC7491122
-blank,C*04:01|C*04:01,C*04:01	no						PMC:PMC7491122
-blank,C*06:01|C*06:01,C*06:01	no						PMC:PMC7491122
-blank,C*09:01|C*09:01,C*09:01	no						PMC:PMC7491122
-blank,C*12:01|C*12:01,C*12:01	no						PMC:PMC7491122
-blank,DPB1*01:07|DPB1*01:07,DPB1*01:07	no						PMC:PMC7491122
-blank,DPB1*01:09	no						PMC:PMC7491122
-blank,DPB1*01:09|DPB1*01:09,DPB1*01:09	no						PMC:PMC7491122
-blank,DPB1*01:11	no						PMC:PMC7491122
-blank,DPB1*01:11|DPB1*01:11,DPB1*01:11	no						PMC:PMC7491122
-blank,DPB1*01:13	no						PMC:PMC7491122
-blank,DQB1*03:02|DQB1*03:02,DQB1*03:02	no						PMC:PMC7491122
-blank,DQB1*03:03/04|DQB1*03:03/04,DQB1*03:03/04	no						PMC:PMC7491122
-blank,DQB1*06:01|DQB1*06:01,DQB1*06:01	no						PMC:PMC7491122
-blank,DQB1*06:02|DQB1*06:02,DQB1*06:02	no						PMC:PMC7491122
-blank,DRB1*02:01|DRB1*02:01,DRB1*02:01	no						PMC:PMC7491122
-blank,DRB1*03:02|DRB1*03:02,DRB1*03:02	no						PMC:PMC7491122
-blank,DRB1*03:07|DRB1*03:07,DRB1*03:07	no						PMC:PMC7491122
-blank,DRB1*03:09|DRB1*03:09,DRB1*03:09	no						PMC:PMC7491122
-blank,DRB1*07:02|DRB1*07:02,DRB1*07:02	no						PMC:PMC7491122
-Australia / Northern Territory / Groote-Eylandt	no						PMC:PMC7491122
-China / Hong-Kong	no						PMC:PMC7491122
-Croatia / North-West, Zagreb	no						PMC:PMC7491122
-Flanders-Picardie	no						PMC:PMC7491122
-France, North, Flanders-Picardie	no						PMC:PMC7491122
-Groote-Eylandt	no						PMC:PMC7491122
-Guarani-Kaiowa	no						PMC:PMC7491122
-Guarani-Nandewa	no						PMC:PMC7491122
-HLA-A N	no						PMC:PMC7491122
-HLA-B N	no						PMC:PMC7491122
-HLA-C  N	no						PMC:PMC7491122
-HLA-DPB1 N	no						PMC:PMC7491122
-HLA-DQA1 N	no						PMC:PMC7491122
-HLA-DQB1 N	no						PMC:PMC7491122
-HLA-DRB1 N	no						PMC:PMC7491122
-Hsin-I	no						PMC:PMC7491122
-Mongolia / Oulan-Bator	no						PMC:PMC7491122
-North-West	no						PMC:PMC7491122
-Novosibirsk-Kyzyl	no						PMC:PMC7491122
-Oulan-Bator	no						PMC:PMC7491122
-Russia / Novosibirsk-Kyzyl	no						PMC:PMC7491122
-Taiwan / Hsin-I, Taitung	no						PMC:PMC7491122
-Taiwan / Lai-I	no						PMC:PMC7491122
-Taiwan / Lan-Yu	no						PMC:PMC7491122
-Patr-DPB1	yes	Gene(species=Species(name='Pan troglodytes', mhc_prefix='Patr'), name='DPB1', mutations=())	Gene	Pan troglodytes			PMC:PMC7491122
-Patr-DQA1	yes	Gene(species=Species(name='Pan troglodytes', mhc_prefix='Patr'), name='DQA1', mutations=())	Gene	Pan troglodytes			PMC:PMC7491122
-Patr-DQB1	yes	Gene(species=Species(name='Pan troglodytes', mhc_prefix='Patr'), name='DQB1', mutations=())	Gene	Pan troglodytes			PMC:PMC7491122
-Patr-DRB1	yes	Gene(species=Species(name='Pan troglodytes', mhc_prefix='Patr'), name='DRB1', mutations=())	Gene	Pan troglodytes			PMC:PMC7491122
-Patr/Papa-A	no						PMC:PMC7491122
-Patr/Papa-B	no						PMC:PMC7491122
-Patr/Papa-C	no						PMC:PMC7491122
-B*0101~A*0101	no						PMC:PMC7491122
-B*0101~A*0301	no						PMC:PMC7491122
-B*0101~A*0302	no						PMC:PMC7491122
-B*0101~A*0401	no						PMC:PMC7491122
-B*0101~A*0501	no						PMC:PMC7491122
-B*0101~A*0601	no						PMC:PMC7491122
-B*0101~A*0701	no						PMC:PMC7491122
-B*0101~A*0901	no						PMC:PMC7491122
-B*0101~A*1401	no						PMC:PMC7491122
-B*0101~C*0401	no						PMC:PMC7491122
-B*0101~C*0901	no						PMC:PMC7491122
-B*0301~A*0101	no						PMC:PMC7491122
-B*0301~A*0601	no						PMC:PMC7491122
-B*0301~A*0901	no						PMC:PMC7491122
-B*0301~A*1401	no						PMC:PMC7491122
-B*0301~C*0101	no						PMC:PMC7491122
-B*0301~C*0901	no						PMC:PMC7491122
-B*0301~blank	no						PMC:PMC7491122
-B*0401~A*0101	no						PMC:PMC7491122
-B*0401~A*0701	no						PMC:PMC7491122
-B*0401~C*0101	no						PMC:PMC7491122
-B*0401~C*0501	no						PMC:PMC7491122
-B*0401~C*0801	no						PMC:PMC7491122
-B*0401~blank	no						PMC:PMC7491122
-B*0501~A*0101	no						PMC:PMC7491122
-B*0501~A*0301	no						PMC:PMC7491122
-B*0501~A*0302	no						PMC:PMC7491122
-B*0501~A*0404	no						PMC:PMC7491122
-B*0501~A*0501	no						PMC:PMC7491122
-B*0501~A*0601	no						PMC:PMC7491122
-B*0501~A*0701	no						PMC:PMC7491122
-B*0501~C*0501	no						PMC:PMC7491122
-B*0501~C*0601	no						PMC:PMC7491122
-B*0501~blank	no						PMC:PMC7491122
-B*0502~A*0301	no						PMC:PMC7491122
-B*0502~C*0601	no						PMC:PMC7491122
-B*0602~A*1801	no						PMC:PMC7491122
-B*0802~A*0701	no						PMC:PMC7491122
-B*0802~A*1701	no						PMC:PMC7491122
-B*0802~C*0202	no						PMC:PMC7491122
-B*0802~C*0902	no						PMC:PMC7491122
-B*0901~A*0602	no						PMC:PMC7491122
-B*0901~A*0701	no						PMC:PMC7491122
-B*0901~A*1401	no						PMC:PMC7491122
-B*0901~C*1101	no						PMC:PMC7491122
-B*0901~blank	no						PMC:PMC7491122
-B*1001~A*0901	no						PMC:PMC7491122
-B*1001~C*0401	no						PMC:PMC7491122
-B*1301~A*0301	no						PMC:PMC7491122
-B*1301~A*0302	no						PMC:PMC7491122
-B*1301~A*0501	no						PMC:PMC7491122
-B*1301~A*0701	no						PMC:PMC7491122
-B*1301~A*1101	no						PMC:PMC7491122
-B*1301~C*0301	no						PMC:PMC7491122
-B*1301~C*0601	no						PMC:PMC7491122
-B*1301~C*1101	no						PMC:PMC7491122
-B*1401~A*0101	no						PMC:PMC7491122
-B*1401~A*0201	no						PMC:PMC7491122
-B*1401~A*0401	no						PMC:PMC7491122
-B*1401~C*0203	no						PMC:PMC7491122
-B*1401~C*0401	no						PMC:PMC7491122
-B*1401~blank	no						PMC:PMC7491122
-B*1601~A*0401	no						PMC:PMC7491122
-B*1601~A*1401	no						PMC:PMC7491122
-B*1601~C*0501	no						PMC:PMC7491122
-B*1601~C*0502	no						PMC:PMC7491122
-B*1601~blank	no						PMC:PMC7491122
-B*1602~A*0101	no						PMC:PMC7491122
-B*1602~A*0802	no						PMC:PMC7491122
-B*1602~C*0501	no						PMC:PMC7491122
-B*1602~C*1302	no						PMC:PMC7491122
-B*1701~A*0101	no						PMC:PMC7491122
-B*1701~A*0201	no						PMC:PMC7491122
-B*1701~A*0401	no						PMC:PMC7491122
-B*1701~A*0601	no						PMC:PMC7491122
-B*1701~C*0601	no						PMC:PMC7491122
-B*1901~A*0101	no						PMC:PMC7491122
-B*1901~A*0802	no						PMC:PMC7491122
-B*1901~C*0501	no						PMC:PMC7491122
-B*1901~C*1302	no						PMC:PMC7491122
-B*2001~A*0201	no						PMC:PMC7491122
-B*2001~A*0402	no						PMC:PMC7491122
-B*2001~A*1401	no						PMC:PMC7491122
-B*2001~C*1201	no						PMC:PMC7491122
-B*2002~A*1401	no						PMC:PMC7491122
-B*2201~A*0701	no						PMC:PMC7491122
-B*2201~A*1701	no						PMC:PMC7491122
-B*2201~C*0202	no						PMC:PMC7491122
-B*2201~C*0902	no						PMC:PMC7491122
-B*2202~A*1501	no						PMC:PMC7491122
-B*2301~A*0803	no						PMC:PMC7491122
-B*2301~C*0901	no						PMC:PMC7491122
-B*2301~blank	no						PMC:PMC7491122
-B*2302~A*1701	no						PMC:PMC7491122
-B*2304~A*2201	no						PMC:PMC7491122
-B*2401~A*0301	no						PMC:PMC7491122
-B*2401~A*0701	no						PMC:PMC7491122
-B*2401~C*0901	no						PMC:PMC7491122
-B*2402~A*0301	no						PMC:PMC7491122
-B*2402~A*0501	no						PMC:PMC7491122
-B*2402~A*0901	no						PMC:PMC7491122
-B*2402~C*0401	no						PMC:PMC7491122
-B*2402~C*0601	no						PMC:PMC7491122
-B*2402~C*0901	no						PMC:PMC7491122
-B*2901~A*0301	no						PMC:PMC7491122
-B*2901~C*0203	no						PMC:PMC7491122
-C*0101~A*0101	no						PMC:PMC7491122
-C*0202~A*0701	no						PMC:PMC7491122
-C*0202~A*1701	no						PMC:PMC7491122
-C*0203~A*0101	no						PMC:PMC7491122
-C*0203~A*0201	no						PMC:PMC7491122
-C*0203~A*0301	no						PMC:PMC7491122
-C*0203~A*0401	no						PMC:PMC7491122
-C*0203~A*0501	no						PMC:PMC7491122
-C*0203~A*0601	no						PMC:PMC7491122
-C*0301~A*0302	no						PMC:PMC7491122
-C*0301~A*1101	no						PMC:PMC7491122
-C*0401~A*0101	no						PMC:PMC7491122
-C*0401~A*0401	no						PMC:PMC7491122
-C*0401~A*0501	no						PMC:PMC7491122
-C*0401~A*0601	no						PMC:PMC7491122
-C*0401~A*0701	no						PMC:PMC7491122
-C*0401~A*0901	no						PMC:PMC7491122
-C*0401~A*1401	no						PMC:PMC7491122
-C*0401~blank	no						PMC:PMC7491122
-C*0501~A*0101	no						PMC:PMC7491122
-C*0501~A*1401	no						PMC:PMC7491122
-C*0502~A*1401	no						PMC:PMC7491122
-C*0601~A*0101	no						PMC:PMC7491122
-C*0601~A*0201	no						PMC:PMC7491122
-C*0601~A*0301	no						PMC:PMC7491122
-C*0601~A*0401	no						PMC:PMC7491122
-C*0601~A*0404	no						PMC:PMC7491122
-C*0601~A*0501	no						PMC:PMC7491122
-C*0601~A*0601	no						PMC:PMC7491122
-C*0601~A*0701	no						PMC:PMC7491122
-C*0601~A*1101	no						PMC:PMC7491122
-C*0601~blank	no						PMC:PMC7491122
-C*0801~A*0601	no						PMC:PMC7491122
-C*0801~blank	no						PMC:PMC7491122
-C*0901~A*0301	no						PMC:PMC7491122
-C*0901~A*0401	no						PMC:PMC7491122
-C*0901~A*0501	no						PMC:PMC7491122
-C*0901~A*0601	no						PMC:PMC7491122
-C*0901~A*0701	no						PMC:PMC7491122
-C*0901~A*0803	no						PMC:PMC7491122
-C*0902~A*0701	no						PMC:PMC7491122
-C*0902~A*1701	no						PMC:PMC7491122
-C*1101~A*0301	no						PMC:PMC7491122
-C*1101~A*0501	no						PMC:PMC7491122
-C*1101~A*0602	no						PMC:PMC7491122
-C*1101~A*0701	no						PMC:PMC7491122
-C*1101~A*1101	no						PMC:PMC7491122
-C*1201~A*0201	no						PMC:PMC7491122
-C*1201~A*0402	no						PMC:PMC7491122
-C*1201~A*1401	no						PMC:PMC7491122
-C*1302~A*0802	no						PMC:PMC7491122
-DPB1*01:07	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DPB1', mutations=()), allele_fields=('01', '07'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DPB1*01:07~A*03:01	no						PMC:PMC7491122
-DPB1*01:07~A*06:01	no						PMC:PMC7491122
-DPB1*01:07~A*09:01	no						PMC:PMC7491122
-DPB1*01:07~A*11:01	no						PMC:PMC7491122
-DPB1*01:07~B*05:01	no						PMC:PMC7491122
-DPB1*01:07~B*13:01	no						PMC:PMC7491122
-DPB1*01:07~B*24:02	no						PMC:PMC7491122
-DPB1*01:07~C*06:01	no						PMC:PMC7491122
-DPB1*01:07~C*09:01	no						PMC:PMC7491122
-DPB1*01:07~C*11:01	no						PMC:PMC7491122
-DPB1*01:07~DQA1*0502	no						PMC:PMC7491122
-DPB1*01:07~DQA1*2001	no						PMC:PMC7491122
-DPB1*01:07~DQB1*03:02	no						PMC:PMC7491122
-DPB1*01:07~DQB1*03:05	no						PMC:PMC7491122
-DPB1*01:07~DQB1*06:01	no						PMC:PMC7491122
-DPB1*01:07~DQB1*06:02	no						PMC:PMC7491122
-DPB1*01:07~DQB1*15:01	no						PMC:PMC7491122
-DPB1*01:07~DRB1*0204	no						PMC:PMC7491122
-DPB1*01:07~DRB1*0302	no						PMC:PMC7491122
-DPB1*01:07~DRB1*0307	no						PMC:PMC7491122
-DPB1*01:07~DRB1*0309	no						PMC:PMC7491122
-DPB1*01:07~DRB1*0311	no						PMC:PMC7491122
-DPB1*01:07~DRB1*1001	no						PMC:PMC7491122
-DPB1*01:07~blank	no						PMC:PMC7491122
-DPB1*01:09	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DPB1', mutations=()), allele_fields=('01', '09'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DPB1*01:09~A*03:01	no						PMC:PMC7491122
-DPB1*01:09~A*05:01	no						PMC:PMC7491122
-DPB1*01:09~A*06:02	no						PMC:PMC7491122
-DPB1*01:09~A*09:01	no						PMC:PMC7491122
-DPB1*01:09~A*11:01	no						PMC:PMC7491122
-DPB1*01:09~B*01:01	no						PMC:PMC7491122
-DPB1*01:09~B*05:01	no						PMC:PMC7491122
-DPB1*01:09~B*13:01	no						PMC:PMC7491122
-DPB1*01:09~B*24:02	no						PMC:PMC7491122
-DPB1*01:09~B*29:01	no						PMC:PMC7491122
-DPB1*01:09~C*02:03	no						PMC:PMC7491122
-DPB1*01:09~C*04:01	no						PMC:PMC7491122
-DPB1*01:09~C*06:01	no						PMC:PMC7491122
-DPB1*01:09~C*11:01	no						PMC:PMC7491122
-DPB1*01:09~DQA1*0101	no						PMC:PMC7491122
-DPB1*01:09~DQA1*0503	no						PMC:PMC7491122
-DPB1*01:09~DQA1*2004	no						PMC:PMC7491122
-DPB1*01:09~DQB1*03:02	no						PMC:PMC7491122
-DPB1*01:09~DQB1*06:01	no						PMC:PMC7491122
-DPB1*01:09~DQB1*06:02	no						PMC:PMC7491122
-DPB1*01:09~DRB1*0201	no						PMC:PMC7491122
-DPB1*01:09~DRB1*0204	no						PMC:PMC7491122
-DPB1*01:09~DRB1*0302	no						PMC:PMC7491122
-DPB1*01:09~DRB1*0305	no						PMC:PMC7491122
-DPB1*01:09~DRB1*0307	no						PMC:PMC7491122
-DPB1*01:09~DRB1*0309	no						PMC:PMC7491122
-DPB1*01:11	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DPB1', mutations=()), allele_fields=('01', '11'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DPB1*01:11~A*04:01	no						PMC:PMC7491122
-DPB1*01:11~A*05:01	no						PMC:PMC7491122
-DPB1*01:11~A*06:01	no						PMC:PMC7491122
-DPB1*01:11~A*07:01	no						PMC:PMC7491122
-DPB1*01:11~A*11:01	no						PMC:PMC7491122
-DPB1*01:11~A*14:01	no						PMC:PMC7491122
-DPB1*01:11~B*01:01	no						PMC:PMC7491122
-DPB1*01:11~B*05:01	no						PMC:PMC7491122
-DPB1*01:11~B*13:01	no						PMC:PMC7491122
-DPB1*01:11~B*16:01	no						PMC:PMC7491122
-DPB1*01:11~C*02:03	no						PMC:PMC7491122
-DPB1*01:11~C*04:01	no						PMC:PMC7491122
-DPB1*01:11~C*06:01	no						PMC:PMC7491122
-DPB1*01:11~DQA1*0101	no						PMC:PMC7491122
-DPB1*01:11~DQA1*0502	no						PMC:PMC7491122
-DPB1*01:11~DQA1*2004	no						PMC:PMC7491122
-DPB1*01:11~DQB1*03:02	no						PMC:PMC7491122
-DPB1*01:11~DQB1*06:02	no						PMC:PMC7491122
-DPB1*01:11~DQB1*15:01	no						PMC:PMC7491122
-DPB1*01:11~DRB1*0201	no						PMC:PMC7491122
-DPB1*01:11~DRB1*0204	no						PMC:PMC7491122
-DPB1*01:11~DRB1*0302	no						PMC:PMC7491122
-DPB1*01:11~DRB1*0307	no						PMC:PMC7491122
-DPB1*01:11~DRB1*0311	no						PMC:PMC7491122
-DPB1*01:11~DRB1*0701	no						PMC:PMC7491122
-DPB1*01:11~DRB1*1001	no						PMC:PMC7491122
-DPB1*01:11~blank	no						PMC:PMC7491122
-DPB1*01:12	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DPB1', mutations=()), allele_fields=('01', '12'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DPB1*01:12~A*01:01	no						PMC:PMC7491122
-DPB1*01:12~A*02:01	no						PMC:PMC7491122
-DPB1*01:12~A*06:01	no						PMC:PMC7491122
-DPB1*01:12~A*07:01	no						PMC:PMC7491122
-DPB1*01:12~A*09:01	no						PMC:PMC7491122
-DPB1*01:12~A*14:01	no						PMC:PMC7491122
-DPB1*01:12~B*01:01	no						PMC:PMC7491122
-DPB1*01:12~B*04:01	no						PMC:PMC7491122
-DPB1*01:12~B*05:01	no						PMC:PMC7491122
-DPB1*01:12~B*14:01	no						PMC:PMC7491122
-DPB1*01:12~B*16:01	no						PMC:PMC7491122
-DPB1*01:12~B*24:02	no						PMC:PMC7491122
-DPB1*01:12~C*04:01	no						PMC:PMC7491122
-DPB1*01:12~C*05:01	no						PMC:PMC7491122
-DPB1*01:12~C*05:02	no						PMC:PMC7491122
-DPB1*01:12~C*06:01	no						PMC:PMC7491122
-DPB1*01:12~C*09:01	no						PMC:PMC7491122
-DPB1*01:12~DQA1*0101	no						PMC:PMC7491122
-DPB1*01:12~DQA1*0502	no						PMC:PMC7491122
-DPB1*01:12~DQA1*2004	no						PMC:PMC7491122
-DPB1*01:12~DQB1*03:02	no						PMC:PMC7491122
-DPB1*01:12~DQB1*03:05	no						PMC:PMC7491122
-DPB1*01:12~DQB1*06:02	no						PMC:PMC7491122
-DPB1*01:12~DQB1*15:01	no						PMC:PMC7491122
-DPB1*01:12~DRB1*0201	no						PMC:PMC7491122
-DPB1*01:12~DRB1*0204	no						PMC:PMC7491122
-DPB1*01:12~DRB1*0305	no						PMC:PMC7491122
-DPB1*01:12~DRB1*0307	no						PMC:PMC7491122
-DPB1*01:12~DRB1*1001	no						PMC:PMC7491122
-DPB1*01:12~blank	no						PMC:PMC7491122
-DPB1*01:13	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DPB1', mutations=()), allele_fields=('01', '13'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DPB1*01:13~A*01:01	no						PMC:PMC7491122
-DPB1*01:13~A*03:01	no						PMC:PMC7491122
-DPB1*01:13~A*03:02	no						PMC:PMC7491122
-DPB1*01:13~A*04:01	no						PMC:PMC7491122
-DPB1*01:13~B*01:01	no						PMC:PMC7491122
-DPB1*01:13~B*03:01	no						PMC:PMC7491122
-DPB1*01:13~B*09:01	no						PMC:PMC7491122
-DPB1*01:13~B*13:01	no						PMC:PMC7491122
-DPB1*01:13~B*14:01	no						PMC:PMC7491122
-DPB1*01:13~C*02:03	no						PMC:PMC7491122
-DPB1*01:13~C*03:01	no						PMC:PMC7491122
-DPB1*01:13~C*04:01	no						PMC:PMC7491122
-DPB1*01:13~DQA1*0101	no						PMC:PMC7491122
-DPB1*01:13~DQA1*2004	no						PMC:PMC7491122
-DPB1*01:13~DQB1*03:02	no						PMC:PMC7491122
-DPB1*01:13~DQB1*06:01	no						PMC:PMC7491122
-DPB1*01:13~DQB1*06:02	no						PMC:PMC7491122
-DPB1*01:13~DQB1*06:07	no						PMC:PMC7491122
-DPB1*01:13~DRB1*0201	no						PMC:PMC7491122
-DPB1*01:13~DRB1*0204	no						PMC:PMC7491122
-DPB1*01:13~DRB1*0302	no						PMC:PMC7491122
-DPB1*01:13~DRB1*0307	no						PMC:PMC7491122
-DPB1*01:13~DRB1*0311	no						PMC:PMC7491122
-DPB1*01:18~A*01:01	no						PMC:PMC7491122
-DPB1*01:18~B*14:01	no						PMC:PMC7491122
-DPB1*01:18~C*02:03	no						PMC:PMC7491122
-DPB1*01:18~DQA1*0502	no						PMC:PMC7491122
-DPB1*01:18~DRB1*0701	no						PMC:PMC7491122
-DPB1*03:04	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DPB1', mutations=()), allele_fields=('03', '04'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DPB1*03:04~A*14:01	no						PMC:PMC7491122
-DPB1*03:04~B*01:01	no						PMC:PMC7491122
-DPB1*03:04~C*04:01	no						PMC:PMC7491122
-DPB1*03:04~DQA1*0502	no						PMC:PMC7491122
-DPB1*03:04~DQB1*03:02	no						PMC:PMC7491122
-DPB1*03:04~DRB1*0201	no						PMC:PMC7491122
-DQA1*0101~A*0201	no						PMC:PMC7491122
-DQA1*0101~A*0301	no						PMC:PMC7491122
-DQA1*0101~A*0302	no						PMC:PMC7491122
-DQA1*0101~A*0501	no						PMC:PMC7491122
-DQA1*0101~A*0601	no						PMC:PMC7491122
-DQA1*0101~A*0701	no						PMC:PMC7491122
-DQA1*0101~A*0901	no						PMC:PMC7491122
-DQA1*0101~A*1101	no						PMC:PMC7491122
-DQA1*0101~A*1401	no						PMC:PMC7491122
-DQA1*0101~B*0101	no						PMC:PMC7491122
-DQA1*0101~B*0501	no						PMC:PMC7491122
-DQA1*0101~B*1301	no						PMC:PMC7491122
-DQA1*0101~B*1401	no						PMC:PMC7491122
-DQA1*0101~B*2402	no						PMC:PMC7491122
-DQA1*0101~C*0203	no						PMC:PMC7491122
-DQA1*0101~C*0301	no						PMC:PMC7491122
-DQA1*0101~C*0401	no						PMC:PMC7491122
-DQA1*0101~C*0601	no						PMC:PMC7491122
-DQA1*0101~C*0901	no						PMC:PMC7491122
-DQA1*0101~C*1101	no						PMC:PMC7491122
-DQA1*0101~DRB1*0302	no						PMC:PMC7491122
-DQA1*0101~DRB1*0305	no						PMC:PMC7491122
-DQA1*0101~DRB1*0307	no						PMC:PMC7491122
-DQA1*0101~DRB1*0311	no						PMC:PMC7491122
-DQA1*01:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('01', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DQA1*0502~A*0101	no						PMC:PMC7491122
-DQA1*0502~A*0601	no						PMC:PMC7491122
-DQA1*0502~A*1401	no						PMC:PMC7491122
-DQA1*0502~B*0101	no						PMC:PMC7491122
-DQA1*0502~B*1401	no						PMC:PMC7491122
-DQA1*0502~B*1601	no						PMC:PMC7491122
-DQA1*0502~C*0203	no						PMC:PMC7491122
-DQA1*0502~C*0401	no						PMC:PMC7491122
-DQA1*0502~C*0502	no						PMC:PMC7491122
-DQA1*0502~C*0601	no						PMC:PMC7491122
-DQA1*0502~C*0901	no						PMC:PMC7491122
-DQA1*0502~DRB1*0201	no						PMC:PMC7491122
-DQA1*0502~DRB1*0701	no						PMC:PMC7491122
-DQA1*0502~DRB1*1001	no						PMC:PMC7491122
-DQA1*0502~blank	no						PMC:PMC7491122
-DQA1*0503~A*0301	no						PMC:PMC7491122
-DQA1*0503~A*0501	no						PMC:PMC7491122
-DQA1*0503~B*0501	no						PMC:PMC7491122
-DQA1*0503~B*2402	no						PMC:PMC7491122
-DQA1*0503~B*2901	no						PMC:PMC7491122
-DQA1*0503~C*0203	no						PMC:PMC7491122
-DQA1*0503~C*0601	no						PMC:PMC7491122
-DQA1*0503~C*0901	no						PMC:PMC7491122
-DQA1*0503~DRB1*0309	no						PMC:PMC7491122
-DQA1*05:02	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('05', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DQA1*05:03	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('05', '03'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DQA1*2001~A*0101	no						PMC:PMC7491122
-DQA1*2001~A*0301	no						PMC:PMC7491122
-DQA1*2001~A*0701	no						PMC:PMC7491122
-DQA1*2001~A*0901	no						PMC:PMC7491122
-DQA1*2001~B*0101	no						PMC:PMC7491122
-DQA1*2001~B*0501	no						PMC:PMC7491122
-DQA1*2001~B*1301	no						PMC:PMC7491122
-DQA1*2001~B*1401	no						PMC:PMC7491122
-DQA1*2001~C*0203	no						PMC:PMC7491122
-DQA1*2001~C*0401	no						PMC:PMC7491122
-DQA1*2001~C*0601	no						PMC:PMC7491122
-DQA1*2001~C*1101	no						PMC:PMC7491122
-DQA1*2001~DRB1*0204	no						PMC:PMC7491122
-DQA1*2001~blank	no						PMC:PMC7491122
-DQA1*2004~A*0101	no						PMC:PMC7491122
-DQA1*2004~A*0301	no						PMC:PMC7491122
-DQA1*2004~A*0401	no						PMC:PMC7491122
-DQA1*2004~A*0501	no						PMC:PMC7491122
-DQA1*2004~A*0601	no						PMC:PMC7491122
-DQA1*2004~A*0602	no						PMC:PMC7491122
-DQA1*2004~A*0701	no						PMC:PMC7491122
-DQA1*2004~A*0901	no						PMC:PMC7491122
-DQA1*2004~B*0101	no						PMC:PMC7491122
-DQA1*2004~B*0301	no						PMC:PMC7491122
-DQA1*2004~B*0401	no						PMC:PMC7491122
-DQA1*2004~B*0501	no						PMC:PMC7491122
-DQA1*2004~B*0901	no						PMC:PMC7491122
-DQA1*2004~B*1301	no						PMC:PMC7491122
-DQA1*2004~B*1401	no						PMC:PMC7491122
-DQA1*2004~B*2402	no						PMC:PMC7491122
-DQA1*2004~B*2901	no						PMC:PMC7491122
-DQA1*2004~C*0203	no						PMC:PMC7491122
-DQA1*2004~C*0401	no						PMC:PMC7491122
-DQA1*2004~C*0501	no						PMC:PMC7491122
-DQA1*2004~C*0601	no						PMC:PMC7491122
-DQA1*2004~C*0901	no						PMC:PMC7491122
-DQA1*2004~C*1101	no						PMC:PMC7491122
-DQA1*2004~DRB1*0201	no						PMC:PMC7491122
-DQA1*2004~DRB1*0204	no						PMC:PMC7491122
-DQA1*2004~blank	no						PMC:PMC7491122
-DQA1*20:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('20', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DQA1*20:04	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('20', '04'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DQB1*0302~A*0101	no						PMC:PMC7491122
-DQB1*0302~A*0301	no						PMC:PMC7491122
-DQB1*0302~A*0401	no						PMC:PMC7491122
-DQB1*0302~A*0501	no						PMC:PMC7491122
-DQB1*0302~A*0601	no						PMC:PMC7491122
-DQB1*0302~A*0602	no						PMC:PMC7491122
-DQB1*0302~A*0701	no						PMC:PMC7491122
-DQB1*0302~A*0901	no						PMC:PMC7491122
-DQB1*0302~A*1401	no						PMC:PMC7491122
-DQB1*0302~A*2201	no						PMC:PMC7491122
-DQB1*0302~B*0101	no						PMC:PMC7491122
-DQB1*0302~B*0301	no						PMC:PMC7491122
-DQB1*0302~B*0401	no						PMC:PMC7491122
-DQB1*0302~B*0501	no						PMC:PMC7491122
-DQB1*0302~B*0602	no						PMC:PMC7491122
-DQB1*0302~B*0901	no						PMC:PMC7491122
-DQB1*0302~B*1301	no						PMC:PMC7491122
-DQB1*0302~B*1401	no						PMC:PMC7491122
-DQB1*0302~B*2002	no						PMC:PMC7491122
-DQB1*0302~B*2304	no						PMC:PMC7491122
-DQB1*0302~B*2401	no						PMC:PMC7491122
-DQB1*0302~B*2402	no						PMC:PMC7491122
-DQB1*0302~B*2901	no						PMC:PMC7491122
-DQB1*0302~C*0203	no						PMC:PMC7491122
-DQB1*0302~C*0501	no						PMC:PMC7491122
-DQB1*0302~C*0601	no						PMC:PMC7491122
-DQB1*0302~C*0901	no						PMC:PMC7491122
-DQB1*0302~C*1101	no						PMC:PMC7491122
-DQB1*0302~DRB1*0201	no						PMC:PMC7491122
-DQB1*0302~DRB1*0204	no						PMC:PMC7491122
-DQB1*0302~DRB1*0307	no						PMC:PMC7491122
-DQB1*0302~DRB1*0309	no						PMC:PMC7491122
-DQB1*0302~DRB1*0313	no						PMC:PMC7491122
-DQB1*0302~DRB1*1001	no						PMC:PMC7491122
-DQB1*0302~blank	no						PMC:PMC7491122
-DQB1*0303	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('03', '03'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DQB1*0303/04~A*0301	no						PMC:PMC7491122
-DQB1*0303/04~A*1501	no						PMC:PMC7491122
-DQB1*0303/04~B*2202	no						PMC:PMC7491122
-DQB1*0303/04~B*2401	no						PMC:PMC7491122
-DQB1*0303/04~DRB1*0702	no						PMC:PMC7491122
-DQB1*0305~A*0101	no						PMC:PMC7491122
-DQB1*0305~A*0301	no						PMC:PMC7491122
-DQB1*0305~A*0401	no						PMC:PMC7491122
-DQB1*0305~A*0901	no						PMC:PMC7491122
-DQB1*0305~A*1401	no						PMC:PMC7491122
-DQB1*0305~B*0101	no						PMC:PMC7491122
-DQB1*0305~B*0301	no						PMC:PMC7491122
-DQB1*0305~B*0901	no						PMC:PMC7491122
-DQB1*0305~B*1601	no						PMC:PMC7491122
-DQB1*0305~B*2401	no						PMC:PMC7491122
-DQB1*0305~C*0502	no						PMC:PMC7491122
-DQB1*0305~C*0901	no						PMC:PMC7491122
-DQB1*0305~DRB1*0302	no						PMC:PMC7491122
-DQB1*0305~DRB1*1001	no						PMC:PMC7491122
-DQB1*0305~blank	no						PMC:PMC7491122
-DQB1*03:02	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('03', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DQB1*03:02~DQA1*05:02	no						PMC:PMC7491122
-DQB1*03:02~DQA1*05:03	no						PMC:PMC7491122
-DQB1*03:02~DQA1*20:01	no						PMC:PMC7491122
-DQB1*03:02~DQA1*20:04	no						PMC:PMC7491122
-DQB1*03:05	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('03', '05'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DQB1*03:05~DQA1*05:02	no						PMC:PMC7491122
-DQB1*0601~A*0401	no						PMC:PMC7491122
-DQB1*0601~A*0901	no						PMC:PMC7491122
-DQB1*0601~A*1101	no						PMC:PMC7491122
-DQB1*0601~A*1401	no						PMC:PMC7491122
-DQB1*0601~B*0101	no						PMC:PMC7491122
-DQB1*0601~B*0301	no						PMC:PMC7491122
-DQB1*0601~B*1301	no						PMC:PMC7491122
-DQB1*0601~C*0401	no						PMC:PMC7491122
-DQB1*0601~C*1101	no						PMC:PMC7491122
-DQB1*0601~DRB1*0201	no						PMC:PMC7491122
-DQB1*0601~DRB1*0302	no						PMC:PMC7491122
-DQB1*0601~DRB1*0306	no						PMC:PMC7491122
-DQB1*0601~DRB1*0311	no						PMC:PMC7491122
-DQB1*0602~A*0201	no						PMC:PMC7491122
-DQB1*0602~A*0301	no						PMC:PMC7491122
-DQB1*0602~A*0302	no						PMC:PMC7491122
-DQB1*0602~A*0401	no						PMC:PMC7491122
-DQB1*0602~A*0501	no						PMC:PMC7491122
-DQB1*0602~A*0601	no						PMC:PMC7491122
-DQB1*0602~A*0701	no						PMC:PMC7491122
-DQB1*0602~A*0901	no						PMC:PMC7491122
-DQB1*0602~A*1101	no						PMC:PMC7491122
-DQB1*0602~A*1401	no						PMC:PMC7491122
-DQB1*0602~A*1701	no						PMC:PMC7491122
-DQB1*0602~B*0101	no						PMC:PMC7491122
-DQB1*0602~B*0301	no						PMC:PMC7491122
-DQB1*0602~B*0501	no						PMC:PMC7491122
-DQB1*0602~B*1301	no						PMC:PMC7491122
-DQB1*0602~B*1401	no						PMC:PMC7491122
-DQB1*0602~B*2402	no						PMC:PMC7491122
-DQB1*0602~B*2901	no						PMC:PMC7491122
-DQB1*0602~C*0203	no						PMC:PMC7491122
-DQB1*0602~C*0301	no						PMC:PMC7491122
-DQB1*0602~C*0401	no						PMC:PMC7491122
-DQB1*0602~C*0901	no						PMC:PMC7491122
-DQB1*0602~DRB1*0204	no						PMC:PMC7491122
-DQB1*0602~DRB1*0302	no						PMC:PMC7491122
-DQB1*0602~DRB1*0305	no						PMC:PMC7491122
-DQB1*0602~DRB1*0307	no						PMC:PMC7491122
-DQB1*0602~DRB1*0701	no						PMC:PMC7491122
-DQB1*0602~DRB1*1001	no						PMC:PMC7491122
-DQB1*0602~blank	no						PMC:PMC7491122
-DQB1*0607~A*0701	no						PMC:PMC7491122
-DQB1*0607~A*1801	no						PMC:PMC7491122
-DQB1*0607~B*0501	no						PMC:PMC7491122
-DQB1*0607~B*0602	no						PMC:PMC7491122
-DQB1*0607~B*2302	no						PMC:PMC7491122
-DQB1*0607~B*2401	no						PMC:PMC7491122
-DQB1*0607~DRB1*0201	no						PMC:PMC7491122
-DQB1*0607~DRB1*0307	no						PMC:PMC7491122
-DQB1*0607~DRB1*0314	no						PMC:PMC7491122
-DQB1*0607~DRB1*1001	no						PMC:PMC7491122
-DQB1*06:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('06', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DQB1*06:01~DQA1*01:01	no						PMC:PMC7491122
-DQB1*06:02	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('06', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DQB1*06:02~DQA1*01:01	no						PMC:PMC7491122
-DQB1*06:07	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('06', '07'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DQB1*1501~A*0101	no						PMC:PMC7491122
-DQB1*1501~B*1401	no						PMC:PMC7491122
-DQB1*1501~B*1601	no						PMC:PMC7491122
-DQB1*1501~C*0203	no						PMC:PMC7491122
-DQB1*1501~C*0502	no						PMC:PMC7491122
-DQB1*1501~DRB1*0307	no						PMC:PMC7491122
-DQB1*1501~DRB1*0701	no						PMC:PMC7491122
-DQB1*1501~blank	no						PMC:PMC7491122
-DQB1*15:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('15', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DQB1*15:01~DQA1*05:02	no						PMC:PMC7491122
-DRB1*0201~A*0101	no						PMC:PMC7491122
-DRB1*0201~A*0301	no						PMC:PMC7491122
-DRB1*0201~A*0401	no						PMC:PMC7491122
-DRB1*0201~A*0601	no						PMC:PMC7491122
-DRB1*0201~A*0701	no						PMC:PMC7491122
-DRB1*0201~A*0901	no						PMC:PMC7491122
-DRB1*0201~A*1101	no						PMC:PMC7491122
-DRB1*0201~A*1401	no						PMC:PMC7491122
-DRB1*0201~B*0101	no						PMC:PMC7491122
-DRB1*0201~B*0301	no						PMC:PMC7491122
-DRB1*0201~B*0401	no						PMC:PMC7491122
-DRB1*0201~B*0501	no						PMC:PMC7491122
-DRB1*0201~B*1301	no						PMC:PMC7491122
-DRB1*0201~B*1401	no						PMC:PMC7491122
-DRB1*0201~B*2402	no						PMC:PMC7491122
-DRB1*0201~C*0203	no						PMC:PMC7491122
-DRB1*0201~C*0401	no						PMC:PMC7491122
-DRB1*0201~C*0601	no						PMC:PMC7491122
-DRB1*0201~C*0901	no						PMC:PMC7491122
-DRB1*0201~blank	no						PMC:PMC7491122
-DRB1*0204~A*0101	no						PMC:PMC7491122
-DRB1*0204~A*0201	no						PMC:PMC7491122
-DRB1*0204~A*0301	no						PMC:PMC7491122
-DRB1*0204~A*0401	no						PMC:PMC7491122
-DRB1*0204~A*0501	no						PMC:PMC7491122
-DRB1*0204~A*0602	no						PMC:PMC7491122
-DRB1*0204~A*0701	no						PMC:PMC7491122
-DRB1*0204~A*2201	no						PMC:PMC7491122
-DRB1*0204~B*0101	no						PMC:PMC7491122
-DRB1*0204~B*0401	no						PMC:PMC7491122
-DRB1*0204~B*0501	no						PMC:PMC7491122
-DRB1*0204~B*0602	no						PMC:PMC7491122
-DRB1*0204~B*0901	no						PMC:PMC7491122
-DRB1*0204~B*1301	no						PMC:PMC7491122
-DRB1*0204~B*1401	no						PMC:PMC7491122
-DRB1*0204~B*2304	no						PMC:PMC7491122
-DRB1*0204~B*2401	no						PMC:PMC7491122
-DRB1*0204~B*2402	no						PMC:PMC7491122
-DRB1*0204~B*2901	no						PMC:PMC7491122
-DRB1*0204~C*0203	no						PMC:PMC7491122
-DRB1*0204~C*0401	no						PMC:PMC7491122
-DRB1*0204~C*0501	no						PMC:PMC7491122
-DRB1*0204~C*0601	no						PMC:PMC7491122
-DRB1*0204~C*0901	no						PMC:PMC7491122
-DRB1*0204~C*1101	no						PMC:PMC7491122
-DRB1*0204~blank	no						PMC:PMC7491122
-DRB1*0302~A*0301	no						PMC:PMC7491122
-DRB1*0302~A*0302	no						PMC:PMC7491122
-DRB1*0302~A*0401	no						PMC:PMC7491122
-DRB1*0302~A*0501	no						PMC:PMC7491122
-DRB1*0302~A*0901	no						PMC:PMC7491122
-DRB1*0302~B*0101	no						PMC:PMC7491122
-DRB1*0302~B*1301	no						PMC:PMC7491122
-DRB1*0302~B*2901	no						PMC:PMC7491122
-DRB1*0302~C*0301	no						PMC:PMC7491122
-DRB1*0302~C*0401	no						PMC:PMC7491122
-DRB1*0305~A*0701	no						PMC:PMC7491122
-DRB1*0305~A*0901	no						PMC:PMC7491122
-DRB1*0305~A*1101	no						PMC:PMC7491122
-DRB1*0305~A*1401	no						PMC:PMC7491122
-DRB1*0305~B*0101	no						PMC:PMC7491122
-DRB1*0305~B*0501	no						PMC:PMC7491122
-DRB1*0305~C*0401	no						PMC:PMC7491122
-DRB1*0305~C*0601	no						PMC:PMC7491122
-DRB1*0306~A*0301	no						PMC:PMC7491122
-DRB1*0306~A*0701	no						PMC:PMC7491122
-DRB1*0306~B*1301	no						PMC:PMC7491122
-DRB1*0307~A*0201	no						PMC:PMC7491122
-DRB1*0307~A*0301	no						PMC:PMC7491122
-DRB1*0307~A*0302	no						PMC:PMC7491122
-DRB1*0307~A*0401	no						PMC:PMC7491122
-DRB1*0307~A*0501	no						PMC:PMC7491122
-DRB1*0307~A*0601	no						PMC:PMC7491122
-DRB1*0307~A*0701	no						PMC:PMC7491122
-DRB1*0307~A*1401	no						PMC:PMC7491122
-DRB1*0307~A*1701	no						PMC:PMC7491122
-DRB1*0307~B*0101	no						PMC:PMC7491122
-DRB1*0307~B*0501	no						PMC:PMC7491122
-DRB1*0307~B*2402	no						PMC:PMC7491122
-DRB1*0307~C*0401	no						PMC:PMC7491122
-DRB1*0307~C*0601	no						PMC:PMC7491122
-DRB1*0307~C*0901	no						PMC:PMC7491122
-DRB1*0307~blank	no						PMC:PMC7491122
-DRB1*0309~A*0301	no						PMC:PMC7491122
-DRB1*0309~A*0401	no						PMC:PMC7491122
-DRB1*0309~A*0501	no						PMC:PMC7491122
-DRB1*0309~B*0101	no						PMC:PMC7491122
-DRB1*0309~B*0501	no						PMC:PMC7491122
-DRB1*0309~B*2402	no						PMC:PMC7491122
-DRB1*0309~B*2901	no						PMC:PMC7491122
-DRB1*0309~C*0203	no						PMC:PMC7491122
-DRB1*0309~C*0601	no						PMC:PMC7491122
-DRB1*0309~C*0901	no						PMC:PMC7491122
-DRB1*0311~A*1101	no						PMC:PMC7491122
-DRB1*0311~B*1301	no						PMC:PMC7491122
-DRB1*0311~C*1101	no						PMC:PMC7491122
-DRB1*0312~A*0701	no						PMC:PMC7491122
-DRB1*0312~A*1701	no						PMC:PMC7491122
-DRB1*0312~B*2302	no						PMC:PMC7491122
-DRB1*0313~A*1801	no						PMC:PMC7491122
-DRB1*0313~B*0602	no						PMC:PMC7491122
-DRB1*0313~B*2401	no						PMC:PMC7491122
-DRB1*0314~A*0701	no						PMC:PMC7491122
-DRB1*0314~A*2201	no						PMC:PMC7491122
-DRB1*0314~B*0501	no						PMC:PMC7491122
-DRB1*0314~B*2304	no						PMC:PMC7491122
-DRB1*0701~A*0101	no						PMC:PMC7491122
-DRB1*0701~A*0701	no						PMC:PMC7491122
-DRB1*0701~A*0901	no						PMC:PMC7491122
-DRB1*0701~A*1401	no						PMC:PMC7491122
-DRB1*0701~B*0101	no						PMC:PMC7491122
-DRB1*0701~B*0301	no						PMC:PMC7491122
-DRB1*0701~B*1401	no						PMC:PMC7491122
-DRB1*0701~B*1601	no						PMC:PMC7491122
-DRB1*0701~B*2002	no						PMC:PMC7491122
-DRB1*0701~C*0203	no						PMC:PMC7491122
-DRB1*0701~C*0502	no						PMC:PMC7491122
-DRB1*0702	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('07', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DRB1*0702~A*1501	no						PMC:PMC7491122
-DRB1*0702~B*2202	no						PMC:PMC7491122
-DRB1*0702~B*2401	no						PMC:PMC7491122
-DRB1*1001~A*0301	no						PMC:PMC7491122
-DRB1*1001~A*0401	no						PMC:PMC7491122
-DRB1*1001~A*1401	no						PMC:PMC7491122
-DRB1*1001~B*0101	no						PMC:PMC7491122
-DRB1*1001~B*0301	no						PMC:PMC7491122
-DRB1*1001~B*1601	no						PMC:PMC7491122
-DRB1*1001~B*2401	no						PMC:PMC7491122
-DRB1*1001~B*2901	no						PMC:PMC7491122
-DRB1*1001~C*0401	no						PMC:PMC7491122
-DRB1*1001~C*0502	no						PMC:PMC7491122
-DRB1*1001~C*0901	no						PMC:PMC7491122
-DRB1*1001~blank	no						PMC:PMC7491122
-blank~A*0101	no						PMC:PMC7491122
-blank~A*0301	no						PMC:PMC7491122
-blank~A*0302	no						PMC:PMC7491122
-blank~A*0404	no						PMC:PMC7491122
-blank~A*0501	no						PMC:PMC7491122
-blank~A*06:01	no						PMC:PMC7491122
-blank~A*0701	no						PMC:PMC7491122
-blank~A*0803	no						PMC:PMC7491122
-blank~A*0901	no						PMC:PMC7491122
-blank~A*1401	no						PMC:PMC7491122
-blank~B*0101	no						PMC:PMC7491122
-blank~B*0401	no						PMC:PMC7491122
-blank~B*0501	no						PMC:PMC7491122
-blank~B*05:01	no						PMC:PMC7491122
-blank~B*1301	no						PMC:PMC7491122
-blank~B*14:01	no						PMC:PMC7491122
-blank~B*2202	no						PMC:PMC7491122
-blank~B*2401	no						PMC:PMC7491122
-blank~C*0401	no						PMC:PMC7491122
-blank~C*04:01	no						PMC:PMC7491122
-blank~C*0501	no						PMC:PMC7491122
-blank~C*05:02	no						PMC:PMC7491122
-blank~C*0601	no						PMC:PMC7491122
-blank~C*06:01	no						PMC:PMC7491122
-blank~C*1101	no						PMC:PMC7491122
-blank~DQA1*0101	no						PMC:PMC7491122
-blank~DQA1*0502	no						PMC:PMC7491122
-blank~DQA1*2001	no						PMC:PMC7491122
-blank~DQB1*03:02	no						PMC:PMC7491122
-blank~DQB1*06:02	no						PMC:PMC7491122
-blank~DQB1*15:01	no						PMC:PMC7491122
-blank~DRB1*0201	no						PMC:PMC7491122
-blank~DRB1*0204	no						PMC:PMC7491122
-blank~DRB1*0302	no						PMC:PMC7491122
-blank~DRB1*0305	no						PMC:PMC7491122
-blank~DRB1*0309	no						PMC:PMC7491122
-blank~DRB1*0701	no						PMC:PMC7491122
-blank~DRB1*1001	no						PMC:PMC7491122
-Australia / Northern Territory / Groote-Eylandt	no						PMC:PMC7491122
-China / Hong-Kong	no						PMC:PMC7491122
-Croatia / North-West, Zagreb	no						PMC:PMC7491122
-DQA1_USAERL-Nusa-Tenggara	no						PMC:PMC7491122
-Ewens-Watterson	no						PMC:PMC7491122
-Flanders-Picardie	no						PMC:PMC7491122
-France, North, Flanders-Picardie	no						PMC:PMC7491122
-Groote-Eylandt	no						PMC:PMC7491122
-Guarani-Kaiowa	no						PMC:PMC7491122
-Guarani-Nandewa	no						PMC:PMC7491122
-HLA_B_USAMFV-Kenyan-Lowlander	no						PMC:PMC7491122
-HLA_Cw_USAMFV-Kenyan-Lowlander	no						PMC:PMC7491122
-HLA_DPB1_USAERL-Nusa-Tenggara	no						PMC:PMC7491122
-HLA_DQB1_USAERL-Nusa-Tenggara	no						PMC:PMC7491122
-HLA_DRB1_USAERL-Nusa-Tenggara	no						PMC:PMC7491122
-Hardy-Weinberg	no						PMC:PMC7491122
-Hardy-Weinberg test	no						PMC:PMC7491122
-Hsin-I	no						PMC:PMC7491122
-Kenyan-Lowlander	no						PMC:PMC7491122
-Mongolia / Oulan-Bator	no						PMC:PMC7491122
-Neutrality test of Ewens-Watterson-Slatkin	no						PMC:PMC7491122
-North-West	no						PMC:PMC7491122
-Novosibirsk-Kyzyl	no						PMC:PMC7491122
-Nusa-Tenggara	no						PMC:PMC7491122
-Oulan-Bator	no						PMC:PMC7491122
-Russia / Novosibirsk-Kyzyl	no						PMC:PMC7491122
-Taiwan / Hsin-I, Taitung	no						PMC:PMC7491122
-Taiwan / Lai-I	no						PMC:PMC7491122
-Taiwan / Lan-Yu	no						PMC:PMC7491122
-Test Ewens-Watterson-Slatkin	no						PMC:PMC7491122
-Test Hardy-Weinberg	no						PMC:PMC7491122
-tempoHLA_A_USAERL-Nusa-Tenggara	no						PMC:PMC7491122
-tempoHLA_A_USAMFV-Kenyan-Lowlander	no						PMC:PMC7491122
-Australia / Northern Territory / Groote-Eylandt	no						PMC:PMC7491122
-China / Hong-Kong	no						PMC:PMC7491122
-Croatia / North-West, Zagreb	no						PMC:PMC7491122
-Flanders-Picardie	no						PMC:PMC7491122
-France, North, Flanders-Picardie	no						PMC:PMC7491122
-Groote-Eylandt	no						PMC:PMC7491122
-Guarani-Kaiowa	no						PMC:PMC7491122
-Guarani-Nandewa	no						PMC:PMC7491122
-Hsin-I	no						PMC:PMC7491122
-Mongolia / Oulan-Bator	no						PMC:PMC7491122
-North-West	no						PMC:PMC7491122
-Novosibirsk-Kyzyl	no						PMC:PMC7491122
-Oulan-Bator	no						PMC:PMC7491122
-Russia / Novosibirsk-Kyzyl	no						PMC:PMC7491122
-Taiwan / Hsin-I, Taitung	no						PMC:PMC7491122
-Taiwan / Lai-I	no						PMC:PMC7491122
-Taiwan / Lan-Yu	no						PMC:PMC7491122
-B*01:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('01', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-B*03:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('03', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-B*05:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('05', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-B*22:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('22', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-B*23:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('23', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-B*23:02	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('23', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-B*23:04	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('23', '04'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-B*27:05	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('27', '05'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-B*57:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('57', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-C*04:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='C', mutations=()), allele_fields=('04', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-C*07	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='C', mutations=()), allele_fields=('07',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-C*09:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='C', mutations=()), allele_fields=('09', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DQA1*01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('01',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DQA1*05	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('05',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DQB1*03	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('03',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DQB1*06	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('06',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DRB1*02	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('02',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DRB1*04	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('04',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DRB1*07	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('07',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DRB1*10	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('10',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-DRB1*15	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('15',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-Ewens-Watterson	no						PMC:PMC7491122
-HLA-A	yes	Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=())	Gene	Homo sapiens			PMC:PMC7491122
-HLA-A1	yes	Serotype(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A1', num_alleles=6)	Serotype	Homo sapiens			PMC:PMC7491122
-HLA-B	yes	Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=())	Gene	Homo sapiens			PMC:PMC7491122
-HLA-B*27:05	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('27', '05'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-HLA-C	yes	Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='C', mutations=())	Gene	Homo sapiens			PMC:PMC7491122
-HLA-C*07	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='C', mutations=()), allele_fields=('07',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC7491122
-HLA-DRB	yes	Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=())	Gene	Homo sapiens			PMC:PMC7491122
-HLA-DRB1	yes	Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=())	Gene	Homo sapiens			PMC:PMC7491122
-Hardy-Weinberg	no						PMC:PMC7491122
-IMGT-HLA	no						PMC:PMC7491122
-IPD-MHC	no						PMC:PMC7491122
-Marques-Bonet	no						PMC:PMC7491122
-Mhc-DQB	yes	Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=())	Gene	Homo sapiens			PMC:PMC7491122
-Mhc-DRB	yes	Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=())	Gene	Homo sapiens			PMC:PMC7491122
-Patr-A	yes	Gene(species=Species(name='Pan troglodytes', mhc_prefix='Patr'), name='A', mutations=())	Gene	Pan troglodytes			PMC:PMC7491122
-Patr-B	yes	Gene(species=Species(name='Pan troglodytes', mhc_prefix='Patr'), name='B', mutations=())	Gene	Pan troglodytes			PMC:PMC7491122
-Patr-C	yes	Gene(species=Species(name='Pan troglodytes', mhc_prefix='Patr'), name='C', mutations=())	Gene	Pan troglodytes			PMC:PMC7491122
-Patr-DQB1	yes	Gene(species=Species(name='Pan troglodytes', mhc_prefix='Patr'), name='DQB1', mutations=())	Gene	Pan troglodytes			PMC:PMC7491122
-Patr-DRB1	yes	Gene(species=Species(name='Pan troglodytes', mhc_prefix='Patr'), name='DRB1', mutations=())	Gene	Pan troglodytes			PMC:PMC7491122
-Sanchez-Mazas	no						PMC:PMC7491122
+Papa-A	yes	Gene(species=Species(name='Pan paniscus', mhc_prefix='Papa'), name='A', mutations=())	Gene	Pan paniscus			PMC:7491122
+Papa-B	yes	Gene(species=Species(name='Pan paniscus', mhc_prefix='Papa'), name='B', mutations=())	Gene	Pan paniscus			PMC:7491122
+Papa-C	yes	Gene(species=Species(name='Pan paniscus', mhc_prefix='Papa'), name='C', mutations=())	Gene	Pan paniscus			PMC:7491122
+Patr-DPB1	yes	Gene(species=Species(name='Pan troglodytes', mhc_prefix='Patr'), name='DPB1', mutations=())	Gene	Pan troglodytes			PMC:7491122
+Patr-DQA1	yes	Gene(species=Species(name='Pan troglodytes', mhc_prefix='Patr'), name='DQA1', mutations=())	Gene	Pan troglodytes			PMC:7491122
+Patr-DQB1	yes	Gene(species=Species(name='Pan troglodytes', mhc_prefix='Patr'), name='DQB1', mutations=())	Gene	Pan troglodytes			PMC:7491122
+Patr-DRB1	yes	Gene(species=Species(name='Pan troglodytes', mhc_prefix='Patr'), name='DRB1', mutations=())	Gene	Pan troglodytes			PMC:7491122
+HLA-A	yes	Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=())	Gene	Homo sapiens			PMC:7491122
+HLA-B	yes	Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=())	Gene	Homo sapiens			PMC:7491122
+HLA-C	yes	Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='C', mutations=())	Gene	Homo sapiens			PMC:7491122
+HLA-DPB1	yes	Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DPB1', mutations=())	Gene	Homo sapiens			PMC:7491122
+HLA-DQA1	yes	Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=())	Gene	Homo sapiens			PMC:7491122
+HLA-DQB1	yes	Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=())	Gene	Homo sapiens			PMC:7491122
+HLA-DRB1	yes	Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=())	Gene	Homo sapiens			PMC:7491122
+Hsin-I	no						PMC:7491122
+A*01:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('01', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+A*02:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('02', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+A*03:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('03', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+A*03:02	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('03', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+A*04:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('04', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+A*04:02	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('04', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+A*04:04	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('04', '04'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+A*05:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('05', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+A*06:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('06', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+A*06:02	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('06', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+A*07:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('07', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+A*08:02	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('08', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+A*08:03	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('08', '03'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+A*09:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('09', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+A*11:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('11', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+A*14:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('14', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+A*15:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('15', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+A*17:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('17', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+A*18:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('18', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+A*22:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('22', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+B*01:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('01', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+B*03:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('03', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+B*04:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('04', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+B*05:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('05', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+B*05:02	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('05', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+B*06:02	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('06', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+B*08:02	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('08', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+B*09:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('09', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+B*10:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('10', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+B*13:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('13', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+B*14:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('14', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+B*16:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('16', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+B*16:02	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('16', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+B*17:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('17', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+B*19:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('19', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+B*20:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('20', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+B*20:02	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('20', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+B*22:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('22', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+B*22:02	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('22', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+B*23:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('23', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+B*23:02	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('23', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+B*23:04	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('23', '04'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+B*24:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('24', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+B*24:02	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('24', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+B*29:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('29', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+C*01:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='C', mutations=()), allele_fields=('01', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+C*02:02	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='C', mutations=()), allele_fields=('02', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+C*02:03	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='C', mutations=()), allele_fields=('02', '03'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+C*03:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='C', mutations=()), allele_fields=('03', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+C*04:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='C', mutations=()), allele_fields=('04', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+C*05:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='C', mutations=()), allele_fields=('05', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+C*05:02	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='C', mutations=()), allele_fields=('05', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+C*06:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='C', mutations=()), allele_fields=('06', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+C*08:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='C', mutations=()), allele_fields=('08', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+C*09:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='C', mutations=()), allele_fields=('09', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+C*09:02	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='C', mutations=()), allele_fields=('09', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+C*11:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='C', mutations=()), allele_fields=('11', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+C*12:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='C', mutations=()), allele_fields=('12', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+C*13:02	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='C', mutations=()), allele_fields=('13', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+DPB1*01:07	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DPB1', mutations=()), allele_fields=('01', '07'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+DPB1*01:09	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DPB1', mutations=()), allele_fields=('01', '09'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+DPB1*01:11	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DPB1', mutations=()), allele_fields=('01', '11'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+DPB1*01:12	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DPB1', mutations=()), allele_fields=('01', '12'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+DPB1*01:13	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DPB1', mutations=()), allele_fields=('01', '13'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+DPB1*01:18	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DPB1', mutations=()), allele_fields=('01', '18'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+DPB1*03:04	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DPB1', mutations=()), allele_fields=('03', '04'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+DQA1*01:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('01', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+DQA1*05:02	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('05', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+DQA1*05:03	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('05', '03'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+DQA1*20:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('20', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+DQA1*20:04	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('20', '04'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+DQB1*03:02	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('03', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+DQB1*03:03	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('03', '03'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+DQB1*03:05	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('03', '05'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+DQB1*06:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('06', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+DQB1*06:02	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('06', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+DQB1*06:07	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('06', '07'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+DQB1*15:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('15', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+DRB1*02:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('02', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+DRB1*02:04	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('02', '04'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+DRB1*03:02	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('03', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+DRB1*03:05	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('03', '05'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+DRB1*03:06	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('03', '06'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+DRB1*03:07	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('03', '07'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+DRB1*03:09	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('03', '09'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+DRB1*03:11	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('03', '11'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+DRB1*03:12	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('03', '12'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+DRB1*03:13	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('03', '13'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+DRB1*03:14	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('03', '14'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+DRB1*07:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('07', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+DRB1*07:02	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('07', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+DRB1*10:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('10', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+B*27:05	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('27', '05'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+B*57:01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('57', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+DQA1*01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('01',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+DQA1*05	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('05',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+DQB1*03	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('03',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+DQB1*06	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('06',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+DRB1*07	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('07',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+DRB1*10	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('10',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+HLA-A1	yes	Serotype(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A1', num_alleles=6)	Serotype	Homo sapiens			PMC:7491122
+HLA-B*27:05	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('27', '05'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+HLA-C*07	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='C', mutations=()), allele_fields=('07',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+HLA-DRB	yes	Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=())	Gene	Homo sapiens			PMC:7491122
+HLA-DRB1*04	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('04',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+HLA-DRB1*07	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('07',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+HLA-DRB1*15	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('15',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+Patr-A	yes	Gene(species=Species(name='Pan troglodytes', mhc_prefix='Patr'), name='A', mutations=())	Gene	Pan troglodytes			PMC:7491122
+Patr-B	yes	Gene(species=Species(name='Pan troglodytes', mhc_prefix='Patr'), name='B', mutations=())	Gene	Pan troglodytes			PMC:7491122
+Patr-C	yes	Gene(species=Species(name='Pan troglodytes', mhc_prefix='Patr'), name='C', mutations=())	Gene	Pan troglodytes			PMC:7491122
+Patr-DRB1*02	yes	Allele(gene=Gene(species=Species(name='Pan troglodytes', mhc_prefix='Patr'), name='DRB1', mutations=()), allele_fields=('02',), annotations=(), mutations=())	Allele	Pan troglodytes			PMC:7491122
+Patr-DRB1*07	yes	Allele(gene=Gene(species=Species(name='Pan troglodytes', mhc_prefix='Patr'), name='DRB1', mutations=()), allele_fields=('07',), annotations=(), mutations=())	Allele	Pan troglodytes			PMC:7491122
+Patr-DRB1*10	yes	Allele(gene=Gene(species=Species(name='Pan troglodytes', mhc_prefix='Patr'), name='DRB1', mutations=()), allele_fields=('10',), annotations=(), mutations=())	Allele	Pan troglodytes			PMC:7491122
+A*0101	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('01', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+A*0201	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('02', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+A*0301	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('03', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+A*0302	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('03', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+A*0401	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('04', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+A*0402	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('04', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+A*0404	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('04', '04'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+A*0501	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('05', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+A*0601	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('06', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+A*0602	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('06', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+A*0701	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('07', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+A*0802	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('08', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+A*0803	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('08', '03'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+A*0901	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('09', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+A*1101	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('11', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+A*1401	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('14', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+A*1501	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('15', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+A*1701	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('17', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+A*1801	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('18', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+A*2201	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('22', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+B*0101	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('01', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+B*0301	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('03', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+B*0401	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('04', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+B*0501	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('05', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+B*0502	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('05', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+B*0602	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('06', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+B*0802	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('08', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+B*0901	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('09', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+B*1001	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('10', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+B*1301	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('13', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+B*1401	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('14', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+B*1601	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('16', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+B*1602	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('16', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+B*1701	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('17', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+B*1901	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('19', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+B*2001	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('20', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+B*2002	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('20', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+B*2201	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('22', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+B*2202	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('22', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+B*2301	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('23', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+B*2302	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('23', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+B*2304	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('23', '04'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+B*2401	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('24', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+B*2402	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('24', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+B*2901	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='B', mutations=()), allele_fields=('29', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+C*0101	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='C', mutations=()), allele_fields=('01', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+C*0202	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='C', mutations=()), allele_fields=('02', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+C*0203	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='C', mutations=()), allele_fields=('02', '03'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+C*0301	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='C', mutations=()), allele_fields=('03', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+C*0401	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='C', mutations=()), allele_fields=('04', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+C*0501	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='C', mutations=()), allele_fields=('05', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+C*0502	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='C', mutations=()), allele_fields=('05', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+C*0601	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='C', mutations=()), allele_fields=('06', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+C*0801	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='C', mutations=()), allele_fields=('08', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+C*0901	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='C', mutations=()), allele_fields=('09', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+C*0902	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='C', mutations=()), allele_fields=('09', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+C*1101	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='C', mutations=()), allele_fields=('11', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+C*1201	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='C', mutations=()), allele_fields=('12', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+C*1302	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='C', mutations=()), allele_fields=('13', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+DQA1*0101	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('01', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+DQA1*0502	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('05', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+DQA1*0503	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('05', '03'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+DQA1*2001	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('20', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+DQA1*2004	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQA1', mutations=()), allele_fields=('20', '04'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+DQB1*0302	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('03', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+DQB1*0303	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('03', '03'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+DQB1*0305	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('03', '05'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+DQB1*0601	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('06', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+DQB1*0602	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('06', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+DQB1*0607	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('06', '07'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+DQB1*1501	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('15', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+DRB1*0201	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('02', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+DRB1*0204	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('02', '04'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+DRB1*0302	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('03', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+DRB1*0305	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('03', '05'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+DRB1*0306	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('03', '06'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+DRB1*0307	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('03', '07'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+DRB1*0309	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('03', '09'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+DRB1*0311	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('03', '11'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+DRB1*0312	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('03', '12'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+DRB1*0313	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('03', '13'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+DRB1*0314	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('03', '14'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+DRB1*0701	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('07', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+DRB1*0702	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('07', '02'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122
+DRB1*1001	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('10', '01'), annotations=(), mutations=())	Allele	Homo sapiens			PMC:7491122

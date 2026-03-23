@@ -1,25 +1,5 @@
 raw_string	parsed	parsed_as	result_type	species	correct	notes	source
-Franz-Josef	no						PMC:PMC11168636
-Katarzyna Wojczulanis-Jakubas	no						PMC:PMC11168636
-OR909382-OR909480	no						PMC:PMC11168636
-PONE-D	no						PMC:PMC11168636
-Wojczulanis-Jakubas	no						PMC:PMC11168636
-A01-A16	no						PMC:PMC11168636
-P17-P32	yes	Pair(alpha=Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='P', mutations=()), allele_fields=('17',), annotations=(), mutations=()), beta=Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='P', mutations=()), allele_fields=('32',), annotations=(), mutations=()), mhc_class='I')	Pair	Homo sapiens			PMC:PMC11168636
-Jukes-Cantor	no						PMC:PMC11168636
-Nei-Gojorobi	no						PMC:PMC11168636
-Non-PBS	no						PMC:PMC11168636
-Non-PBS codons (n = 67)	no						PMC:PMC11168636
-Alal-DRB1	no						PMC:PMC11168636
-DRB1*004	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('004',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC11168636
-DRB1*051	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('051',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC11168636
-DRB1*085	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DRB1', mutations=()), allele_fields=('085',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC11168636
-Katarzyna Wojczulanis-Jakubas	no						PMC:PMC11168636
-Meyer-Lucht	no						PMC:PMC11168636
-OR909382-OR909480	no						PMC:PMC11168636
-Vasquez-Carrillo	no						PMC:PMC11168636
-Wojczulanis-Jakubas	no						PMC:PMC11168636
-Zagalska-Neubauer	no						PMC:PMC11168636
-Katarzyna Wojczulanis-Jakubas	no						PMC:PMC11168636
-PONE-D	no						PMC:PMC11168636
-Wojczulanis-Jakubas	no						PMC:PMC11168636
+Alal-DRB1	no						PMC:11168636
+Alal-DRB1*004	no						PMC:11168636
+Alal-DRB1*051	no						PMC:11168636
+Alal-DRB1*085	no						PMC:11168636

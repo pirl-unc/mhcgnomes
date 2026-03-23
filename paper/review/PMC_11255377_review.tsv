@@ -1,176 +1,105 @@
 raw_string	parsed	parsed_as	result_type	species	correct	notes	source
-1 ( ZocaU*2	no						PMC:PMC11255377
-1( ZocaU*2	no						PMC:PMC11255377
-2 ( ZocaU*2	no						PMC:PMC11255377
-3 ( ZocaU*2	no						PMC:PMC11255377
-Acfl-DAB	no						PMC:PMC11255377
-Acfl-DAB*17	no						PMC:PMC11255377
-Acfl-DAB*17 (MW740899.1)	no						PMC:PMC11255377
-Chch-DAB	no						PMC:PMC11255377
-Chch-DAB*1	no						PMC:PMC11255377
-Chch-DAB*1 (MW740977)	no						PMC:PMC11255377
-Coco-DAB	no						PMC:PMC11255377
-Coco-DAB*18	no						PMC:PMC11255377
-Coco-DAB*18 (MW741008.1)	no						PMC:PMC11255377
-DAB*1	no						PMC:PMC11255377
-DAB*1010	no						PMC:PMC11255377
-DAB*104 (KX264060)	no						PMC:PMC11255377
-DAB*1111	no						PMC:PMC11255377
-DAB*119	no						PMC:PMC11255377
-DAB*119 (MH671064)/Non-functional	no						PMC:PMC11255377
-DAB*120 (KX264076)	no						PMC:PMC11255377
-DAB*1203 (MH538490)	no						PMC:PMC11255377
-DAB*122 (KX264078)	no						PMC:PMC11255377
-DAB*148 (KX264104)	no						PMC:PMC11255377
-DAB*152	no						PMC:PMC11255377
-DAB*17	no						PMC:PMC11255377
-DAB*17 (MW740899)	no						PMC:PMC11255377
-DAB*18	no						PMC:PMC11255377
-DAB*19	no						PMC:PMC11255377
-DAB*22 (KX263978)	no						PMC:PMC11255377
-DAB*23 (MW741159)	no						PMC:PMC11255377
-DAB*232 (KX375269)	no						PMC:PMC11255377
-DAB*24 (KT751222)	no						PMC:PMC11255377
-DAB*253 (JX214352)	no						PMC:PMC11255377
-DAB*26 (MW741162)	no						PMC:PMC11255377
-DAB*298 (KX375334)	no						PMC:PMC11255377
-DAB*317 (JX214414)	no						PMC:PMC11255377
-DAB*320 (MF197788)	no						PMC:PMC11255377
-DAB*332 (MF197795)	no						PMC:PMC11255377
-DAB*35 (MW741171)	no						PMC:PMC11255377
-DAB*373 (MH670990)	no						PMC:PMC11255377
-DAB*374 (MH670991)	no						PMC:PMC11255377
-DAB*387 (MH671004)	no						PMC:PMC11255377
-DAB*41 (KX263997)	no						PMC:PMC11255377
-DAB*415	no						PMC:PMC11255377
-DAB*417 (MH671019)	no						PMC:PMC11255377
-DAB*431 (MH671029)	no						PMC:PMC11255377
-DAB*467 (MH671058)	no						PMC:PMC11255377
-DAB*475 (MH671064)	no						PMC:PMC11255377
-DAB*494 (MF197837)	no						PMC:PMC11255377
-DAB*511 (MF197840)	no						PMC:PMC11255377
-DAB*515 (MH671092)	no						PMC:PMC11255377
-DAB*518 (MH671095)	no						PMC:PMC11255377
-DAB*574 (MK504139)	no						PMC:PMC11255377
-DAB*62 (KX264018)	no						PMC:PMC11255377
-DAB*792	no						PMC:PMC11255377
-DAB*792 (JX214865) PREDICTED	no						PMC:PMC11255377
-DAB*914 (JX214984)	no						PMC:PMC11255377
-DAB*937	no						PMC:PMC11255377
-DAB*937 (JX215007) PREDICTED	no						PMC:PMC11255377
-DAB*952	no						PMC:PMC11255377
-Emja-DAB	no						PMC:PMC11255377
-Emja-DAB*17	no						PMC:PMC11255377
-Emja-DAB*17 (KT751215)	no						PMC:PMC11255377
-Emja-DAB*19	no						PMC:PMC11255377
-Emja-DAB*19 (KT751217)	no						PMC:PMC11255377
-Emja-DAB18	no						PMC:PMC11255377
-Emja-DAB18 (KT751216)	no						PMC:PMC11255377
-Getr-DAB	yes	Gene(species=Species(name='Geothlypis trichas', mhc_prefix='Getr'), name='DAB', mutations=())	Gene	Geothlypis trichas			PMC:PMC11255377
-Getr-DAB*1010	yes	Allele(gene=Gene(species=Species(name='Geothlypis trichas', mhc_prefix='Getr'), name='DAB', mutations=()), allele_fields=('10', '10'), annotations=(), mutations=())	Allele	Geothlypis trichas			PMC:PMC11255377
-Getr-DAB*1010 (JX215079)	no						PMC:PMC11255377
-Getr-DAB*1111	yes	Allele(gene=Gene(species=Species(name='Geothlypis trichas', mhc_prefix='Getr'), name='DAB', mutations=()), allele_fields=('11', '11'), annotations=(), mutations=())	Allele	Geothlypis trichas			PMC:PMC11255377
-Getr-DAB*1111 (KP735876)	no						PMC:PMC11255377
-Getr-DAB*792	yes	Allele(gene=Gene(species=Species(name='Geothlypis trichas', mhc_prefix='Getr'), name='DAB', mutations=()), allele_fields=('792',), annotations=(), mutations=())	Allele	Geothlypis trichas			PMC:PMC11255377
-Getr-DAB*792 (JX214865)	no						PMC:PMC11255377
-Getr-DAB*937	yes	Allele(gene=Gene(species=Species(name='Geothlypis trichas', mhc_prefix='Getr'), name='DAB', mutations=()), allele_fields=('937',), annotations=(), mutations=())	Allele	Geothlypis trichas			PMC:PMC11255377
-Getr-DAB*937 (JX215007)	no						PMC:PMC11255377
-Getr-DAB*952	yes	Allele(gene=Gene(species=Species(name='Geothlypis trichas', mhc_prefix='Getr'), name='DAB', mutations=()), allele_fields=('952',), annotations=(), mutations=())	Allele	Geothlypis trichas			PMC:PMC11255377
-Getr-DAB*952 (JX215022)	no						PMC:PMC11255377
-HLA-A2	yes	Serotype(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A2', num_alleles=47)	Serotype	Homo sapiens			PMC:PMC11255377
-HLA-DR1	yes	Serotype(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DR1', num_alleles=6)	Serotype	Homo sapiens			PMC:PMC11255377
-Iquique-Pica	no						PMC:PMC11255377
-MHC-I	yes	MhcClass(species=Species(name='Homo sapiens', mhc_prefix='HLA'), mhc_class='I')	MhcClass	Homo sapiens			PMC:PMC11255377
-MHC-I  nucleotide div	no						PMC:PMC11255377
-MHC-I allele (accession number)	no						PMC:PMC11255377
-MHC-I amino div	no						PMC:PMC11255377
-MHC-II	yes	MhcClass(species=Species(name='Homo sapiens', mhc_prefix='HLA'), mhc_class='II')	MhcClass	Homo sapiens			PMC:PMC11255377
-MHC-II amino div	no						PMC:PMC11255377
-MHC-II nucleotide div	no						PMC:PMC11255377
-Non-PBR	no						PMC:PMC11255377
-Sosp-DAB	no						PMC:PMC11255377
-Sosp-DAB*152	no						PMC:PMC11255377
-Sosp-DAB*152 (KX264108)	no						PMC:PMC11255377
-Sosp-DAB*415	no						PMC:PMC11255377
-Sosp-DAB*415 (MH671017) PREDICTED	no						PMC:PMC11255377
-ZocaU*1	no						PMC:PMC11255377
-ZocaU*101	no						PMC:PMC11255377
-ZocaU*101 (OR578737)	no						PMC:PMC11255377
-ZocaU*102	no						PMC:PMC11255377
-ZocaU*102 (OR578738)	no						PMC:PMC11255377
-ZocaU*103	no						PMC:PMC11255377
-ZocaU*103 (OR578739)	no						PMC:PMC11255377
-ZocaU*104	no						PMC:PMC11255377
-ZocaU*104 (OR578740)	no						PMC:PMC11255377
-ZocaU*105	no						PMC:PMC11255377
-ZocaU*105 (OR578741)	no						PMC:PMC11255377
-ZocaU*106	no						PMC:PMC11255377
-ZocaU*106 (OR578742)	no						PMC:PMC11255377
-ZocaU*107	no						PMC:PMC11255377
-ZocaU*107 (OR578743)	no						PMC:PMC11255377
-ZocaU*108 (OR578744)	no						PMC:PMC11255377
-ZocaU*109	no						PMC:PMC11255377
-ZocaU*109 (OR578745)	no						PMC:PMC11255377
-ZocaU*110	no						PMC:PMC11255377
-ZocaU*110 (OR578746)	no						PMC:PMC11255377
-ZocaU*111	no						PMC:PMC11255377
-ZocaU*111 (OR578747)	no						PMC:PMC11255377
-ZocaU*112	no						PMC:PMC11255377
-ZocaU*112 (OR578748)	no						PMC:PMC11255377
-ZocaU*113	no						PMC:PMC11255377
-ZocaU*113 (OR578749)	no						PMC:PMC11255377
-ZocaU*114	no						PMC:PMC11255377
-ZocaU*114 (OR578750)	no						PMC:PMC11255377
-ZocaU*115	no						PMC:PMC11255377
-ZocaU*115 (OR578751)	no						PMC:PMC11255377
-ZocaU*116	no						PMC:PMC11255377
-ZocaU*116 (OR578752)	no						PMC:PMC11255377
-ZocaU*117	no						PMC:PMC11255377
-ZocaU*117 (OR578753)	no						PMC:PMC11255377
-ZocaU*118	no						PMC:PMC11255377
-ZocaU*118 (OR578754)	no						PMC:PMC11255377
-ZocaU*119	no						PMC:PMC11255377
-ZocaU*119 (OR578755)	no						PMC:PMC11255377
-ZocaU*120	no						PMC:PMC11255377
-ZocaU*120 (OR578756)	no						PMC:PMC11255377
-ZocaU*121	no						PMC:PMC11255377
-ZocaU*121 (OR578757)	no						PMC:PMC11255377
-ZocaU*13	no						PMC:PMC11255377
-ZocaU*15	no						PMC:PMC11255377
-ZocaU*15=proteina)	no						PMC:PMC11255377
-ZocaU*17	no						PMC:PMC11255377
-ZocaU*2	no						PMC:PMC11255377
-ZocaU*2 (KF433978)	no						PMC:PMC11255377
-ZocaU*20	no						PMC:PMC11255377
-ZocaU*20 (KF433996)	no						PMC:PMC11255377
-ZocaU*24	no						PMC:PMC11255377
-ZocaU*25	no						PMC:PMC11255377
-ZocaU*25 (KF434001)	no						PMC:PMC11255377
-ZocaU*26	no						PMC:PMC11255377
-ZocaU*28	no						PMC:PMC11255377
-ZocaU*3	no						PMC:PMC11255377
-ZocaU*30 (KF434006)	no						PMC:PMC11255377
-ZocaU*32	no						PMC:PMC11255377
-ZocaU*36	no						PMC:PMC11255377
-ZocaU*37	no						PMC:PMC11255377
-ZocaU*38	no						PMC:PMC11255377
-ZocaU*4	no						PMC:PMC11255377
-ZocaU*4 (KF433980)	no						PMC:PMC11255377
-ZocaU*40 (KF434016)	no						PMC:PMC11255377
-ZocaU*42 (KF434018)	no						PMC:PMC11255377
-ZocaU*45	no						PMC:PMC11255377
-ZocaU*45 (KF434021)	no						PMC:PMC11255377
-ZocaU*49	no						PMC:PMC11255377
-ZocaU*4=prot)	no						PMC:PMC11255377
-ZocaU*5	no						PMC:PMC11255377
-ZocaU*52	no						PMC:PMC11255377
-ZocaU*57	no						PMC:PMC11255377
-ZocaU*60 (KF434036)	no						PMC:PMC11255377
-ZocaU*65 (KF434041)	no						PMC:PMC11255377
-ZocaU*69	no						PMC:PMC11255377
-ZocaU*7	no						PMC:PMC11255377
-ZocaU*73	no						PMC:PMC11255377
-ZocaU*78  (KF434054)	no						PMC:PMC11255377
-ZocaU*80	no						PMC:PMC11255377
-ZocaU*9	no						PMC:PMC11255377
-ZocaU*97	no						PMC:PMC11255377
+Acfl-DAB*17	no						PMC:11255377
+Chch-DAB*1	no						PMC:11255377
+Coco-DAB*18	yes	Allele(gene=Gene(species=Species(name='Corvus cornix', mhc_prefix='CorvCorn'), name='DAB', mutations=()), allele_fields=('18',), annotations=(), mutations=())	Allele	Corvus cornix			PMC:11255377
+DAB*104	no						PMC:11255377
+DAB*119	no						PMC:11255377
+DAB*120	no						PMC:11255377
+DAB*1203	no						PMC:11255377
+DAB*122	no						PMC:11255377
+DAB*148	no						PMC:11255377
+DAB*17	no						PMC:11255377
+DAB*22	no						PMC:11255377
+DAB*23	no						PMC:11255377
+DAB*232	no						PMC:11255377
+DAB*24	no						PMC:11255377
+DAB*253	no						PMC:11255377
+DAB*26	no						PMC:11255377
+DAB*298	no						PMC:11255377
+DAB*317	no						PMC:11255377
+DAB*320	no						PMC:11255377
+DAB*332	no						PMC:11255377
+DAB*35	no						PMC:11255377
+DAB*373	no						PMC:11255377
+DAB*374	no						PMC:11255377
+DAB*387	no						PMC:11255377
+DAB*41	no						PMC:11255377
+DAB*417	no						PMC:11255377
+DAB*431	no						PMC:11255377
+DAB*467	no						PMC:11255377
+DAB*475	no						PMC:11255377
+DAB*494	no						PMC:11255377
+DAB*511	no						PMC:11255377
+DAB*515	no						PMC:11255377
+DAB*518	no						PMC:11255377
+DAB*574	no						PMC:11255377
+DAB*62	no						PMC:11255377
+DAB*792	no						PMC:11255377
+DAB*914	no						PMC:11255377
+DAB*937	no						PMC:11255377
+Emja-DAB*17	no						PMC:11255377
+Emja-DAB*19	no						PMC:11255377
+Emja-DAB18	no						PMC:11255377
+Getr-DAB*1010	yes	Allele(gene=Gene(species=Species(name='Geothlypis trichas', mhc_prefix='GeotTric'), name='DAB', mutations=()), allele_fields=('10', '10'), annotations=(), mutations=())	Allele	Geothlypis trichas			PMC:11255377
+Getr-DAB*1111	yes	Allele(gene=Gene(species=Species(name='Geothlypis trichas', mhc_prefix='GeotTric'), name='DAB', mutations=()), allele_fields=('11', '11'), annotations=(), mutations=())	Allele	Geothlypis trichas			PMC:11255377
+Getr-DAB*792	yes	Allele(gene=Gene(species=Species(name='Geothlypis trichas', mhc_prefix='GeotTric'), name='DAB', mutations=()), allele_fields=('792',), annotations=(), mutations=())	Allele	Geothlypis trichas			PMC:11255377
+Getr-DAB*937	yes	Allele(gene=Gene(species=Species(name='Geothlypis trichas', mhc_prefix='GeotTric'), name='DAB', mutations=()), allele_fields=('937',), annotations=(), mutations=())	Allele	Geothlypis trichas			PMC:11255377
+Getr-DAB*952	yes	Allele(gene=Gene(species=Species(name='Geothlypis trichas', mhc_prefix='GeotTric'), name='DAB', mutations=()), allele_fields=('952',), annotations=(), mutations=())	Allele	Geothlypis trichas			PMC:11255377
+HLA-A2	yes	Serotype(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A2', num_alleles=47)	Serotype	Homo sapiens			PMC:11255377
+HLA-DR1	yes	Serotype(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DR1', num_alleles=6)	Serotype	Homo sapiens			PMC:11255377
+Sosp-DAB*152	no						PMC:11255377
+Sosp-DAB*415	no						PMC:11255377
+ZocaU*1	no						PMC:11255377
+ZocaU*101	no						PMC:11255377
+ZocaU*102	no						PMC:11255377
+ZocaU*103	no						PMC:11255377
+ZocaU*104	no						PMC:11255377
+ZocaU*105	no						PMC:11255377
+ZocaU*106	no						PMC:11255377
+ZocaU*107	no						PMC:11255377
+ZocaU*108	no						PMC:11255377
+ZocaU*109	no						PMC:11255377
+ZocaU*110	no						PMC:11255377
+ZocaU*111	no						PMC:11255377
+ZocaU*112	no						PMC:11255377
+ZocaU*113	no						PMC:11255377
+ZocaU*114	no						PMC:11255377
+ZocaU*115	no						PMC:11255377
+ZocaU*116	no						PMC:11255377
+ZocaU*117	no						PMC:11255377
+ZocaU*118	no						PMC:11255377
+ZocaU*119	no						PMC:11255377
+ZocaU*120	no						PMC:11255377
+ZocaU*121	no						PMC:11255377
+ZocaU*13	no						PMC:11255377
+ZocaU*15	no						PMC:11255377
+ZocaU*17	no						PMC:11255377
+ZocaU*2	no						PMC:11255377
+ZocaU*20	no						PMC:11255377
+ZocaU*24	no						PMC:11255377
+ZocaU*25	no						PMC:11255377
+ZocaU*26	no						PMC:11255377
+ZocaU*28	no						PMC:11255377
+ZocaU*3	no						PMC:11255377
+ZocaU*30	no						PMC:11255377
+ZocaU*32	no						PMC:11255377
+ZocaU*36	no						PMC:11255377
+ZocaU*37	no						PMC:11255377
+ZocaU*38	no						PMC:11255377
+ZocaU*4	no						PMC:11255377
+ZocaU*40	no						PMC:11255377
+ZocaU*42	no						PMC:11255377
+ZocaU*45	no						PMC:11255377
+ZocaU*49	no						PMC:11255377
+ZocaU*5	no						PMC:11255377
+ZocaU*52	no						PMC:11255377
+ZocaU*57	no						PMC:11255377
+ZocaU*60	no						PMC:11255377
+ZocaU*65	no						PMC:11255377
+ZocaU*69	no						PMC:11255377
+ZocaU*7	no						PMC:11255377
+ZocaU*73	no						PMC:11255377
+ZocaU*78	no						PMC:11255377
+ZocaU*80	no						PMC:11255377
+ZocaU*9	no						PMC:11255377
+ZocaU*97	no						PMC:11255377

@@ -18,6 +18,7 @@ paper/
 │   ├── collect_pubmed.py  # systematic PubMed search for validation papers
 │   ├── collect_genbank.py # extract MHC names from GenBank annotations
 │   ├── scrape_paper.py    # extract MHC strings from Excel/CSV/text files
+│   ├── rebuild_local_validation.py # refresh committed TSVs from paper/raw
 │   ├── batch_collect.sh   # download + scrape workflow
 │   └── evaluate.py        # run mhcgnomes on validation data, measure parse rate + correctness
 └── results/               # output from evaluation (gitignored)
@@ -44,6 +45,9 @@ python paper/scripts/collect_genbank.py \
 
 # 5. Evaluate all collected data
 ./paper/scripts/batch_collect.sh eval
+
+# 6. Rebuild committed paper TSVs from local paper/raw downloads
+python paper/scripts/rebuild_local_validation.py
 ```
 
 ## Systematic collection methodology

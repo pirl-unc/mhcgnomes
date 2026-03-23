@@ -24,6 +24,30 @@
 # Fish MHC nomenclature mixes U-lineage class I (UAA, UBA) with D-family
 # class II (DAA, DAB) across dozens of species with no unified standard.
 
+atlantic_salmon_u_s_z_mhc_2010:
+  url: https://pmc.ncbi.nlm.nih.gov/articles/PMC2846915/
+  species: Salmo salar
+  format: PMC supplementary tables / full text
+  status: candidate
+  notes: |
+    PMID 20205726. Strong follow-up source for salmonid U/S/Z-lineage
+    class I nomenclature (UGA/UHA/ZE/ZBA). Verify held-out eligibility
+    before extracting into validation TSVs.
+
+# ============================================================================
+# Reptile / amphibian MHC studies
+# ============================================================================
+
+marine_iguana_nonclassical_class_i_2008:
+  url: https://pmc.ncbi.nlm.nih.gov/articles/PMC2483932/
+  species: Amblyrhynchus cristatus
+  format: PMC supplementary tables / full text
+  status: candidate
+  notes: |
+    PMID 18682845. Useful follow-up source for marine iguana nonclassical
+    class I names. Verify held-out eligibility before extracting into
+    validation TSVs.
+
 # ============================================================================
 # HLA population genetics
 # ============================================================================
@@ -37,6 +61,24 @@
 
 # MHC diversity studies in threatened species (devils, cheetahs, etc.)
 # use species-specific nomenclature that tests non-human parsing.
+
+harbour_porpoise_mhc_dqb_drb_2025:
+  url: https://pubmed.ncbi.nlm.nih.gov/40551555/
+  species: Phocoena phocoena
+  format: PubMed / supplementary tables
+  status: candidate
+  notes: |
+    PMID 40551555. Direct fit for the newer cetacean DQB/DRB work.
+    Verify held-out eligibility before extracting into validation TSVs.
+
+koala_mhc_class_ii_diversity_2014:
+  url: https://pmc.ncbi.nlm.nih.gov/articles/PMC4181066/
+  species: Phascolarctos cinereus
+  format: PMC supplementary tables / full text
+  status: candidate
+  notes: |
+    PMID 24690756. Marsupial class II diversity source worth adding once
+    held-out status is confirmed.
 
 # ============================================================================
 # Bulk database exports

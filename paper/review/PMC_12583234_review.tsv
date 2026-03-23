@@ -1,5 +1,2 @@
 raw_string	parsed	parsed_as	result_type	species	correct	notes	source
-Acar3-KTM	no						PMC:PMC12583234
-BF2*1901	yes	Allele(gene=Gene(species=Species(name='Gallus gallus', mhc_prefix='Gaga'), name='BF2', mutations=()), allele_fields=('19', '01'), annotations=(), mutations=())	Allele	Gallus gallus			PMC:PMC12583234
-Lindkvist-Petersson	no						PMC:PMC12583234
-MHC-I	yes	MhcClass(species=Species(name='Homo sapiens', mhc_prefix='HLA'), mhc_class='I')	MhcClass	Homo sapiens			PMC:PMC12583234
+BF2*1901	yes	Allele(gene=Gene(species=Species(name='Gallus gallus', mhc_prefix='Gaga'), name='BF2', mutations=()), allele_fields=('19', '01'), annotations=(), mutations=())	Allele	Gallus gallus			PMC:12583234

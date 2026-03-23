@@ -1,5 +1,3 @@
 raw_string	parsed	parsed_as	result_type	species	correct	notes	source
-ArGa-DQB	no						PMC:PMC9606363
-ArGa-DQB*01	no						PMC:PMC9606363
-DQB*01	yes	Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='DQB1', mutations=()), allele_fields=('01',), annotations=(), mutations=())	Allele	Homo sapiens			PMC:PMC9606363
-Jukes-Cantor	no						PMC:PMC9606363
+ArGa-DQB	no						PMC:9606363
+ArGa-DQB*01	no						PMC:9606363
