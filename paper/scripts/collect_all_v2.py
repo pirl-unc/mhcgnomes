@@ -26,6 +26,9 @@ except ImportError:
 Entrez.email = "mhcgnomes-paper@example.com"
 
 ROOT = Path(__file__).resolve().parent.parent.parent
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
 RAW_DIR = ROOT / "paper" / "raw"
 VAL_DIR = ROOT / "paper" / "validation"
 REVIEW_DIR = ROOT / "paper" / "review"

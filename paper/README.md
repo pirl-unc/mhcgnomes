@@ -19,6 +19,9 @@ paper/
 │   ├── collect_genbank.py # extract MHC names from GenBank annotations
 │   ├── scrape_paper.py    # extract MHC strings from Excel/CSV/text files
 │   ├── rebuild_local_validation.py # refresh committed TSVs from paper/raw
+│   ├── paper_analysis.py  # shared summary logic for paper corpora
+│   ├── build_paper_results.py # export summary TSVs + markdown report
+│   ├── plot_paper_results.py # publication-ready figures for corpus and failures
 │   ├── batch_collect.sh   # download + scrape workflow
 │   └── evaluate.py        # run mhcgnomes on validation data, measure parse rate + correctness
 └── results/               # output from evaluation (gitignored)
@@ -48,7 +51,28 @@ python paper/scripts/collect_genbank.py \
 
 # 6. Rebuild committed paper TSVs from local paper/raw downloads
 python paper/scripts/rebuild_local_validation.py
+
+# 7. Build summary tables and markdown report in paper/results/
+python paper/scripts/build_paper_results.py
+
+# 8. Build publication-ready figures in paper/results/
+python paper/scripts/plot_paper_results.py
 ```
+
+## Results outputs
+
+The `paper/results/` directory contains regenerated summaries derived from
+the committed validation TSVs:
+
+- `paper_corpus_summary.tsv`: corpus-level totals and parse rates
+- `paper_taxon_summary.tsv`: inferred taxonomic composition and parse rates
+- `paper_species_summary.tsv`: inferred species counts and parse rates
+- `paper_source_summary.tsv`: per-source volume and parse rates
+- `paper_failure_mode_summary.tsv`: aggregate parser failure taxonomy
+- `paper_failure_rows.tsv`: row-level failed strings with inferred species/taxon
+- `paper_summary.md`: compact manuscript-style markdown summary
+- `paper_dataset_overview.{png,pdf,svg}`: dataset composition figure
+- `paper_parse_failures.{png,pdf,svg}`: parse-rate and failure-mode figure
 
 ## Systematic collection methodology
 
