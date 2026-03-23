@@ -265,7 +265,7 @@ def test_parse_ratite_species():
 
 def test_do_not_parse_ambiguous_or_unreviewed_bird_strings():
     for s in [
-        "Gaga-B-LBII",
+        # "Gaga-B-LBII" removed — B-LBII is now a defined chicken gene
         "Coja-II-13*01",
         "Coja-II-16*01",
         "Coja-II-17*01",
