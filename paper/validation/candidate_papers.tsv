@@ -1,0 +1,91 @@
+stratum	pmid	first_author	year	title	journal	doi
+human_clinical	30942877	Dilthey AT	2019	HLA*LA-HLA typing from linearly projected graph alignments.	Bioinformatics (Oxford, England)	10.1093/bioinformatics/btz235
+human_clinical	31173059	Orenbuch R	2020	arcasHLA: high-resolution HLA typing from RNAseq.	Bioinformatics (Oxford, England)	10.1093/bioinformatics/btz474
+human_clinical	28334360	Messerschmidt C	2017	HLA-MA: simple yet powerful matching of samples using HLA typing results.	Bioinformatics (Oxford, England)	10.1093/bioinformatics/btx132
+human_clinical	30689784	Maiers M	2019	GRIMM: GRaph IMputation and matching for HLA genotypes.	Bioinformatics (Oxford, England)	10.1093/bioinformatics/btz050
+human_clinical	25636098	Wang D	2015	[Analysis of ambiguities in HLA sequencing-based typing and its solutions].	Zhonghua yi xue yi chuan xue za zhi = Zhonghua yixue yichuanxue zazhi = Chinese journal of medical genetics	10.3760/cma.j.issn.1003-9406.2015.01.010
+human_clinical	36699439	D'Silva SZ	2023	Frequency of HLA alleles and KIR Ligands in Acute Myeloid Leukemia in Indian Cohort.	Indian journal of hematology & blood transfusion : an official journal of Indian Society of Hematology and Blood Transfusion	10.1007/s12288-022-01550-0
+human_clinical	31750874	Geffard E	2020	Easy-HLA: a validated web application suite to reveal the full details of HLA typing.	Bioinformatics (Oxford, England)	10.1093/bioinformatics/btz875
+human_clinical	30118777	Kaur N	2018	Mapping molecular HLA typing data to UNOS antigen equivalents.	Human immunology	10.1016/j.humimm.2018.08.002
+human_clinical	37776087	Ho QY	2023	Unrepresented human leucocyte antigen alleles in single-antigen bead assays: A single-centre cohort study.	International journal of immunogenetics	10.1111/iji.12639
+human_clinical	37105848	Daniela Maira C	2023	Association of KIR Genes Polymorphism and its HLA Ligands in Diffuse Large B-cell Lymphoma.	Clinical lymphoma, myeloma & leukemia	10.1016/j.clml.2023.03.001
+human_population	36252717	Halegoua-DeMarzio D	2023	Liver Injury Associated with Turmeric-A Growing Problem: Ten Cases from the Drug-Induced Liver Injury Network [DILIN].	The American journal of medicine	10.1016/j.amjmed.2022.09.026
+human_population	39314480	Akbari A	2024	Pervasive findings of directional selection realize the promise of ancient DNA to elucidate human adaptation.	bioRxiv : the preprint server for biology	10.1101/2024.09.14.613021
+human_population	39019884	Sonehara K	2024	Common and rare genetic variants predisposing females to unexplained recurrent pregnancy loss.	Nature communications	10.1038/s41467-024-49993-5
+human_population	38907888	Gonzalez-Galarza FF	2024	Allele Frequency Net Database.	Methods in molecular biology (Clifton, N.J.)	10.1007/978-1-0716-3874-3_2
+human_population	29858801	Gonzalez-Galarza FF	2018	Allele Frequency Net Database.	Methods in molecular biology (Clifton, N.J.)	10.1007/978-1-4939-8546-3_4
+human_population	38149254	Espada E	2023	HLA frequency distribution of the Portuguese bone marrow donor registry.	Frontiers in immunology	10.3389/fimmu.2023.1286001
+human_population	35395284	Eldhagen P	2022	Phenotypic and HLA-DRB1 allele characterization of Swedish cardiac sarcoidosis patients.	International journal of cardiology	10.1016/j.ijcard.2022.04.006
+human_population	36919857	Koskela S	2023	MICA and MICB allele assortment in Finland.	HLA	10.1111/tan.15023
+human_population	36336987	Leitner DF	2023	Brain molecular mechanisms in Rasmussen encephalitis.	Epilepsia	10.1111/epi.17457
+human_population	36269708	Selvaraj MS	2022	Genome-wide discovery for diabetes-dependent triglycerides-associated loci.	PloS one	10.1371/journal.pone.0275934
+nonhuman_primate	39502699	Rosen BC	2024	Acute-phase innate immune responses in SIVmac239-infected <i>Mamu-B*08+</i> Indian rhesus macaques may contribute to the establishment of elite control.	Frontiers in immunology	10.3389/fimmu.2024.1478063
+nonhuman_primate	31321455	Caskey JR	2019	MHC genotyping from rhesus macaque exome sequences.	Immunogenetics	10.1007/s00251-019-01125-w
+nonhuman_primate	27723741	Shiba Y	2016	Allogeneic transplantation of iPS cell-derived cardiomyocytes regenerates primate hearts.	Nature	10.1038/nature19815
+nonhuman_primate	26284482	Bimber BN	2015	The killer-cell immunoglobulin-like receptors of macaques.	Immunological reviews	10.1111/imr.12329
+nonhuman_primate	37036309	Anderson JL	2023	MHC Class I Ligands of Rhesus Macaque Killer Cell Ig-like Receptors.	Journal of immunology (Baltimore, Md. : 1950)	10.4049/jimmunol.2200954
+nonhuman_primate	30564240	Bruijnesteijn J	2018	Extensive Alternative Splicing of KIR Transcripts.	Frontiers in immunology	10.3389/fimmu.2018.02846
+nonhuman_primate	29875239	Martins MA	2018	<i>Mamu-B*17</i><sup>+</sup> Rhesus Macaques Vaccinated with <i>env</i>, <i>vif</i>, and <i>nef</i> Manifest Early Control of SIVmac239 Replication.	Journal of virology	10.1128/JVI.00690-18
+nonhuman_primate	27395034	Shiina T	2017	Comparative genomics of the human, macaque and mouse major histocompatibility complex.	Immunology	10.1111/imm.12624
+nonhuman_primate	35401580	Nicholas RE	2022	KIR3DL05 and KIR3DS02 Recognition of a Nonclassical MHC Class I Molecule in the Rhesus Macaque Implicated in Pregnancy Success.	Frontiers in immunology	10.3389/fimmu.2022.841136
+nonhuman_primate	34091067	Ling Z	2021	Identification of Mamu-DRB1 gene as a susceptibility factor for Entamoeba nuttalli infection in Chinese Macaca mulatta.	Infection, genetics and evolution : journal of molecular epidemiology and evolutionary genetics in infectious diseases	10.1016/j.meegid.2021.104952
+rodent	26814963	Sekar A	2016	Schizophrenia risk from complex variation of complement component 4.	Nature	10.1038/nature16549
+rodent	35705813	Jaeger AM	2022	Deciphering the immunopeptidome in vivo reveals new tumour antigens.	Nature	10.1038/s41586-022-04839-2
+rodent	34725325	Lehmann BD	2021	Multi-omics analysis identifies therapeutic vulnerabilities in triple-negative breast cancer subtypes.	Nature communications	10.1038/s41467-021-26502-6
+rodent	37023751	Racle J	2023	Machine learning predictions of MHC-II specificities reveal alternative binding mode of class II epitopes.	Immunity	10.1016/j.immuni.2023.03.009
+rodent	38752340	Yang P	2024	Allele-Specific Suppression of Variant MHC With High-Precision RNA Nuclease CRISPR-Cas13d Prevents Hypertrophic Cardiomyopathy.	Circulation	10.1161/CIRCULATIONAHA.123.067890
+rodent	36720919	Wang C	2023	TRPV1 regulates ApoE4-disrupted intracellular lipid homeostasis and decreases synaptic phagocytosis by microglia.	Experimental & molecular medicine	10.1038/s12276-023-00935-z
+rodent	36191961	Hsu NY	2023	NOX1 is essential for TNFα-induced intestinal epithelial ROS secretion and inhibits M cell signatures.	Gut	10.1136/gutjnl-2021-326305
+rodent	39672954	Du H	2025	Targeting peptide antigens using a multiallelic MHC I-binding system.	Nature biotechnology	10.1038/s41587-024-02505-8
+rodent	40668892	Zhao D	2025	Donor-recipient mismatch at the <i>SIRPA</i> locus adversely affects kidney allograft outcomes.	Science translational medicine	10.1126/scitranslmed.ady1135
+rodent	37561596	Spanier JA	2023	Tregs with an MHC class II peptide-specific chimeric antigen receptor prevent autoimmune diabetes in mice.	The Journal of clinical investigation	10.1172/JCI168601
+bird	38889725	Karakus U	2024	H19 influenza A virus exhibits species-specific MHC class II receptor usage.	Cell host & microbe	10.1016/j.chom.2024.05.018
+bird	39009691	Karakus U	2024	MHC class II proteins mediate sialic acid independent entry of human and avian H2N2 influenza A viruses.	Nature microbiology	10.1038/s41564-024-01771-1
+bird	39445496	Canal D	2024	MHC Class II Supertypes Affect Survival and Lifetime Reproductive Success in a Migratory Songbird.	Molecular ecology	10.1111/mec.17554
+bird	35627302	Mancilla-Morales MD	2022	Characterization, Selection, and Trans-Species Polymorphism in the MHC Class II of Heermann's Gull (Charadriiformes).	Genes	10.3390/genes13050917
+bird	36208104	Dearborn DC	2022	Meta-analysis of major histocompatibility complex (MHC) class IIA reveals polymorphism and positive selection in many vertebrate species.	Molecular ecology	10.1111/mec.16726
+bird	30787439	Karakus U	2019	MHC class II proteins mediate cross-species entry of bat influenza viruses.	Nature	10.1038/s41586-019-0955-3
+bird	30670843	Han QH	2019	MHC class I diversity predicts non-random mating in Chinese alligators (Alligator sinensis).	Heredity	10.1038/s41437-018-0177-8
+bird	38384825	Ferreira D	2024	Limited associations between MHC diversity and reproductive success in a bird species with biparental care.	Ecology and evolution	10.1002/ece3.10950
+bird	35521665	Pikus E	2022	High MHC diversity confers no advantage for phenotypic quality and reproductive performance in a wild bird.	The Journal of animal ecology	10.1111/1365-2656.13737
+bird	37483599	Eltschkner S	2023	The structure of songbird MHC class I reveals antigen binding that is flexible at the N-terminus and static at the C-terminus.	Frontiers in immunology	10.3389/fimmu.2023.1209059
+fish	41109214	Ludin A	2025	CRATER tumor niches facilitate CD8<sup>+</sup> T cell engagement and correspond with immunotherapy success.	Cell	10.1016/j.cell.2025.09.021
+fish	37314153	Lozano-Martín C	2023	Evolution of MHC IIB Diversity Across Cichlid Fish Radiations.	Genome biology and evolution	10.1093/gbe/evad110
+fish	37116963	Wong-Benito V	2023	Antigen presentation in vertebrates: Structural and functional aspects.	Developmental and comparative immunology	10.1016/j.dci.2023.104702
+fish	31669897	Yamaguchi T	2019	Teleost cytotoxic T cells.	Fish & shellfish immunology	10.1016/j.fsi.2019.10.041
+fish	35563287	Johnstone C	2022	Antigen Presentation and Autophagy in Teleost Adaptive Immunity.	International journal of molecular sciences	10.3390/ijms23094899
+fish	38684665	Cardeira-da-Silva J	2024	Antigen presentation plays positive roles in the regenerative response to cardiac injury in zebrafish.	Nature communications	10.1038/s41467-024-47430-1
+fish	31713647	Sundaram AYM	2020	An Illumina approach to MHC typing of Atlantic salmon.	Immunogenetics	10.1007/s00251-019-01143-8
+fish	31027287	Yamaguchi T	2019	Major Histocompatibility Complex (MHC) Genes and Disease Resistance in Fish.	Cells	10.3390/cells8040378
+fish	37146848	Xu C	2023	Characteristics and expression profiles of MHC class Ⅰ molecules in Carassius auratus.	Fish & shellfish immunology	10.1016/j.fsi.2023.108794
+fish	35365100	Bracamonte SE	2022	Divergent and non-parallel evolution of MHC IIB in the Neotropical Midas cichlid species complex.	BMC ecology and evolution	10.1186/s12862-022-01997-9
+reptile_amphibian	38724463	Grauwet K	2024	Stealth transgenes enable CAR-T cells to evade host immune responses.	Journal for immunotherapy of cancer	10.1136/jitc-2023-008417
+reptile_amphibian	34375431	Palomar G	2021	Coevolution between MHC Class I and Antigen-Processing Genes in Salamanders.	Molecular biology and evolution	10.1093/molbev/msab237
+reptile_amphibian	36990307	Fu M	2023	Divergent allele advantage in the MHC and amphibian emerging infectious disease.	Infection, genetics and evolution : journal of molecular epidemiology and evolutionary genetics in infectious diseases	10.1016/j.meegid.2023.105429
+reptile_amphibian	36000494	Minias P	2022	Salamanders reveal novel trajectories of amphibian MHC evolution.	Evolution; international journal of organic evolution	10.1111/evo.14601
+reptile_amphibian	36208104	Dearborn DC	2022	Meta-analysis of major histocompatibility complex (MHC) class IIA reveals polymorphism and positive selection in many vertebrate species.	Molecular ecology	10.1111/mec.16726
+reptile_amphibian	30670843	Han QH	2019	MHC class I diversity predicts non-random mating in Chinese alligators (Alligator sinensis).	Heredity	10.1038/s41437-018-0177-8
+reptile_amphibian	39393479	da Silva CP	2024	Bothrops atrox snake venom decreased MHC-II and CD86 expression in bone marrow-derived dendritic cells.	Acta tropica	10.1016/j.actatropica.2024.107426
+reptile_amphibian	31223047	Banach M	2019	Evolutionary Underpinnings of Innate-Like T Cell Interactions with Cancer.	Immunological investigations	10.1080/08820139.2019.1631341
+reptile_amphibian	37933583	Cortazar-Chinarro M	2024	Association between the skin microbiome and MHC class II diversity in an amphibian.	Molecular ecology	10.1111/mec.17198
+reptile_amphibian	41148807	Robert J	2025	Evolutionary Perspective of Nonclassical MHC Class I and Innate-like T Cells Relevance in Immune Surveillance.	Cells	10.3390/cells14201592
+livestock	37023751	Racle J	2023	Machine learning predictions of MHC-II specificities reveal alternative binding mode of class II epitopes.	Immunity	10.1016/j.immuni.2023.03.009
+livestock	34459874	Johnson JO	2021	Association of Variants in the SPTLC1 Gene With Juvenile Amyotrophic Lateral Sclerosis.	JAMA neurology	10.1001/jamaneurol.2021.2598
+livestock	37510326	Vasoya D	2023	High-Resolution Genotyping of Expressed Equine MHC Reveals a Highly Complex MHC Structure.	Genes	10.3390/genes14071422
+livestock	36423003	Connelley T	2022	Immunopeptidomic Analysis of BoLA-I and BoLA-DR Presented Peptides from <i>Theileria parva</i> Infected Cells.	Vaccines	10.3390/vaccines10111907
+livestock	37104405	Nakatsuchi A	2023	Influence of <i>BoLA-DRB3</i> Polymorphism and Bovine Leukemia Virus (BLV) Infection on Dairy Cattle Productivity.	Veterinary sciences	10.3390/vetsci10040250
+livestock	34910829	Youk S	2022	Development of a high-resolution typing method for SLA-3, swine MHC class I antigen 3.	Animal genetics	10.1111/age.13161
+livestock	34763255	Anaya G	2021	Allele/haplotype variation in the MHC-DQA2 gene in Spanish sheep and its association with footrot susceptibility.	Research in veterinary science	10.1016/j.rvsc.2021.10.020
+livestock	34854239	Le TD	2022	Association between BoLA-DRB3 polymorphism and bovine leukemia virus proviral load in Vietnamese Holstein Friesian cattle.	HLA	10.1111/tan.14503
+livestock	40128174	Estrada JL	2025	Generation of SLA-DQ Knockout Pigs and Screening for Anti-SLA-DQ Antibodies in Sera From Naïve and HLA Class II-sensitized Patients.	Transplantation	10.1097/TP.0000000000005385
+livestock	34102036	Vasoya D	2021	High throughput analysis of MHC-I and MHC-DR diversity of Brazilian cattle populations.	HLA	10.1111/tan.14339
+wildlife_conservation	40297318	Cortazar-Chinarro M	2025	MHC Diversity Across Time and Space.	Ecology and evolution	10.1002/ece3.71371
+wildlife_conservation	31713647	Sundaram AYM	2020	An Illumina approach to MHC typing of Atlantic salmon.	Immunogenetics	10.1007/s00251-019-01143-8
+wildlife_conservation	35510794	Fleischer R	2022	Interaction between MHC diversity and constitution, gut microbiota and Astrovirus infections in a neotropical bat.	Molecular ecology	10.1111/mec.16491
+wildlife_conservation	37187804	Ismail NA	2023	Low Diversity of Major Histocompatibility Complex (MHC) Genes in Endangered Malayan Tapir (<i>Tapirus indicus</i>).	Zoological studies	10.6620/ZS.2023.62-12
+wildlife_conservation	35309138	Plasil M	2022	Comparative Genomics of the Major Histocompatibility Complex (MHC) of Felids.	Frontiers in genetics	10.3389/fgene.2022.829891
+wildlife_conservation	39367971	Silver LW	2024	Using bioinformatics to investigate functional diversity: a case study of MHC diversity in koalas.	Immunogenetics	10.1007/s00251-024-01356-6
+wildlife_conservation	38384825	Ferreira D	2024	Limited associations between MHC diversity and reproductive success in a bird species with biparental care.	Ecology and evolution	10.1002/ece3.10950
+wildlife_conservation	35627313	Tang Y	2022	Major Histocompatibility Complex (MHC) Diversity of the Reintroduction Populations of Endangered Przewalski's Horse.	Genes	10.3390/genes13050928
+wildlife_conservation	39123802	Yan J	2024	Moderate Genetic Diversity of MHC Genes in an Isolated Small Population of Black-and-White Snub-Nosed Monkeys (<i>Rhinopithecus bieti</i>).	Animals : an open access journal from MDPI	10.3390/ani14152276
+wildlife_conservation	37203872	Schmid DW	2023	MHC class II genes mediate susceptibility and resistance to coronavirus infections in bats.	Molecular ecology	10.1111/mec.16983
