@@ -36,70 +36,9 @@ Out[3]: 'A0201'
 
 ```
 
-### Species-directed parsing
-
-`species=` constrains parsing to a single species. The final parsed object
-must match that species exactly, or parsing fails. This is useful when you
-know the organism and want to reject cross-species mismatches:
-
-```python
->>> mhcgnomes.parse("BoLA-DRB3*01:01", species="Bos taurus").to_string()
-'Bota-DRB3*01:01'
->>> mhcgnomes.parse("HLA-A*02:01", species="Bos taurus", raise_on_error=False) is None
-True
->>> mhcgnomes.parse("A*02:01", species="Homo sapiens").species.name
-'Homo sapiens'
-```
-
-When the input uses an ancestor prefix (like `BoLA` for genus-level *Bos sp.*),
-`species=` rewrites the result to the requested descendant species if valid.
-
-`default_species=` is a less strict alternative — it provides a fallback
-species hint for inputs that don't contain a species prefix, but does not
-reject inputs that resolve to a different species:
-
-```python
->>> mhcgnomes.parse("A*02:01", default_species="Homo sapiens").species.name
-'Homo sapiens'
->>> mhcgnomes.parse("DMA", default_species="Chelonia mydas").species.name
-'Chelonia mydas'
-```
-
-## CLI
-
-After installation, a `mhcgnomes` CLI is available:
-
-```bash
-mhcgnomes "HLA-A*02:01" "DQ2.5"
-# or:
-python -m mhcgnomes "HLA-A*02:01" "DQ2.5"
-```
-
-This prints a table with:
-
-- input string
-- parsed result type
-- normalized and compact forms
-- species/gene/MHC class
-- parsed properties from `to_record()`
-
-You can also use machine-friendly output:
-
-```bash
-mhcgnomes --format tsv "HLA-A*02:01" "HLA-A2"
-mhcgnomes --format json "HLA-A*02:01" "not a real allele"
-```
-
-By default, unparseable values are shown as `ParseError` rows.
-Use strict mode to fail fast:
-
-```bash
-mhcgnomes --strict "not a real allele"
-```
-
 ## The problem: MHC nomenclature is nuts
 
-Despite the valiant efforts of groups such as the [Comparative MHC Nomenclature Committee](https://www.ebi.ac.uk/ipd/mhc/committee/), the names of MHC alleles you might encounter in different datasets (or accepted by immunoinformatics tools) are frustratingly ill specified. It's not uncommon to see dozens of different forms for the same allele.
+Despite the valiant efforts of groups such as the [Comparative MHC Nomenclature Committee](https://www.ebi.ac.uk/ipd/mhc/committee/), the names of MHC alleles you might encounter in different datasets (or accepted by immunoinformatics tools) are frustratingly ill-specified. It's not uncommon to see dozens of different forms for the same allele.
 
 For example, these all refer to the same MHC protein sequence:
 
@@ -185,9 +124,41 @@ Yes, good luck disambiguating "H2-k" the haplotype from "H2-K" the gene, especia
 
 In some cases immunological data comes only with a denoted species (e.g. "mouse"), a gene (e.g. "HLA-A"), or an MHC class ("human class I"). MHCgnomes has a structured representation for all of these cases and more.
 
+## CLI
+
+After installation, a `mhcgnomes` CLI is available:
+
+```bash
+mhcgnomes "HLA-A*02:01" "DQ2.5"
+# or:
+python -m mhcgnomes "HLA-A*02:01" "DQ2.5"
+```
+
+This prints a table with:
+
+- input string
+- parsed result type
+- normalized and compact forms
+- species/gene/MHC class
+- parsed properties from `to_record()`
+
+You can also use machine-friendly output:
+
+```bash
+mhcgnomes --format tsv "HLA-A*02:01" "HLA-A2"
+mhcgnomes --format json "HLA-A*02:01" "not a real allele"
+```
+
+By default, unparseable values are shown as `ParseError` rows.
+Use strict mode to fail fast:
+
+```bash
+mhcgnomes --strict "not a real allele"
+```
+
 ## Parsing strategy
 
-It is a fool's errand to curate _all_ possible MHC allele names since that list grows daily as the MHC loci of more people (and non-human animals) are sequenced. Instead, MHCgnomes contains an ontology of curated species and genes and then attempts to parse any given string into a multiple candidates of the following types:
+It is a fool's errand to curate _all_ possible MHC allele names since that list grows daily as the MHC loci of more people (and non-human animals) are sequenced. Instead, MHCgnomes contains an ontology of curated species and genes and then attempts to parse any given string into multiple candidates of the following types:
 
 - [`Species`](https://github.com/pirl-unc/mhcgnomes/blob/main/mhcgnomes/species.py)
 - [`Gene`](https://github.com/pirl-unc/mhcgnomes/blob/main/mhcgnomes/gene.py)
@@ -213,9 +184,9 @@ Originally alleles for many genes were numbered with two digits:
 - "HLA-MICB\*01"
 
 But as the number of identified alleles increased, the number of
-fields specifying a distinct protein increase to two. This became
+fields specifying a distinct protein increased to two. This became
 conventionally called a "four digit" format, since each field has two
-digits. Yet, as the number of identified alleles continued to increase, then
+digits. Yet, as the number of identified alleles continued to increase,
 the number of digits per field has often increased from two to three:
 
 - "MICB\*002:01"
@@ -226,6 +197,35 @@ the number of digits per field has often increased from two to three:
 These are not always currently treated as equivalent to allele strings with two digits in their first field, but that feature is in the works.
 
 However, if databases such as [IPD-MHC](https://www.ebi.ac.uk/ipd/mhc/) or [IMGT-HLA](https://www.ebi.ac.uk/ipd/imgt/hla/) recorded an older form of an allele, then MHCgnomes can optionally map it onto the modern version (including capturing differences in numbers of digits per field).
+
+## Species-directed parsing
+
+`species=` constrains parsing to a single species. The final parsed object
+must match that species exactly, or parsing fails. This is useful when you
+know the organism and want to reject cross-species mismatches:
+
+```python
+>>> mhcgnomes.parse("BoLA-DRB3*01:01", species="Bos taurus").to_string()
+'Bota-DRB3*01:01'
+>>> mhcgnomes.parse("HLA-A*02:01", species="Bos taurus", raise_on_error=False) is None
+True
+>>> mhcgnomes.parse("A*02:01", species="Homo sapiens").species.name
+'Homo sapiens'
+```
+
+When the input uses an ancestor prefix (like `BoLA` for genus-level *Bos sp.*),
+`species=` rewrites the result to the requested descendant species if valid.
+
+`default_species=` is a less strict alternative — it provides a fallback
+species hint for inputs that don't contain a species prefix, but does not
+reject inputs that resolve to a different species:
+
+```python
+>>> mhcgnomes.parse("A*02:01", default_species="Homo sapiens").species.name
+'Homo sapiens'
+>>> mhcgnomes.parse("DMA", default_species="Chelonia mydas").species.name
+'Chelonia mydas'
+```
 
 ## Species and gene ontology
 
@@ -280,9 +280,9 @@ Genes in `species.yaml` are organized by MHC class:
 ### Species prefix tiers
 
 As mhcgnomes supports more species, short prefix codes increasingly collide.
-One-letter codes like `HLA`/`SLA`/`DLA`, two-letter codes like `OrLA`, and
-four-letter codes like `Calu` all hit collisions as coverage grows. We support
-multiple prefix tiers so that every species is always parseable:
+Codes like `HLA`/`SLA`/`DLA`, `OrLA`, and four-letter codes like `Calu` all
+hit collisions as coverage grows. We support multiple prefix tiers so that
+every species is always parseable:
 
 | Tier | Form | Example | When used |
 | --- | --- | --- | --- |
@@ -290,12 +290,6 @@ multiple prefix tiers so that every species is always parseable:
 | Novel 4+4 prefix | First 4 of genus + first 4 of species | `OryzLati`, `StruCame` | Standard display prefix for species without an established literature prefix. |
 | 5+5 long prefix | First 5 of genus + first 5 of species | `HomoSapie`, `OryziLatip` | Auto-generated alias for all binomial species. Always parseable. |
 | Full latin name | Concatenated genus + species | `HomoSapiens`, `ChrysemysPicta` | Always parseable as an alternative. Guaranteed collision-free. |
-
-Legacy committee-style prefixes are not always at the same taxonomic level as
-modern four-letter species prefixes. `DLA`, `SLA`, `OLA`, `BoLA`, and `CELA`
-behave as generic umbrella prefixes for curated taxon nodes, while descendants
-may also have their own species-specific prefixes such as `Calu`, `Susc`,
-`Ovar`, `Bota`, or `Tutr`.
 
 All tiers are parsed case-insensitively. For example, these all parse to the
 same allele:
@@ -324,10 +318,9 @@ the full prefix conflict resolution policy ([source](docs/curation.md)).
 ## References
 
 - [IPD-MHC: nomenclature requirements for the non-human major histocompatibility complex in the next-generation sequencing era](https://link.springer.com/article/10.1007%2Fs00251-018-1072-4)
-- [Comparative MHC nomenclature: report from the ISAG/IUIS-VIC committee 2018]()
+- [Comparative MHC nomenclature: report from the ISAG/IUIS-VIC committee 2018](https://link.springer.com/article/10.1007/s00251-018-1074-2)
 - [ISAG/IUIS-VIC Comparative MHC Nomenclature
   Committee report, 2005](https://link.springer.com/content/pdf/10.1007%2Fs00251-005-0071-4.pdf)
-- [Marsupial MHC Class II β Genes Are Not Orthologous to the Eutherian β Gene Families]()
 - [Nomenclature for factors of the SLA system, update 2008](https://www.ncbi.nlm.nih.gov/pubmed/19317739)
 
 ## Development
