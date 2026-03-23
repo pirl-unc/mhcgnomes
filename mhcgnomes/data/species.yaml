@@ -800,6 +800,15 @@ Oncorhynchus mykiss:
 Salmo salar:
   parent: Salmonidae sp.
   prefix: Sasa
+  genes:
+    Ia:
+      - UGA
+      - UHA
+      - UHA1
+      - UHB
+      - ULA
+      - ZBA
+      - ZE
   name:
     - Atlantic Salmon
     - Salmon
@@ -972,6 +981,7 @@ Carassius auratus:
   prefix: CaraAura
   other prefixes:
     - Caau
+    - Caur
   name: Goldfish
 Clarias magur:
   parent: Actinopterygii sp.
@@ -1235,6 +1245,9 @@ Amblyrhynchus cristatus:
   other prefixes:
     - Amcr
   name: Marine iguana
+  genes:
+    I:
+      - UB
 Eublepharis macularius:
   parent: Reptilia sp.
   prefix: EublMacu
@@ -1265,6 +1278,12 @@ Lacerta agilis:
   other prefixes:
     - Laag
   name: Sand lizard
+Iguana iguana:
+  parent: Reptilia sp.
+  prefix: IguaIgua
+  other prefixes:
+    - Igig
+  name: Green iguana
 ############################
 #
 # Crocodilians
@@ -1752,10 +1771,28 @@ Cetacea sp.:
     IIa:
       DQ:
         - DQA
+        - DQA1
         - DQB
+        - DQB1
       DR:
         - DRA
+        - DRB
         - DRB1
+      DP:
+        - DPA1
+        - DPB1
+    IIb:
+      DO:
+        - DOA
+        - DOB
+      DM:
+        - DMA
+        - DMB
+    other:
+      - TAP1
+      - TAP2
+      - TAPBP
+      - B2M
 Balaenoptera musculus:
   parent: Cetacea sp.
   prefix: Bamu
@@ -2006,6 +2043,36 @@ Ziphius cavirostris:
       DR:
         - DRA
         - DRB1
+Caperea marginata:
+  parent: Cetacea sp.
+  prefix: CapeMarg
+  other prefixes:
+    - Cape
+  name: Pygmy right whale
+Delphinapterus leucas:
+  parent: Cetacea sp.
+  prefix: DeleLuca
+  other prefixes:
+    - Dele
+  name: Beluga whale
+Neophocaena asiaeorientalis:
+  parent: Cetacea sp.
+  prefix: NeopAsia
+  other prefixes:
+    - Neas
+  name: Narrow-ridged finless porpoise
+Orcinus orca:
+  parent: Cetacea sp.
+  prefix: OrciOrca
+  other prefixes:
+    - Oror
+  name: Killer whale
+Physeter macrocephalus:
+  parent: Cetacea sp.
+  prefix: PhysMacr
+  other prefixes:
+    - Phca
+  name: Sperm whale
 ################################################################################
 #
 # Goat
@@ -2055,14 +2122,17 @@ Equus sp.:
       - "18"
     IIa:
       DQ:
+        - DQA
         - DQA1
         - DQA2
         - DQA3
+        - DQB
         - DQB1
         - DQB2
         - DQB3
       DR:
         - DRA
+        - DRB
         - DRB1
         - DRB2
         - DRB3
@@ -2244,6 +2314,15 @@ Castor canadensis:
   prefix: CastCana
   name: North American beaver
 
+Myodes glareolus:
+  parent: Rodentia sp.
+  prefix: MyodGlar
+  other prefixes:
+    - Mygl
+    - Clgl
+  name:
+    - Bank vole
+    - Clethrionomys glareolus
 ################################################################################
 #
 # Bats
@@ -2609,6 +2688,13 @@ Turdus atrogularis:
   parent: Aves sp.
   prefix: TurdAtro
   name: Black-throated thrush
+Manacus sp.:
+  parent: Aves sp.
+  prefix: Mana
+  other prefixes:
+    # Bird literature uses ManaMHC- prefix (trailing MHC suffix pattern)
+    - ManaMHC
+  name: Manakin
 Lagopus scotica:
   parent: Galliformes sp.
   prefix: LagoScot
@@ -3329,11 +3415,16 @@ Gorilla sp.:
 Gorilla beringei:
   parent: Gorilla sp.
   prefix: Gobe
+  other prefixes:
+    - Gbb
+    - Gbg
   name:
     - Eastern gorilla
 Gorilla gorilla:
   parent: Gorilla sp.
   prefix: Gogo
+  other prefixes:
+    - Ggg
   name:
     - Western gorilla
 Hylobates lar:
@@ -3724,11 +3815,15 @@ Pan sp.:
 Pan troglodytes:
   parent: Pan sp.
   prefix: Patr
+  other prefixes:
+    - Ptr
   alias: MhcPtar
   name: Common Chimpanzee
 Pan paniscus:
   parent: Pan sp.
   prefix: Papa
+  other prefixes:
+    - Ppa
   name: Bonobo
 Papio ursinus:
   parent: Primata sp.
@@ -3903,6 +3998,12 @@ Theropithecus gelada:
       DR:
         - DRA
         - DRB
+Rhinopithecus strykeri:
+  parent: Primata sp.
+  prefix: RhinStry
+  other prefixes:
+    - Rhsi
+  name: Myanmar snub-nosed monkey
 ##########################
 #
 # Panda
@@ -3921,6 +4022,48 @@ Ailuropoda melanoleuca:
       - TAP2
       - TAPBP
       - B2M
+Neomonachus schauinslandi:
+  parent: Gnathostomata sp.
+  prefix: NeosScha
+  other prefixes:
+    - Nesc
+  name: Hawaiian monk seal
+  genes:
+    IIa:
+      DR:
+        - DRA
+        - DRB1
+      DQ:
+        - DQA
+        - DQB
+Odocoileus hemionus:
+  parent: Gnathostomata sp.
+  prefix: OdocHemi
+  other prefixes:
+    - Odhe
+  name: Mule deer
+  genes:
+    IIa:
+      DR:
+        - DRA
+        - DRB1
+      DQ:
+        - DQA
+        - DQB
+Loxodonta africana:
+  parent: Gnathostomata sp.
+  prefix: LoxoAfri
+  other prefixes:
+    - Loaf
+  name: African elephant
+  genes:
+    IIa:
+      DR:
+        - DRA
+        - DRB1
+      DQ:
+        - DQA
+        - DQB
 ######################################################
 # Chiroptera — bats
 #
@@ -4136,6 +4279,7 @@ Phascolarctos cinereus:
   name: Koala
   genes:
     I:
+      - UH
       - UI
       - UJ
       - UK
