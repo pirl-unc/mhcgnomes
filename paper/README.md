@@ -9,14 +9,41 @@ databases that were **not used during library development**.
 ```
 paper/
 ├── README.md              # this file
-├── validation/            # raw allele lists from published sources
+├── validation/            # extracted allele lists (TSV, committed)
 │   ├── sources.yaml       # metadata for each validation source
+│   ├── candidate_papers.tsv  # PubMed search results for manual review
 │   └── *.tsv              # one file per source, columns: raw_string, species, source
+├── raw/                   # downloaded supplementary files (gitignored)
 ├── scripts/
+│   ├── collect_pubmed.py  # systematic PubMed search for validation papers
 │   ├── collect_genbank.py # extract MHC names from GenBank annotations
-│   ├── evaluate.py        # run mhcgnomes on validation data, measure parse rate + correctness
-│   └── collect_pubmed.py  # systematic PubMed search for validation papers
+│   ├── scrape_paper.py    # extract MHC strings from Excel/CSV/text files
+│   ├── batch_collect.sh   # download + scrape workflow
+│   └── evaluate.py        # run mhcgnomes on validation data, measure parse rate + correctness
 └── results/               # output from evaluation (gitignored)
+```
+
+## Quick start
+
+```bash
+# 1. Find candidate papers (already done — see validation/candidate_papers.tsv)
+python paper/scripts/collect_pubmed.py
+
+# 2. Download and scrape a paper's supplementary table
+./paper/scripts/batch_collect.sh add "PMID:34567890" "Parus major" \
+    https://example.com/supp_table_S1.xlsx
+
+# 3. Or scrape a file you already downloaded
+./paper/scripts/batch_collect.sh scrape "PMID:34567890" "Parus major" \
+    paper/raw/PMID_34567890/table.xlsx
+
+# 4. Collect MHC names from GenBank
+python paper/scripts/collect_genbank.py \
+    --query '"major histocompatibility" AND Aves[Organism]' \
+    --max 500 --output paper/validation/genbank_birds.tsv
+
+# 5. Evaluate all collected data
+./paper/scripts/batch_collect.sh eval
 ```
 
 ## Systematic collection methodology
