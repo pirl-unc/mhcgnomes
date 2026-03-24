@@ -21,7 +21,7 @@ paper/
 │   ├── rebuild_local_validation.py # refresh committed TSVs from paper/raw
 │   ├── paper_analysis.py  # shared summary logic for paper corpora
 │   ├── build_paper_results.py # export summary TSVs + markdown report
-│   ├── plot_paper_results.py # publication-ready figures for corpus and failures
+│   ├── plot_paper_results.py # publication-ready figures for corpus, errors, and source landscape
 │   ├── batch_collect.sh   # download + scrape workflow
 │   └── evaluate.py        # run mhcgnomes on validation data, measure parse rate + correctness
 └── results/               # output from evaluation (gitignored)
@@ -71,8 +71,12 @@ the committed validation TSVs:
 - `paper_failure_mode_summary.tsv`: aggregate parser failure taxonomy
 - `paper_failure_rows.tsv`: row-level failed strings with inferred species/taxon
 - `paper_summary.md`: compact manuscript-style markdown summary
+- `all_figures.pdf`: bundled multi-page PDF of all generated figure panels
 - `paper_dataset_overview.{png,pdf,svg}`: dataset composition figure
 - `paper_parse_failures.{png,pdf,svg}`: parse-rate and failure-mode figure
+- `paper_failure_taxon_heatmap.{png,pdf,svg}`: taxon-by-failure-mode heatmap
+- `paper_source_parse_landscape.{png,pdf,svg}`: source volume versus parse-rate figure
+- `paper_failed_prefixes.{png,pdf,svg}`: dominant failed prefix families
 
 ## Systematic collection methodology
 

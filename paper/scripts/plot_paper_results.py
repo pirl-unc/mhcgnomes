@@ -6,8 +6,8 @@ Usage:
     python paper/scripts/plot_paper_results.py
 """
 
+import re
 import textwrap
-from pathlib import Path
 
 import matplotlib
 
@@ -16,11 +16,37 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
+from matplotlib.backends.backend_pdf import PdfPages
 
-from paper_analysis import CORPORA, RESULTS_DIR, TSV_FILENAMES, export_summary_tables
+from paper_analysis import (
+    CORPORA,
+    RESULTS_DIR,
+    TSV_FILENAMES,
+    export_summary_tables,
+    write_markdown_summary,
+)
 
 
 PANEL_LABELS = ["A", "B", "C", "D"]
+TAXON_ORDER = [
+    "Human",
+    "Non-human primate",
+    "Cetacean",
+    "Other mammal",
+    "Bird",
+    "Fish",
+    "Reptile",
+    "Amphibian",
+    "Other vertebrate",
+    "Unassigned",
+]
+FAILURE_ORDER = [
+    "Uncurated species-specific nomenclature",
+    "Formatting / normalization edge case",
+    "Residual non-MHC extraction",
+    "Unsupported locus / gene family",
+    "Other / ambiguous",
+]
 TAXON_COLORS = {
     "Human": "#2f6690",
     "Non-human primate": "#3d8a6d",
@@ -38,11 +64,25 @@ LIGHT_BAR = "#d9dee2"
 
 
 def refresh_summary_tables():
-    export_summary_tables()
+    summary_tables = export_summary_tables()
+    write_markdown_summary(summary_tables)
 
 
 def load_table(key):
     return pd.read_csv(RESULTS_DIR / TSV_FILENAMES[key], sep="\t")
+
+
+def apply_plot_theme():
+    sns.set_theme(style="whitegrid")
+    plt.rcParams.update(
+        {
+            "font.family": "DejaVu Sans",
+            "axes.titlesize": 13,
+            "axes.labelsize": 11,
+            "xtick.labelsize": 10,
+            "ytick.labelsize": 10,
+        }
+    )
 
 
 def style_axes(ax, panel_label):
@@ -63,10 +103,12 @@ def style_axes(ax, panel_label):
     )
 
 
-def save_figure(fig, stem):
+def save_figure(fig, stem, pdf_bundle=None):
     for suffix in (".png", ".pdf", ".svg"):
         path = RESULTS_DIR / f"{stem}{suffix}"
         fig.savefig(path, bbox_inches="tight", dpi=300)
+    if pdf_bundle is not None:
+        pdf_bundle.savefig(fig, bbox_inches="tight")
 
 
 def add_rate_labels(ax, frame, total_col="total_strings", parsed_col="parsed_strings"):
@@ -82,21 +124,33 @@ def add_rate_labels(ax, frame, total_col="total_strings", parsed_col="parsed_str
         )
 
 
-def plot_dataset_overview():
+def load_failure_rows():
+    return load_table("failure_rows")
+
+
+def extract_failure_prefix(raw_string):
+    match = re.match(r"^([A-Za-z0-9]+)", str(raw_string).strip())
+    return match.group(1) if match else "Other"
+
+
+def label_selected_points(ax, frame, labels, x_col, y_col, label_col):
+    for _, row in frame.iterrows():
+        if row[label_col] not in labels:
+            continue
+        ax.annotate(
+            row[label_col],
+            xy=(row[x_col], row[y_col]),
+            xytext=(6, 6),
+            textcoords="offset points",
+            fontsize=9,
+            color="#333333",
+        )
+
+
+def plot_dataset_overview(pdf_bundle=None):
     corpus_df = load_table("corpus_summary")
     species_df = load_table("species_summary")
     taxon_df = load_table("taxon_summary")
-
-    sns.set_theme(style="whitegrid")
-    plt.rcParams.update(
-        {
-            "font.family": "DejaVu Sans",
-            "axes.titlesize": 13,
-            "axes.labelsize": 11,
-            "xtick.labelsize": 10,
-            "ytick.labelsize": 10,
-        }
-    )
 
     fig, axes = plt.subplots(1, 3, figsize=(16, 8), gridspec_kw={"width_ratios": [1.0, 1.4, 1.0]})
 
@@ -156,11 +210,11 @@ def plot_dataset_overview():
 
     fig.suptitle("Paper validation corpus overview", fontsize=18, fontweight="bold", y=1.02)
     fig.tight_layout()
-    save_figure(fig, "paper_dataset_overview")
+    save_figure(fig, "paper_dataset_overview", pdf_bundle=pdf_bundle)
     plt.close(fig)
 
 
-def plot_parser_performance():
+def plot_parser_performance(pdf_bundle=None):
     species_df = load_table("species_summary")
     source_df = load_table("source_summary")
     failure_df = load_table("failure_mode_summary")
@@ -293,14 +347,153 @@ def plot_parser_performance():
 
     fig.suptitle("Paper parse rates and failure modes", fontsize=18, fontweight="bold", y=1.01)
     fig.tight_layout()
-    save_figure(fig, "paper_parse_failures")
+    save_figure(fig, "paper_parse_failures", pdf_bundle=pdf_bundle)
+    plt.close(fig)
+
+
+def plot_failure_taxon_heatmap(pdf_bundle=None):
+    failure_rows = load_failure_rows()
+    failure_rows = failure_rows[failure_rows["corpus"] == "combined"].copy()
+    counts = pd.crosstab(failure_rows["major_taxon"], failure_rows["failure_mode"])
+    counts = counts.reindex(index=TAXON_ORDER, columns=FAILURE_ORDER, fill_value=0)
+    counts = counts.loc[(counts.sum(axis=1) > 0), (counts.sum(axis=0) > 0)]
+    percentages = counts.div(counts.sum(axis=1), axis=0).fillna(0.0) * 100.0
+
+    fig, ax = plt.subplots(figsize=(12, 7))
+    sns.heatmap(
+        percentages,
+        annot=counts,
+        fmt="d",
+        cmap="mako",
+        linewidths=0.6,
+        linecolor="#ffffff",
+        cbar_kws={"label": "Share of failed strings within taxon (%)"},
+        ax=ax,
+    )
+    ax.set_xlabel("Failure mode")
+    ax.set_ylabel("Inferred taxon")
+    ax.set_title("Failure modes are taxon-specific")
+    ax.text(
+        0.0,
+        -0.18,
+        "Cell color shows within-taxon failure share; cell labels show counts.",
+        transform=ax.transAxes,
+        fontsize=10,
+        color="#444444",
+    )
+    style_axes(ax, PANEL_LABELS[0])
+
+    fig.suptitle("Taxonomic structure of parser failures", fontsize=18, fontweight="bold", y=1.02)
+    fig.tight_layout()
+    save_figure(fig, "paper_failure_taxon_heatmap", pdf_bundle=pdf_bundle)
+    plt.close(fig)
+
+
+def plot_source_parse_landscape(pdf_bundle=None):
+    source_df = load_table("source_summary")
+    source_df = source_df[source_df["corpus"] == "combined"].copy()
+    source_df = source_df[source_df["total_strings"] >= 3].copy()
+
+    fig, ax = plt.subplots(figsize=(12, 8))
+    for taxon in TAXON_ORDER:
+        panel = source_df[source_df["major_taxon"] == taxon]
+        if panel.empty:
+            continue
+        ax.scatter(
+            panel["total_strings"],
+            panel["parse_rate_pct"],
+            s=80,
+            alpha=0.85,
+            color=TAXON_COLORS.get(taxon, "#777777"),
+            edgecolors="white",
+            linewidths=0.8,
+            label=taxon,
+        )
+
+    labels = set(
+        source_df.nlargest(10, "total_strings")["source"].tolist()
+        + source_df.nsmallest(8, "parse_rate_pct")["source"].tolist()
+    )
+    label_selected_points(
+        ax,
+        source_df,
+        labels,
+        x_col="total_strings",
+        y_col="parse_rate_pct",
+        label_col="source",
+    )
+
+    ax.set_xscale("log")
+    ax.set_xlim(left=2.5)
+    ax.set_ylim(-2, 103)
+    ax.set_xlabel("Extracted strings per source (log scale)")
+    ax.set_ylabel("Parse rate (%)")
+    ax.set_title("Source-level parse landscape")
+    ax.legend(loc="lower left", fontsize=9, frameon=False, ncol=2)
+    style_axes(ax, PANEL_LABELS[0])
+
+    fig.suptitle("Source volume versus parse rate", fontsize=18, fontweight="bold", y=1.02)
+    fig.tight_layout()
+    save_figure(fig, "paper_source_parse_landscape", pdf_bundle=pdf_bundle)
+    plt.close(fig)
+
+
+def plot_failed_prefixes(pdf_bundle=None):
+    failure_rows = load_failure_rows()
+    failure_rows = failure_rows[failure_rows["corpus"] == "combined"].copy()
+    failure_rows["prefix"] = failure_rows["raw_string"].map(extract_failure_prefix)
+
+    prefix_counts = (
+        failure_rows.groupby("prefix", as_index=False)
+        .agg(
+            count=("raw_string", "size"),
+            major_taxon=("major_taxon", lambda s: s.value_counts().idxmax()),
+        )
+        .sort_values(["count", "prefix"], ascending=[False, True])
+        .head(16)
+    )
+
+    fig, ax = plt.subplots(figsize=(12, 8))
+    y_positions = range(len(prefix_counts))
+    ax.barh(
+        y_positions,
+        prefix_counts["count"],
+        color=[
+            TAXON_COLORS.get(taxon, "#777777") for taxon in prefix_counts["major_taxon"]
+        ],
+        height=0.7,
+    )
+    ax.set_yticks(list(y_positions))
+    ax.set_yticklabels(prefix_counts["prefix"])
+    ax.invert_yaxis()
+    ax.set_xlabel("Failed strings")
+    ax.set_title("Top failed prefix families")
+    for idx, row in prefix_counts.reset_index(drop=True).iterrows():
+        ax.text(
+            row["count"] + max(prefix_counts["count"].max() * 0.01, 0.5),
+            idx,
+            f"{int(row['count'])} ({row['major_taxon']})",
+            va="center",
+            ha="left",
+            fontsize=9,
+        )
+    style_axes(ax, PANEL_LABELS[0])
+
+    fig.suptitle("Failure concentration by naming prefix", fontsize=18, fontweight="bold", y=1.02)
+    fig.tight_layout()
+    save_figure(fig, "paper_failed_prefixes", pdf_bundle=pdf_bundle)
     plt.close(fig)
 
 
 def main():
     refresh_summary_tables()
-    plot_dataset_overview()
-    plot_parser_performance()
+    apply_plot_theme()
+    with PdfPages(RESULTS_DIR / "all_figures.pdf") as pdf_bundle:
+        plot_dataset_overview(pdf_bundle=pdf_bundle)
+        plot_parser_performance(pdf_bundle=pdf_bundle)
+        plot_failure_taxon_heatmap(pdf_bundle=pdf_bundle)
+        plot_source_parse_landscape(pdf_bundle=pdf_bundle)
+        plot_failed_prefixes(pdf_bundle=pdf_bundle)
     print("Wrote figures to paper/results/")
 
 

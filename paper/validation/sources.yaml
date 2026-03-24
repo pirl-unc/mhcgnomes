@@ -17,6 +17,16 @@
 # species-specific numbering). These are among the messiest MHC names in
 # the literature and represent a strong test of parser robustness.
 
+greater_prairie_chicken_mhc_blb_2010:
+  url: https://pubmed.ncbi.nlm.nih.gov/19851875/
+  species: Tympanuchus cupido
+  format: PubMed / inline alleles
+  status: candidate
+  notes: |
+    PMID 19851875. Galliform BLB/YLB nomenclature adds a bird lineage not
+    represented in the current paper set and should stress compact avian
+    class II naming.
+
 # ============================================================================
 # Fish MHC studies
 # ============================================================================
@@ -34,6 +44,16 @@ atlantic_salmon_u_s_z_mhc_2010:
     class I nomenclature (UGA/UHA/ZE/ZBA). Verify held-out eligibility
     before extracting into validation TSVs.
 
+atlantic_salmon_nonclassical_class_ii_2008:
+  url: https://pmc.ncbi.nlm.nih.gov/articles/PMC2386828/
+  species: Salmo salar
+  format: PMC full text / alignments
+  status: candidate
+  notes: |
+    PMID 18439319. Complements the salmon U/S/Z class I source with
+    non-classical class II names (DBA/DBB/DCA/DDA) and would broaden fish
+    nomenclature coverage.
+
 # ============================================================================
 # Reptile / amphibian MHC studies
 # ============================================================================
@@ -47,6 +67,26 @@ marine_iguana_nonclassical_class_i_2008:
     PMID 18682845. Useful follow-up source for marine iguana nonclassical
     class I names. Verify held-out eligibility before extracting into
     validation TSVs.
+
+tuatara_class_i_variation_2007:
+  url: https://pubmed.ncbi.nlm.nih.gov/18032462/
+  species: Sphenodon punctatus
+  format: PubMed / allele lists
+  status: candidate
+  notes: |
+    PMID 18032462. Very unusual reptile source with UA and UZ class I
+    nomenclature; directly useful for the current low-parse tuatara
+    strings.
+
+chinese_giant_salamander_anda_mhc_2014:
+  url: https://pubmed.ncbi.nlm.nih.gov/24135718/
+  species: Andrias davidianus
+  format: PubMed / inline alleles
+  status: candidate
+  notes: |
+    PMID 24135718. High-value amphibian source with class IA/IIA/IIB
+    Anda-MHC names and splice variants; good expansion beyond the single
+    amphibian string currently in the corpus.
 
 # ============================================================================
 # HLA population genetics
@@ -79,6 +119,80 @@ koala_mhc_class_ii_diversity_2014:
   notes: |
     PMID 24690756. Marsupial class II diversity source worth adding once
     held-out status is confirmed.
+
+bank_vole_dqb_haplotypes_2021:
+  url: https://pmc.ncbi.nlm.nih.gov/articles/PMC8350566/
+  species: Myodes glareolus
+  format: PMC full text / haplotype tables
+  status: candidate
+  notes: |
+    PMID 34381454. Directly targets one of the largest zero-parse species
+    clusters in the current corpus and should add real bank vole DQB
+    haplotypes.
+
+white_tailed_deer_dob_drb_2020:
+  url: https://pmc.ncbi.nlm.nih.gov/articles/PMC7392685/
+  species: Odocoileus virginianus
+  format: PMC full text / MiSeq allele tables
+  status: candidate
+  notes: |
+    PMID 32727360. Strong cervid class II source for DOB/DRB notation and
+    a direct follow-up to the current deer failure bucket.
+
+tasmanian_devil_mhc_disease_2012:
+  url: https://pmc.ncbi.nlm.nih.gov/articles/PMC3368896/
+  species: Sarcophilus harrisii
+  format: PMC full text / supplementary tables
+  status: candidate
+  notes: |
+    PMID 22701561. Weird but high-value marsupial source with disease-linked
+    devil MHC diversity, complementing koala and wallaby coverage.
+
+neotropical_bat_drb_2011:
+  url: https://pmc.ncbi.nlm.nih.gov/articles/PMC3178406/
+  species: Noctilio albiventris
+  format: PMC full text / allele alignments
+  status: candidate
+  notes: |
+    PMID 21245894. Chiropteran DRB nomenclature is underrepresented and
+    would add another genuinely odd mammalian lineage.
+
+new_zealand_sea_lion_drb_2013:
+  url: https://pmc.ncbi.nlm.nih.gov/articles/PMC3692317/
+  species: Phocarctos hookeri
+  format: PMC full text / haplotype tables
+  status: candidate
+  notes: |
+    PMID 23572124. Marine mammal DQB/DRB naming should help separate
+    cetacean-specific issues from broader pinniped class II nomenclature.
+
+baleen_whale_dqb_drb_2006:
+  url: https://pubmed.ncbi.nlm.nih.gov/16568262/
+  species: multi (Mysticeti)
+  format: PubMed / inline alleles
+  status: candidate
+  notes: |
+    PMID 16568262. Multi-species baleen whale DQB/DRB-like names are a
+    strong fit for the current whale-side zero-parse failures.
+
+striped_mouse_drb_2012:
+  url: https://pmc.ncbi.nlm.nih.gov/articles/PMC3289624/
+  species: Rhabdomys pumilio
+  format: PMC full text / allele tables
+  status: candidate
+  notes: |
+    PMID 22389675. Adds a non-model rodent with DRB polymorphism and
+    parasite-linked analyses, useful alongside bank vole.
+
+tammar_wallaby_class_i_2007:
+  url: https://pubmed.ncbi.nlm.nih.gov/17317961/
+  species: Notamacropus eugenii
+  format: PubMed / gene maps and locus names
+  status: candidate
+  notes: |
+    PMID 17317961. Directly relevant to the current zero-parse tammar
+    wallaby strings and adds unusually fragmented marsupial class I
+    nomenclature.
 
 # ============================================================================
 # Bulk database exports
