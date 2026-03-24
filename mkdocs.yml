@@ -15,6 +15,7 @@ nav:
   - Curation Guide: curation.md
   - Immutable Data Objects: immutable-data-objects.md
   - Species Identity Proposal: species-latin-name-scoping.md
+  - Release Process: releasing.md
 
 markdown_extensions:
   - tables

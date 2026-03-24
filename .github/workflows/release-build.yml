@@ -1,0 +1,55 @@
+name: Release Build
+
+on:
+  workflow_call:
+    inputs:
+      ref:
+        required: true
+        type: string
+      expected_tag:
+        required: true
+        type: string
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install build dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install build twine
+
+      - name: Validate tag matches version.py
+        run: |
+          python -m release_utils check-tag \
+            --version-file mhcgnomes/version.py \
+            --tag "${{ inputs.expected_tag }}"
+
+      - name: Build package
+        run: |
+          python -m build -sw
+          ls -lh dist/
+
+      - name: Check distribution metadata
+        run: |
+          python -m twine check dist/*
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/

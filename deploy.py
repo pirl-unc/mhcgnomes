@@ -2,7 +2,7 @@
 """
 deploy.py
 
-Safe deploy/release automation for this repository.
+Safe release-tag automation for this repository.
 
 Policy (enforced):
   - Only deploy from REQUIRED_BRANCH (default: main)
@@ -17,35 +17,34 @@ Does (in this order):
   - (optional) fetch remote branch
   - confirm local up-to-date with remote
   - python -m build
-  - twine upload
   - git tag v<version> (annotated) + push ONLY that tag
 
+Publishing is handled by GitHub Actions after the tag push.
+
 Dry-run:
-  - Prints effectful commands but does NOT execute: build/publish/tag/push/fetch.
+  - Prints effectful commands but does NOT execute: build/tag/push/fetch.
   - Still runs read-only validations (e.g. tag existence checks, parsing version file).
 """
 
 import argparse
-import ast
 import os
-import re
 import shlex
 import shutil
 import subprocess
 import sys
+from collections.abc import Sequence
 from dataclasses import dataclass
 from pathlib import Path
-from typing import List, Optional, Sequence
+from typing import NoReturn, Optional
 
-
-_VERSION_ALLOWED_RE = re.compile(r"^[0-9][0-9A-Za-z.+-]*$")  # permissive, injection-safe
+from release_utils import ReleaseError, parse_version_from_python_file, tag_for_version
 
 
 def eprint(msg: str) -> None:
     print(msg, file=sys.stderr)
 
 
-def die(msg: str, exit_code: int = 1) -> "NoReturn":
+def die(msg: str, exit_code: int = 1) -> NoReturn:
     eprint(f"ERROR: {msg}")
     raise SystemExit(exit_code)
 
@@ -130,7 +129,7 @@ def run_effectful(
     cmd: Sequence[str], *, cwd: Path, dry_run: bool, env: Optional[dict[str, str]] = None
 ) -> None:
     """
-    Run a command with side-effects (build/publish/tag/push/fetch).
+    Run a command with side-effects (build/tag/push/fetch).
     In dry-run mode, only prints.
     """
     note(shell_join(cmd))
@@ -211,62 +210,6 @@ def ensure_remote_exists(cfg: Config, *, cwd: Path) -> None:
     ok(f"Remote '{cfg.remote}' exists")
 
 
-def parse_version_from_python_file(path: Path) -> str:
-    if not path.exists():
-        die(f"Missing version file: {path}")
-    if not path.is_file():
-        die(f"Version path is not a regular file: {path}")
-
-    try:
-        text = path.read_text(encoding="utf-8")
-    except OSError as e:
-        die(f"Failed to read version file {path}: {e}")
-
-    try:
-        tree = ast.parse(text, filename=str(path))
-    except SyntaxError as e:
-        die(f"Version file is not valid Python syntax: {path}: {e}")
-
-    found: List[str] = []
-
-    for node in tree.body:
-        # __version__ = "1.2.3"
-        if isinstance(node, ast.Assign):
-            for target in node.targets:
-                if isinstance(target, ast.Name) and target.id == "__version__":
-                    value = node.value
-                    if isinstance(value, ast.Constant) and isinstance(value.value, str):
-                        found.append(value.value)
-                    elif isinstance(value, ast.Str):  # legacy AST
-                        found.append(value.s)
-                    else:
-                        die(f"{path}: __version__ must be a string literal.")
-        # __version__: str = "1.2.3"
-        if isinstance(node, ast.AnnAssign):
-            if isinstance(node.target, ast.Name) and node.target.id == "__version__":
-                if node.value is None:
-                    die(f"{path}: __version__ is annotated but not assigned.")
-                value = node.value
-                if isinstance(value, ast.Constant) and isinstance(value.value, str):
-                    found.append(value.value)
-                elif isinstance(value, ast.Str):
-                    found.append(value.s)
-                else:
-                    die(f"{path}: __version__ must be a string literal.")
-
-    if not found:
-        die(f"Failed to find __version__ assignment in {path}.")
-    if len(found) > 1:
-        die(f"Multiple __version__ assignments found in {path}. Refuse to guess.")
-
-    v = found[0].strip()
-    if not v:
-        die(f"Parsed empty version from {path}.")
-    if not _VERSION_ALLOWED_RE.match(v):
-        die(f"Parsed version '{v}' from {path} looks invalid (unexpected characters).")
-    return v
-
-
 def validate_tag_name(tag: str, *, cwd: Path) -> None:
     require_nonempty("tag", tag)
     if not git_succeeds(
@@ -311,7 +254,9 @@ def maybe_fetch(cfg: Config, *, cwd: Path) -> None:
 def ensure_up_to_date(cfg: Config, *, cwd: Path) -> None:
     remote_refname = f"{cfg.remote}/{cfg.required_branch}"
     if not git_succeeds(["git", "rev-parse", "--verify", remote_refname], cwd=cwd):
-        die(f"Cannot resolve {remote_refname}. Run: git fetch {cfg.remote} (or rerun with --fetch).")
+        die(
+            f"Cannot resolve {remote_refname}. Run: git fetch {cfg.remote} (or rerun with --fetch)."
+        )
 
     local_ref = git_output(["git", "rev-parse", "--verify", "HEAD"], cwd=cwd)
     remote_ref = git_output(["git", "rev-parse", "--verify", remote_refname], cwd=cwd)
@@ -351,7 +296,7 @@ def clean_build_artifacts(*, cwd: Path, dry_run: bool) -> None:
         shutil.rmtree(path, ignore_errors=True)
 
 
-def build_and_publish(cfg: Config, *, cwd: Path) -> None:
+def build_distributions(cfg: Config, *, cwd: Path) -> None:
     require_cmd("python3", env=cfg.env)
 
     clean_build_artifacts(cwd=cwd, dry_run=cfg.dry_run)
@@ -369,29 +314,13 @@ def build_and_publish(cfg: Config, *, cwd: Path) -> None:
     run_effectful([build_python, "-m", "build", "--no-isolation"], cwd=cwd, dry_run=cfg.dry_run)
     ok("Build step complete")
 
-    twine_python = sys.executable or "python3"
-    note("Checking twine availability...")
-    run_checked(
-        [twine_python, "-m", "twine", "--version"],
-        cwd=cwd,
-        capture_stdout=True,
-        capture_stderr=True,
-    )
-
     dist_dir = cwd / "dist"
     if not dist_dir.exists():
         die("dist/ directory does not exist after build.")
     dist_files = [p for p in sorted(dist_dir.iterdir()) if p.is_file()]
     if not dist_files:
-        die("No files in dist/ to publish.")
-
-    note("Publishing with twine...")
-    run_effectful(
-        [twine_python, "-m", "twine", "upload", *[str(p) for p in dist_files]],
-        cwd=cwd,
-        dry_run=cfg.dry_run,
-    )
-    ok("Publish step complete")
+        die("No files in dist/ after build.")
+    ok("Distribution artifacts created")
 
 
 def tag_and_push(cfg: Config, tag: str, version: str, *, cwd: Path) -> None:
@@ -435,8 +364,12 @@ def build_run_env(venv_bin: Optional[Path]) -> dict[str, str]:
 
 def parse_args(argv: Sequence[str]) -> Config:
     p = argparse.ArgumentParser(prog="deploy.py")
-    p.add_argument("--dry-run", action="store_true", help="Print effectful commands; do not execute them.")
-    p.add_argument("--fetch", action="store_true", help="Fetch remote branch before comparing refs.")
+    p.add_argument(
+        "--dry-run", action="store_true", help="Print effectful commands; do not execute them."
+    )
+    p.add_argument(
+        "--fetch", action="store_true", help="Fetch remote branch before comparing refs."
+    )
     p.add_argument("--version-file", default="mhcgnomes/version.py")
     p.add_argument("--required-branch", default="main")
     p.add_argument("--remote", default="origin")
@@ -488,11 +421,14 @@ def main(argv: Sequence[str]) -> int:
     maybe_fetch(cfg, cwd=root)
     ensure_up_to_date(cfg, cwd=root)
 
-    version = parse_version_from_python_file(cfg.version_file)
-    tag = f"v{version}"
+    try:
+        version = parse_version_from_python_file(cfg.version_file)
+    except ReleaseError as exc:
+        die(str(exc))
+    tag = tag_for_version(version)
     validate_tag_name(tag, cwd=root)
 
-    note("Preparing deploy:")
+    note("Preparing release tag:")
     note(f"  version file: {cfg.version_file}")
     note(f"  version:      {version}")
     note(f"  tag:          {tag}")
@@ -506,15 +442,15 @@ def main(argv: Sequence[str]) -> int:
     if cfg.dry_run:
         note("Dry run summary:")
         note("  would run: python -m build --no-isolation")
-        note("  would run: python3 -m twine upload dist/*")
         note(f"  would run: git tag -a {tag} -m 'Release {tag} ({version})'")
         note(f"  would run: git push {cfg.remote} refs/tags/{tag}")
         ok("Dry run complete")
         return 0
 
-    build_and_publish(cfg, cwd=root)
+    build_distributions(cfg, cwd=root)
     tag_and_push(cfg, tag, version, cwd=root)
-    ok(f"Deploy complete: {tag}")
+    ok(f"Release tag pushed: {tag}")
+    note("GitHub Actions will build and publish this tag to PyPI.")
     return 0
 
 

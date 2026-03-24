@@ -1,0 +1,37 @@
+name: Release TestPyPI
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: Existing tag to build and publish, for example v3.15.1rc1
+        required: true
+        type: string
+
+jobs:
+  build:
+    uses: ./.github/workflows/release-build.yml
+    with:
+      ref: refs/tags/${{ inputs.release_tag }}
+      expected_tag: ${{ inputs.release_tag }}
+
+  publish-to-testpypi:
+    name: Upload release to TestPyPI
+    needs: build
+    runs-on: ubuntu-latest
+    environment: release_testpypi
+    permissions:
+      contents: read
+      id-token: write
+
+    steps:
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist
+
+      - name: Publish package distributions to TestPyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          repository-url: https://test.pypi.org/legacy/
