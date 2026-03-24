@@ -20,15 +20,9 @@ class TestPlacentaliaCore:
             "DPB1",
             "DOA",
             "DOB",
-            "DMA",
-            "DMB",
-            "TAP1",
-            "TAP2",
-            "TAPBP",
-            "B2M",
         ],
     )
-    def test_placentalia_has_shared_mammalian_core(self, gene):
+    def test_placentalia_has_shared_mammalian_class2_core(self, gene):
         sp = Species.get("Placentalia sp.")
         assert sp is not None
         assert sp.find_matching_gene_name(gene) is not None, gene

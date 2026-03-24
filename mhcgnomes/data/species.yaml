@@ -37,7 +37,7 @@
 #   ├── Aves sp.             (+ UAA, UBA, UA, DA, DB, DC, DRA, DRB)
 #   │   ├── Galliformes sp.  (+ BF, BLB, DMB1/2)
 #   │   └── all birds
-#   ├── Placentalia sp.      (+ DQ/DR/DP, DO/DM, TAP/B2M core)
+#   ├── Placentalia sp.      (+ DQ/DR/DP, DO core)
 #   │   ├── Primata sp.
 #   │   ├── Rodentia sp.
 #   │   ├── Chiroptera sp.
@@ -274,9 +274,10 @@ Marsupialia sp.:
 # Placentalia — placental mammals
 #
 # Shared placental-mammal core used by many species in the paper corpus:
-# canonical DQ/DR/DP class II families, non-classical DO/DM genes, and
-# antigen-processing helpers. Descendants add lineage-specific class I
-# families or extra class II paralogs as needed.
+# canonical DQ/DR/DP class II families plus non-classical DO genes.
+# DMA/DMB and TAP/B2M helper genes already come from Gnathostomata and
+# do not need to be repeated here. Descendants add lineage-specific
+# class I families or extra class II paralogs as needed.
 ######################################################
 Placentalia sp.:
   prefix: Placentalia
@@ -299,14 +300,6 @@ Placentalia sp.:
       DO:
         - DOA
         - DOB
-      DM:
-        - DMA
-        - DMB
-    other:
-      - TAP1
-      - TAP2
-      - TAPBP
-      - B2M
 
 ######################################################
 #
@@ -469,14 +462,8 @@ Mus sp.:
         - EB
     IIb:
       DM:
-        - DMA
         - DMB1
         - DMB2
-    other:
-      - TAP1
-      - TAP2
-      - TAPBP
-      - B2M
 Mus musculus:
   parent: Mus sp.
   prefix: H2
@@ -694,14 +681,6 @@ Rattus sp.:
       DO:
         - DOa
         - DOb
-      DM:
-        - DMA
-        - DMB
-    other:
-      - TAP1
-      - TAP2
-      - TAPBP
-      - B2M
 Rattus norvegicus:
   parent: Rattus sp.
   prefix: Rano
@@ -785,24 +764,8 @@ Felis sp.:
       - Q
       - S
     IIa:
-      DP:
-        - DPA1
-        - DPB1
       DR:
         - DRA1
-        - DRB1
-    IIb:
-      DO:
-        - DOA
-        - DOB
-      DM:
-        - DMA
-        - DMB
-    other:
-      - TAP1
-      - TAP2
-      - TAPBP
-      - B2M
 Felis catus:
   parent: Felis sp.
   prefix: Feca
@@ -1659,17 +1622,10 @@ Ovis sp.:
       - N
     IIa:
       DQ:
-        - DQA
-        - DQA1
         - DQA2
-        - DQB
-        - DQB1
         - DQB2
         - DQA2like
         - DQB2like
-      DR:
-        - DRA
-        - DRB1
 Ovis aries:
   parent: Ovis sp.
   prefix: Ovar
@@ -1797,252 +1753,74 @@ Balaenoptera musculus:
   parent: Cetacea sp.
   prefix: Bamu
   name: Blue whale
-  genes:
-    I:
-      - N
-      - S
-    IIa:
-      DQ:
-        - DQA
-        - DQB
-      DR:
-        - DRA
-        - DRB1
 Balaenoptera acutorostrata:
   parent: Cetacea sp.
   prefix: Baac
   name: Minke whale
-  genes:
-    I:
-      - S
-    IIa:
-      DR:
-        - DRA
-        - DRB1
 Balaenoptera edeni:
   parent: Cetacea sp.
   prefix: Baed
   name: Bryde's whale
-  genes:
-    I:
-      - N
-    IIa:
-      DQ:
-        - DQA
-        - DQB
-      DR:
-        - DRA
-        - DRB1
 Cephalorhynchus hectori:
   parent: Cetacea sp.
   prefix: Cehe
   name: Hector's dolphin
-  genes:
-    I:
-      - N
-    IIa:
-      DQ:
-        - DQA
-        - DQB
-      DR:
-        - DRA
-        - DRB1
 Delphinus delphis:
   parent: Cetacea sp.
   prefix: Dede
   name: Common dolphin
-  genes:
-    I:
-      - N
-    IIa:
-      DQ:
-        - DQA
-        - DQB
-      DR:
-        - DRA
-        - DRB1
 Eubalaena australis:
   parent: Cetacea sp.
   prefix: Euau
   name: Southern right whale
-  genes:
-    I:
-      - N
-    IIa:
-      DQ:
-        - DQA
-        - DQB
-      DR:
-        - DRA
-        - DRB1
 Globicephala melas:
   parent: Cetacea sp.
   prefix: Glme
   name: Long-finned pilot whale
-  genes:
-    I:
-      - N
-    IIa:
-      DQ:
-        - DQA
-        - DQB
-      DR:
-        - DRA
-        - DRB1
 Grampus griseus:
   parent: Cetacea sp.
   prefix: Grgr
   name: Risso's dolphin
-  genes:
-    I:
-      - N
-    IIa:
-      DQ:
-        - DQA
-        - DQB
-      DR:
-        - DRA
-        - DRB1
 Kogia breviceps:
   parent: Cetacea sp.
   prefix: Kobr
   name: Pygmy sperm whale
-  genes:
-    I:
-      - N
-    IIa:
-      DQ:
-        - DQA
-        - DQB
-      DR:
-        - DRA
-        - DRB1
 Lagenorhynchus obscurus:
   parent: Cetacea sp.
   prefix: Laob
   name: Dusky dolphin
-  genes:
-    I:
-      - N
-    IIa:
-      DQ:
-        - DQA
-        - DQB
-      DR:
-        - DRA
-        - DRB1
 Mesoplodon densirostris:
   parent: Cetacea sp.
   prefix: Mede
   name: Blainville's beaked whale
-  genes:
-    I:
-      - N
-    IIa:
-      DQ:
-        - DQA
-        - DQB
-      DR:
-        - DRA
-        - DRB1
 Mesoplodon europaeus:
   parent: Cetacea sp.
   prefix: Meeu
   name: Gervais' beaked whale
-  genes:
-    I:
-      - N
-    IIa:
-      DQ:
-        - DQA
-        - DQB
-      DR:
-        - DRA
-        - DRB1
 Mesoplodon grayi:
   parent: Cetacea sp.
   prefix: Megr
   name: Gray's beaked whale
-  genes:
-    I:
-      - N
-    IIa:
-      DQ:
-        - DQA
-        - DQB
-      DR:
-        - DRA
-        - DRB1
 Megaptera novaeangliae:
   parent: Cetacea sp.
   prefix: Meno
   name: Humpback whale
-  genes:
-    I:
-      - N
-    IIa:
-      DQ:
-        - DQA
-        - DQB
-      DR:
-        - DRA
-        - DRB1
 Steno bredanensis:
   parent: Cetacea sp.
   prefix: Stbr
   name: Rough-toothed dolphin
-  genes:
-    I:
-      - N
-    IIa:
-      DQ:
-        - DQA
-        - DQB
-      DR:
-        - DRA
-        - DRB1
 Stenella coeruleoalba:
   parent: Cetacea sp.
   prefix: Stco
   name: Striped dolphin
-  genes:
-    I:
-      - N
-    IIa:
-      DQ:
-        - DQA
-        - DQB
-      DR:
-        - DRA
-        - DRB1
 Tursiops truncatus:
   parent: Cetacea sp.
   prefix: Tutr
   name: Bottlenose dolphin
-  genes:
-    I:
-      - N
-    IIa:
-      DQ:
-        - DQA
-        - DQB
-      DR:
-        - DRA
-        - DRB1
 Ziphius cavirostris:
   parent: Cetacea sp.
   prefix: Zica
   name: Cuvier's beaked whale
-  genes:
-    I:
-      - N
-    IIa:
-      DQ:
-        - DQA
-        - DQB
-      DR:
-        - DRA
-        - DRB1
 Caperea marginata:
   parent: Cetacea sp.
   prefix: CapeMarg
@@ -2093,15 +1871,7 @@ Capra sp.:
   genes:
     IIa:
       DR:
-        - DRA
         - DRA1
-        - DRB
-        - DRB1
-      other:
-        - TAP1
-        - TAP2
-        - TAPBP
-        - B2M
 Capra hircus:
   parent: Capra sp.
   prefix: Cahi
@@ -2337,23 +2107,7 @@ Oryctolagus sp.:
       DP:
         - DPA
         - DPB
-        - DPB1
-      DR:
-        - DRA
-        - DRB
-      DQ:
-        - DQA
-        - DQB
-        - DQB1
       DN: {}  # couldn't tell which genes in DN locus
-    IIb:
-      DO:
-        - DOB
-    other:
-      - TAP1
-      - TAP2
-      - TAPBP
-      - B2M
 Oryctolagus cuniculus:
   parent: Oryctolagus sp.
   prefix: Orcu
@@ -2638,7 +2392,7 @@ Pandion haliaetus:
   name: Osprey
 Lanius collaris:
   parent: Aves sp.
-  prefix: LaniColl
+  prefix: LaniCola
   name: Fiscal shrike
 Turdus naumanni:
   parent: Aves sp.
@@ -2904,154 +2658,84 @@ Aegolius funereus:
   prefix: AegoFune
   other prefixes:
     - Aefu
-  genes:
-    IIa:
-      DA:
-        - DAB1
-        - DAB2
 Asio flammeus:
   parent: Aves sp.
   name: Short-eared owl
   prefix: AsioFlam
   other prefixes:
     - Asfl
-  genes:
-    IIa:
-      DA:
-        - DAB1
-        - DAB2
 Asio otus:
   parent: Aves sp.
   name: Long-eared owl
   prefix: AsioOtus
   other prefixes:
     - Asot
-  genes:
-    IIa:
-      DA:
-        - DAB1
-        - DAB2
 Athene noctua:
   parent: Aves sp.
   name: Little owl
   prefix: AtheNoct
   other prefixes:
     - Atno
-  genes:
-    IIa:
-      DA:
-        - DAB1
-        - DAB2
 Bubo africanus:
   parent: Aves sp.
   name: Spotted eagle owl
   prefix: BuboAfri
   other prefixes:
     - Buaf
-  genes:
-    IIa:
-      DA:
-        - DAB1
-        - DAB2
 Bubo bubo:
   parent: Aves sp.
   name: Eurasian eagle owl
   # Natural 4-letter prefix Bubu collides with water buffalo (Bubalus bubalis).
   # Buffalo keeps Bubu (more MHC literature). Owl uses long prefix.
   prefix: BuboBubo
-  genes:
-    IIa:
-      DA:
-        - DAB1
-        - DAB2
 Bubo scandiacus:
   parent: Aves sp.
   prefix: BuboScan
   other prefixes:
     - Busc
   name: Snowy owl
-  genes:
-    IIa:
-      DA:
-        - DAB1
-        - DAB2
 Glaucidium passerinum:
   parent: Aves sp.
   name: Eurasian pygmy owl
   prefix: GlauPass
   other prefixes:
     - Glpa
-  genes:
-    IIa:
-      DA:
-        - DAB1
-        - DAB2
 Otus scops:
   parent: Aves sp.
   name: European scops owl
   prefix: OtusScop
   other prefixes:
     - Otsc
-  genes:
-    IIa:
-      DA:
-        - DAB1
-        - DAB2
 Strix aluco:
   parent: Aves sp.
   name: Tawny owl
   prefix: StriAluc
   other prefixes:
     - Stal
-  genes:
-    IIa:
-      DA:
-        - DAB1
-        - DAB2
 Strix nebulosa:
   parent: Aves sp.
   name: Great gray owl
   prefix: StriNebu
   other prefixes:
     - Stne
-  genes:
-    IIa:
-      DA:
-        - DAB1
-        - DAB2
 Strix uralensis:
   parent: Aves sp.
   name: Ural owl
   prefix: StriUral
   other prefixes:
     - Stur
-  genes:
-    IIa:
-      DA:
-        - DAB1
-        - DAB2
 Surnia ulula:
   parent: Aves sp.
   name: Northern hawk owl
   prefix: SurnUlul
   other prefixes:
     - Suul
-  genes:
-    IIa:
-      DA:
-        - DAB1
-        - DAB2
 Tyto alba:
   parent: Aves sp.
   name: Barn owl
   prefix: TytoAlba
   other prefixes:
     - Tyal
-  genes:
-    IIa:
-      DA:
-        - DAB1
-        - DAB2
 ################################################################################
 #
 # Non-human primates
