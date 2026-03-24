@@ -33,6 +33,7 @@ def test_major_taxon_for_species_examples():
     assert paper_analysis.major_taxon_for_species("Phascolarctos cinereus") == "Other mammal"
     assert paper_analysis.major_taxon_for_species("Myodes glareolus") == "Other mammal"
     assert paper_analysis.major_taxon_for_species("Canis sp.") == "Other mammal"
+    assert paper_analysis.major_taxon_for_species("Phocarctos hookeri") == "Other mammal"
 
 
 def test_classify_failure_mode_examples():

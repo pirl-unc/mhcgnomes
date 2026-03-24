@@ -105,6 +105,7 @@ OTHER_MAMMAL_KEYWORDS = {
     "rodent",
     "seal",
     "sheep",
+    "sea lion",
     "vole",
     "mouse",
     "devil",

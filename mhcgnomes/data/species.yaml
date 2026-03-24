@@ -37,6 +37,12 @@
 #   ├── Aves sp.             (+ UAA, UBA, UA, DA, DB, DC, DRA, DRB)
 #   │   ├── Galliformes sp.  (+ BF, BLB, DMB1/2)
 #   │   └── all birds
+#   ├── Placentalia sp.      (+ DQ/DR/DP, DO/DM, TAP/B2M core)
+#   │   ├── Primata sp.
+#   │   ├── Rodentia sp.
+#   │   ├── Chiroptera sp.
+#   │   ├── Cetacea sp.
+#   │   └── other placental mammals
 #   ├── Marsupialia sp.      (+ UA, DA, DB, DC, DRA)
 #   │   └── marsupials
 #   └── ...all jawed vertebrate entries descend from this root
@@ -263,6 +269,44 @@ Marsupialia sp.:
         - DCB
       DR:
         - DRA
+
+######################################################
+# Placentalia — placental mammals
+#
+# Shared placental-mammal core used by many species in the paper corpus:
+# canonical DQ/DR/DP class II families, non-classical DO/DM genes, and
+# antigen-processing helpers. Descendants add lineage-specific class I
+# families or extra class II paralogs as needed.
+######################################################
+Placentalia sp.:
+  prefix: Placentalia
+  name: Placental mammal
+  genes:
+    IIa:
+      DQ:
+        - DQA
+        - DQA1
+        - DQB
+        - DQB1
+      DR:
+        - DRA
+        - DRB
+        - DRB1
+      DP:
+        - DPA1
+        - DPB1
+    IIb:
+      DO:
+        - DOA
+        - DOB
+      DM:
+        - DMA
+        - DMB
+    other:
+      - TAP1
+      - TAP2
+      - TAPBP
+      - B2M
 
 ######################################################
 #
@@ -677,6 +721,7 @@ Rattus rattus:
 #
 ############################
 Canis sp.:
+  parent: Placentalia sp.
   prefix: DLA
   name: Canine
   genes:
@@ -689,18 +734,6 @@ Canis sp.:
       - "12"
       - "64"
       - "88"
-    IIa:
-      DQ:
-        - DQA1
-        - DQB1
-      DR:
-        - DRA
-        - DRB1
-    other:
-      - TAP1
-      - TAP2
-      - TAPBP
-      - B2M
 Canis lupus baileyi:
   parent: Canis sp.
   prefix: Caba
@@ -733,6 +766,7 @@ Canis simensis:
 #
 ############################
 Felis sp.:
+  parent: Placentalia sp.
   prefix: FLA
   name: Cat
   genes:
@@ -1617,6 +1651,7 @@ Triakis scyllium:
 #
 ##############################################
 Ovis sp.:
+  parent: Placentalia sp.
   name: Sheep
   prefix: OLA
   genes:
@@ -1655,6 +1690,7 @@ Ovis canadensis:
 #   https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3658703/
 ################################################################################
 Bos sp.:
+  parent: Placentalia sp.
   prefix: BoLA
   name: Cattle
   genes:
@@ -1696,13 +1732,9 @@ Bos sp.:
       - MR1
     IIa:
       DQ:
-        - DQA1
         - DQA2
-        - DQB1
         - DQB2
       DR:
-        - DRA
-        - DRB1
         - DRB2
         - DRB3
         - DRB4
@@ -1710,18 +1742,10 @@ Bos sp.:
     IIb:
       DN:
         - DNA
-      DO:
-        - DOA
-        - DOB
       DY:
         - DYA
       DI:
         - DIB
-    other:
-      - TAP1
-      - TAP2
-      - TAPBP
-      - B2M
 Bos taurus:
   parent: Bos sp.
   prefix: Bota
@@ -1759,6 +1783,7 @@ Bubalus bubalis:
 #
 ################################################################################
 Cetacea sp.:
+  parent: Placentalia sp.
   prefix: CELA
   name:
     - Cetacean
@@ -1768,31 +1793,6 @@ Cetacea sp.:
     I:
       - N
       - S
-    IIa:
-      DQ:
-        - DQA
-        - DQA1
-        - DQB
-        - DQB1
-      DR:
-        - DRA
-        - DRB
-        - DRB1
-      DP:
-        - DPA1
-        - DPB1
-    IIb:
-      DO:
-        - DOA
-        - DOB
-      DM:
-        - DMA
-        - DMB
-    other:
-      - TAP1
-      - TAP2
-      - TAPBP
-      - B2M
 Balaenoptera musculus:
   parent: Cetacea sp.
   prefix: Bamu
@@ -2049,6 +2049,14 @@ Caperea marginata:
   other prefixes:
     - Cape
   name: Pygmy right whale
+Phocoena phocoena:
+  parent: Cetacea sp.
+  prefix: PhocPhoc
+  other prefixes:
+    - Phph
+  name:
+    - Harbour porpoise
+    - Harbor porpoise
 Delphinapterus leucas:
   parent: Cetacea sp.
   prefix: DeleLuca
@@ -2079,6 +2087,7 @@ Physeter macrocephalus:
 #
 ################################################################################
 Capra sp.:
+  parent: Placentalia sp.
   prefix: CLA
   name: Goat
   genes:
@@ -2106,6 +2115,7 @@ Capra hircus:
 # - https://www.ebi.ac.uk/ipd/mhc/group/ELA/species
 ################################################################################
 Equus sp.:
+  parent: Placentalia sp.
   prefix: ELA
   name: Equine
   genes:
@@ -2123,31 +2133,15 @@ Equus sp.:
     IIa:
       DQ:
         - DQA
-        - DQA1
         - DQA2
         - DQA3
         - DQB
-        - DQB1
         - DQB2
         - DQB3
       DR:
-        - DRA
         - DRB
-        - DRB1
         - DRB2
         - DRB3
-    IIb:
-      DO:
-        - DOA
-        - DOB
-      DM:
-        - DMA
-        - DMB
-    other:
-      - TAP1
-      - TAP2
-      - TAPBP
-      - B2M
 Equus caballus:
   parent: Equus sp.
   prefix: Eqca
@@ -2167,6 +2161,7 @@ Equus burchelli:
 #
 ################################################################################
 Sus sp.:
+  parent: Placentalia sp.
   prefix: SLA
   name:
     - Pig
@@ -2191,26 +2186,14 @@ Sus sp.:
     IIa:
       DQ:
         - DQA
-        - DQB1
       DR:
-        - DRA
-        - DRB1
         - DRB2
         - DRB3
         - DRB4
         - DRB5
     IIb:
       DO:
-        - DOA
         - DOB1
-      DM:
-        - DMA
-        - DMB
-    other:
-      - TAP1
-      - TAP2
-      - TAPBP
-      - B2M
 Sus domesticus:
   parent: Sus sp.
   prefix: Sudo
@@ -2225,37 +2208,15 @@ Sus scrofa:
 # Rodentia — rodents
 #
 # Rodents without established MHC nomenclature systems (i.e. not H2/RT1)
-# inherit standard mammalian class II gene names from this clade.
-# Mus musculus (H2) and Rattus sp. (RT1) keep their own nomenclature
-# and remain directly under Gnathostomata.
+# inherit the shared placental-mammal class II and helper-gene core
+# through this clade. Mus musculus (H2) and Rattus sp. (RT1) keep their
+# own nomenclature and remain directly under Gnathostomata.
 #
 ######################################################
 Rodentia sp.:
+  parent: Placentalia sp.
   prefix: Rodentia
   name: Rodent
-  genes:
-    IIa:
-      DQ:
-        - DQA1
-        - DQB1
-      DR:
-        - DRA
-        - DRB1
-      DP:
-        - DPA1
-        - DPB1
-    IIb:
-      DO:
-        - DOA
-        - DOB
-      DM:
-        - DMA
-        - DMB
-    other:
-      - TAP1
-      - TAP2
-      - TAPBP
-      - B2M
 Marmota marmota:
   parent: Rodentia sp.
   prefix: MarmMarm
@@ -2323,6 +2284,12 @@ Myodes glareolus:
   name:
     - Bank vole
     - Clethrionomys glareolus
+Rhabdomys pumilio:
+  parent: Rodentia sp.
+  prefix: RhabPumi
+  other prefixes:
+    - Rhpu
+  name: Striped mouse
 ################################################################################
 #
 # Bats
@@ -2356,6 +2323,7 @@ Pteropus alecto:
 #
 ################################################################################
 Oryctolagus sp.:
+  parent: Placentalia sp.
   prefix: RLA
   name: Rabbit
   genes:
@@ -3094,6 +3062,7 @@ Tyto alba:
 #
 ################################################################################
 Primata sp.:
+  parent: Placentalia sp.
   prefix: NHP
   name: Primate
   genes:
@@ -3112,18 +3081,6 @@ Primata sp.:
       - CD1d
       - CD1e
       - MR1
-    IIb:
-      DM:
-        - DMA
-        - DMB
-      DO:
-        - DOA
-        - DOB
-    other:
-      - TAP1
-      - TAP2
-      - TAPBP
-      - B2M
 Alouatta pigra:
   prefix: Alpi
   parent: Primata sp.
@@ -4007,6 +3964,7 @@ Rhinopithecus strykeri:
 #
 ##########################
 Ailuropoda melanoleuca:
+  parent: Placentalia sp.
   prefix: AiluMela
   other prefixes:
     - Aime
@@ -4014,53 +3972,36 @@ Ailuropoda melanoleuca:
   genes:
     I:
      - "128"
-    other:
-      - TAP1
-      - TAP2
-      - TAPBP
-      - B2M
 Neomonachus schauinslandi:
-  parent: Gnathostomata sp.
+  parent: Placentalia sp.
   prefix: NeosScha
   other prefixes:
     - Nesc
   name: Hawaiian monk seal
-  genes:
-    IIa:
-      DR:
-        - DRA
-        - DRB1
-      DQ:
-        - DQA
-        - DQB
+Phocarctos hookeri:
+  parent: Placentalia sp.
+  prefix: PhocHook
+  other prefixes:
+    - Phho
+  name: New Zealand sea lion
 Odocoileus hemionus:
-  parent: Gnathostomata sp.
+  parent: Placentalia sp.
   prefix: OdocHemi
   other prefixes:
     - Odhe
   name: Mule deer
-  genes:
-    IIa:
-      DR:
-        - DRA
-        - DRB1
-      DQ:
-        - DQA
-        - DQB
+Odocoileus virginianus:
+  parent: Placentalia sp.
+  prefix: OdocVirg
+  other prefixes:
+    - Odvi
+  name: White-tailed deer
 Loxodonta africana:
-  parent: Gnathostomata sp.
+  parent: Placentalia sp.
   prefix: LoxoAfri
   other prefixes:
     - Loaf
   name: African elephant
-  genes:
-    IIa:
-      DR:
-        - DRA
-        - DRB1
-      DQ:
-        - DQA
-        - DQB
 ######################################################
 # Chiroptera — bats
 #
@@ -4073,33 +4014,9 @@ Loxodonta africana:
 #
 ######################################################
 Chiroptera sp.:
+  parent: Placentalia sp.
   prefix: Chiroptera
   name: Bat
-  genes:
-    IIa:
-      DQ:
-        - DQA1
-        - DQB
-        - DQB1
-      DR:
-        - DRA
-        - DRB
-        - DRB1
-      DP:
-        - DPA1
-        - DPB1
-    IIb:
-      DO:
-        - DOA
-        - DOB
-      DM:
-        - DMA
-        - DMB
-    other:
-      - TAP1
-      - TAP2
-      - TAPBP
-      - B2M
 
 ##########################
 #
@@ -4188,6 +4105,12 @@ Ambystoma tigrinum:
   other prefixes:
     - Amti
   name: Tiger salamander
+Andrias davidianus:
+  parent: Amphibia sp.
+  prefix: AndrDavi
+  other prefixes:
+    - Anda
+  name: Chinese giant salamander
 ##########################
 #
 # Tuatara
@@ -4334,6 +4257,14 @@ Rhinolophus ferrumequinum:
   other prefixes:
     - Rhfe
   name: Greater horseshoe bat
+Noctilio albiventris:
+  parent: Chiroptera sp.
+  prefix: NoctAlbi
+  other prefixes:
+    - Noal
+  name:
+    - Lesser bulldog bat
+    - Lesser bulldog-faced bat
 Myotis lucifugus:
   parent: Chiroptera sp.
   prefix: MyotLuci
