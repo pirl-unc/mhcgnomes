@@ -27,6 +27,15 @@ def test_species_strict_exact_match():
     eq_(result.species.name, "Homo sapiens")
 
 
+def test_species_strict_accepts_decorated_subspecies_name():
+    result = parse(
+        "Stoc-DAB1",
+        species="Strix occidentalis caurina (northern spotted owl)",
+        raise_on_error=True,
+    )
+    eq_(result.species.name, "Strix occidentalis caurina")
+
+
 def test_species_strict_bola_converts_to_bos_taurus():
     result = parse("BoLA-DRB3*01:01", species="Bos taurus")
     eq_(result.species.name, "Bos taurus")

@@ -408,12 +408,13 @@ class Species(Result):
             normalized_query = species_name.replace("_", " ")
             species_objects = cls.get_multiple(normalized_query)
 
-        # Fall back from decorated scientific names to the base binomial
-        # when that exact species already exists in the ontology.
+        # Fall back from decorated scientific names to the longest valid
+        # scientific-name prefix already present in the ontology.
         if len(species_objects) == 0:
-            candidate_binomial = _base_binomial_if_decorated_species_name(normalized_query)
-            if candidate_binomial and candidate_binomial != normalized_query:
-                species_objects = cls.get_multiple(candidate_binomial)
+            for candidate_name in _decorated_scientific_name_candidates(normalized_query):
+                species_objects = cls.get_multiple(candidate_name)
+                if len(species_objects) > 0:
+                    break
 
         if len(species_objects) == 0:
             return None
@@ -727,25 +728,40 @@ def _make_5_5_prefix(latin_name):
     return genus.capitalize() + species.capitalize()
 
 
-def _base_binomial_if_decorated_species_name(name):
+def _decorated_scientific_name_candidates(name):
     """
-    Extract the base latin binomial from a decorated scientific name such as
-    "Cyprinus carpio 'xingguonensis'" or "Canis lupus familiaris".
+    Extract decreasing scientific-name prefixes from decorated scientific names
+    such as "Cyprinus carpio 'xingguonensis'", "Canis lupus familiaris", or
+    "Strix occidentalis caurina (northern spotted owl)".
 
-    Returns None when the input doesn't look like a scientific name with
-    extra trailing qualifiers.
+    Returns a list ordered from the longest scientific prefix to the shortest
+    valid fallback. Exact full-name matches are omitted because callers try
+    those before using this helper.
     """
     parts = name.split()
     if len(parts) < 3:
-        return None
+        return []
 
     genus = parts[0]
-    species = parts[1]
     if not re.fullmatch(r"[A-Z][a-z]+", genus):
-        return None
-    if not re.fullmatch(r"[a-z][a-z-]*", species):
-        return None
-    return f"{genus} {species}"
+        return []
+
+    scientific_parts = [genus]
+    for part in parts[1:]:
+        if re.fullmatch(r"(?:[a-z][a-z-]*|sp\.)", part):
+            scientific_parts.append(part)
+        else:
+            break
+
+    if len(scientific_parts) < 2:
+        return []
+
+    candidates = []
+    for length in range(len(scientific_parts), 1, -1):
+        candidate = " ".join(scientific_parts[:length])
+        if candidate != name:
+            candidates.append(candidate)
+    return candidates
 
 
 def _is_taxonomic_prefix(prefix, latin_name):
