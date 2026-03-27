@@ -904,6 +904,36 @@ Oreochromis niloticus:
       DD:
         - DDA
         - DDB
+Sparus aurata:
+  parent: Actinopterygii sp.
+  prefix: Spau
+  other prefixes:
+    - SparAura
+  name: Gilthead seabream
+Lates calcarifer:
+  parent: Actinopterygii sp.
+  prefix: LateCalc
+  other prefixes:
+    - Laca
+  name: Barramundi
+Salarias fasciatus:
+  parent: Actinopterygii sp.
+  prefix: SalaFasc
+  other prefixes:
+    - Safa
+  name: Jewelled blenny
+Acipenser dabryanus:
+  parent: Actinopterygii sp.
+  prefix: Acda
+  other prefixes:
+    - AcipDabr
+  name: Dabry's sturgeon
+Scomber scombrus:
+  parent: Actinopterygii sp.
+  prefix: ScomScom
+  other prefixes:
+    - Scsc
+  name: Atlantic mackerel
 Paralichthys olivaceus:
   parent: Actinopterygii sp.
   prefix: ParaOliv
@@ -1222,6 +1252,12 @@ Pantherophis guttatus:
   other prefixes:
     - Pagu
   name: Corn snake
+Python bivittatus:
+  parent: Reptilia sp.
+  prefix: PythBivi
+  other prefixes:
+    - Pybi
+  name: Burmese python
 Pseudonaja textilis:
   parent: Reptilia sp.
   prefix: PseuText
@@ -1254,6 +1290,12 @@ Eublepharis macularius:
   other prefixes:
     - Euma
   name: Leopard gecko
+Gekko japonicus:
+  parent: Reptilia sp.
+  prefix: GekkJapo
+  other prefixes:
+    - Geja
+  name: Japanese gecko
 Salvator merianae:
   parent: Reptilia sp.
   prefix: SalvMeri
@@ -1272,6 +1314,12 @@ Podarcis muralis:
   other prefixes:
     - Pomu
   name: Common wall lizard
+Podarcis lilfordi:
+  parent: Reptilia sp.
+  prefix: PodaLilf
+  other prefixes:
+    - Poli
+  name: Lilford's wall lizard
 Lacerta agilis:
   parent: Reptilia sp.
   prefix: LaceAgil
@@ -2670,7 +2718,7 @@ Pandion haliaetus:
   name: Osprey
 Lanius collaris:
   parent: Aves sp.
-  prefix: LaniColl
+  prefix: LaniCola
   name: Fiscal shrike
 Turdus naumanni:
   parent: Aves sp.
@@ -2930,149 +2978,99 @@ Nipponia nippon:
 # - https://academic.oup.com/mbe/article/25/6/1180/1133247
 #
 ################################################################################
-Aegolius funereus:
+Strigidae sp.:
   parent: Aves sp.
+  name: True owl
+  prefix: Strigidae
+  genes:
+    IIa:
+      DA:
+        - DAB1
+        - DAB2
+Aegolius funereus:
+  parent: Strigidae sp.
   name: Tengmalm's owl
   prefix: AegoFune
   other prefixes:
     - Aefu
-  genes:
-    IIa:
-      DA:
-        - DAB1
-        - DAB2
 Asio flammeus:
-  parent: Aves sp.
+  parent: Strigidae sp.
   name: Short-eared owl
   prefix: AsioFlam
   other prefixes:
     - Asfl
-  genes:
-    IIa:
-      DA:
-        - DAB1
-        - DAB2
 Asio otus:
-  parent: Aves sp.
+  parent: Strigidae sp.
   name: Long-eared owl
   prefix: AsioOtus
   other prefixes:
     - Asot
-  genes:
-    IIa:
-      DA:
-        - DAB1
-        - DAB2
 Athene noctua:
-  parent: Aves sp.
+  parent: Strigidae sp.
   name: Little owl
   prefix: AtheNoct
   other prefixes:
     - Atno
-  genes:
-    IIa:
-      DA:
-        - DAB1
-        - DAB2
 Bubo africanus:
-  parent: Aves sp.
+  parent: Strigidae sp.
   name: Spotted eagle owl
   prefix: BuboAfri
   other prefixes:
     - Buaf
-  genes:
-    IIa:
-      DA:
-        - DAB1
-        - DAB2
 Bubo bubo:
-  parent: Aves sp.
+  parent: Strigidae sp.
   name: Eurasian eagle owl
   # Natural 4-letter prefix Bubu collides with water buffalo (Bubalus bubalis).
   # Buffalo keeps Bubu (more MHC literature). Owl uses long prefix.
   prefix: BuboBubo
-  genes:
-    IIa:
-      DA:
-        - DAB1
-        - DAB2
 Bubo scandiacus:
-  parent: Aves sp.
+  parent: Strigidae sp.
   prefix: BuboScan
   other prefixes:
     - Busc
   name: Snowy owl
-  genes:
-    IIa:
-      DA:
-        - DAB1
-        - DAB2
 Glaucidium passerinum:
-  parent: Aves sp.
+  parent: Strigidae sp.
   name: Eurasian pygmy owl
   prefix: GlauPass
   other prefixes:
     - Glpa
-  genes:
-    IIa:
-      DA:
-        - DAB1
-        - DAB2
 Otus scops:
-  parent: Aves sp.
+  parent: Strigidae sp.
   name: European scops owl
   prefix: OtusScop
   other prefixes:
     - Otsc
-  genes:
-    IIa:
-      DA:
-        - DAB1
-        - DAB2
 Strix aluco:
-  parent: Aves sp.
+  parent: Strigidae sp.
   name: Tawny owl
   prefix: StriAluc
   other prefixes:
     - Stal
-  genes:
-    IIa:
-      DA:
-        - DAB1
-        - DAB2
 Strix nebulosa:
-  parent: Aves sp.
+  parent: Strigidae sp.
   name: Great gray owl
   prefix: StriNebu
   other prefixes:
     - Stne
-  genes:
-    IIa:
-      DA:
-        - DAB1
-        - DAB2
+Strix occidentalis caurina:
+  parent: Strigidae sp.
+  name: Northern spotted owl
+  prefix: StriOccCaur
+  other prefixes:
+    - Stoc
 Strix uralensis:
-  parent: Aves sp.
+  parent: Strigidae sp.
   name: Ural owl
   prefix: StriUral
   other prefixes:
     - Stur
-  genes:
-    IIa:
-      DA:
-        - DAB1
-        - DAB2
 Surnia ulula:
-  parent: Aves sp.
+  parent: Strigidae sp.
   name: Northern hawk owl
   prefix: SurnUlul
   other prefixes:
     - Suul
-  genes:
-    IIa:
-      DA:
-        - DAB1
-        - DAB2
 Tyto alba:
   parent: Aves sp.
   name: Barn owl
@@ -4165,6 +4163,12 @@ Geotrypetes seraphini:
   other prefixes:
     - Gese
   name: Gaboon caecilian
+Microcaecilia unicolor:
+  parent: Amphibia sp.
+  prefix: MicrUnic
+  other prefixes:
+    - Miun
+  name: Unicolor caecilian
 Pelobates cultripes:
   parent: Amphibia sp.
   prefix: PeloCult
@@ -4188,6 +4192,24 @@ Ambystoma tigrinum:
   other prefixes:
     - Amti
   name: Tiger salamander
+Andrias davidianus:
+  parent: Amphibia sp.
+  prefix: Anda
+  other prefixes:
+    - AndrDavi
+  name: Chinese giant salamander
+Lissotriton vulgaris:
+  parent: Amphibia sp.
+  prefix: LissVulg
+  other prefixes:
+    - Limv
+  name: Smooth newt
+  genes:
+    I:
+      - U
+    IIa:
+      DN:
+        - DNB
 ##########################
 #
 # Tuatara

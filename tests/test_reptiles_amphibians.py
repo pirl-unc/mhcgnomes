@@ -130,6 +130,12 @@ def test_parse_frog_gene_xetr_tap1():
     eq_(parse("Xetr-TAP1"), expected)
 
 
+def test_parse_frog_gene_xetr_hla_drb1_alias():
+    expected = Gene.get("Xetr", "DRB1")
+    assert expected is not None
+    eq_(parse("Xetr-hla-drb1", raise_on_error=True), expected)
+
+
 def test_parse_frog_allele_xetr_uaa_01_01():
     expected = Allele.get("Xetr", "UAA", "01", "01")
     assert expected is not None
@@ -140,6 +146,32 @@ def test_parse_frog_allele_xetr_dab_01_01():
     expected = Allele.get("Xetr", "DAB", "01", "01")
     assert expected is not None
     eq_(parse("Xetr-DAB*01:01"), expected)
+
+
+def test_parse_smooth_newt_species_limv():
+    expected = Species.get("Limv")
+    assert expected is not None
+    eq_(parse("Limv", raise_on_error=True), expected)
+    eq_(Species.get("Lissotriton vulgaris"), expected)
+
+
+def test_parse_smooth_newt_gene_limv_u():
+    expected = Gene.get("Limv", "U")
+    assert expected is not None
+    eq_(expected.mhc_class, "I")
+    eq_(parse("Limv-U", raise_on_error=True), expected)
+
+
+def test_parse_smooth_newt_gene_limv_dnb():
+    expected = Gene.get("Limv", "DNB")
+    assert expected is not None
+    eq_(expected.mhc_class, "IIa")
+    eq_(parse("Limv-DNB", raise_on_error=True), expected)
+
+
+def test_gap_report_protein_name_tokens_remain_rejected():
+    for raw in ["Povi-F10", "Miun-E-S", "Gese-DR-1"]:
+        assert parse(raw, raise_on_error=False) is None
 
 
 # ---------------------------------------------------------------------------

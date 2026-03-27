@@ -164,6 +164,18 @@ def test_parse_penguin_species_and_DRB1_family():
         eq_(parse(f"{prefix}-DRB1", raise_on_error=True), gene)
 
 
+def test_true_owl_family_inherits_dab_loci():
+    for prefix in ["Busc", "Stal", "Stoc"]:
+        species = Species.get(prefix)
+        dab1 = Gene.get(prefix, "DAB1")
+        dab2 = Gene.get(prefix, "DAB2")
+        assert species is not None
+        assert dab1 is not None
+        assert dab2 is not None
+        eq_(parse(f"{prefix}-DAB1", raise_on_error=True), dab1)
+        eq_(parse(f"{prefix}-DAB2", raise_on_error=True), dab2)
+
+
 def test_parse_barn_owl_family_level_and_embedded_prefix_aliases():
     examples = [
         ("Tyal-UA", Gene.get("Tyal", "UA")),

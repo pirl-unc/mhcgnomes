@@ -3,7 +3,11 @@ Tests for Species identity model where latin name is the canonical identity
 and prefixes/common names are aliases that may be ambiguous.
 """
 
+from collections import defaultdict
+
 from mhcgnomes import Allele, Gene, Species, parse
+from mhcgnomes.common import normalize_string
+from mhcgnomes.data import species as species_data
 
 from .common import eq_
 
@@ -86,6 +90,21 @@ def test_parse_unique_prefix_strings_unchanged():
         )
 
 
+def test_all_species_prefixes_and_other_prefixes_are_unique_after_normalization():
+    owners_by_prefix = defaultdict(set)
+    for latin_name, record in species_data.items():
+        prefix = record.get("prefix")
+        if prefix:
+            owners_by_prefix[normalize_string(prefix)].add(latin_name)
+        for alias in record.get("other prefixes", []) or []:
+            owners_by_prefix[normalize_string(alias)].add(latin_name)
+
+    collisions = {
+        prefix: sorted(owners) for prefix, owners in owners_by_prefix.items() if len(owners) > 1
+    }
+    assert collisions == {}
+
+
 # ---------------------------------------------------------------------------
 # 3. Ambiguity tests using real runtime collision (Bubu)
 # ---------------------------------------------------------------------------
@@ -110,6 +129,12 @@ def test_parse_bubobubo_dab1_resolves_eagle_owl():
     result = parse("BuboBubo-DAB1", raise_on_error=True)
     assert isinstance(result, Gene)
     eq_(result.species.name, "Bubo bubo")
+
+
+def test_parse_lanicola_species_resolves_fiscal_shrike():
+    species = Species.get("LaniCola")
+    assert species is not None
+    eq_(species.name, "Lanius collaris")
 
 
 def test_parse_bubu_allele_resolves_by_gene_context():

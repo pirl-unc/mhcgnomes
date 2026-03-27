@@ -6,7 +6,7 @@ sharks, tuatara, and taxonomy reclassifications.
 
 import pytest
 
-from mhcgnomes import Species, parse
+from mhcgnomes import Gene, Species, parse
 
 from .common import eq_
 
@@ -78,3 +78,30 @@ def test_old_genus_prefix_resolves_to_current_species(old_prefix, latin):
     species = Species.get(old_prefix)
     assert species is not None, f"Old prefix {old_prefix!r} did not resolve"
     eq_(species.name, latin)
+
+
+GAP_REPORT_SPECIES = [
+    ("Anda", "Andrias davidianus", "UAA"),
+    ("Geja", "Gekko japonicus", "DAA"),
+    ("Spau", "Sparus aurata", "UAA"),
+    ("Laca", "Lates calcarifer", "UAA"),
+    ("Safa", "Salarias fasciatus", "UAA"),
+    ("Acda", "Acipenser dabryanus", "UAA"),
+    ("Pybi", "Python bivittatus", "DRA"),
+    ("Poli", "Podarcis lilfordi", "DAA"),
+    ("Miun", "Microcaecilia unicolor", "DAA"),
+    ("Scsc", "Scomber scombrus", "UAA"),
+    ("Stoc", "Strix occidentalis caurina", "DAB1"),
+]
+
+
+@pytest.mark.parametrize("prefix,latin,gene_name", GAP_REPORT_SPECIES)
+def test_gap_report_species_parseable_with_example_gene(prefix, latin, gene_name):
+    species = Species.get(prefix)
+    assert species is not None, f"Species.get({prefix!r}) returned None"
+    eq_(species.name, latin)
+    eq_(Species.get(latin), species)
+
+    gene = Gene.get(prefix, gene_name)
+    assert gene is not None, f"Gene.get({prefix!r}, {gene_name!r}) returned None"
+    eq_(parse(f"{prefix}-{gene_name}", raise_on_error=True), gene)
