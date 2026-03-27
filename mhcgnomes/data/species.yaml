@@ -368,6 +368,11 @@ Homo sapiens:
         - DRB3
         - DRB4
         - DRB5
+        # DR beta-family pseudogenes still belong to the DR class II locus family.
+        - DRB6
+        - DRB7
+        - DRB8
+        - DRB9
       DP:
         - DPA1
         - DPB1
@@ -383,13 +388,6 @@ Homo sapiens:
       DM:
         - DMA
         - DMB
-    II:
-      DR:
-        # TODO: how should we categorize pseudogenes?
-        - DRB6
-        - DRB7
-        - DRB8
-        - DRB9
     other:
       - TAP1
       - TAP2
@@ -583,7 +581,6 @@ Rattus sp.:
       - 119
       - "9.5"
       - "9.6"
-      - A3
       - C
       - C113
       - Clw2
@@ -1958,11 +1955,11 @@ Capra sp.:
         - DRA1
         - DRB
         - DRB1
-      other:
-        - TAP1
-        - TAP2
-        - TAPBP
-        - B2M
+    other:
+      - TAP1
+      - TAP2
+      - TAPBP
+      - B2M
 Capra hircus:
   parent: Capra sp.
   prefix: Cahi
@@ -2235,7 +2232,7 @@ Oryctolagus sp.:
       - A2
       - A3
       - D
-    II:
+    IIa:
       DP:
         - DPA
         - DPB
