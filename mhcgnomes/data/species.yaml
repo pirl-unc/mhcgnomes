@@ -1074,7 +1074,9 @@ Scophthalmus maximus:
   name: Turbot
 Monopterus albus:
   parent: Actinopterygii sp.
-  # mhcseqs report lists prefix as "Mhc" which collides; using 5+5
+  # mhcseqs report lists prefix as "Mhc" which collides; using 5+5.
+  # Not adding short alias "Moal": UniProt-derived records reuse it for
+  # Motacilla alba as well as Monopterus albus.
   prefix: MonoAlbu
   other prefixes:
     - MonopAlbus
@@ -1121,6 +1123,8 @@ Rutilus rutilus:
   prefix: RutiRuti
   other prefixes:
     - Arbr
+    # Attested in UniProt gene_names; see registry entry Ruru.
+    - Ruru
   name: Roach
 Parachondrostoma toxostoma:
   parent: Actinopterygii sp.
@@ -1128,10 +1132,15 @@ Parachondrostoma toxostoma:
   prefix: ParaToxo
   other prefixes:
     - Pctn
+    # Attested in UniProt gene_names; see registry entry Pato.
+    - Pato
   name: Softnose
 Abramis brama:
   parent: Actinopterygii sp.
   prefix: AbraBram
+  other prefixes:
+    # Attested in UniProt gene_names; see registry entry Abbr.
+    - Abbr
   name: Common bream
 Gobio gobio:
   parent: Actinopterygii sp.
@@ -1196,6 +1205,7 @@ Iconisemion striatum:
   name: Striped killifish
 Hypophthalmichthys molitrix:
   parent: Actinopterygii sp.
+  # Not adding short alias Hymo: it collides with Hylobates moloch.
   prefix: HypoMoli
   name: Silver carp
 Carassius langsdorfii:
@@ -1446,18 +1456,34 @@ Crocodylus acutus:
 Crocodylus palustris:
   parent: Crocodylia sp.
   prefix: CrocPalu
+  other prefixes:
+    # Attested in UniProt gene_names and crocodilian MHC literature;
+    # see registry entry Crpa.
+    - Crpa
   name: Mugger crocodile
 Crocodylus rhombifer:
   parent: Crocodylia sp.
   prefix: CrocRhom
+  other prefixes:
+    # Attested in UniProt gene_names and crocodilian MHC literature;
+    # see registry entry Crrh.
+    - Crrh
   name: Cuban crocodile
 Crocodylus johnstoni:
   parent: Crocodylia sp.
   prefix: CrocJohn
+  other prefixes:
+    # Attested in UniProt gene_names and crocodilian MHC literature;
+    # see registry entry Crjo.
+    - Crjo
   name: Freshwater crocodile
 Crocodylus intermedius:
   parent: Crocodylia sp.
   prefix: CrocInte
+  other prefixes:
+    # Attested in UniProt gene_names and crocodilian MHC literature;
+    # see registry entry Crin.
+    - Crin
   name: Orinoco crocodile
 ############################
 #
@@ -2494,10 +2520,16 @@ Grus grus:
 Limosa limosa:
   parent: Aves sp.
   prefix: LimoLimo
+  other prefixes:
+    # Attested in UniProt gene_names; see registry entry Lili.
+    - Lili
   name: Black-tailed godwit
 Spinus spinus:
   parent: Aves sp.
   prefix: SpinSpin
+  other prefixes:
+    # Attested in UniProt gene_names; see registry entry Spsp.
+    - Spsp
   name: Eurasian siskin
 Emberiza cioides:
   parent: Aves sp.
@@ -2592,6 +2624,9 @@ Tympanuchus cupido:
   parent: Galliformes sp.
   # mhcseqs uses Iibi — unusual but attested
   prefix: Iibi
+  other prefixes:
+    # Attested in UniProt gene_names; see registry entry Tycu.
+    - Tycu
   name: Greater prairie chicken
 Gallus gallus:
   parent: Galliformes sp.

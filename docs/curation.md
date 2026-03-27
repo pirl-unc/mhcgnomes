@@ -129,6 +129,11 @@ Current examples include:
 The rule is: runtime parsing should only accept a bare prefix when the prefix is
 unambiguous inside `mhcgnomes`.
 
+Corollary: do not auto-generate new 2+2 / 4-letter runtime aliases from Latin
+names. Add a short alias only when an explicit source attests that exact
+prefix, and record the provenance in
+`underrepresented_taxa_source_registry.yaml`.
+
 Related rule: taxonomic node labels such as `Gnathostomata`, `Galliformes`,
 `Crocodylia`, `Salmonidae`, and `Testudines` are internal tree prefixes, not
 species prefixes to inherit onto child species. Short canonical species

@@ -224,24 +224,37 @@ def test_decorated_scientific_name_falls_back_to_base_binomial():
     eq_(species, Species.get("Cyprinus carpio"))
 
 
-def test_unique_short_2_2_prefix_alias_resolves_species():
+def test_sourced_short_2_2_prefix_alias_resolves_species():
     for short_prefix, latin_name in [
-        ("Spsp", "Spinus spinus"),
-        ("Ruru", "Rutilus rutilus"),
         ("Abbr", "Abramis brama"),
-        ("Moal", "Monopterus albus"),
+        ("Crin", "Crocodylus intermedius"),
+        ("Crjo", "Crocodylus johnstoni"),
+        ("Crpa", "Crocodylus palustris"),
+        ("Crrh", "Crocodylus rhombifer"),
+        ("Euma", "Eublepharis macularius"),
+        ("Geja", "Gekko japonicus"),
+        ("Lili", "Limosa limosa"),
+        ("Pato", "Parachondrostoma toxostoma"),
+        ("Ruru", "Rutilus rutilus"),
+        ("Spsp", "Spinus spinus"),
+        ("Tycu", "Tympanuchus cupido"),
     ]:
         species = Species.get(short_prefix)
         assert species is not None, f"Species.get({short_prefix!r}) returned None"
         eq_(species.name, latin_name)
 
 
-def test_unique_short_2_2_prefix_alias_parses_genes():
+def test_sourced_short_2_2_prefix_alias_parses_genes():
     for raw, expected_prefix, expected_gene in [
-        ("Spsp-UA", "SpinSpin", "UA"),
-        ("Ruru-DAB3", "RutiRuti", "DAB3"),
         ("Abbr-DAB1", "AbraBram", "DAB1"),
-        ("Moal-DAB", "MonoAlbu", "DAB"),
+        ("Crin-DB05", "CrocInte", "DB05"),
+        ("Crjo-DB02", "CrocJohn", "DB02"),
+        ("Crpa-DB02", "CrocPalu", "DB02"),
+        ("Crrh-DB05", "CrocRhom", "DB05"),
+        ("Lili-UA", "LimoLimo", "UA"),
+        ("Pato-DAB1", "ParaToxo", "DAB1"),
+        ("Ruru-DAB3", "RutiRuti", "DAB3"),
+        ("Spsp-UA", "SpinSpin", "UA"),
     ]:
         result = parse(raw, raise_on_error=True)
         assert isinstance(result, Gene)
@@ -249,22 +262,29 @@ def test_unique_short_2_2_prefix_alias_parses_genes():
         eq_(result.name, expected_gene)
 
 
-def test_colliding_short_2_2_prefix_is_not_auto_added():
-    # Hymo is already owned by Hylobates moloch, so the fish shorthand
-    # for Hypophthalmichthys molitrix must not be auto-added.
+def test_collision_backed_short_prefix_remains_blocked():
+    # Hymo is source-backed for silver carp, but runtime already owns it.
     species = Species.get("Hymo")
     assert species is not None
     eq_(species.name, "Hylobates moloch")
     assert parse("Hymo-UA", raise_on_error=False) is None
 
 
-def test_existing_prefix_owner_wins_over_new_short_alias():
-    # Orla is already used by orangutan (OrLA), so it must not be remapped
-    # to Oryzias latipes.
+def test_existing_prefix_owner_wins_over_source_backed_short_alias():
+    # Orla is used by multiple fish datasets and also collides with orangutan.
     species = Species.get("Orla")
     assert species is not None
     eq_(species.name, "Pongo sp.")
     assert parse("Orla-UGA", raise_on_error=False) is None
+
+
+def test_ambiguous_or_unsourced_short_prefixes_are_not_added():
+    for short_prefix in [
+        "Moal",  # reused across Monopterus albus and Motacilla alba
+        "Krma",  # no local source evidence found
+    ]:
+        assert Species.get(short_prefix) is None
+        assert parse(f"{short_prefix}-DAB", raise_on_error=False) is None
 
 
 # ---------------------------------------------------------------------------

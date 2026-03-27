@@ -913,3 +913,275 @@ taxa:
       Medaka added with prefix Oryl instead of the natural Orla because
       Orla collides with orangutan OrLA under case-insensitive normalization.
       Class I genes follow teleost U-lineage pattern.
+
+  Abbr:
+    scientific_name: Abramis brama
+    clade: fish
+    ontology_status: runtime_alias_added
+    curation_status: active
+    ingest_confidence: low_alias_only
+    recommended_ingest_level: alias
+    representative_annotation_sources:
+      - https://www.uniprot.org/uniprotkb/A0A8E5GK18/entry
+    observed_structure:
+      - uniprot_gene_name: Abbr-DAB3
+      - runtime_alias_addition: short alias Abbr added alongside canonical prefix AbraBram
+    notes: >
+      Short prefix Abbr is accepted because UniProt-derived source records use
+      the exact species-specific token Abbr-DAB3 for common bream. The longer
+      canonical runtime prefix AbraBram remains unchanged.
+
+  Ruru:
+    scientific_name: Rutilus rutilus
+    clade: fish
+    ontology_status: runtime_alias_added
+    curation_status: active
+    ingest_confidence: low_alias_only
+    recommended_ingest_level: alias
+    representative_annotation_sources:
+      - https://www.uniprot.org/uniprotkb/A0A8E5GK19/entry
+    observed_structure:
+      - uniprot_gene_name: Ruru-DAB3
+      - runtime_alias_addition: short alias Ruru added alongside canonical prefix RutiRuti
+    notes: >
+      Short prefix Ruru is accepted because UniProt-derived source records use
+      the exact species-specific token Ruru-DAB3 for roach. The older Arbr
+      alias is preserved separately because it reflects older taxonomic usage.
+
+  Pato:
+    scientific_name: Parachondrostoma toxostoma
+    clade: fish
+    ontology_status: runtime_alias_added
+    curation_status: active
+    ingest_confidence: low_alias_only
+    recommended_ingest_level: alias
+    representative_annotation_sources:
+      - https://www.uniprot.org/uniprotkb/S6DEV2/entry
+    observed_structure:
+      - uniprot_gene_name: Pato-DAB1
+      - runtime_alias_addition: short alias Pato added alongside canonical prefix ParaToxo
+    notes: >
+      Short prefix Pato is accepted because UniProt-derived source records use
+      exact Pato-DAB1 and Pato-DAB3 labels for softnose MHC sequences.
+
+  Spsp:
+    scientific_name: Spinus spinus
+    clade: bird
+    ontology_status: runtime_alias_added
+    curation_status: active
+    ingest_confidence: low_alias_only
+    recommended_ingest_level: alias
+    representative_annotation_sources:
+      - https://www.uniprot.org/uniprotkb/A0A6B9MC93/entry
+    observed_structure:
+      - uniprot_gene_name: Spsp-UA
+      - runtime_alias_addition: short alias Spsp added alongside canonical prefix SpinSpin
+    notes: >
+      Short prefix Spsp is accepted because UniProt-derived source records use
+      the exact token Spsp-UA for Eurasian siskin class I sequences.
+
+  Lili:
+    scientific_name: Limosa limosa
+    clade: bird
+    ontology_status: runtime_alias_added
+    curation_status: active
+    ingest_confidence: low_alias_only
+    recommended_ingest_level: alias
+    representative_annotation_sources:
+      - https://www.uniprot.org/uniprotkb/A0A1Y0JX04/entry
+    observed_structure:
+      - uniprot_gene_name: Lili-UA
+      - runtime_alias_addition: short alias Lili added alongside canonical prefix LimoLimo
+    notes: >
+      Short prefix Lili is accepted because UniProt-derived source records use
+      the exact token Lili-UA for black-tailed godwit sequences.
+
+  Tycu:
+    scientific_name: Tympanuchus cupido
+    clade: bird
+    ontology_status: runtime_alias_added
+    curation_status: active
+    ingest_confidence: low_alias_only
+    recommended_ingest_level: alias
+    representative_annotation_sources:
+      - https://www.uniprot.org/uniprotkb/A0A024B555/entry
+    observed_structure:
+      - uniprot_gene_name: Tycu-IA
+      - runtime_alias_addition: short alias Tycu added alongside canonical prefix Iibi
+    notes: >
+      Greater prairie chicken already used the unusual but attested Iibi
+      prefix in runtime. The short Tycu alias is now accepted because
+      UniProt-derived source records use exact Tycu-IA labels.
+
+  Euma:
+    scientific_name: Eublepharis macularius
+    clade: reptile
+    ontology_status: runtime_alias_existing
+    curation_status: active
+    ingest_confidence: low_alias_only
+    recommended_ingest_level: alias
+    representative_annotation_sources:
+      - https://www.uniprot.org/uniprotkb/A0AA97KYB7/entry
+    observed_structure:
+      - source_token: Euma-E-S
+      - runtime_alias_status: short alias Euma retained for attested leopard gecko labels
+    notes: >
+      Euma was already present in runtime as a short alias. This registry entry
+      records the source-backed rationale so the alias is no longer just an
+      uncited convenience.
+
+  Geja:
+    scientific_name: Gekko japonicus
+    clade: reptile
+    ontology_status: runtime_alias_existing
+    curation_status: active
+    ingest_confidence: low_alias_only
+    recommended_ingest_level: alias
+    representative_annotation_sources:
+      - https://www.uniprot.org/uniprotkb/A0ABM1JP88/entry
+    observed_structure:
+      - source_token: Geja-DRA
+      - source_token: Geja-F10
+      - runtime_alias_status: short alias Geja retained for attested Japanese gecko labels
+    notes: >
+      Geja was already present in runtime as a short alias. This registry entry
+      records the source-backed rationale so the alias is no longer just an
+      uncited convenience.
+
+  Crpa:
+    scientific_name: Crocodylus palustris
+    clade: reptile
+    ontology_status: runtime_alias_added
+    curation_status: active
+    ingest_confidence: low_alias_only
+    recommended_ingest_level: alias
+    representative_annotation_sources:
+      - https://www.uniprot.org/uniprotkb/V9HY09/entry
+    literature_sources:
+      - https://pubmed.ncbi.nlm.nih.gov/25111659/
+    observed_structure:
+      - uniprot_gene_name: Crpa-DB02
+      - runtime_alias_addition: short alias Crpa added alongside canonical prefix CrocPalu
+    notes: >
+      Short prefix Crpa is accepted because both UniProt-derived records and
+      the crocodilian MHC literature use the exact Crpa form for mugger
+      crocodile sequences.
+
+  Crrh:
+    scientific_name: Crocodylus rhombifer
+    clade: reptile
+    ontology_status: runtime_alias_added
+    curation_status: active
+    ingest_confidence: low_alias_only
+    recommended_ingest_level: alias
+    representative_annotation_sources:
+      - https://www.uniprot.org/uniprotkb/V9HXY0/entry
+    literature_sources:
+      - https://pubmed.ncbi.nlm.nih.gov/25111659/
+    observed_structure:
+      - uniprot_gene_name: Crrh-DB05
+      - runtime_alias_addition: short alias Crrh added alongside canonical prefix CrocRhom
+    notes: >
+      Short prefix Crrh is accepted because both UniProt-derived records and
+      the crocodilian MHC literature use the exact Crrh form for Cuban
+      crocodile sequences.
+
+  Crin:
+    scientific_name: Crocodylus intermedius
+    clade: reptile
+    ontology_status: runtime_alias_added
+    curation_status: active
+    ingest_confidence: low_alias_only
+    recommended_ingest_level: alias
+    representative_annotation_sources:
+      - https://www.uniprot.org/uniprotkb/V9HXX9/entry
+    literature_sources:
+      - https://pubmed.ncbi.nlm.nih.gov/25111659/
+    observed_structure:
+      - uniprot_gene_name: Crin-DB05
+      - runtime_alias_addition: short alias Crin added alongside canonical prefix CrocInte
+    notes: >
+      Short prefix Crin is accepted because both UniProt-derived records and
+      the crocodilian MHC literature use the exact Crin form for Orinoco
+      crocodile sequences.
+
+  Crjo:
+    scientific_name: Crocodylus johnstoni
+    clade: reptile
+    ontology_status: runtime_alias_added
+    curation_status: active
+    ingest_confidence: low_alias_only
+    recommended_ingest_level: alias
+    representative_annotation_sources:
+      - https://www.uniprot.org/uniprotkb/V9HXW2/entry
+    literature_sources:
+      - https://pubmed.ncbi.nlm.nih.gov/25111659/
+    observed_structure:
+      - uniprot_gene_name: Crjo-DB02
+      - runtime_alias_addition: short alias Crjo added alongside canonical prefix CrocJohn
+    notes: >
+      Short prefix Crjo is accepted because both UniProt-derived records and
+      the crocodilian MHC literature use the exact Crjo form for Australian
+      freshwater crocodile sequences.
+
+  Moal:
+    scientific_name: Monopterus albus
+    clade: fish
+    ontology_status: registry_only
+    curation_status: blocked
+    ingest_confidence: low_alias_only
+    recommended_ingest_level: revisit
+    representative_annotation_sources:
+      - https://www.uniprot.org/uniprotkb/V9PDN1/entry
+      - https://www.uniprot.org/uniprotkb/E2E2T7/entry
+    ambiguities:
+      - >
+        UniProt-derived source records reuse Moal for both Monopterus albus
+        and Motacilla alba, so the short prefix is not species-unique.
+    blocked_on:
+      - species-unique decision for Moal across fish and bird source records
+    notes: >
+      Do not add Moal to runtime while it still points to more than one species
+      in the local source corpus.
+
+  Hymo:
+    scientific_name: Hypophthalmichthys molitrix
+    clade: fish
+    ontology_status: registry_only
+    curation_status: blocked
+    ingest_confidence: low_alias_only
+    recommended_ingest_level: revisit
+    representative_annotation_sources:
+      - https://www.uniprot.org/uniprotkb/A0A193PJZ3/entry
+    ambiguities:
+      - >
+        UniProt-derived source records use Hymo-DAB for silver carp, but
+        runtime already owns Hymo for Hylobates moloch.
+    blocked_on:
+      - canonical-prefix conflict with Hylobates moloch
+    notes: >
+      Evidence exists for Hymo as a silver carp label, but runtime cannot
+      accept it without silently breaking the existing primate owner.
+
+  Orla:
+    scientific_name: Oryzias latipes
+    clade: fish
+    ontology_status: registry_only
+    curation_status: blocked
+    ingest_confidence: low_alias_only
+    recommended_ingest_level: revisit
+    representative_annotation_sources:
+      - https://www.uniprot.org/uniprotkb/F5HRI2/entry
+    ambiguities:
+      - >
+        UniProt-derived source records reuse Orla across Oryzias latipes and
+        several killifish species.
+      - >
+        Runtime already owns OrLA for orangutan, which normalizes to the same
+        case-insensitive bare prefix as Orla.
+    blocked_on:
+      - source-level prefix reuse across multiple fish species
+      - canonical-prefix conflict with orangutan OrLA
+    notes: >
+      Keep Oryzias latipes on Oryl/OryzLati until the Orla collision is
+      resolved upstream in the source datasets.
