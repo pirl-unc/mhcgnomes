@@ -5,7 +5,9 @@ and prefixes/common names are aliases that may be ambiguous.
 
 from collections import defaultdict
 
-from mhcgnomes import Allele, Gene, Species, parse
+import pytest
+
+from mhcgnomes import Allele, Gene, ParseError, Species, parse
 from mhcgnomes.common import normalize_string
 from mhcgnomes.data import species as species_data
 
@@ -285,6 +287,31 @@ def test_ambiguous_or_unsourced_short_prefixes_are_not_added():
     ]:
         assert Species.get(short_prefix) is None
         assert parse(f"{short_prefix}-DAB", raise_on_error=False) is None
+
+
+def test_context_only_prefixes_stay_out_of_global_species_lookup():
+    assert Species.get("Moal") is None
+    assert Species.get("Motacilla alba") is not None
+    eq_(Species.get("Motacilla alba").prefix, "MotaAlba")
+
+
+def test_context_only_hymo_failure_is_informative():
+    with pytest.raises(ParseError, match="Hypophthalmichthys molitrix"):
+        parse("Hymo-DAB", raise_on_error=True)
+
+
+def test_context_only_moal_failure_is_informative():
+    with pytest.raises(ParseError, match="Monopterus albus"):
+        parse("Moal-DAB", raise_on_error=True)
+    with pytest.raises(ParseError, match="Motacilla alba"):
+        parse("Moal-DAB", raise_on_error=True)
+
+
+def test_context_only_orla_failure_is_informative():
+    with pytest.raises(ParseError, match="Pongo sp."):
+        parse("ORLA-UAA", raise_on_error=True)
+    with pytest.raises(ParseError, match="Oryzias latipes"):
+        parse("ORLA-UAA", raise_on_error=True)
 
 
 # ---------------------------------------------------------------------------

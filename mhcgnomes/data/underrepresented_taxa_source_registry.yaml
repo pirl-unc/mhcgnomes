@@ -1127,7 +1127,7 @@ taxa:
   Moal:
     scientific_name: Monopterus albus
     clade: fish
-    ontology_status: registry_only
+    ontology_status: runtime_added_with_alias_gap
     curation_status: blocked
     ingest_confidence: low_alias_only
     recommended_ingest_level: revisit
@@ -1141,13 +1141,15 @@ taxa:
     blocked_on:
       - species-unique decision for Moal across fish and bird source records
     notes: >
-      Do not add Moal to runtime while it still points to more than one species
-      in the local source corpus.
+      Monopterus albus now has the collision-free runtime prefix MonoAlbu, and
+      Motacilla alba uses MotaAlba. The short prefix Moal remains blocked as a
+      bare runtime alias but is accepted only when species= supplies the
+      intended species context.
 
   Hymo:
     scientific_name: Hypophthalmichthys molitrix
     clade: fish
-    ontology_status: registry_only
+    ontology_status: runtime_added_with_alias_gap
     curation_status: blocked
     ingest_confidence: low_alias_only
     recommended_ingest_level: revisit
@@ -1160,13 +1162,15 @@ taxa:
     blocked_on:
       - canonical-prefix conflict with Hylobates moloch
     notes: >
-      Evidence exists for Hymo as a silver carp label, but runtime cannot
-      accept it without silently breaking the existing primate owner.
+      Hypophthalmichthys molitrix now uses HypoMoli at runtime. The short
+      prefix Hymo remains blocked as a bare runtime alias because it would
+      silently break the existing primate owner, but parse(..., species=...)
+      can now reinterpret it in the requested species context.
 
   Orla:
     scientific_name: Oryzias latipes
     clade: fish
-    ontology_status: registry_only
+    ontology_status: runtime_added_with_alias_gap
     curation_status: blocked
     ingest_confidence: low_alias_only
     recommended_ingest_level: revisit
@@ -1183,5 +1187,8 @@ taxa:
       - source-level prefix reuse across multiple fish species
       - canonical-prefix conflict with orangutan OrLA
     notes: >
-      Keep Oryzias latipes on Oryl/OryzLati until the Orla collision is
-      resolved upstream in the source datasets.
+      Oryzias latipes stays on Oryl/OryzLati as the collision-free runtime
+      prefix. The short Orla/OrLA form remains blocked as a bare runtime alias
+      because it collides with orangutan and multiple fish datasets, but
+      parse(..., species=...) can now reinterpret it for the requested fish
+      species.

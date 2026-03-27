@@ -31,6 +31,8 @@ from .normalizing_dictionary import NormalizingDictionary
 from .normalizing_set import NormalizingSet
 from .result import Result
 
+_RAW_SPECIES_ORDER = {latin_name: i for i, latin_name in enumerate(raw_species_dict)}
+
 
 class FrozenList(list):
     def _immutable(self, *args, **kwargs):
@@ -142,6 +144,7 @@ class Species(Result):
     parent_species: Union["Species", None] = None
     old_mhc_prefix: str = ""
     other_mhc_prefixes: Any = None
+    context_only_mhc_prefixes: Any = None
     other_common_names: Any = None
 
     def __init__(
@@ -164,6 +167,7 @@ class Species(Result):
         parent_species: Union["Species", None] = None,
         old_mhc_prefix: Union[str, None] = None,
         other_mhc_prefixes: Iterable[str] = [],
+        context_only_mhc_prefixes: Iterable[str] = [],
         other_common_names: Iterable[str] = [],
         raw_string: Union[str, None] = None,
     ):
@@ -194,6 +198,11 @@ class Species(Result):
         self._set_field(self, "other_common_names", FrozenList(other_common_names))
         self._set_field(self, "mhc_prefix", mhc_prefix)
         self._set_field(self, "other_mhc_prefixes", FrozenSet(other_mhc_prefixes))
+        self._set_field(
+            self,
+            "context_only_mhc_prefixes",
+            FrozenSet(context_only_mhc_prefixes),
+        )
         if old_mhc_prefix:
             normalized_old_mhc_prefix = old_mhc_prefix
         else:
@@ -783,6 +792,12 @@ def create_species_for_latin_name(latin_name):
     elif other_mhc_prefixes is None:
         other_mhc_prefixes = []
 
+    context_only_mhc_prefixes = species_info.get("context only prefixes")
+    if type(context_only_mhc_prefixes) is str:
+        context_only_mhc_prefixes = [context_only_mhc_prefixes]
+    elif context_only_mhc_prefixes is None:
+        context_only_mhc_prefixes = []
+
     # Auto-generate parseable aliases from the latin name:
     # 1. A 4+4 novel prefix (e.g. "OryzLati") — the standard for non-literature prefixes
     # 2. A 5+5 long prefix (e.g. "OryziLatip") for backward compatibility
@@ -902,6 +917,7 @@ def create_species_for_latin_name(latin_name):
         supertypes=supertypes,
         parent_species=parent_species,
         other_mhc_prefixes=other_mhc_prefixes,
+        context_only_mhc_prefixes=context_only_mhc_prefixes,
         other_common_names=[name for name in common_names if name != shortest_common_name],
         raw_string=latin_name,
     )
@@ -948,6 +964,7 @@ def create_species_lookup_dictionaries():
     # latin name, common names, or MHC prefixes all mapping to multiple
     # species objects
     alias_to_species_objects = NormalizingDictionary(default_value_fn=set)
+    context_only_alias_to_species_objects = NormalizingDictionary(default_value_fn=set)
 
     for latin_name in raw_species_dict:
         species = create_species_for_latin_name(latin_name)
@@ -955,6 +972,8 @@ def create_species_lookup_dictionaries():
         species_name_to_species[latin_name] = species
         for s in species.all_identifiers:
             alias_to_species_objects[s].add(species)
+        for s in species.context_only_mhc_prefixes:
+            context_only_alias_to_species_objects[s].add(species)
         for gene_name in species.gene_names_and_aliases:
             gene_name_to_species_objects[gene_name].add(species)
 
@@ -962,6 +981,7 @@ def create_species_lookup_dictionaries():
         latin_name_to_species,
         species_name_to_species,
         alias_to_species_objects,
+        context_only_alias_to_species_objects,
         gene_name_to_species_objects,
     )
 
@@ -970,6 +990,7 @@ def create_species_lookup_dictionaries():
     latin_name_to_species_object,
     species_name_to_species_object,
     alias_to_species_objects,
+    context_only_alias_to_species_objects,
     gene_name_to_species_objects,
 ) = create_species_lookup_dictionaries()
 
@@ -983,6 +1004,18 @@ def find_matching_species_objects(name):
     if name is None:
         return []
     return list(alias_to_species_objects.get(name, []))
+
+
+def find_matching_context_only_species_objects(name):
+    """
+    Returns list of Species for prefixes that are intentionally accepted only
+    when additional species context is supplied by the caller.
+    """
+    if type(name) is Species:
+        return [name]
+    if name is None:
+        return []
+    return list(context_only_alias_to_species_objects.get(name, []))
 
 
 def create_species_sort_key(query_string):
@@ -999,6 +1032,62 @@ def create_species_sort_key(query_string):
         return (same_prefix, similar_prefix, num_genes)
 
     return sort_key
+
+
+def _candidate_prefix_substrings(name):
+    candidates = [name]
+    if "-" in name or "." in name:
+        parts_split_by_separator = re.split(r"[-.]", name)
+        first = parts_split_by_separator[0]
+        if first not in candidates:
+            candidates.append(first)
+        if len(parts_split_by_separator) > 1:
+            first_two = parts_split_by_separator[0] + "-" + parts_split_by_separator[1]
+            if first_two not in candidates:
+                candidates.append(first_two)
+    return candidates
+
+
+def _sort_species_by_ontology_order(species_objects):
+    return sorted(species_objects, key=lambda sp: _RAW_SPECIES_ORDER.get(sp.name, float("inf")))
+
+
+def infer_species_from_context_only_prefix(name, _allow_mhc_strip=True):
+    """
+    Find source-attested but globally blocked species prefixes such as Hymo,
+    Moal, or Orla. Returns a tuple of:
+        - matching Species objects
+        - the original prefix substring that matched
+
+    Unlike infer_species_from_prefix, this function does not choose a global
+    winner or use gene-context disambiguation. It exists to support
+    species-constrained reparsing and informative conflict errors.
+    """
+    if _allow_mhc_strip and "-" in name:
+        prefix_part, rest = name.split("-", 1)
+        if len(prefix_part) > 3 and prefix_part[-3:].upper() == "MHC":
+            stripped_name = prefix_part[:-3] + "-" + rest
+            result = infer_species_from_context_only_prefix(stripped_name, _allow_mhc_strip=False)
+            if result is not None:
+                species_objects, _ = result
+                return species_objects, prefix_part
+
+    candidate_species_substrings = _candidate_prefix_substrings(name)
+    for num_chars in [None, 4, 3, 2]:
+        for candidate in candidate_species_substrings:
+            original_prefix = candidate[:num_chars] if num_chars else candidate
+            species_objects = find_matching_context_only_species_objects(original_prefix)
+            if species_objects:
+                return tuple(_sort_species_by_ontology_order(species_objects)), original_prefix
+
+    if _allow_mhc_strip and len(name) > 3 and name[:3].lower() == "mhc":
+        stripped = name[3:]
+        result = infer_species_from_context_only_prefix(stripped, _allow_mhc_strip=False)
+        if result is not None:
+            species_objects, inner_prefix = result
+            return species_objects, name[: 3 + len(inner_prefix)]
+
+    return None
 
 
 def infer_species_from_prefix(name, _allow_mhc_strip=True):
@@ -1036,18 +1125,7 @@ def infer_species_from_prefix(name, _allow_mhc_strip=True):
 
     # Try parsing a few different substrings to get the species,
     # and then use the species gene list to determine what the gene is in this string
-    candidate_species_substrings = {name}
-
-    if "-" in name or "." in name:
-        # if name is "H-2-K" or "RT1.A" then try parsing "H", "H-2", "RT1" as
-        # species prefixes. We treat both "-" and "." as valid separators.
-        parts_split_by_separator = re.split(r"[-.]", name)
-        candidate_species_substrings.add(parts_split_by_separator[0])
-        if len(parts_split_by_separator) > 1:
-            # Also try first two parts joined by hyphen (e.g., "H-2" from "H-2-K")
-            candidate_species_substrings.add(
-                parts_split_by_separator[0] + "-" + parts_split_by_separator[1]
-            )
+    candidate_species_substrings = _candidate_prefix_substrings(name)
 
     for num_chars in [None, 4, 3, 2]:
         for candidate in candidate_species_substrings:

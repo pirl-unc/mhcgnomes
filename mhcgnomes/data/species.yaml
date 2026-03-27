@@ -868,7 +868,9 @@ Danio rerio:
 # Medaka
 #
 # Note: the natural prefix "Orla" collides with orangutan "OrLA" under
-# case-insensitive normalization. Using "Oryl" instead.
+# case-insensitive normalization. Keep Orla as a context-only rescue alias
+# for species= because UniProt-derived fish records also use ORLA-* strings.
+# Using Oryl/OryzLati as the collision-free runtime prefixes.
 #
 ############################
 Oryzias latipes:
@@ -876,6 +878,8 @@ Oryzias latipes:
   prefix: OryzLati
   other prefixes:
     - Oryl
+  context only prefixes:
+    - Orla
   name: Medaka
   genes:
     Ia:
@@ -1075,11 +1079,14 @@ Scophthalmus maximus:
 Monopterus albus:
   parent: Actinopterygii sp.
   # mhcseqs report lists prefix as "Mhc" which collides; using 5+5.
-  # Not adding short alias "Moal": UniProt-derived records reuse it for
-  # Motacilla alba as well as Monopterus albus.
+  # UniProt-derived records reuse Moal-* for both Monopterus albus and
+  # Motacilla alba. Keep Moal as a context-only rescue alias for species=
+  # and use MonoAlbu as the collision-free runtime prefix.
   prefix: MonoAlbu
   other prefixes:
     - MonopAlbus
+  context only prefixes:
+    - Moal
   name: Asian swamp eel
 Astyanax mexicanus:
   parent: Actinopterygii sp.
@@ -1149,10 +1156,14 @@ Gobio gobio:
 Nothobranchius korthausae:
   parent: Actinopterygii sp.
   prefix: NothKort
+  context only prefixes:
+    - Orla
   name: Korthausae killifish
 Nothobranchius kuhntae:
   parent: Actinopterygii sp.
   prefix: NothKuhn
+  context only prefixes:
+    - Orla
   name: Kuhntae killifish
 Channa argus:
   parent: Actinopterygii sp.
@@ -1182,14 +1193,20 @@ Kryptolebias marmoratus:
 Nothobranchius furzeri:
   parent: Actinopterygii sp.
   prefix: NothFurz
+  context only prefixes:
+    - Orla
   name: Turquoise killifish
 Nothobranchius rachovii:
   parent: Actinopterygii sp.
   prefix: NothRach
+  context only prefixes:
+    - Orla
   name: Bluefin notho
 Nothobranchius kadleci:
   parent: Actinopterygii sp.
   prefix: NothKadl
+  context only prefixes:
+    - Orla
   name: Kadlec's notho
 Nothobranchius orthonotus:
   parent: Actinopterygii sp.
@@ -1198,15 +1215,23 @@ Nothobranchius orthonotus:
 Nothobranchius pienaari:
   parent: Actinopterygii sp.
   prefix: NothPien
+  context only prefixes:
+    - Orla
   name: Pienaar's notho
 Iconisemion striatum:
   parent: Actinopterygii sp.
   prefix: IconStri
+  context only prefixes:
+    - Orla
   name: Striped killifish
 Hypophthalmichthys molitrix:
   parent: Actinopterygii sp.
-  # Not adding short alias Hymo: it collides with Hylobates moloch.
+  # UniProt-derived records use Hymo-* for silver carp, but runtime already
+  # uses Hymo for Hylobates moloch. Keep Hymo as a context-only rescue alias
+  # for species= and use HypoMoli as the collision-free runtime prefix.
   prefix: HypoMoli
+  context only prefixes:
+    - Hymo
   name: Silver carp
 Carassius langsdorfii:
   parent: Actinopterygii sp.
@@ -2419,6 +2444,19 @@ Turdus merula:
   other prefixes:
     - Tume
   name: Common blackbird
+Motacilla alba:
+  parent: Aves sp.
+  # UniProt-derived records use Moal-DAB1..4 for white wagtail, but Moal also
+  # appears on Monopterus albus. Keep Moal as a context-only rescue alias for
+  # species= and use MotaAlba as the collision-free runtime prefix.
+  prefix: MotaAlba
+  context only prefixes:
+    - Moal
+  name: White wagtail
+  genes:
+    IIa:
+      DA:
+        - DAB4
 Lanius collurio:
   parent: Aves sp.
   prefix: LaniColl
