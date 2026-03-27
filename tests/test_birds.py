@@ -284,6 +284,5 @@ def test_do_not_parse_ambiguous_or_unreviewed_bird_strings():
         "Ritr-DRB1",
         "Otel-DAB",
         "Phtr-UA",
-        "Phco-UA",
     ]:
         assert parse(s, raise_on_error=False) is None

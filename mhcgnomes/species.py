@@ -391,11 +391,20 @@ class Species(Result):
             return None
 
         species_objects = cls.get_multiple(species_name)
+        normalized_query = species_name
 
         # Try underscore-to-space normalization if no results
         # (common in bioinformatics: "Canis_lupus" for "Canis lupus")
         if len(species_objects) == 0 and "_" in species_name:
-            species_objects = cls.get_multiple(species_name.replace("_", " "))
+            normalized_query = species_name.replace("_", " ")
+            species_objects = cls.get_multiple(normalized_query)
+
+        # Fall back from decorated scientific names to the base binomial
+        # when that exact species already exists in the ontology.
+        if len(species_objects) == 0:
+            candidate_binomial = _base_binomial_if_decorated_species_name(normalized_query)
+            if candidate_binomial and candidate_binomial != normalized_query:
+                species_objects = cls.get_multiple(candidate_binomial)
 
         if len(species_objects) == 0:
             return None
@@ -709,6 +718,44 @@ def _make_5_5_prefix(latin_name):
     return genus.capitalize() + species.capitalize()
 
 
+def _make_2_2_prefix(latin_name):
+    """
+    Generate a short 2+2 compatibility prefix from a latin binomial by
+    taking the first 2 characters of each word, capitalized. E.g.:
+        "Spinus spinus" -> "Spsp"
+        "Oryzias latipes" -> "Orla"
+
+    This prefix is only exposed when it is unique across the ontology.
+    """
+    parts = latin_name.split()
+    if len(parts) < 2 or parts[1].endswith("."):
+        return None
+    genus = parts[0][:2]
+    species = parts[1][:2]
+    return genus.capitalize() + species.capitalize()
+
+
+def _base_binomial_if_decorated_species_name(name):
+    """
+    Extract the base latin binomial from a decorated scientific name such as
+    "Cyprinus carpio 'xingguonensis'" or "Canis lupus familiaris".
+
+    Returns None when the input doesn't look like a scientific name with
+    extra trailing qualifiers.
+    """
+    parts = name.split()
+    if len(parts) < 3:
+        return None
+
+    genus = parts[0]
+    species = parts[1]
+    if not re.fullmatch(r"[A-Z][a-z]+", genus):
+        return None
+    if not re.fullmatch(r"[a-z][a-z-]*", species):
+        return None
+    return f"{genus} {species}"
+
+
 def _is_taxonomic_prefix(prefix, latin_name):
     """
     Taxonomic helper prefixes like "Galliformes" or "Crocodylia" should not
@@ -927,6 +974,23 @@ def create_species_lookup_dictionaries():
             alias_to_species_objects[s].add(species)
         for gene_name in species.gene_names_and_aliases:
             gene_name_to_species_objects[gene_name].add(species)
+
+    # Add short 2+2 compatibility prefixes only when they are unique across
+    # the ontology and don't collide with an existing alias owned by another species.
+    short_prefix_to_species = NormalizingDictionary(default_value_fn=set)
+    for latin_name, species in latin_name_to_species.items():
+        short_prefix = _make_2_2_prefix(latin_name)
+        if short_prefix:
+            short_prefix_to_species[short_prefix].add(species)
+
+    for short_prefix, species_objects in short_prefix_to_species.items():
+        if len(species_objects) != 1:
+            continue
+        species = next(iter(species_objects))
+        existing_species = alias_to_species_objects.get(short_prefix, set())
+        if existing_species and existing_species != {species}:
+            continue
+        alias_to_species_objects[short_prefix].add(species)
     return (
         latin_name_to_species,
         species_name_to_species,

@@ -217,6 +217,56 @@ def test_latin_name_with_space_works():
     eq_(result.species.prefix, "HLA")
 
 
+def test_decorated_scientific_name_falls_back_to_base_binomial():
+    decorated = "Cyprinus carpio 'xingguonensis'"
+    species = Species.get(decorated)
+    assert species is not None
+    eq_(species, Species.get("Cyprinus carpio"))
+
+
+def test_unique_short_2_2_prefix_alias_resolves_species():
+    for short_prefix, latin_name in [
+        ("Spsp", "Spinus spinus"),
+        ("Ruru", "Rutilus rutilus"),
+        ("Abbr", "Abramis brama"),
+        ("Moal", "Monopterus albus"),
+    ]:
+        species = Species.get(short_prefix)
+        assert species is not None, f"Species.get({short_prefix!r}) returned None"
+        eq_(species.name, latin_name)
+
+
+def test_unique_short_2_2_prefix_alias_parses_genes():
+    for raw, expected_prefix, expected_gene in [
+        ("Spsp-UA", "SpinSpin", "UA"),
+        ("Ruru-DAB3", "RutiRuti", "DAB3"),
+        ("Abbr-DAB1", "AbraBram", "DAB1"),
+        ("Moal-DAB", "MonoAlbu", "DAB"),
+    ]:
+        result = parse(raw, raise_on_error=True)
+        assert isinstance(result, Gene)
+        eq_(result.species.prefix, expected_prefix)
+        eq_(result.name, expected_gene)
+
+
+def test_colliding_short_2_2_prefix_is_not_auto_added():
+    # Hymo is already owned by Hylobates moloch, so the fish shorthand
+    # for Hypophthalmichthys molitrix must not be auto-added.
+    species = Species.get("Hymo")
+    assert species is not None
+    eq_(species.name, "Hylobates moloch")
+    assert parse("Hymo-UA", raise_on_error=False) is None
+
+
+def test_existing_prefix_owner_wins_over_new_short_alias():
+    # Orla is already used by orangutan (OrLA), so it must not be remapped
+    # to Oryzias latipes.
+    species = Species.get("Orla")
+    assert species is not None
+    eq_(species.name, "Pongo sp.")
+    assert parse("Orla-UGA", raise_on_error=False) is None
+
+
 # ---------------------------------------------------------------------------
 # 6. Failure modes for latin name / long prefix parsing
 # ---------------------------------------------------------------------------
