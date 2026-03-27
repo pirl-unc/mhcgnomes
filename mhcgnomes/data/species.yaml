@@ -368,6 +368,11 @@ Homo sapiens:
         - DRB3
         - DRB4
         - DRB5
+        # DR beta-family pseudogenes still belong to the DR class II locus family.
+        - DRB6
+        - DRB7
+        - DRB8
+        - DRB9
       DP:
         - DPA1
         - DPB1
@@ -383,13 +388,6 @@ Homo sapiens:
       DM:
         - DMA
         - DMB
-    II:
-      DR:
-        # TODO: how should we categorize pseudogenes?
-        - DRB6
-        - DRB7
-        - DRB8
-        - DRB9
     other:
       - TAP1
       - TAP2
@@ -583,7 +581,6 @@ Rattus sp.:
       - 119
       - "9.5"
       - "9.6"
-      - A3
       - C
       - C113
       - Clw2
@@ -1845,252 +1842,74 @@ Balaenoptera musculus:
   parent: Cetacea sp.
   prefix: Bamu
   name: Blue whale
-  genes:
-    I:
-      - N
-      - S
-    IIa:
-      DQ:
-        - DQA
-        - DQB
-      DR:
-        - DRA
-        - DRB1
 Balaenoptera acutorostrata:
   parent: Cetacea sp.
   prefix: Baac
   name: Minke whale
-  genes:
-    I:
-      - S
-    IIa:
-      DR:
-        - DRA
-        - DRB1
 Balaenoptera edeni:
   parent: Cetacea sp.
   prefix: Baed
   name: Bryde's whale
-  genes:
-    I:
-      - N
-    IIa:
-      DQ:
-        - DQA
-        - DQB
-      DR:
-        - DRA
-        - DRB1
 Cephalorhynchus hectori:
   parent: Cetacea sp.
   prefix: Cehe
   name: Hector's dolphin
-  genes:
-    I:
-      - N
-    IIa:
-      DQ:
-        - DQA
-        - DQB
-      DR:
-        - DRA
-        - DRB1
 Delphinus delphis:
   parent: Cetacea sp.
   prefix: Dede
   name: Common dolphin
-  genes:
-    I:
-      - N
-    IIa:
-      DQ:
-        - DQA
-        - DQB
-      DR:
-        - DRA
-        - DRB1
 Eubalaena australis:
   parent: Cetacea sp.
   prefix: Euau
   name: Southern right whale
-  genes:
-    I:
-      - N
-    IIa:
-      DQ:
-        - DQA
-        - DQB
-      DR:
-        - DRA
-        - DRB1
 Globicephala melas:
   parent: Cetacea sp.
   prefix: Glme
   name: Long-finned pilot whale
-  genes:
-    I:
-      - N
-    IIa:
-      DQ:
-        - DQA
-        - DQB
-      DR:
-        - DRA
-        - DRB1
 Grampus griseus:
   parent: Cetacea sp.
   prefix: Grgr
   name: Risso's dolphin
-  genes:
-    I:
-      - N
-    IIa:
-      DQ:
-        - DQA
-        - DQB
-      DR:
-        - DRA
-        - DRB1
 Kogia breviceps:
   parent: Cetacea sp.
   prefix: Kobr
   name: Pygmy sperm whale
-  genes:
-    I:
-      - N
-    IIa:
-      DQ:
-        - DQA
-        - DQB
-      DR:
-        - DRA
-        - DRB1
 Lagenorhynchus obscurus:
   parent: Cetacea sp.
   prefix: Laob
   name: Dusky dolphin
-  genes:
-    I:
-      - N
-    IIa:
-      DQ:
-        - DQA
-        - DQB
-      DR:
-        - DRA
-        - DRB1
 Mesoplodon densirostris:
   parent: Cetacea sp.
   prefix: Mede
   name: Blainville's beaked whale
-  genes:
-    I:
-      - N
-    IIa:
-      DQ:
-        - DQA
-        - DQB
-      DR:
-        - DRA
-        - DRB1
 Mesoplodon europaeus:
   parent: Cetacea sp.
   prefix: Meeu
   name: Gervais' beaked whale
-  genes:
-    I:
-      - N
-    IIa:
-      DQ:
-        - DQA
-        - DQB
-      DR:
-        - DRA
-        - DRB1
 Mesoplodon grayi:
   parent: Cetacea sp.
   prefix: Megr
   name: Gray's beaked whale
-  genes:
-    I:
-      - N
-    IIa:
-      DQ:
-        - DQA
-        - DQB
-      DR:
-        - DRA
-        - DRB1
 Megaptera novaeangliae:
   parent: Cetacea sp.
   prefix: Meno
   name: Humpback whale
-  genes:
-    I:
-      - N
-    IIa:
-      DQ:
-        - DQA
-        - DQB
-      DR:
-        - DRA
-        - DRB1
 Steno bredanensis:
   parent: Cetacea sp.
   prefix: Stbr
   name: Rough-toothed dolphin
-  genes:
-    I:
-      - N
-    IIa:
-      DQ:
-        - DQA
-        - DQB
-      DR:
-        - DRA
-        - DRB1
 Stenella coeruleoalba:
   parent: Cetacea sp.
   prefix: Stco
   name: Striped dolphin
-  genes:
-    I:
-      - N
-    IIa:
-      DQ:
-        - DQA
-        - DQB
-      DR:
-        - DRA
-        - DRB1
 Tursiops truncatus:
   parent: Cetacea sp.
   prefix: Tutr
   name: Bottlenose dolphin
-  genes:
-    I:
-      - N
-    IIa:
-      DQ:
-        - DQA
-        - DQB
-      DR:
-        - DRA
-        - DRB1
 Ziphius cavirostris:
   parent: Cetacea sp.
   prefix: Zica
   name: Cuvier's beaked whale
-  genes:
-    I:
-      - N
-    IIa:
-      DQ:
-        - DQA
-        - DQB
-      DR:
-        - DRA
-        - DRB1
 Caperea marginata:
   parent: Cetacea sp.
   prefix: CapeMarg
@@ -2136,11 +1955,11 @@ Capra sp.:
         - DRA1
         - DRB
         - DRB1
-      other:
-        - TAP1
-        - TAP2
-        - TAPBP
-        - B2M
+    other:
+      - TAP1
+      - TAP2
+      - TAPBP
+      - B2M
 Capra hircus:
   parent: Capra sp.
   prefix: Cahi
@@ -2413,7 +2232,7 @@ Oryctolagus sp.:
       - A2
       - A3
       - D
-    II:
+    IIa:
       DP:
         - DPA
         - DPB
@@ -2982,11 +2801,6 @@ Strigidae sp.:
   parent: Aves sp.
   name: True owl
   prefix: Strigidae
-  genes:
-    IIa:
-      DA:
-        - DAB1
-        - DAB2
 Aegolius funereus:
   parent: Strigidae sp.
   name: Tengmalm's owl
@@ -3077,11 +2891,6 @@ Tyto alba:
   prefix: TytoAlba
   other prefixes:
     - Tyal
-  genes:
-    IIa:
-      DA:
-        - DAB1
-        - DAB2
 ################################################################################
 #
 # Non-human primates
@@ -3672,11 +3481,6 @@ Macaca silenus:
   parent: Macaca sp.
   prefix: Masi
   name: Lion-tailed Macaque
-  genes:
-    IIa:
-      DR:
-        # unclear if DRB4 shared across all macaques
-        - DRB4
 Mandrillus sphinx:
   parent: Primata sp.
   prefix: Masp
@@ -3694,18 +3498,6 @@ Macaca thibetana:
   parent: Macaca sp.
   prefix: Math
   name: Milne Edward's Macaque
-  genes:
-    Ia:
-      - A1
-      - A2
-      - B
-    I:
-      - I
-    IIa:
-      DP:
-        - DPB1
-      DQ:
-        - DQB1
 
 Papio anubis:
   parent: Primata sp.

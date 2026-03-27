@@ -220,6 +220,30 @@ taxa:
       above apply to adding gene-level ontology, not to the existing
       species entry.
 
+  Anda:
+    scientific_name: Andrias davidianus
+    clade: amphibian
+    ontology_status: runtime_added_species_only
+    curation_status: active
+    ingest_confidence: high_gene_level
+    recommended_ingest_level: gene
+    literature_sources:
+      - https://pubmed.ncbi.nlm.nih.gov/24135718/
+    candidate_gene_families:
+      - class IA
+      - class IIA
+      - class IIB
+    legacy_runtime_prefixes:
+      - AndrDavi
+    observed_structure:
+      - published_prefix_usage: Anda-MHC
+      - literature_signal: class IA, IIA, and IIB alleles characterized in Chinese giant salamander
+      - runtime_prefix_promotion: canonical prefix switched from AndrDavi to Anda with legacy alias retained
+    notes: >
+      Runtime now uses the published Anda prefix from the Chinese giant
+      salamander MHC paper. The previous generated prefix AndrDavi is kept as a
+      compatibility alias while amphibian gene-family curation continues.
+
   Acar:
     scientific_name: Acrocephalus arundinaceus
     clade: bird
@@ -269,6 +293,32 @@ taxa:
     notes: >
       Added to runtime because current external data uses the exact gene label
       Acsc-UA. This should not block future refinement to more specific loci.
+
+  Acda:
+    scientific_name: Acipenser dabryanus
+    clade: fish
+    ontology_status: runtime_added_species_only
+    curation_status: active
+    ingest_confidence: high_gene_level
+    recommended_ingest_level: gene
+    literature_sources:
+      - https://www.sciencedirect.com/science/article/abs/pii/S0145305X19302393
+    candidate_gene_families:
+      - class I alpha
+      - class II alpha
+      - class II beta
+      - Ii
+    legacy_runtime_prefixes:
+      - AcipDabr
+    observed_structure:
+      - published_prefix_usage: Acda-UAA*0101
+      - literature_signal: MHC I alpha, II alpha, II beta, and invariant chain characterized in Dabry's sturgeon
+      - runtime_prefix_promotion: canonical prefix switched from AcipDabr to Acda with legacy alias retained
+    notes: >
+      Runtime now prefers the published Acda prefix used in Dabry's sturgeon
+      MHC nomenclature. The long generated prefix AcipDabr remains as a
+      backwards-compatible alias until the sturgeon gene families are curated
+      into runtime ontology explicitly.
 
   Getr:
     scientific_name: Geothlypis trichas
@@ -453,6 +503,28 @@ taxa:
     notes: >
       Runtime adds the clearly named classical class I UBA family and class II
       DAB family only.
+
+  Spau:
+    scientific_name: Sparus aurata
+    clade: fish
+    ontology_status: runtime_added_species_only
+    curation_status: active
+    ingest_confidence: high_gene_level
+    recommended_ingest_level: gene
+    literature_sources:
+      - https://pubmed.ncbi.nlm.nih.gov/16168483/
+    canonical_gene_candidates:
+      - DAA
+    legacy_runtime_prefixes:
+      - SparAura
+    observed_structure:
+      - published_prefix_usage: Spau-DAA and Spau-DAA*101
+      - runtime_prefix_promotion: canonical prefix switched from SparAura to Spau with legacy alias retained
+    notes: >
+      Runtime now prefers the published Spau prefix from the gilthead seabream
+      class II alpha literature. The previous generated prefix SparAura is
+      preserved as an alias while broader Sparus gene-family support is still
+      under review.
 
   Trov:
     scientific_name: Trachinotus ovatus

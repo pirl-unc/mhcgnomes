@@ -109,3 +109,29 @@ def test_registry_tracks_followup_for_runtime_added_coja_ddb1():
     coja = load_underrepresented_taxa_registry()["taxa"]["Coja"]
     assert "DDB1" in coja["canonical_gene_candidates"]
     assert "Coja-DDB1" in " ".join(coja["ambiguities"] + coja["blocked_on"] + [coja["notes"]])
+
+
+def test_registry_tracks_promoted_published_prefixes():
+    taxa = load_underrepresented_taxa_registry()["taxa"]
+    for prefix, latin in [
+        ("Anda", "Andrias davidianus"),
+        ("Spau", "Sparus aurata"),
+        ("Acda", "Acipenser dabryanus"),
+    ]:
+        entry = taxa[prefix]
+        assert entry["scientific_name"] == latin
+        assert entry["curation_status"] == "active"
+
+
+def test_promoted_prefix_registry_entries_capture_published_and_legacy_forms():
+    taxa = load_underrepresented_taxa_registry()["taxa"]
+    examples = [
+        ("Anda", "AndrDavi", "Anda-MHC"),
+        ("Spau", "SparAura", "Spau-DAA"),
+        ("Acda", "AcipDabr", "Acda-UAA"),
+    ]
+    for prefix, legacy_prefix, published_string in examples:
+        entry = taxa[prefix]
+        observed_text = " ".join(map(str, entry.get("observed_structure", [])))
+        assert legacy_prefix in entry["legacy_runtime_prefixes"]
+        assert published_string in observed_text
