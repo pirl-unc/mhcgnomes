@@ -105,3 +105,28 @@ def test_gap_report_species_parseable_with_example_gene(prefix, latin, gene_name
     gene = Gene.get(prefix, gene_name)
     assert gene is not None, f"Gene.get({prefix!r}, {gene_name!r}) returned None"
     eq_(parse(f"{prefix}-{gene_name}", raise_on_error=True), gene)
+
+
+PROMOTED_PUBLISHED_PREFIX_ALIASES = [
+    ("AndrDavi", "Anda", "UAA"),
+    ("SparAura", "Spau", "UAA"),
+    ("AcipDabr", "Acda", "UAA"),
+]
+
+
+@pytest.mark.parametrize(
+    "legacy_prefix,canonical_prefix,gene_name", PROMOTED_PUBLISHED_PREFIX_ALIASES
+)
+def test_promoted_published_prefixes_keep_legacy_aliases(
+    legacy_prefix, canonical_prefix, gene_name
+):
+    legacy_species = Species.get(legacy_prefix)
+    canonical_species = Species.get(canonical_prefix)
+
+    assert legacy_species is not None
+    assert canonical_species is not None
+    eq_(legacy_species, canonical_species)
+
+    gene = Gene.get(canonical_prefix, gene_name)
+    assert gene is not None
+    eq_(parse(f"{legacy_prefix}-{gene_name}", raise_on_error=True), gene)
