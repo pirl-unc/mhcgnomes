@@ -5,7 +5,9 @@ and prefixes/common names are aliases that may be ambiguous.
 
 from collections import defaultdict
 
-from mhcgnomes import Allele, Gene, Species, parse
+import pytest
+
+from mhcgnomes import Allele, Gene, ParseError, Species, parse
 from mhcgnomes.common import normalize_string
 from mhcgnomes.data import species as species_data
 
@@ -215,6 +217,114 @@ def test_latin_name_with_space_works():
     result = parse("Homo sapiens-A*02:01", raise_on_error=True)
     assert isinstance(result, Allele)
     eq_(result.species.prefix, "HLA")
+
+
+def test_decorated_scientific_name_falls_back_to_base_binomial():
+    decorated = "Cyprinus carpio 'xingguonensis'"
+    species = Species.get(decorated)
+    assert species is not None
+    eq_(species, Species.get("Cyprinus carpio"))
+
+
+def test_parenthetical_scientific_name_falls_back_to_exact_subspecies_when_present():
+    decorated = "Strix occidentalis caurina (northern spotted owl)"
+    species = Species.get(decorated)
+    assert species is not None
+    eq_(species, Species.get("Strix occidentalis caurina"))
+
+
+def test_unmodeled_trinomial_falls_back_to_base_binomial():
+    species = Species.get("Canis lupus familiaris")
+    assert species is not None
+    eq_(species, Species.get("Canis lupus"))
+
+
+def test_sourced_short_2_2_prefix_alias_resolves_species():
+    for short_prefix, latin_name in [
+        ("Abbr", "Abramis brama"),
+        ("Crin", "Crocodylus intermedius"),
+        ("Crjo", "Crocodylus johnstoni"),
+        ("Crpa", "Crocodylus palustris"),
+        ("Crrh", "Crocodylus rhombifer"),
+        ("Euma", "Eublepharis macularius"),
+        ("Geja", "Gekko japonicus"),
+        ("Lili", "Limosa limosa"),
+        ("Pato", "Parachondrostoma toxostoma"),
+        ("Ruru", "Rutilus rutilus"),
+        ("Spsp", "Spinus spinus"),
+        ("Tycu", "Tympanuchus cupido"),
+    ]:
+        species = Species.get(short_prefix)
+        assert species is not None, f"Species.get({short_prefix!r}) returned None"
+        eq_(species.name, latin_name)
+
+
+def test_sourced_short_2_2_prefix_alias_parses_genes():
+    for raw, expected_prefix, expected_gene in [
+        ("Abbr-DAB1", "AbraBram", "DAB1"),
+        ("Crin-DB05", "CrocInte", "DB05"),
+        ("Crjo-DB02", "CrocJohn", "DB02"),
+        ("Crpa-DB02", "CrocPalu", "DB02"),
+        ("Crrh-DB05", "CrocRhom", "DB05"),
+        ("Lili-UA", "LimoLimo", "UA"),
+        ("Pato-DAB1", "ParaToxo", "DAB1"),
+        ("Ruru-DAB3", "RutiRuti", "DAB3"),
+        ("Spsp-UA", "SpinSpin", "UA"),
+    ]:
+        result = parse(raw, raise_on_error=True)
+        assert isinstance(result, Gene)
+        eq_(result.species.prefix, expected_prefix)
+        eq_(result.name, expected_gene)
+
+
+def test_collision_backed_short_prefix_remains_blocked():
+    # Hymo is source-backed for silver carp, but runtime already owns it.
+    species = Species.get("Hymo")
+    assert species is not None
+    eq_(species.name, "Hylobates moloch")
+    assert parse("Hymo-UA", raise_on_error=False) is None
+
+
+def test_existing_prefix_owner_wins_over_source_backed_short_alias():
+    # Orla is used by multiple fish datasets and also collides with orangutan.
+    species = Species.get("Orla")
+    assert species is not None
+    eq_(species.name, "Pongo sp.")
+    assert parse("Orla-UGA", raise_on_error=False) is None
+
+
+def test_ambiguous_or_unsourced_short_prefixes_are_not_added():
+    for short_prefix in [
+        "Moal",  # reused across Monopterus albus and Motacilla alba
+        "Krma",  # no local source evidence found
+    ]:
+        assert Species.get(short_prefix) is None
+        assert parse(f"{short_prefix}-DAB", raise_on_error=False) is None
+
+
+def test_context_only_prefixes_stay_out_of_global_species_lookup():
+    assert Species.get("Moal") is None
+    assert Species.get("Motacilla alba") is not None
+    eq_(Species.get("Motacilla alba").prefix, "MotaAlba")
+
+
+def test_context_only_hymo_failure_is_informative():
+    with pytest.raises(ParseError, match="Hypophthalmichthys molitrix"):
+        parse("Hymo-DAB", raise_on_error=True)
+
+
+def test_context_only_moal_failure_is_informative():
+    with pytest.raises(ParseError, match="Monopterus albus"):
+        parse("Moal-DAB", raise_on_error=True)
+    with pytest.raises(ParseError, match="Motacilla alba"):
+        parse("Moal-DAB", raise_on_error=True)
+
+
+def test_context_only_orla_failure_is_informative():
+    with pytest.raises(ParseError, match="Pongo sp."):
+        parse("ORLA-UAA", raise_on_error=True)
+    with pytest.raises(ParseError, match="Oryzias latipes"):
+        parse("ORLA-UAA", raise_on_error=True)
 
 
 # ---------------------------------------------------------------------------

@@ -87,6 +87,9 @@ def test_registry_marks_held_back_strings_as_sourced():
     assert taxa["Saal"]["curation_status"] == "active"
     assert taxa["Ritr"]["curation_status"] == "blocked"
     assert taxa["Otel"]["curation_status"] == "blocked"
+    assert taxa["Orla"]["curation_status"] == "blocked"
+    assert taxa["Hymo"]["curation_status"] == "blocked"
+    assert taxa["Moal"]["curation_status"] == "blocked"
     assert taxa["Saha"]["curation_status"] == "active"
     assert taxa["Phtr"]["curation_status"] == "blocked"
     assert taxa["Phco"]["curation_status"] == "blocked"
@@ -94,6 +97,9 @@ def test_registry_marks_held_back_strings_as_sourced():
     assert "Getr-MHC" in " ".join(taxa["Getr"]["ambiguities"])
     assert "Coja-II-13" in " ".join(taxa["Coja"]["ambiguities"] + taxa["Coja"]["blocked_on"])
     assert "prefix collides" in " ".join(taxa["Phco"]["ambiguities"])
+    assert "orangutan" in " ".join(taxa["Orla"]["ambiguities"] + [taxa["Orla"]["notes"]])
+    assert "Hylobates moloch" in " ".join(taxa["Hymo"]["ambiguities"] + [taxa["Hymo"]["notes"]])
+    assert "Motacilla alba" in " ".join(taxa["Moal"]["ambiguities"] + [taxa["Moal"]["notes"]])
 
 
 def test_registry_tracks_runtime_alias_gap_followups():
@@ -135,3 +141,27 @@ def test_promoted_prefix_registry_entries_capture_published_and_legacy_forms():
         observed_text = " ".join(map(str, entry.get("observed_structure", [])))
         assert legacy_prefix in entry["legacy_runtime_prefixes"]
         assert published_string in observed_text
+
+
+def test_registry_tracks_sourced_short_alias_additions():
+    taxa = load_underrepresented_taxa_registry()["taxa"]
+    examples = [
+        ("Abbr", "Abramis brama", "Abbr-DAB3"),
+        ("Crin", "Crocodylus intermedius", "Crin-DB05"),
+        ("Crjo", "Crocodylus johnstoni", "Crjo-DB02"),
+        ("Crpa", "Crocodylus palustris", "Crpa-DB02"),
+        ("Crrh", "Crocodylus rhombifer", "Crrh-DB05"),
+        ("Euma", "Eublepharis macularius", "Euma-E-S"),
+        ("Geja", "Gekko japonicus", "Geja-DRA"),
+        ("Lili", "Limosa limosa", "Lili-UA"),
+        ("Pato", "Parachondrostoma toxostoma", "Pato-DAB1"),
+        ("Ruru", "Rutilus rutilus", "Ruru-DAB3"),
+        ("Spsp", "Spinus spinus", "Spsp-UA"),
+        ("Tycu", "Tympanuchus cupido", "Tycu-IA"),
+    ]
+    for prefix, latin, source_token in examples:
+        entry = taxa[prefix]
+        observed_text = " ".join(map(str, entry.get("observed_structure", [])))
+        assert entry["scientific_name"] == latin
+        assert entry["curation_status"] == "active"
+        assert source_token in observed_text

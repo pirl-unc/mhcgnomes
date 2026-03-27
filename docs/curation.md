@@ -129,6 +129,19 @@ Current examples include:
 The rule is: runtime parsing should only accept a bare prefix when the prefix is
 unambiguous inside `mhcgnomes`.
 
+When a short prefix is source-attested but collides with another runtime owner,
+it can be stored as a `context only prefix` on the affected species. These
+prefixes are not accepted by `Species.get(...)` or by bare parsing on their own,
+but `parse(..., species="<latin name>")` may reinterpret them in the requested
+species context. This is the right bucket for cases like `Hymo`, `Moal`, and
+fish-side `Orla`, where the source string is real but the bare prefix is not a
+safe global identifier.
+
+Corollary: do not auto-generate new 2+2 / 4-letter runtime aliases from Latin
+names. Add a short alias only when an explicit source attests that exact
+prefix, and record the provenance in
+`underrepresented_taxa_source_registry.yaml`.
+
 Related rule: taxonomic node labels such as `Gnathostomata`, `Galliformes`,
 `Crocodylia`, `Salmonidae`, and `Testudines` are internal tree prefixes, not
 species prefixes to inherit onto child species. Short canonical species
@@ -268,7 +281,7 @@ rationale.
 | --- | --- | --- | --- |
 | `Bubu` | *Bubalus bubalis* (water buffalo) | Keeps `Bubu` — well-established in MHC literature | [Bubu-DQA alleles in swamp buffaloes](https://pubmed.ncbi.nlm.nih.gov/27177904/), [Bubu-DRB polymorphism](https://pubmed.ncbi.nlm.nih.gov/12580780/) |
 | `Bubu` | *Bubo bubo* (Eurasian eagle-owl) | Uses `BuboBubo` | [MHC class II in *Bubo* owls](https://bioone.org/journals/zoological-science/volume-34/issue-6/zs170039/Duplication-and-Variation-in-the-Major-Histocompatibility-Complex-Genes-in/10.2108/zs170039.full) |
-| `Orla` / `OrLA` | *Pongo sp.* (orangutan) / *Oryzias latipes* (medaka) | Orangutan keeps `OrLA`; medaka uses `OryzLati` | |
+| `Orla` / `OrLA` | *Pongo sp.* (orangutan) / *Oryzias latipes* (medaka) and several killifish | Orangutan keeps `OrLA`; fish use long canonical prefixes, and `species=` can rescue source-side `Orla` strings | |
 | `Gaga` | *Gallus gallus* (chicken) / *Gavialis gangeticus* (gharial) | Chicken keeps `Gaga` ([IPD-MHC chicken](https://www.ebi.ac.uk/ipd/mhc/group/CHICKEN/)); gharial uses `GaviGang` | |
 | `Cyca` | *Cyprinus carpio* (carp) / *Cyclura carinata* (iguana) / *Cyanistes caeruleus* (blue tit) | Carp keeps `Cyca`; iguana uses `CyclCari`; blue tit uses `CyanCaer` | All three attested in literature: carp in [IPD-MHC](https://www.ebi.ac.uk/ipd/mhc/), iguana in Glaberman et al., blue tit in Westerdahl et al. |
 | `Chpi` | *Chrysolophus pictus* (golden pheasant) / *Chrysemys picta* (painted turtle) | Pheasant keeps `Chpi`; turtle uses `ChryPict` | |

@@ -24,7 +24,7 @@ from .parser import (
     Parser,
 )
 from .result import Result
-from .species import Species
+from .species import Species, infer_species_from_context_only_prefix
 
 
 @cache
@@ -108,6 +108,82 @@ def _reparse_result_for_species(
     if not hasattr(reparsed, "species") or reparsed.species != expected_species:
         return None
     return reparsed.copy(raw_string=result.raw_string)
+
+
+def _reparse_with_context_only_prefix(
+    parser: Parser,
+    raw_string: str,
+    expected_species: Species,
+    infer_class2_pairing: bool,
+    required_result_types,
+    preferred_result_types,
+    only_class1: bool,
+    only_class2: bool,
+    max_allele_fields,
+):
+    inferred = infer_species_from_context_only_prefix(raw_string)
+    if inferred is None:
+        return None
+    candidate_species, matched_prefix = inferred
+    if expected_species not in candidate_species:
+        return None
+    rewritten = f"{expected_species.prefix}{raw_string[len(matched_prefix) :]}"
+    reparsed = parser.parse(
+        rewritten,
+        default_species=expected_species,
+        infer_class2_pairing=infer_class2_pairing,
+        raise_on_error=False,
+        required_result_types=required_result_types,
+        preferred_result_types=preferred_result_types,
+        only_class1=only_class1,
+        only_class2=only_class2,
+        max_allele_fields=max_allele_fields,
+    )
+    if reparsed is None:
+        return None
+    return reparsed.copy(raw_string=raw_string)
+
+
+def _format_species_options(species_objects, max_items=4):
+    names = [sp.name for sp in species_objects]
+    shown = names[:max_items]
+    if len(names) > max_items:
+        shown.append(f"+{len(names) - max_items} more")
+    return ", ".join(shown)
+
+
+def _format_canonical_prefix_options(species_objects, max_items=4):
+    shown = [f"{sp.prefix} ({sp.name})" for sp in species_objects[:max_items]]
+    if len(species_objects) > max_items:
+        shown.append(f"+{len(species_objects) - max_items} more")
+    return ", ".join(shown)
+
+
+def _context_only_prefix_error_message(raw_string: str):
+    inferred = infer_species_from_context_only_prefix(raw_string)
+    if inferred is None:
+        return None
+
+    candidate_species, matched_prefix = inferred
+    candidate_species = list(candidate_species)
+    canonical_options = _format_canonical_prefix_options(candidate_species)
+    global_owner = Species.get(matched_prefix)
+
+    if global_owner is not None:
+        return (
+            f"Prefix '{matched_prefix}' is also used in source data for "
+            f"{_format_species_options(candidate_species)}. "
+            f"Runtime keeps '{matched_prefix}' for '{global_owner.name}'. "
+            f"Use species='<latin name>' or a collision-free canonical prefix such as "
+            f"{canonical_options}."
+        )
+
+    return (
+        f"Prefix '{matched_prefix}' is source-attested for multiple species "
+        f"({_format_species_options(candidate_species)}) and is not globally unique. "
+        f"Use species='<latin name>' or a collision-free canonical prefix such as "
+        f"{canonical_options}."
+    )
 
 
 def parse(
@@ -225,19 +301,49 @@ def parse(
     if species is not None and default_species != DEFAULT_SPECIES_PREFIX:
         raise ValueError("Cannot specify both 'species' and 'default_species'")
 
+    expected_species = Species.get(species) if species is not None else None
     effective_default = species if species is not None else default_species
 
-    result = parser.parse(
-        raw_string,
-        default_species=effective_default,
-        infer_class2_pairing=infer_class2_pairing,
-        raise_on_error=raise_on_error,
-        required_result_types=required_result_types,
-        preferred_result_types=preferred_result_types,
-        only_class1=only_class1,
-        only_class2=only_class2,
-        max_allele_fields=max_allele_fields,
-    )
+    parser_error = None
+    try:
+        result = parser.parse(
+            raw_string,
+            default_species=effective_default,
+            infer_class2_pairing=infer_class2_pairing,
+            raise_on_error=raise_on_error,
+            required_result_types=required_result_types,
+            preferred_result_types=preferred_result_types,
+            only_class1=only_class1,
+            only_class2=only_class2,
+            max_allele_fields=max_allele_fields,
+        )
+    except ParseError as error:
+        parser_error = error
+        result = None
+
+    if species is not None and expected_species is not None:
+        rescued = _reparse_with_context_only_prefix(
+            parser=parser,
+            raw_string=raw_string,
+            expected_species=expected_species,
+            infer_class2_pairing=infer_class2_pairing,
+            required_result_types=required_result_types,
+            preferred_result_types=preferred_result_types,
+            only_class1=only_class1,
+            only_class2=only_class2,
+            max_allele_fields=max_allele_fields,
+        )
+        if rescued is not None:
+            result = rescued
+            parser_error = None
+
+    if parser_error is not None:
+        maybe_context_message = (
+            _context_only_prefix_error_message(raw_string) if species is None else None
+        )
+        if maybe_context_message is not None:
+            raise ParseError(maybe_context_message) from parser_error
+        raise parser_error
 
     # Strict species check: if species= was provided, the final result must
     # have that exact species.
@@ -249,7 +355,7 @@ def parse(
     # - Descendant→ancestor conversion is never allowed.
     # - Results without .species: always pass.
     if species is not None and result is not None:
-        expected = Species.get(species)
+        expected = expected_species
         if expected is None:
             # species= was provided but doesn't resolve to a known species.
             # This is always an error — we can't validate against an unknown species.
