@@ -377,7 +377,7 @@ def test_context_only_moal_failure_is_informative():
 
 
 def test_context_only_orla_failure_is_informative():
-    with pytest.raises(ParseError, match="Pongo sp."):
+    with pytest.raises(ParseError, match=r"Pongo sp\."):
         parse("ORLA-UAA", raise_on_error=True)
     with pytest.raises(ParseError, match="Oryzias latipes"):
         parse("ORLA-UAA", raise_on_error=True)
