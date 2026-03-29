@@ -174,6 +174,37 @@ def test_long_prefix_always_parseable():
         eq_(species.name, latin)
 
 
+def test_generated_4_4_prefix_collisions_are_not_global_aliases():
+    for alias in ["CaniLupu"]:
+        assert Species.get(alias) is None
+        assert Species.get_multiple(alias) == ()
+
+
+def test_generated_5_5_prefix_collisions_fall_back_to_full_scientific_name():
+    assert Species.get("CanisLupus") is not None
+    eq_(Species.get("CanisLupus").name, "Canis lupus")
+    eq_(Species.get("CanisLupusBaileyi").name, "Canis lupus baileyi")
+
+
+def test_curated_prefix_keeps_global_owner_when_generated_alias_would_collide():
+    for prefix, latin_name in [
+        ("ChryPict", "Chrysemys picta"),
+        ("LaniColl", "Lanius collurio"),
+    ]:
+        species = Species.get(prefix)
+        assert species is not None
+        eq_(species.name, latin_name)
+
+
+def test_full_scientific_concat_disambiguates_subspecies():
+    wolf = Species.get("CanisLupus")
+    subspecies = Species.get("CanisLupusBaileyi")
+    assert wolf is not None
+    assert subspecies is not None
+    eq_(wolf.name, "Canis lupus")
+    eq_(subspecies.name, "Canis lupus baileyi")
+
+
 def test_long_prefix_works_for_allele_parsing():
     """HomoSapie-A*02:01 should parse as HLA-A*02:01."""
     result = parse("HomoSapie-A*02:01", raise_on_error=True)
@@ -203,6 +234,7 @@ def test_full_latin_name_concatenated_works():
 def test_full_latin_name_concatenated_various_species():
     """Full concatenated latin names should work for any species."""
     for concat, expected_prefix in [
+        ("CanisLupusBaileyi-DRA", "Caba"),
         ("DanioRerio-UBA", "Dare"),
         ("GallusGallus-BF1", "Gaga"),
         ("MusMusculus-K", "H2"),

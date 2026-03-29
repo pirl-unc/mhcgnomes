@@ -10,10 +10,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import re
 from typing import Optional, Union
 
+from .allele import Allele
+from .class2_locus import Class2Locus
 from .common import cache
 from .errors import ParseError
+from .gene import Gene
+from .gene_class_info import GeneClassInfo
+from .mhc_class import MhcClass
+from .pair import Pair
 from .parser import (
     COLLAPSE_SINGLETON_HAPLOTYPES,
     COLLAPSE_SINGLETON_SEROTYPES,
@@ -184,6 +191,340 @@ def _context_only_prefix_error_message(raw_string: str):
         f"Use species='<latin name>' or a collision-free canonical prefix such as "
         f"{canonical_options}."
     )
+
+
+_NON_MHC_REGION_GENE_NAMES = {
+    "ABCB2": "TAP1",
+    "ABCB3": "TAP2",
+    "B2M": "B2M",
+    "CIITA": "CIITA",
+    "HAM1": "TAP1",
+    "HAM2": "TAP2",
+    "HM13": "HM13",
+    "PRR3": "PRR3",
+    "PSF1": "TAP1",
+    "PSF2": "TAP2",
+    "RING11": "TAP2",
+    "RING4": "TAP1",
+    "TAP-L": "TAP-L",
+    "TAPL": "TAP-L",
+    "TAP1": "TAP1",
+    "TAP2": "TAP2",
+    "TAPBP": "TAPBP",
+}
+
+_LENIENT_GENE_SUFFIX_RULES = {
+    "A-U": ("I", "alpha"),
+    "BLB": ("IIa", "beta"),
+    "DAA": ("IIa", "alpha"),
+    "DAB": ("IIa", "beta"),
+    "DMA": ("IIb", "alpha"),
+    "DMB": ("IIb", "beta"),
+    "DNB": ("IIa", "beta"),
+    "DPA1": ("IIa", "alpha"),
+    "DQB1": ("IIa", "beta"),
+    "DRA": ("IIa", "alpha"),
+    "DR-1": ("IIa", "alpha"),
+    "DXB": ("IIa", "beta"),
+    "E-S": ("I", "alpha"),
+    "F10": ("I", "alpha"),
+    "M": ("IIa", "alpha"),
+    "M1": ("IIa", "beta"),
+    "Q10": ("I", "alpha"),
+    "Q9": ("I", "alpha"),
+    "U": ("I", "alpha"),
+    "UA": ("I", "alpha"),
+    "UAA": ("I", "alpha"),
+    "UB": ("I", "alpha"),
+}
+
+_LENIENT_GENE_SUFFIX_PATTERNS = (
+    (re.compile(r"^DAB\d+$", re.IGNORECASE), ("IIa", "beta")),
+    (re.compile(r"^DRB\d+(?:-\d+)?$", re.IGNORECASE), ("IIa", "beta")),
+)
+
+
+def _chain_for_species_gene(species: Species, gene_name: str, mhc_class: Optional[str]):
+    if mhc_class is None or mhc_class == "other":
+        return None
+    if mhc_class in {"I", "Ia", "Ib", "Ic", "Id"}:
+        return "alpha"
+    return species.class2_gene_name_to_chain_type.get(gene_name)
+
+
+def _build_gene_class_info_from_parsed(parsed: Result, raw_string: str):
+    if parsed is None:
+        return None
+
+    if isinstance(parsed, Allele):
+        gene_name = parsed.gene.name
+        mhc_class = parsed.mhc_class
+        return GeneClassInfo(
+            species=parsed.species,
+            gene_name=gene_name,
+            mhc_class=mhc_class,
+            chain=_chain_for_species_gene(parsed.species, gene_name, mhc_class),
+            non_mhc=mhc_class == "other",
+            source="parsed_allele",
+            raw_string=raw_string,
+        )
+
+    if isinstance(parsed, Gene):
+        gene_name = parsed.name
+        mhc_class = parsed.mhc_class
+        return GeneClassInfo(
+            species=parsed.species,
+            gene_name=gene_name,
+            mhc_class=mhc_class,
+            chain=_chain_for_species_gene(parsed.species, gene_name, mhc_class),
+            non_mhc=mhc_class == "other",
+            source="parsed_gene",
+            raw_string=raw_string,
+        )
+
+    if isinstance(parsed, Class2Locus):
+        return GeneClassInfo(
+            species=parsed.species,
+            gene_name=parsed.name,
+            mhc_class=parsed.mhc_class,
+            chain=None,
+            non_mhc=False,
+            source="parsed_locus",
+            raw_string=raw_string,
+        )
+
+    if isinstance(parsed, Pair):
+        return GeneClassInfo(
+            species=parsed.species,
+            gene_name=f"{parsed.alpha.gene_name}/{parsed.beta.gene_name}",
+            mhc_class=parsed.mhc_class,
+            chain=None,
+            non_mhc=False,
+            source="parsed_pair",
+            raw_string=raw_string,
+        )
+
+    if isinstance(parsed, MhcClass):
+        return GeneClassInfo(
+            species=parsed.species,
+            gene_name=None,
+            mhc_class=parsed.mhc_class,
+            chain=parsed.chain,
+            non_mhc=parsed.mhc_class == "other",
+            source="parsed_class",
+            raw_string=raw_string,
+        )
+
+    return None
+
+
+def _normalize_inference_gene_token(gene_token: str):
+    return gene_token.strip().strip(",;").upper()
+
+
+def _strip_gene_token(candidate_gene_string: str):
+    candidate_gene_string = candidate_gene_string.strip()
+    if not candidate_gene_string:
+        return None
+    if any(ch.isspace() for ch in candidate_gene_string):
+        return None
+    candidate_gene_string = candidate_gene_string.split("/", 1)[0]
+    candidate_gene_string = candidate_gene_string.split("*", 1)[0]
+    candidate_gene_string = candidate_gene_string.split("#", 1)[0]
+    candidate_gene_string = candidate_gene_string.strip(" -_.:;")
+    if not candidate_gene_string:
+        return None
+    return candidate_gene_string
+
+
+def _extract_species_and_gene_string(
+    raw_string: str,
+    parser: Parser,
+    expected_species: Optional[Species],
+):
+    explicit_species, remaining = parser.parse_species_from_prefix(raw_string)
+    if explicit_species is not None:
+        if expected_species is not None and explicit_species != expected_species:
+            return (
+                None,
+                None,
+                (
+                    f"Input prefix selects species '{explicit_species.name}', "
+                    f"not requested species '{expected_species.name}'."
+                ),
+            )
+        return explicit_species if expected_species is None else expected_species, remaining, None
+
+    inferred = infer_species_from_context_only_prefix(raw_string)
+    if inferred is not None:
+        candidate_species, matched_prefix = inferred
+        if expected_species is None:
+            return None, None, _context_only_prefix_error_message(raw_string)
+        if expected_species not in candidate_species:
+            return (
+                None,
+                None,
+                (
+                    f"Prefix '{matched_prefix}' is not source-attested for "
+                    f"'{expected_species.name}'."
+                ),
+            )
+        remaining = raw_string[len(matched_prefix) :]
+        return expected_species, remaining, None
+
+    if expected_species is not None:
+        return expected_species, raw_string, None
+
+    return None, raw_string, None
+
+
+def _infer_gene_rule(gene_token: str):
+    normalized = _normalize_inference_gene_token(gene_token)
+    if normalized in _LENIENT_GENE_SUFFIX_RULES:
+        mhc_class, chain = _LENIENT_GENE_SUFFIX_RULES[normalized]
+        return normalized, mhc_class, chain
+    for regex, (mhc_class, chain) in _LENIENT_GENE_SUFFIX_PATTERNS:
+        if regex.fullmatch(normalized):
+            return normalized, mhc_class, chain
+    return None
+
+
+def _build_gene_class_info_from_token(species: Species, gene_token: str, raw_string: str):
+    canonical_gene_name = species.find_matching_gene_name(gene_token)
+    if canonical_gene_name is not None:
+        mhc_class = species.get_mhc_class_of_gene(canonical_gene_name)
+        return GeneClassInfo(
+            species=species,
+            gene_name=canonical_gene_name,
+            mhc_class=mhc_class,
+            chain=_chain_for_species_gene(species, canonical_gene_name, mhc_class),
+            non_mhc=mhc_class == "other",
+            source="canonical_gene",
+            raw_string=raw_string,
+        )
+
+    locus = Class2Locus.get(species, gene_token)
+    if locus is not None:
+        return GeneClassInfo(
+            species=species,
+            gene_name=locus.name,
+            mhc_class=locus.mhc_class,
+            chain=None,
+            non_mhc=False,
+            source="canonical_locus",
+            raw_string=raw_string,
+        )
+
+    normalized = _normalize_inference_gene_token(gene_token)
+    if normalized in _NON_MHC_REGION_GENE_NAMES:
+        return GeneClassInfo(
+            species=species,
+            gene_name=_NON_MHC_REGION_GENE_NAMES[normalized],
+            mhc_class="other",
+            chain=None,
+            non_mhc=True,
+            source="non_mhc_name",
+            raw_string=raw_string,
+        )
+
+    inferred = _infer_gene_rule(gene_token)
+    if inferred is not None:
+        normalized_name, mhc_class, chain = inferred
+        return GeneClassInfo(
+            species=species,
+            gene_name=normalized_name,
+            mhc_class=mhc_class,
+            chain=chain,
+            non_mhc=False,
+            source="heuristic_suffix",
+            raw_string=raw_string,
+        )
+
+    return None
+
+
+def parse_gene_class(
+    raw_string: str,
+    default_species=DEFAULT_SPECIES_PREFIX,
+    species: Union[str, None] = None,
+    raise_on_error: bool = True,
+) -> Optional[GeneClassInfo]:
+    """
+    Leniently infer the MHC class/chain for gene-like inputs.
+
+    This function first attempts the normal strict parser. If that fails, it
+    falls back to species-aware gene-token inference for source-backed suffixes
+    such as ``F10`` or ``DR-1`` and for known non-MHC-region helper genes like
+    ``CIITA`` or ``TAP1``.
+    """
+    expected_species = Species.get(species) if species is not None else None
+    if species is not None and expected_species is None:
+        if raise_on_error:
+            raise ParseError(f"Unknown species '{species}'")
+        return None
+
+    parsed = parse(
+        raw_string,
+        default_species=default_species,
+        species=species,
+        raise_on_error=False,
+    )
+    info = _build_gene_class_info_from_parsed(parsed, raw_string)
+    if info is not None:
+        return info
+
+    parser = cached_parser()
+    inferred_species, candidate_gene_string, error_message = _extract_species_and_gene_string(
+        raw_string=raw_string,
+        parser=parser,
+        expected_species=expected_species,
+    )
+    if error_message is not None:
+        if raise_on_error:
+            raise ParseError(error_message)
+        return None
+
+    # Heuristic inference should only run when the caller supplied a strict
+    # species or when the raw string carried an explicit species prefix.
+    if inferred_species is None:
+        if raise_on_error:
+            raise ParseError(f"Could not infer MHC class from '{raw_string}'")
+        return None
+
+    candidate_gene_string = parser.strip_extra_chars(candidate_gene_string)
+    gene_token = _strip_gene_token(candidate_gene_string)
+    if gene_token is None:
+        if raise_on_error:
+            raise ParseError(f"Could not infer MHC class from '{raw_string}'")
+        return None
+
+    info = _build_gene_class_info_from_token(inferred_species, gene_token, raw_string)
+    if info is not None:
+        return info
+
+    if raise_on_error:
+        raise ParseError(f"Could not infer MHC class from '{raw_string}'")
+    return None
+
+
+def infer_mhc_class(
+    raw_string: str,
+    default_species=DEFAULT_SPECIES_PREFIX,
+    species: Union[str, None] = None,
+) -> Optional[str]:
+    """
+    Convenience wrapper around :func:`parse_gene_class` returning only the
+    inferred MHC class string.
+    """
+    result = parse_gene_class(
+        raw_string,
+        default_species=default_species,
+        species=species,
+        raise_on_error=False,
+    )
+    if result is None:
+        return None
+    return result.mhc_class
 
 
 def parse(
