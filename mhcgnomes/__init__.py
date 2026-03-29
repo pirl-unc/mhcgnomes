@@ -15,8 +15,9 @@ from .allele_without_gene import AlleleWithoutGene
 from .class2_locus import Class2Locus
 from .dataframe import dataframe_from_parsed_objects, dataframe_from_string_list
 from .errors import ParseError
-from .function_api import cached_parser, parse
+from .function_api import cached_parser, infer_mhc_class, parse, parse_gene_class
 from .gene import Gene
+from .gene_class_info import GeneClassInfo
 from .haplotype import Haplotype
 from .mhc_class import MhcClass
 from .mutation import Mutation
@@ -34,6 +35,7 @@ __all__ = [
     "AlleleWithoutGene",
     "Class2Locus",
     "Gene",
+    "GeneClassInfo",
     "Haplotype",
     "MhcClass",
     "Mutation",
@@ -48,5 +50,7 @@ __all__ = [
     "cached_parser",
     "dataframe_from_parsed_objects",
     "dataframe_from_string_list",
+    "infer_mhc_class",
     "parse",
+    "parse_gene_class",
 ]

@@ -1876,6 +1876,24 @@ class Parser:
             return []
 
         tokens = tokenization_result.tokens
+        if (
+            len(tokens) > 1
+            and "mhc" in tokenization_result.ignored_tokens
+            and tokens[0].seq.lower() in {"i", "ii", "1", "2"}
+        ):
+            class_token = Token(
+                seq="class-1" if tokens[0].seq.lower() in {"i", "1"} else "class-2",
+                raw_string=f"MHC {tokens[0].raw_string}",
+            )
+            descriptive_results = self.parse_with_class_token_to_multiple_candidates(
+                class_token=class_token,
+                other_tokens=tokens[1:],
+                default_species=default_species,
+                strict_default_species=False,
+            )
+            if descriptive_results:
+                return self.transform_parse_candidates(descriptive_results)
+
         species_candidates = []
         found_species_prefix = False
         for num_species_tokens in [3, 2, 1]:

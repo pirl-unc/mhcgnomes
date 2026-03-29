@@ -697,6 +697,15 @@ def guess_class2_chain_type(gene_name):
     return "alpha" if is_alpha else "beta"
 
 
+def _scientific_name_parts(latin_name):
+    parts = latin_name.split()
+    if len(parts) < 2:
+        return []
+    if parts[1].endswith("."):
+        return []
+    return parts
+
+
 def _make_long_prefix(latin_name):
     """
     Generate a 4+4 novel prefix from a latin binomial name by taking the first
@@ -707,8 +716,8 @@ def _make_long_prefix(latin_name):
 
     Returns None for names that don't have at least two words (e.g. "Bos sp.").
     """
-    parts = latin_name.split()
-    if len(parts) < 2 or parts[1].endswith("."):
+    parts = _scientific_name_parts(latin_name)
+    if len(parts) < 2:
         return None
     genus = parts[0][:4]
     species = parts[1][:4]
@@ -720,12 +729,71 @@ def _make_5_5_prefix(latin_name):
     Generate a 5+5 long prefix from a latin binomial name by taking the first
     5 characters of each word, capitalized. Kept for backward compatibility.
     """
-    parts = latin_name.split()
-    if len(parts) < 2 or parts[1].endswith("."):
+    parts = _scientific_name_parts(latin_name)
+    if len(parts) < 2:
         return None
     genus = parts[0][:5]
     species = parts[1][:5]
     return genus.capitalize() + species.capitalize()
+
+
+def _make_full_scientific_prefix(latin_name):
+    """
+    Generate a collision-resistant scientific-name alias from the canonical
+    binomial portion of the modeled scientific name. Examples:
+        "Oryzias latipes" -> "OryziasLatipes"
+        "Canis lupus baileyi" -> "CanisLupus"
+    """
+    parts = _scientific_name_parts(latin_name)
+    if len(parts) < 2:
+        return None
+    return "".join(part.capitalize() for part in parts[:2])
+
+
+def _make_generated_alias_counts(generator):
+    counts = defaultdict(int)
+    for latin_name in raw_species_dict:
+        alias = generator(latin_name)
+        if alias:
+            counts[alias] += 1
+    return counts
+
+
+_GENERATED_LONG_PREFIX_COUNTS = _make_generated_alias_counts(_make_long_prefix)
+_GENERATED_5_5_PREFIX_COUNTS = _make_generated_alias_counts(_make_5_5_prefix)
+
+
+def _auto_generated_prefixes_for_latin_name(latin_name):
+    """
+    Auto-generated aliases are useful compatibility shorthands, but only the
+    collision-free truncated forms should be globally parseable. The fully
+    concatenated scientific name remains the unambiguous fallback.
+    """
+    results = []
+
+    long_prefix = _make_long_prefix(latin_name)
+    if long_prefix and _GENERATED_LONG_PREFIX_COUNTS[long_prefix] == 1:
+        results.append(long_prefix)
+
+    compat_prefix = _make_5_5_prefix(latin_name)
+    if compat_prefix and _GENERATED_5_5_PREFIX_COUNTS[compat_prefix] == 1:
+        results.append(compat_prefix)
+
+    # Concatenated scientific-name aliases are only added for modeled
+    # binomials. Trinomial/subspecies entries should collapse to the binomial
+    # runtime alias rather than minting a third-token variant.
+    scientific_parts = _scientific_name_parts(latin_name)
+    full_prefix = _make_full_scientific_prefix(latin_name)
+    if full_prefix and len(scientific_parts) == 2:
+        results.append(full_prefix)
+
+    deduped = []
+    seen = set()
+    for alias in results:
+        if alias not in seen:
+            deduped.append(alias)
+            seen.add(alias)
+    return deduped
 
 
 def _decorated_scientific_name_candidates(name):
@@ -815,14 +883,11 @@ def create_species_for_latin_name(latin_name):
         context_only_mhc_prefixes = []
 
     # Auto-generate parseable aliases from the latin name:
-    # 1. A 4+4 novel prefix (e.g. "OryzLati") — the standard for non-literature prefixes
-    # 2. A 5+5 long prefix (e.g. "OryziLatip") for backward compatibility
-    # 3. The full concatenated latin name (e.g. "OryziasLatipes") — always collision-free
-    long_prefix = _make_long_prefix(latin_name)
-    compat_prefix = _make_5_5_prefix(latin_name)
-    parts = latin_name.split()
-    full_concat = parts[0].capitalize() + parts[1].capitalize() if len(parts) >= 2 else None
-    for alias in [long_prefix, compat_prefix, full_concat]:
+    # 1. A 4+4 prefix only when it is globally unique.
+    # 2. A 5+5 compatibility prefix only when it is globally unique.
+    # 3. The full concatenated scientific name (including subspecies tokens),
+    #    which is the unambiguous fallback.
+    for alias in _auto_generated_prefixes_for_latin_name(latin_name):
         if alias and alias not in other_mhc_prefixes:
             other_mhc_prefixes = [*list(other_mhc_prefixes), alias]
 

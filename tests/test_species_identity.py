@@ -10,6 +10,7 @@ import pytest
 from mhcgnomes import Allele, Gene, ParseError, Species, parse
 from mhcgnomes.common import normalize_string
 from mhcgnomes.data import species as species_data
+from mhcgnomes.species import _make_5_5_prefix, _make_long_prefix, raw_species_dict
 
 from .common import eq_
 
@@ -174,6 +175,55 @@ def test_long_prefix_always_parseable():
         eq_(species.name, latin)
 
 
+def test_generated_4_4_prefix_collisions_are_not_global_aliases():
+    for alias in ["CaniLupu"]:
+        assert Species.get(alias) is None
+        assert Species.get_multiple(alias) == ()
+
+
+def test_generated_5_5_prefix_collisions_fall_back_to_full_scientific_name():
+    assert Species.get("CanisLupus") is not None
+    eq_(Species.get("CanisLupus").name, "Canis lupus")
+    assert Species.get("CanisLupusBaileyi") is None
+
+
+def test_curated_prefix_keeps_global_owner_when_generated_alias_would_collide():
+    for prefix, latin_name in [
+        ("ChryPict", "Chrysemys picta"),
+        ("LaniColl", "Lanius collurio"),
+    ]:
+        species = Species.get(prefix)
+        assert species is not None
+        eq_(species.name, latin_name)
+
+
+def test_explicit_short_prefixes_beat_generated_collision_aliases():
+    explicit_owners = defaultdict(set)
+    for latin_name, record in raw_species_dict.items():
+        explicit_owners[normalize_string(record["prefix"])].add(latin_name)
+        for alias in record.get("other prefixes", []) or []:
+            explicit_owners[normalize_string(alias)].add(latin_name)
+
+    for generator in (_make_long_prefix, _make_5_5_prefix):
+        for latin_name in raw_species_dict:
+            alias = generator(latin_name)
+            if not alias:
+                continue
+            owners = explicit_owners.get(normalize_string(alias))
+            if not owners:
+                continue
+            species = Species.get(alias)
+            assert species is not None
+            assert species.name in owners
+
+
+def test_trinomial_entries_do_not_get_full_concatenated_aliases():
+    wolf = Species.get("CanisLupus")
+    assert wolf is not None
+    eq_(wolf.name, "Canis lupus")
+    assert Species.get("CanisLupusBaileyi") is None
+
+
 def test_long_prefix_works_for_allele_parsing():
     """HomoSapie-A*02:01 should parse as HLA-A*02:01."""
     result = parse("HomoSapie-A*02:01", raise_on_error=True)
@@ -293,6 +343,12 @@ def test_existing_prefix_owner_wins_over_source_backed_short_alias():
     assert parse("Orla-UGA", raise_on_error=False) is None
 
 
+def test_orla_still_parses_as_orangutan():
+    result = parse("OrLA-A*01:01", raise_on_error=True)
+    eq_(result.species.name, "Pongo sp.")
+    eq_(result.gene.name, "A")
+
+
 def test_ambiguous_or_unsourced_short_prefixes_are_not_added():
     for short_prefix in [
         "Moal",  # reused across Monopterus albus and Motacilla alba
@@ -321,7 +377,7 @@ def test_context_only_moal_failure_is_informative():
 
 
 def test_context_only_orla_failure_is_informative():
-    with pytest.raises(ParseError, match="Pongo sp."):
+    with pytest.raises(ParseError, match=r"Pongo sp\."):
         parse("ORLA-UAA", raise_on_error=True)
     with pytest.raises(ParseError, match="Oryzias latipes"):
         parse("ORLA-UAA", raise_on_error=True)
