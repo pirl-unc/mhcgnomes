@@ -739,15 +739,15 @@ def _make_5_5_prefix(latin_name):
 
 def _make_full_scientific_prefix(latin_name):
     """
-    Generate a collision-resistant scientific-name alias by concatenating every
-    taxonomic token in the modeled scientific name. Examples:
+    Generate a collision-resistant scientific-name alias from the canonical
+    binomial portion of the modeled scientific name. Examples:
         "Oryzias latipes" -> "OryziasLatipes"
-        "Canis lupus baileyi" -> "CanisLupusBaileyi"
+        "Canis lupus baileyi" -> "CanisLupus"
     """
     parts = _scientific_name_parts(latin_name)
     if len(parts) < 2:
         return None
-    return "".join(part.capitalize() for part in parts)
+    return "".join(part.capitalize() for part in parts[:2])
 
 
 def _make_generated_alias_counts(generator):
@@ -779,8 +779,12 @@ def _auto_generated_prefixes_for_latin_name(latin_name):
     if compat_prefix and _GENERATED_5_5_PREFIX_COUNTS[compat_prefix] == 1:
         results.append(compat_prefix)
 
+    # Concatenated scientific-name aliases are only added for modeled
+    # binomials. Trinomial/subspecies entries should collapse to the binomial
+    # runtime alias rather than minting a third-token variant.
+    scientific_parts = _scientific_name_parts(latin_name)
     full_prefix = _make_full_scientific_prefix(latin_name)
-    if full_prefix:
+    if full_prefix and len(scientific_parts) == 2:
         results.append(full_prefix)
 
     deduped = []
