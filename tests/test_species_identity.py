@@ -10,6 +10,7 @@ import pytest
 from mhcgnomes import Allele, Gene, ParseError, Species, parse
 from mhcgnomes.common import normalize_string
 from mhcgnomes.data import species as species_data
+from mhcgnomes.species import _make_5_5_prefix, _make_long_prefix, raw_species_dict
 
 from .common import eq_
 
@@ -196,6 +197,26 @@ def test_curated_prefix_keeps_global_owner_when_generated_alias_would_collide():
         eq_(species.name, latin_name)
 
 
+def test_explicit_short_prefixes_beat_generated_collision_aliases():
+    explicit_owners = defaultdict(set)
+    for latin_name, record in raw_species_dict.items():
+        explicit_owners[normalize_string(record["prefix"])].add(latin_name)
+        for alias in record.get("other prefixes", []) or []:
+            explicit_owners[normalize_string(alias)].add(latin_name)
+
+    for generator in (_make_long_prefix, _make_5_5_prefix):
+        for latin_name in raw_species_dict:
+            alias = generator(latin_name)
+            if not alias:
+                continue
+            owners = explicit_owners.get(normalize_string(alias))
+            if not owners:
+                continue
+            species = Species.get(alias)
+            assert species is not None
+            assert species.name in owners
+
+
 def test_full_scientific_concat_disambiguates_subspecies():
     wolf = Species.get("CanisLupus")
     subspecies = Species.get("CanisLupusBaileyi")
@@ -323,6 +344,12 @@ def test_existing_prefix_owner_wins_over_source_backed_short_alias():
     assert species is not None
     eq_(species.name, "Pongo sp.")
     assert parse("Orla-UGA", raise_on_error=False) is None
+
+
+def test_orla_still_parses_as_orangutan():
+    result = parse("OrLA-A*01:01", raise_on_error=True)
+    eq_(result.species.name, "Pongo sp.")
+    eq_(result.gene.name, "A")
 
 
 def test_ambiguous_or_unsourced_short_prefixes_are_not_added():
