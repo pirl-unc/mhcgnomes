@@ -1,26 +1,17 @@
-# Claude Code Instructions for mhcgnomes
+# Project Instructions
 
-## Before Completing Any Task
+See @AGENTS.md for verification steps, workflow principles, and domain knowledge.
 
-Before considering any code change complete, you MUST:
+---
 
-1. **Run `./format.sh`** - Auto-format all code
-2. **Run `./lint.sh`** - Verify linting passes (this runs both `ruff check` and `ruff format --check`)
-3. **Run `./test.sh`** - Verify all tests pass
+## Claude Code-Specific
 
-Do not tell the user you are "done" or that changes are "complete" until all three of these pass.
+### Plan Mode
+- Enter plan mode for ANY non-trivial task (3+ steps or architectural decisions)
+- Use plan mode for verification steps, not just building
 
-## Scripts
-
-- `./format.sh` - Formats code with ruff (run this first)
-- `./lint.sh` - Checks linting and formatting (must pass)
-- `./test.sh` - Runs pytest with coverage (must pass)
-- `./deploy.sh` - Deploys to PyPI (already gates on lint.sh and test.sh)
-- `./develop.sh` - Installs package in development mode
-
-## Code Style
-
-- Use ruff for formatting and linting
-- Configuration is in `pyproject.toml` under `[tool.ruff]`
-- Line length: 100 characters
-- Target Python version: 3.9+
+### Subagent Strategy
+- Use subagents liberally to keep main context window clean
+- Offload research, exploration, and parallel analysis to subagents
+- For complex problems, throw more compute at it via subagents
+- One task per subagent for focused execution
