@@ -148,18 +148,21 @@ class TestLenientParsing:
         assert result.allele_fields == ("00", "00")
 
     def test_various_field_lengths_accepted(self):
-        """Different allele field lengths are accepted."""
-        # Single digit
+        """Different allele field lengths are normalized to canonical widths."""
+        # Single digit -> normalized to 2-digit minimum
         r1 = parse("A*1:1")
-        assert r1.allele_fields == ("1", "1")
+        assert r1.allele_fields == ("01", "01")
 
-        # Two digit (standard)
+        # Two digit (standard) -> unchanged
         r2 = parse("A*01:01")
         assert r2.allele_fields == ("01", "01")
 
-        # Three digit
+        # Three digit -> preserved (wider than minimum)
         r3 = parse("A*001:001")
         assert r3.allele_fields == ("001", "001")
+
+        # Single digit and standard are now equal
+        assert r1 == r2
 
     def test_underscore_separator_normalized(self):
         """Underscore separators are accepted and normalized to colons."""

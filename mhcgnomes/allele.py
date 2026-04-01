@@ -14,9 +14,14 @@ from collections.abc import Iterable
 from dataclasses import dataclass, field
 from typing import Union
 
+from .data import min_first_field_widths as _MIN_FIRST_FIELD_WIDTHS
 from .gene import Gene
 from .mutation import Mutation
 from .result_with_gene import ResultWithGene
+
+# Default minimum digit width for allele fields
+_DEFAULT_FIRST_FIELD_WIDTH = 2
+_DEFAULT_FIELD_WIDTH = 2
 
 
 @dataclass(eq=False, repr=False, frozen=True, init=False)
@@ -77,6 +82,7 @@ class Allele(ResultWithGene):
         annotations: Iterable[str] = (),
         mutations: Iterable[Mutation] = (),
         raw_string=None,
+        normalize_fields=True,
     ):
         if gene.is_mutant:
             gene_mutations = tuple(gene.mutations)
@@ -84,9 +90,42 @@ class Allele(ResultWithGene):
         else:
             gene_mutations = ()
         ResultWithGene.__init__(self, gene=gene, raw_string=raw_string)
-        self._set_field(self, "allele_fields", tuple(allele_fields))
+        allele_fields = tuple(allele_fields)
+        if normalize_fields:
+            allele_fields = Allele._normalize_fields(gene, allele_fields)
+        self._set_field(self, "allele_fields", allele_fields)
         self._set_field(self, "annotations", tuple(annotations))
         self._set_field(self, "mutations", gene_mutations + tuple(mutations))
+
+    @staticmethod
+    def _get_min_first_field_width(gene):
+        """Return the minimum digit width for the first allele field of this gene."""
+        key = (gene.species.prefix, gene.name)
+        return _MIN_FIRST_FIELD_WIDTHS.get(key, _DEFAULT_FIRST_FIELD_WIDTH)
+
+    @staticmethod
+    def _normalize_fields(gene, allele_fields):
+        """
+        Normalize allele field digit widths by zero-padding to the canonical
+        minimum width for the gene.
+
+        First field is padded to the gene-specific minimum (2 for most genes,
+        3 for MICA/MICB, Mamu, etc.). Subsequent fields are padded to 2 digits.
+        Non-digit fields (e.g., containing letters) are left unchanged.
+        Fields wider than the minimum are never truncated.
+        """
+        if not allele_fields:
+            return allele_fields
+        min_first_width = Allele._get_min_first_field_width(gene)
+        result = []
+        for i, field_val in enumerate(allele_fields):
+            if not field_val or not field_val.isdigit():
+                result.append(field_val)
+            elif i == 0:
+                result.append(field_val.zfill(min_first_width))
+            else:
+                result.append(field_val.zfill(_DEFAULT_FIELD_WIDTH))
+        return tuple(result)
 
     def __hash__(self):
         return hash((self.gene, self.allele_fields, self.annotations, self.mutations))
@@ -157,6 +196,7 @@ class Allele(ResultWithGene):
         annotations: Union[Iterable[str], None] = None,
         mutations: Union[Iterable[Mutation], None] = None,
         raw_string: Union[str, None] = None,
+        normalize_fields=True,
     ):
         """
         Create an Allele from a Gene object and allele fields.
@@ -173,6 +213,8 @@ class Allele(ResultWithGene):
             Mutations from reference sequence.
         raw_string : str, optional
             Original unparsed string.
+        normalize_fields : bool, default True
+            If True, zero-pad allele fields to canonical minimum widths.
 
         Returns
         -------
@@ -200,6 +242,7 @@ class Allele(ResultWithGene):
             annotations=annotations,
             mutations=mutations,
             raw_string=raw_string,
+            normalize_fields=normalize_fields,
         )
 
     @classmethod
@@ -211,6 +254,7 @@ class Allele(ResultWithGene):
         annotation=None,
         mutations=None,
         raw_string=None,
+        normalize_fields=True,
     ):
         """
         Create an Allele from species prefix, gene name, and allele fields.
@@ -233,6 +277,8 @@ class Allele(ResultWithGene):
             Mutations as string or list of Mutation objects.
         raw_string : str, optional
             Original unparsed string.
+        normalize_fields : bool, default True
+            If True, zero-pad allele fields to canonical minimum widths.
 
         Returns
         -------
@@ -285,6 +331,7 @@ class Allele(ResultWithGene):
             annotations=annotations,
             mutations=parsed_mutations,
             raw_string=raw_string,
+            normalize_fields=normalize_fields,
         )
 
     def to_string(
