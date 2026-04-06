@@ -1,9 +1,12 @@
+import pytest
+
 from mhcgnomes import (
     Allele,
     Class2Locus,
     Gene,
     Haplotype,
     Pair,
+    ParseError,
     parse,
 )
 
@@ -80,3 +83,78 @@ def test_parse_H2_IEd_no_simplify():
     eq_(type(result), Haplotype)
     eq_(result.name, "d")
     assert result.locus_restriction is not None
+
+
+# ---- Mouse class II gene name variants ----
+
+
+def test_parse_mouse_MHC_II_IE_beta():
+    """'mouse MHC II IE-beta' should parse as H2-EB gene."""
+    result = parse("mouse MHC II IE-beta")
+    assert result is not None, "Failed to parse 'mouse MHC II IE-beta'"
+    assert isinstance(result, Gene)
+    eq_(result.gene_name, "EB")
+    eq_(result.species_prefix, "H2")
+
+
+def test_parse_MHC_II_I_E_beta():
+    """'MHC II I-E beta' should parse as H2-EB gene."""
+    result = parse("MHC II I-E beta")
+    assert result is not None, "Failed to parse 'MHC II I-E beta'"
+    assert isinstance(result, Gene)
+    eq_(result.gene_name, "EB")
+
+
+def test_parse_murine_MHC_class_II_I_E_beta():
+    """'murine MHC class II I-E beta' should parse as H2-EB gene."""
+    result = parse("murine MHC class II I-E beta")
+    assert result is not None, "Failed to parse 'murine MHC class II I-E beta'"
+    assert isinstance(result, Gene)
+    eq_(result.gene_name, "EB")
+    eq_(result.species_prefix, "H2")
+
+
+def test_parse_H2_IE_beta_chain():
+    """'H2-IE beta chain' should parse as H2-EB gene."""
+    result = parse("H2-IE beta chain")
+    assert result is not None, "Failed to parse 'H2-IE beta chain'"
+    assert isinstance(result, Gene)
+    eq_(result.gene_name, "EB")
+
+
+def test_parse_I_E_beta_chain():
+    """'I-E beta chain' should parse as H2-EB gene."""
+    result = parse("I-E beta chain")
+    assert result is not None, "Failed to parse 'I-E beta chain'"
+    assert isinstance(result, Gene)
+    eq_(result.gene_name, "EB")
+
+
+def test_parse_murine_species():
+    """'murine' should be recognized as Mus musculus."""
+    from mhcgnomes import Species
+
+    species = Species.get("murine")
+    assert species is not None
+    eq_(species.prefix, "H2")
+
+
+# ---- Contradictory class markers should fail ----
+
+
+def test_mouse_MHC_I_IE_beta_fails():
+    """IE is class II, so 'mouse MHC I IE-beta' is contradictory and must not parse."""
+    with pytest.raises(ParseError):
+        parse("mouse MHC I IE-beta")
+
+
+def test_mouse_MHC_class_I_I_A_alpha_fails():
+    """I-A is class II, so 'mouse MHC class I I-A alpha' is contradictory."""
+    with pytest.raises(ParseError):
+        parse("mouse MHC class I I-A alpha")
+
+
+def test_mouse_MHC_class_I_I_E_beta_fails():
+    """I-E is class II, so 'mouse MHC class I I-E beta' is contradictory."""
+    with pytest.raises(ParseError):
+        parse("mouse MHC class I I-E beta")
