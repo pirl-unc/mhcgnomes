@@ -46,9 +46,7 @@ PAPER_PHRASES = [
     "Dare MHC class I gene family",
     "the Patr MHC region is syntenic with HLA",
     # Short misleading fragments
-    # NB: "class I" and "class II" intentionally parse as MhcClass results.
-    # "MHC I" intentionally parses as the mouse H2-i haplotype.
-    "MHC II",
+    # NB: "class I", "class II", "MHC I", "MHC II" intentionally parse as MhcClass results.
     "class I and class II",
     "beta-2 microglobulin",
     "antigen processing",

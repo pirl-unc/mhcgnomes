@@ -1877,7 +1877,7 @@ class Parser:
 
         tokens = tokenization_result.tokens
         if (
-            len(tokens) > 1
+            len(tokens) >= 1
             and "mhc" in tokenization_result.ignored_tokens
             and tokens[0].seq.lower() in {"i", "ii", "1", "2"}
         ):
