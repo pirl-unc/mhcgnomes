@@ -234,6 +234,24 @@ HLA:
     - A*0203
   A210:
     - A*0210
+  # A2 IEF/CTL subtypes (van der Poel et al. 1983, Immunogenetics)
+  # Pre-molecular dot notation for A2 allelic variants
+  A2.1:
+    - A*0201
+  A2.2F:
+    - A*0202
+  A2.2Y:
+    - A*0205
+  A2.3:
+    - A*0203
+  A2.4:
+    - A*0204
+  A2.4a:
+    - A*0206
+  A2.4b:
+    - A*0207
+  A2.5:
+    - A*0211
   A23:
     - A*2301
     - A*2304
@@ -429,6 +447,15 @@ HLA:
     - B*2708
   B27c:
     - B*2714
+  # B27 IEF subtypes (Rojo et al. 1985, PNAS)
+  B27.1:
+    - B*2705
+  B27.2:
+    - B*2702
+  B27.3:
+    - B*2704
+  B27d:
+    - B*2703
   B35:
     - B*1568
     - B*3501
@@ -472,6 +499,15 @@ HLA:
     - B*3561
     - B*3570
     - B*3576
+  # B35 IEF subtypes (Yang et al. 1995, Tissue Antigens)
+  B35.1:
+    - B*3508
+  B35.2:
+    - B*3502
+    - B*3504
+  B35.3:
+    - B*3501
+    - B*3503
   B37:
     - B*3701
     - B*3704
@@ -733,6 +769,9 @@ HLA:
     - B*0746
     - B*0757
     - B*0758
+  # B7 IEF subtype (Grumet et al. 1995, Tissue Antigens)
+  B7.1:
+    - B*0705
   B70:
     - B*1509
     - B*15103

@@ -18,6 +18,8 @@ from mhcgnomes import (
         "HLA class 1",
         "HLA class i",
         "HLA class I",
+        "MHC I",
+        "MHC 1",
     ],
 )
 def test_human_class_1(s):
@@ -38,6 +40,24 @@ def test_human_class_1(s):
         f"Expected '{expected_string_repr}' for compact representation of '{s}' "
         f"but got '{compact_str}'"
     )
+
+
+@pytest.mark.parametrize(
+    "s",
+    [
+        "MHC II",
+        "MHC 2",
+        "MHC class II",
+        "MHC-II",
+    ],
+)
+def test_mhc_class_2(s):
+    """Test that 'MHC II' and variants parse as MhcClass, not Haplotype."""
+    result = parse(s)
+    assert isinstance(result, MhcClass), (
+        f"Expected MhcClass for '{s}' but got {type(result).__name__}: {result}"
+    )
+    assert result.is_class2
 
 
 def test_mhc_class_get_rejects_unknown_species_and_invalid_class():
