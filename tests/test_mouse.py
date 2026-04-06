@@ -1,9 +1,12 @@
+import pytest
+
 from mhcgnomes import (
     Allele,
     Class2Locus,
     Gene,
     Haplotype,
     Pair,
+    ParseError,
     parse,
 )
 
@@ -134,3 +137,24 @@ def test_parse_murine_species():
     species = Species.get("murine")
     assert species is not None
     eq_(species.prefix, "H2")
+
+
+# ---- Contradictory class markers should fail ----
+
+
+def test_mouse_MHC_I_IE_beta_fails():
+    """IE is class II, so 'mouse MHC I IE-beta' is contradictory and must not parse."""
+    with pytest.raises(ParseError):
+        parse("mouse MHC I IE-beta")
+
+
+def test_mouse_MHC_class_I_I_A_alpha_fails():
+    """I-A is class II, so 'mouse MHC class I I-A alpha' is contradictory."""
+    with pytest.raises(ParseError):
+        parse("mouse MHC class I I-A alpha")
+
+
+def test_mouse_MHC_class_I_I_E_beta_fails():
+    """I-E is class II, so 'mouse MHC class I I-E beta' is contradictory."""
+    with pytest.raises(ParseError):
+        parse("mouse MHC class I I-E beta")

@@ -1595,6 +1595,34 @@ class Parser:
                         candidates.append(class2_pair)
         return unique(candidates)
 
+    def resolve_class2_locus_chain_gene(self, locus: Class2Locus, chain: str):
+        if chain == "alpha":
+            chain_genes = locus.alpha_chain_genes
+            chain_letter = "A"
+        elif chain == "beta":
+            chain_genes = locus.beta_chain_genes
+            chain_letter = "B"
+        else:
+            raise ValueError(f"Unexpected chain: {chain}")
+
+        if len(chain_genes) == 1:
+            return chain_genes[0]
+
+        valid_gene_names = {gene.name for gene in chain_genes}
+        candidate_gene_tokens = (
+            f"{locus.name}-{chain}",
+            f"{locus.name}{chain_letter}",
+            f"{locus.name}{chain_letter.lower()}",
+        )
+        for candidate_gene_token in candidate_gene_tokens:
+            canonical_gene_name = locus.species.find_matching_gene_name(candidate_gene_token)
+            if canonical_gene_name is None:
+                continue
+            if canonical_gene_name not in valid_gene_names:
+                continue
+            return Gene.get(locus.species, canonical_gene_name)
+        return None
+
     def parse_tokens_to_multiple_candidates(
         self,
         tokens: Sequence[Token],
@@ -1634,10 +1662,9 @@ class Parser:
                 elif type(candidate) is Pair:
                     candidates.append(candidate.alpha)
                 elif type(candidate) is Class2Locus:
-                    # Prefer primary chain gene (shortest name, e.g., EA over EA2)
-                    alpha_genes = sorted(candidate.alpha_chain_genes, key=lambda g: len(g.name))
-                    if alpha_genes:
-                        candidates.append(alpha_genes[0])
+                    alpha_gene = self.resolve_class2_locus_chain_gene(candidate, chain="alpha")
+                    if alpha_gene is not None:
+                        candidates.append(alpha_gene)
                 elif type(candidate) is MhcClass:
                     candidates.append(candidate.copy(chain="alpha"))
             if not candidates:
@@ -1668,10 +1695,9 @@ class Parser:
                 elif type(candidate) is Pair:
                     candidates.append(candidate.beta)
                 elif type(candidate) is Class2Locus:
-                    # Prefer primary chain gene (shortest name, e.g., EB over EB2)
-                    beta_genes = sorted(candidate.beta_chain_genes, key=lambda g: len(g.name))
-                    if beta_genes:
-                        candidates.append(beta_genes[0])
+                    beta_gene = self.resolve_class2_locus_chain_gene(candidate, chain="beta")
+                    if beta_gene is not None:
+                        candidates.append(beta_gene)
                 elif type(candidate) is MhcClass:
                     candidates.append(candidate.copy(chain="beta"))
             if not candidates:
