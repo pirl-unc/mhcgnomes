@@ -434,7 +434,7 @@ Mus sp.:
 Mus musculus:
   parent: Mus sp.
   prefix: H2
-  name: Mouse
+  name: [Mouse, Murine]
   genes:
     Ia:
       - D

@@ -1634,11 +1634,28 @@ class Parser:
                 elif type(candidate) is Pair:
                     candidates.append(candidate.alpha)
                 elif type(candidate) is Class2Locus:
-                    alpha_genes = candidate.alpha_chain_genes
-                    if len(alpha_genes) == 1:
+                    # Prefer primary chain gene (shortest name, e.g., EA over EA2)
+                    alpha_genes = sorted(candidate.alpha_chain_genes, key=lambda g: len(g.name))
+                    if alpha_genes:
                         candidates.append(alpha_genes[0])
                 elif type(candidate) is MhcClass:
                     candidates.append(candidate.copy(chain="alpha"))
+            if not candidates:
+                # Fallback: try joining preceding token(s) with "-alpha" as a
+                # compound gene name, e.g., ["i-e", alpha] → "i-e-alpha" which
+                # can match gene aliases like IE-alpha → EA across species.
+                combined = "-".join(t.seq for t in tokens[:-1]) + "-alpha"
+                combined_token = Token(
+                    seq=combined,
+                    raw_string=" ".join(t.raw_string for t in tokens),
+                )
+                candidates.extend(
+                    self.parse_single_token_to_multiple_candidates(
+                        token=combined_token,
+                        default_species=default_species,
+                        strict_default_species=strict_default_species,
+                    )
+                )
         elif tokens[-1].is_beta:
             for candidate in self.parse_tokens_to_multiple_candidates(
                 tokens=tokens[:-1],
@@ -1651,11 +1668,28 @@ class Parser:
                 elif type(candidate) is Pair:
                     candidates.append(candidate.beta)
                 elif type(candidate) is Class2Locus:
-                    beta_genes = candidate.beta_chain_genes
-                    if len(beta_genes) == 1:
+                    # Prefer primary chain gene (shortest name, e.g., EB over EB2)
+                    beta_genes = sorted(candidate.beta_chain_genes, key=lambda g: len(g.name))
+                    if beta_genes:
                         candidates.append(beta_genes[0])
                 elif type(candidate) is MhcClass:
                     candidates.append(candidate.copy(chain="beta"))
+            if not candidates:
+                # Fallback: try joining preceding token(s) with "-beta" as a
+                # compound gene name, e.g., ["i-e", beta] → "i-e-beta" which
+                # can match gene aliases like IE-beta → EB across species.
+                combined = "-".join(t.seq for t in tokens[:-1]) + "-beta"
+                combined_token = Token(
+                    seq=combined,
+                    raw_string=" ".join(t.raw_string for t in tokens),
+                )
+                candidates.extend(
+                    self.parse_single_token_to_multiple_candidates(
+                        token=combined_token,
+                        default_species=default_species,
+                        strict_default_species=strict_default_species,
+                    )
+                )
         elif tokens[-1].is_mutant:
             for without_mutation in self.parse_single_token_to_multiple_candidates(
                 token=tokens[0],
@@ -1915,6 +1949,27 @@ class Parser:
             # the default one we're using
             if len(tokens) == 0:
                 results.extend(species_candidates)
+            elif (
+                "mhc" in tokenization_result.ignored_tokens
+                and len(tokens) >= 2
+                and tokens[0].seq.lower() in {"i", "ii", "1", "2"}
+            ):
+                # Handle orphaned class markers after species extraction, e.g.,
+                # "mouse MHC II IE-beta" → species="mouse", tokens=["ii", "ie-beta"]
+                # The "mhc" was removed during token substitution but the class
+                # marker (I/II) was left behind since "class" wasn't adjacent.
+                class_token = Token(
+                    seq="class-1" if tokens[0].seq.lower() in {"i", "1"} else "class-2",
+                    raw_string=f"MHC {tokens[0].raw_string}",
+                )
+                for maybe_species in species_candidates:
+                    descriptive_results = self.parse_with_class_token_to_multiple_candidates(
+                        class_token=class_token,
+                        other_tokens=tokens[1:],
+                        default_species=maybe_species,
+                        strict_default_species=True,
+                    )
+                    results.extend(descriptive_results)
             else:
                 for maybe_species in species_candidates:
                     if len(tokens) == 1 and tokens[0].is_class1:
