@@ -587,6 +587,34 @@ Mus macedonicus:
   parent: Mus sp.
   prefix: MusMace
   name: Macedonian mouse
+Mus minutoides:
+  parent: Mus sp.
+  prefix: MusMinu
+  name: African pygmy mouse
+Mus pahari:
+  parent: Mus sp.
+  prefix: MusPaha
+  name: Gairdner's shrewmouse
+Mus spicilegus:
+  parent: Mus sp.
+  prefix: MusSpic
+  name: Steppe mouse
+Mus shortridgei:
+  parent: Mus sp.
+  prefix: MusShor
+  name: Shortridge's mouse
+Mus gratus:
+  parent: Mus sp.
+  prefix: MusGrat
+  name: Gratus mouse
+Mus setulosus:
+  parent: Mus sp.
+  prefix: MusSetu
+  name: Setulous mouse
+Mus terricolor:
+  parent: Mus sp.
+  prefix: MusTerr
+  name: Earth-colored mouse
 ######################################################
 #
 # Rats
@@ -711,6 +739,10 @@ Rattus rattus:
   parent: Rattus sp.
   prefix: Rara
   name: Black Rat
+Rattus fuscipes:
+  parent: Rattus sp.
+  prefix: RattFusc
+  name: Bush rat
 ############################
 #
 # Canids: dogs, wolves, &c
@@ -1230,7 +1262,28 @@ Larimichthys crocea:
 Kryptolebias marmoratus:
   parent: Actinopterygii sp.
   prefix: KrypMarm
-  name: Mangrove killifish
+  other prefixes:
+    - Krma
+    # Old genus: Rivulus marmoratus
+    - RivuMarm
+  name:
+    - Mangrove killifish
+    - Rivulus marmoratus
+  genes:
+    I:
+      # Sato et al. 2002, Genetics 162:1791 — 8 class I locus groups
+      - A1
+      - B1
+      - C1
+      - C2
+      - D1
+      - D2
+      - D3
+      - E1
+      - E2
+      - F1
+      - G1
+      - H1
 ############################
 #
 # Killifish and other fish from mhcseqs report
@@ -1307,6 +1360,40 @@ Esox lucius:
     IIa:
       HB:
         - HB2D
+Merluccius polli:
+  parent: Actinopterygii sp.
+  prefix: MerlPoll
+  other prefixes:
+    - Mepo
+  name: Benguela hake
+Liparis tanakae:
+  parent: Actinopterygii sp.
+  prefix: LipaTana
+  name: Tanaka's snailfish
+Triplophysa tibetana:
+  parent: Actinopterygii sp.
+  prefix: TripTibe
+  name: Tibetan stone loach
+Aulonocara hansbaenschi:
+  parent: Actinopterygii sp.
+  prefix: AuloHans
+  name: Red shoulder peacock cichlid
+Odontobutis potamophilus:
+  parent: Actinopterygii sp.
+  prefix: OdonPota
+  name: Freshwater sleeper
+Hippocampus erectus:
+  parent: Actinopterygii sp.
+  prefix: HippErec
+  name: Lined seahorse
+Oncorhynchus nerka:
+  parent: Salmonidae sp.
+  prefix: OncoNerk
+  name: Sockeye salmon
+Polyodon spathula:
+  parent: Actinopterygii sp.
+  prefix: PolySpat
+  name: American paddlefish
 ############################
 #
 # Snakes
@@ -1444,6 +1531,14 @@ Ameiva ameiva:
     I:
       - LC1
       - LC13
+Tiliqua rugosa:
+  parent: Reptilia sp.
+  prefix: TiliRugo
+  name: Blue-tongued skink
+Conolophus subcristatus:
+  parent: Reptilia sp.
+  prefix: ConoSubc
+  name: Galapagos land iguana
 ############################
 #
 # Crocodilians
@@ -2374,6 +2469,90 @@ Ctenomys pearsoni:
         - DRB01
         - DRB02
         - DRB03
+Ctenomys haigi:
+  parent: Rodentia sp.
+  prefix: CtenHaig
+  name: Haig's tuco-tuco
+  genes:
+    IIa:
+      DQ:
+        - DQB
+      DR:
+        - DRB
+Ctenomys argentinus:
+  parent: Rodentia sp.
+  prefix: CtenArge
+  name: Argentine tuco-tuco
+  genes:
+    IIa:
+      DQ:
+        - DQB
+      DR:
+        - DRB
+Ctenomys frater:
+  parent: Rodentia sp.
+  prefix: CtenFrat
+  name: Forest tuco-tuco
+  genes:
+    IIa:
+      DQ:
+        - DQB
+      DR:
+        - DRB
+Ctenomys opimus:
+  parent: Rodentia sp.
+  prefix: CtenOpim
+  name: Highland tuco-tuco
+  genes:
+    IIa:
+      DQ:
+        - DQB
+      DR:
+        - DRB
+Dipodomys ordii:
+  parent: Rodentia sp.
+  prefix: DipoOrdi
+  name: Ord's kangaroo rat
+Octodon degus:
+  parent: Rodentia sp.
+  prefix: OctoDegu
+  name: Degu
+Heterocephalus glaber:
+  parent: Rodentia sp.
+  prefix: HeteGlab
+  name: Naked mole-rat
+Nannospalax galili:
+  parent: Rodentia sp.
+  prefix: NannGali
+  name: Upper Galilee blind mole-rat
+Peromyscus maniculatus:
+  parent: Rodentia sp.
+  prefix: PeroMani
+  name: Deer mouse
+Peromyscus leucopus:
+  parent: Rodentia sp.
+  prefix: PeroLeuc
+  name: White-footed mouse
+Jaculus jaculus:
+  parent: Rodentia sp.
+  prefix: JacuJacu
+  name: Lesser Egyptian jerboa
+Sigmodon hispidus:
+  parent: Rodentia sp.
+  prefix: SigmHisp
+  name: Hispid cotton rat
+Cricetulus barabensis:
+  parent: Rodentia sp.
+  prefix: CricBara
+  name: Chinese striped hamster
+Cynomys gunnisoni:
+  parent: Rodentia sp.
+  prefix: CynoGunn
+  name: Gunnison's prairie dog
+Delomys sublineatus:
+  parent: Rodentia sp.
+  prefix: DeloSubl
+  name: Pallid Atlantic forest rat
 ################################################################################
 #
 # Bats
@@ -2810,6 +2989,10 @@ Pandion haliaetus:
   parent: Aves sp.
   prefix: PandHali
   name: Osprey
+Haliaeetus albicilla:
+  parent: Aves sp.
+  prefix: HaliAlbi
+  name: White-tailed eagle
 Lanius collaris:
   parent: Aves sp.
   prefix: LaniCola
@@ -4280,6 +4463,10 @@ Lissotriton vulgaris:
     IIa:
       DN:
         - DNB
+Espadarana prosoblepon:
+  parent: Amphibia sp.
+  prefix: EspaPros
+  name: Emerald glass frog
 ##########################
 #
 # Tuatara
@@ -4393,6 +4580,24 @@ Notamacropus eugenii:
     - Noeu
     # Old genus: Macropus eugenii → Notamacropus eugenii
     - Maeu
+Notamacropus rufogriseus:
+  parent: Notamacropus sp.
+  prefix: NotaRufo
+  other prefixes:
+    # Old genus: Macropus rufogriseus → Notamacropus rufogriseus
+    - Maru
+  name:
+    - Red-necked wallaby
+    - Bennett's wallaby
+  genes:
+    I:
+      - UA
+      - UB
+    IIa:
+      DA:
+        - DAB
+      DB:
+        - DBB
 Trichosurus vulpecula:
   parent: Marsupialia sp.
   prefix: TricVulp
