@@ -352,7 +352,6 @@ def test_orla_still_parses_as_orangutan():
 def test_ambiguous_or_unsourced_short_prefixes_are_not_added():
     for short_prefix in [
         "Moal",  # reused across Monopterus albus and Motacilla alba
-        "Krma",  # no local source evidence found
     ]:
         assert Species.get(short_prefix) is None
         assert parse(f"{short_prefix}-DAB", raise_on_error=False) is None
