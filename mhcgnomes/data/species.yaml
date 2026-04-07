@@ -85,6 +85,9 @@ Chondrichthyes sp.:
       DB:
         - DBA
         - DBB
+      DQ:
+        - DQA1
+        - DQB1
       DC:
         - DCA
         - DCB
@@ -106,6 +109,7 @@ Actinopterygii sp.:
       - UBA2
     I:
       - UA
+      - UF
     Ib:
       - UCA
       - UDA
@@ -162,6 +166,9 @@ Amphibia sp.:
       DC:
         - DCA
         - DCB
+      DD:
+        - DDA
+        - DDB
       DR:
         - DRB1
 
@@ -177,6 +184,8 @@ Reptilia sp.:
       - UBA
     I:
       - UA
+      - UB
+      - UD
     Ib:
       - UCA
       - UDA
@@ -213,6 +222,7 @@ Aves sp.:
       - UBA
     I:
       - UA
+      - F
     IIa:
       DA:
         - DAA
@@ -262,6 +272,7 @@ Marsupialia sp.:
       - UE
       - UF
       - UG
+      - UK
       - UM
     IIa:
       DA:
@@ -276,6 +287,8 @@ Marsupialia sp.:
       DC:
         - DCA
         - DCB
+      DN:
+        - DNA
       DR:
         - DRA
 
@@ -1594,6 +1607,11 @@ Acipenser oxyrinchus:
   parent: Actinopterygii sp.
   prefix: AcipOxyr
   name: Atlantic sturgeon
+  genes:
+    IIa:
+      DQ:
+        - DQA1
+        - DQB1
 ############################
 #
 # Xiphophorus (swordtails/platyfish)
@@ -1992,6 +2010,11 @@ Testudines sp.:
   parent: Reptilia sp.
   prefix: Testudines
   name: Turtle
+  genes:
+    IIa:
+      DP:
+        - DPA1
+        - DPB1
 Caretta caretta:
   parent: Testudines sp.
   prefix: CareCare
@@ -2621,13 +2644,17 @@ Rodentia sp.:
       DQ:
         - DQA
         - DQA1
+        - DQB
         - DQB1
       DR:
         - DRA
         - DRB
         - DRB1
+        - DRB2
       DP:
+        - DPA
         - DPA1
+        - DPB
         - DPB1
     IIb:
       DO:
@@ -2821,10 +2848,14 @@ Dipodomys ordii:
   parent: Rodentia sp.
   prefix: DipoOrdi
   name: Ord's kangaroo rat
-Octodon degus:
+Octodon sp.:
   parent: Rodentia sp.
-  prefix: OctoDegu
+  prefix: OctoSp
   name: Degu
+Octodon degus:
+  parent: Octodon sp.
+  prefix: OctoDegu
+  name: Common degu
 Heterocephalus glaber:
   parent: Rodentia sp.
   prefix: HeteGlab
@@ -3706,6 +3737,10 @@ Lanius collaris:
   parent: Aves sp.
   prefix: LaniCola
   name: Fiscal shrike
+Lanius senator:
+  parent: Aves sp.
+  prefix: LaniSena
+  name: Woodchat shrike
 Turdus naumanni:
   parent: Turdus sp.
   prefix: TurdNaum
@@ -5474,6 +5509,9 @@ Ornithorhynchus anatinus:
     IIa:
       DR:
         - DRA
+      DZ:
+        - DZA
+        - DZB
 Notamacropus sp.:
   parent: Marsupialia sp.
   prefix: Notamacropus

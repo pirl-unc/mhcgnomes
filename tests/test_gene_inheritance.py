@@ -380,9 +380,14 @@ class TestSpeciesStrictness:
 class TestTaxonomicPrefixLeakage:
     """Taxonomic node prefixes must not resolve child-only genes or outputs."""
 
-    @pytest.mark.parametrize("raw", ["Galliformes-BF1", "Crocodylia-UB", "Salmonidae-UEA"])
+    @pytest.mark.parametrize("raw", ["Galliformes-BF1", "Salmonidae-UEA"])
     def test_taxonomic_prefixes_do_not_resolve_child_specific_genes(self, raw):
         assert parse(raw, raise_on_error=False) is None
+
+    def test_crocodylia_ub_now_inherited_from_reptilia(self):
+        """UB was promoted to Reptilia sp. — Crocodylia inherits it."""
+        result = parse("Crocodylia-UB", raise_on_error=True)
+        assert result is not None
 
     @pytest.mark.parametrize(
         "species_prefix, gene_name, expected_string",
