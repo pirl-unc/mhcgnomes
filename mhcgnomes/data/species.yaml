@@ -1114,6 +1114,10 @@ Coregonus sp.:
   parent: Actinopterygii sp.
   prefix: Cosp
   name: Whitefish
+Coregonus clupeaformis:
+  parent: Coregonus sp.
+  prefix: CoreClup
+  name: Lake whitefish
 Tropheus sp.:
   parent: Actinopterygii sp.
   prefix: Trsp
@@ -1124,6 +1128,10 @@ Tropheus sp.:
         - DDA
         - DDB1
         - DDB2
+Tropheus moorii:
+  parent: Tropheus sp.
+  prefix: TropMoor
+  name: Tropheus cichlid
 Kareius bicoloratus:
   parent: Actinopterygii sp.
   prefix: KareBico
@@ -2416,36 +2424,40 @@ Myodes glareolus:
   name:
     - Bank vole
     - Clethrionomys glareolus
-Ctenomys talarum:
+Ctenomys sp.:
   parent: Rodentia sp.
+  prefix: Ctenomys
+  name: Tuco-tuco
+  genes:
+    IIa:
+      DQ:
+        - DQB
+      DR:
+        - DRB
+Ctenomys talarum:
+  parent: Ctenomys sp.
   prefix: Ctta
   name: Talas tuco-tuco
   genes:
     IIa:
       DR:
-        - DRB
         - DRB01
         - DRB02
         - DRB03
         - DRB04
-      DQ:
-        - DQB
 Ctenomys australis:
-  parent: Rodentia sp.
+  parent: Ctenomys sp.
   prefix: Ctau
   name: Southern tuco-tuco
   genes:
     IIa:
       DR:
-        - DRB
         - DRB01
         - DRB02
         - DRB03
         - DRB04
-      DQ:
-        - DQB
 Ctenomys torquatus:
-  parent: Rodentia sp.
+  parent: Ctenomys sp.
   prefix: Ctto
   name: Collared tuco-tuco
   genes:
@@ -2455,60 +2467,32 @@ Ctenomys torquatus:
         - DRB02
         - DRB03
         - DRB04
-      DQ:
-        - DQB
 Ctenomys pearsoni:
-  parent: Rodentia sp.
+  parent: Ctenomys sp.
   prefix: Ctpe
   name: Pearson's tuco-tuco
   genes:
     IIa:
-      DQ:
-        - DQB
       DR:
         - DRB01
         - DRB02
         - DRB03
 Ctenomys haigi:
-  parent: Rodentia sp.
+  parent: Ctenomys sp.
   prefix: CtenHaig
   name: Haig's tuco-tuco
-  genes:
-    IIa:
-      DQ:
-        - DQB
-      DR:
-        - DRB
 Ctenomys argentinus:
-  parent: Rodentia sp.
+  parent: Ctenomys sp.
   prefix: CtenArge
   name: Argentine tuco-tuco
-  genes:
-    IIa:
-      DQ:
-        - DQB
-      DR:
-        - DRB
 Ctenomys frater:
-  parent: Rodentia sp.
+  parent: Ctenomys sp.
   prefix: CtenFrat
   name: Forest tuco-tuco
-  genes:
-    IIa:
-      DQ:
-        - DQB
-      DR:
-        - DRB
 Ctenomys opimus:
-  parent: Rodentia sp.
+  parent: Ctenomys sp.
   prefix: CtenOpim
   name: Highland tuco-tuco
-  genes:
-    IIa:
-      DQ:
-        - DQB
-      DR:
-        - DRB
 Dipodomys ordii:
   parent: Rodentia sp.
   prefix: DipoOrdi
@@ -2553,6 +2537,30 @@ Delomys sublineatus:
   parent: Rodentia sp.
   prefix: DeloSubl
   name: Pallid Atlantic forest rat
+Meriones unguiculatus:
+  parent: Rodentia sp.
+  prefix: MeriUngu
+  name: Mongolian gerbil
+Apodemus sylvaticus:
+  parent: Rodentia sp.
+  prefix: ApodSylv
+  name: Wood mouse
+Apodemus flavicollis:
+  parent: Rodentia sp.
+  prefix: ApodFlav
+  name: Yellow-necked mouse
+Microtus arvalis:
+  parent: Rodentia sp.
+  prefix: MicrArva
+  name: Common vole
+Microtus agrestis:
+  parent: Rodentia sp.
+  prefix: MicrAgre
+  name: Field vole
+Fukomys damarensis:
+  parent: Rodentia sp.
+  prefix: FukoDama
+  name: Damaraland mole-rat
 ################################################################################
 #
 # Bats

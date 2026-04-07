@@ -44,7 +44,9 @@ def test_species_strict_bf2_with_guinea_fowl():
 
 
 def test_species_strict_ddb1_with_cichlid():
-    assert parse("DDB1", species="Tropheus moorii", raise_on_error=False) is None
+    """Tropheus moorii is now in the ontology under Tropheus sp. and inherits DDB1."""
+    result = parse("DDB1", species="Tropheus moorii", raise_on_error=True)
+    assert result is not None
 
 
 def test_species_strict_uaa1_with_ricefish():
