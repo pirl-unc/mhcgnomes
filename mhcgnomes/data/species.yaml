@@ -50,6 +50,10 @@ Gnathostomata sp.:
   prefix: Gnathostomata
   name: Jawed vertebrate
   genes:
+    Id:
+      # MR1 presents microbial vitamin B metabolites to MAIT cells.
+      # Conserved across jawed vertebrates with consistent naming.
+      - MR1
     IIb:
       DM:
         - DMA
@@ -233,6 +237,17 @@ Aves sp.:
         - DMB2
 
 ######################################################
+# Monotremata — egg-laying mammals
+######################################################
+Tachyglossus aculeatus:
+  prefix: TachAcul
+  name: Short-beaked echidna
+  genes:
+    IIa:
+      DZ:
+        - DZB
+
+######################################################
 # Marsupialia — marsupials
 ######################################################
 Marsupialia sp.:
@@ -282,6 +297,7 @@ Galliformes sp.:
   name: Galliform bird
   genes:
     Ia:
+      - B
       - BF
     IIa:
       BL:
@@ -545,6 +561,11 @@ Mus musculus:
       - M10-PS1
       - M10-PS2
       - M10-PS3
+      - M10
+      - M11
+      - H60
+      - Mill1
+      - Mill2
     Id:
       - CD1a
       - CD1b
@@ -729,9 +750,12 @@ Rattus sp.:
       - M1-4
       - M1-5
       - M2
+      - M3
       - M3-1
       - M5
+      - M6
       - M6-1
+      - M10
       - M10-1
       - M10-3
       - N1
@@ -1099,6 +1123,38 @@ Dicentrarchus labrax:
   other prefixes:
     - Dila
   name: European seabass
+  genes:
+    I:
+      - a1
+      - a2
+      - a3
+      - a4
+      - a5
+      - a6
+      - a7
+      - a8
+      - a9
+      - a10
+      - a11
+      - a12
+      - a13
+      - a14
+      - a15
+      - a16
+      - a17
+      - a18
+      - a19
+      - a20
+      - a21
+      - a22
+      - a23
+      - a24
+      - a25
+      - a26
+      - a27
+      - a28
+      - a29
+      - a30
 Epinephelus coioides:
   parent: Actinopterygii sp.
   prefix: EpinCoio
@@ -1494,6 +1550,50 @@ Polyodon spathula:
   parent: Actinopterygii sp.
   prefix: PolySpat
   name: American paddlefish
+Archoplites interruptus:
+  parent: Actinopterygii sp.
+  prefix: ArchInte
+  name: Sacramento perch
+Leiocassis longirostris:
+  parent: Actinopterygii sp.
+  prefix: LeioLong
+  name: Chinese longsnout catfish
+Miichthys miiuy:
+  parent: Actinopterygii sp.
+  prefix: MiicMiiu
+  name: Mi-iuy croaker
+Amphilophus citrinellus:
+  parent: Actinopterygii sp.
+  prefix: AmphCitr
+  name: Midas cichlid
+Poecilia reticulata:
+  parent: Actinopterygii sp.
+  prefix: PoecReti
+  name: Guppy
+Clarias gariepinus:
+  parent: Actinopterygii sp.
+  prefix: ClarGari
+  name: North African catfish
+Clupea harengus:
+  parent: Actinopterygii sp.
+  prefix: ClupHare
+  name: Atlantic herring
+Epinephelus akaara:
+  parent: Actinopterygii sp.
+  prefix: EpinAkaa
+  name: Hong Kong grouper
+Labeobarbus acutirostris:
+  parent: Actinopterygii sp.
+  prefix: LabeAcut
+  name: Labeobarbus
+Acipenser sinensis:
+  parent: Actinopterygii sp.
+  prefix: AcipSine
+  name: Chinese sturgeon
+Acipenser oxyrinchus:
+  parent: Actinopterygii sp.
+  prefix: AcipOxyr
+  name: Atlantic sturgeon
 ############################
 #
 # Xiphophorus (swordtails/platyfish)
@@ -1641,6 +1741,10 @@ Laticauda laticaudata:
   other prefixes:
     - Lala
   name: Blue-ringed sea krait
+Coronella austriaca:
+  parent: Reptilia sp.
+  prefix: CoroAust
+  name: Smooth snake
 ############################
 #
 # Batch-added lizards from mhcseqs unknown species report.
@@ -2061,6 +2165,10 @@ Triakis scyllium:
   other prefixes:
     - Trsc
   name: Banded houndshark
+Chiloscyllium plagiosum:
+  parent: Chondrichthyes sp.
+  prefix: ChilPlag
+  name: Whitespotted bamboo shark
 ##############################################
 #
 # Ovid/sheep
@@ -2511,10 +2619,12 @@ Rodentia sp.:
   genes:
     IIa:
       DQ:
+        - DQA
         - DQA1
         - DQB1
       DR:
         - DRA
+        - DRB
         - DRB1
       DP:
         - DPA1
@@ -2775,6 +2885,44 @@ Fukomys damarensis:
   parent: Rodentia sp.
   prefix: FukoDama
   name: Damaraland mole-rat
+Arvicola amphibius:
+  parent: Rodentia sp.
+  prefix: ArviAmph
+  name: European water vole
+Cricetus cricetus:
+  parent: Rodentia sp.
+  prefix: CricCric
+  name: European hamster
+Hypogeomys antimena:
+  parent: Rodentia sp.
+  prefix: HypoAnti
+  name: Malagasy giant rat
+Mastomys natalensis:
+  parent: Rodentia sp.
+  prefix: MastNata
+  context only prefixes:
+    - Mana
+  name: Natal multimammate mouse
+Cynomys ludovicianus:
+  parent: Rodentia sp.
+  prefix: CynoLudo
+  name: Black-tailed prairie dog
+Dipodomys spectabilis:
+  parent: Rodentia sp.
+  prefix: DipoSpec
+  name: Banner-tailed kangaroo rat
+Peromyscus californicus:
+  parent: Rodentia sp.
+  prefix: PeroCali
+  name: California mouse
+Cryptomys hottentotus:
+  parent: Rodentia sp.
+  prefix: CrypHott
+  name: African mole-rat
+Heliophobius argenteocinereus:
+  parent: Rodentia sp.
+  prefix: HeliArge
+  name: Silvery mole-rat
 ################################################################################
 #
 # Bats
@@ -2825,6 +2973,7 @@ Oryctolagus sp.:
       DR:
         - DRA
         - DRB
+        - DRB1
       DQ:
         - DQA
         - DQB
@@ -3192,6 +3341,145 @@ Emberiza citrinella:
   other prefixes:
     - Emci
   name: Yellowhammer
+############################
+#
+# Seabirds
+#
+############################
+Rissa tridactyla:
+  parent: Aves sp.
+  prefix: RissTrid
+  name: Black-legged kittiwake
+Alca torda:
+  parent: Aves sp.
+  prefix: AlcaTord
+  name: Razorbill
+Uria aalge:
+  parent: Aves sp.
+  prefix: UriaAalg
+  name: Common murre
+Fratercula arctica:
+  parent: Aves sp.
+  prefix: FratArct
+  name: Atlantic puffin
+Brachyramphus marmoratus:
+  parent: Aves sp.
+  prefix: BracMarm
+  name: Marbled murrelet
+Phoebastria immutabilis:
+  parent: Aves sp.
+  prefix: PhoeImmu
+  name: Laysan albatross
+Phoebastria nigripes:
+  parent: Aves sp.
+  prefix: PhoeNigr
+  name: Black-footed albatross
+Pachyptila belcheri:
+  parent: Aves sp.
+  prefix: PachBelc
+  name: Thin-billed prion
+Strigops habroptila:
+  parent: Aves sp.
+  prefix: StriHabr
+  name: Kakapo
+############################
+#
+# Additional passerines
+#
+############################
+Acrocephalus scirpaceus:
+  parent: Aves sp.
+  prefix: AcroScir
+  name: Eurasian reed warbler
+Hippolais icterina:
+  parent: Aves sp.
+  prefix: HippIcte
+  name: Icterine warbler
+Luscinia svecica:
+  parent: Aves sp.
+  prefix: LuscSvec
+  name: Bluethroat
+Sylvia borin:
+  parent: Aves sp.
+  prefix: SylvBori
+  name: Garden warbler
+Phylloscopus collybita:
+  parent: Aves sp.
+  prefix: PhylColl
+  name: Common chiffchaff
+Phylloscopus trochilus:
+  parent: Aves sp.
+  prefix: PhylTroc
+  name: Willow warbler
+Passer hispaniolensis:
+  parent: Aves sp.
+  prefix: PassHisp
+  name: Spanish sparrow
+Passer montanus:
+  parent: Aves sp.
+  prefix: PassMont
+  name: Eurasian tree sparrow
+Erithacus rubecula:
+  parent: Aves sp.
+  prefix: EritRube
+  name: European robin
+Eurillas virens:
+  parent: Aves sp.
+  prefix: EuriVire
+  name: Little greenbul
+Melospiza melodia:
+  parent: Aves sp.
+  prefix: MeloMelo
+  name: Song sparrow
+Alauda razae:
+  parent: Aves sp.
+  prefix: AlauRaza
+  name: Razo lark
+Fringilla coelebs:
+  parent: Aves sp.
+  prefix: FrinCoel
+  name: Chaffinch
+Emberiza jankowskii:
+  parent: Aves sp.
+  prefix: EmbeJank
+  name: Jankowski's bunting
+Bucanetes githagineus:
+  parent: Aves sp.
+  prefix: BucaGith
+  name: Trumpeter finch
+Chersophilus duponti:
+  parent: Aves sp.
+  prefix: CherDupo
+  name: Dupont's lark
+Forpus passerinus:
+  parent: Aves sp.
+  prefix: ForpPass
+  name: Green-rumped parrotlet
+Carduelis carduelis:
+  parent: Aves sp.
+  prefix: CardCard
+  name: European goldfinch
+############################
+#
+# Waterfowl and waders
+#
+############################
+Anser indicus:
+  parent: Aves sp.
+  prefix: AnseIndi
+  name: Bar-headed goose
+Calidris canutus:
+  parent: Aves sp.
+  prefix: CaliCanu
+  name: Red knot
+Otis tarda:
+  parent: Aves sp.
+  prefix: OtisTard
+  name: Great bustard
+Psophia crepitans:
+  parent: Aves sp.
+  prefix: PsopCrep
+  name: Common trumpeter
 ################################################################################
 #
 # Shorebirds
@@ -3354,6 +3642,14 @@ Spinus spinus:
     # Attested in UniProt gene_names; see registry entry Spsp.
     - Spsp
   name: Eurasian siskin
+Spinus atratus:
+  parent: Aves sp.
+  prefix: SpinAtra
+  name: Black siskin
+Spinus pinus:
+  parent: Aves sp.
+  prefix: SpinPinu
+  name: Pine siskin
 Emberiza cioides:
   parent: Aves sp.
   prefix: EmbeCioi
@@ -3784,6 +4080,10 @@ Bubo bubo:
   # Natural 4-letter prefix Bubu collides with water buffalo (Bubalus bubalis).
   # Buffalo keeps Bubu (more MHC literature). Owl uses long prefix.
   prefix: BuboBubo
+Bubo blakistoni:
+  parent: Strigidae sp.
+  prefix: BuboBlak
+  name: Blakiston's eagle-owl
 Bubo scandiacus:
   parent: Strigidae sp.
   prefix: BuboScan
@@ -3796,6 +4096,10 @@ Glaucidium passerinum:
   prefix: GlauPass
   other prefixes:
     - Glpa
+Otus elegans:
+  parent: Strigidae sp.
+  name: Elegant scops-owl
+  prefix: OtusEleg
 Otus scops:
   parent: Strigidae sp.
   name: European scops owl
