@@ -520,6 +520,13 @@ class Species(Result):
                 stripped = gene_name[len(prefix) :]
                 if stripped in self.gene_names:
                     return self.gene_names.get_original(stripped)
+        # Try replacing trailing "alpha"/"beta" with single-letter chain
+        # suffix (e.g. "DOalpha" → "DOa", "Ebeta" → "Eb").
+        for suffix, replacement in (("alpha", "a"), ("beta", "b")):
+            if lower.endswith(suffix) and len(gene_name) > len(suffix):
+                candidate = gene_name[: -len(suffix)] + replacement
+                if candidate in self.gene_names:
+                    return self.gene_names.get_original(candidate)
         return None
 
     def find_matching_class2_locus_name(self, locus_name):
