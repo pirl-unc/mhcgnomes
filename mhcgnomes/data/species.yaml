@@ -460,6 +460,9 @@ Mus sp.:
       - D
       - K
       - L
+    Ib:
+      # TL = Thymus Leukemia antigen, encoded by H2-T region genes
+      - TL
     IIa:
       A:
         - AA
@@ -578,6 +581,9 @@ Mus musculus:
 Mus caroli:
   parent: Mus sp.
   prefix: MusCaro
+  other prefixes:
+    # She et al. 1991, PNAS 88:453; Davis et al. 2002, J. Immunol. 169:6890
+    - Muca
   name: Ryukyu mouse
 Mus spretus:
   parent: Mus sp.
@@ -590,10 +596,16 @@ Mus macedonicus:
 Mus minutoides:
   parent: Mus sp.
   prefix: MusMinu
+  other prefixes:
+    # Davis et al. 2002, J. Immunol. 169:6890
+    - Mumi
   name: African pygmy mouse
 Mus pahari:
   parent: Mus sp.
   prefix: MusPaha
+  other prefixes:
+    # Davis et al. 2002, J. Immunol. 169:6890
+    - Mupa
   name: Gairdner's shrewmouse
 Mus spicilegus:
   parent: Mus sp.
@@ -618,18 +630,30 @@ Mus terricolor:
 Mus cookii:
   parent: Mus sp.
   prefix: MusCook
+  other prefixes:
+    # She et al. 1991, PNAS 88:453; Davis et al. 2002, J. Immunol. 169:6890
+    - Muco
   name: Cook's mouse
 Mus platythrix:
   parent: Mus sp.
   prefix: MusPlat
+  other prefixes:
+    # Davis et al. 2002, J. Immunol. 169:6890
+    - Mupl
   name: Flat-haired mouse
 Mus cervicolor:
   parent: Mus sp.
   prefix: MusCerv
+  other prefixes:
+    # She et al. 1991, PNAS 88:453
+    - Muce
   name: Fawn-colored mouse
 Mus abbotti:
   parent: Mus sp.
   prefix: MusAbbo
+  other prefixes:
+    # Davis et al. 2002, J. Immunol. 169:6890
+    - Muab
   name: Abbott's mouse
 Mus saxicola:
   parent: Mus sp.
