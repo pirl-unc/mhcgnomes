@@ -5190,6 +5190,9 @@ Xenopus laevis:
   prefix: Xela
   name: African clawed frog
   genes:
+    Ia:
+      # Xenopus-specific UAA paralogs (Flajnik et al.)
+      - UAAg
     Ib:
       - UEA
 Xenopus tropicalis:
