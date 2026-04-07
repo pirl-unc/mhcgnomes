@@ -158,6 +158,8 @@ Coja:
   II-05: DEB1
   II-06: DFB1
   II-07: DGB1
+  # Bare "C" → C1 (primary C-series class I locus)
+  C: C1
 Zhom:
   # Old-genus Rhacophorus prefix preserved in external gene name
   Rhom-beta1: DAB
