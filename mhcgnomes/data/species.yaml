@@ -615,6 +615,26 @@ Mus terricolor:
   parent: Mus sp.
   prefix: MusTerr
   name: Earth-colored mouse
+Mus cookii:
+  parent: Mus sp.
+  prefix: MusCook
+  name: Cook's mouse
+Mus platythrix:
+  parent: Mus sp.
+  prefix: MusPlat
+  name: Flat-haired mouse
+Mus cervicolor:
+  parent: Mus sp.
+  prefix: MusCerv
+  name: Fawn-colored mouse
+Mus abbotti:
+  parent: Mus sp.
+  prefix: MusAbbo
+  name: Abbott's mouse
+Mus saxicola:
+  parent: Mus sp.
+  prefix: MusSaxi
+  name: Indian rock mouse
 ######################################################
 #
 # Rats
@@ -743,6 +763,26 @@ Rattus fuscipes:
   parent: Rattus sp.
   prefix: RattFusc
   name: Bush rat
+Rattus leucopus:
+  parent: Rattus sp.
+  prefix: RattLeuc
+  name: Cape York rat
+Rattus tanezumi:
+  parent: Rattus sp.
+  prefix: RattTane
+  name: Asian house rat
+Rattus tunneyi:
+  parent: Rattus sp.
+  prefix: RattTunn
+  name: Tunney's rat
+Rattus colletti:
+  parent: Rattus sp.
+  prefix: RattColl
+  name: Dusky rat
+Rattus villosissimus:
+  parent: Rattus sp.
+  prefix: RattVill
+  name: Long-haired rat
 ############################
 #
 # Canids: dogs, wolves, &c
@@ -964,7 +1004,7 @@ Oryzias latipes:
       - UGA
       - UHA
 Cyprinus carpio:
-  parent: Actinopterygii sp.
+  parent: Cyprinidae sp.
   prefix: Cyca
   name: Common carp
   genes:
@@ -1086,7 +1126,7 @@ Hippocampus abdominalis:
     - Hiab
   name: Pot-bellied seahorse
 Carassius auratus:
-  parent: Actinopterygii sp.
+  parent: Cyprinidae sp.
   prefix: CaraAura
   other prefixes:
     - Caau
@@ -1211,7 +1251,7 @@ Scatophagus argus:
     - Scar
   name: Spotted scat
 Rutilus rutilus:
-  parent: Actinopterygii sp.
+  parent: Cyprinidae sp.
   # mhcseqs uses Arbr (old genus Abramis-related)
   prefix: RutiRuti
   other prefixes:
@@ -1220,7 +1260,7 @@ Rutilus rutilus:
     - Ruru
   name: Roach
 Parachondrostoma toxostoma:
-  parent: Actinopterygii sp.
+  parent: Cyprinidae sp.
   # mhcseqs uses Pctn
   prefix: ParaToxo
   other prefixes:
@@ -1229,14 +1269,14 @@ Parachondrostoma toxostoma:
     - Pato
   name: Softnose
 Abramis brama:
-  parent: Actinopterygii sp.
+  parent: Cyprinidae sp.
   prefix: AbraBram
   other prefixes:
     # Attested in UniProt gene_names; see registry entry Abbr.
     - Abbr
   name: Common bream
 Gobio gobio:
-  parent: Actinopterygii sp.
+  parent: Cyprinidae sp.
   prefix: GobiGobi
   name: Gudgeon
 Nothobranchius korthausae:
@@ -1398,10 +1438,120 @@ Oncorhynchus nerka:
   parent: Salmonidae sp.
   prefix: OncoNerk
   name: Sockeye salmon
+Oncorhynchus tshawytscha:
+  parent: Salmonidae sp.
+  prefix: OncoTsha
+  name: Chinook salmon
+Oncorhynchus kisutch:
+  parent: Salmonidae sp.
+  prefix: OncoKisu
+  name: Coho salmon
+Oncorhynchus gorbuscha:
+  parent: Salmonidae sp.
+  prefix: OncoGorb
+  name: Pink salmon
+Oncorhynchus gilae:
+  parent: Salmonidae sp.
+  prefix: OncoGila
+  name: Gila trout
+Salvelinus fontinalis:
+  parent: Salmonidae sp.
+  prefix: SalvFont
+  name: Brook trout
+Salvelinus leucomaenis:
+  parent: Salmonidae sp.
+  prefix: SalvLeuc
+  name: Whitespotted char
+Salvelinus malma:
+  parent: Salmonidae sp.
+  prefix: SalvMalm
+  name: Dolly Varden
 Polyodon spathula:
   parent: Actinopterygii sp.
   prefix: PolySpat
   name: American paddlefish
+############################
+#
+# Xiphophorus (swordtails/platyfish)
+#
+############################
+Xiphophorus sp.:
+  parent: Actinopterygii sp.
+  prefix: Xiphophorus
+  name: Swordtail
+  genes:
+    IIa:
+      DX:
+        - DXB
+Xiphophorus maculatus:
+  parent: Xiphophorus sp.
+  prefix: XiphMacu
+  name: Southern platyfish
+Xiphophorus hellerii:
+  parent: Xiphophorus sp.
+  prefix: XiphHell
+  name: Green swordtail
+Xiphophorus multilineatus:
+  parent: Xiphophorus sp.
+  prefix: XiphMult
+  name: Swordtail
+Xiphophorus pygmaeus:
+  parent: Xiphophorus sp.
+  prefix: XiphPygm
+  name: Pygmy swordtail
+############################
+#
+# Cyprinidae (carps, minnows, barbs)
+#
+############################
+Cyprinidae sp.:
+  parent: Actinopterygii sp.
+  prefix: Cyprinidae
+  name: Cyprinid
+Barbus barbus:
+  parent: Cyprinidae sp.
+  prefix: BarbBarb
+  name: Barbel
+Blicca bjoerkna:
+  parent: Cyprinidae sp.
+  prefix: BlicBjoe
+  name: White bream
+Carassius carassius:
+  parent: Cyprinidae sp.
+  prefix: CaraCara
+  name: Crucian carp
+Carassius gibelio:
+  parent: Cyprinidae sp.
+  prefix: CaraGibe
+  name: Prussian carp
+Chondrostoma nasus:
+  parent: Cyprinidae sp.
+  prefix: ChonNasu
+  name: Common nase
+Ladigesocypris ghigii:
+  parent: Cyprinidae sp.
+  prefix: LadiGhig
+  name: Rhodes minnow
+Leuciscus leuciscus:
+  parent: Cyprinidae sp.
+  prefix: LeucisLeucis
+  name: Common dace
+Squalius cephalus:
+  parent: Cyprinidae sp.
+  prefix: SquaCeph
+  name: European chub
+Tinca tinca:
+  parent: Cyprinidae sp.
+  prefix: TincTinc
+  name: Tench
+Pseudorhodeus tanago:
+  parent: Cyprinidae sp.
+  prefix: PseuTana
+  name: Tokyo bitterling
+Rhodeus ocellatus:
+  parent: Cyprinidae sp.
+  prefix: RhodOcel
+  name: Rosy bitterling
 ############################
 #
 # Snakes
@@ -2493,6 +2643,46 @@ Ctenomys opimus:
   parent: Ctenomys sp.
   prefix: CtenOpim
   name: Highland tuco-tuco
+Ctenomys sociabilis:
+  parent: Ctenomys sp.
+  prefix: CtenSoci
+  name: Social tuco-tuco
+Ctenomys rionegrensis:
+  parent: Ctenomys sp.
+  prefix: CtenRion
+  name: Rio Negro tuco-tuco
+Ctenomys mendocinus:
+  parent: Ctenomys sp.
+  prefix: CtenMend
+  name: Mendoza tuco-tuco
+Ctenomys maulinus:
+  parent: Ctenomys sp.
+  prefix: CtenMaul
+  name: Maule tuco-tuco
+Ctenomys conoveri:
+  parent: Ctenomys sp.
+  prefix: CtenCono
+  name: Conover's tuco-tuco
+Ctenomys porteousi:
+  parent: Ctenomys sp.
+  prefix: CtenPort
+  name: Porteous's tuco-tuco
+Ctenomys bonettoi:
+  parent: Ctenomys sp.
+  prefix: CtenBone
+  name: Bonetto's tuco-tuco
+Ctenomys goodfellowi:
+  parent: Ctenomys sp.
+  prefix: CtenGood
+  name: Goodfellow's tuco-tuco
+Ctenomys boliviensis:
+  parent: Ctenomys sp.
+  prefix: CtenBoli
+  name: Bolivian tuco-tuco
+Ctenomys steinbachi:
+  parent: Ctenomys sp.
+  prefix: CtenStei
+  name: Steinbach's tuco-tuco
 Dipodomys ordii:
   parent: Rodentia sp.
   prefix: DipoOrdi
@@ -2666,73 +2856,226 @@ Sterna hirundo:
   name: Common tern
 ################################################################################
 #
-# Raptors (falcons, eagles, hawks)
+# Falcons (Falconiformes)
 #
 # All generated prefixes — no established MHC prefixes in literature.
 #
 ################################################################################
-Falco peregrinus:
+Falco sp.:
   parent: Aves sp.
+  prefix: Falco
+  name: Falcon
+  genes:
+    IIa:
+      DA:
+        - DAB
+      DR:
+        - DRB
+Falco peregrinus:
+  parent: Falco sp.
   prefix: FalcPere
   other prefixes:
     - Fape
   name: Peregrine falcon
 Falco tinnunculus:
-  parent: Aves sp.
+  parent: Falco sp.
   prefix: FalcTinn
   other prefixes:
     - Fati
   name: Common kestrel
-Aquila chrysaetos:
+Falco cherrug:
+  parent: Falco sp.
+  prefix: FalcCher
+  name: Saker falcon
+Falco rusticolus:
+  parent: Falco sp.
+  prefix: FalcRust
+  name: Gyrfalcon
+Falco naumanni:
+  parent: Falco sp.
+  prefix: FalcNaum
+  name: Lesser kestrel
+Falco columbarius:
+  parent: Falco sp.
+  prefix: FalcColu
+  name: Merlin
+Falco eleonorae:
+  parent: Falco sp.
+  prefix: FalcEleo
+  name: Eleonora's falcon
+Falco biarmicus:
+  parent: Falco sp.
+  prefix: FalcBiar
+  name: Lanner falcon
+Falco subbuteo:
+  parent: Falco sp.
+  prefix: FalcSubb
+  name: Eurasian hobby
+Falco concolor:
+  parent: Falco sp.
+  prefix: FalcConc
+  name: Sooty falcon
+Falco fasciinucha:
+  parent: Falco sp.
+  prefix: FalcFasc
+  name: Taita falcon
+Falco femoralis:
+  parent: Falco sp.
+  prefix: FalcFemo
+  name: Aplomado falcon
+################################################################################
+#
+# Raptors (eagles, hawks, vultures — Accipitriformes)
+#
+# All generated prefixes — no established MHC prefixes in literature.
+#
+################################################################################
+Accipitriformes sp.:
   parent: Aves sp.
+  prefix: Accipitriformes
+  name: Accipitrid raptor
+  genes:
+    IIa:
+      DR:
+        - DRB
+Aquila chrysaetos:
+  parent: Accipitriformes sp.
   prefix: AquiChry
   other prefixes:
     - Aqch
   name: Golden eagle
 Buteo buteo:
-  parent: Aves sp.
+  parent: Accipitriformes sp.
   # Natural prefix Bubu collides with Bubalus bubalis and Bubo bubo.
   prefix: ButeBute
   other prefixes:
     - ButeoBute
   name: Common buzzard
 Circus aeruginosus:
-  parent: Aves sp.
+  parent: Accipitriformes sp.
   prefix: CircAeru
   other prefixes:
     - Ciae
   name: Western marsh harrier
 Gyps fulvus:
-  parent: Aves sp.
+  parent: Accipitriformes sp.
   prefix: GypsFulv
   other prefixes:
     - Gyfu
   name: Griffon vulture
+Aegypius monachus:
+  parent: Accipitriformes sp.
+  prefix: AegyMona
+  name: Cinereous vulture
+Gyps africanus:
+  parent: Accipitriformes sp.
+  prefix: GypsAfri
+  name: White-backed vulture
+Gyps coprotheres:
+  parent: Accipitriformes sp.
+  prefix: GypsCopr
+  name: Cape vulture
+Gypaetus barbatus:
+  parent: Accipitriformes sp.
+  prefix: GypaBarb
+  name: Bearded vulture
+Neophron percnopterus:
+  parent: Accipitriformes sp.
+  prefix: NeopPerc
+  name: Egyptian vulture
+Circaetus gallicus:
+  parent: Accipitriformes sp.
+  prefix: CircGall
+  name: Short-toed snake-eagle
+Milvus milvus:
+  parent: Accipitriformes sp.
+  prefix: MilvMilv
+  name: Red kite
+Astur gentilis:
+  parent: Accipitriformes sp.
+  prefix: AstuGent
+  name: Northern goshawk
+Hieraaetus pennatus:
+  parent: Accipitriformes sp.
+  prefix: HierPenn
+  name: Booted eagle
+Harpyhaliaetus coronatus:
+  parent: Accipitriformes sp.
+  prefix: HarpCoro
+  name: Crowned solitary eagle
+Elanus caeruleus:
+  parent: Accipitriformes sp.
+  prefix: ElanCaer
+  name: Black-winged kite
 ################################################################################
 #
-# Cranes
+# Cranes (Gruiformes)
 #
 ################################################################################
-Grus japonensis:
+Gruiformes sp.:
   parent: Aves sp.
+  prefix: Gruiformes
+  name: Crane
+  genes:
+    IIa:
+      DA:
+        - DAB
+Grus japonensis:
+  parent: Gruiformes sp.
   prefix: GrusJapo
   other prefixes:
     - Grja
   name: Red-crowned crane
 Antigone antigone:
-  parent: Aves sp.
+  parent: Gruiformes sp.
   prefix: AntiAnti
   name: Sarus crane
   other prefixes:
     - Anan
     # Old genus: Grus antigone → Antigone antigone
     - Gran
+Antigone canadensis:
+  parent: Gruiformes sp.
+  prefix: AntiCana
+  name: Sandhill crane
+Antigone vipio:
+  parent: Gruiformes sp.
+  prefix: AntiVipi
+  name: White-naped crane
 Balearica regulorum:
-  parent: Aves sp.
+  parent: Gruiformes sp.
   prefix: BaleRegu
   other prefixes:
     - Bare
   name: Grey crowned crane
+Balearica pavonina:
+  parent: Gruiformes sp.
+  prefix: BalePavo
+  name: Black crowned-crane
+Bugeranus carunculatus:
+  parent: Gruiformes sp.
+  prefix: BugeCaru
+  name: Wattled crane
+Anthropoides paradiseus:
+  parent: Gruiformes sp.
+  prefix: AnthPara
+  name: Blue crane
+Anthropoides virgo:
+  parent: Gruiformes sp.
+  prefix: AnthVirg
+  name: Demoiselle crane
+Grus monacha:
+  parent: Gruiformes sp.
+  prefix: GrusMona
+  name: Hooded crane
+Grus nigricollis:
+  parent: Gruiformes sp.
+  prefix: GrusNigr
+  name: Black-necked crane
+Leucogeranus leucogeranus:
+  parent: Gruiformes sp.
+  prefix: LeucLeuc
+  name: Siberian crane
 ################################################################################
 #
 # Passerines (sparrows, crows, etc.)
@@ -2873,30 +3216,68 @@ Columba livia:
   other prefixes:
     - Coli
   name: Rock dove
-Egretta garzetta:
+################################################################################
+#
+# Herons (Ardeidae)
+#
+################################################################################
+Ardeidae sp.:
   parent: Aves sp.
+  prefix: Ardeidae
+  name: Heron
+  genes:
+    IIa:
+      DA:
+        - DAB1
+        - DAB2
+Egretta garzetta:
+  parent: Ardeidae sp.
   prefix: EgreGarz
   other prefixes:
     - Egga
   name: Little egret
 Egretta sacra:
-  parent: Aves sp.
+  parent: Ardeidae sp.
   prefix: EgreSacr
   other prefixes:
     - Egsa
   name: Pacific reef heron
 Ardea cinerea:
-  parent: Aves sp.
+  parent: Ardeidae sp.
   prefix: ArdeCine
   other prefixes:
     - Arci
   name: Grey heron
+Ardea alba:
+  parent: Ardeidae sp.
+  prefix: ArdeAlba
+  name: Great white egret
+Ardeola bacchus:
+  parent: Ardeidae sp.
+  prefix: ArdeBacc
+  name: Chinese pond heron
 Bubulcus ibis:
-  parent: Aves sp.
+  parent: Ardeidae sp.
   prefix: BubuIbis
   other prefixes:
     - Buib
   name: Cattle egret
+Gorsachius magnificus:
+  parent: Ardeidae sp.
+  prefix: GorsMagn
+  name: White-eared night-heron
+Ixobrychus cinnamomeus:
+  parent: Ardeidae sp.
+  prefix: IxobCinn
+  name: Cinnamon bittern
+Ixobrychus flavicollis:
+  parent: Ardeidae sp.
+  prefix: IxobFlav
+  name: Black bittern
+Nycticorax nycticorax:
+  parent: Ardeidae sp.
+  prefix: NyctNyct
+  name: Black-crowned night-heron
 Halobaena caerulea:
   parent: Aves sp.
   prefix: HaloCaer
@@ -2932,7 +3313,7 @@ Spheniscus mendiculus:
         - DMB-0
         - DMB-1
 Grus grus:
-  parent: Aves sp.
+  parent: Gruiformes sp.
   prefix: GrusGrus
   name: Common crane
 Limosa limosa:
@@ -2994,11 +3375,11 @@ Lonchura striata:
   prefix: LoncStri
   name: White-rumped munia
 Pandion haliaetus:
-  parent: Aves sp.
+  parent: Accipitriformes sp.
   prefix: PandHali
   name: Osprey
 Haliaeetus albicilla:
-  parent: Aves sp.
+  parent: Accipitriformes sp.
   prefix: HaliAlbi
   name: White-tailed eagle
 Lanius collaris:
@@ -3178,6 +3559,79 @@ Coturnix japonica:
         - DMA
         - DMB1
         - DMB2
+################################################################################
+#
+# Additional Galliformes
+#
+################################################################################
+Lophura nycthemera:
+  parent: Galliformes sp.
+  prefix: LophNyct
+  name: Silver pheasant
+Tragopan temminckii:
+  parent: Galliformes sp.
+  prefix: TragTemm
+  name: Temminck's tragopan
+Tragopan caboti:
+  parent: Galliformes sp.
+  prefix: TragCabo
+  name: Cabot's tragopan
+Numida meleagris:
+  parent: Galliformes sp.
+  prefix: NumiMele
+  name: Helmeted guineafowl
+Perdix perdix:
+  parent: Galliformes sp.
+  prefix: PerdPerd
+  name: Grey partridge
+Crossoptilon auritum:
+  parent: Galliformes sp.
+  prefix: CrosAuri
+  name: Blue-eared pheasant
+Crossoptilon crossoptilon:
+  parent: Galliformes sp.
+  prefix: CrosCros
+  name: White-eared pheasant
+Syrmaticus ellioti:
+  parent: Galliformes sp.
+  prefix: SyrmElli
+  name: Elliot's pheasant
+Syrmaticus reevesii:
+  parent: Galliformes sp.
+  prefix: SyrmReev
+  name: Reeves's pheasant
+Chrysolophus amherstiae:
+  parent: Galliformes sp.
+  prefix: ChryAmhe
+  name: Lady Amherst's pheasant
+Centrocercus urophasianus:
+  parent: Galliformes sp.
+  prefix: CentUrop
+  name: Sage grouse
+Lyrurus tetrix:
+  parent: Galliformes sp.
+  prefix: LyruTetr
+  name: Black grouse
+Tympanuchus pallidicinctus:
+  parent: Galliformes sp.
+  prefix: TympPall
+  name: Lesser prairie-chicken
+Tympanuchus phasianellus:
+  parent: Galliformes sp.
+  prefix: TympPhas
+  name: Sharp-tailed grouse
+Gallinula chloropus:
+  parent: Galliformes sp.
+  prefix: GallChlo
+  name: Common moorhen
+Gallinula comeri:
+  parent: Galliformes sp.
+  prefix: GallCome
+  name: Gough moorhen
+Gallus lafayettii:
+  parent: Galliformes sp.
+  prefix: GallLafa
+  name: Sri Lanka junglefowl
 Fulica atra:
   parent: Aves sp.
   prefix: FuliAtra
@@ -3230,7 +3684,7 @@ Anas platyrhynchos:
 # - https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0108506
 ################################################################################
 Egretta eulophotes:
-  parent: Aves sp.
+  parent: Ardeidae sp.
   prefix: EgreEulo
   other prefixes:
     - Egeu
@@ -4475,6 +4929,90 @@ Espadarana prosoblepon:
   parent: Amphibia sp.
   prefix: EspaPros
   name: Emerald glass frog
+Rana japonica:
+  parent: Amphibia sp.
+  prefix: RanaJapo
+  name: Japanese brown frog
+Rana ornativentris:
+  parent: Amphibia sp.
+  prefix: RanaOrna
+  name: Montane brown frog
+Rana tagoi:
+  parent: Amphibia sp.
+  prefix: RanaTago
+  name: Tago's brown frog
+Odorrana margaretae:
+  parent: Amphibia sp.
+  prefix: OdorMarg
+  name: Chinese frog
+Odorrana tormota:
+  parent: Amphibia sp.
+  prefix: OdorTorm
+  name: Concave-eared torrent frog
+Lithobates chiricahuensis:
+  parent: Amphibia sp.
+  prefix: LithChir
+  name: Chiricahua leopard frog
+Lithobates yavapaiensis:
+  parent: Amphibia sp.
+  prefix: LithYava
+  name: Lowland leopard frog
+Pelophylax nigromaculatus:
+  parent: Amphibia sp.
+  prefix: PeloNigr
+  name: Black-spotted frog
+Nanorana parkeri:
+  parent: Amphibia sp.
+  prefix: NanoPark
+  name: Parker's frog
+Agalychnis callidryas:
+  parent: Amphibia sp.
+  prefix: AgalCall
+  name: Red-eyed tree frog
+Smilisca phaeota:
+  parent: Amphibia sp.
+  prefix: SmilPhae
+  name: Masked tree frog
+Polypedates megacephalus:
+  parent: Amphibia sp.
+  prefix: PolyMega
+  name: Hong Kong whipping frog
+Zhangixalus chenfui:
+  parent: Amphibia sp.
+  prefix: ZhanChen
+  name: Chenfui whipping frog
+Leiopelma hochstetteri:
+  parent: Amphibia sp.
+  prefix: LeioHoch
+  name: Hochstetter's frog
+Leptobrachium leishanense:
+  parent: Amphibia sp.
+  prefix: LeptLeis
+  name: Leishan spiny toad
+Litoria verreauxii:
+  parent: Amphibia sp.
+  prefix: LitoVerr
+  name: Whistling tree frog
+Bufo bufo:
+  parent: Amphibia sp.
+  prefix: BufoBufo
+  name: European toad
+Bufo gargarizans:
+  parent: Amphibia sp.
+  prefix: BufoGarg
+  name: Asian toad
+Epidalea calamita:
+  parent: Amphibia sp.
+  prefix: EpidCala
+  name: Natterjack toad
+Ichthyosaura alpestris:
+  parent: Amphibia sp.
+  prefix: IchtAlpe
+  name: Alpine newt
+Triturus cristatus:
+  parent: Amphibia sp.
+  prefix: TritCris
+  name: Great crested newt
 ##########################
 #
 # Tuatara
@@ -4519,6 +5057,38 @@ Anolis sagrei:
   other prefixes:
     - Ansa
   name: Brown anole
+Cyclura cornuta:
+  parent: Reptilia sp.
+  prefix: CyclCorn
+  name: Rhinoceros iguana
+Cyclura rileyi:
+  parent: Reptilia sp.
+  prefix: CyclRile
+  name: San Salvador iguana
+Ctenosaura clarki:
+  parent: Reptilia sp.
+  prefix: CtenClar
+  name: Clark's spiny-tailed iguana
+Cachryx defensor:
+  parent: Reptilia sp.
+  prefix: CachDefe
+  name: Yucatan spiny-tailed iguana
+Ctenophorus decresii:
+  parent: Reptilia sp.
+  prefix: CtenDecr
+  name: Tawny dragon
+Egernia stokesii:
+  parent: Reptilia sp.
+  prefix: EgerStok
+  name: Stokes's skink
+Sphaerodactylus townsendi:
+  parent: Reptilia sp.
+  prefix: SphaTown
+  name: Townsend's gecko
+Tiliqua adelaidensis:
+  parent: Reptilia sp.
+  prefix: TiliAdel
+  name: Pygmy bluetongue
 ##########################
 #
 # Possum
@@ -4661,3 +5231,39 @@ Rhinolophus macrotis:
   parent: Chiroptera sp.
   prefix: RhinMacr
   name: Big-eared horseshoe bat
+Desmodus rotundus:
+  parent: Chiroptera sp.
+  prefix: DesmRotu
+  name: Common vampire bat
+Noctilio leporinus:
+  parent: Chiroptera sp.
+  prefix: NoctLepo
+  name: Greater bulldog bat
+Noctilio albiventris:
+  parent: Chiroptera sp.
+  prefix: NoctAlbi
+  name: Lesser bulldog bat
+Carollia perspicillata:
+  parent: Chiroptera sp.
+  prefix: CaroPers
+  name: Seba's short-tailed bat
+Phyllostomus discolor:
+  parent: Chiroptera sp.
+  prefix: PhylDisc
+  name: Pale spear-nosed bat
+Molossus molossus:
+  parent: Chiroptera sp.
+  prefix: MoloMolo
+  name: Pallas's mastiff bat
+Saccopteryx bilineata:
+  parent: Chiroptera sp.
+  prefix: SaccBili
+  name: Greater sac-winged bat
+Myotis vivesi:
+  parent: Chiroptera sp.
+  prefix: MyotVive
+  name: Fish-eating bat
+Pteropus vampyrus:
+  parent: Chiroptera sp.
+  prefix: PterVamp
+  name: Large flying fox
