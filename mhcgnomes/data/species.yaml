@@ -557,6 +557,11 @@ Mus musculus:
       - M10-PS1
       - M10-PS2
       - M10-PS3
+      - M10
+      - M11
+      - H60
+      - Mill1
+      - Mill2
     Id:
       - CD1a
       - CD1b
@@ -741,9 +746,12 @@ Rattus sp.:
       - M1-4
       - M1-5
       - M2
+      - M3
       - M3-1
       - M5
+      - M6
       - M6-1
+      - M10
       - M10-1
       - M10-3
       - N1
