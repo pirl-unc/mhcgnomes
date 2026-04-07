@@ -50,6 +50,10 @@ Gnathostomata sp.:
   prefix: Gnathostomata
   name: Jawed vertebrate
   genes:
+    Id:
+      # MR1 presents microbial vitamin B metabolites to MAIT cells.
+      # Conserved across jawed vertebrates with consistent naming.
+      - MR1
     IIb:
       DM:
         - DMA
