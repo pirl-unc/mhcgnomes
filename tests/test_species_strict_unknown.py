@@ -40,7 +40,10 @@ def test_species_strict_blb2_with_grouse():
 
 
 def test_species_strict_bf2_with_guinea_fowl():
-    assert parse("BF2", species="Numida meleagris", raise_on_error=False) is None
+    """Numida meleagris now has BF2 as a species-level gene."""
+    result = parse("BF2", species="Numida meleagris", raise_on_error=True)
+    assert result is not None
+    eq_(result.species.name, "Numida meleagris")
 
 
 def test_species_strict_ddb1_with_cichlid():
