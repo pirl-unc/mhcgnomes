@@ -27,6 +27,7 @@ HLA:
 #
 ###########################################################################
 H2:
+  B2: B2M
   # "Qa" alone maps to Qa1 (T23) as the most common interpretation
   Qa: T23
   Qa-1: T23
