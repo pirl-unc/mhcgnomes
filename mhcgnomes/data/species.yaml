@@ -28,7 +28,9 @@
 #   ├── Actinopterygii sp.   (+ UAA, UBA, UA, UCA, UDA, DA, DB, DC, DX)
 #   │   ├── Salmonidae sp.
 #   │   └── bony fish
-#   ├── Amphibia sp.         (+ UAA, UBA, UA, UCA, UDA, UEA, DA, DB, DC)
+#   ├── Amphibia sp.         (+ UAA, UBA, UA, UCA, UDA, DA, DB, DC)
+#   │   ├── Xenopus sp.      (+ UEA)
+#   │   ├── Caudata sp.
 #   │   └── frogs, salamanders, caecilians
 #   ├── Reptilia sp.         (+ UAA, UBA, UA, UCA, UDA, DA, DB, DC, DRA)
 #   │   ├── Testudines sp.
@@ -153,7 +155,6 @@ Amphibia sp.:
     Ib:
       - UCA
       - UDA
-      - UEA
     IIa:
       DA:
         - DAA
@@ -172,6 +173,22 @@ Amphibia sp.:
         - DDB
       DR:
         - DRB1
+
+######################################################
+# Amphibian subclades
+######################################################
+Xenopus sp.:
+  parent: Amphibia sp.
+  prefix: Xenopus
+  name: Clawed frog
+  genes:
+    Ib:
+      - UEA
+
+Caudata sp.:
+  parent: Amphibia sp.
+  prefix: Caudata
+  name: Salamander
 
 ######################################################
 # Reptilia — lizards, snakes, tuatara, turtles, crocodilians
@@ -2966,14 +2983,6 @@ Falco sp.:
   parent: Aves sp.
   prefix: Falco
   name: Falcon
-  genes:
-    IIa:
-      DA:
-        - DAA
-        - DAB
-      DR:
-        - DRA
-        - DRB
 Falco peregrinus:
   parent: Falco sp.
   prefix: FalcPere
@@ -3037,11 +3046,6 @@ Accipitriformes sp.:
   parent: Aves sp.
   prefix: Accipitriformes
   name: Accipitrid raptor
-  genes:
-    IIa:
-      DR:
-        - DRA
-        - DRB
 Aquila chrysaetos:
   parent: Accipitriformes sp.
   prefix: AquiChry
@@ -3120,11 +3124,6 @@ Gruiformes sp.:
   parent: Aves sp.
   prefix: Gruiformes
   name: Crane
-  genes:
-    IIa:
-      DA:
-        - DAA
-        - DAB
 Grus japonensis:
   parent: Gruiformes sp.
   prefix: GrusJapo
@@ -3475,12 +3474,6 @@ Ardeidae sp.:
   parent: Aves sp.
   prefix: Ardeidae
   name: Heron
-  genes:
-    IIa:
-      DA:
-        - DAA
-        - DAB1
-        - DAB2
 Egretta garzetta:
   parent: Ardeidae sp.
   prefix: EgreGarz
@@ -5082,7 +5075,7 @@ Chiroptera sp.:
 #
 ##########################
 Xenopus laevis:
-  parent: Amphibia sp.
+  parent: Xenopus sp.
   prefix: Xela
   name: African clawed frog
   genes:
@@ -5090,7 +5083,7 @@ Xenopus laevis:
       # Xenopus-specific UAA paralogs (Flajnik et al.)
       - UAAg
 Xenopus tropicalis:
-  parent: Amphibia sp.
+  parent: Xenopus sp.
   prefix: Xetr
   name: Tropical clawed frog
 ##########################
@@ -5153,25 +5146,25 @@ Pelobates cultripes:
 #
 ##########################
 Ambystoma mexicanum:
-  parent: Amphibia sp.
+  parent: Caudata sp.
   prefix: AmbyMexi
   other prefixes:
     - Amme
   name: Axolotl
 Ambystoma tigrinum:
-  parent: Amphibia sp.
+  parent: Caudata sp.
   prefix: AmbyTigr
   other prefixes:
     - Amti
   name: Tiger salamander
 Andrias davidianus:
-  parent: Amphibia sp.
+  parent: Caudata sp.
   prefix: Anda
   other prefixes:
     - AndrDavi
   name: Chinese giant salamander
 Lissotriton vulgaris:
-  parent: Amphibia sp.
+  parent: Caudata sp.
   prefix: LissVulg
   other prefixes:
     - Limv
@@ -5272,11 +5265,11 @@ Epidalea calamita:
     I:
       - B5
 Ichthyosaura alpestris:
-  parent: Amphibia sp.
+  parent: Caudata sp.
   prefix: IchtAlpe
   name: Alpine newt
 Triturus cristatus:
-  parent: Amphibia sp.
+  parent: Caudata sp.
   prefix: TritCris
   name: Great crested newt
 ##########################

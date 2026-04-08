@@ -3,7 +3,7 @@ from pathlib import Path
 import pytest
 import yaml
 
-from mhcgnomes import Gene, Species, parse
+from mhcgnomes import Allele, Gene, Species, parse
 
 from .common import eq_
 
@@ -37,6 +37,10 @@ TARGETED_REDUNDANT_DIRECT_GENE_BLOCKS_REMOVED = [
     "Tyto alba",
     "Macaca silenus",
     "Macaca thibetana",
+    "Falco sp.",
+    "Accipitriformes sp.",
+    "Gruiformes sp.",
+    "Ardeidae sp.",
 ]
 
 
@@ -101,3 +105,14 @@ def test_targeted_cleanup_species_still_inherit_representative_genes(species_pre
 def test_runtime_gene_classes_match_cleaned_ontology(species_prefix, gene_name, expected_class):
     species = Species.get(species_prefix)
     eq_(species.get_mhc_class_of_gene(gene_name), expected_class)
+
+
+@pytest.mark.parametrize("raw", ["Ctid-UHA103", "Dila-a1", "Dila-a30"])
+def test_sequence_like_labels_remain_rejected_as_canonical_genes(raw):
+    assert parse(raw, raise_on_error=False) is None
+
+
+def test_pelodiscus_numbered_b_label_parses_as_b_allele():
+    expected = Allele.get("Pesi", "B", "01")
+    assert expected is not None
+    eq_(parse("Pesi-B01", raise_on_error=True), expected)
