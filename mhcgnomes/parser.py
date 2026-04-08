@@ -1220,6 +1220,15 @@ class Parser:
             species = default_species
         if len(species_candidates) == 1:
             species = species_candidates[0]
+        # When a distinctive gene name (contains a digit, e.g. BF2, DPB1)
+        # is shared by multiple species, pick the best-characterised one
+        # (the one with the most genes defined in the ontology).  This
+        # avoids breaking bare "BF2" -> chicken when guineafowl also
+        # carries BF2.  We skip single-letter genes like "A" or "E"
+        # because they are too generic and the ambiguity should fall
+        # through to other parse strategies.
+        if species is None and len(species_candidates) > 1 and any(c.isdigit() for c in gene_name):
+            species = max(species_candidates, key=lambda s: s.num_genes)
         if species is None:
             return None
         return Gene.get(species, gene_name)

@@ -964,6 +964,8 @@ Ctenopharyngodon idella:
     - Ctid
   name: Grass carp
   genes:
+    I:
+      - UHA103
     other:
       - B2M-1
       - B2M-2
@@ -1247,6 +1249,9 @@ Coregonus sp.:
   parent: Actinopterygii sp.
   prefix: Cosp
   name: Whitefish
+  genes:
+    I:
+      - B1
 Coregonus clupeaformis:
   parent: Coregonus sp.
   prefix: CoreClup
@@ -1313,6 +1318,13 @@ Astyanax mexicanus:
   other prefixes:
     - Asme
   name: Blind cavefish
+  genes:
+    I:
+      - A
+      - E
+    IIa:
+      DR:
+        - DRB1
 Sinocyclocheilus grahami:
   parent: Actinopterygii sp.
   prefix: SinoGrah
@@ -1723,6 +1735,11 @@ Ophiophagus hannah:
   other prefixes:
     - Opha
   name: King cobra
+  genes:
+    I:
+      - A
+      - C
+      - F
 Crotalus adamanteus:
   parent: Reptilia sp.
   prefix: CrotAdam
@@ -2059,6 +2076,9 @@ Pelodiscus sinensis:
     - Trsi
     - Pesi
   name: Chinese softshell turtle
+  genes:
+    I:
+      - B01
 Terrapene triunguis:
   parent: Testudines sp.
   prefix: TerrTriu
@@ -2860,6 +2880,9 @@ Heterocephalus glaber:
   parent: Rodentia sp.
   prefix: HeteGlab
   name: Naked mole-rat
+  genes:
+    I:
+      - A
 Nannospalax galili:
   parent: Rodentia sp.
   prefix: NannGali
@@ -3470,6 +3493,9 @@ Fringilla coelebs:
   parent: Aves sp.
   prefix: FrinCoel
   name: Chaffinch
+  genes:
+    I:
+      - e
 Emberiza jankowskii:
   parent: Aves sp.
   prefix: EmbeJank
@@ -3499,6 +3525,9 @@ Anser indicus:
   parent: Aves sp.
   prefix: AnseIndi
   name: Bar-headed goose
+  genes:
+    I:
+      - A
 Calidris canutus:
   parent: Aves sp.
   prefix: CaliCanu
@@ -3935,6 +3964,9 @@ Numida meleagris:
   parent: Galliformes sp.
   prefix: NumiMele
   name: Helmeted guineafowl
+  genes:
+    Ia:
+      - BF2
 Perdix perdix:
   parent: Galliformes sp.
   prefix: PerdPerd
@@ -5327,6 +5359,9 @@ Pelophylax nigromaculatus:
   parent: Amphibia sp.
   prefix: PeloNigr
   name: Black-spotted frog
+  genes:
+    I:
+      - B
 Nanorana parkeri:
   parent: Amphibia sp.
   prefix: NanoPark
@@ -5359,6 +5394,9 @@ Litoria verreauxii:
   parent: Amphibia sp.
   prefix: LitoVerr
   name: Whistling tree frog
+  genes:
+    I:
+      - a
 Bufo bufo:
   parent: Amphibia sp.
   prefix: BufoBufo
@@ -5371,6 +5409,9 @@ Epidalea calamita:
   parent: Amphibia sp.
   prefix: EpidCala
   name: Natterjack toad
+  genes:
+    I:
+      - B5
 Ichthyosaura alpestris:
   parent: Amphibia sp.
   prefix: IchtAlpe
@@ -5578,6 +5619,9 @@ Rhinolophus ferrumequinum:
   other prefixes:
     - Rhfe
   name: Greater horseshoe bat
+  genes:
+    I:
+      - A1
 Myotis lucifugus:
   parent: Chiroptera sp.
   prefix: MyotLuci
