@@ -12,7 +12,7 @@ Covers:
 
 import pytest
 
-from mhcgnomes import Gene, Species, parse
+from mhcgnomes import Allele, Gene, Species, parse
 
 from .common import eq_
 
@@ -42,7 +42,8 @@ def test_ctenomys_latin_name_lookup(prefix, latin):
 
 
 def test_ctenomys_talarum_DRB01():
-    eq_(parse("Ctta-DRB01"), Gene.get("Ctta", "DRB01"))
+    # DRB01 is an allele lineage (DRB*01), not a separate gene
+    eq_(parse("Ctta-DRB01"), Allele.get("Ctta", "DRB", "01"))
 
 
 def test_ctenomys_talarum_DQB():
@@ -50,7 +51,8 @@ def test_ctenomys_talarum_DQB():
 
 
 def test_ctenomys_pearsoni_DRB03():
-    eq_(parse("Ctpe-DRB03"), Gene.get("Ctpe", "DRB03"))
+    # DRB03 is an allele lineage (DRB*03), not a separate gene
+    eq_(parse("Ctpe-DRB03"), Allele.get("Ctpe", "DRB", "03"))
 
 
 def test_ctenomys_torquatus_inherits_rodentia_DRB1():

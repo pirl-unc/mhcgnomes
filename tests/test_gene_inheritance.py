@@ -682,9 +682,9 @@ class TestMarsupialiaInheritance:
         assert sp.find_matching_gene_name("UA") is not None  # from Marsupialia
         assert sp.find_matching_gene_name("UB") is not None  # own
 
-    def test_marsupial_does_not_get_mammal_drb1(self):
+    def test_marsupial_gets_drb1_from_marsupialia(self):
         sp = Species.get("Modo")
-        assert sp.find_matching_gene_name("DRB1") is None
+        assert sp.find_matching_gene_name("DRB1") is not None
 
 
 class TestCrossTaxonBoundariesWithClades:

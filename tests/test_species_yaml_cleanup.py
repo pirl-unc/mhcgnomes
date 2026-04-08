@@ -46,12 +46,16 @@ def test_targeted_subset_only_direct_gene_blocks_removed_from_raw_yaml():
         assert "genes" not in species_data[latin_name], latin_name
 
 
-def test_goat_helper_genes_live_under_top_level_other_in_raw_yaml():
+def test_goat_inherits_helper_genes_from_root():
+    """Capra sp. no longer declares TAP1/TAP2/TAPBP/B2M directly;
+    they are inherited from the Gnathostomata sp. root."""
     species_data = load_raw_species_yaml()
     goat_genes = species_data["Capra sp."]["genes"]
-    assert "other" in goat_genes
-    assert "other" not in goat_genes["IIa"]
-    assert goat_genes["other"] == ["TAP1", "TAP2", "TAPBP", "B2M"]
+    assert "other" not in goat_genes
+    # Verify they're still on the root
+    root_genes = species_data["Gnathostomata sp."]["genes"]
+    assert "other" in root_genes
+    assert {"TAP1", "TAP2", "TAPBP", "B2M"}.issubset(set(root_genes["other"]))
 
 
 def test_human_and_rabbit_do_not_use_generic_top_level_class_ii_bucket():
