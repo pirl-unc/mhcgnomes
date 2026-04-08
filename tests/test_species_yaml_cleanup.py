@@ -3,7 +3,7 @@ from pathlib import Path
 import pytest
 import yaml
 
-from mhcgnomes import Gene, Species, parse
+from mhcgnomes import Allele, Gene, Species, parse
 
 from .common import eq_
 
@@ -37,6 +37,10 @@ TARGETED_REDUNDANT_DIRECT_GENE_BLOCKS_REMOVED = [
     "Tyto alba",
     "Macaca silenus",
     "Macaca thibetana",
+    "Falco sp.",
+    "Accipitriformes sp.",
+    "Gruiformes sp.",
+    "Ardeidae sp.",
 ]
 
 
@@ -46,12 +50,16 @@ def test_targeted_subset_only_direct_gene_blocks_removed_from_raw_yaml():
         assert "genes" not in species_data[latin_name], latin_name
 
 
-def test_goat_helper_genes_live_under_top_level_other_in_raw_yaml():
+def test_goat_inherits_helper_genes_from_root():
+    """Capra sp. no longer declares TAP1/TAP2/TAPBP/B2M directly;
+    they are inherited from the Gnathostomata sp. root."""
     species_data = load_raw_species_yaml()
     goat_genes = species_data["Capra sp."]["genes"]
-    assert "other" in goat_genes
-    assert "other" not in goat_genes["IIa"]
-    assert goat_genes["other"] == ["TAP1", "TAP2", "TAPBP", "B2M"]
+    assert "other" not in goat_genes
+    # Verify they're still on the root
+    root_genes = species_data["Gnathostomata sp."]["genes"]
+    assert "other" in root_genes
+    assert {"TAP1", "TAP2", "TAPBP", "B2M"}.issubset(set(root_genes["other"]))
 
 
 def test_human_and_rabbit_do_not_use_generic_top_level_class_ii_bucket():
@@ -97,3 +105,14 @@ def test_targeted_cleanup_species_still_inherit_representative_genes(species_pre
 def test_runtime_gene_classes_match_cleaned_ontology(species_prefix, gene_name, expected_class):
     species = Species.get(species_prefix)
     eq_(species.get_mhc_class_of_gene(gene_name), expected_class)
+
+
+@pytest.mark.parametrize("raw", ["Ctid-UHA103", "Dila-a1", "Dila-a30"])
+def test_sequence_like_labels_remain_rejected_as_canonical_genes(raw):
+    assert parse(raw, raise_on_error=False) is None
+
+
+def test_pelodiscus_numbered_b_label_parses_as_b_allele():
+    expected = Allele.get("Pesi", "B", "01")
+    assert expected is not None
+    eq_(parse("Pesi-B01", raise_on_error=True), expected)

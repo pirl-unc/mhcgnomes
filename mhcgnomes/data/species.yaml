@@ -29,15 +29,17 @@
 #   │   ├── Salmonidae sp.
 #   │   └── bony fish
 #   ├── Amphibia sp.         (+ UAA, UBA, UA, UCA, UDA, DA, DB, DC)
+#   │   ├── Xenopus sp.      (+ UEA)
+#   │   ├── Caudata sp.
 #   │   └── frogs, salamanders, caecilians
 #   ├── Reptilia sp.         (+ UAA, UBA, UA, UCA, UDA, DA, DB, DC, DRA)
 #   │   ├── Testudines sp.
 #   │   ├── Crocodylia sp.   (+ DB01-DB55)
 #   │   └── lizards, snakes, tuatara
 #   ├── Aves sp.             (+ UAA, UBA, UA, DA, DB, DC, DRA, DRB)
-#   │   ├── Galliformes sp.  (+ BF, BLB, DMB1/2)
+#   │   ├── Galliformes sp.  (+ BF, BLA, BLB, DMB1/2)
 #   │   └── all birds
-#   ├── Marsupialia sp.      (+ UA, DA, DB, DC, DRA)
+#   ├── Marsupialia sp.      (+ UA, DA, DB, DC, DRA, DRB)
 #   │   └── marsupials
 #   └── ...all jawed vertebrate entries descend from this root
 #
@@ -173,6 +175,22 @@ Amphibia sp.:
         - DRB1
 
 ######################################################
+# Amphibian subclades
+######################################################
+Xenopus sp.:
+  parent: Amphibia sp.
+  prefix: Xenopus
+  name: Clawed frog
+  genes:
+    Ib:
+      - UEA
+
+Caudata sp.:
+  parent: Amphibia sp.
+  prefix: Caudata
+  name: Salamander
+
+######################################################
 # Reptilia — lizards, snakes, tuatara, turtles, crocodilians
 ######################################################
 Reptilia sp.:
@@ -291,6 +309,8 @@ Marsupialia sp.:
         - DNA
       DR:
         - DRA
+        - DRB
+        - DRB1
 
 ######################################################
 #
@@ -314,6 +334,7 @@ Galliformes sp.:
       - BF
     IIa:
       BL:
+        - BLA
         - BLB
         - BLB1
         - BLB2
@@ -463,11 +484,6 @@ Homo sapiens:
       DM:
         - DMA
         - DMB
-    other:
-      - TAP1
-      - TAP2
-      - TAPBP
-      - B2M
 ######################################################
 #
 # Mouse
@@ -504,11 +520,6 @@ Mus sp.:
         - DMA
         - DMB1
         - DMB2
-    other:
-      - TAP1
-      - TAP2
-      - TAPBP
-      - B2M
 Mus musculus:
   parent: Mus sp.
   prefix: H2
@@ -607,11 +618,6 @@ Mus musculus:
       DO:
         - OA
         - OB
-    other:
-      - TAP1
-      - TAP2
-      - TAPBP
-      - B2M
 Mus caroli:
   parent: Mus sp.
   prefix: MusCaro
@@ -805,11 +811,6 @@ Rattus sp.:
       DM:
         - DMA
         - DMB
-    other:
-      - TAP1
-      - TAP2
-      - TAPBP
-      - B2M
 Rattus norvegicus:
   parent: Rattus sp.
   prefix: Rano
@@ -872,11 +873,6 @@ Canis sp.:
       DR:
         - DRA
         - DRB1
-    other:
-      - TAP1
-      - TAP2
-      - TAPBP
-      - B2M
 Canis lupus baileyi:
   parent: Canis sp.
   prefix: Caba
@@ -940,11 +936,6 @@ Felis sp.:
       DM:
         - DMA
         - DMB
-    other:
-      - TAP1
-      - TAP2
-      - TAPBP
-      - B2M
 Felis catus:
   parent: Felis sp.
   prefix: Feca
@@ -964,8 +955,6 @@ Ctenopharyngodon idella:
     - Ctid
   name: Grass carp
   genes:
-    I:
-      - UHA103
     other:
       - B2M-1
       - B2M-2
@@ -1138,38 +1127,7 @@ Dicentrarchus labrax:
   other prefixes:
     - Dila
   name: European seabass
-  genes:
-    I:
-      - a1
-      - a2
-      - a3
-      - a4
-      - a5
-      - a6
-      - a7
-      - a8
-      - a9
-      - a10
-      - a11
-      - a12
-      - a13
-      - a14
-      - a15
-      - a16
-      - a17
-      - a18
-      - a19
-      - a20
-      - a21
-      - a22
-      - a23
-      - a24
-      - a25
-      - a26
-      - a27
-      - a28
-      - a29
-      - a30
+  # Class I gene is Dila-UA (inherited from Actinopterygii sp.)
 Epinephelus coioides:
   parent: Actinopterygii sp.
   prefix: EpinCoio
@@ -2078,7 +2036,7 @@ Pelodiscus sinensis:
   name: Chinese softshell turtle
   genes:
     I:
-      - B01
+      - B
 Terrapene triunguis:
   parent: Testudines sp.
   prefix: TerrTriu
@@ -2282,7 +2240,6 @@ Bos sp.:
       - NC6
       - NC7
       - NC8
-      - NC8
       - NC9
       - NC10
     Ic:
@@ -2321,11 +2278,6 @@ Bos sp.:
         - DYA
       DI:
         - DIB
-    other:
-      - TAP1
-      - TAP2
-      - TAPBP
-      - B2M
 Bos taurus:
   parent: Bos sp.
   prefix: Bota
@@ -2392,11 +2344,6 @@ Cetacea sp.:
       DM:
         - DMA
         - DMB
-    other:
-      - TAP1
-      - TAP2
-      - TAPBP
-      - B2M
 Balaenoptera musculus:
   parent: Cetacea sp.
   prefix: Bamu
@@ -2514,11 +2461,6 @@ Capra sp.:
         - DRA1
         - DRB
         - DRB1
-    other:
-      - TAP1
-      - TAP2
-      - TAPBP
-      - B2M
 Capra hircus:
   parent: Capra sp.
   prefix: Cahi
@@ -2569,11 +2511,6 @@ Equus sp.:
       DM:
         - DMA
         - DMB
-    other:
-      - TAP1
-      - TAP2
-      - TAPBP
-      - B2M
 Equus caballus:
   parent: Equus sp.
   prefix: Eqca
@@ -2632,11 +2569,6 @@ Sus sp.:
       DM:
         - DMA
         - DMB
-    other:
-      - TAP1
-      - TAP2
-      - TAPBP
-      - B2M
 Sus domesticus:
   parent: Sus sp.
   prefix: Sudo
@@ -2683,11 +2615,6 @@ Rodentia sp.:
       DM:
         - DMA
         - DMB
-    other:
-      - TAP1
-      - TAP2
-      - TAPBP
-      - B2M
 Marmota marmota:
   parent: Rodentia sp.
   prefix: MarmMarm
@@ -2769,45 +2696,18 @@ Ctenomys talarum:
   parent: Ctenomys sp.
   prefix: Ctta
   name: Talas tuco-tuco
-  genes:
-    IIa:
-      DR:
-        - DRB01
-        - DRB02
-        - DRB03
-        - DRB04
 Ctenomys australis:
   parent: Ctenomys sp.
   prefix: Ctau
   name: Southern tuco-tuco
-  genes:
-    IIa:
-      DR:
-        - DRB01
-        - DRB02
-        - DRB03
-        - DRB04
 Ctenomys torquatus:
   parent: Ctenomys sp.
   prefix: Ctto
   name: Collared tuco-tuco
-  genes:
-    IIa:
-      DR:
-        - DRB01
-        - DRB02
-        - DRB03
-        - DRB04
 Ctenomys pearsoni:
   parent: Ctenomys sp.
   prefix: Ctpe
   name: Pearson's tuco-tuco
-  genes:
-    IIa:
-      DR:
-        - DRB01
-        - DRB02
-        - DRB03
 Ctenomys haigi:
   parent: Ctenomys sp.
   prefix: CtenHaig
@@ -2868,12 +2768,8 @@ Dipodomys ordii:
   parent: Rodentia sp.
   prefix: DipoOrdi
   name: Ord's kangaroo rat
-Octodon sp.:
-  parent: Rodentia sp.
-  prefix: OctoSp
-  name: Degu
 Octodon degus:
-  parent: Octodon sp.
+  parent: Rodentia sp.
   prefix: OctoDegu
   name: Common degu
 Heterocephalus glaber:
@@ -3036,11 +2932,6 @@ Oryctolagus sp.:
     IIb:
       DO:
         - DOB
-    other:
-      - TAP1
-      - TAP2
-      - TAPBP
-      - B2M
 Oryctolagus cuniculus:
   parent: Oryctolagus sp.
   prefix: Orcu
@@ -3092,12 +2983,6 @@ Falco sp.:
   parent: Aves sp.
   prefix: Falco
   name: Falcon
-  genes:
-    IIa:
-      DA:
-        - DAB
-      DR:
-        - DRB
 Falco peregrinus:
   parent: Falco sp.
   prefix: FalcPere
@@ -3161,10 +3046,6 @@ Accipitriformes sp.:
   parent: Aves sp.
   prefix: Accipitriformes
   name: Accipitrid raptor
-  genes:
-    IIa:
-      DR:
-        - DRB
 Aquila chrysaetos:
   parent: Accipitriformes sp.
   prefix: AquiChry
@@ -3243,10 +3124,6 @@ Gruiformes sp.:
   parent: Aves sp.
   prefix: Gruiformes
   name: Crane
-  genes:
-    IIa:
-      DA:
-        - DAB
 Grus japonensis:
   parent: Gruiformes sp.
   prefix: GrusJapo
@@ -3597,11 +3474,6 @@ Ardeidae sp.:
   parent: Aves sp.
   prefix: Ardeidae
   name: Heron
-  genes:
-    IIa:
-      DA:
-        - DAB1
-        - DAB2
 Egretta garzetta:
   parent: Ardeidae sp.
   prefix: EgreGarz
@@ -4244,11 +4116,6 @@ Primata sp.:
       DO:
         - DOA
         - DOB
-    other:
-      - TAP1
-      - TAP2
-      - TAPBP
-      - B2M
 Alouatta pigra:
   prefix: Alpi
   parent: Primata sp.
@@ -5122,11 +4989,6 @@ Ailuropoda melanoleuca:
   genes:
     I:
      - "128"
-    other:
-      - TAP1
-      - TAP2
-      - TAPBP
-      - B2M
 Neomonachus schauinslandi:
   parent: Gnathostomata sp.
   prefix: NeosScha
@@ -5203,11 +5065,6 @@ Chiroptera sp.:
       DM:
         - DMA
         - DMB
-    other:
-      - TAP1
-      - TAP2
-      - TAPBP
-      - B2M
 
 ##########################
 #
@@ -5218,22 +5075,17 @@ Chiroptera sp.:
 #
 ##########################
 Xenopus laevis:
-  parent: Amphibia sp.
+  parent: Xenopus sp.
   prefix: Xela
   name: African clawed frog
   genes:
     Ia:
       # Xenopus-specific UAA paralogs (Flajnik et al.)
       - UAAg
-    Ib:
-      - UEA
 Xenopus tropicalis:
-  parent: Amphibia sp.
+  parent: Xenopus sp.
   prefix: Xetr
   name: Tropical clawed frog
-  genes:
-    Ib:
-      - UEA
 ##########################
 #
 # Other frogs
@@ -5294,25 +5146,25 @@ Pelobates cultripes:
 #
 ##########################
 Ambystoma mexicanum:
-  parent: Amphibia sp.
+  parent: Caudata sp.
   prefix: AmbyMexi
   other prefixes:
     - Amme
   name: Axolotl
 Ambystoma tigrinum:
-  parent: Amphibia sp.
+  parent: Caudata sp.
   prefix: AmbyTigr
   other prefixes:
     - Amti
   name: Tiger salamander
 Andrias davidianus:
-  parent: Amphibia sp.
+  parent: Caudata sp.
   prefix: Anda
   other prefixes:
     - AndrDavi
   name: Chinese giant salamander
 Lissotriton vulgaris:
-  parent: Amphibia sp.
+  parent: Caudata sp.
   prefix: LissVulg
   other prefixes:
     - Limv
@@ -5413,11 +5265,11 @@ Epidalea calamita:
     I:
       - B5
 Ichthyosaura alpestris:
-  parent: Amphibia sp.
+  parent: Caudata sp.
   prefix: IchtAlpe
   name: Alpine newt
 Triturus cristatus:
-  parent: Amphibia sp.
+  parent: Caudata sp.
   prefix: TritCris
   name: Great crested newt
 ##########################
@@ -5553,6 +5405,7 @@ Ornithorhynchus anatinus:
     IIa:
       DR:
         - DRA
+        - DRB
       DZ:
         - DZA
         - DZB

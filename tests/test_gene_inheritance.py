@@ -510,10 +510,25 @@ class TestAmphibiaInheritance:
         sp = Species.get("Xela")
         assert sp.find_matching_gene_name("UEA") is not None
 
+    def test_xenopus_clade_carries_uea(self):
+        sp = Species.get("Xenopus sp.")
+        assert sp is not None
+        assert sp.find_matching_gene_name("UEA") is not None
+
     def test_axolotl_inherits_amphibia(self):
         sp = Species.get("Amme")
         assert sp.find_matching_gene_name("DAA") is not None
         assert sp.find_matching_gene_name("UA") is not None
+
+    def test_axolotl_does_not_inherit_xenopus_uea(self):
+        sp = Species.get("Amme")
+        assert has_ancestor(sp, "Caudata sp.")
+        assert sp.find_matching_gene_name("UEA") is None
+
+    def test_smooth_newt_is_under_caudata(self):
+        sp = Species.get("Limv")
+        assert has_ancestor(sp, "Caudata sp.")
+        assert sp.find_matching_gene_name("DNB") is not None
 
     def test_amphibian_does_not_get_drb(self):
         sp = Species.get("Xela")
@@ -682,9 +697,9 @@ class TestMarsupialiaInheritance:
         assert sp.find_matching_gene_name("UA") is not None  # from Marsupialia
         assert sp.find_matching_gene_name("UB") is not None  # own
 
-    def test_marsupial_does_not_get_mammal_drb1(self):
+    def test_marsupial_gets_drb1_from_marsupialia(self):
         sp = Species.get("Modo")
-        assert sp.find_matching_gene_name("DRB1") is None
+        assert sp.find_matching_gene_name("DRB1") is not None
 
 
 class TestCrossTaxonBoundariesWithClades:

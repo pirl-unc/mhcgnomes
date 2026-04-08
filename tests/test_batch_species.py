@@ -130,3 +130,20 @@ def test_promoted_published_prefixes_keep_legacy_aliases(
     gene = Gene.get(canonical_prefix, gene_name)
     assert gene is not None
     eq_(parse(f"{legacy_prefix}-{gene_name}", raise_on_error=True), gene)
+
+
+@pytest.mark.parametrize(
+    "species_prefix,gene_name",
+    [
+        ("Fape", "DAA"),
+        ("Fape", "DRA"),
+        ("Aqch", "DRB"),
+        ("Grja", "DAB"),
+        ("Egga", "DAB1"),
+        ("Egga", "DAB2"),
+    ],
+)
+def test_cleaned_bird_clades_still_inherit_runtime_genes(species_prefix, gene_name):
+    gene = Gene.get(species_prefix, gene_name)
+    assert gene is not None, f"Gene.get({species_prefix!r}, {gene_name!r}) returned None"
+    eq_(parse(f"{species_prefix}-{gene_name}", raise_on_error=True), gene)
