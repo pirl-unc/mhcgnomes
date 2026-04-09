@@ -226,9 +226,7 @@ def _find_alpha_gene_for_beta(beta_allele):
             continue
         # Find alpha genes in the same locus; sort to prefer primary
         # gene (e.g. DQA1 over DQA2) when multiple alpha genes exist
-        alpha_names = sorted(
-            n for n in gene_names if chain_types.get(n) == "alpha"
-        )
+        alpha_names = sorted(n for n in gene_names if chain_types.get(n) == "alpha")
         if alpha_names:
             return Gene.get(species, alpha_names[0])
     return None

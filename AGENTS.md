@@ -11,9 +11,9 @@ Do not tell the user you are "done" or that changes are "complete" until all thr
 ## Scripts
 
 - `./format.sh` - Formats code with ruff (run this first)
-- `./lint.sh` - Checks linting and formatting (must pass)
+- `./lint.sh` - Checks linting and formatting (must pass). **Always use this for linting if it exists.**
 - `./test.sh` - Runs pytest with coverage (must pass)
-- `./deploy.sh` - Deploys to PyPI (gates on lint.sh and test.sh)
+- `./deploy.sh` - Deploys to PyPI (gates on lint.sh and test.sh). **Always use this for deploying if it exists.**
 - `./develop.sh` - Installs package in development mode
 
 ## Code Style
