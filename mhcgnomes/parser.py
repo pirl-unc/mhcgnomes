@@ -395,6 +395,13 @@ class Parser:
         Try parsing a string like "IAk" into the 'k' mouse haplotype restricted
         at the A locus
         """
+        # Don't split strings that are directly in the species' gene list
+        # (e.g. "AA" should remain Gene("AA"), not locus "A" + haplotype "a").
+        # Use the gene_names set for exact (case-insensitive) matching,
+        # avoiding Gene.get which strips MHC class prefixes like "I" from "IAb".
+        species_obj = Species.get(species)
+        if species_obj is not None and locus_and_haplotype in species_obj.gene_names:
+            return None
         for locus_length in range(1, len(locus_and_haplotype)):
             locus_string = self.strip_extra_chars(locus_and_haplotype[:locus_length])
             locus = Class2Locus.get(species, locus_string)

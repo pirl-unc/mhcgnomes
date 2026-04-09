@@ -603,6 +603,7 @@ Mus musculus:
       A:
         - AA
         - AB
+        - AB1
       E:
         - EA
         - EB
@@ -1370,6 +1371,14 @@ Larimichthys crocea:
   parent: Actinopterygii sp.
   prefix: LariCroc
   name: Large yellow croaker
+Nibea mitsukurii:
+  parent: Actinopterygii sp.
+  prefix: NibeMits
+  name: Largetooth croaker
+Nibea albiflora:
+  parent: Actinopterygii sp.
+  prefix: NibeAlbi
+  name: Yellow drum
 Kryptolebias marmoratus:
   parent: Actinopterygii sp.
   prefix: KrypMarm

@@ -82,6 +82,8 @@ RT1:
   U: U1
   E: E1
   A: A1
+  # NCBI GeneID 24738 "RT1-B" encodes the beta chain (= Bb)
+  B: Bb
   Db: Db1
 Gaga:
   # adding this since NetMHCpan has "Chi-B" as an alias

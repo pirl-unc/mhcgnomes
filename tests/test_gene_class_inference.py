@@ -15,7 +15,9 @@ def test_infer_mhc_class_from_species_aware_suffix():
     [
         ("RT1.A(u)", "Ia", "alpha"),
         ("RT1.A1(f)", "Ia", "alpha"),
-        ("RT1.B", "II", None),
+        # RT1.B resolves to Gene(Bb) via gene alias (NCBI GeneID 24738);
+        # Bb is specifically a class IIa beta chain gene
+        ("RT1.B", "IIa", "beta"),
         ("RT1.D", "II", None),
         ("RT1-Ba", "IIa", "alpha"),
         ("RT1-DOa", "IIb", "alpha"),
