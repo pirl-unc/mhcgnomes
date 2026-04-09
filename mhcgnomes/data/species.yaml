@@ -1205,12 +1205,16 @@ Clarias batrachus:
 #
 ############################
 Coregonus sp.:
+  # MHC class II B1 exon confirmed in:
+  # Binz et al. 2001, J. Fish Biol., doi:10.1111/j.1095-8649.2001.tb02258.x
+  # "Sequence diversity of Mhc genes in lake whitefish"
   parent: Actinopterygii sp.
   prefix: Cosp
   name: Whitefish
   genes:
-    I:
-      - B1
+    IIa:
+      B:
+        - B1
 Coregonus clupeaformis:
   parent: Coregonus sp.
   prefix: CoreClup
@@ -5217,12 +5221,17 @@ Lithobates yavapaiensis:
   prefix: LithYava
   name: Lowland leopard frog
 Pelophylax nigromaculatus:
+  # MHC class II B locus confirmed in:
+  # Liu et al. 2017, Ecology & Evolution, doi:10.1002/ece3.3408
+  # "Limited polymorphism of the functional MHC class II B gene
+  #  in the black-spotted frog"
   parent: Amphibia sp.
   prefix: PeloNigr
   name: Black-spotted frog
   genes:
-    I:
-      - B
+    IIa:
+      B:
+        - B
 Nanorana parkeri:
   parent: Amphibia sp.
   prefix: NanoPark
@@ -5252,12 +5261,17 @@ Leptobrachium leishanense:
   prefix: LeptLeis
   name: Leishan spiny toad
 Litoria verreauxii:
+  # MHC class II beta confirmed in:
+  # Bataille et al. 2015, Proc. R. Soc. B, doi:10.1098/rspb.2014.3127
+  # "Susceptibility of amphibians to chytridiomycosis is associated
+  #  with MHC class II conformation"
   parent: Amphibia sp.
   prefix: LitoVerr
   name: Whistling tree frog
   genes:
-    I:
-      - a
+    IIa:
+      A:
+        - a
 Bufo bufo:
   parent: Amphibia sp.
   prefix: BufoBufo
@@ -5267,12 +5281,17 @@ Bufo gargarizans:
   prefix: BufoGarg
   name: Asian toad
 Epidalea calamita:
+  # MHC class II genes A and B confirmed in:
+  # May et al. 2009, Conserv. Genet. Resources, doi:10.1007/s12686-009-9096-6
+  # "Characterisation of MHC class II alleles in the natterjack toad"
+  # B5 is allele 5 of the B locus
   parent: Amphibia sp.
   prefix: EpidCala
   name: Natterjack toad
   genes:
-    I:
-      - B5
+    IIa:
+      B:
+        - B5
 Ichthyosaura alpestris:
   parent: Caudata sp.
   prefix: IchtAlpe
