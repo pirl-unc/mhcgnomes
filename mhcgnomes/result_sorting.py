@@ -16,6 +16,7 @@ from typing import Optional
 
 from .allele import Allele
 from .allele_without_gene import AlleleWithoutGene
+from .class2_locus import Class2Locus
 from .gene import Gene
 from .haplotype import Haplotype
 from .pair import Pair
@@ -63,6 +64,7 @@ def sort_key(result: Result):
     is_allele_without_gene = t is AlleleWithoutGene
     is_serotype = t is Serotype
     is_haplotype = t is Haplotype
+    is_class2_locus = t is Class2Locus
     is_gene = t is Gene
 
     # Penalize serotypes that look like alleles (e.g., B3901, A2403)
@@ -130,6 +132,11 @@ def sort_key(result: Result):
         num_allele_fields,
         original_gene_seq_length,
         is_serotype,
+        # Haplotypes with defined alleles (e.g. H2-a with 9 alleles) outrank
+        # Class II loci, but Class II loci outrank empty haplotypes
+        # (e.g. RT1-B as Class2Locus beats RT1-b as Haplotype with 0 alleles)
+        (is_haplotype and num_alleles_in_haplotype_or_serotype > 0),
+        is_class2_locus,
         is_haplotype,
         is_allele_without_gene,
         num_alleles_in_haplotype_or_serotype,
