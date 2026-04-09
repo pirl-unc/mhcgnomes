@@ -1,6 +1,6 @@
 import pytest
 
-from mhcgnomes import Allele, Pair, parse
+from mhcgnomes import Allele, Gene, Pair, parse
 from mhcgnomes.pair import infer_class2_alpha_chain
 
 from .common import eq_
@@ -92,8 +92,52 @@ def test_infer_class2_alpha_chain_for_hla_beta_allele_returns_pair():
     assert result.beta == beta
 
 
-@pytest.mark.parametrize("name", ["HLA-A*02:01", "BoLA-DRB3*001:01"])
-def test_infer_class2_alpha_chain_leaves_other_inputs_unchanged(name):
-    result = parse(name)
-
+def test_infer_class2_alpha_chain_leaves_class1_unchanged():
+    result = parse("HLA-A*02:01")
     assert infer_class2_alpha_chain(result) == result
+
+
+@pytest.mark.parametrize(
+    "name, expected_alpha_gene",
+    [
+        # DR locus across species
+        ("Patr-DRB1*03:08", "DRA"),
+        ("BoLA-DRB3*001:01", "DRA"),
+        ("Mamu-DRB1*03:03", "DRA"),
+        ("Mamu-DRB*w2:01", "DRA"),
+        # DQ locus
+        ("Patr-DQB1*02:01", "DQA1"),
+        ("BoLA-DQB1*02:01", "DQA1"),
+        # Mouse H2 A and E loci
+        ("H2-Ab*b", "AA"),
+        ("H2-Eb*b", "EA"),
+    ],
+)
+def test_infer_class2_alpha_chain_for_non_human_species(name, expected_alpha_gene):
+    """Non-human Class II beta alleles should pair with the matching alpha Gene."""
+    result = parse(name, infer_class2_pairing=True)
+    assert type(result) is Pair, f"Expected Pair for {name}, got {type(result).__name__}"
+    assert type(result.alpha) is Gene
+    eq_(result.alpha.name, expected_alpha_gene)
+    assert type(result.beta) is Allele
+
+
+def test_infer_class2_alpha_chain_leaves_alpha_allele_unchanged():
+    """Alpha chain alleles should not be wrapped in a Pair."""
+    for name in ["HLA-DRA*01:01", "HLA-DQA1*01:02"]:
+        result = parse(name)
+        assert infer_class2_alpha_chain(result) is result
+
+
+def test_infer_class2_alpha_chain_leaves_pair_unchanged():
+    """An already-paired result should pass through unchanged."""
+    result = parse("HLA-DRA*01:01/DRB1*01:01")
+    assert type(result) is Pair
+    assert infer_class2_alpha_chain(result) is result
+
+
+def test_infer_class2_alpha_chain_leaves_gene_unchanged():
+    """A bare Gene (not Allele) should not be paired."""
+    result = parse("HLA-DRB1")
+    assert type(result) is Gene
+    assert infer_class2_alpha_chain(result) is result

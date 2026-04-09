@@ -204,10 +204,43 @@ default_human_alpha_chains = {
 }
 
 
+def _find_alpha_gene_for_beta(beta_allele):
+    """
+    Given a Class II beta-chain Allele, find the matching alpha-chain Gene
+    in the same locus using the species ontology.
+
+    Returns a Gene object or None.
+    """
+    species = beta_allele.species
+    beta_gene_name = beta_allele.gene_name
+    chain_types = species.class2_gene_name_to_chain_type
+    locus_map = species.class2_locus_to_gene_names
+
+    # Verify beta is actually a beta chain
+    if chain_types.get(beta_gene_name) != "beta":
+        return None
+
+    # Find which locus this beta gene belongs to
+    for _locus, gene_names in locus_map.items():
+        if beta_gene_name not in gene_names:
+            continue
+        # Find alpha genes in the same locus; sort to prefer primary
+        # gene (e.g. DQA1 over DQA2) when multiple alpha genes exist
+        alpha_names = sorted(
+            n for n in gene_names if chain_types.get(n) == "alpha"
+        )
+        if alpha_names:
+            return Gene.get(species, alpha_names[0])
+    return None
+
+
 def infer_class2_alpha_chain(beta):
     """
     Given an Allele for a Class II beta chain, returns the alpha/beta pair with
-    a population invariant alpha chain (if one is known)
+    a population invariant alpha chain (if one is known).
+
+    For HLA, returns Pair(Allele, Allele) using known default alpha alleles.
+    For other species, returns Pair(Gene, Allele) using ontology-based lookup.
     """
     if isinstance(beta, Pair):
         return beta
@@ -218,12 +251,16 @@ def infer_class2_alpha_chain(beta):
     if not beta.is_class2:
         return beta
 
-    if beta.species_prefix != "HLA":
-        return beta
+    # Fast path: HLA has known default alpha alleles
+    if beta.species_prefix == "HLA":
+        locus = beta.gene_name[:3]
+        if locus in default_human_alpha_chains:
+            alpha = default_human_alpha_chains[locus]
+            return Pair.get(alpha=alpha, beta=beta, raw_string=beta.raw_string)
 
-    locus = beta.gene_name[:3]
-    if locus not in default_human_alpha_chains:
-        return beta
+    # General path: use species ontology to find matching alpha gene
+    alpha_gene = _find_alpha_gene_for_beta(beta)
+    if alpha_gene is not None:
+        return Pair.get(alpha=alpha_gene, beta=beta, raw_string=beta.raw_string)
 
-    alpha = default_human_alpha_chains[locus]
-    return Pair.get(alpha=alpha, beta=beta, raw_string=beta.raw_string)
+    return beta
