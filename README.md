@@ -194,7 +194,7 @@ the number of digits per field has often increased from two to three:
 - "A:002:01"
 - "A\*00201"
 
-These are not always currently treated as equivalent to allele strings with two digits in their first field, but that feature is in the works.
+MHCgnomes normalizes allele field widths by zero-padding to each gene's canonical minimum (e.g. 3 digits for MICA/MICB). Coverage of per-gene field widths is still incomplete for some non-human species.
 
 However, if databases such as [IPD-MHC](https://www.ebi.ac.uk/ipd/mhc/) or [IMGT-HLA](https://www.ebi.ac.uk/ipd/imgt/hla/) recorded an older form of an allele, then MHCgnomes can optionally map it onto the modern version (including capturing differences in numbers of digits per field).
 
