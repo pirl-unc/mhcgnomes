@@ -5408,10 +5408,17 @@ Sarcophilus harrisii:
   name: Tasmanian devil
   genes:
     I:
+      - UA
       - UB
       - UC
+      - UD
       - UK
       - UM
+      # `I` is a parser placeholder used by the DFT2 paper
+      # (Caldwell et al. 2018, PMC6092122) in names like SahaI*27; the
+      # alias table in curated_allele_aliases.yaml routes each numbered
+      # form to its Saha-UA/UB/UC/UD locus per paper Table 1.
+      - I
 Phascolarctos cinereus:
   parent: Marsupialia sp.
   prefix: PhasCine
