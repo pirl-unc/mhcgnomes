@@ -46,3 +46,14 @@ BoLA:
     - T7
     - gb1.7
     - amani.1
+Saha:
+  # Bare allele numbers from the DFT2 paper (Caldwell et al. 2018,
+  # PMC6092122) that appear in slash-ambiguous pairs "SahaI*49/82" and
+  # "SahaI*74/88". Registering them as gene-less known alleles lets the
+  # right-hand side of the slash parse as AlleleWithoutGene so the
+  # parser can combine the two sides into an AmbiguousAlleles result.
+  ~:
+    - "49"
+    - "74"
+    - "82"
+    - "88"

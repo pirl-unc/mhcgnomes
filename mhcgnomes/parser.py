@@ -22,6 +22,7 @@ from .allele_annotations import (
     valid_functional_annotations,
 )
 from .allele_without_gene import AlleleWithoutGene
+from .ambiguous_alleles import AmbiguousAlleles
 from .class2_locus import Class2Locus
 from .common import cache, unique
 from .data import haplotypes as raw_haplotypes_data
@@ -1102,7 +1103,21 @@ class Parser:
             alpha = self.transform_parse_candidate(parse_candidate.alpha)
             beta = self.transform_parse_candidate(parse_candidate.beta)
             if alpha != parse_candidate.alpha or beta != parse_candidate.beta:
-                transformed = Pair.get(alpha, beta, raw_string=parse_candidate.raw_string)
+                if (
+                    isinstance(alpha, AlleleWithoutGene)
+                    and isinstance(beta, AlleleWithoutGene)
+                    and alpha.species == beta.species
+                ):
+                    # A slash between two gene-less allele designators of the
+                    # same species is IPD-style typing ambiguity (e.g.
+                    # SahaI*74/88), not a class II alpha/beta pair.
+                    transformed = AmbiguousAlleles(
+                        species=alpha.species,
+                        alleles=(alpha, beta),
+                        raw_string=parse_candidate.raw_string,
+                    )
+                else:
+                    transformed = Pair.get(alpha, beta, raw_string=parse_candidate.raw_string)
         elif t in (AlleleWithoutGene, Allele):
             raw_string = parse_candidate.raw_string
             species = parse_candidate.species
@@ -1609,6 +1624,27 @@ class Parser:
                     class2_pair = Pair.get(result_before, result_after)
                     if class2_pair:
                         candidates.append(class2_pair)
+            elif type(result_before) is AlleleWithoutGene:
+                # IPD-style slash ambiguity between two gene-less allele
+                # designators of the same species, e.g. "SahaI*74/88" from
+                # Caldwell et al. 2018 (PMC6092122) which cannot be
+                # attributed to SahaI*74 or SahaI*88 from the typed region.
+                species = result_before.species if result_before.has_species else default_species
+                for result_after in self.parse_tokens_to_multiple_candidates(
+                    tokens=tokens_after,
+                    default_species=species,
+                    strict_default_species=True,
+                ):
+                    if not isinstance(result_after, AlleleWithoutGene):
+                        continue
+                    if result_before.species != result_after.species:
+                        continue
+                    candidates.append(
+                        AmbiguousAlleles(
+                            species=result_before.species,
+                            alleles=(result_before, result_after),
+                        )
+                    )
         return unique(candidates)
 
     def resolve_class2_locus_chain_gene(self, locus: Class2Locus, chain: str):

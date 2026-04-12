@@ -563,4 +563,13 @@ Saha:
   I*36: "36"
   I*37: "37"
   I*97: "97"
+  # Slash-ambiguous designations (Table 1): SahaI*49/82 and SahaI*74/88
+  # are single observed sequences that match two IPD entries each. The
+  # parser splits on the slash and combines two AlleleWithoutGene sides
+  # into an AmbiguousAlleles result, so the individual numbers also
+  # need to be aliasable on their own.
+  I*49: "49"
+  I*82: "82"
+  I*74: "74"
+  I*88: "88"
   B*8701: B*087:01

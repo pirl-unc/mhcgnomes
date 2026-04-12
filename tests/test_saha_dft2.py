@@ -12,7 +12,7 @@ attribution.
 
 import pytest
 
-from mhcgnomes import AlleleWithoutGene, parse
+from mhcgnomes import AlleleWithoutGene, AmbiguousAlleles, parse
 
 from .common import eq_
 
@@ -79,3 +79,35 @@ def test_em_dash_normalizes_to_hyphen():
     # produces the same parse.
     allele = parse("Saha-UC*27\u20141")
     eq_(allele.to_string(), "Saha-UC*27:01")
+
+
+@pytest.mark.parametrize(
+    ("paper_name", "expected_numbers"),
+    [
+        # Paper Table 1 slash-ambiguous designations: a single observed
+        # DFT2 sequence that matches two IPD entries identical in the
+        # region typed. Treated as two distinct alleles the input cannot
+        # disambiguate between — not one allele with a slash in its name.
+        ("SahaI*49/82", ("49", "82")),
+        ("SahaI*74/88", ("74", "88")),
+        ("Saha-I*74/88", ("74", "88")),
+    ],
+)
+def test_slash_ambiguity_produces_two_alleles(paper_name, expected_numbers):
+    result = parse(paper_name, use_allele_aliases=True)
+    assert isinstance(result, AmbiguousAlleles), (
+        f"{paper_name!r} should produce AmbiguousAlleles, got {type(result).__name__}"
+    )
+    eq_(result.num_alleles, 2)
+    # alleles are sorted by value in ResultWithMultipleAlleles
+    names = tuple(a.name for a in result.alleles)
+    eq_(names, expected_numbers)
+    for allele in result.alleles:
+        assert isinstance(allele, AlleleWithoutGene)
+        eq_(allele.species.mhc_prefix, "Saha")
+
+
+def test_ambiguous_alleles_round_trip_string():
+    result = parse("SahaI*74/88", use_allele_aliases=True)
+    eq_(result.to_string(), "Saha-74/88")
+    eq_(result.to_string(include_species=False), "74/88")
