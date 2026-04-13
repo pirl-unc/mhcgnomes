@@ -111,3 +111,19 @@ def test_ambiguous_alleles_round_trip_string():
     result = parse("SahaI*74/88", use_allele_aliases=True)
     eq_(result.to_string(), "Saha-74/88")
     eq_(result.to_string(include_species=False), "74/88")
+
+
+@pytest.mark.parametrize(
+    "paper_name",
+    ["SahaI*29", "SahaI*49", "SahaI*49/82", "SahaI*74/88"],
+)
+def test_class_i_context_preserved_without_locus(paper_name):
+    # The "I" placeholder gene carries class I context; alias resolution
+    # should thread that into AlleleWithoutGene / AmbiguousAlleles so
+    # downstream class-based filters continue to work.
+    result = parse(paper_name, use_allele_aliases=True)
+    eq_(result.mhc_class, "I")
+    assert result.is_class1
+    if isinstance(result, AmbiguousAlleles):
+        for allele in result.alleles:
+            eq_(allele.mhc_class, "I")

@@ -67,6 +67,20 @@ class AmbiguousAlleles(ResultWithMultipleAlleles):
         d["ambiguous_alleles"] = self.to_string()
         return d
 
+    @property
+    def mhc_class(self):
+        # Share a single mhc_class across members when they agree (e.g.
+        # all class I); otherwise None.
+        classes = {getattr(a, "mhc_class", None) for a in self.alleles}
+        classes.discard(None)
+        if len(classes) == 1:
+            return next(iter(classes))
+        return None
+
+    @property
+    def has_mhc_class(self):
+        return self.mhc_class is not None
+
 
 def _short_name(allele):
     if hasattr(allele, "compact_string"):

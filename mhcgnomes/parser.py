@@ -1110,7 +1110,26 @@ class Parser:
                 ):
                     # A slash between two gene-less allele designators of the
                     # same species is IPD-style typing ambiguity (e.g.
-                    # SahaI*74/88), not a class II alpha/beta pair.
+                    # SahaI*74/88), not a class II alpha/beta pair. The right
+                    # side of the slash is tokenized as a bare number and
+                    # lacks class context on its own, so propagate the class
+                    # from whichever member resolved it.
+                    shared_class = alpha.mhc_class or beta.mhc_class
+                    if shared_class is not None:
+                        if alpha.mhc_class is None:
+                            alpha = AlleleWithoutGene.get(
+                                alpha.species,
+                                alpha.name,
+                                mhc_class=shared_class,
+                                raw_string=alpha.raw_string,
+                            )
+                        if beta.mhc_class is None:
+                            beta = AlleleWithoutGene.get(
+                                beta.species,
+                                beta.name,
+                                mhc_class=shared_class,
+                                raw_string=beta.raw_string,
+                            )
                     transformed = AmbiguousAlleles(
                         species=alpha.species,
                         alleles=(alpha, beta),
@@ -1124,8 +1143,14 @@ class Parser:
             if t is Allele:
                 gene = parse_candidate.gene
                 gene_name = gene.name
+                # Preserve class context when alias resolution strips the
+                # source gene — e.g. Saha's "I" placeholder gene carries
+                # mhc_class='I' and the resulting AlleleWithoutGene should
+                # remain discoverable via is_class1 / mhc_class filters.
+                source_mhc_class = gene.mhc_class
             else:
                 gene = gene_name = None
+                source_mhc_class = parse_candidate.mhc_class
             old_name = parse_candidate.name
             transformed = None
             if self.use_allele_aliases:
@@ -1136,7 +1161,10 @@ class Parser:
                     if new_gene_name is None:
                         if "*" not in new_allele_name:
                             transformed = AlleleWithoutGene.get(
-                                species, new_allele_name, raw_string=raw_string
+                                species,
+                                new_allele_name,
+                                mhc_class=source_mhc_class,
+                                raw_string=raw_string,
                             )
                     else:
                         if new_gene_name == gene_name:
@@ -1155,7 +1183,10 @@ class Parser:
                     if new_gene_name is None:
                         if "*" not in new_allele_name:
                             transformed = AlleleWithoutGene.get(
-                                species, new_allele_name, raw_string=raw_string
+                                species,
+                                new_allele_name,
+                                mhc_class=source_mhc_class,
+                                raw_string=raw_string,
                             )
                     else:
                         if new_gene_name == gene_name:
