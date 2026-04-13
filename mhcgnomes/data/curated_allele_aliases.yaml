@@ -564,10 +564,15 @@ Saha:
   I*37: "37"
   I*97: "97"
   # Slash-ambiguous designations (Table 1): SahaI*49/82 and SahaI*74/88
-  # are single observed sequences that match two IPD entries each. The
-  # parser splits on the slash and combines two AlleleWithoutGene sides
-  # into an AmbiguousAlleles result, so the individual numbers also
-  # need to be aliasable on their own.
+  # each describe a single observed DFT2 sequence that matches two IPD
+  # entries identical in the region that was typed. The numbers 49, 74,
+  # 82, and 88 never appear alone in the paper — only paired across a
+  # slash. The entries below exist solely as building blocks for the
+  # slash-parsing machinery (the parser splits on "/" and needs each
+  # side to resolve to AlleleWithoutGene independently so the two sides
+  # can be combined into an AmbiguousAlleles result). They are not
+  # endorsements of SahaI*49 / *74 / *82 / *88 as standalone paper
+  # allele names, and parsers should prefer the paired forms.
   I*49: "49"
   I*82: "82"
   I*74: "74"
