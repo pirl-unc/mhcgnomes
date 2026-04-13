@@ -18,9 +18,11 @@ parser.add_argument("--csv-input-file", "-s", nargs="+")
 parser.add_argument("--output", "-o", required=True)
 
 
-def valid_name(name):
+def valid_name(name, allow_digit_only=False):
     if "(" in name or ")" in name:
         return False
+    if allow_digit_only:
+        return True
     return not name.replace(":", "").isdigit()
 
 
@@ -39,14 +41,14 @@ class MappingAccumulator:
         self.species_to_old_to_new = defaultdict(OrderedDict)
         self.ambiguous_names = defaultdict(set)
 
-    def update(self, species, old_name, new_name):
+    def update(self, species, old_name, new_name, allow_digit_only_new_name=False):
         old_name = old_name.strip()
         if not valid_name(old_name):
             return False
         if old_name in self.ambiguous_names[species]:
             return False
         new_name = new_name.strip()
-        if not valid_name(new_name):
+        if not valid_name(new_name, allow_digit_only=allow_digit_only_new_name):
             return False
         if not sufficiently_different_name(old_name, new_name):
             return False
@@ -67,10 +69,17 @@ class MappingAccumulator:
             self.species_to_old_to_new[species][old_name] = new_name
             return True
 
-    def merge_dictionary(self, d):
+    def merge_dictionary(self, d, allow_digit_only_new_name=True):
+        # Curated YAML sources are trusted to intentionally use digit-only
+        # new_names for AlleleWithoutGene redirects (e.g. "I*29: 29").
         for species, species_dict in d.items():
             for old_name, new_name in species_dict.items():
-                self.update(species, old_name, new_name)
+                self.update(
+                    species,
+                    old_name,
+                    new_name,
+                    allow_digit_only_new_name=allow_digit_only_new_name,
+                )
 
 
 def main(args_list):
@@ -187,7 +196,12 @@ def main(args_list):
         for species, species_dict in sorted(species_to_old_to_new.items()):
             f.write(f"{species}:\n")
             for old_name, new_name in sorted(species_dict.items()):
-                f.write(f"  {old_name}: {new_name}\n")
+                # Quote digit-only new_names so YAML doesn't reparse them as ints
+                # (used for AlleleWithoutGene redirects like "I*29: 29").
+                if new_name.replace(":", "").isdigit():
+                    f.write(f'  {old_name}: "{new_name}"\n')
+                else:
+                    f.write(f"  {old_name}: {new_name}\n")
 
 
 if __name__ == "__main__":

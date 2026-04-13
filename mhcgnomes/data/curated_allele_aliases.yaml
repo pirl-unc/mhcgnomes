@@ -533,4 +533,48 @@ Mamu:
   B*66: B*066:01
   B*6601: B*066:01
   B*8301: B*083:01
+
+####################################################
+#
+# Tasmanian devil (Sarcophilus harrisii) aliases.
+# Source: Caldwell et al. 2018, eLife 7:e35314 (PMC6092122).
+# Paper Table 1 assigns numeric "SahaI*NN" names to specific
+# Saha-UA/UB/UC/UD loci; we route each assigned name to the
+# locus-typed canonical form here. Numbers without a published
+# locus assignment map to a bare allele name so the parser
+# produces an AlleleWithoutGene (class I, gene unknown).
+#
+####################################################
+Saha:
+  # Loci assigned by paper Table 1
+  I*27: UC*27
+  # SahaI*27-1 is a sub-allele of SahaI*27 differing by one nonsynonymous
+  # substitution (paper Materials and methods, Figure 5). After the parser
+  # folds the "-1" suffix into a second field, the alias key is "I*27:01".
+  I*27:01: UC*27:01
+  I*32: UD*32
+  I*35: UA*35
+  I*46: UA*46
+  I*90: UB*90
+  # Paper Table 1 rows with no locus attribution:
+  # route to AlleleWithoutGene via a bare allele name.
+  I*29: "29"
+  I*33: "33"
+  I*36: "36"
+  I*37: "37"
+  I*97: "97"
+  # Slash-ambiguous designations (Table 1): SahaI*49/82 and SahaI*74/88
+  # each describe a single observed DFT2 sequence that matches two IPD
+  # entries identical in the region that was typed. The numbers 49, 74,
+  # 82, and 88 never appear alone in the paper — only paired across a
+  # slash. The entries below exist solely as building blocks for the
+  # slash-parsing machinery (the parser splits on "/" and needs each
+  # side to resolve to AlleleWithoutGene independently so the two sides
+  # can be combined into an AmbiguousAlleles result). They are not
+  # endorsements of SahaI*49 / *74 / *82 / *88 as standalone paper
+  # allele names, and parsers should prefer the paired forms.
+  I*49: "49"
+  I*82: "82"
+  I*74: "74"
+  I*88: "88"
   B*8701: B*087:01

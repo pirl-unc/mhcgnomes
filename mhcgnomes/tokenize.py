@@ -145,8 +145,21 @@ def split_and_extract_attributes(s):
     return parts_before_attributes, attributes
 
 
+_INPUT_CHAR_TRANSLATION = str.maketrans(
+    {
+        '"': "",
+        "'": "",
+        # Fold en-dash (U+2013) and em-dash (U+2014) to ASCII hyphen so
+        # paper names using those characters in sub-allele suffixes parse
+        # identically to the ASCII-hyphen form.
+        "\u2013": "-",
+        "\u2014": "-",
+    }
+)
+
+
 def strip_whitespace_and_remove_quotes(name: str):
-    return name.replace('"', "").replace("'", "").strip()
+    return name.translate(_INPUT_CHAR_TRANSLATION).strip()
 
 
 @cache

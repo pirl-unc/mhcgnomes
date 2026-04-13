@@ -789,13 +789,16 @@ taxa:
       - UA
       - UB
       - UC
+      - UD
       - UK
       - UM
       - DAB
+      - I
     notes: >
-      Added to runtime with named class I loci (UA, UB, UC, UK, UM) and
-      class II DAB. The bare "Saha-I" string remains unparseable since it
-      maps to multiple loci, but specific locus names now resolve correctly.
+      Named class I loci (UA, UB, UC, UD, UK, UM) and class II DAB.
+      The literal gene token "I" is a parser-side placeholder used to
+      route the DFT2 paper's "SahaI*NN" forms through the allele alias
+      table (paper Table 1) rather than a biological locus.
 
   Gaga:
     scientific_name: Gallus gallus

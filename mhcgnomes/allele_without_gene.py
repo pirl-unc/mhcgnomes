@@ -56,7 +56,7 @@ class AlleleWithoutGene(ResultWithMhcClass):
         return self.name
 
     @classmethod
-    def get(cls, species, name, raw_string=None):
+    def get(cls, species, name, mhc_class=None, raw_string=None):
         species = Species.get(species)
         if not species:
             return None
@@ -64,4 +64,4 @@ class AlleleWithoutGene(ResultWithMhcClass):
         if not name:
             return None
 
-        return cls(species=species, name=name, raw_string=raw_string)
+        return cls(species=species, name=name, mhc_class=mhc_class, raw_string=raw_string)

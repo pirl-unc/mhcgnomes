@@ -43,7 +43,7 @@ class ResultWithMultipleAlleles(ResultWithSpecies):
             # monomorphic alleles sometimes represented just by the gene name
             if type(allele) is Gene:
                 genes.append(allele)
-            elif allele.has_gene:
+            elif getattr(allele, "has_gene", False):
                 genes.append(allele.gene)
         unique_genes = tuple(unique(genes))
         self._set_field(self, "genes", unique_genes)

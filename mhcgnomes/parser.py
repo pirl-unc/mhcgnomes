@@ -22,6 +22,7 @@ from .allele_annotations import (
     valid_functional_annotations,
 )
 from .allele_without_gene import AlleleWithoutGene
+from .ambiguous_alleles import AmbiguousAlleles
 from .class2_locus import Class2Locus
 from .common import cache, unique
 from .data import haplotypes as raw_haplotypes_data
@@ -1102,15 +1103,54 @@ class Parser:
             alpha = self.transform_parse_candidate(parse_candidate.alpha)
             beta = self.transform_parse_candidate(parse_candidate.beta)
             if alpha != parse_candidate.alpha or beta != parse_candidate.beta:
-                transformed = Pair.get(alpha, beta, raw_string=parse_candidate.raw_string)
+                if (
+                    isinstance(alpha, AlleleWithoutGene)
+                    and isinstance(beta, AlleleWithoutGene)
+                    and alpha.species == beta.species
+                ):
+                    # A slash between two gene-less allele designators of the
+                    # same species is IPD-style typing ambiguity (e.g.
+                    # SahaI*74/88), not a class II alpha/beta pair. The right
+                    # side of the slash is tokenized as a bare number and
+                    # lacks class context on its own, so propagate the class
+                    # from whichever member resolved it.
+                    shared_class = alpha.mhc_class or beta.mhc_class
+                    if shared_class is not None:
+                        if alpha.mhc_class is None:
+                            alpha = AlleleWithoutGene.get(
+                                alpha.species,
+                                alpha.name,
+                                mhc_class=shared_class,
+                                raw_string=alpha.raw_string,
+                            )
+                        if beta.mhc_class is None:
+                            beta = AlleleWithoutGene.get(
+                                beta.species,
+                                beta.name,
+                                mhc_class=shared_class,
+                                raw_string=beta.raw_string,
+                            )
+                    transformed = AmbiguousAlleles(
+                        species=alpha.species,
+                        alleles=(alpha, beta),
+                        raw_string=parse_candidate.raw_string,
+                    )
+                else:
+                    transformed = Pair.get(alpha, beta, raw_string=parse_candidate.raw_string)
         elif t in (AlleleWithoutGene, Allele):
             raw_string = parse_candidate.raw_string
             species = parse_candidate.species
             if t is Allele:
                 gene = parse_candidate.gene
                 gene_name = gene.name
+                # Preserve class context when alias resolution strips the
+                # source gene — e.g. Saha's "I" placeholder gene carries
+                # mhc_class='I' and the resulting AlleleWithoutGene should
+                # remain discoverable via is_class1 / mhc_class filters.
+                source_mhc_class = gene.mhc_class
             else:
                 gene = gene_name = None
+                source_mhc_class = parse_candidate.mhc_class
             old_name = parse_candidate.name
             transformed = None
             if self.use_allele_aliases:
@@ -1121,7 +1161,10 @@ class Parser:
                     if new_gene_name is None:
                         if "*" not in new_allele_name:
                             transformed = AlleleWithoutGene.get(
-                                species, new_allele_name, raw_string=raw_string
+                                species,
+                                new_allele_name,
+                                mhc_class=source_mhc_class,
+                                raw_string=raw_string,
                             )
                     else:
                         if new_gene_name == gene_name:
@@ -1140,7 +1183,10 @@ class Parser:
                     if new_gene_name is None:
                         if "*" not in new_allele_name:
                             transformed = AlleleWithoutGene.get(
-                                species, new_allele_name, raw_string=raw_string
+                                species,
+                                new_allele_name,
+                                mhc_class=source_mhc_class,
+                                raw_string=raw_string,
                             )
                     else:
                         if new_gene_name == gene_name:
@@ -1609,6 +1655,27 @@ class Parser:
                     class2_pair = Pair.get(result_before, result_after)
                     if class2_pair:
                         candidates.append(class2_pair)
+            elif type(result_before) is AlleleWithoutGene:
+                # IPD-style slash ambiguity between two gene-less allele
+                # designators of the same species, e.g. "SahaI*74/88" from
+                # Caldwell et al. 2018 (PMC6092122) which cannot be
+                # attributed to SahaI*74 or SahaI*88 from the typed region.
+                species = result_before.species if result_before.has_species else default_species
+                for result_after in self.parse_tokens_to_multiple_candidates(
+                    tokens=tokens_after,
+                    default_species=species,
+                    strict_default_species=True,
+                ):
+                    if not isinstance(result_after, AlleleWithoutGene):
+                        continue
+                    if result_before.species != result_after.species:
+                        continue
+                    candidates.append(
+                        AmbiguousAlleles(
+                            species=result_before.species,
+                            alleles=(result_before, result_after),
+                        )
+                    )
         return unique(candidates)
 
     def resolve_class2_locus_chain_gene(self, locus: Class2Locus, chain: str):

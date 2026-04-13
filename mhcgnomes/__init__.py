@@ -12,6 +12,7 @@
 
 from .allele import Allele
 from .allele_without_gene import AlleleWithoutGene
+from .ambiguous_alleles import AmbiguousAlleles
 from .class2_locus import Class2Locus
 from .dataframe import dataframe_from_parsed_objects, dataframe_from_string_list
 from .errors import ParseError
@@ -33,6 +34,7 @@ from .version import __version__
 __all__ = [
     "Allele",
     "AlleleWithoutGene",
+    "AmbiguousAlleles",
     "Class2Locus",
     "Gene",
     "GeneClassInfo",

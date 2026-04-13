@@ -86,6 +86,21 @@ def split_allele_fields(
     if ":" in str_after_gene:
         return str_after_gene.split(":")
 
+    # Compact sub-allele suffix like "27-1": two numeric fields separated
+    # by a hyphen. Used in the DFT2 paper (Caldwell et al. 2018) where
+    # SahaI*27-1 is a single-substitution sibling of SahaI*27. Require the
+    # first part to be at least two digits so we do not misinterpret
+    # single-digit gene-family suffixes such as bird DRB1-4 (where "1-4"
+    # is part of the gene name, not an allele field split).
+    if "-" in str_after_gene:
+        dash_parts = str_after_gene.split("-")
+        if (
+            len(dash_parts) == 2
+            and all(p.isdigit() and p for p in dash_parts)
+            and len(dash_parts[0]) >= 2
+        ):
+            return dash_parts
+
     # if we don't have ':' to guide the field boundaries
     # then split_token_sequences on all possible seps and try to guess
     # which blocks of numbers are actually multiple fields.
