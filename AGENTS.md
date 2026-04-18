@@ -1,3 +1,13 @@
+## Golden Rules
+
+1. **Never commit to `main`.** Always `git checkout -b <feature-branch>` before editing. Land via PR.
+2. **Every PR bumps the version.** Even doc-only PRs — at minimum a patch bump. `deploy.sh <version>` handles the bump + commit + push.
+3. **"Done" means merged AND deployed to PyPI** — never stop at merge. After a PR merges, run `./deploy.sh` from a clean main. Skipping deploy = task not done.
+4. **File problems as issues, don't silently work around them.** If you hit a bug here or in a sibling openvax/pirl-unc repo, open a GitHub issue on the correct repo and link it from the PR.
+5. **After a PR ships, look for the next block of work.** Read open issues across the relevant openvax repos, group by dependency + urgency. Prefer *foundational* changes that unblock multiple downstream improvements; otherwise chain the smallest independent improvements.
+
+---
+
 ## Before Completing Any Task
 
 Before considering any code change complete, you MUST:
