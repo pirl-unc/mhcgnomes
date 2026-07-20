@@ -76,6 +76,23 @@ Note that `Ps` can also appear as part of a gene name (prefix or suffix) in
 non-human primates, such as `Caja-G2Ps*01`. In those cases `Ps` is treated as
 part of the gene name, not an allele annotation.
 
+The suffix-specific `annotation_pseudogene` property remains separate from
+species/gene ontology status. `Gene.pseudogene_status` is `True`, `False`, or
+`None` when no status has been curated; `Gene.is_pseudogene` is true only for a
+curated pseudogene. `Allele.is_pseudogene` combines gene-level status with an
+explicit `Ps` suffix:
+
+```python
+>>> mhcgnomes.parse("HLA-H*02:01").is_pseudogene
+True
+>>> mhcgnomes.parse("Mamu-G*01:01").is_pseudogene
+True
+>>> mhcgnomes.parse("HLA-G*01:01").is_pseudogene
+False
+>>> mhcgnomes.parse("Caja-B5*01:01Ps").annotation_pseudogene
+True
+```
+
 ### Mutations
 
 MHC proteins are sometimes described in terms of mutations to a known allele.
@@ -234,7 +251,7 @@ in YAML data files under `mhcgnomes/data/`. The key files are:
 
 | File | Purpose |
 | --- | --- |
-| `species.yaml` | Canonical species entries with MHC prefix, gene names, and class assignments |
+| `species.yaml` | Canonical species entries with MHC prefixes, genes, classes, properties, and families |
 | `gene_aliases.yaml` | Alternative gene spellings that normalize to canonical genes |
 | `allele_aliases.yaml` | Retired or shorthand allele names that normalize to canonical alleles |
 | `known_alleles.yaml` | Curated known allele labels per species/gene |
@@ -276,6 +293,29 @@ Genes in `species.yaml` are organized by MHC class:
 - **IIa**: Classical class II alpha/beta chains presenting peptides
 - **IIb**: Accessory or non-classical class II proteins
 - **other**: Antigen processing genes (TAP1, TAP2, TAPBP, B2M)
+
+### Species-specific gene properties and families
+
+`species.yaml` can attach source-backed properties to canonical genes. These
+properties inherit through the species tree and descendants can override them,
+so the same gene name may have different biology in different lineages. For
+example, human HLA-G is explicitly functional while MHC-G is a pseudogene in
+the macaque lineage. Missing metadata remains unknown rather than being inferred
+from the spelling of a gene.
+
+The ontology can also define exact gene families. The jawed-vertebrate root
+defines `TAP` as the family containing `TAP1` and `TAP2`. The strict parser does
+not promote `TAP` to a gene, but the species-aware `parse_gene_class` API can
+classify legacy family-level inputs without choosing a family member:
+
+```python
+>>> info = mhcgnomes.parse_gene_class("SLA-TAP*1*01:01")
+>>> (info.gene_name, info.mhc_class, info.non_mhc, info.source)
+('TAP', 'other', True, 'ontology_family')
+```
+
+This classification uses the selected species' inherited ontology family; it
+does not infer TAP membership from a regex or a shared gene-name pattern.
 
 ### Species prefix tiers
 

@@ -130,6 +130,8 @@ class Species(Result):
     mhc_prefix: str = ""
     gene_names: Any = None
     gene_name_to_mhc_class: Any = None
+    gene_name_to_properties: Any = None
+    gene_family_name_to_gene_names: Any = None
     class2_loci: Any = None
     class2_locus_to_gene_names: Any = None
     class2_gene_name_to_chain_type: Any = None
@@ -170,11 +172,20 @@ class Species(Result):
         context_only_mhc_prefixes: Iterable[str] = [],
         other_common_names: Iterable[str] = [],
         raw_string: Union[str, None] = None,
+        gene_name_to_properties: Union[Mapping[str, Mapping[str, Any]], None] = None,
+        gene_family_name_to_gene_names: Union[Mapping[str, Iterable[str]], None] = None,
     ):
         Result.__init__(self, raw_string=raw_string)
 
         gene_names = _ensure_normalizing_set(gene_names)
         gene_name_to_mhc_class = _ensure_normalizing_dictionary(gene_name_to_mhc_class)
+        gene_name_to_properties = _ensure_normalizing_dictionary(gene_name_to_properties)
+        gene_family_name_to_gene_names = _ensure_normalizing_dictionary(
+            gene_family_name_to_gene_names
+        )
+        gene_family_name_to_gene_names = gene_family_name_to_gene_names.map_values(
+            _ensure_normalizing_set
+        )
         class2_loci = _ensure_normalizing_set(class2_loci)
         class2_locus_to_gene_names = _ensure_normalizing_dictionary(
             class2_locus_to_gene_names, default_value_fn=set
@@ -212,6 +223,16 @@ class Species(Result):
         self._set_field(self, "gene_names", _freeze_nested_value(gene_names))
         self._set_field(
             self, "gene_name_to_mhc_class", _freeze_nested_value(gene_name_to_mhc_class)
+        )
+        self._set_field(
+            self,
+            "gene_name_to_properties",
+            _freeze_nested_value(gene_name_to_properties),
+        )
+        self._set_field(
+            self,
+            "gene_family_name_to_gene_names",
+            _freeze_nested_value(gene_family_name_to_gene_names),
         )
         self._set_field(self, "class2_loci", _freeze_nested_value(class2_loci))
         self._set_field(
@@ -529,6 +550,21 @@ class Species(Result):
                     return self.gene_names.get_original(candidate)
         return None
 
+    def find_matching_gene_family_name(self, family_name):
+        """Return the canonical name of an exact, ontology-backed gene family."""
+        if type(family_name) in (int, float):
+            family_name = str(family_name)
+        if family_name in self.gene_family_name_to_gene_names:
+            return self.gene_family_name_to_gene_names.original_key(family_name)
+        return None
+
+    def get_gene_family_members(self, family_name):
+        """Return canonical member names for an ontology-backed gene family."""
+        canonical_family_name = self.find_matching_gene_family_name(family_name)
+        if canonical_family_name is None:
+            return None
+        return tuple(sorted(self.gene_family_name_to_gene_names[canonical_family_name]))
+
     def find_matching_class2_locus_name(self, locus_name):
         """
         Use known aliases and normalized capitalization to infer
@@ -572,6 +608,20 @@ class Species(Result):
         """
         gene_name = self.normalize_gene_name_if_exists(gene_name)
         return self.gene_name_to_mhc_class.get(gene_name)
+
+    def get_gene_properties(self, gene_name):
+        """Return immutable ontology properties for a canonical gene."""
+        gene_name = self.find_matching_gene_name(gene_name)
+        if gene_name is None:
+            return None
+        return self.gene_name_to_properties.get(gene_name, MappingProxyType({}))
+
+    def get_pseudogene_status_of_gene(self, gene_name):
+        """Return explicit pseudogene status, or ``None`` when it is not curated."""
+        properties = self.get_gene_properties(gene_name)
+        if properties is None:
+            return None
+        return properties.get("pseudogene")
 
     def get_known_allele(self, gene_name, allele_name):
         gene_name_candidates = {gene_name}
@@ -913,12 +963,18 @@ def create_species_for_latin_name(latin_name):
     if parent_species is None:
         gene_names = NormalizingSet()
         gene_name_to_mhc_class = NormalizingDictionary()
+        gene_name_to_properties = NormalizingDictionary()
+        gene_family_name_to_gene_names = NormalizingDictionary()
         class2_loci = NormalizingSet()
         class2_locus_to_gene_names = NormalizingDictionary(default_value_fn=set)
         class2_gene_name_to_chain_type = NormalizingDictionary()
     else:
         gene_names = parent_species.gene_names.copy()
         gene_name_to_mhc_class = parent_species.gene_name_to_mhc_class.copy()
+        gene_name_to_properties = parent_species.gene_name_to_properties.map_values(dict)
+        gene_family_name_to_gene_names = parent_species.gene_family_name_to_gene_names.map_values(
+            _ensure_normalizing_set
+        )
         class2_loci = parent_species.class2_loci.copy()
         class2_locus_to_gene_names = parent_species.class2_locus_to_gene_names.map_values(set)
         class2_gene_name_to_chain_type = parent_species.class2_gene_name_to_chain_type.copy()
@@ -953,6 +1009,83 @@ def create_species_for_latin_name(latin_name):
                     #  the YAML file ontology
                     chain_type = guess_class2_chain_type(gene_name)
                     class2_gene_name_to_chain_type[gene_name] = chain_type
+
+    raw_gene_properties = species_info.get("gene properties", {})
+    if not isinstance(raw_gene_properties, dict):
+        raise ValueError(f"Malformed gene properties for '{latin_name}'")
+    for raw_gene_name, raw_properties in raw_gene_properties.items():
+        canonical_gene_name = gene_names.get_original(raw_gene_name)
+        if canonical_gene_name is None:
+            raise ValueError(
+                f"Gene properties for '{latin_name}' reference unknown gene '{raw_gene_name}'"
+            )
+        if not isinstance(raw_properties, dict):
+            raise ValueError(
+                f"Malformed properties for gene '{canonical_gene_name}' of '{latin_name}'"
+            )
+        unexpected_properties = set(raw_properties).difference({"pseudogene"})
+        if unexpected_properties:
+            raise ValueError(
+                f"Unknown properties for gene '{canonical_gene_name}' of '{latin_name}': "
+                f"{sorted(unexpected_properties)}"
+            )
+        if "pseudogene" in raw_properties and type(raw_properties["pseudogene"]) is not bool:
+            raise ValueError(
+                f"Pseudogene status for gene '{canonical_gene_name}' of '{latin_name}' "
+                "must be boolean"
+            )
+        combined_properties = dict(gene_name_to_properties.get(canonical_gene_name, {}))
+        combined_properties.update(raw_properties)
+        gene_name_to_properties[canonical_gene_name] = combined_properties
+
+    raw_gene_families = species_info.get("gene families", {})
+    if not isinstance(raw_gene_families, dict):
+        raise ValueError(f"Malformed gene families for '{latin_name}'")
+    for raw_family_name, raw_family_members in raw_gene_families.items():
+        if not isinstance(raw_family_members, list) or not raw_family_members:
+            raise ValueError(
+                f"Gene family '{raw_family_name}' of '{latin_name}' must be a non-empty list"
+            )
+        if raw_family_name in gene_names:
+            raise ValueError(
+                f"Gene family '{raw_family_name}' of '{latin_name}' conflicts with a gene name"
+            )
+        canonical_members = NormalizingSet()
+        member_classes = set()
+        for raw_member_name in raw_family_members:
+            canonical_member_name = gene_names.get_original(raw_member_name)
+            if canonical_member_name is None:
+                raise ValueError(
+                    f"Gene family '{raw_family_name}' of '{latin_name}' references unknown gene "
+                    f"'{raw_member_name}'"
+                )
+            canonical_members.add(canonical_member_name)
+            member_classes.add(gene_name_to_mhc_class[canonical_member_name])
+        if len(member_classes) != 1:
+            raise ValueError(
+                f"Gene family '{raw_family_name}' of '{latin_name}' spans MHC classes "
+                f"{sorted(member_classes)}"
+            )
+        gene_family_name_to_gene_names[str(raw_family_name)] = canonical_members
+
+    # Revalidate inherited families against the descendant's effective gene
+    # ontology. A descendant may reclassify a gene, but a family classification
+    # is only valid when all exact members still share one class.
+    for family_name, family_members in gene_family_name_to_gene_names.items():
+        if family_name in gene_names:
+            raise ValueError(
+                f"Gene family '{family_name}' of '{latin_name}' conflicts with a gene name"
+            )
+        member_classes = {gene_name_to_mhc_class.get(member) for member in family_members}
+        if None in member_classes:
+            raise ValueError(
+                f"Gene family '{family_name}' of '{latin_name}' references an unknown gene"
+            )
+        if len(member_classes) != 1:
+            raise ValueError(
+                f"Gene family '{family_name}' of '{latin_name}' spans MHC classes "
+                f"{sorted(member_classes)}"
+            )
 
     # Side tables inherit by lineage, but parent prefixes/common names must not
     # become implicit aliases for child species.
@@ -993,6 +1126,8 @@ def create_species_for_latin_name(latin_name):
         old_mhc_prefix=old_mhc_prefix,
         gene_names=gene_names,
         gene_name_to_mhc_class=gene_name_to_mhc_class,
+        gene_name_to_properties=gene_name_to_properties,
+        gene_family_name_to_gene_names=gene_family_name_to_gene_names,
         class2_loci=class2_loci,
         class2_locus_to_gene_names=class2_locus_to_gene_names,
         class2_gene_name_to_chain_type=class2_gene_name_to_chain_type,
