@@ -50,7 +50,6 @@ Documentation = "https://pirl-unc.github.io/mhcgnomes/"
 
 [project.scripts]
 mhcgnomes = "mhcgnomes.cli:main"
-mhcgnomes-data = "mhcgnomes.external_data:main"
 mhcgnomes-validate-data = "mhcgnomes.validate_external_names:main"
 
 [tool.setuptools.dynamic]
