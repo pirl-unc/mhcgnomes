@@ -50,6 +50,8 @@ Documentation = "https://pirl-unc.github.io/mhcgnomes/"
 
 [project.scripts]
 mhcgnomes = "mhcgnomes.cli:main"
+mhcgnomes-data = "mhcgnomes.external_data:main"
+mhcgnomes-validate-data = "mhcgnomes.validate_external_names:main"
 
 [tool.setuptools.dynamic]
 version = {attr = "mhcgnomes.version.__version__"}
@@ -58,7 +60,7 @@ version = {attr = "mhcgnomes.version.__version__"}
 include = ["mhcgnomes*"]
 
 [tool.setuptools.package-data]
-mhcgnomes = ["data/*.yaml"]
+mhcgnomes = ["data/*.json", "data/*.yaml"]
 
 [tool.ruff]
 target-version = "py39"
@@ -96,8 +98,6 @@ ignore = [
 
 [tool.ruff.lint.per-file-ignores]
 "tests/*" = ["B011", "RUF012"]  # allow assert False and class-level test data
-"tests/test_imgt_hla_names.py" = ["UP031"]  # generated file with many %-format strings
-"tests/test_ipd_mhc_names.py" = ["UP031"]  # generated file with many %-format strings
 "tests/generate_*.py" = ["UP031"]  # generator scripts
 "tests/timing.py" = ["UP031", "E741"]  # timing script
 "__init__.py" = ["F401"]  # allow unused imports in __init__.py

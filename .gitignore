@@ -129,6 +129,7 @@ dmypy.json
 .pyre/
 
 # Large data/artifacts
+.external-data/
 *.csv
 *.zip
 *.xlsx

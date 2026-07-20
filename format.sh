@@ -2,7 +2,7 @@
 
 set -e
 
-SOURCES="mhcgnomes tests"
+SOURCES="mhcgnomes scripts tests"
 
 echo "Running ruff format..."
 ruff format $SOURCES

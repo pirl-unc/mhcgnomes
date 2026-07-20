@@ -1,11 +1,15 @@
+from pathlib import Path
 from time import time
 
 import pandas as pd
 
 from mhcgnomes import parse
 
+DEFAULT_FASTA = Path(__file__).parents[1] / ".external-data" / "MHC_prot.fasta"
 
-def run(n_repeats=3, filename="MHC_prot.fasta"):
+
+def run(n_repeats=3, filename=DEFAULT_FASTA):
+    filename = str(filename)
     if filename.endswith("csv"):
         df = pd.read_csv(filename)
         alleles = list(df.allele.values)
