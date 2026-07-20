@@ -57,6 +57,21 @@ def test_shipped_manifest_is_valid_and_uses_official_providers():
     assert all("/ANHIG/" in source.url for source in sources)
 
 
+@pytest.mark.parametrize("arguments", [[], ["list"]])
+def test_data_command_lists_sources_by_default_without_downloading(arguments, monkeypatch, capsys):
+    monkeypatch.setattr(
+        external_data,
+        "_download_to_cache",
+        lambda *_args, **_kwargs: pytest.fail("listing must not download data"),
+    )
+
+    assert external_data.main(arguments) == 0
+
+    output = capsys.readouterr().out
+    assert "imgt-hla-allele-history-3.42.0" in output
+    assert "ipd-mhc-3.8.0.0-protein" in output
+
+
 def test_select_sources_defaults_and_unions_explicit_groups():
     default = make_source()
     optional = make_source(
@@ -281,6 +296,7 @@ def test_cli_can_materialize_from_local_mirror_offline(tmp_path, capsys):
 
     result = external_data.main(
         [
+            "download",
             "--manifest",
             str(manifest),
             "--cache-dir",

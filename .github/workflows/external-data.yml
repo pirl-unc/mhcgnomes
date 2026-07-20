@@ -54,7 +54,7 @@ jobs:
         run: git diff --exit-code -- mhcgnomes/data/allele_aliases.yaml
 
       - name: Fetch exhaustive validation inputs
-        run: python -m mhcgnomes.external_data --group validation
+        run: mhcgnomes data download --group validation
 
       - name: Validate every official IMGT/IPD allele name
         run: mhcgnomes-validate-data

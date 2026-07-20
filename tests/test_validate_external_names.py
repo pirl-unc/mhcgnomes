@@ -57,4 +57,4 @@ def test_cli_reports_missing_source(tmp_path, capsys):
     missing = tmp_path / "missing.fasta"
 
     assert main([str(missing)]) == 1
-    assert "mhcgnomes-data --group validation" in capsys.readouterr().err
+    assert "mhcgnomes data download --group validation" in capsys.readouterr().err

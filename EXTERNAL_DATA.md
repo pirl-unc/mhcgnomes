@@ -17,29 +17,40 @@ do not contain "obfuscated" source caches.
 From a checkout or an installed package:
 
 ```bash
-mhcgnomes-data
+mhcgnomes data
 ```
 
-With no arguments, this fetches only the three inputs needed to regenerate `allele_aliases.yaml`.
-Every source is pinned to an immutable commit in the provider's official repository and verified by
-SHA-256 before use. Working copies go to `.external-data/`. Reusable content-addressed copies go
-under `$XDG_CACHE_HOME/mhcgnomes/external-data-v1/` when that variable is set, or under
+This lists all registered sources, releases, and purpose groups without accessing the network. The
+explicit equivalent is `mhcgnomes data list`.
+
+Download the three default inputs needed to regenerate `allele_aliases.yaml` with:
+
+```bash
+mhcgnomes data download
+```
+
+Source selection, destination, cache, mirror, and offline options belong to the `download`
+subcommand; run `mhcgnomes data download --help` for the complete interface.
+
+Every source is pinned to an immutable commit in the provider's official repository and verified
+by SHA-256 before use. Working copies go to `.external-data/`. Reusable content-addressed copies
+go under `$XDG_CACHE_HOME/mhcgnomes/external-data-v1/` when that variable is set, or under
 `~/.cache/mhcgnomes/external-data-v1/` otherwise.
 
 Useful variants:
 
 ```bash
 # Show all registered releases and purpose groups.
-mhcgnomes-data --list
+mhcgnomes data list
 
 # Fetch inputs for exhaustive upstream compatibility validation.
-mhcgnomes-data --group validation
+mhcgnomes data download --group validation
 
 # Preseed or consume a shared filesystem mirror, then forbid network fallback.
-mhcgnomes-data --mirror /shared/mhcgnomes-data --offline
+mhcgnomes data download --mirror /shared/mhcgnomes-data --offline
 
 # Try organization caches before the official URLs.
-mhcgnomes-data --mirror /shared/mhcgnomes-data \
+mhcgnomes data download --mirror /shared/mhcgnomes-data \
   --mirror https://artifacts.example.org/mhcgnomes
 ```
 
@@ -77,7 +88,7 @@ not an alias input: the old shell command repeated an argparse option, causing 3
 3.5.0.1. Preserving only 3.8.0.0 keeps the generated runtime index byte-for-byte stable.
 
 Exhaustive compatibility validation and the evaluation notebook use the optional protein inputs.
-Fetch them first with `mhcgnomes-data --group validation`; they are read from
+Fetch them first with `mhcgnomes data download --group validation`; they are read from
 `.external-data/` and do not need copies in `tests/` or `evaluation/`. Run every official allele
 name through the parser without generating or committing a transformed copy of the database:
 

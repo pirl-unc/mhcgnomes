@@ -9,7 +9,7 @@ repo_root=$(cd "$data_dir/../.." && pwd)
 external_data_dir=${MHCGNOMES_EXTERNAL_DATA_DIR:-"$repo_root/.external-data"}
 
 cd "$repo_root"
-python3 -m mhcgnomes.external_data \
+python3 -m mhcgnomes data download \
     --group allele-aliases \
     --destination "$external_data_dir"
 

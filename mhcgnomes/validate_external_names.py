@@ -74,7 +74,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     for path in args.paths:
         if not path.is_file():
             print(
-                f"ERROR: missing {path}; run 'mhcgnomes-data --group validation' first",
+                f"ERROR: missing {path}; run 'mhcgnomes data download --group validation' first",
                 file=sys.stderr,
             )
             failed = True

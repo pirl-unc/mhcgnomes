@@ -1,3 +1,4 @@
+import hashlib
 import json
 import subprocess
 import sys
@@ -27,6 +28,89 @@ def test_cli_help():
     assert result.returncode == 0
     assert "usage:" in result.stdout.lower()
     assert "mhcgnomes" in result.stdout.lower()
+    assert "mhcgnomes data" in result.stdout
+
+
+def test_data_command_lists_sources_by_default():
+    result = run_cli("data")
+
+    assert result.returncode == 0
+    assert "imgt-hla-allele-history-3.42.0" in result.stdout
+    assert "ipd-mhc-3.8.0.0-protein" in result.stdout
+
+
+def test_data_list_is_explicit_alias_for_default_action():
+    default = run_cli("data")
+    explicit = run_cli("data", "list")
+
+    assert explicit.returncode == 0
+    assert explicit.stdout == default.stdout
+
+
+def test_data_download_help_owns_download_options():
+    result = run_cli("data", "download", "--help")
+
+    assert result.returncode == 0
+    assert "--cache-dir" in result.stdout
+    assert "--destination" in result.stdout
+    assert "--mirror" in result.stdout
+    assert "--offline" in result.stdout
+
+
+def test_data_download_options_are_not_accepted_by_data_group():
+    result = run_cli("data", "--offline")
+
+    assert result.returncode == 2
+    assert "unrecognized arguments: --offline" in result.stderr
+
+
+def test_data_download_materializes_from_local_mirror_offline(tmp_path):
+    payload = b"nested CLI payload"
+    digest = hashlib.sha256(payload).hexdigest()
+    manifest = tmp_path / "manifest.json"
+    manifest.write_text(
+        json.dumps(
+            {
+                "schema_version": 1,
+                "sources": [
+                    {
+                        "id": "nested-cli-source",
+                        "filename": "nested.dat",
+                        "provider": "Example",
+                        "release": "1",
+                        "url": "https://official.example/nested.dat",
+                        "sha256": digest,
+                        "license_url": "https://official.example/license",
+                        "groups": ["example"],
+                        "default": True,
+                    }
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+    mirror = tmp_path / "mirror"
+    mirror.mkdir()
+    (mirror / "nested.dat").write_bytes(payload)
+    destination = tmp_path / "destination"
+
+    result = run_cli(
+        "data",
+        "download",
+        "--manifest",
+        str(manifest),
+        "--cache-dir",
+        str(tmp_path / "cache"),
+        "--destination",
+        str(destination),
+        "--mirror",
+        str(mirror),
+        "--offline",
+    )
+
+    assert result.returncode == 0
+    assert (destination / "nested.dat").read_bytes() == payload
+    assert "nested-cli-source" in result.stdout
 
 
 def test_cli_table_output_for_valid_allele():

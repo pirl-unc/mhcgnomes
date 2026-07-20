@@ -319,15 +319,11 @@ def materialize_sources(
     return tuple(paths)
 
 
-def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(
-        prog="mhcgnomes-data",
-        description="Fetch checksum-pinned IMGT/IPD inputs through local and CI-friendly caches.",
-    )
+def _add_download_arguments(parser: argparse.ArgumentParser) -> None:
+    """Attach source-selection and retrieval options to the download command."""
     parser.add_argument("source_ids", nargs="*", help="Source IDs (defaults to maintained inputs)")
     parser.add_argument("--group", action="append", default=[], help="Select a purpose group")
-    parser.add_argument("--all", action="store_true", help="Fetch every registered source")
-    parser.add_argument("--list", action="store_true", help="List registered sources and exit")
+    parser.add_argument("--all", action="store_true", help="Download every registered source")
     parser.add_argument("--manifest", type=Path, default=MANIFEST_PATH)
     parser.add_argument("--cache-dir", type=Path, default=default_cache_dir())
     parser.add_argument("--destination", type=Path, default=Path(".external-data"))
@@ -338,20 +334,43 @@ def build_parser() -> argparse.ArgumentParser:
         help="Local directory or HTTP(S) base URL; repeat for fallback order",
     )
     parser.add_argument("--offline", action="store_true", help="Forbid all network access")
+
+
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(
+        prog="mhcgnomes data",
+        description="List or download checksum-pinned IMGT/IPD inputs.",
+    )
+    subparsers = parser.add_subparsers(dest="data_command")
+    subparsers.add_parser(
+        "list",
+        help="List registered sources (default)",
+        description="List registered external-data sources and purpose groups.",
+    )
+    download_parser = subparsers.add_parser(
+        "download",
+        help="Download and cache verified sources",
+        description="Download checksum-pinned inputs through local and CI-friendly caches.",
+    )
+    _add_download_arguments(download_parser)
     return parser
+
+
+def print_sources(sources: Sequence[Source]) -> None:
+    for source in sources:
+        groups = ",".join(source.groups)
+        default = " default" if source.default else ""
+        print(f"{source.id}\t{source.provider} {source.release}\t{groups}{default}")
 
 
 def main(argv: Sequence[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(list(argv) if argv is not None else None)
     try:
-        sources = load_manifest(args.manifest)
-        if args.list:
-            for source in sources:
-                groups = ",".join(source.groups)
-                default = " default" if source.default else ""
-                print(f"{source.id}\t{source.provider} {source.release}\t{groups}{default}")
+        if args.data_command in {None, "list"}:
+            print_sources(load_manifest())
             return 0
+        sources = load_manifest(args.manifest)
         selected = select_sources(
             sources,
             source_ids=args.source_ids,

@@ -105,6 +105,7 @@ def _build_arg_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="mhcgnomes",
         description="Parse MHC strings and print a table with parsed properties.",
+        epilog="Manage pinned external data with 'mhcgnomes data'.",
     )
     parser.add_argument(
         "names",
@@ -155,6 +156,12 @@ def _collect_names(positional_names: Sequence[str]) -> list[str]:
 
 
 def main(argv: Optional[Sequence[str]] = None) -> int:
+    argv = list(argv) if argv is not None else sys.argv[1:]
+    if argv and argv[0] == "data":
+        from .external_data import main as external_data_main
+
+        return external_data_main(argv[1:])
+
     parser = _build_arg_parser()
     args = parser.parse_args(argv)
 
