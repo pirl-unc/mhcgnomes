@@ -83,7 +83,7 @@ These are loaded by [`mhcgnomes/data.py`](https://github.com/pirl-unc/mhcgnomes/
 
 | File | Put this here | Do not put this here |
 | --- | --- | --- |
-| [`species.yaml`](https://github.com/pirl-unc/mhcgnomes/blob/main/mhcgnomes/data/species.yaml) | Canonical species entries, canonical gene names, MHC class placement, stable parent/prefix relationships | Paper-local aliases, uncertain gene symbols, unresolved candidate loci |
+| [`species.yaml`](https://github.com/pirl-unc/mhcgnomes/blob/main/mhcgnomes/data/species.yaml) | Canonical species entries, canonical gene names, MHC class placement, source-backed gene properties/families, stable parent/prefix relationships | Paper-local aliases, uncertain gene symbols, unresolved candidate loci |
 | [`gene_aliases.yaml`](https://github.com/pirl-unc/mhcgnomes/blob/main/mhcgnomes/data/gene_aliases.yaml) | Alternative gene spellings or retired/provisional names that normalize to an existing canonical gene in `species.yaml` | New genes that do not yet have a canonical destination in `species.yaml` |
 | [`allele_aliases.yaml`](https://github.com/pirl-unc/mhcgnomes/blob/main/mhcgnomes/data/allele_aliases.yaml) | Retired, shorthand, or formatting variants that normalize to a canonical allele string | New literature-only alleles with no stable canonical allele target |
 | [`known_alleles.yaml`](https://github.com/pirl-unc/mhcgnomes/blob/main/mhcgnomes/data/known_alleles.yaml) | Curated known allele labels for a species/gene where the ontology already exists | A substitute for adding missing species or genes |

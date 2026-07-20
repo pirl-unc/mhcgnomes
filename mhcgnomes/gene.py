@@ -192,6 +192,16 @@ class Gene(ResultWithMhcClass):
     def is_mutant(self):
         return len(self.mutations) > 0
 
+    @property
+    def pseudogene_status(self):
+        """Return explicit ontology status, or ``None`` when it is not curated."""
+        return self.species.get_pseudogene_status_of_gene(self.name)
+
+    @property
+    def is_pseudogene(self):
+        """Whether this species-specific gene is curated as a pseudogene."""
+        return self.pseudogene_status is True
+
     def to_record(self):
         """
         Returns a user-viewable ordered dictionary with a representation  of
@@ -204,6 +214,8 @@ class Gene(ResultWithMhcClass):
         d["mhc_class"] = self.mhc_class
         d["mutations"] = self.mutation_string()
         d["is_mutant"] = self.is_mutant
+        d["pseudogene_status"] = self.pseudogene_status
+        d["is_pseudogene"] = self.is_pseudogene
         return d
 
     def restrict_allele_fields(self, num_fields, drop_annotations=False, drop_mutations=False):

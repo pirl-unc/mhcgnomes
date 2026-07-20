@@ -393,6 +393,8 @@ class Allele(ResultWithGene):
         d["annotations"] = self.annotations
         d["mutations"] = self.mutation_string()
         d["is_mutant"] = self.is_mutant
+        d["pseudogene_status"] = self.pseudogene_status
+        d["is_pseudogene"] = self.is_pseudogene
         return d
 
     def _check_annotation(self, annotation):
@@ -433,9 +435,21 @@ class Allele(ResultWithGene):
 
     @property
     def annotation_pseudogene(self):
-        # designates a group of genomic sequence alleles
-        # with identical peptide binding region
+        # Ps is an explicit allele-name suffix and remains distinct from the
+        # ontology's species-specific gene status.
         return self._check_annotation("Ps")
+
+    @property
+    def is_pseudogene(self):
+        """Whether the gene or the explicitly annotated allele is a pseudogene."""
+        return self.pseudogene_status is True
+
+    @property
+    def pseudogene_status(self):
+        """Return combined explicit status, preserving unknown gene status as ``None``."""
+        if self.annotation_pseudogene:
+            return True
+        return self.gene.pseudogene_status
 
     @property
     def annotation_splice_variant(self):

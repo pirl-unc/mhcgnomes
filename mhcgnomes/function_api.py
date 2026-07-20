@@ -389,6 +389,32 @@ def _infer_gene_rule(gene_token: str):
     return None
 
 
+def _build_gene_class_info_from_family(species: Species, gene_token: str, raw_string: str):
+    family_name = species.find_matching_gene_family_name(gene_token)
+    if family_name is None:
+        return None
+
+    member_names = species.get_gene_family_members(family_name)
+    member_classes = {species.get_mhc_class_of_gene(member_name) for member_name in member_names}
+    if len(member_classes) != 1:
+        return None
+    mhc_class = member_classes.pop()
+
+    member_chains = {
+        _chain_for_species_gene(species, member_name, mhc_class) for member_name in member_names
+    }
+    chain = member_chains.pop() if len(member_chains) == 1 else None
+    return GeneClassInfo(
+        species=species,
+        gene_name=family_name,
+        mhc_class=mhc_class,
+        chain=chain,
+        non_mhc=mhc_class == "other",
+        source="ontology_family",
+        raw_string=raw_string,
+    )
+
+
 def _build_gene_class_info_from_token(species: Species, gene_token: str, raw_string: str):
     canonical_gene_name = species.find_matching_gene_name(gene_token)
     if canonical_gene_name is not None:
@@ -414,6 +440,10 @@ def _build_gene_class_info_from_token(species: Species, gene_token: str, raw_str
             source="canonical_locus",
             raw_string=raw_string,
         )
+
+    family_info = _build_gene_class_info_from_family(species, gene_token, raw_string)
+    if family_info is not None:
+        return family_info
 
     normalized = _normalize_inference_gene_token(gene_token)
     if normalized in _NON_MHC_REGION_GENE_NAMES:
@@ -455,7 +485,8 @@ def parse_gene_class(
     This function first attempts the normal strict parser. If that fails, it
     falls back to species-aware gene-token inference for source-backed suffixes
     such as ``F10`` or ``DR-1`` and for known non-MHC-region helper genes like
-    ``CIITA`` or ``TAP1``.
+    ``CIITA`` or ``TAP1``. Exact ontology-backed family names such as ``TAP``
+    can be classified without inventing a specific member gene.
     """
     expected_species = Species.get(species) if species is not None else None
     if species is not None and expected_species is None:

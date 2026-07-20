@@ -41,6 +41,8 @@ GOLDEN_PARSE_CASES = [
                 ("mhc_class", "Ia"),
                 ("mutations", ""),
                 ("is_mutant", False),
+                ("pseudogene_status", None),
+                ("is_pseudogene", False),
             ]
         ),
         "expected_annotations": _expected_annotation_values(),
@@ -60,6 +62,8 @@ GOLDEN_PARSE_CASES = [
                 ("mhc_class", "Ia"),
                 ("mutations", ""),
                 ("is_mutant", False),
+                ("pseudogene_status", None),
+                ("is_pseudogene", False),
                 ("allele", "HLA-A*02:01"),
                 ("annotations", ()),
             ]
@@ -97,6 +101,8 @@ GOLDEN_PARSE_CASES = [
                 ("mhc_class", "Ia"),
                 ("mutations", "N80I"),
                 ("is_mutant", True),
+                ("pseudogene_status", None),
+                ("is_pseudogene", False),
                 ("allele", "HLA-A*02:01 N80I mutant"),
                 ("annotations", ()),
             ]
@@ -118,6 +124,8 @@ GOLDEN_PARSE_CASES = [
                 ("mhc_class", "Ib"),
                 ("mutations", ""),
                 ("is_mutant", False),
+                ("pseudogene_status", True),
+                ("is_pseudogene", True),
                 ("allele", "Saoe-G*03:12Ps"),
                 ("annotations", ("Ps",)),
             ]

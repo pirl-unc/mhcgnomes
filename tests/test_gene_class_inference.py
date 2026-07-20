@@ -98,6 +98,37 @@ def test_parse_gene_class_marks_known_other_genes_as_non_mhc():
     assert result.source in {"parsed_gene", "canonical_gene"}
 
 
+@pytest.mark.parametrize(
+    "raw_string, expected_species",
+    [
+        ("SLA-TAP*1*01:01", "Sus sp."),
+        ("SLA-TAP", "Sus sp."),
+        ("HLA-TAP", "Homo sapiens"),
+        ("Mamu-TAP", "Macaca mulatta"),
+        ("Xetr-TAP", "Xenopus tropicalis"),
+    ],
+)
+def test_parse_gene_class_recognizes_ontology_backed_tap_family(raw_string, expected_species):
+    result = parse_gene_class(raw_string)
+
+    eq_(result.species.name, expected_species)
+    eq_(result.gene_name, "TAP")
+    eq_(result.mhc_class, "other")
+    eq_(result.chain, None)
+    assert result.non_mhc
+    eq_(result.source, "ontology_family")
+
+
+@pytest.mark.parametrize("raw_string", ["SLA-TAP", "Mamu-TAP", "Xetr-TAP"])
+def test_strict_parse_does_not_promote_tap_family_to_a_gene(raw_string):
+    assert parse(raw_string, raise_on_error=False) is None
+
+
+@pytest.mark.parametrize("raw_string", ["SLA-TAP0", "SLA-TAPA", "SLA-TAP12"])
+def test_parse_gene_class_requires_exact_ontology_family_name(raw_string):
+    assert parse_gene_class(raw_string, raise_on_error=False) is None
+
+
 def test_parse_gene_class_marks_known_non_ontology_helper_gene_as_non_mhc():
     for raw_string, expected_gene in [
         ("Ciita", "CIITA"),
