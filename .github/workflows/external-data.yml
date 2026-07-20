@@ -25,7 +25,7 @@ jobs:
   regenerate-and-validate:
     runs-on: ubuntu-latest
     env:
-      MHCGNOMES_DATA_CACHE: ${{ runner.temp }}/mhcgnomes-external-data
+      MHCGNOMES_DATA_CACHE: .external-data-cache
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -39,7 +39,7 @@ jobs:
       - name: Restore verified external-data cache
         uses: actions/cache@v4
         with:
-          path: ${{ runner.temp }}/mhcgnomes-external-data
+          path: .external-data-cache
           key: external-data-v1-${{ runner.os }}-${{ hashFiles('mhcgnomes/data/external_sources.json') }}
           restore-keys: |
             external-data-v1-${{ runner.os }}-
