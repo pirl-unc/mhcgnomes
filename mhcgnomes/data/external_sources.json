@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "sources": [
+    {
+      "id": "imgt-hla-allele-history-3.42.0",
+      "filename": "IMGT-HLA-Allelelist-history-3.42.0.txt",
+      "provider": "IPD-IMGT/HLA",
+      "release": "3.42.0",
+      "url": "https://raw.githubusercontent.com/ANHIG/IMGTHLA/b9e7356f990dc009fb71fcc540a3e7940a2ede49/Allelelist_history.txt",
+      "sha256": "706faedd04124d5721db0f9730e988102ee244a7ef83e2f0ea66d914917dc8d6",
+      "license_url": "https://github.com/ANHIG/IMGTHLA/blob/b9e7356f990dc009fb71fcc540a3e7940a2ede49/LICENCE.md",
+      "groups": ["allele-aliases"],
+      "default": true
+    },
+    {
+      "id": "imgt-hla-deleted-alleles-3.42.0",
+      "filename": "IMGT-HLA-Deleted-alleles-3.42.0.txt",
+      "provider": "IPD-IMGT/HLA",
+      "release": "3.42.0",
+      "url": "https://raw.githubusercontent.com/ANHIG/IMGTHLA/b9e7356f990dc009fb71fcc540a3e7940a2ede49/Deleted_alleles.txt",
+      "sha256": "792771213d1c73627a11933eb0c80cf7708a9e7157fbb44ded985038bf28d6ef",
+      "license_url": "https://github.com/ANHIG/IMGTHLA/blob/b9e7356f990dc009fb71fcc540a3e7940a2ede49/LICENCE.md",
+      "groups": ["allele-aliases"],
+      "default": true
+    },
+    {
+      "id": "ipd-mhc-3.8.0.0-xml",
+      "filename": "IPD-MHC-3.8.0.0.xml",
+      "provider": "IPD-MHC",
+      "release": "3.8.0.0",
+      "url": "https://raw.githubusercontent.com/ANHIG/IPDMHC/127d27e22425f1e357d8ecd7795a9a637e82eb79/MHC.xml",
+      "sha256": "73c5291b0da1a6347eec5a61f2354797dbadb003125959b8f374719937b20211",
+      "license_url": "https://github.com/ANHIG/IPDMHC/blob/127d27e22425f1e357d8ecd7795a9a637e82eb79/LICENCE.md",
+      "groups": ["allele-aliases"],
+      "default": true
+    },
+    {
+      "id": "imgt-hla-allele-status-3.42.0",
+      "filename": "IMGT_Allele_status.txt",
+      "provider": "IPD-IMGT/HLA",
+      "release": "3.42.0",
+      "url": "https://raw.githubusercontent.com/ANHIG/IMGTHLA/b9e7356f990dc009fb71fcc540a3e7940a2ede49/Allele_status.txt",
+      "sha256": "8407bf1524940859aad8ed5440ce9233663586a1988071d57002fa1b40e6ecd1",
+      "license_url": "https://github.com/ANHIG/IMGTHLA/blob/b9e7356f990dc009fb71fcc540a3e7940a2ede49/LICENCE.md",
+      "groups": ["legacy"],
+      "default": false
+    },
+    {
+      "id": "imgt-hla-3.42.0-protein",
+      "filename": "hla_prot.fasta",
+      "provider": "IPD-IMGT/HLA",
+      "release": "3.42.0",
+      "url": "https://raw.githubusercontent.com/ANHIG/IMGTHLA/b9e7356f990dc009fb71fcc540a3e7940a2ede49/hla_prot.fasta",
+      "sha256": "634a858f4f1dd3abb941ca55e0cb68af84f5bfea87957b4630eaaebd6cc00149",
+      "license_url": "https://github.com/ANHIG/IMGTHLA/blob/b9e7356f990dc009fb71fcc540a3e7940a2ede49/LICENCE.md",
+      "groups": ["validation"],
+      "default": false
+    },
+    {
+      "id": "ipd-mhc-3.8.0.0-protein",
+      "filename": "MHC_prot.fasta",
+      "provider": "IPD-MHC",
+      "release": "3.8.0.0",
+      "url": "https://raw.githubusercontent.com/ANHIG/IPDMHC/127d27e22425f1e357d8ecd7795a9a637e82eb79/MHC_prot.fasta",
+      "sha256": "587b90b5f902651b129ce67fbac34b4ce3e1d978f159b954d979ef4488a26673",
+      "license_url": "https://github.com/ANHIG/IPDMHC/blob/127d27e22425f1e357d8ecd7795a9a637e82eb79/LICENCE.md",
+      "groups": ["validation"],
+      "default": false
+    },
+    {
+      "id": "ipd-mhc-3.5.0.1-xml",
+      "filename": "IPD-MHC-3.5.0.1.xml",
+      "provider": "IPD-MHC",
+      "release": "3.5.0.1",
+      "url": "https://raw.githubusercontent.com/ANHIG/IPDMHC/e96f75bd8bddfa9a7ac81e43d61f66e1db053760/MHC.xml",
+      "sha256": "19ddbfad2ea64cdae82a0399d0b2c8c9787a16d93686b39885ad459f5a5fabb1",
+      "license_url": "https://github.com/ANHIG/IPDMHC/blob/e96f75bd8bddfa9a7ac81e43d61f66e1db053760/LICENCE.md",
+      "groups": ["legacy"],
+      "default": false
+    }
+  ]
+}

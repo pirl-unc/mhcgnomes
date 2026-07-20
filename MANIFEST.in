@@ -1,1 +1,3 @@
-include LICENSE README.md
+include EXTERNAL_DATA.md LICENSE README.md
+prune tasks
+prune tests

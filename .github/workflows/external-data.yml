@@ -1,0 +1,60 @@
+name: External data
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/external-data.yml"
+      - "mhcgnomes/**"
+      - "pyproject.toml"
+  pull_request:
+    paths:
+      - ".github/workflows/external-data.yml"
+      - "mhcgnomes/**"
+      - "pyproject.toml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: external-data-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  regenerate-and-validate:
+    runs-on: ubuntu-latest
+    env:
+      MHCGNOMES_DATA_CACHE: .external-data-cache
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Restore verified external-data cache
+        uses: actions/cache@v4
+        with:
+          path: .external-data-cache
+          key: external-data-v1-${{ runner.os }}-${{ hashFiles('mhcgnomes/data/external_sources.json') }}
+          restore-keys: |
+            external-data-v1-${{ runner.os }}-
+
+      - name: Install package
+        run: python -m pip install -e .
+
+      - name: Regenerate aliases from verified sources
+        run: ./mhcgnomes/data/combine_allele_aliases.sh
+
+      - name: Verify generated aliases are current
+        run: git diff --exit-code -- mhcgnomes/data/allele_aliases.yaml
+
+      - name: Fetch exhaustive validation inputs
+        run: python -m mhcgnomes.external_data --group validation
+
+      - name: Validate every official IMGT/IPD allele name
+        run: mhcgnomes-validate-data

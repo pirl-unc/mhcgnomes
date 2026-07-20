@@ -365,6 +365,10 @@ the full prefix conflict resolution policy ([source](docs/curation.md)).
 
 ## Development
 
+Raw IPD-IMGT/HLA and IPD-MHC snapshots are not committed or bundled in releases. See
+[External IMGT/IPD data](EXTERNAL_DATA.md) for checksum-pinned downloads, local/CI caches,
+optional mirrors, offline use, and alias regeneration.
+
 ### Local docs
 
 ```bash
