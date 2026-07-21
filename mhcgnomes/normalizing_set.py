@@ -42,8 +42,10 @@ class NormalizingSet:
             raise TypeError("NormalizingSet is frozen")
 
     def __contains__(self, item):
-        item = self.normalize_fn(item)
-        return item in self.items
+        normalized = self.normalize_fn(item)
+        if normalized is None:
+            return False
+        return normalized in self.items
 
     def __eq__(self, other):
         if type(other) is not NormalizingSet:
@@ -54,13 +56,16 @@ class NormalizingSet:
 
     def get_original(self, item):
         normalized = self.normalize_fn(item)
+        if normalized is None:
+            return None
         return self.item_to_original.get(normalized)
 
     def add(self, extra_item):
         self._check_mutable()
         normalized = self.normalize_fn(extra_item)
-        self.item_to_original[normalized] = extra_item
-        self.items.add(normalized)
+        if normalized is not None:
+            self.item_to_original[normalized] = extra_item
+            self.items.add(normalized)
 
     def update(self, extra_items):
         self._check_mutable()
