@@ -2153,6 +2153,36 @@ class Parser:
                 )
         return self.transform_parse_candidates(results)
 
+    def _parse_explicit_species_allele_candidates(self, name: str):
+        """Parse a simple, explicitly species-prefixed allele without tokenizing it.
+
+        This path reuses the complete parser's ontology-backed gene lookup,
+        allele-field parsing, and candidate transformations. It deliberately
+        returns no candidates for unprefixed, non-allele, or complex inputs so
+        callers can fall back to the general parser.
+        """
+        if self.verbose or not isinstance(name, str):
+            return []
+
+        species, name_without_species = self.parse_species_from_prefix(name)
+        if species is None:
+            return []
+
+        candidates = self.parse_allele_or_gene_candidates(
+            species=species,
+            str_after_species=self.strip_extra_chars(name_without_species),
+            raw_string=name,
+        )
+        candidates = self.transform_parse_candidates(candidates)
+        if candidates and all(
+            type(candidate) is Allele
+            and len(candidate.allele_fields) >= 2
+            and all(field.isdigit() for field in candidate.allele_fields)
+            for candidate in candidates
+        ):
+            return candidates
+        return []
+
     def parse(
         self,
         name: str,
@@ -2248,7 +2278,9 @@ class Parser:
             - Supertype
             - Class2Locus
         """
-        candidates = self.parse_multiple_candidates(name, default_species=default_species)
+        candidates = self._parse_explicit_species_allele_candidates(name)
+        if len(candidates) == 0:
+            candidates = self.parse_multiple_candidates(name, default_species=default_species)
         if len(candidates) == 0 and self.use_allele_aliases:
             resolved_alias = self._resolve_unparsed_allele_alias(name, default_species)
             if resolved_alias is not None:
