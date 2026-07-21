@@ -1,5 +1,16 @@
 ####################################################
 #
+# Exact compatibility aliases for historical downstream artifacts.
+#
+####################################################
+Caja:
+  # MHCflurry 2.2.0's public pan-allele artifact split the official PS2 locus
+  # digit into an allele field. This is one source-backed compatibility entry,
+  # not a rule for other PS-shaped names.
+  PS*02:01: PS2*01
+
+####################################################
+#
 # Swine allele aliases manually scraped from:
 # - https://www.ebi.ac.uk/ipd/mhc/
 #

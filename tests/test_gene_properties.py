@@ -55,6 +55,21 @@ def test_descendant_specific_pseudogene_status_does_not_leak_to_sibling_species(
     assert not sumatran_orangutan_ap.is_pseudogene
 
 
+def test_caja_ps2_is_a_species_scoped_pseudogene():
+    caja_ps2 = Gene.get("Caja", "PS2")
+    generic_callithrix_ps2 = Gene.get("MaLA", "PS2")
+    caja_ps2_allele = parse("Caja-PS2*01")
+
+    assert caja_ps2.pseudogene_status is True
+    assert caja_ps2.is_pseudogene
+    assert caja_ps2_allele.gene == caja_ps2
+    assert not caja_ps2_allele.annotation_pseudogene
+    assert caja_ps2_allele.is_pseudogene
+    assert generic_callithrix_ps2.pseudogene_status is None
+    assert not generic_callithrix_ps2.is_pseudogene
+    assert Gene.get("Capy", "PS2") is None
+
+
 def test_gene_record_exposes_combined_pseudogene_status():
     hla_h_record = Gene.get("HLA", "H").to_record()
     hla_a_record = parse("HLA-A*02:01").to_record()

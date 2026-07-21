@@ -4286,6 +4286,11 @@ Callithrix jacchus:
   parent: Callithrix sp.
   prefix: Caja
   name: Common Marmoset
+  # IPD-MHC record NHP00121 names Caja-PS2, and van der Wiel et al. describe
+  # Caja-PS2 as a processed MHC class I pseudogene (Immunogenetics 2013,
+  # DOI: 10.1007/s00251-013-0732-7).
+  gene properties:
+    PS2: {pseudogene: true}
 Callicebus moloch:
   prefix: Camo
   parent: Primata sp.
