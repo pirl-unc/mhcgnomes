@@ -24,7 +24,7 @@ from .allele_annotations import (
 from .allele_without_gene import AlleleWithoutGene
 from .ambiguous_alleles import AmbiguousAlleles
 from .class2_locus import Class2Locus
-from .common import cache, unique
+from .common import cache, normalize_string, unique
 from .data import haplotypes as raw_haplotypes_data
 from .errors import ParseError
 from .gene import Gene
@@ -203,6 +203,27 @@ class Parser:
                 species = None
         remaining_string = self.strip_extra_chars(remaining_string)
         return species, remaining_string
+
+    def _resolve_unparsed_allele_alias(self, name: str, default_species: Union[Species, str, None]):
+        """Resolve an exact alias whose source spelling cannot otherwise be parsed."""
+        species, name_without_species = self.parse_species(name, default_species=default_species)
+        if species is None:
+            return None
+
+        current_name = name_without_species
+        visited = set()
+        while current_name in species.allele_aliases:
+            normalized_name = normalize_string(current_name)
+            if normalized_name in visited:
+                raise ValueError(
+                    f"Cyclic allele alias for {species.prefix}: {name_without_species}"
+                )
+            visited.add(normalized_name)
+            current_name = species.allele_aliases[current_name]
+
+        if not visited:
+            return None
+        return species, current_name
 
     def _find_matching_name_and_parse_alleles(
         self, query_name: str, name_to_alleles_dict: Mapping[str, Sequence[str]], species: Species
@@ -2228,6 +2249,24 @@ class Parser:
             - Class2Locus
         """
         candidates = self.parse_multiple_candidates(name, default_species=default_species)
+        if len(candidates) == 0 and self.use_allele_aliases:
+            resolved_alias = self._resolve_unparsed_allele_alias(name, default_species)
+            if resolved_alias is not None:
+                alias_species, alias_name = resolved_alias
+                result = self._parse_cached(
+                    name=alias_name,
+                    infer_class2_pairing=infer_class2_pairing,
+                    default_species=alias_species,
+                    preferred_result_types=preferred_result_types,
+                    required_result_types=required_result_types,
+                    only_class1=only_class1,
+                    only_class2=only_class2,
+                    max_allele_fields=max_allele_fields,
+                    raise_on_error=raise_on_error,
+                )
+                if result is not None and result.raw_string != name:
+                    result = result.copy(raw_string=name)
+                return result
         explicit_species, _ = self.parse_species_from_prefix(name)
         has_explicit_species_prefix = explicit_species is not None
         default_species_object = Species.get(default_species)
