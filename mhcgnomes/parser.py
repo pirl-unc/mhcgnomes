@@ -2278,7 +2278,12 @@ class Parser:
             - Supertype
             - Class2Locus
         """
-        candidates = self._parse_explicit_species_allele_candidates(name)
+        has_candidate_filters = bool(
+            preferred_result_types or required_result_types or only_class1 or only_class2
+        )
+        candidates = (
+            [] if has_candidate_filters else self._parse_explicit_species_allele_candidates(name)
+        )
         if len(candidates) == 0:
             candidates = self.parse_multiple_candidates(name, default_species=default_species)
         if len(candidates) == 0 and self.use_allele_aliases:

@@ -2,7 +2,9 @@ from pathlib import Path
 
 import pytest
 
+from mhcgnomes.allele import Allele
 from mhcgnomes.parser import Parser
+from mhcgnomes.serotype import Serotype
 
 
 @pytest.mark.parametrize(
@@ -48,6 +50,39 @@ def test_explicit_species_allele_fast_path_is_cross_species(monkeypatch, name, e
 )
 def test_fast_path_defers_unprefixed_non_allele_and_complex_names(name):
     assert Parser()._parse_explicit_species_allele_candidates(name) == []
+
+
+def test_fast_path_preserves_ambiguous_candidates_for_result_type_filters():
+    parser = Parser()
+
+    assert type(parser.parse("HLA-B3901")) is Allele
+    assert type(parser.parse("HLA-B3901", preferred_result_types=Serotype)) is Serotype
+    assert type(parser.parse("HLA-B3901", required_result_types=Serotype)) is Serotype
+
+
+@pytest.mark.parametrize(
+    "parse_kwargs",
+    [
+        {"preferred_result_types": Allele},
+        {"required_result_types": Allele},
+        {"only_class1": True},
+        {"only_class2": True, "raise_on_error": False},
+    ],
+)
+def test_fast_path_defers_to_general_parser_for_candidate_filters(monkeypatch, parse_kwargs):
+    parser = Parser()
+    general_parser_calls = []
+    parse_multiple_candidates = parser.parse_multiple_candidates
+
+    def track_general_parser(*args, **kwargs):
+        general_parser_calls.append((args, kwargs))
+        return parse_multiple_candidates(*args, **kwargs)
+
+    monkeypatch.setattr(parser, "parse_multiple_candidates", track_general_parser)
+
+    parser.parse("HLA-B3901", **parse_kwargs)
+
+    assert len(general_parser_calls) == 1
 
 
 def test_fast_path_matches_general_parser_for_checked_in_netmhcpan_inventory():
