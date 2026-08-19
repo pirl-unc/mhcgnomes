@@ -1,9 +1,10 @@
+import json
 import os
 import subprocess
 import sys
 
 
-def test_package_import_succeeds_under_ascii_locale():
+def test_cli_parses_bundled_data_under_ascii_locale():
     env = os.environ.copy()
     env.update(
         {
@@ -15,7 +16,14 @@ def test_package_import_succeeds_under_ascii_locale():
     )
 
     result = subprocess.run(
-        [sys.executable, "-c", "import mhcgnomes"],
+        [
+            sys.executable,
+            "-m",
+            "mhcgnomes",
+            "--format",
+            "json",
+            "HLA-A*02:01",
+        ],
         capture_output=True,
         text=True,
         check=False,
@@ -23,3 +31,13 @@ def test_package_import_succeeds_under_ascii_locale():
     )
 
     assert result.returncode == 0, result.stderr
+    rows = json.loads(result.stdout)
+    assert len(rows) == 1
+    assert rows[0]["input"] == "HLA-A*02:01"
+    assert rows[0]["type"] == "Allele"
+    assert rows[0]["normalized"] == "HLA-A*02:01"
+    assert rows[0]["compact"] == "A0201"
+    assert rows[0]["species"] == "HLA"
+    assert rows[0]["gene"] == "A"
+    assert rows[0]["mhc_class"] == "Ia"
+    assert "species_name=Homo sapiens" in rows[0]["properties"]
