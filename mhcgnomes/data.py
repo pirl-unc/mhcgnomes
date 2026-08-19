@@ -26,7 +26,7 @@ def get_path(yaml_filename):
 
 def load(yaml_filename, normalize_first_level_keys=False, normalize_second_level_keys=False):
     path = get_path(yaml_filename)
-    with open(path) as f:
+    with open(path, encoding="utf-8") as f:
         result = yaml.safe_load(f)
 
     if normalize_second_level_keys:

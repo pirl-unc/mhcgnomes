@@ -6,6 +6,7 @@ from typing import Optional
 
 from .errors import ParseError
 from .function_api import parse
+from .version import __version__
 
 COLUMN_NAMES = (
     "input",
@@ -111,6 +112,11 @@ def _build_arg_parser() -> argparse.ArgumentParser:
         "names",
         nargs="*",
         help="MHC names to parse. If omitted, non-empty lines are read from stdin.",
+    )
+    parser.add_argument(
+        "--version",
+        action="version",
+        version=f"%(prog)s {__version__}",
     )
     parser.add_argument(
         "--default-species",

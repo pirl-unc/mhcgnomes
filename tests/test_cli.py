@@ -3,6 +3,8 @@ import json
 import subprocess
 import sys
 
+from mhcgnomes.version import __version__
+
 
 def run_cli(*args):
     return subprocess.run(
@@ -29,6 +31,14 @@ def test_cli_help():
     assert "usage:" in result.stdout.lower()
     assert "mhcgnomes" in result.stdout.lower()
     assert "mhcgnomes data" in result.stdout
+
+
+def test_cli_version():
+    result = run_cli("--version")
+
+    assert result.returncode == 0
+    assert result.stdout.strip() == f"mhcgnomes {__version__}"
+    assert result.stderr == ""
 
 
 def test_data_command_lists_sources_by_default():
