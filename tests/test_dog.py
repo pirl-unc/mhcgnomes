@@ -47,6 +47,18 @@ def test_parse_dog_class1_allele_dla_88_508_01():
     eq_(parsed, expected)
 
 
+def test_dla_88_first_field_uses_official_three_digit_width():
+    historical = parse("DLA-88*01:01")
+    canonical = parse("DLA-88*001:01")
+
+    eq_(historical, canonical)
+    eq_(historical.to_string(), "DLA-88*001:01")
+
+
+def test_dla_88_wider_first_field_is_preserved():
+    eq_(parse("DLA-88*501:01").to_string(), "DLA-88*501:01")
+
+
 def test_compact_string_dog_class1_allele_dla_88_508_01():
     eq_(parse("DLA-88*50801").compact_string(), "88*50801")
 
