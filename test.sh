@@ -105,4 +105,4 @@ else
     log "→ exec pytest --cov=mhcgnomes/ --cov-report=term-missing tests $*"
 fi
 
-exec pytest "${XDIST_FLAGS[@]}" --cov=mhcgnomes/ --cov-report=term-missing tests "$@"
+exec python -m pytest "${XDIST_FLAGS[@]}" --cov=mhcgnomes/ --cov-report=term-missing tests "$@"

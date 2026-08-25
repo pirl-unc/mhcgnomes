@@ -1,0 +1,6 @@
+# Curated minimum width of the first allele field for genes whose official
+# nomenclature differs from the two-digit default. IPD-MHC is the authoritative
+# source for non-human MHC names:
+# https://www.ebi.ac.uk/ipd/mhc/group/DLA/
+DLA:
+  "88": 3

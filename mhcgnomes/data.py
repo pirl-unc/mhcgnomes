@@ -54,6 +54,10 @@ allele_aliases = load(
     "allele_aliases.yaml", normalize_first_level_keys=True, normalize_second_level_keys=True
 )
 
+# Curated minimum width of the first allele field, keyed by species and gene.
+# These entries override widths inferred from canonical allele-alias targets.
+first_allele_field_widths = load("first_allele_field_widths.yaml")
+
 # Dictionary mapping species -> gene -> list of known allele names
 known_alleles = load(
     "known_alleles.yaml", normalize_first_level_keys=True, normalize_second_level_keys=True
@@ -115,6 +119,9 @@ def _compute_min_first_field_widths():
         for key, counter in counters.items():
             # Use the most common width as the canonical minimum
             widths[key] = counter.most_common(1)[0][0]
+    for species_prefix, genes in first_allele_field_widths.items():
+        for gene_name, width in genes.items():
+            widths[(species_prefix, str(gene_name))] = int(width)
     return widths
 
 

@@ -24,9 +24,9 @@ def test_parse_standard_allele_format_HLA_A_02_01_01_02L():
     eq_(result, Allele.get("HLA", "A", "02", "01", "01", "02", annotation="L"))
 
 
-def test_parse_standard_allele_format_DLA_88_021_01():
+def test_parse_standard_allele_format_DLA_88_001_01():
     result = parse_standard_allele_format(seq="DLA-88*01:01")
-    eq_(result, Allele.get("DLA", "88", "01", "01"))
+    eq_(result, Allele.get("DLA", "88", "001", "01"))
 
 
 def test_parse_standard_allele_format_A_02_01():
