@@ -447,6 +447,11 @@ Homo sapiens:
     Ic:
       - MICA
       - MICB
+      # MICC/D/E are pseudogenes of the MIC family, named by IMGT/HLA:
+      # https://hla.alleles.org/genes/index.html
+      - MICC
+      - MICD
+      - MICE
       - BTN3A1
     Id:
       - CD1a
@@ -457,6 +462,15 @@ Homo sapiens:
       - MR1
     I:
       # pseudogenes
+      #
+      # IMGT/HLA (https://hla.alleles.org/genes/index.html) also names the
+      # class I gene fragments N, R, S, T, U, W, X, Y and Z. They are
+      # deliberately not listed here: every one is a single letter, and
+      # adding them flips bare "n", "s", "t", "u" and "w" from the
+      # mouse/rat haplotype shorthand they resolve to today into human gene
+      # fragments, and lets allele-less fragments accept allele fields
+      # ("Z*01:01"). The same shadowing already affects H/J/K/L/P/V versus
+      # H2-k and friends, which needs resolving first. See issue #113.
       - H
       - J
       - K
@@ -471,6 +485,7 @@ Homo sapiens:
         - DRB4
         - DRB5
         # DR beta-family pseudogenes still belong to the DR class II locus family.
+        - DRB2
         - DRB6
         - DRB7
         - DRB8
@@ -478,11 +493,17 @@ Homo sapiens:
       DP:
         - DPA1
         - DPB1
+        # DP pseudogenes
+        - DPA2
+        - DPA3
+        - DPB2
       DQ:
         - DQA1
         - DQA2
         - DQB1
         - DQB2
+        # DQ pseudogene
+        - DQB3
     IIb:
       DO:
         - DOA
@@ -490,6 +511,13 @@ Homo sapiens:
       DM:
         - DMA
         - DMB
+    other:
+      # Immunoproteasome subunits in the MHC class II region, historically
+      # LMP7 and LMP2. Kept on Homo sapiens because IMGT/HLA curates the HLA-
+      # prefixed forms; they are conserved across jawed vertebrates and could
+      # move up to the root alongside TAP1/TAP2 given a per-clade review.
+      - PSMB8
+      - PSMB9
   # Source: https://www.ebi.ac.uk/ipd/imgt/hla/about/statistics/
   gene properties:
     G: {pseudogene: false}
@@ -499,10 +527,18 @@ Homo sapiens:
     L: {pseudogene: true}
     P: {pseudogene: true}
     V: {pseudogene: true}
+    DRB2: {pseudogene: true}
     DRB6: {pseudogene: true}
     DRB7: {pseudogene: true}
     DRB8: {pseudogene: true}
     DRB9: {pseudogene: true}
+    DQB3: {pseudogene: true}
+    DPA2: {pseudogene: true}
+    DPA3: {pseudogene: true}
+    DPB2: {pseudogene: true}
+    MICC: {pseudogene: true}
+    MICD: {pseudogene: true}
+    MICE: {pseudogene: true}
 ######################################################
 #
 # Mouse
@@ -873,7 +909,27 @@ Rattus villosissimus:
 # - https://www.ebi.ac.uk/ipd/mhc/group/DLA/species
 #
 ############################
+# Canidae is a real taxonomic rank, the same shape as Cetacea sp. and
+# Galliformes sp. above, and it is what IPD-MHC's "Canids" group covers:
+# https://www.ebi.ac.uk/ipd/mhc/group/DLA/species lists Cuon alpinus and
+# Lycaon pictus alongside the Canis species.
+# Cuon and Lycaon are canids but not Canis, so they hang here rather than
+# under Canis sp., which would hand them the DLA prefix and the Canis gene
+# list on no evidence -- the mistake described in issue #109.
+# The prefix is taxonomic, so descendants do not inherit it as an alias.
+Canidae sp.:
+  prefix: Canidae
+  name: Canid
+Cuon alpinus:
+  parent: Canidae sp.
+  prefix: Cual
+  name: Dhole
+Lycaon pictus:
+  parent: Canidae sp.
+  prefix: Lypi
+  name: African wild dog
 Canis sp.:
+  parent: Canidae sp.
   prefix: DLA
   name: Canine
   genes:
@@ -918,8 +974,25 @@ Canis simensis:
   name: Ethiopian Wolf
 Canis aureus:
   parent: Canis sp.
-  prefix: Caau
+  # IPD-MHC designates this species Caau
+  # (https://www.ebi.ac.uk/ipd/mhc/group/DLA/species) but holds no allele
+  # sequences for it, while Caau-* is in active use for Carassius auratus in
+  # the cyprinid MHC literature. So the designation is recorded as context-only
+  # -- reachable when the caller supplies the species -- and the collision-free
+  # CaniAure is the runtime prefix. Same shape as Monopterus albus / Moal.
+  # Revisit if Caau- canid alleles are ever published.
+  prefix: CaniAure
+  context only prefixes:
+    - Caau
   name: Golden Jackal
+Canis adustus:
+  parent: Canis sp.
+  prefix: Caad
+  name: Side-striped jackal
+Canis mesomelas:
+  parent: Canis sp.
+  prefix: Came
+  name: Black-backed jackal
 ############################
 #
 # Felidae
@@ -1204,15 +1277,19 @@ Hippocampus abdominalis:
   name: Pot-bellied seahorse
 Carassius auratus:
   parent: Cyprinidae sp.
-  # Caau is the Klein 2+2 code for both Carassius auratus and Canis aureus,
-  # and IPD-MHC assigns it to Canis aureus. Keep Caau as a context-only rescue
-  # alias for species= records and use CaraAura as the runtime prefix, the same
-  # way Hypophthalmichthys molitrix yields Hymo to Hylobates moloch.
+  # Both Carassius auratus and Canis aureus derive Caau under the Klein 2+2
+  # rule (Immunogenetics 1990;31:217-219, PMID 2329006), so the code is a
+  # genuine collision. It resolves here because this is the side actually used
+  # in print: Caau-DAB and Caau-UFA appear in the cyprinid MHC literature
+  # (Ottova et al., Mol Immunol 2005 on cyprinid class IIb; Wu et al., Fish
+  # Shellfish Immunol 2023 on Carassius auratus class I). IPD-MHC designates
+  # Caau to Canis aureus but holds no allele sequences for that species, so
+  # the designation is reserved rather than used -- see the context-only entry
+  # on Canis aureus.
   prefix: CaraAura
   other prefixes:
-    - Caur
-  context only prefixes:
     - Caau
+    - Caur
   name: Goldfish
 Clarias magur:
   parent: Actinopterygii sp.
@@ -1490,10 +1567,13 @@ Carassius langsdorfii:
   name: Ginbuna
 Hybognathus amarus:
   parent: Actinopterygii sp.
-  # Hyam collides with Hyperoodon ampullatus, which IPD-MHC designates Hyam.
-  # Context-only for the same reason as Carassius auratus above.
+  # Hyam collides with Hyperoodon ampullatus under the Klein 2+2 rule
+  # (PMID 2329006). Kept here for the same reason as Carassius auratus above:
+  # Hyam-* parses this species' genes today and IPD-MHC holds no allele
+  # sequences for the whale, so its designation is reserved as context-only
+  # on that entry rather than taking the runtime prefix.
   prefix: HyboAmar
-  context only prefixes:
+  other prefixes:
     - Hyam
   name: Rio Grande silvery minnow
 Megalobrama amblycephala:
@@ -2457,12 +2537,69 @@ Tursiops truncatus:
   name: Bottlenose dolphin
 Hyperoodon ampullatus:
   parent: Cetacea sp.
-  prefix: Hyam
+  # IPD-MHC designates this species Hyam
+  # (https://www.ebi.ac.uk/ipd/mhc/group/CeLA/species) but holds no allele
+  # sequences for it, and Hyam-* already parses Hybognathus amarus genes.
+  # Context-only for the same reason as Canis aureus above.
+  prefix: HypeAmpu
+  context only prefixes:
+    - Hyam
   name: Northern bottlenose whale
 Ziphius cavirostris:
   parent: Cetacea sp.
   prefix: Zica
   name: Cuvier's beaked whale
+############################
+#
+# Remaining cetaceans designated by IPD-MHC.
+#
+# Source: https://www.ebi.ac.uk/ipd/mhc/group/CeLA/species
+#
+############################
+Balaenoptera musculus brevicauda:
+  parent: Cetacea sp.
+  prefix: Bamubr
+  name: Pygmy blue whale
+Balaenoptera ricei:
+  parent: Cetacea sp.
+  prefix: Bari
+  name: Rice's whale
+Eschrichtius robustus:
+  parent: Cetacea sp.
+  prefix: Esro
+  name: Gray whale
+Eubalaena glacialis:
+  parent: Cetacea sp.
+  prefix: Eugl
+  name: North Atlantic right whale
+Inia geoffrensis:
+  parent: Cetacea sp.
+  prefix: Inge
+  name: Amazon river dolphin
+Kogia sima:
+  parent: Cetacea sp.
+  prefix: Kosi
+  name: Dwarf sperm whale
+Lagenorhynchus albirostris:
+  parent: Cetacea sp.
+  prefix: Laal
+  name: White-beaked dolphin
+Lipotes vexillifer:
+  parent: Cetacea sp.
+  prefix: Live
+  name: Baiji
+Monodon monoceros:
+  parent: Cetacea sp.
+  prefix: Momo
+  name: Narwhal
+Phocoena phocoena:
+  parent: Cetacea sp.
+  prefix: Phph
+  name: Harbor porpoise
+Phocoena sinus:
+  parent: Cetacea sp.
+  prefix: Phsi
+  name: Vaquita
 Caperea marginata:
   parent: Cetacea sp.
   prefix: CapeMarg
@@ -2576,7 +2713,19 @@ Equus burchelli:
 # - https://www.ebi.ac.uk/ipd/mhc/group/SLA/species
 #
 ################################################################################
+# Suidae for the same reason as Canidae above: Phacochoerus is a suid but
+# not a Sus, and IPD-MHC's SLA group covers the family --
+# https://www.ebi.ac.uk/ipd/mhc/group/SLA/species lists Phacochoerus africanus
+# alongside Sus domesticus and Sus scrofa.
+Suidae sp.:
+  prefix: Suidae
+  name: Suid
+Phacochoerus africanus:
+  parent: Suidae sp.
+  prefix: Phaf
+  name: Common warthog
 Sus sp.:
+  parent: Suidae sp.
   prefix: SLA
   name:
     - Pig
@@ -4338,6 +4487,54 @@ Cebus apella:
       DR:
         - DRA
         - DRB
+############################
+#
+# Remaining capuchins designated by IPD-MHC. Loci are not yet curated for
+# these; only the official species designations are recorded.
+#
+# Source: https://www.ebi.ac.uk/ipd/mhc/group/NHP/species
+#
+############################
+Cebus albifrons:
+  parent: Primata sp.
+  prefix: Ceal
+  name: White-fronted capuchin
+Cebus capucinus:
+  parent: Primata sp.
+  prefix: Ceca
+  name: White-faced capuchin
+Cebus imitator:
+  parent: Primata sp.
+  prefix: Ceim
+  name: Panamanian white-faced capuchin
+Cebus kaapori:
+  parent: Primata sp.
+  prefix: Ceka
+  name: Kaapori capuchin
+Cebus olivaceus:
+  parent: Primata sp.
+  prefix: Ceol
+  name: Wedge-capped capuchin
+Sapajus cay:
+  parent: Primata sp.
+  prefix: Saca
+  name: Hooded capuchin
+Sapajus libidinosus:
+  parent: Primata sp.
+  prefix: Sali
+  name: Black-striped capuchin
+Sapajus apella macrocephalus:
+  parent: Primata sp.
+  prefix: Sama
+  name: Large-headed capuchin
+Sapajus nigritus:
+  parent: Primata sp.
+  prefix: Sani
+  name: Black capuchin
+Sapajus xanthosternos:
+  parent: Primata sp.
+  prefix: Saxa
+  name: Golden-bellied capuchin
 Cercocebus atys:
   parent: Primata sp.
   prefix: Ceat
@@ -5018,6 +5215,10 @@ Saimiri sciureus:
 Semnopithecus entellus:
   parent: Primata sp.
   prefix: Seen
+  # Pren = Pr(esbytis) + en(tellus) under the Klein 1990 rule (PMID 2329006).
+  # Presbytis entellus is the former name of this species, so it is the only
+  # species the prefix can derive from. IPD-MHC designates it Seen:
+  # https://www.ebi.ac.uk/ipd/mhc/group/NHP/species
   old prefix: Pren
   name: Northern Plains Gray Langur
   genes:
@@ -5030,9 +5231,19 @@ Semnopithecus entellus:
 Theropithecus gelada:
   parent: Primata sp.
   prefix: Thge
-  # No 'old prefix: Pren' here. Pren is Presbytis entellus, the former name of
-  # Semnopithecus entellus, which carries it below. Theropithecus was never in
-  # Presbytis, and IPD-MHC lists this species only as Thge.
+  # No 'old prefix: Pren' here, deliberately.
+  #
+  # The species prefix is mechanical: first two letters of the genus, last two
+  # of the species (Klein et al., Immunogenetics 1990;31:217-219, PMID 2329006;
+  # restated at https://www.ebi.ac.uk/ipd/mhc/group/NHP/nomenclature/).
+  # Theropithecus gelada gives Th+ge = Thge, and no derivation of it produces
+  # Pren. Pren is Pr(esbytis) + en(tellus), the former name of Semnopithecus
+  # entellus, which carries it below. IPD-MHC lists this species only as Thge:
+  # https://www.ebi.ac.uk/ipd/mhc/group/NHP/species
+  #
+  # The 2019 primate nomenclature report (de Groot et al., Immunogenetics
+  # 2020;72:25-36) covers neither this species nor the langur, so there is no
+  # published Pren- allele designation for either.
   name: Gelada
   genes:
     IIa:
