@@ -2420,14 +2420,36 @@ Bos grunniens:
     - Domestic Yak
     - Yak
 Bubalus bubalis:
+  # Under Bos sp. because the tree is prefix scope, not phylogeny: IPD-MHC
+  # files water buffalo in the BoLA group, and its class II sequences are
+  # assigned to cattle loci by trans-species polymorphism. See the species
+  # tree section of docs/curation.md. Bubalus is a separate genus from Bos,
+  # which is why this looks wrong on first reading.
   parent: Bos sp.
   prefix: Bubu
   name: Water Buffalo
   genes:
     IIa:
+      # Loci with published water buffalo sequences. These would otherwise be
+      # inherited from Bos sp., which parses them but records no evidence that
+      # the buffalo locus itself has been characterized.
+      DR:
+        # PMID 12580780 (Immunogenetics 2003) characterized buffalo DRA and
+        # DRB, reporting eight Bubu-DRB alleles across four breeds.
+        - DRA
+        # Declared as DRB, not DRB3. PMID 22383896 states only that "the
+        # Bubu-DRB sequence showed maximum homology with the BoLA-DRB3*0101
+        # allele of cattle" -- homology, not identity -- and every paper writes
+        # the buffalo locus as Bubu-DRB. Declaring it here stops the cattle
+        # `DRB: DRB3` alias in gene_aliases.yaml from renaming it, while
+        # Bubu-DRB3 still parses by inheritance for anyone who wants it.
+        - DRB
       DQ:
         - DQA
+        # PMID 22383896 cites the isolation of cDNAs encoding buffalo DQA1 and
+        # DQA2; IPD-MHC holds 39 Bubu-DQA alleles.
         - DQA1
+        - DQA2
         - DQB
 ################################################################################
 #
