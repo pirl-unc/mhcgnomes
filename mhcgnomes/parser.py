@@ -218,7 +218,7 @@ class Parser:
         default_species: Union[Species, str, None] = DEFAULT_SPECIES_PREFIX,
     ):
         """
-        Returns "stated", "inferred", "default", or None -- see
+        Returns "explicit", "inferred", "default", or None -- see
         Result.species_source.
         """
         return classify_species_source(name, self._species_of(result), default_species)
@@ -2280,12 +2280,12 @@ class Parser:
         only_class2: bool = False,
         max_allele_fields: Optional[int] = None,
         raise_on_error: bool = True,
-        require_stated_species: bool = False,
+        require_explicit_species: bool = False,
     ):
         """
         Public parse entrypoint. Returns an immutable cached result object.
 
-        require_stated_species : bool
+        require_explicit_species : bool
             Only accept results whose species the input actually named. Use
             this when validating curated or free-text input, where a confident
             but inferred species is worse than no answer. See
@@ -2315,11 +2315,11 @@ class Parser:
         if result._species_source_inputs is None:
             Result._set_field(result, "_species_source_inputs", (name, default_species))
 
-        if require_stated_species and result.species_source not in (None, "stated"):
+        if require_explicit_species and result.species_source not in (None, "explicit"):
             species_source = result.species_source
             if raise_on_error:
                 raise ParseError(
-                    f"Species for '{name}' was {species_source}, not stated in the input"
+                    f"Species for '{name}' was {species_source}, not explicit in the input"
                 )
             return None
         return result

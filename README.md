@@ -240,7 +240,7 @@ which is why `HLA-DR15` and `BoLA-DR` parse cleanly but yield no allele:
 | `MhcClass` | Just a class, with or without species | `HLA class I` |
 | `Species` | Only a species was named | `HLA` |
 
-### Was the species stated, or guessed?
+### Was the species explicit, or guessed?
 
 Species inference is right most of the time and load-bearing when it is wrong.
 A bare gene symbol can carry a species you never supplied, and the default
@@ -248,7 +248,7 @@ species means a deliberately generic string still comes back with one:
 
 ```python
 >>> parse("Gaga-BLB2*02").species_source
-'stated'
+'explicit'
 >>> parse("BLB2*02").species_source     # inferred from the gene name
 'inferred'
 >>> parse("MHC class II").species_source  # fell back to default_species
@@ -260,7 +260,7 @@ species means a deliberately generic string still comes back with one:
 validating curated data — ask for it at parse time:
 
 ```python
->>> parse("BLB2*02", require_stated_species=True, raise_on_error=False) is None
+>>> parse("BLB2*02", require_explicit_species=True, raise_on_error=False) is None
 True
 ```
 

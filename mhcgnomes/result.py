@@ -43,7 +43,7 @@ class Result:
         """
         How this result's species was determined:
 
-            "stated"    the input named the species, e.g. "Gaga-BLB2*02"
+            "explicit"    the input named the species, e.g. "Gaga-BLB2*02"
             "inferred"  derived from a gene or allele name, e.g. "BLB2*02"
             "default"   fell back to default_species, e.g. "A*02:01"
             None        no species, or this object was built directly rather
@@ -70,7 +70,7 @@ class Result:
     def species_inferred(self):
         """
         True when the species was not named in the input, i.e. species_source
-        is "inferred" or "default". False when stated, and False when there is
+        is "inferred" or "default". False when explicit, and False when there is
         no species to speak of.
         """
         return self.species_source in ("inferred", "default")

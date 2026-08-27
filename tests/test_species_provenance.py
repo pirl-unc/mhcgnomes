@@ -1,5 +1,5 @@
 """
-Tests for how a caller can tell a stated species from an inferred one, and for
+Tests for how a caller can tell a explicit species from an inferred one, and for
 comparing two species names that differ in specificity.
 
 https://github.com/pirl-unc/mhcgnomes/issues/116
@@ -16,7 +16,7 @@ from .common import eq_
 # 1. species_source
 # ---------------------------------------------------------------------------
 
-STATED = [
+EXPLICIT = [
     "HLA-A*02:01",  # attached prefix
     "Gaga-BLB2*02",
     "Coja-DBB1",
@@ -43,9 +43,9 @@ DEFAULTED = [
 ]
 
 
-@pytest.mark.parametrize("name", STATED)
-def test_stated_species_is_reported_as_stated(name):
-    eq_(parse(name).species_source, "stated")
+@pytest.mark.parametrize("name", EXPLICIT)
+def test_explicit_species_is_reported_as_explicit(name):
+    eq_(parse(name).species_source, "explicit")
 
 
 @pytest.mark.parametrize("name", INFERRED)
@@ -58,13 +58,13 @@ def test_species_from_default_species_is_reported_as_default(name):
     eq_(parse(name).species_source, "default")
 
 
-@pytest.mark.parametrize("name", STATED)
-def test_stated_species_is_not_flagged_inferred(name):
+@pytest.mark.parametrize("name", EXPLICIT)
+def test_explicit_species_is_not_flagged_inferred(name):
     assert not parse(name).species_inferred
 
 
 @pytest.mark.parametrize("name", INFERRED + DEFAULTED)
-def test_unstated_species_is_flagged_inferred(name):
+def test_non_explicit_species_is_flagged_inferred(name):
     assert parse(name).species_inferred
 
 
@@ -90,12 +90,12 @@ def test_default_species_argument_is_respected():
 
 
 def test_provenance_does_not_affect_equality_or_hashing():
-    stated = parse("HLA-A*02:01")
+    explicit = parse("HLA-A*02:01")
     defaulted = parse("A*02:01")
-    eq_(stated.species_source, "stated")
+    eq_(explicit.species_source, "explicit")
     eq_(defaulted.species_source, "default")
-    eq_(stated, defaulted)
-    eq_(hash(stated), hash(defaulted))
+    eq_(explicit, defaulted)
+    eq_(hash(explicit), hash(defaulted))
 
 
 def test_provenance_does_not_appear_in_repr_or_dict():
@@ -110,24 +110,24 @@ def test_directly_constructed_results_have_no_provenance():
 
 
 # ---------------------------------------------------------------------------
-# 3. require_stated_species
+# 3. require_explicit_species
 # ---------------------------------------------------------------------------
 
 
-@pytest.mark.parametrize("name", STATED)
-def test_require_stated_species_keeps_stated_results(name):
-    eq_(parse(name, require_stated_species=True), parse(name))
+@pytest.mark.parametrize("name", EXPLICIT)
+def test_require_explicit_species_keeps_explicit_results(name):
+    eq_(parse(name, require_explicit_species=True), parse(name))
 
 
 @pytest.mark.parametrize("name", INFERRED + DEFAULTED)
-def test_require_stated_species_rejects_unstated_results(name):
-    assert parse(name, require_stated_species=True, raise_on_error=False) is None
+def test_require_explicit_species_rejects_non_explicit_results(name):
+    assert parse(name, require_explicit_species=True, raise_on_error=False) is None
 
 
 @pytest.mark.parametrize("name", INFERRED + DEFAULTED)
-def test_require_stated_species_raises_when_asked(name):
+def test_require_explicit_species_raises_when_asked(name):
     with pytest.raises(ParseError):
-        parse(name, require_stated_species=True)
+        parse(name, require_explicit_species=True)
 
 
 def test_species_source_is_none_for_unparsed_input():
@@ -136,15 +136,15 @@ def test_species_source_is_none_for_unparsed_input():
     arises for input that does not parse at all.
     """
     assert parse("n/a", raise_on_error=False) is None
-    assert parse("n/a", require_stated_species=True, raise_on_error=False) is None
+    assert parse("n/a", require_explicit_species=True, raise_on_error=False) is None
 
 
-def test_require_stated_species_composes_with_required_result_types():
+def test_require_explicit_species_composes_with_required_result_types():
     eq_(
         parse(
             "Gaga-BLB2*02",
             required_result_types=(Allele, Gene, Pair),
-            require_stated_species=True,
+            require_explicit_species=True,
         ).to_string(),
         "Gaga-BLB2*02",
     )
@@ -152,7 +152,7 @@ def test_require_stated_species_composes_with_required_result_types():
         parse(
             "BLB2*02",
             required_result_types=(Allele, Gene, Pair),
-            require_stated_species=True,
+            require_explicit_species=True,
             raise_on_error=False,
         )
         is None

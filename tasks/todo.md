@@ -7,9 +7,9 @@ something it does not expose, so callers re-implement it badly.
 
 ## Specification
 
-- [x] Expose whether a result's species was stated in the input, inferred from
+- [x] Expose whether a result's species was explicit in the input, inferred from
       a gene name, or taken from `default_species` (#116).
-- [x] Add a parse flag that refuses a result whose species was not stated.
+- [x] Add a parse flag that refuses a result whose species was not explicit.
 - [x] Keep provenance out of result identity, and off the hot path.
 - [x] Document `required_result_types` as the way to parse untrusted text, and
       say what each result type means (#117).
@@ -20,7 +20,7 @@ something it does not expose, so callers re-implement it badly.
 
 ## Review
 
-- **#116**: `Result.species_source` returns `"stated"`, `"inferred"`,
+- **#116**: `Result.species_source` returns `"explicit"`, `"inferred"`,
   `"default"` or `None`, with `Result.species_inferred` as the boolean form.
   The reporter asked for a bool but noted the three-way form would be more
   useful, and it is: their worst case was a curator writing the deliberately
@@ -39,7 +39,7 @@ something it does not expose, so callers re-implement it badly.
   throughput (0.080 vs 0.067 ms/name), which is not a reasonable price for
   something almost no caller reads. `parse` stores the two inputs and the
   property does the work on first access and memoizes.
-- `require_stated_species=True` refuses anything not stated, and composes with
+- `require_explicit_species=True` refuses anything not explicit, and composes with
   `required_result_types`.
 - **#117**: a README section on parsing untrusted input, showing
   `required_result_types` + `raise_on_error=False`, plus a table of what each

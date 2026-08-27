@@ -1339,13 +1339,13 @@ def species_named_in(name):
 
 def classify_species_source(name, species, default_species):
     """
-    Returns "stated", "inferred", "default" or None for how `species` came to
+    Returns "explicit", "inferred", "default" or None for how `species` came to
     be associated with the string `name`. See Result.species_source.
     """
     if species is None:
         return None
     if species in species_named_in(name):
-        return "stated"
+        return "explicit"
     if default_species is not None and species == Species.get(default_species):
         return "default"
     return "inferred"
