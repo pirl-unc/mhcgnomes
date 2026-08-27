@@ -464,9 +464,9 @@ Homo sapiens:
       # pseudogenes
       #
       # IMGT/HLA (https://hla.alleles.org/genes/index.html) also names the
-      # class I gene fragments N, R, S, T, U, W, X, Y
-      # and Z. They are deliberately not listed here: every one is a single
-      # letter, and adding them flips bare "n", "s", "t", "u" and "w" from the
+      # class I gene fragments N, R, S, T, U, W, X, Y and Z. They are
+      # deliberately not listed here: every one is a single letter, and
+      # adding them flips bare "n", "s", "t", "u" and "w" from the
       # mouse/rat haplotype shorthand they resolve to today into human gene
       # fragments, and lets allele-less fragments accept allele fields
       # ("Z*01:01"). The same shadowing already affects H/J/K/L/P/V versus
