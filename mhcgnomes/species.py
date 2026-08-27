@@ -346,6 +346,33 @@ class Species(Result):
             current = current.parent_species
         return False
 
+    def compatible_with(self, other):
+        """
+        Can these two species names describe the same sample?
+
+        True when they are the same species, or when one is a direct ancestor
+        of the other. Species legitimately differ in specificity: BoLA belongs
+        to the genus-level "Bos sp.", so a BoLA-N*013:01 allele on a sample
+        curated as Bos taurus is less specific, not contradictory.
+
+            Bos taurus        vs Bos sp.               -> True  (ancestor)
+            Coturnix japonica vs Galliformes sp.       -> True  (above genus)
+            Macaca mulatta    vs Macaca fascicularis   -> False (siblings)
+            Carassius gibelio vs Homo sapiens          -> False
+
+        Note that "shares a common ancestor" is NOT a usable test in its place:
+        every species descends from "Gnathostomata sp.", so that predicate is
+        true for any pair and fails open. Only a direct ancestor or descendant
+        relation is meaningful, which is what this checks.
+
+        Accepts a Species, a prefix, a common name or a latin name. Returns
+        False if the other name does not resolve to a species at all.
+        """
+        other = Species.get(other)
+        if other is None:
+            return False
+        return self == other or self.is_ancestor_of(other) or other.is_ancestor_of(self)
+
     @property
     def historic_mhc_prefix(self):
         """
@@ -1264,6 +1291,64 @@ def create_species_lookup_dictionaries():
     context_only_alias_to_species_objects,
     gene_name_to_species_objects,
 ) = create_species_lookup_dictionaries()
+
+
+def species_named_in(name):
+    """
+    Which species, if any, the string names outright.
+
+    Covers both routes the parser uses to take a species off the front of a
+    string, since neither alone is enough:
+
+      - an attached prefix, as in "Gaga-BLB2*02" or "H2-Kb", which tokenizes
+        as a single token
+      - leading species tokens, as in "mouse H2-Kb" or "Homo sapiens class I"
+
+    so that all of those count as naming their species while "BLB2*02" and
+    "class II" do not. Callers compare a result's own species against this
+    list, so an over-eager prefix match on a string that names no species is
+    harmless. Returns a possibly empty list.
+    """
+    from .tokenize import tokenize
+
+    matches = []
+
+    species_from_prefix = infer_species_from_prefix(name)
+    if species_from_prefix is not None:
+        matches.append(species_from_prefix[0])
+
+    tokenization_result = tokenize(name)
+    tokens = tokenization_result.tokens
+    for num_species_tokens in [3, 2, 1]:
+        if len(tokens) >= num_species_tokens:
+            query = " ".join([t.seq for t in tokens[:num_species_tokens]])
+            token_matches = find_matching_species_objects(query)
+            if token_matches:
+                matches.extend(token_matches)
+                break
+
+    attributes = tokenization_result.attributes
+    for key in ("OS", "species"):
+        if key in attributes:
+            from_attributes = Species.get(attributes[key])
+            if from_attributes is not None:
+                matches.append(from_attributes)
+            break
+    return matches
+
+
+def classify_species_source(name, species, default_species):
+    """
+    Returns "explicit", "inferred", "default" or None for how `species` came to
+    be associated with the string `name`. See Result.species_source.
+    """
+    if species is None:
+        return None
+    if species in species_named_in(name):
+        return "explicit"
+    if default_species is not None and species == Species.get(default_species):
+        return "default"
+    return "inferred"
 
 
 def find_matching_species_objects(name):

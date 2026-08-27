@@ -573,6 +573,7 @@ def parse(
     only_class2: bool = False,
     verbose: bool = False,
     raise_on_error: bool = True,
+    require_explicit_species: bool = False,
 ) -> Optional[Result]:
     """
     Parse MHC alleles into a structured representation.
@@ -631,6 +632,13 @@ def parse(
         Raise an exception if string can't be parsed. If False, return None
         instead.
 
+    require_explicit_species : bool
+        Only accept a result whose species the input actually named. When the
+        species was inferred from a gene name, or came from default_species,
+        treat the string as unparsed. Useful for validating curated data,
+        where a confident but inferred species is worse than no answer.
+        See Result.species_source and Result.species_from_input.
+
     Returns
     -------
     Result
@@ -688,6 +696,7 @@ def parse(
             only_class1=only_class1,
             only_class2=only_class2,
             max_allele_fields=max_allele_fields,
+            require_explicit_species=require_explicit_species,
         )
     except ParseError as error:
         parser_error = error
