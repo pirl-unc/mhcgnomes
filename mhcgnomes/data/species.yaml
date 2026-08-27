@@ -447,6 +447,10 @@ Homo sapiens:
     Ic:
       - MICA
       - MICB
+      # MICC/D/E are pseudogenes of the MIC family, curated by IMGT/HLA
+      - MICC
+      - MICD
+      - MICE
       - BTN3A1
     Id:
       - CD1a
@@ -457,6 +461,14 @@ Homo sapiens:
       - MR1
     I:
       # pseudogenes
+      #
+      # IMGT/HLA also names the class I gene fragments N, R, S, T, U, W, X, Y
+      # and Z. They are deliberately not listed here: every one is a single
+      # letter, and adding them flips bare "n", "s", "t", "u" and "w" from the
+      # mouse/rat haplotype shorthand they resolve to today into human gene
+      # fragments, and lets allele-less fragments accept allele fields
+      # ("Z*01:01"). The same shadowing already affects H/J/K/L/P/V versus
+      # H2-k and friends, which needs resolving first. See issue #113.
       - H
       - J
       - K
@@ -471,6 +483,7 @@ Homo sapiens:
         - DRB4
         - DRB5
         # DR beta-family pseudogenes still belong to the DR class II locus family.
+        - DRB2
         - DRB6
         - DRB7
         - DRB8
@@ -478,11 +491,17 @@ Homo sapiens:
       DP:
         - DPA1
         - DPB1
+        # DP pseudogenes
+        - DPA2
+        - DPA3
+        - DPB2
       DQ:
         - DQA1
         - DQA2
         - DQB1
         - DQB2
+        # DQ pseudogene
+        - DQB3
     IIb:
       DO:
         - DOA
@@ -490,6 +509,13 @@ Homo sapiens:
       DM:
         - DMA
         - DMB
+    other:
+      # Immunoproteasome subunits in the MHC class II region, historically
+      # LMP7 and LMP2. Kept on Homo sapiens because IMGT/HLA curates the HLA-
+      # prefixed forms; they are conserved across jawed vertebrates and could
+      # move up to the root alongside TAP1/TAP2 given a per-clade review.
+      - PSMB8
+      - PSMB9
   # Source: https://www.ebi.ac.uk/ipd/imgt/hla/about/statistics/
   gene properties:
     G: {pseudogene: false}
@@ -499,10 +525,18 @@ Homo sapiens:
     L: {pseudogene: true}
     P: {pseudogene: true}
     V: {pseudogene: true}
+    DRB2: {pseudogene: true}
     DRB6: {pseudogene: true}
     DRB7: {pseudogene: true}
     DRB8: {pseudogene: true}
     DRB9: {pseudogene: true}
+    DQB3: {pseudogene: true}
+    DPA2: {pseudogene: true}
+    DPA3: {pseudogene: true}
+    DPB2: {pseudogene: true}
+    MICC: {pseudogene: true}
+    MICD: {pseudogene: true}
+    MICE: {pseudogene: true}
 ######################################################
 #
 # Mouse
@@ -873,7 +907,25 @@ Rattus villosissimus:
 # - https://www.ebi.ac.uk/ipd/mhc/group/DLA/species
 #
 ############################
+# Canidae is a real taxonomic rank, the same shape as Cetacea sp. and
+# Galliformes sp. above, and it is what IPD-MHC's "Canids" group covers.
+# Cuon and Lycaon are canids but not Canis, so they hang here rather than
+# under Canis sp., which would hand them the DLA prefix and the Canis gene
+# list on no evidence -- the mistake described in issue #109.
+# The prefix is taxonomic, so descendants do not inherit it as an alias.
+Canidae sp.:
+  prefix: Canidae
+  name: Canid
+Cuon alpinus:
+  parent: Canidae sp.
+  prefix: Cual
+  name: Dhole
+Lycaon pictus:
+  parent: Canidae sp.
+  prefix: Lypi
+  name: African wild dog
 Canis sp.:
+  parent: Canidae sp.
   prefix: DLA
   name: Canine
   genes:
@@ -920,6 +972,14 @@ Canis aureus:
   parent: Canis sp.
   prefix: Caau
   name: Golden Jackal
+Canis adustus:
+  parent: Canis sp.
+  prefix: Caad
+  name: Side-striped jackal
+Canis mesomelas:
+  parent: Canis sp.
+  prefix: Came
+  name: Black-backed jackal
 ############################
 #
 # Felidae
@@ -2463,6 +2523,57 @@ Ziphius cavirostris:
   parent: Cetacea sp.
   prefix: Zica
   name: Cuvier's beaked whale
+############################
+#
+# Remaining cetaceans designated by IPD-MHC.
+#
+# Source: https://www.ebi.ac.uk/ipd/mhc/group/CeLA/species
+#
+############################
+Balaenoptera musculus brevicauda:
+  parent: Cetacea sp.
+  prefix: Bamubr
+  name: Pygmy blue whale
+Balaenoptera ricei:
+  parent: Cetacea sp.
+  prefix: Bari
+  name: Rice's whale
+Eschrichtius robustus:
+  parent: Cetacea sp.
+  prefix: Esro
+  name: Gray whale
+Eubalaena glacialis:
+  parent: Cetacea sp.
+  prefix: Eugl
+  name: North Atlantic right whale
+Inia geoffrensis:
+  parent: Cetacea sp.
+  prefix: Inge
+  name: Amazon river dolphin
+Kogia sima:
+  parent: Cetacea sp.
+  prefix: Kosi
+  name: Dwarf sperm whale
+Lagenorhynchus albirostris:
+  parent: Cetacea sp.
+  prefix: Laal
+  name: White-beaked dolphin
+Lipotes vexillifer:
+  parent: Cetacea sp.
+  prefix: Live
+  name: Baiji
+Monodon monoceros:
+  parent: Cetacea sp.
+  prefix: Momo
+  name: Narwhal
+Phocoena phocoena:
+  parent: Cetacea sp.
+  prefix: Phph
+  name: Harbor porpoise
+Phocoena sinus:
+  parent: Cetacea sp.
+  prefix: Phsi
+  name: Vaquita
 Caperea marginata:
   parent: Cetacea sp.
   prefix: CapeMarg
@@ -2576,7 +2687,17 @@ Equus burchelli:
 # - https://www.ebi.ac.uk/ipd/mhc/group/SLA/species
 #
 ################################################################################
+# Suidae for the same reason as Canidae above: Phacochoerus is a suid but
+# not a Sus, and IPD-MHC's SLA group covers the family.
+Suidae sp.:
+  prefix: Suidae
+  name: Suid
+Phacochoerus africanus:
+  parent: Suidae sp.
+  prefix: Phaf
+  name: Common warthog
 Sus sp.:
+  parent: Suidae sp.
   prefix: SLA
   name:
     - Pig
@@ -4338,6 +4459,54 @@ Cebus apella:
       DR:
         - DRA
         - DRB
+############################
+#
+# Remaining capuchins designated by IPD-MHC. Loci are not yet curated for
+# these; only the official species designations are recorded.
+#
+# Source: https://www.ebi.ac.uk/ipd/mhc/group/NHP/species
+#
+############################
+Cebus albifrons:
+  parent: Primata sp.
+  prefix: Ceal
+  name: White-fronted capuchin
+Cebus capucinus:
+  parent: Primata sp.
+  prefix: Ceca
+  name: White-faced capuchin
+Cebus imitator:
+  parent: Primata sp.
+  prefix: Ceim
+  name: Panamanian white-faced capuchin
+Cebus kaapori:
+  parent: Primata sp.
+  prefix: Ceka
+  name: Kaapori capuchin
+Cebus olivaceus:
+  parent: Primata sp.
+  prefix: Ceol
+  name: Wedge-capped capuchin
+Sapajus cay:
+  parent: Primata sp.
+  prefix: Saca
+  name: Hooded capuchin
+Sapajus libidinosus:
+  parent: Primata sp.
+  prefix: Sali
+  name: Black-striped capuchin
+Sapajus apella macrocephalus:
+  parent: Primata sp.
+  prefix: Sama
+  name: Large-headed capuchin
+Sapajus nigritus:
+  parent: Primata sp.
+  prefix: Sani
+  name: Black capuchin
+Sapajus xanthosternos:
+  parent: Primata sp.
+  prefix: Saxa
+  name: Golden-bellied capuchin
 Cercocebus atys:
   parent: Primata sp.
   prefix: Ceat

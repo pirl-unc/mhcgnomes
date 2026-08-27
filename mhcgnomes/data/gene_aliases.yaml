@@ -10,6 +10,10 @@ Gnathostomata sp.:
   ABCB9: TAP-L
   TAPL: TAP-L
 HLA:
+  # Legacy names for the immunoproteasome subunits, the same shape as the
+  # RING4/RING11 aliases for TAP1/TAP2 above.
+  LMP7: PSMB8
+  LMP2: PSMB9
   Cw: C
   DPw: DP
   # unclear if there are any other DRA genes besides DRA1
