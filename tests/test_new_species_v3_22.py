@@ -131,7 +131,9 @@ def test_new_fish_species_parseable(prefix, latin):
 
 
 def test_hybognathus_amarus_inherits_DAB1():
-    eq_(parse("Hyam-DAB1"), Gene.get("Hyam", "DAB1"))
+    # Addressed by its own prefix: Hyam is Hyperoodon ampullatus in IPD-MHC,
+    # and the minnow keeps Hyam only as a context-only alias (see #112).
+    eq_(parse("HyboAmar-DAB1"), Gene.get("HyboAmar", "DAB1"))
 
 
 def test_megalobrama_inherits_UA():

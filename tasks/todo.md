@@ -1,6 +1,6 @@
 # Species inference for ambiguous and degenerate inputs
 
-Tracking issues: #102, #103, #105, #106, #107
+Tracking issues: #102, #103, #105, #106, #107, #110, #112
 
 ## Specification
 
@@ -22,6 +22,8 @@ Tracking issues: #102, #103, #105, #106, #107
       assuming a tie-break is inert.
 - [x] Reclassify Patr-AL from `Ia` to `Ib`, with the primary literature cited
       in the ontology next to the gene.
+- [x] Remove the duplicate `old prefix: Pren`, and give the two Klein-code
+      collisions to the species IPD-MHC designates.
 - [x] Bump the version and run `./format.sh`, `./lint.sh`, and `./test.sh`.
 - [x] Review the final diff and document the result below.
 
@@ -69,8 +71,23 @@ Tracking issues: #102, #103, #105, #106, #107
   family. hitlist and IEDB were right.
 - **#106** is a duplicate of #103 describing the same eight prefixes; fixed by
   the same change.
-- Bumped 3.33.6 to 3.35.0. Minor rather than patch because bare gene symbols
+- **#110** turned out to be a data fix, not a parser one. `Pren` is
+  *Presbytis entellus*, the former name of *Semnopithecus entellus*;
+  *Theropithecus gelada* also carried it as an `old prefix`, which is what made
+  the prefix ambiguous. Auditing every prefix claim across all 641 species
+  found `Pren` was the only one claimed twice. Removed the stray line, and
+  added a whole-ontology test so no prefix can be claimed twice again.
+- **#112** was misdiagnosed in the issue as auto-generated prefixes squatting.
+  They are curated `other prefixes`, and both sides derive legitimately under
+  the Klein 2+2 scheme: `Caau` is *Canis aureus* and *Carassius auratus*,
+  `Hyam` is *Hyperoodon ampullatus* and *Hybognathus amarus*. The repo already
+  had the right mechanism -- `Hymo` gives the global prefix to IPD's
+  *Hylobates moloch* and leaves the silver carp a `context only prefixes`
+  entry. Applied the same shape: added the two IPD species, moved the fish
+  aliases to context-only. Two existing tests encoded the losing resolution
+  and were updated to address each fish by its own prefix.
+- Bumped 3.33.6 to 3.36.0. Minor rather than patch because bare gene symbols
   and class-only strings change species for downstream callers.
 - `./format.sh`: passed.
 - `./lint.sh`: passed.
-- `./test.sh`: passed (15,212 tests; 91% statement coverage).
+- `./test.sh`: passed (15,231 tests; 91% statement coverage).

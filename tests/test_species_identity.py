@@ -416,3 +416,96 @@ def test_default_species_accepts_latin_name():
     assert result is not None
     assert isinstance(result, Allele)
     eq_(result.species.prefix, "HLA")
+
+
+# ---------------------------------------------------------------------------
+# 5. Prefixes that two species can legitimately derive
+#
+# The Klein 2+2 scheme (first two letters of genus + first two of species)
+# produces collisions. Where IPD-MHC has designated a species, that species
+# owns the prefix globally and the other keeps it as a context-only alias --
+# the pattern already used for Hymo (Hylobates moloch vs the silver carp).
+# https://github.com/pirl-unc/mhcgnomes/issues/112
+# ---------------------------------------------------------------------------
+
+# (prefix, species IPD-MHC designates, species that keeps it context-only)
+IPD_DESIGNATED_PREFIX_COLLISIONS = [
+    ("Hymo", "Hylobates moloch", "Hypophthalmichthys molitrix"),
+    ("Caau", "Canis aureus", "Carassius auratus"),
+    ("Hyam", "Hyperoodon ampullatus", "Hybognathus amarus"),
+]
+
+
+@pytest.mark.parametrize("prefix,ipd_species,context_only", IPD_DESIGNATED_PREFIX_COLLISIONS)
+def test_ipd_designated_species_owns_the_prefix(prefix, ipd_species, context_only):
+    species = Species.get(prefix)
+    assert species is not None, prefix
+    eq_(species.name, ipd_species)
+
+
+@pytest.mark.parametrize("prefix,ipd_species,context_only", IPD_DESIGNATED_PREFIX_COLLISIONS)
+def test_colliding_species_keeps_prefix_as_context_only(prefix, ipd_species, context_only):
+    from mhcgnomes.species import find_matching_context_only_species_objects
+
+    names = {s.name for s in find_matching_context_only_species_objects(prefix)}
+    assert context_only in names, (prefix, names)
+
+
+@pytest.mark.parametrize("prefix,ipd_species,context_only", IPD_DESIGNATED_PREFIX_COLLISIONS)
+def test_context_only_species_still_reachable_by_its_own_prefix(prefix, ipd_species, context_only):
+    species = Species.get_by_latin_name(context_only)
+    assert species is not None
+    eq_(Species.get(species.prefix).name, context_only)
+
+
+def test_caau_is_the_golden_jackal_not_a_goldfish():
+    """IPD-MHC assigns Caau to Canis aureus; it used to resolve to Carassius auratus."""
+    eq_(Species.get("Caau").name, "Canis aureus")
+    eq_(parse("Caau-DRB1").species.name, "Canis aureus")
+
+
+def test_hyam_is_the_bottlenose_whale_not_a_minnow():
+    """IPD-MHC assigns Hyam to Hyperoodon ampullatus."""
+    eq_(Species.get("Hyam").name, "Hyperoodon ampullatus")
+
+
+# ---------------------------------------------------------------------------
+# 6. Historic prefixes must not be claimed twice
+# https://github.com/pirl-unc/mhcgnomes/issues/110
+# ---------------------------------------------------------------------------
+
+
+def test_pren_resolves_to_the_langur():
+    """
+    Pren is Presbytis entellus, the former name of Semnopithecus entellus.
+    Theropithecus gelada also carried it, which made the prefix ambiguous.
+    """
+    eq_(Species.get("Pren").name, "Semnopithecus entellus")
+    eq_(parse("Pren").name, "Semnopithecus entellus")
+
+
+def test_pren_class_one_agrees_with_bare_pren():
+    eq_(parse("Pren class I").species, Species.get("Pren"))
+
+
+def test_gelada_still_reachable_by_its_own_prefix():
+    eq_(parse("Thge-DQA1").species.name, "Theropithecus gelada")
+
+
+def test_no_prefix_is_claimed_by_two_species():
+    """
+    Canonical prefixes, historic 'old prefix' values and 'other prefixes' all
+    feed the same global alias table, so none of them may name two species.
+    Context-only prefixes are deliberately excluded -- they exist precisely to
+    hold the losing side of a collision.
+    """
+    claims = defaultdict(set)
+    for latin_name, record in species_data.items():
+        for key in ("prefix", "old prefix"):
+            value = record.get(key)
+            if value:
+                claims[normalize_string(value)].add(latin_name)
+        for value in record.get("other prefixes", []) or []:
+            claims[normalize_string(value)].add(latin_name)
+    collisions = {p: sorted(v) for p, v in claims.items() if len(v) > 1}
+    assert collisions == {}
