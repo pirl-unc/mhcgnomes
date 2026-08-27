@@ -1295,14 +1295,20 @@ class Parser:
         if len(species_candidates) == 1:
             species = species_candidates[0]
         # When a distinctive gene name (contains a digit, e.g. BF2, DPB1)
-        # is shared by multiple species, pick the best-characterised one
-        # (the one with the most genes defined in the ontology).  This
+        # is shared by multiple species, pick the best-characterised one.  This
         # avoids breaking bare "BF2" -> chicken when guineafowl also
         # carries BF2.  We skip single-letter genes like "A" or "E"
         # because they are too generic and the ambiguity should fall
         # through to other parse strategies.
+        #
+        # "Best-characterised" counts the genes a species declares itself
+        # (num_own_genes) rather than every gene it can see (num_genes), since
+        # the latter is inflated by whatever a broad parent group happens to
+        # define.  Coturnix japonica inherits BLB1/BLB2 from "Galliformes sp."
+        # and never declares them, so counting inherited genes made bare
+        # "BLB2" resolve to quail instead of chicken, which does declare them.
         if species is None and len(species_candidates) > 1 and any(c.isdigit() for c in gene_name):
-            species = max(species_candidates, key=lambda s: s.num_genes)
+            species = max(species_candidates, key=lambda s: (s.num_own_genes, s.num_genes, s.name))
         if species is None:
             return None
         return Gene.get(species, gene_name)

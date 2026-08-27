@@ -368,6 +368,19 @@ class Species(Result):
         return len(self.gene_names)
 
     @property
+    def num_own_genes(self):
+        """
+        Number of genes declared by this species' own entry in the ontology,
+        excluding genes inherited from an ancestor.
+
+        Unlike num_genes this is not inflated by a large parent group entry,
+        so it is a better measure of how specifically curated a species is.
+        For example Coturnix japonica inherits BLB1/BLB2 from "Galliformes sp."
+        while Gallus gallus declares them itself.
+        """
+        return latin_name_to_num_own_genes.get(self.name, 0)
+
+    @property
     def scientific_species_name(self):
         return self.name
 
@@ -1177,6 +1190,21 @@ def combine_species_aliases(
     return result
 
 
+def _own_gene_names(species_info):
+    """
+    Gene names declared directly by a species entry in the ontology YAML,
+    without the genes it inherits from its parent species.
+    """
+    gene_names = set()
+    for mhc_class_members in (species_info.get("genes") or {}).values():
+        if type(mhc_class_members) is dict:
+            for locus_gene_names in mhc_class_members.values():
+                gene_names.update(str(gene_name) for gene_name in (locus_gene_names or []))
+        elif type(mhc_class_members) is list:
+            gene_names.update(str(gene_name) for gene_name in mhc_class_members)
+    return gene_names
+
+
 def create_species_lookup_dictionaries():
     gene_name_to_species_objects = NormalizingDictionary(default_value_fn=set)
     # Canonical index: latin name → species (never ambiguous)
@@ -1189,8 +1217,13 @@ def create_species_lookup_dictionaries():
     alias_to_species_objects = NormalizingDictionary(default_value_fn=set)
     context_only_alias_to_species_objects = NormalizingDictionary(default_value_fn=set)
 
+    # Genes declared by each species itself, used to rank ambiguous bare gene
+    # names by how specifically curated a species is (see num_own_genes).
+    latin_name_to_num_own_genes = {}
+
     for latin_name in raw_species_dict:
         species = create_species_for_latin_name(latin_name)
+        latin_name_to_num_own_genes[latin_name] = len(_own_gene_names(raw_species_dict[latin_name]))
         latin_name_to_species[latin_name] = species
         species_name_to_species[latin_name] = species
         for s in species.all_identifiers:
@@ -1206,6 +1239,7 @@ def create_species_lookup_dictionaries():
         alias_to_species_objects,
         context_only_alias_to_species_objects,
         gene_name_to_species_objects,
+        latin_name_to_num_own_genes,
     )
 
 
@@ -1215,6 +1249,7 @@ def create_species_lookup_dictionaries():
     alias_to_species_objects,
     context_only_alias_to_species_objects,
     gene_name_to_species_objects,
+    latin_name_to_num_own_genes,
 ) = create_species_lookup_dictionaries()
 
 

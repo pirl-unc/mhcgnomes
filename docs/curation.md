@@ -178,6 +178,31 @@ URL.
   `mhcgnomes/data/underrepresented_taxa_source_registry.yaml` until they are
   resolved.
 
+### Inherited prefixes and inherited genes
+
+Two kinds of ambiguity are not prefix collisions between unrelated species, but
+fall out of the ontology being a tree. Both are resolved at runtime by
+preferring the reading the input actually justifies.
+
+**A prefix is visible to every descendant.** `Bos sp.` owns `BoLA`, so `BoLA`
+also matches `Bos taurus`, `Bos indicus`, and `Bubalus bubalis`. When a string
+matches an ancestor and its descendants and nothing else distinguishes them, the
+ancestor wins, because nothing in the input named a descendant. This is why
+`parse("BoLA class I")` is `Bos sp.` and not water buffalo. An explicit
+descendant prefix (`Bubu-DQA`, `Bota-DRB3*011:01`) is unaffected.
+
+**A gene is visible to every descendant.** `Galliformes sp.` defines `BLB1` and
+`BLB2`, so every galliform in the ontology appears to carry them, including
+species whose own entry uses a different nomenclature. When a bare gene symbol
+has to pick a species, rank candidates by `Species.num_own_genes` -- the genes
+that species declares itself -- rather than `num_genes`, which counts everything
+it inherits. Japanese quail sees more genes than chicken only because of what
+`Galliformes sp.` defines; chicken declares `BLB1`/`BLB2` and quail does not.
+
+When adding a broad group entry, remember that every gene listed on it becomes
+a candidate answer for every species beneath it. Prefer putting a gene on the
+species that actually uses that name.
+
 ### How to resolve each type
 
 #### Canonical-prefix conflict
