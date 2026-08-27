@@ -98,6 +98,12 @@ MAP_SPECIES_GROUP_TO_TOP_SPECIES = False
 GENE_SEPS = "*_-^:."
 
 
+# Strings which mean "no value" but which would otherwise parse as something
+# real. Only the "n/a" family needs listing here: other null markers such as
+# "na", "nd", "none" and "unknown" already match nothing in the ontology.
+NULL_VALUE_STRINGS = frozenset({"n/a"})
+
+
 class Parser:
     """
     Parser for MHC nomenclature strings.
@@ -2042,7 +2048,23 @@ class Parser:
         of the given string.
         """
         tokenization_result = tokenize(name)
-        if len(tokenization_result.trimmed_string) == 0:
+        trimmed_string = tokenization_result.trimmed_string
+        if len(trimmed_string) == 0:
+            return []
+
+        # An MHC name has to carry at least one letter or digit. Without this
+        # guard a punctuation-only string tokenizes to empty or punctuation-only
+        # tokens, matches no species prefix, and falls through to the default
+        # species, so "-", ".", "*" and "--" all parsed as Homo sapiens.
+        if not any(c.isalnum() for c in trimmed_string):
+            return []
+
+        # "n/a" is one of the most common ways a curator or an exported
+        # spreadsheet writes "missing", but it splits into the tokens
+        # ("n", "/", "a"), which look exactly like a haplotype pair, so it used
+        # to parse as the rat haplotype RT1-n/A. Every other null marker we
+        # know of ("na", "nd", "none", "unknown", ...) already fails to match.
+        if trimmed_string.strip().lower() in NULL_VALUE_STRINGS:
             return []
 
         tokens = tokenization_result.tokens
