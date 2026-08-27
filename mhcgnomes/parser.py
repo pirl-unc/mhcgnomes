@@ -44,7 +44,13 @@ from .result import Result
 from .result_sorting import pick_best_result
 from .result_with_species import ResultWithSpecies
 from .serotype import Serotype
-from .species import Species, find_matching_species_objects, infer_species_from_prefix
+from .species import (
+    Species,
+    classify_species_source,
+    find_matching_species_objects,
+    infer_species_from_prefix,
+    species_named_in,
+)
 from .standard_format import parse_standard_allele_format
 from .supertype import Supertype
 from .token import Token
@@ -193,6 +199,29 @@ class Parser:
         original_prefix_length = len(original_prefix)
         remaining_string = name[original_prefix_length:]
         return species, remaining_string
+
+    @staticmethod
+    def _species_of(result):
+        """The species a result is about, whatever its type."""
+        if type(result) is Species:
+            return result
+        return getattr(result, "species", None)
+
+    def species_named_in(self, name: str):
+        """Which species, if any, the input string names outright."""
+        return species_named_in(name)
+
+    def classify_species_source(
+        self,
+        name: str,
+        result,
+        default_species: Union[Species, str, None] = DEFAULT_SPECIES_PREFIX,
+    ):
+        """
+        Returns "stated", "inferred", "default", or None -- see
+        Result.species_source.
+        """
+        return classify_species_source(name, self._species_of(result), default_species)
 
     def parse_species(self, name: str, default_species: Union[Species, str, None] = None):
         """
@@ -2251,11 +2280,18 @@ class Parser:
         only_class2: bool = False,
         max_allele_fields: Optional[int] = None,
         raise_on_error: bool = True,
+        require_stated_species: bool = False,
     ):
         """
         Public parse entrypoint. Returns an immutable cached result object.
+
+        require_stated_species : bool
+            Only accept results whose species the input actually named. Use
+            this when validating curated or free-text input, where a confident
+            but inferred species is worse than no answer. See
+            Result.species_source.
         """
-        return self._parse_cached(
+        result = self._parse_cached(
             name=name,
             infer_class2_pairing=infer_class2_pairing,
             default_species=default_species,
@@ -2266,6 +2302,27 @@ class Parser:
             max_allele_fields=max_allele_fields,
             raise_on_error=raise_on_error,
         )
+        if result is None:
+            return None
+
+        # Record what is needed to work out how the species was determined,
+        # rather than working it out now: classification re-tokenizes the
+        # string, and almost no caller asks. Result.species_source does the
+        # work on first access and memoizes it. Neither field is an __init__
+        # field, so equality and hashing are unaffected, and _parse_cached is
+        # keyed on the input string, so a given object always carries the
+        # provenance of the string it was parsed from.
+        if result._species_source_inputs is None:
+            Result._set_field(result, "_species_source_inputs", (name, default_species))
+
+        if require_stated_species and result.species_source not in (None, "stated"):
+            species_source = result.species_source
+            if raise_on_error:
+                raise ParseError(
+                    f"Species for '{name}' was {species_source}, not stated in the input"
+                )
+            return None
+        return result
 
     @cache
     def _parse_cached(

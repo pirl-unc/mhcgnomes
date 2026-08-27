@@ -194,6 +194,80 @@ preferentially interpreted as an [`Allele`](https://github.com/pirl-unc/mhcgnome
 than a [`Serotype`](https://github.com/pirl-unc/mhcgnomes/blob/main/mhcgnomes/serotype.py)
 or [`Haplotype`](https://github.com/pirl-unc/mhcgnomes/blob/main/mhcgnomes/haplotype.py).
 
+## Parsing untrusted input
+
+`parse` accepts anything that looks like MHC nomenclature, which is the right
+default for a known-good allele list and the wrong one for free text. Scanning
+curator notes or a spreadsheet column, "it parsed" is not the same as "this is
+an MHC molecule": a stray `HLA class I` is a valid `MhcClass`, and a bare `d`
+is a valid mouse `Haplotype`.
+
+Say what you will accept, and let anything else come back as `None`:
+
+```python
+from mhcgnomes import parse, Allele, Gene, Pair
+
+result = parse(token, required_result_types=(Allele, Gene, Pair), raise_on_error=False)
+if result is None:
+    continue  # not an MHC molecule
+```
+
+```
+HLA-A*02:01                -> Allele        n/a                 -> None
+H2-K*b                     -> Allele        -                   -> None
+Patr-AL                    -> Gene          HLA class I         -> None
+HLA-DPB1*06:01/DPA1*01:03  -> Pair          d                   -> None
+```
+
+This is more robust than filtering on the returned type yourself, since it also
+prevents a lower-ranked interpretation from being chosen in the first place.
+
+### Which result type means what
+
+Several result types are legitimate MHC designations without being molecules,
+which is why `HLA-DR15` and `BoLA-DR` parse cleanly but yield no allele:
+
+| Type | Means | Example |
+| --- | --- | --- |
+| `Allele` | A specific allele | `HLA-A*02:01` |
+| `Gene` | A locus, no allele given | `Patr-AL` |
+| `Pair` | Class II alpha/beta pairing | `HLA-DPA1*01:03/DPB1*06:01` |
+| `AlleleWithoutGene` | Allele name whose gene is unknown | `BoLA-D18.4` |
+| `Class2Locus` | A class II locus family | `BoLA-DR` |
+| `Serotype` | Serological group, may cover many alleles | `HLA-DR15` |
+| `Haplotype` | Named haplotype | `H2-b` |
+| `Supertype` | Functional grouping of alleles | `HLA-A02` |
+| `MhcClass` | Just a class, with or without species | `HLA class I` |
+| `Species` | Only a species was named | `HLA` |
+
+### Was the species stated, or guessed?
+
+Species inference is right most of the time and load-bearing when it is wrong.
+A bare gene symbol can carry a species you never supplied, and the default
+species means a deliberately generic string still comes back with one:
+
+```python
+>>> parse("Gaga-BLB2*02").species_source
+'stated'
+>>> parse("BLB2*02").species_source     # inferred from the gene name
+'inferred'
+>>> parse("MHC class II").species_source  # fell back to default_species
+'default'
+```
+
+`result.species_inferred` is the boolean form, true for both `inferred` and
+`default`. To reject anything you did not name outright — the right rule when
+validating curated data — ask for it at parse time:
+
+```python
+>>> parse("BLB2*02", require_stated_species=True, raise_on_error=False) is None
+True
+```
+
+Provenance is not part of a result's identity: two alleles that differ only in
+how their species was determined still compare equal and hash the same. It is
+also computed only when asked, so it costs nothing if you never look.
+
 ## How many digits per field?
 
 Originally alleles for many genes were numbered with two digits:
@@ -255,6 +329,39 @@ in YAML data files under `mhcgnomes/data/`. The key files are:
 | `gene_aliases.yaml` | Alternative gene spellings that normalize to canonical genes |
 | `allele_aliases.yaml` | Retired or shorthand allele names that normalize to canonical alleles |
 | `known_alleles.yaml` | Curated known allele labels per species/gene |
+
+### The species tree
+
+Species entries form a tree through their `parent` links, and it is
+**nomenclature-shaped rather than taxonomic**. Two things follow that are easy
+to get wrong:
+
+**`Gnathostomata sp.` is a universal root.** Every species descends from it, so
+"do these two share a common ancestor?" is true for any pair and useless as a
+compatibility test — worse, it fails open. Only a direct ancestor or descendant
+relation is meaningful. `Species.compatible_with` implements that rule:
+
+```python
+>>> Species.get("Bos taurus").compatible_with("Bos sp.")
+True                     # less specific, not contradictory
+>>> Species.get("Macaca mulatta").compatible_with("Macaca fascicularis")
+False                    # siblings
+```
+
+This is what you want when checking a declared species against the species
+mhcgnomes derives from an allele, since the two legitimately differ in
+specificity: `BoLA` belongs to the genus-level `Bos sp.`, so a `BoLA-N*013:01`
+allele on a sample curated as *Bos taurus* is compatible.
+
+**The tree is shallow where a species owns its own MHC system.** `Homo sapiens`
+attaches directly to the root, so `Primata sp.` is *not* an ancestor of human,
+while `Saimiri sciureus` -> `Primata sp.` -> `Gnathostomata sp.` is. HLA is its
+own system rather than a generic primate one, and the tree reflects that. A
+caller reasoning purely taxonomically will guess wrong.
+
+An `X sp.` node is a group entry: it holds the prefix and the genes shared by
+everything beneath it. `Bos sp.` owns `BoLA` and the cattle gene list; `Bos
+taurus` inherits both.
 
 ### Species prefix conventions
 

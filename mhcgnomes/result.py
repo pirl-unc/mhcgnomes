@@ -30,6 +30,51 @@ class Result:
     def _set_field(instance, field_name, field_value):
         object.__setattr__(instance, field_name, field_value)
 
+    # Where the species on this result came from. Parser.parse records the
+    # inputs; the value is worked out on first access and memoized here.
+    # Neither is an __init__ field, so both stay out of equality, hashing,
+    # repr and to_dict() -- two alleles that differ only in how their species
+    # was determined are still the same allele.
+    _species_source = None
+    _species_source_inputs = None
+
+    @property
+    def species_source(self):
+        """
+        How this result's species was determined:
+
+            "stated"    the input named the species, e.g. "Gaga-BLB2*02"
+            "inferred"  derived from a gene or allele name, e.g. "BLB2*02"
+            "default"   fell back to default_species, e.g. "A*02:01"
+            None        no species, or this object was built directly rather
+                        than parsed
+
+        Species inference is right most of the time and load-bearing when it is
+        wrong, so a caller validating curated data can use this to reject any
+        token whose species it did not actually supply.
+        """
+        if self._species_source is not None:
+            return self._species_source
+        if self._species_source_inputs is None:
+            return None
+        # Late import: species.py imports Result, so this cannot be top-level.
+        from .species import Species, classify_species_source
+
+        name, default_species = self._species_source_inputs
+        species = self if type(self) is Species else getattr(self, "species", None)
+        value = classify_species_source(name, species, default_species)
+        Result._set_field(self, "_species_source", value)
+        return value
+
+    @property
+    def species_inferred(self):
+        """
+        True when the species was not named in the input, i.e. species_source
+        is "inferred" or "default". False when stated, and False when there is
+        no species to speak of.
+        """
+        return self.species_source in ("inferred", "default")
+
     @classmethod
     def init_field_names(cls):
         """
