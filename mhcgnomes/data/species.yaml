@@ -4802,11 +4802,21 @@ Pan sp.:
   genes:
     Ia:
       - A
-      - AL
       - B
       - C
     Ib:
       - H # same as HFE?
+      # PMID 11564803 (Adams, Cooper & Parham, J Immunol 2001;167:3858) named
+      # AL a nonclassical class I molecule in its title: only three allotypes,
+      # differing at two residues; present on ~50% of chimpanzee MHC
+      # haplotypes; expressed at low level relative to classical class I; and
+      # last shared an ancestor with the classical MHC-A locus >20 Mya.
+      # PMID 21301043 (Gleimer et al., J Immunol 2011;186:1575) restates it as
+      # non-classical, grouping it with HLA-E/F/G on modest polymorphism,
+      # lower cell-surface expression, and restricted tissue distribution.
+      # Being MHC-A-related and peptide-binding is why it is sometimes filed
+      # under A; neither property makes a locus classical.
+      - AL
     IIa:
       DP:
         - DPA1

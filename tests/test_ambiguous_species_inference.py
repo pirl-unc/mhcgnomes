@@ -177,3 +177,30 @@ def test_bare_gene_resolves_to_a_species_that_declares_it():
         result = parse(gene_name)
         eq_(result.species.name, expected)
         assert result.species.declares_gene(gene_name), gene_name
+
+
+# ---------------------------------------------------------------------------
+# Patr-AL is non-classical
+# https://github.com/pirl-unc/mhcgnomes/issues/107
+# ---------------------------------------------------------------------------
+
+
+def test_patr_AL_is_non_classical():
+    """
+    Adams, Cooper & Parham (PMID 11564803) named AL a nonclassical class I
+    molecule in the title of the paper describing it: three allotypes, present
+    on ~50% of chimpanzee haplotypes, low expression. Being MHC-A-related is
+    why it gets filed under A, but that does not make it classical.
+    """
+    eq_(parse("Patr-AL").mhc_class, "Ib")
+    eq_(parse("ChLA-AL").mhc_class, "Ib")
+
+
+def test_patr_A_is_still_classical():
+    eq_(parse("Patr-A*01:01").mhc_class, "Ia")
+
+
+def test_non_classical_A_related_loci_agree_across_primates():
+    """AL should sit with the E/F/G family the ontology already calls Ib."""
+    for name in ["HLA-E", "HLA-F", "HLA-G", "Mamu-E*02:11", "Caja-E", "Patr-AL"]:
+        eq_(parse(name).mhc_class, "Ib")

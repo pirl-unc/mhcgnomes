@@ -1,6 +1,6 @@
 # Species inference for ambiguous and degenerate inputs
 
-Tracking issues: #102, #103, #105
+Tracking issues: #102, #103, #105, #106, #107
 
 ## Specification
 
@@ -20,6 +20,8 @@ Tracking issues: #102, #103, #105
       existing bare-gene answers for model organisms working.
 - [x] Measure the change against the bundled allele corpora rather than
       assuming a tie-break is inert.
+- [x] Reclassify Patr-AL from `Ia` to `Ib`, with the primary literature cited
+      in the ontology next to the gene.
 - [x] Bump the version and run `./format.sh`, `./lint.sh`, and `./test.sh`.
 - [x] Review the final diff and document the result below.
 
@@ -56,8 +58,19 @@ Tracking issues: #102, #103, #105
 - Filed #109 (water buffalo is parented under `Bos sp.`, a different genus)
   and #110 (`Pren class I` silently picks a winner for a colliding prefix).
   Left #104 open: its premise is wrong, `Mamu-I` and `H2-i` are real entities.
-- Bumped 3.33.6 to 3.34.0. Minor rather than patch because bare gene symbols
+- **#107** asked whether Patr-AL is really `Ia`. It is not. The paper that
+  described the locus is titled "A Novel, Nonclassical MHC Class I Molecule
+  Specific to the Common Chimpanzee" (Adams, Cooper & Parham, J Immunol
+  2001;167:3858, PMID 11564803): three allotypes differing at two residues,
+  present on ~50% of chimpanzee MHC haplotypes, expressed at low level, and
+  diverged from classical MHC-A >20 Mya. Gleimer et al. (J Immunol
+  2011;186:1575, PMID 21301043) restate it as non-classical and group it with
+  HLA-E/F/G. Moved to `Ib`, which is where the ontology already puts that
+  family. hitlist and IEDB were right.
+- **#106** is a duplicate of #103 describing the same eight prefixes; fixed by
+  the same change.
+- Bumped 3.33.6 to 3.35.0. Minor rather than patch because bare gene symbols
   and class-only strings change species for downstream callers.
 - `./format.sh`: passed.
 - `./lint.sh`: passed.
-- `./test.sh`: passed (15,209 tests; 91% statement coverage).
+- `./test.sh`: passed (15,212 tests; 91% statement coverage).
