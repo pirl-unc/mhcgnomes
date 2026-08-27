@@ -31,6 +31,10 @@ PREFIX_TO_EXPECTED_SPECIES = [
     ("CELA", "Cetacea sp."),
     ("ChLA", "Pan sp."),
     ("MusSp", "Mus sp."),
+    # NHP resolves to Primata sp. because that is what the ontology maps the
+    # prefix to. Worth noting that "NHP" means *non-human* primate while
+    # Primata sp. is an ancestor of Homo sapiens; that mismatch predates this
+    # change and is a curation question, not a parsing one.
     ("NHP", "Primata sp."),
     ("OmLA", "Aotus sp."),
     ("RT1", "Rattus sp."),
@@ -53,6 +57,9 @@ def test_class_only_string_agrees_with_bare_prefix(prefix, expected):
     "<prefix> class I" and "<prefix>" describe the same species, so they must
     not disagree about which one it is.
     """
+    # pin both sides, otherwise a curation change that moved them together
+    # would keep this passing
+    eq_(Species.get(prefix).name, expected)
     eq_(parse(f"{prefix} class I").species, Species.get(prefix))
 
 
@@ -112,15 +119,61 @@ def test_quail_genes_still_resolve_to_quail():
     eq_(parse("Coja-BLB2*02").species.name, "Coturnix japonica")
 
 
-def test_num_own_genes_excludes_inherited_genes():
+def test_declares_gene_distinguishes_own_genes_from_inherited_ones():
     quail = Species.get_by_latin_name("Coturnix japonica")
     chicken = Species.get_by_latin_name("Gallus gallus")
     buffalo = Species.get_by_latin_name("Bubalus bubalis")
+    cattle = Species.get_by_latin_name("Bos sp.")
 
-    # quail sees more genes than chicken only because of what it inherits
-    assert quail.num_genes > chicken.num_genes
-    assert quail.num_own_genes < chicken.num_own_genes
+    # both birds can see BLB2, only chicken declares it
+    assert "BLB2" in quail.gene_names
+    assert "BLB2" in chicken.gene_names
+    assert not quail.declares_gene("BLB2")
+    assert chicken.declares_gene("BLB2")
 
-    # water buffalo declares only DQA/DQA1/DQB itself
-    eq_(buffalo.num_own_genes, 3)
-    assert buffalo.num_genes > buffalo.num_own_genes
+    # and the quail's own class II beta nomenclature belongs to the quail
+    assert quail.declares_gene("DBB1")
+    assert not chicken.declares_gene("DBB1")
+
+    # water buffalo can see the BoLA genes but declares none of them
+    assert "NC1" in buffalo.gene_names
+    assert not buffalo.declares_gene("NC1")
+    assert cattle.declares_gene("NC1")
+
+
+def test_declares_gene_is_case_normalizing_but_case_aware():
+    """
+    Gene lookup normalizes case, so "Ia1" (Paralichthys olivaceus) and "IA1"
+    (Chrysolophus pictus) are the same key. Both species declare their own
+    spelling; only one matches a given query exactly.
+    """
+    flounder = Species.get_by_latin_name("Paralichthys olivaceus")
+    pheasant = Species.get_by_latin_name("Chrysolophus pictus")
+
+    assert flounder.declares_gene("Ia1")
+    assert pheasant.declares_gene("Ia1")
+    assert flounder.declares_gene_with_same_case("Ia1")
+    assert not pheasant.declares_gene_with_same_case("Ia1")
+    assert pheasant.declares_gene_with_same_case("IA1")
+
+
+def test_bare_gene_resolves_to_a_species_that_declares_it():
+    """
+    Every candidate under a broad parent group can see that group's genes, so
+    the winner must be one that actually uses the name rather than whichever
+    inheritor happens to have the largest gene list.
+    """
+    for gene_name, expected in [
+        ("BLB2", "Gallus gallus"),
+        ("BLB1", "Gallus gallus"),
+        ("BF2", "Gallus gallus"),
+        # quail's own class II beta genes stay with the quail
+        ("DBB1", "Coturnix japonica"),
+        # these were reassigned to an inheriting group when the ranking
+        # measured gene-list size instead of declaration
+        ("DAB1", "Crocodylus porosus"),
+        ("Ia1", "Paralichthys olivaceus"),
+    ]:
+        result = parse(gene_name)
+        eq_(result.species.name, expected)
+        assert result.species.declares_gene(gene_name), gene_name

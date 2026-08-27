@@ -368,17 +368,34 @@ class Species(Result):
         return len(self.gene_names)
 
     @property
-    def num_own_genes(self):
+    def own_gene_names(self):
         """
-        Number of genes declared by this species' own entry in the ontology,
-        excluding genes inherited from an ancestor.
+        Genes declared by this species' own entry in the ontology, without the
+        ones it inherits from an ancestor.
 
-        Unlike num_genes this is not inflated by a large parent group entry,
-        so it is a better measure of how specifically curated a species is.
-        For example Coturnix japonica inherits BLB1/BLB2 from "Galliformes sp."
-        while Gallus gallus declares them itself.
+        A broad parent group makes every gene it defines visible to every
+        species beneath it, so gene_names alone cannot tell you whether a
+        species actually uses a name. Coturnix japonica inherits BLB1/BLB2
+        from "Galliformes sp." and never declares them; Gallus gallus does.
         """
-        return latin_name_to_num_own_genes.get(self.name, 0)
+        return latin_name_to_own_gene_names.get(self.name, _EMPTY_GENE_NAMES)
+
+    def declares_gene(self, gene_name):
+        """
+        Does this species' own ontology entry declare this gene, as opposed to
+        inheriting it from an ancestor? Matching is normalized, the same way
+        gene lookup is.
+        """
+        return gene_name in self.own_gene_names
+
+    def declares_gene_with_same_case(self, gene_name):
+        """
+        Like declares_gene, but only when the declared spelling matches the
+        query exactly. Gene lookup is case-normalizing, so "Ia1" (Paralichthys
+        olivaceus) and "IA1" (Chrysolophus pictus) collide; the species that
+        spells it the way the caller did is the better match.
+        """
+        return self.own_gene_names.get_original(gene_name) == gene_name
 
     @property
     def scientific_species_name(self):
@@ -916,6 +933,14 @@ def _is_taxonomic_prefix(prefix, latin_name):
     return normalized_prefix in {normalized_first, normalized_concat}
 
 
+_EMPTY_GENE_NAMES = NormalizingSet()
+
+# Populated as a side effect of create_species_for_latin_name, which is cached
+# and so runs its gene walk exactly once per species. Fully built by the time
+# create_species_lookup_dictionaries() below has visited every latin name.
+latin_name_to_own_gene_names = {}
+
+
 @cache
 def create_species_for_latin_name(latin_name):
     if latin_name not in raw_species_dict:
@@ -992,6 +1017,12 @@ def create_species_for_latin_name(latin_name):
         class2_locus_to_gene_names = parent_species.class2_locus_to_gene_names.map_values(set)
         class2_gene_name_to_chain_type = parent_species.class2_gene_name_to_chain_type.copy()
 
+    # Genes this entry declares itself, as opposed to the ones it inherited
+    # from parent_species above. Collected inside the same validated walk so it
+    # cannot drift from gene_names: it sees exactly the class keys the loader
+    # accepts, and normalizes names the same way.
+    own_gene_names = NormalizingSet()
+
     for mhc_class, mhc_class_members in species_info.get("genes", {}).items():
         if mhc_class_members is None:
             raise ValueError(
@@ -1004,6 +1035,7 @@ def create_species_for_latin_name(latin_name):
                 )
             for gene_name in mhc_class_members:
                 gene_names.add(str(gene_name))
+                own_gene_names.add(str(gene_name))
                 gene_name_to_mhc_class[gene_name] = mhc_class
         elif mhc_class in class2_restrictions:
             if type(mhc_class_members) is not dict:
@@ -1015,6 +1047,7 @@ def create_species_for_latin_name(latin_name):
                 for gene_name in locus_gene_names:
                     gene_name = str(gene_name)
                     gene_names.add(gene_name)
+                    own_gene_names.add(gene_name)
                     gene_name_to_mhc_class[gene_name] = mhc_class
                     class2_locus_to_gene_names[locus].add(gene_name)
                     # TODO:
@@ -1022,6 +1055,8 @@ def create_species_for_latin_name(latin_name):
                     #  the YAML file ontology
                     chain_type = guess_class2_chain_type(gene_name)
                     class2_gene_name_to_chain_type[gene_name] = chain_type
+
+    latin_name_to_own_gene_names[latin_name] = own_gene_names
 
     raw_gene_properties = species_info.get("gene properties", {})
     if not isinstance(raw_gene_properties, dict):
@@ -1190,21 +1225,6 @@ def combine_species_aliases(
     return result
 
 
-def _own_gene_names(species_info):
-    """
-    Gene names declared directly by a species entry in the ontology YAML,
-    without the genes it inherits from its parent species.
-    """
-    gene_names = set()
-    for mhc_class_members in (species_info.get("genes") or {}).values():
-        if type(mhc_class_members) is dict:
-            for locus_gene_names in mhc_class_members.values():
-                gene_names.update(str(gene_name) for gene_name in (locus_gene_names or []))
-        elif type(mhc_class_members) is list:
-            gene_names.update(str(gene_name) for gene_name in mhc_class_members)
-    return gene_names
-
-
 def create_species_lookup_dictionaries():
     gene_name_to_species_objects = NormalizingDictionary(default_value_fn=set)
     # Canonical index: latin name → species (never ambiguous)
@@ -1217,13 +1237,8 @@ def create_species_lookup_dictionaries():
     alias_to_species_objects = NormalizingDictionary(default_value_fn=set)
     context_only_alias_to_species_objects = NormalizingDictionary(default_value_fn=set)
 
-    # Genes declared by each species itself, used to rank ambiguous bare gene
-    # names by how specifically curated a species is (see num_own_genes).
-    latin_name_to_num_own_genes = {}
-
     for latin_name in raw_species_dict:
         species = create_species_for_latin_name(latin_name)
-        latin_name_to_num_own_genes[latin_name] = len(_own_gene_names(raw_species_dict[latin_name]))
         latin_name_to_species[latin_name] = species
         species_name_to_species[latin_name] = species
         for s in species.all_identifiers:
@@ -1239,7 +1254,6 @@ def create_species_lookup_dictionaries():
         alias_to_species_objects,
         context_only_alias_to_species_objects,
         gene_name_to_species_objects,
-        latin_name_to_num_own_genes,
     )
 
 
@@ -1249,7 +1263,6 @@ def create_species_lookup_dictionaries():
     alias_to_species_objects,
     context_only_alias_to_species_objects,
     gene_name_to_species_objects,
-    latin_name_to_num_own_genes,
 ) = create_species_lookup_dictionaries()
 
 

@@ -1307,14 +1307,31 @@ class Parser:
         # because they are too generic and the ambiguity should fall
         # through to other parse strategies.
         #
-        # "Best-characterised" counts the genes a species declares itself
-        # (num_own_genes) rather than every gene it can see (num_genes), since
-        # the latter is inflated by whatever a broad parent group happens to
-        # define.  Coturnix japonica inherits BLB1/BLB2 from "Galliformes sp."
-        # and never declares them, so counting inherited genes made bare
-        # "BLB2" resolve to quail instead of chicken, which does declare them.
+        # A gene defined on a broad parent group is visible to every species
+        # beneath it, so most of these candidates never use the name at all.
+        # Rank the ones whose own ontology entry declares the gene above the
+        # ones that merely inherit it, and only then fall back to how many
+        # genes a species has.  Bare "BLB2" used to resolve to Coturnix
+        # japonica, which inherits BLB1/BLB2 from "Galliformes sp." and calls
+        # its own class II beta genes DAB1/DBB1/DCB1, over Gallus gallus,
+        # which declares them.
+        #
+        # Gene lookup is case-normalizing, so distinct genes can collide:
+        # "Ia1" belongs to Paralichthys olivaceus and "IA1" to Chrysolophus
+        # pictus.  Prefer the species that spells the gene the way the caller
+        # did before falling back to a case-insensitive match.
         if species is None and len(species_candidates) > 1 and any(c.isdigit() for c in gene_name):
-            species = max(species_candidates, key=lambda s: (s.num_own_genes, s.num_genes, s.name))
+            species = max(
+                species_candidates,
+                key=lambda s: (
+                    s.declares_gene_with_same_case(gene_name),
+                    s.declares_gene(gene_name),
+                    s.num_genes,
+                    # purely so a genuine tie resolves the same way every run;
+                    # a later latin name is not a better answer
+                    s.name,
+                ),
+            )
         if species is None:
             return None
         return Gene.get(species, gene_name)
@@ -2092,10 +2109,22 @@ class Parser:
             if len(tokens) >= (num_species_tokens + 1):
                 # try peeling off species names such as
                 # "homo sapiens" at the beginning of a token sequence
-                species_candidates = find_matching_species_objects(
-                    " ".join([t.seq for t in tokens[:num_species_tokens]])
-                )
+                species_query = " ".join([t.seq for t in tokens[:num_species_tokens]])
+                species_candidates = find_matching_species_objects(species_query)
             if len(species_candidates) > 0:
+                # A species prefix is inherited by every descendant, so a bare
+                # prefix matches an ancestor and everything under it: "BoLA"
+                # matches Bos sp. but also Bubalus bubalis, and "RT1" matches
+                # Rattus sp. plus every Rattus species. Nothing in the input
+                # named a descendant, so defer to Species.get, which walks the
+                # resolution ladder (exact latin name, exact prefix owner, then
+                # the non-descendant). It returns None for a genuine collision
+                # between unrelated species, in which case every candidate is
+                # kept and gene context decides.
+                if len(species_candidates) > 1:
+                    prefix_owner = Species.get(species_query)
+                    if prefix_owner is not None:
+                        species_candidates = [prefix_owner]
                 tokens = tokens[num_species_tokens:]
                 found_species_prefix = True
                 break

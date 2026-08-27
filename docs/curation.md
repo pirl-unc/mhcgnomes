@@ -194,10 +194,17 @@ descendant prefix (`Bubu-DQA`, `Bota-DRB3*011:01`) is unaffected.
 **A gene is visible to every descendant.** `Galliformes sp.` defines `BLB1` and
 `BLB2`, so every galliform in the ontology appears to carry them, including
 species whose own entry uses a different nomenclature. When a bare gene symbol
-has to pick a species, rank candidates by `Species.num_own_genes` -- the genes
-that species declares itself -- rather than `num_genes`, which counts everything
-it inherits. Japanese quail sees more genes than chicken only because of what
-`Galliformes sp.` defines; chicken declares `BLB1`/`BLB2` and quail does not.
+has to pick a species, `Species.declares_gene()` separates the species that
+actually use the name from the ones that only inherit it, and a declarer always
+outranks an inheritor. Chicken declares `BLB1`/`BLB2`; Japanese quail inherits
+them and calls its own class II beta genes `DAB1`/`DBB1`/`DCB1`, so bare `BLB2`
+is chicken's and bare `DBB1` is the quail's.
+
+Gene lookup normalizes case, so two entries can collide on one key --
+`Ia1` belongs to *Paralichthys olivaceus* and `IA1` to *Chrysolophus pictus*.
+`declares_gene_with_same_case()` breaks that tie in favour of the spelling the
+caller used. If you are adding a gene whose name differs from an existing one
+only by case, expect it to collide and say so in a comment.
 
 When adding a broad group entry, remember that every gene listed on it becomes
 a candidate answer for every species beneath it. Prefer putting a gene on the

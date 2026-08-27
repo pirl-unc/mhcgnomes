@@ -22,30 +22,10 @@ from .haplotype import Haplotype
 from .pair import Pair
 from .result import Result
 from .serotype import Serotype
-from .species import Species
 
 # Pattern for serotype names that look like alleles (e.g., B3901, A2403, DR1403)
 # These should have lower priority than actual allele interpretations
 _ALLELE_LIKE_SEROTYPE_PATTERN = re.compile(r"^([ABC]\d{4,}|D[RPQO][AB]?\d{4,})$")
-
-
-def species_ontology_depth(result: Result) -> int:
-    """
-    How deep the result's species sits in the ontology, i.e. how specific a
-    claim it makes about the species.
-
-    A species prefix is inherited by descendants, so a bare prefix matches an
-    ancestor and every species under it -- "BoLA" matches both Bos sp. and
-    Bubalus bubalis, "RT1" matches Rattus sp. and every Rattus species. In that
-    situation the input gave no evidence for the more specific species, so the
-    ancestor is the honest reading and the descendants are guesses.
-    """
-    species = result if type(result) is Species else getattr(result, "species", None)
-    depth = 0
-    while species is not None and species.parent_species is not None:
-        species = species.parent_species
-        depth += 1
-    return depth
 
 
 def pick_best_result(candidates: Iterable[Result], raise_on_error=True) -> Optional[Result]:
@@ -161,11 +141,6 @@ def sort_key(result: Result):
         is_allele_without_gene,
         num_alleles_in_haplotype_or_serotype,
         result.raw_string is not None,
-        # When results are otherwise indistinguishable and differ only in which
-        # species they name, prefer the least specific one. This only matters
-        # when a single string matched an ancestor and its descendants, in
-        # which case nothing in the input justified picking a descendant.
-        -species_ontology_depth(result),
         # make sure the ordering is stable by sorting on string
         # representation, even if it's semantically meaningful
         str(result),
