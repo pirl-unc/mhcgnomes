@@ -255,8 +255,9 @@ species means a deliberately generic string still comes back with one:
 'default'
 ```
 
-`result.species_inferred` is the boolean form, true for both `inferred` and
-`default`. To reject anything you did not name outright — the right rule when
+`result.species_from_input` is the boolean form, true only for `explicit` — it
+answers the question a caller actually has: did I supply this species, or did
+the parser? To reject anything you did not name outright — the right rule when
 validating curated data — ask for it at parse time:
 
 ```python

@@ -637,7 +637,7 @@ def parse(
         species was inferred from a gene name, or came from default_species,
         treat the string as unparsed. Useful for validating curated data,
         where a confident but inferred species is worse than no answer.
-        See Result.species_source.
+        See Result.species_source and Result.species_from_input.
 
     Returns
     -------

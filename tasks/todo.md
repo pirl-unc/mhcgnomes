@@ -21,7 +21,7 @@ something it does not expose, so callers re-implement it badly.
 ## Review
 
 - **#116**: `Result.species_source` returns `"explicit"`, `"inferred"`,
-  `"default"` or `None`, with `Result.species_inferred` as the boolean form.
+  `"default"` or `None`, with `Result.species_from_input` as the boolean form.
   The reporter asked for a bool but noted the three-way form would be more
   useful, and it is: their worst case was a curator writing the deliberately
   generic `MHC class II` and getting *Homo sapiens* — correct behaviour, and
@@ -41,6 +41,11 @@ something it does not expose, so callers re-implement it badly.
   property does the work on first access and memoizes.
 - `require_explicit_species=True` refuses anything not explicit, and composes with
   `required_result_types`.
+- The boolean is `species_from_input` rather than the `species_inferred` the
+  issue suggested. `species_inferred` would have been true for both
+  `"inferred"` and `"default"` while sharing a name with only one of them;
+  `species_from_input` states the question a caller actually has and is the
+  exact complement of `species_source == "explicit"`.
 - **#117**: a README section on parsing untrusted input, showing
   `required_result_types` + `raise_on_error=False`, plus a table of what each
   result type means — the reporter lost time to `HLA-DR15` and `BoLA-DR`

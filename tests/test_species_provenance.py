@@ -59,13 +59,19 @@ def test_species_from_default_species_is_reported_as_default(name):
 
 
 @pytest.mark.parametrize("name", EXPLICIT)
-def test_explicit_species_is_not_flagged_inferred(name):
-    assert not parse(name).species_inferred
+def test_explicit_species_is_from_input(name):
+    assert parse(name).species_from_input
 
 
 @pytest.mark.parametrize("name", INFERRED + DEFAULTED)
-def test_non_explicit_species_is_flagged_inferred(name):
-    assert parse(name).species_inferred
+def test_non_explicit_species_is_not_from_input(name):
+    assert not parse(name).species_from_input
+
+
+@pytest.mark.parametrize("name", EXPLICIT + INFERRED + DEFAULTED)
+def test_species_from_input_agrees_with_species_source(name):
+    result = parse(name)
+    eq_(result.species_from_input, result.species_source == "explicit")
 
 
 def test_default_is_distinguishable_from_inferred():

@@ -67,13 +67,16 @@ class Result:
         return value
 
     @property
-    def species_inferred(self):
+    def species_from_input(self):
         """
-        True when the species was not named in the input, i.e. species_source
-        is "inferred" or "default". False when explicit, and False when there is
-        no species to speak of.
+        True when the input named the species, i.e. species_source is
+        "explicit". False when it was inferred from a gene name, taken from
+        default_species, or when there is no species to speak of.
+
+        This is the question a caller validating curated data actually asks:
+        did I supply this species, or did the parser supply it for me?
         """
-        return self.species_source in ("inferred", "default")
+        return self.species_source == "explicit"
 
     @classmethod
     def init_field_names(cls):
