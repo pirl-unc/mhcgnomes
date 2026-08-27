@@ -87,5 +87,59 @@ Do not tell the user you are "done" or that changes are "complete" until all thr
 - **Minimal Impact**: Changes should only touch what's necessary. Avoid introducing bugs.
 
 ## Scientific Domain Knowledge
-- **Read the literature**: if some code involves scientific or biological concepts, feel free to search for review papers and read those before changing code that expresses scientific concepts.
-- **Flag inconsistencies**: if code expresses a scientific model that's at odds with your understanding, note that inconsistency and ask for clarification.
+
+- **Read the literature. Always.** Before changing anything that expresses a
+  scientific claim — a gene's class, a species' prefix, a parent-child
+  relationship, a pseudogene flag — go and read the source. Do not reason from
+  the name, from what is already in the file, or from what sounds right.
+- **Do not guess.** If you cannot find a source, say so plainly and leave the
+  data alone. "I could not establish this" is a valid, useful answer. A
+  confident guess written into a curated ontology is worse than a gap, because
+  the next reader cannot tell it from a checked fact.
+- **Do not assume our existing curation is right.** It is a secondary source
+  and it has been wrong: Patr-AL was class Ia when the paper describing it is
+  titled "nonclassical" (#107); water buffalo is parented under `Bos sp.`
+  (#109); `Caau` pointed at a goldfish rather than the golden jackal IPD
+  designates (#112). Existing tests can encode the same errors — check the
+  authority before assuming a failing test means your change is wrong.
+- **Flag inconsistencies**: if code expresses a scientific model at odds with
+  the literature, say so and file it rather than working around it.
+
+### Authorities to check
+
+Check the primary source, not a summary of it. When a tool summarizes a page
+for you, re-read the specific claim verbatim before acting on it — summaries
+invent plausible entries (a summary of the IPD-MHC group list reported "CLA =
+cat" and "CeLA = deer"; both are wrong — CLA is goat, CeLA is cetacean).
+
+| resource | authoritative for | where |
+|---|---|---|
+| IPD-MHC | non-human species designations, prefixes, loci | `ebi.ac.uk/ipd/mhc/group/<CODE>/species` |
+| IMGT/HLA | human gene names and pseudogene status | `hla.alleles.org/genes/index.html` |
+| Comparative MHC Nomenclature Committee | official prefix assignments (via IPD-MHC) | `ebi.ac.uk/ipd/mhc/committee/` |
+| Klein et al. 1990 | the naming rule itself | Immunogenetics 31:217-219, PMID 2329006 |
+| de Groot et al. 2019/2020 | primate MHC nomenclature report | Immunogenetics 72:25-36 |
+| NCBI Taxonomy / GBIF | species synonymy and rank | for parent-child questions |
+
+The species prefix rule (Klein 1990, restated on every IPD-MHC nomenclature
+page) is **first two letters of the genus, last two of the species** — `Patr`
+for *Pan troglodytes*. It is mechanical, so a prefix can be checked by
+derivation, and a prefix that cannot be derived from a species' binomial does
+not belong to it.
+
+### Record the source
+
+**When you establish something from a source, cite it where the data lives** —
+a comment in `species.yaml` next to the entry, or in the code next to the rule.
+Include the PMID or URL and one line on what it establishes, so the next person
+does not have to redo the search. Follow the style already in `species.yaml`:
+
+```yaml
+    Ib:
+      # PMID 11564803 (Adams, Cooper & Parham, J Immunol 2001;167:3858) named
+      # AL a nonclassical class I molecule in its title: only three allotypes,
+      # present on ~50% of chimpanzee MHC haplotypes, low expression.
+      - AL
+```
+
+A finding that is not written down next to the data will be re-litigated.

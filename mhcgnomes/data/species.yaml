@@ -447,7 +447,8 @@ Homo sapiens:
     Ic:
       - MICA
       - MICB
-      # MICC/D/E are pseudogenes of the MIC family, curated by IMGT/HLA
+      # MICC/D/E are pseudogenes of the MIC family, named by IMGT/HLA:
+      # https://hla.alleles.org/genes/index.html
       - MICC
       - MICD
       - MICE
@@ -462,7 +463,8 @@ Homo sapiens:
     I:
       # pseudogenes
       #
-      # IMGT/HLA also names the class I gene fragments N, R, S, T, U, W, X, Y
+      # IMGT/HLA (https://hla.alleles.org/genes/index.html) also names the
+      # class I gene fragments N, R, S, T, U, W, X, Y
       # and Z. They are deliberately not listed here: every one is a single
       # letter, and adding them flips bare "n", "s", "t", "u" and "w" from the
       # mouse/rat haplotype shorthand they resolve to today into human gene
@@ -908,7 +910,9 @@ Rattus villosissimus:
 #
 ############################
 # Canidae is a real taxonomic rank, the same shape as Cetacea sp. and
-# Galliformes sp. above, and it is what IPD-MHC's "Canids" group covers.
+# Galliformes sp. above, and it is what IPD-MHC's "Canids" group covers:
+# https://www.ebi.ac.uk/ipd/mhc/group/DLA/species lists Cuon alpinus and
+# Lycaon pictus alongside the Canis species.
 # Cuon and Lycaon are canids but not Canis, so they hang here rather than
 # under Canis sp., which would hand them the DLA prefix and the Canis gene
 # list on no evidence -- the mistake described in issue #109.
@@ -1264,10 +1268,13 @@ Hippocampus abdominalis:
   name: Pot-bellied seahorse
 Carassius auratus:
   parent: Cyprinidae sp.
-  # Caau is the Klein 2+2 code for both Carassius auratus and Canis aureus,
-  # and IPD-MHC assigns it to Canis aureus. Keep Caau as a context-only rescue
-  # alias for species= records and use CaraAura as the runtime prefix, the same
-  # way Hypophthalmichthys molitrix yields Hymo to Hylobates moloch.
+  # Both Carassius auratus and Canis aureus derive Caau under the Klein 2+2
+  # rule (Immunogenetics 1990;31:217-219, PMID 2329006), so this is a genuine
+  # namespace collision rather than a bad alias. IPD-MHC designates Caau to
+  # Canis aureus (https://www.ebi.ac.uk/ipd/mhc/group/DLA/species), so the
+  # global prefix goes there; Caau stays here as a context-only rescue alias
+  # for species= records, the same way Hypophthalmichthys molitrix yields Hymo
+  # to Hylobates moloch.
   prefix: CaraAura
   other prefixes:
     - Caur
@@ -1550,8 +1557,10 @@ Carassius langsdorfii:
   name: Ginbuna
 Hybognathus amarus:
   parent: Actinopterygii sp.
-  # Hyam collides with Hyperoodon ampullatus, which IPD-MHC designates Hyam.
-  # Context-only for the same reason as Carassius auratus above.
+  # Both this species and Hyperoodon ampullatus derive Hyam under the Klein
+  # 2+2 rule (PMID 2329006). IPD-MHC designates Hyam to Hyperoodon ampullatus
+  # (https://www.ebi.ac.uk/ipd/mhc/group/CeLA/species), so context-only here
+  # for the same reason as Carassius auratus above.
   prefix: HyboAmar
   context only prefixes:
     - Hyam
@@ -2688,7 +2697,9 @@ Equus burchelli:
 #
 ################################################################################
 # Suidae for the same reason as Canidae above: Phacochoerus is a suid but
-# not a Sus, and IPD-MHC's SLA group covers the family.
+# not a Sus, and IPD-MHC's SLA group covers the family --
+# https://www.ebi.ac.uk/ipd/mhc/group/SLA/species lists Phacochoerus africanus
+# alongside Sus domesticus and Sus scrofa.
 Suidae sp.:
   prefix: Suidae
   name: Suid
@@ -5187,6 +5198,10 @@ Saimiri sciureus:
 Semnopithecus entellus:
   parent: Primata sp.
   prefix: Seen
+  # Pren = Pr(esbytis) + en(tellus) under the Klein 1990 rule (PMID 2329006).
+  # Presbytis entellus is the former name of this species, so it is the only
+  # species the prefix can derive from. IPD-MHC designates it Seen:
+  # https://www.ebi.ac.uk/ipd/mhc/group/NHP/species
   old prefix: Pren
   name: Northern Plains Gray Langur
   genes:
@@ -5199,9 +5214,19 @@ Semnopithecus entellus:
 Theropithecus gelada:
   parent: Primata sp.
   prefix: Thge
-  # No 'old prefix: Pren' here. Pren is Presbytis entellus, the former name of
-  # Semnopithecus entellus, which carries it below. Theropithecus was never in
-  # Presbytis, and IPD-MHC lists this species only as Thge.
+  # No 'old prefix: Pren' here, deliberately.
+  #
+  # The species prefix is mechanical: first two letters of the genus, last two
+  # of the species (Klein et al., Immunogenetics 1990;31:217-219, PMID 2329006;
+  # restated at https://www.ebi.ac.uk/ipd/mhc/group/NHP/nomenclature/).
+  # Theropithecus gelada gives Th+ge = Thge, and no derivation of it produces
+  # Pren. Pren is Pr(esbytis) + en(tellus), the former name of Semnopithecus
+  # entellus, which carries it below. IPD-MHC lists this species only as Thge:
+  # https://www.ebi.ac.uk/ipd/mhc/group/NHP/species
+  #
+  # The 2019 primate nomenclature report (de Groot et al., Immunogenetics
+  # 2020;72:25-36) covers neither this species nor the langur, so there is no
+  # published Pren- allele designation for either.
   name: Gelada
   genes:
     IIa:
