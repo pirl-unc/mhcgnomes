@@ -178,6 +178,38 @@ URL.
   `mhcgnomes/data/underrepresented_taxa_source_registry.yaml` until they are
   resolved.
 
+### Inherited prefixes and inherited genes
+
+Two kinds of ambiguity are not prefix collisions between unrelated species, but
+fall out of the ontology being a tree. Both are resolved at runtime by
+preferring the reading the input actually justifies.
+
+**A prefix is visible to every descendant.** `Bos sp.` owns `BoLA`, so `BoLA`
+also matches `Bos taurus`, `Bos indicus`, and `Bubalus bubalis`. When a string
+matches an ancestor and its descendants and nothing else distinguishes them, the
+ancestor wins, because nothing in the input named a descendant. This is why
+`parse("BoLA class I")` is `Bos sp.` and not water buffalo. An explicit
+descendant prefix (`Bubu-DQA`, `Bota-DRB3*011:01`) is unaffected.
+
+**A gene is visible to every descendant.** `Galliformes sp.` defines `BLB1` and
+`BLB2`, so every galliform in the ontology appears to carry them, including
+species whose own entry uses a different nomenclature. When a bare gene symbol
+has to pick a species, `Species.declares_gene()` separates the species that
+actually use the name from the ones that only inherit it, and a declarer always
+outranks an inheritor. Chicken declares `BLB1`/`BLB2`; Japanese quail inherits
+them and calls its own class II beta genes `DAB1`/`DBB1`/`DCB1`, so bare `BLB2`
+is chicken's and bare `DBB1` is the quail's.
+
+Gene lookup normalizes case, so two entries can collide on one key --
+`Ia1` belongs to *Paralichthys olivaceus* and `IA1` to *Chrysolophus pictus*.
+`declares_gene_with_same_case()` breaks that tie in favour of the spelling the
+caller used. If you are adding a gene whose name differs from an existing one
+only by case, expect it to collide and say so in a comment.
+
+When adding a broad group entry, remember that every gene listed on it becomes
+a candidate answer for every species beneath it. Prefer putting a gene on the
+species that actually uses that name.
+
 ### How to resolve each type
 
 #### Canonical-prefix conflict

@@ -98,6 +98,12 @@ MAP_SPECIES_GROUP_TO_TOP_SPECIES = False
 GENE_SEPS = "*_-^:."
 
 
+# Strings which mean "no value" but which would otherwise parse as something
+# real. Only the "n/a" family needs listing here: other null markers such as
+# "na", "nd", "none" and "unknown" already match nothing in the ontology.
+NULL_VALUE_STRINGS = frozenset({"n/a"})
+
+
 class Parser:
     """
     Parser for MHC nomenclature strings.
@@ -1295,14 +1301,37 @@ class Parser:
         if len(species_candidates) == 1:
             species = species_candidates[0]
         # When a distinctive gene name (contains a digit, e.g. BF2, DPB1)
-        # is shared by multiple species, pick the best-characterised one
-        # (the one with the most genes defined in the ontology).  This
+        # is shared by multiple species, pick the best-characterised one.  This
         # avoids breaking bare "BF2" -> chicken when guineafowl also
         # carries BF2.  We skip single-letter genes like "A" or "E"
         # because they are too generic and the ambiguity should fall
         # through to other parse strategies.
+        #
+        # A gene defined on a broad parent group is visible to every species
+        # beneath it, so most of these candidates never use the name at all.
+        # Rank the ones whose own ontology entry declares the gene above the
+        # ones that merely inherit it, and only then fall back to how many
+        # genes a species has.  Bare "BLB2" used to resolve to Coturnix
+        # japonica, which inherits BLB1/BLB2 from "Galliformes sp." and calls
+        # its own class II beta genes DAB1/DBB1/DCB1, over Gallus gallus,
+        # which declares them.
+        #
+        # Gene lookup is case-normalizing, so distinct genes can collide:
+        # "Ia1" belongs to Paralichthys olivaceus and "IA1" to Chrysolophus
+        # pictus.  Prefer the species that spells the gene the way the caller
+        # did before falling back to a case-insensitive match.
         if species is None and len(species_candidates) > 1 and any(c.isdigit() for c in gene_name):
-            species = max(species_candidates, key=lambda s: s.num_genes)
+            species = max(
+                species_candidates,
+                key=lambda s: (
+                    s.declares_gene_with_same_case(gene_name),
+                    s.declares_gene(gene_name),
+                    s.num_genes,
+                    # purely so a genuine tie resolves the same way every run;
+                    # a later latin name is not a better answer
+                    s.name,
+                ),
+            )
         if species is None:
             return None
         return Gene.get(species, gene_name)
@@ -2036,7 +2065,23 @@ class Parser:
         of the given string.
         """
         tokenization_result = tokenize(name)
-        if len(tokenization_result.trimmed_string) == 0:
+        trimmed_string = tokenization_result.trimmed_string
+        if len(trimmed_string) == 0:
+            return []
+
+        # An MHC name has to carry at least one letter or digit. Without this
+        # guard a punctuation-only string tokenizes to empty or punctuation-only
+        # tokens, matches no species prefix, and falls through to the default
+        # species, so "-", ".", "*" and "--" all parsed as Homo sapiens.
+        if not any(c.isalnum() for c in trimmed_string):
+            return []
+
+        # "n/a" is one of the most common ways a curator or an exported
+        # spreadsheet writes "missing", but it splits into the tokens
+        # ("n", "/", "a"), which look exactly like a haplotype pair, so it used
+        # to parse as the rat haplotype RT1-n/A. Every other null marker we
+        # know of ("na", "nd", "none", "unknown", ...) already fails to match.
+        if trimmed_string.strip().lower() in NULL_VALUE_STRINGS:
             return []
 
         tokens = tokenization_result.tokens
@@ -2064,10 +2109,22 @@ class Parser:
             if len(tokens) >= (num_species_tokens + 1):
                 # try peeling off species names such as
                 # "homo sapiens" at the beginning of a token sequence
-                species_candidates = find_matching_species_objects(
-                    " ".join([t.seq for t in tokens[:num_species_tokens]])
-                )
+                species_query = " ".join([t.seq for t in tokens[:num_species_tokens]])
+                species_candidates = find_matching_species_objects(species_query)
             if len(species_candidates) > 0:
+                # A species prefix is inherited by every descendant, so a bare
+                # prefix matches an ancestor and everything under it: "BoLA"
+                # matches Bos sp. but also Bubalus bubalis, and "RT1" matches
+                # Rattus sp. plus every Rattus species. Nothing in the input
+                # named a descendant, so defer to Species.get, which walks the
+                # resolution ladder (exact latin name, exact prefix owner, then
+                # the non-descendant). It returns None for a genuine collision
+                # between unrelated species, in which case every candidate is
+                # kept and gene context decides.
+                if len(species_candidates) > 1:
+                    prefix_owner = Species.get(species_query)
+                    if prefix_owner is not None:
+                        species_candidates = [prefix_owner]
                 tokens = tokens[num_species_tokens:]
                 found_species_prefix = True
                 break

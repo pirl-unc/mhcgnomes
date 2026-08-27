@@ -34,7 +34,9 @@ BATCH_SPECIES = [
     ("Gaac", "Gasterosteus aculeatus"),
     ("Icpu", "Ictalurus punctatus"),
     ("Hiab", "Hippocampus abdominalis"),
-    ("Caau", "Carassius auratus"),
+    # Caau now belongs to Canis aureus, which is what IPD-MHC designates it;
+    # the goldfish keeps Caau as a context-only alias (see #112).
+    ("CaraAura", "Carassius auratus"),
     ("Clma", "Clarias magur"),
     # Amphibians
     ("Lica", "Lithobates catesbeianus"),

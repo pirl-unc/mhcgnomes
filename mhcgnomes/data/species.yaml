@@ -916,6 +916,10 @@ Canis simensis:
   parent: Canis sp.
   prefix: Casi
   name: Ethiopian Wolf
+Canis aureus:
+  parent: Canis sp.
+  prefix: Caau
+  name: Golden Jackal
 ############################
 #
 # Felidae
@@ -1200,10 +1204,15 @@ Hippocampus abdominalis:
   name: Pot-bellied seahorse
 Carassius auratus:
   parent: Cyprinidae sp.
+  # Caau is the Klein 2+2 code for both Carassius auratus and Canis aureus,
+  # and IPD-MHC assigns it to Canis aureus. Keep Caau as a context-only rescue
+  # alias for species= records and use CaraAura as the runtime prefix, the same
+  # way Hypophthalmichthys molitrix yields Hymo to Hylobates moloch.
   prefix: CaraAura
   other prefixes:
-    - Caau
     - Caur
+  context only prefixes:
+    - Caau
   name: Goldfish
 Clarias magur:
   parent: Actinopterygii sp.
@@ -1481,8 +1490,10 @@ Carassius langsdorfii:
   name: Ginbuna
 Hybognathus amarus:
   parent: Actinopterygii sp.
+  # Hyam collides with Hyperoodon ampullatus, which IPD-MHC designates Hyam.
+  # Context-only for the same reason as Carassius auratus above.
   prefix: HyboAmar
-  other prefixes:
+  context only prefixes:
     - Hyam
   name: Rio Grande silvery minnow
 Megalobrama amblycephala:
@@ -2444,6 +2455,10 @@ Tursiops truncatus:
   parent: Cetacea sp.
   prefix: Tutr
   name: Bottlenose dolphin
+Hyperoodon ampullatus:
+  parent: Cetacea sp.
+  prefix: Hyam
+  name: Northern bottlenose whale
 Ziphius cavirostris:
   parent: Cetacea sp.
   prefix: Zica
@@ -4802,11 +4817,21 @@ Pan sp.:
   genes:
     Ia:
       - A
-      - AL
       - B
       - C
     Ib:
       - H # same as HFE?
+      # PMID 11564803 (Adams, Cooper & Parham, J Immunol 2001;167:3858) named
+      # AL a nonclassical class I molecule in its title: only three allotypes,
+      # differing at two residues; present on ~50% of chimpanzee MHC
+      # haplotypes; expressed at low level relative to classical class I; and
+      # last shared an ancestor with the classical MHC-A locus >20 Mya.
+      # PMID 21301043 (Gleimer et al., J Immunol 2011;186:1575) restates it as
+      # non-classical, grouping it with HLA-E/F/G on modest polymorphism,
+      # lower cell-surface expression, and restricted tissue distribution.
+      # Being MHC-A-related and peptide-binding is why it is sometimes filed
+      # under A; neither property makes a locus classical.
+      - AL
     IIa:
       DP:
         - DPA1
@@ -5005,7 +5030,9 @@ Semnopithecus entellus:
 Theropithecus gelada:
   parent: Primata sp.
   prefix: Thge
-  old prefix: Pren
+  # No 'old prefix: Pren' here. Pren is Presbytis entellus, the former name of
+  # Semnopithecus entellus, which carries it below. Theropithecus was never in
+  # Presbytis, and IPD-MHC lists this species only as Thge.
   name: Gelada
   genes:
     IIa:
