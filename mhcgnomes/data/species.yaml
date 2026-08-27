@@ -974,7 +974,16 @@ Canis simensis:
   name: Ethiopian Wolf
 Canis aureus:
   parent: Canis sp.
-  prefix: Caau
+  # IPD-MHC designates this species Caau
+  # (https://www.ebi.ac.uk/ipd/mhc/group/DLA/species) but holds no allele
+  # sequences for it, while Caau-* is in active use for Carassius auratus in
+  # the cyprinid MHC literature. So the designation is recorded as context-only
+  # -- reachable when the caller supplies the species -- and the collision-free
+  # CaniAure is the runtime prefix. Same shape as Monopterus albus / Moal.
+  # Revisit if Caau- canid alleles are ever published.
+  prefix: CaniAure
+  context only prefixes:
+    - Caau
   name: Golden Jackal
 Canis adustus:
   parent: Canis sp.
@@ -1269,17 +1278,18 @@ Hippocampus abdominalis:
 Carassius auratus:
   parent: Cyprinidae sp.
   # Both Carassius auratus and Canis aureus derive Caau under the Klein 2+2
-  # rule (Immunogenetics 1990;31:217-219, PMID 2329006), so this is a genuine
-  # namespace collision rather than a bad alias. IPD-MHC designates Caau to
-  # Canis aureus (https://www.ebi.ac.uk/ipd/mhc/group/DLA/species), so the
-  # global prefix goes there; Caau stays here as a context-only rescue alias
-  # for species= records, the same way Hypophthalmichthys molitrix yields Hymo
-  # to Hylobates moloch.
+  # rule (Immunogenetics 1990;31:217-219, PMID 2329006), so the code is a
+  # genuine collision. It resolves here because this is the side actually used
+  # in print: Caau-DAB and Caau-UFA appear in the cyprinid MHC literature
+  # (Ottova et al., Mol Immunol 2005 on cyprinid class IIb; Wu et al., Fish
+  # Shellfish Immunol 2023 on Carassius auratus class I). IPD-MHC designates
+  # Caau to Canis aureus but holds no allele sequences for that species, so
+  # the designation is reserved rather than used -- see the context-only entry
+  # on Canis aureus.
   prefix: CaraAura
   other prefixes:
-    - Caur
-  context only prefixes:
     - Caau
+    - Caur
   name: Goldfish
 Clarias magur:
   parent: Actinopterygii sp.
@@ -1557,12 +1567,13 @@ Carassius langsdorfii:
   name: Ginbuna
 Hybognathus amarus:
   parent: Actinopterygii sp.
-  # Both this species and Hyperoodon ampullatus derive Hyam under the Klein
-  # 2+2 rule (PMID 2329006). IPD-MHC designates Hyam to Hyperoodon ampullatus
-  # (https://www.ebi.ac.uk/ipd/mhc/group/CeLA/species), so context-only here
-  # for the same reason as Carassius auratus above.
+  # Hyam collides with Hyperoodon ampullatus under the Klein 2+2 rule
+  # (PMID 2329006). Kept here for the same reason as Carassius auratus above:
+  # Hyam-* parses this species' genes today and IPD-MHC holds no allele
+  # sequences for the whale, so its designation is reserved as context-only
+  # on that entry rather than taking the runtime prefix.
   prefix: HyboAmar
-  context only prefixes:
+  other prefixes:
     - Hyam
   name: Rio Grande silvery minnow
 Megalobrama amblycephala:
@@ -2526,7 +2537,13 @@ Tursiops truncatus:
   name: Bottlenose dolphin
 Hyperoodon ampullatus:
   parent: Cetacea sp.
-  prefix: Hyam
+  # IPD-MHC designates this species Hyam
+  # (https://www.ebi.ac.uk/ipd/mhc/group/CeLA/species) but holds no allele
+  # sequences for it, and Hyam-* already parses Hybognathus amarus genes.
+  # Context-only for the same reason as Canis aureus above.
+  prefix: HypeAmpu
+  context only prefixes:
+    - Hyam
   name: Northern bottlenose whale
 Ziphius cavirostris:
   parent: Cetacea sp.

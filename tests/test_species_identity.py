@@ -428,45 +428,56 @@ def test_default_species_accepts_latin_name():
 # https://github.com/pirl-unc/mhcgnomes/issues/112
 # ---------------------------------------------------------------------------
 
-# (prefix, species IPD-MHC designates, species that keeps it context-only)
-IPD_DESIGNATED_PREFIX_COLLISIONS = [
+# (prefix, species that resolves it globally, species holding it context-only)
+#
+# The global prefix goes to whichever side is actually used in print, not
+# automatically to whichever side IPD-MHC designates. Caau-DAB and Caau-UFA
+# appear in the cyprinid MHC literature while IPD holds no allele sequences
+# for Canis aureus, so the goldfish resolves and the jackal's designation is
+# reserved.
+PREFIX_COLLISIONS = [
     ("Hymo", "Hylobates moloch", "Hypophthalmichthys molitrix"),
-    ("Caau", "Canis aureus", "Carassius auratus"),
-    ("Hyam", "Hyperoodon ampullatus", "Hybognathus amarus"),
+    ("Caau", "Carassius auratus", "Canis aureus"),
+    ("Hyam", "Hybognathus amarus", "Hyperoodon ampullatus"),
 ]
 
 
-@pytest.mark.parametrize("prefix,ipd_species,context_only", IPD_DESIGNATED_PREFIX_COLLISIONS)
-def test_ipd_designated_species_owns_the_prefix(prefix, ipd_species, context_only):
+@pytest.mark.parametrize("prefix,resolves_to,reserved_for", PREFIX_COLLISIONS)
+def test_colliding_prefix_resolves_to_the_attested_species(prefix, resolves_to, reserved_for):
     species = Species.get(prefix)
     assert species is not None, prefix
-    eq_(species.name, ipd_species)
+    eq_(species.name, resolves_to)
 
 
-@pytest.mark.parametrize("prefix,ipd_species,context_only", IPD_DESIGNATED_PREFIX_COLLISIONS)
-def test_colliding_species_keeps_prefix_as_context_only(prefix, ipd_species, context_only):
+@pytest.mark.parametrize("prefix,resolves_to,reserved_for", PREFIX_COLLISIONS)
+def test_losing_side_keeps_prefix_as_context_only(prefix, resolves_to, reserved_for):
     from mhcgnomes.species import find_matching_context_only_species_objects
 
     names = {s.name for s in find_matching_context_only_species_objects(prefix)}
-    assert context_only in names, (prefix, names)
+    assert reserved_for in names, (prefix, names)
 
 
-@pytest.mark.parametrize("prefix,ipd_species,context_only", IPD_DESIGNATED_PREFIX_COLLISIONS)
-def test_context_only_species_still_reachable_by_its_own_prefix(prefix, ipd_species, context_only):
-    species = Species.get_by_latin_name(context_only)
+@pytest.mark.parametrize("prefix,resolves_to,reserved_for", PREFIX_COLLISIONS)
+def test_reserved_species_still_reachable_by_its_own_prefix(prefix, resolves_to, reserved_for):
+    species = Species.get_by_latin_name(reserved_for)
     assert species is not None
-    eq_(Species.get(species.prefix).name, context_only)
+    eq_(Species.get(species.prefix).name, reserved_for)
 
 
-def test_caau_is_the_golden_jackal_not_a_goldfish():
-    """IPD-MHC assigns Caau to Canis aureus; it used to resolve to Carassius auratus."""
-    eq_(Species.get("Caau").name, "Canis aureus")
-    eq_(parse("Caau-DRB1").species.name, "Canis aureus")
+def test_published_goldfish_designations_still_parse():
+    """
+    Caau-DAB and Caau-UFA are published Carassius auratus designations, so
+    Caau-* must keep resolving to the goldfish even though IPD-MHC designates
+    Caau to Canis aureus.
+    """
+    eq_(Species.get("Caau").name, "Carassius auratus")
+    for gene_name in ["DAB1", "DAB3", "UBA"]:
+        eq_(parse(f"Caau-{gene_name}").species.name, "Carassius auratus")
 
 
-def test_hyam_is_the_bottlenose_whale_not_a_minnow():
-    """IPD-MHC assigns Hyam to Hyperoodon ampullatus."""
-    eq_(Species.get("Hyam").name, "Hyperoodon ampullatus")
+def test_minnow_designations_still_parse():
+    eq_(Species.get("Hyam").name, "Hybognathus amarus")
+    eq_(parse("Hyam-DAB1").species.name, "Hybognathus amarus")
 
 
 # ---------------------------------------------------------------------------

@@ -40,7 +40,6 @@ CETACEANS = [
     ("Bari", "Balaenoptera ricei"),
     ("Esro", "Eschrichtius robustus"),
     ("Eugl", "Eubalaena glacialis"),
-    ("Hyam", "Hyperoodon ampullatus"),
     ("Inge", "Inia geoffrensis"),
     ("Kosi", "Kogia sima"),
     ("Laal", "Lagenorhynchus albirostris"),
@@ -53,7 +52,6 @@ CETACEANS = [
 # https://www.ebi.ac.uk/ipd/mhc/group/DLA/species
 CANIDS = [
     ("Caad", "Canis adustus"),
-    ("Caau", "Canis aureus"),
     ("Caba", "Canis lupus baileyi"),
     ("Cala", "Canis latrans"),
     ("Calu", "Canis lupus"),
@@ -84,6 +82,25 @@ def test_ipd_prefix_resolves_to_its_species(prefix, latin_name):
 @pytest.mark.parametrize("prefix,latin_name", IPD_SPECIES)
 def test_ipd_species_reachable_by_latin_name(prefix, latin_name):
     eq_(Species.get_by_latin_name(latin_name).prefix, prefix)
+
+
+# Two IPD designations collide with a code already in published use by another
+# species, and IPD holds no allele sequences for either of them. Their species
+# are present and their designations recorded, but reserved rather than global.
+RESERVED_DESIGNATIONS = [
+    ("Caau", "Canis aureus", "Carassius auratus"),
+    ("Hyam", "Hyperoodon ampullatus", "Hybognathus amarus"),
+]
+
+
+@pytest.mark.parametrize("prefix,ipd_species,attested_species", RESERVED_DESIGNATIONS)
+def test_reserved_designation_species_is_present(prefix, ipd_species, attested_species):
+    assert Species.get_by_latin_name(ipd_species) is not None
+
+
+@pytest.mark.parametrize("prefix,ipd_species,attested_species", RESERVED_DESIGNATIONS)
+def test_reserved_designation_does_not_take_the_prefix(prefix, ipd_species, attested_species):
+    eq_(Species.get(prefix).name, attested_species)
 
 
 # ---------------------------------------------------------------------------

@@ -102,6 +102,16 @@ Do not tell the user you are "done" or that changes are "complete" until all thr
   (#109); `Caau` pointed at a goldfish rather than the golden jackal IPD
   designates (#112). Existing tests can encode the same errors — check the
   authority before assuming a failing test means your change is wrong.
+- **An official designation is not the same as attested usage.** The naming
+  rule is mechanical, so several species can derive the same code, and only
+  one of them is usually the one that appears in print — the rest are
+  synthetic. Before handing a prefix to a species because a committee assigned
+  it, check whether anyone has actually published alleles under it. `Caau` is
+  designated to *Canis aureus*, which has no deposited sequences, while
+  `Caau-DAB` and `Caau-UFA` are in active use for *Carassius auratus*; giving
+  the designation the runtime prefix silently broke every goldfish parse.
+  Where they conflict, the attested side gets the prefix and the designation
+  is recorded as `context only prefixes`.
 - **Flag inconsistencies**: if code expresses a scientific model at odds with
   the literature, say so and file it rather than working around it.
 
