@@ -333,9 +333,37 @@ in YAML data files under `mhcgnomes/data/`. The key files are:
 
 ### The species tree
 
-Species entries form a tree through their `parent` links, and it is
-**nomenclature-shaped rather than taxonomic**. Two things follow that are easy
-to get wrong:
+Species entries form a tree through their `parent` links. **It is a
+prefix-scope hierarchy, not a phylogeny.** A `parent` says "this species may be
+named under the ancestor's umbrella prefix" — nothing more. Read as taxonomy it
+looks wrong in both directions, and two independent readers have filed the same
+bug against it:
+
+```
+Bos sp. [BoLA]     ->  Bota, Boin, Bofr, Bogr, Bubu
+Macaca sp. [RhLA]  ->  Mafa, Mamu, Mane, Masi, Math
+Canis sp. [DLA]    ->  Calu, Cala, Caru, Casi, Caba
+Primata sp. [NHP]  ->  45 non-human primates
+```
+
+**`Homo sapiens` is not under `Primata sp.`.** It attaches straight to the
+root, despite humans plainly being primates — because human alleles are never
+written `NHP-*`. That is the clearest evidence of what the tree encodes.
+
+**`Bubalus bubalis` is under `Bos sp.` despite being a different genus.** Water
+buffalo belongs to *Bubalus*, a sister genus of *Bos* within Bovini, so as
+taxonomy the edge is wrong. As prefix scope it is right: IPD-MHC files water
+buffalo in the BoLA group, and the literature assigns buffalo class II
+sequences to cattle loci by trans-species polymorphism — `Bubu-DRB` is the
+orthologue of `BoLA-DRB3`. The edge is also load-bearing: the entry declares
+only `DQA`, `DQA1` and `DQB` itself, so `Bubu-DRA`, `Bubu-DRB3`, `Bubu-DQA2`
+and `Bubu-DQB1` all parse by inheritance, and `Bubu-DRB` normalizes to
+`Bubu-DRB3` because of it.
+
+So before "correcting" a parent link that looks taxonomically wrong, check what
+parses through it.
+
+Two further consequences are easy to get wrong:
 
 **`Gnathostomata sp.` is a universal root.** Every species descends from it, so
 "do these two share a common ancestor?" is true for any pair and useless as a
@@ -354,11 +382,11 @@ mhcgnomes derives from an allele, since the two legitimately differ in
 specificity: `BoLA` belongs to the genus-level `Bos sp.`, so a `BoLA-N*013:01`
 allele on a sample curated as *Bos taurus* is compatible.
 
-**The tree is shallow where a species owns its own MHC system.** `Homo sapiens`
-attaches directly to the root, so `Primata sp.` is *not* an ancestor of human,
-while `Saimiri sciureus` -> `Primata sp.` -> `Gnathostomata sp.` is. HLA is its
-own system rather than a generic primate one, and the tree reflects that. A
-caller reasoning purely taxonomically will guess wrong.
+**Compatibility is a claim about naming, not ancestry.** Because the tree is
+prefix scope, `compatible_with` answers "could these two names describe the
+same sample?" and not "are these related species?". A `Bubu-*` allele is
+compatible with a curated `Bos sp.`, since `Bos sp.` denotes the BoLA group and
+water buffalo is in it. That is the intended answer, not a wart.
 
 An `X sp.` node is a group entry: it holds the prefix and the genes shared by
 everything beneath it. `Bos sp.` owns `BoLA` and the cattle gene list; `Bos

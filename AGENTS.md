@@ -102,6 +102,14 @@ Do not tell the user you are "done" or that changes are "complete" until all thr
   (#109); `Caau` pointed at a goldfish rather than the golden jackal IPD
   designates (#112). Existing tests can encode the same errors — check the
   authority before assuming a failing test means your change is wrong.
+- **Do not assume our curation is wrong either.** The inverse of the rule
+  above, and just as costly. Structure that looks incorrect is often load-
+  bearing: `Bubalus bubalis` sits under `Bos sp.` despite being another genus,
+  which two readers filed as a bug, but the species tree is a prefix-scope
+  hierarchy rather than a phylogeny, and detaching it would have broken every
+  published `Bubu-*` class II parse. Before changing a structure, check what
+  depends on it -- what stops parsing, what test covers it, what the papers
+  actually write.
 - **An official designation is not the same as attested usage.** The naming
   rule is mechanical, so several species can derive the same code, and only
   one of them is usually the one that appears in print — the rest are

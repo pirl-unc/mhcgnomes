@@ -178,6 +178,26 @@ URL.
   `mhcgnomes/data/underrepresented_taxa_source_registry.yaml` until they are
   resolved.
 
+### The tree is prefix scope, not phylogeny
+
+A `parent` link says "this species may be named under the ancestor's umbrella
+prefix". It is not a claim of descent, and reading it as one is the single most
+common misunderstanding of this file -- two independent readers have filed the
+same bug against `Bubalus bubalis` sitting under `Bos sp.`
+
+The clearest evidence is `Homo sapiens`, which attaches straight to the root
+rather than under `Primata sp.`, despite humans being primates: human alleles
+are never written `NHP-*`. `Bubalus bubalis` under `Bos sp.` is the mirror
+image -- a different genus, but IPD-MHC files water buffalo in the BoLA group
+and the literature assigns its class II sequences to cattle loci by
+trans-species polymorphism.
+
+Parent links are also load-bearing for parsing, because genes are inherited
+along them. Before changing one because it looks taxonomically wrong, check
+what stops parsing: water buffalo declares only `DQA`, `DQA1` and `DQB`, so
+detaching it would break `Bubu-DRA`, `Bubu-DRB3`, `Bubu-DQA2` and `Bubu-DQB1`,
+every one of which is named in the published literature.
+
 ### Inherited prefixes and inherited genes
 
 Two kinds of ambiguity are not prefix collisions between unrelated species, but
