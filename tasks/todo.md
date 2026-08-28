@@ -1,44 +1,51 @@
-# Document that the species tree is prefix scope, not phylogeny
+# Curate the published water buffalo loci
 
-Tracking issues: #109, #115 (both closed as not-a-bug)
+Tracking issues: follow-up to #109 / #115 (both closed as not-a-bug)
+
+Those two issues asked whether `Bubalus bubalis` belongs under `Bos sp.`
+It does -- the tree is prefix scope. But checking the literature to answer
+that turned up a real gap: the entry did not record the loci the buffalo
+papers actually characterize.
 
 ## Specification
 
-- [x] Establish whether `Bubalus bubalis` under `Bos sp.` is wrong, from the
-      published water buffalo literature rather than from taxonomy.
-- [x] Record the answer where the misreading happens: README, curation guide,
-      and AGENTS.md.
+- [x] Declare on `Bubalus bubalis` the class II loci with published buffalo
+      sequences, with sources cited next to each.
+- [x] Stop the cattle `DRB -> DRB3` alias renaming the buffalo locus, since
+      the literature reports homology rather than identity.
+- [x] Leave inherited cattle loci reachable.
+- [x] Decide, from IPD-MHC rather than one paper, whether `BoLA-DQB3` and
+      `BoLA-DQB4` should exist.
 - [x] Bump the version and run `./format.sh`, `./lint.sh`, and `./test.sh`.
 - [x] Review the final diff and document the result below.
 
 ## Review
 
-- **No data change.** The placement is correct and my own #109 proposal would
-  have broken real parses. Two of us filed the same bug independently -- #109
-  from here, #115 downstream -- so the gap was documentation, not curation.
-- The tree is a **prefix-scope hierarchy**: a `parent` says "this species may
-  be named under the ancestor's umbrella prefix". `Homo sapiens` attaching to
-  the root rather than under `Primata sp.` is the clearest evidence, since
-  human alleles are never written `NHP-*`.
-- The literature confirms it for water buffalo: `Bubu-DRB` is orthologous to
-  `BoLA-DRB3` and buffalo sequences are assigned to cattle loci by
-  trans-species polymorphism (PMC3313522; PMID 12580780). IPD-MHC files the
-  species in the BoLA group.
-- The link is load-bearing. `Bubalus bubalis` declares only `DQA`, `DQA1` and
-  `DQB`; `Bubu-DRA`, `Bubu-DRB3`, `Bubu-DQA2` and `Bubu-DQB1` all parse by
-  inheritance, and `Bubu-DRB` normalizes to `Bubu-DRB3` -- exactly the
-  orthology the papers describe -- only because of it. Detaching drops the
-  species from 55 visible genes to 11. I had measured that drop while
-  proposing the change and read it as an acceptable cost; it was the evidence
-  against the change.
-- Residual, not addressed: buffalo also inherits the BoLA class I loci, and
-  no water buffalo class I sequences are published. That is permissive parsing
-  of names nobody writes rather than a wrong claim, and tightening it means
-  per-locus evidence review across every group node.
-- AGENTS.md gains the inverse of the lesson added last time: do not assume our
-  curation is wrong either, and check what depends on a structure before
-  changing it.
-- Bumped 3.38.0 to 3.38.1. Docs only; no behaviour change.
+- Declared `DRA`, `DRB`, `DQA2` in addition to the existing `DQA`, `DQA1`,
+  `DQB`. All were previously inherited from `Bos sp.`, which parsed them but
+  recorded no evidence that the buffalo locus itself had been characterized.
+  Sources: PMID 12580780 (buffalo DRA and DRB, eight Bubu-DRB alleles across
+  four breeds), PMID 22383896 (cites isolation of buffalo DQA1 and DQA2
+  cDNAs), and IPD-MHC, which holds 39 Bubu-DQA alleles.
+- **`Bubu-DRB` no longer renames to `Bubu-DRB3`.** `gene_aliases.yaml` maps
+  `DRB -> DRB3` under `BoLA`, which is right for cattle, where DRB3 is the
+  expressed DRB locus, and buffalo inherited it. PMID 22383896 says only that
+  "the Bubu-DRB sequence showed maximum homology with the BoLA-DRB3*0101
+  allele of cattle" -- homology, not identity -- and every paper writes the
+  locus as Bubu-DRB. Declaring `DRB` on the species stops the rename;
+  `Bubu-DRB3` still parses by inheritance.
+- **`BoLA-DQB3` and `BoLA-DQB4` deliberately not added.** A trans-species
+  phylogeny paper assigns buffalo sequences to loci it labels `BoLA-DQB1`,
+  `BoLA-DQB3` and `BoLA-DQB4`, but IPD-MHC registers only `BoLA-DQB`. Those
+  are that analysis's locus labels rather than designations. A test pins their
+  absence so the distinction is not lost.
+- Also added the prefix-scope explanation as a comment on the entry itself,
+  since it is the specific line two people have now filed bugs against.
+- No behaviour change on real data: 0 of 11,558 names in the bundled corpora
+  parse differently. The `Bubu-DRB` rename is the only behavioural change and
+  no corpus name exercises it.
+- Bumped 3.38.0 to 3.39.0 -- minor rather than patch, because `Bubu-DRB` now
+  returns a different gene name.
 - `./format.sh`: passed.
 - `./lint.sh`: passed.
-- `./test.sh`: passed (15,489 tests; 91% statement coverage).
+- `./test.sh`: passed (15,507 tests; 91% statement coverage).
