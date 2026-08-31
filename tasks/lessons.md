@@ -23,6 +23,28 @@ actually support it. If the answer is one, write down the exception, not the
 model. Reading the code that implements the structure is part of establishing
 what the structure means.
 
+## Prefer fixing the structure to encoding an exception
+
+**What happened.** #122 said `Primata sp.` excludes `Homo sapiens` because its
+prefix is `NHP`. Two fixes were shipped before the right one. The first made
+human a child of the node and blocked prefix inheritance, which leaked (below).
+The second added a `prefix excludes` YAML key, a `prefix_excluded_species`
+field, a `Species.can_name` predicate and a docs section explaining when to
+prefer it over `compatible_with`. A downstream reader filed #126 within hours
+asking which of the two predicates answered which question.
+
+**Why it was wrong.** `NHP` is the primate order *minus humans* -- paraphyletic,
+not a taxon -- and it was sitting on the node for the primate order. One node
+was standing for two different sets. Every line of that machinery existed to
+paper over that. Giving `NHP` its own entry, sibling to `Homo sapiens`, made
+both questions plain ancestry and deleted all of it.
+
+**How to apply.** When a fix needs a new concept to describe a special case,
+check first whether the data can be shaped so the special case does not exist.
+A predicate that has to be explained in docs is a sign the structure is wrong;
+"which of these two similar methods do I want" is a question the data model
+should be answering, not the reader.
+
 ## An invariant asserted in prose has to be tested on every path
 
 **What happened.** The first fix for #122 gave `Homo sapiens` a parent of

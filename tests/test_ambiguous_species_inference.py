@@ -31,11 +31,10 @@ PREFIX_TO_EXPECTED_SPECIES = [
     ("CELA", "Cetacea sp."),
     ("ChLA", "Pan sp."),
     ("MusSp", "Mus sp."),
-    # NHP resolves to Primata sp., the node that owns the prefix. Homo sapiens
-    # is a child of that node but never answers to NHP: the entry declares
-    # "prefix excludes: [Homo sapiens]", since IPD-MHC's NHP group means
-    # Non-Human Primates (#122).
-    ("NHP", "Primata sp."),
+    # NHP is its own node, sibling to Homo sapiens under Primata sp., because
+    # IPD-MHC's NHP group means Non-Human Primates and so is not the primate
+    # order (#122, #126).
+    ("NHP", "NHP"),
     ("OmLA", "Aotus sp."),
     ("RT1", "Rattus sp."),
     ("RhLA", "Macaca sp."),

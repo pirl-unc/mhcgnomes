@@ -339,8 +339,8 @@ wherever it can be: exactly one parent link in the whole ontology points at
 another genus's node. Genes, and the rest of a species' curated data, are
 inherited along these links.
 
-Whether an ancestor's prefix may *name* a descendant is a separate question.
-An umbrella prefix normally covers everything beneath it:
+Every MHC prefix owns a node, and an umbrella prefix covers everything beneath
+its node:
 
 ```
 Bos sp. [BoLA]     ->  Bota, Boin, Bofr, Bogr, Bubu
@@ -348,30 +348,34 @@ Macaca sp. [RhLA]  ->  Mafa, Mamu, Mane, Masi, Math
 Canis sp. [DLA]    ->  Calu, Cala, Caru, Casi, Caba
 ```
 
-**`Homo sapiens` is a primate that never answers to `NHP`.** `Primata sp.` is
-the primate order and human is inside it, but the prefix it carries is
-IPD-MHC's group code for [Non-Human
-Primates](https://www.ebi.ac.uk/ipd/mhc/group/NHP/) — exclusionary by
-definition, unlike every other umbrella prefix in the file. The entry says so:
+**`NHP` is a node, not the primate order.** IPD-MHC's `NHP` group is [Non-Human
+Primates](https://www.ebi.ac.uk/ipd/mhc/group/NHP/), so it is the primate order
+*minus humans* — paraphyletic, and not a taxon. It gets its own entry, sibling
+to `Homo sapiens`:
 
-```yaml
-Primata sp.:
-  prefix: NHP
-  prefix excludes:
-    - Homo sapiens
+```
+Primata sp. [Primata]        the primate order, and the genes all primates share
+├── Homo sapiens [HLA]
+└── NHP [NHP]                the IPD-MHC group
+    └── 55 non-human primates
 ```
 
-`Species.can_name` answers the naming question and honours that declaration,
-while `is_ancestor_of` and `is_descendant_of` stay purely taxonomic:
+That keeps both questions as plain ancestry, with no second predicate:
 
 ```python
->>> Species.get("Homo sapiens").is_descendant_of("Primata sp.")
+>>> Species.get("Homo sapiens").compatible_with("Primata sp.")
 True                              # humans are primates
->>> Species.get("Primata sp.").can_name("Homo sapiens")
+>>> Species.get("Homo sapiens").compatible_with("NHP")
 False                             # NHP-* cannot denote one
 >>> parse("NHP-E*01:01", species="Homo sapiens", raise_on_error=False)
 None                              # so this is refused, not converted
 ```
+
+Because `NHP` is paraphyletic, any taxon added under `Primata sp.` has to sit
+wholly inside or wholly outside it. A `Homo sp.` node holding *H. sapiens* and
+*H. neanderthalensis* is fine as a sibling of `NHP`; a `Hominidae sp.` spanning
+humans and the great apes is not, since it would have to pull `Gorilla sp.`,
+`Pan sp.` and `Pongo sp.` out of the `NHP` umbrella.
 
 **`Bubalus bubalis` is under `Bos sp.` despite being a different genus.** This
 is the one edge that is deliberately not taxonomy. Water buffalo belongs to
@@ -404,13 +408,9 @@ mhcgnomes derives from an allele, since the two legitimately differ in
 specificity: `BoLA` belongs to the genus-level `Bos sp.`, so a `BoLA-N*013:01`
 allele on a sample curated as *Bos taurus* is compatible.
 
-**Compatibility is a question about naming, not descent.** `compatible_with`
-answers "could these two names describe the same sample?", so it follows
-`can_name` rather than ancestry. A `Bubu-*` allele is compatible with a curated
-`Bos sp.`, since `Bos sp.` denotes the BoLA group and water buffalo is in it. A
-human sample is *not* compatible with `Primata sp.`, since that name denotes
-the NHP group — even though humans are primates, which `is_descendant_of` will
-tell you.
+**Compatibility can follow an edge that exists for naming.** A `Bubu-*` allele
+is compatible with a curated `Bos sp.`, since `Bos sp.` denotes the BoLA group
+and water buffalo is in it. That is the intended answer, not a wart.
 
 An `X sp.` node is a group entry: it holds the prefix and the genes shared by
 everything beneath it. `Bos sp.` owns `BoLA` and the cattle gene list; `Bos

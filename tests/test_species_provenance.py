@@ -176,20 +176,18 @@ COMPATIBLE = [
     ("Homo sapiens", "Homo sapiens"),
     ("Saimiri sciureus", "Primata sp."),
     ("Homo sapiens", "Gnathostomata sp."),
+    # Humans are primates, and Primata sp. is the primate order (#122).
+    ("Homo sapiens", "Primata sp."),
 ]
 
 INCOMPATIBLE = [
     ("Macaca mulatta", "Macaca fascicularis"),
     ("Carassius gibelio", "Homo sapiens"),
     ("Bos taurus", "Ovis aries"),
-    # Humans ARE primates and Primata sp. is an ancestor of Homo sapiens
-    # (tests/test_species_tree_shape.py pins that). But this question is about
-    # naming, not descent: Primata sp. owns the prefix NHP, which IPD-MHC
-    # defines as Non-Human Primates, so an NHP-* allele can never have come
-    # from a human sample. compatible_with follows Species.can_name, which
-    # honours the "prefix excludes" declaration; for the taxonomic question,
-    # ask is_descendant_of. See issue #122.
-    ("Homo sapiens", "Primata sp."),
+    # An NHP-* allele can never have come from a human sample. This is plain
+    # ancestry, not a special case: NHP is a sibling of Homo sapiens under
+    # Primata sp., not one of its ancestors. See issues #122 and #126.
+    ("Homo sapiens", "NHP"),
 ]
 
 

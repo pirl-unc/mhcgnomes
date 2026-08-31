@@ -3,12 +3,13 @@ Invariants about the shape of the species tree: what a parent link means, and
 where the tree deliberately departs from taxonomy.
 
 A parent link is containment, taxonomic wherever it can be, and it is what
-genes are inherited along. Whether an ancestor's prefix may *name* a descendant
-is a separate question, answered by Species.can_name and constrained by the
-"prefix excludes" declaration -- which is why Homo sapiens can be a primate
-without ever answering to NHP.
+genes are inherited along. Every MHC prefix owns a node, so "is a human a
+primate?" and "can NHP-* name a human?" are both plain ancestry questions:
+Primata sp. is the primate order and an ancestor of Homo sapiens, while NHP is
+a sibling of Homo sapiens beneath it.
 
 https://github.com/pirl-unc/mhcgnomes/issues/122
+https://github.com/pirl-unc/mhcgnomes/issues/126
 """
 
 import pytest
@@ -74,44 +75,35 @@ def test_human_does_not_inherit_the_nhp_prefix():
     ok_("NHP" not in set(human.all_identifiers))
 
 
-def test_the_primate_node_cannot_name_a_human():
+def test_nhp_is_a_sibling_of_human_not_an_ancestor():
     human = Species.get_by_latin_name("Homo sapiens")
-    primates = Species.get_by_latin_name("Primata sp.")
-    ok_(not primates.can_name(human))
-    ok_(not human.compatible_with(primates))
-    ok_(not primates.compatible_with(human))
-    ok_(not human.compatible_with("NHP"))
+    nhp = Species.get("NHP")
+    ok_(not nhp.is_ancestor_of(human))
+    ok_(not human.is_descendant_of(nhp))
+    ok_(not human.compatible_with(nhp))
+    ok_(not nhp.compatible_with(human))
+    eq_(nhp.parent.name, "Primata sp.")
 
 
-def test_the_primate_node_can_still_name_every_other_primate():
+def test_nhp_covers_every_primate_except_human():
     primates = Species.get_by_latin_name("Primata sp.")
-    unnameable = [
+    nhp = Species.get("NHP")
+    outside = sorted(
         s.name
         for s in ALL_SPECIES
-        if primates.is_ancestor_of(s) and s.name != "Homo sapiens" and not primates.can_name(s)
-    ]
-    eq_(unnameable, [], f"NHP stopped covering: {unnameable}")
+        if primates.is_ancestor_of(s) and s is not nhp and not nhp.is_ancestor_of(s)
+    )
+    eq_(outside, ["Homo sapiens"], f"outside the NHP group: {outside}")
 
 
-def test_exclusion_does_not_leak_to_nodes_above_it():
-    # Gnathostomata sp. does not exclude anything, so human stays reachable
-    # from the root even though the path passes through the excluded edge.
-    human = Species.get_by_latin_name("Homo sapiens")
-    root = Species.get_by_latin_name("Gnathostomata sp.")
-    ok_(root.can_name(human))
-    ok_(human.compatible_with(root))
-
-
-# Every gene `Primata sp.` owns, so that these exercise the conversion path
-# rather than merely failing to find a gene. `species=` on the second column is
-# the ancestor-to-descendant conversion that must be refused for NHP.
+# Every gene the primate node owns, so that these exercise the species=
+# conversion path rather than merely failing to find a gene.
 NHP_GENES = ["E", "DMB", "MICA", "CD1a"]
 
 
 @pytest.mark.parametrize("gene", NHP_GENES)
-def test_nhp_gene_names_parse_as_the_primate_node(gene):
-    result = parse(f"NHP-{gene}")
-    eq_(result.species.name, "Primata sp.")
+def test_nhp_gene_names_parse_as_the_nhp_node(gene):
+    eq_(parse(f"NHP-{gene}").species.name, "NHP")
 
 
 @pytest.mark.parametrize("gene", NHP_GENES)
@@ -125,29 +117,24 @@ def test_nhp_gene_names_are_never_converted_to_human(gene, human_name):
 
 
 def test_ancestor_to_descendant_conversion_still_works_where_it_should():
-    # The guard above must not have disabled the feature it constrains.
-    result = parse("BoLA-N*01301", species="Bos taurus")
-    eq_(result.species.name, "Bos taurus")
+    # The structure must not have disabled the feature it constrains.
+    eq_(parse("BoLA-N*01301", species="Bos taurus").species.name, "Bos taurus")
 
 
-def test_nhp_prefix_still_belongs_to_the_primate_node():
-    eq_(Species.get("NHP"), Species.get_by_latin_name("Primata sp."))
+def test_nhp_prefix_belongs_to_the_nhp_node():
+    eq_(Species.get("NHP"), Species.get_by_latin_name("NHP"))
+    eq_(Species.get("primate"), Species.get_by_latin_name("Primata sp."))
 
 
-def test_every_other_primate_still_inherits_nhp():
+def test_primata_prefix_is_its_own_taxon_name_and_is_not_inherited():
+    # "Primata" is the node's taxon name, so the loader treats it the way it
+    # treats "Aves" and "Rodentia": it is not handed down as an MHC prefix.
     primates = Species.get_by_latin_name("Primata sp.")
-    # Genus nodes inherit NHP too, despite carrying prefixes of their own:
-    # Macaca sp. is RhLA *and* old prefix NHP. The only children that do not
-    # are the two with a documented historic prefix, and human.
-    declares_own_old_prefix = {"Callithrix pygmaea", "Semnopithecus entellus", "Homo sapiens"}
-    lost = [
-        s.name
-        for s in ALL_SPECIES
-        if s.parent is primates
-        and s.name not in declares_own_old_prefix
-        and s.historic_mhc_prefix != "NHP"
+    eq_(primates.prefix, "Primata")
+    inheritors = [
+        s.name for s in ALL_SPECIES if s.historic_mhc_prefix == "Primata" and s is not primates
     ]
-    eq_(lost, [], f"children of Primata sp. that lost the NHP umbrella: {lost}")
+    eq_(inheritors, [], f"species that picked up 'Primata' as an MHC prefix: {inheritors}")
 
 
 # ---------------------------------------------------------------------------

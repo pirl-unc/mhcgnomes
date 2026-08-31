@@ -433,12 +433,10 @@ Crocodylia sp.:
 ######################################################
 Homo sapiens:
   prefix: HLA
-  # Humans are primates -- NCBI Taxonomy places Homo sapiens (taxid 9606) in
-  # Primates (taxid 9443), https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=9606
-  # -- so the parent is the primate node. That node owns the prefix NHP, which
-  # can never name a human; the exclusion is declared on Primata sp. itself
-  # under "prefix excludes", because it is a property of what NHP means rather
-  # than of this entry. See #122.
+  # NCBI Taxonomy places Homo sapiens (taxid 9606) in Primates (taxid 9443),
+  # https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=9606 -- so the
+  # parent is the primate order. Sibling to the NHP node rather than inside it,
+  # which is what keeps NHP-* from naming a human. See #122, #126.
   parent: Primata sp.
   name: Human
   genes:
@@ -4318,16 +4316,16 @@ Tyto alba:
 #
 ################################################################################
 Primata sp.:
-  # The primate order, holding the genes every primate shares. Its prefix is
-  # the IPD-MHC group code NHP, which https://www.ebi.ac.uk/ipd/mhc/group/NHP/
-  # describes as "a specialist database for the Major Histocompatibility
-  # Complex genes of Non-Human Primates ... Apes and both Old World and New
-  # World monkeys" -- exclusionary by definition, unlike every other umbrella
-  # prefix in this file. So the node contains Homo sapiens, and the prefix is
-  # declared not to name it. See #122.
-  prefix: NHP
-  prefix excludes:
-    - Homo sapiens
+  # The primate order: every primate, humans included, holding the genes they
+  # all share. Its prefix is its own taxon name, so nothing inherits it as an
+  # MHC prefix.
+  #
+  # Its children are Homo sapiens and the NHP node below. Any taxon added here
+  # later must sit wholly inside or wholly outside NHP, because NHP is
+  # paraphyletic: "Homo sp." (humans plus other Homo species) is fine as a
+  # sibling of NHP, but a "Hominidae sp." spanning humans and the great apes
+  # would have to pull Gorilla, Pan and Pongo out of the NHP umbrella.
+  prefix: Primata
   name: Primate
   genes:
     Ib:
@@ -4352,9 +4350,22 @@ Primata sp.:
       DO:
         - DOA
         - DOB
+NHP:
+  # The IPD-MHC "NHP" group, which https://www.ebi.ac.uk/ipd/mhc/group/NHP/
+  # describes as "a specialist database for the Major Histocompatibility
+  # Complex genes of Non-Human Primates ... Apes and both Old World and New
+  # World monkeys". Not a taxon -- it is the primate order minus humans, which
+  # is paraphyletic -- so the key is the group code rather than a latin name.
+  #
+  # It exists as its own node so that "is a human a primate?" and "can NHP-*
+  # name a human?" are both answered by plain ancestry: Primata sp. is an
+  # ancestor of Homo sapiens, and this node is not. See #122, #126.
+  parent: Primata sp.
+  prefix: NHP
+  name: non-human primate
 Alouatta pigra:
   prefix: Alpi
-  parent: Primata sp.
+  parent: NHP
   name: Guatemalan black howler
   genes:
     IIa:
@@ -4363,7 +4374,7 @@ Alouatta pigra:
         - DRB
 Aotus sp.:
   prefix: OmLA
-  parent: Primata sp.
+  parent: NHP
   name:
     - Night monkey
     - Owl monkey
@@ -4408,7 +4419,7 @@ Aotus vociferans:
   name: Spix's Night Monkey
 Ateles belzebuth:
   prefix: Atbe
-  parent: Primata sp.
+  parent: NHP
   name: White-fronted Spider Monkey
   genes:
     Ia:
@@ -4419,14 +4430,14 @@ Ateles belzebuth:
         - DRB
 Ateles fusciceps:
   prefix: Atfu
-  parent: Primata sp.
+  parent: NHP
   name: Black-headed Spider Monkey
   genes:
     Ia:
       - B
 Callithrix sp.:
   prefix: MaLA
-  parent: Primata sp.
+  parent: NHP
   name: Marmoset
   # TODO:
   #   - Harmonize with this gene table
@@ -4497,7 +4508,7 @@ Callithrix jacchus:
     PS2: {pseudogene: true}
 Callicebus moloch:
   prefix: Camo
-  parent: Primata sp.
+  parent: NHP
   name: Red-bellied Titi
   genes:
     IIa:
@@ -4508,7 +4519,7 @@ Callicebus moloch:
         - DRB11
         - DRB3
 Callithrix pygmaea:
-  parent: Primata sp.
+  parent: NHP
   prefix: Capy
   old prefix: Cepy
   name: Pygmy Marmoset
@@ -4519,7 +4530,7 @@ Callithrix pygmaea:
         - DRB
         - DRB1
 Cebus apella:
-  parent: Primata sp.
+  parent: NHP
   prefix: Ceap
   name: Tufted Capuchin
   genes:
@@ -4536,47 +4547,47 @@ Cebus apella:
 #
 ############################
 Cebus albifrons:
-  parent: Primata sp.
+  parent: NHP
   prefix: Ceal
   name: White-fronted capuchin
 Cebus capucinus:
-  parent: Primata sp.
+  parent: NHP
   prefix: Ceca
   name: White-faced capuchin
 Cebus imitator:
-  parent: Primata sp.
+  parent: NHP
   prefix: Ceim
   name: Panamanian white-faced capuchin
 Cebus kaapori:
-  parent: Primata sp.
+  parent: NHP
   prefix: Ceka
   name: Kaapori capuchin
 Cebus olivaceus:
-  parent: Primata sp.
+  parent: NHP
   prefix: Ceol
   name: Wedge-capped capuchin
 Sapajus cay:
-  parent: Primata sp.
+  parent: NHP
   prefix: Saca
   name: Hooded capuchin
 Sapajus libidinosus:
-  parent: Primata sp.
+  parent: NHP
   prefix: Sali
   name: Black-striped capuchin
 Sapajus apella macrocephalus:
-  parent: Primata sp.
+  parent: NHP
   prefix: Sama
   name: Large-headed capuchin
 Sapajus nigritus:
-  parent: Primata sp.
+  parent: NHP
   prefix: Sani
   name: Black capuchin
 Sapajus xanthosternos:
-  parent: Primata sp.
+  parent: NHP
   prefix: Saxa
   name: Golden-bellied capuchin
 Cercocebus atys:
-  parent: Primata sp.
+  parent: NHP
   prefix: Ceat
   name: Sooty Mangabey
   genes:
@@ -4588,7 +4599,7 @@ Cercocebus atys:
     I:
       - I
 Cercopithecus mitis:
-  parent: Primata sp.
+  parent: NHP
   prefix: Cemi
   name: Blue Monkey
   genes:
@@ -4599,7 +4610,7 @@ Cercopithecus mitis:
       DQ:
         - DQA1
 Cercopithecus neglectus:
-  parent: Primata sp.
+  parent: NHP
   prefix: Cene
   name: De Brazza's monkey
   genes:
@@ -4607,7 +4618,7 @@ Cercopithecus neglectus:
       DQ:
         - DQA1
 Chlorocebus aethiops:
-  parent: Primata sp.
+  parent: NHP
   prefix: Chae
   name: Grivet
   genes:
@@ -4625,7 +4636,7 @@ Chlorocebus aethiops:
         - DRB5
         - DRB6
 Chlorocebus pygerythrus:
-  parent: Primata sp.
+  parent: NHP
   prefix: Chpy
   name: vervet monkey
   genes:
@@ -4633,7 +4644,7 @@ Chlorocebus pygerythrus:
       - A
       - B
 Chlorocebus sabaeus:
-  parent: Primata sp.
+  parent: NHP
   prefix: Chsa
   name: Green Monkey
   genes:
@@ -4654,7 +4665,7 @@ Chlorocebus sabaeus:
         - DRB1
         - DRB5
 Colobus guereza:
-  parent: Primata sp.
+  parent: NHP
   prefix: Cogu
   name: Mantled Guereza
   genes:
@@ -4662,7 +4673,7 @@ Colobus guereza:
       DQ:
         - DQA1
 Gorilla sp.:
-  parent: Primata sp.
+  parent: NHP
   prefix: GoLA
   name: Gorilla
   genes:
@@ -4706,7 +4717,7 @@ Gorilla gorilla:
   name:
     - Western gorilla
 Hylobates lar:
-  parent: Primata sp.
+  parent: NHP
   prefix: Hyla
   name: Lar Gibbon
   genes:
@@ -4720,7 +4731,7 @@ Hylobates lar:
         - DQB1
         - DQB2
 Hylobates moloch:
-  parent: Primata sp.
+  parent: NHP
   prefix: Hymo
   name: Silvery Javan Gibbon
   genes:
@@ -4730,11 +4741,11 @@ Hylobates moloch:
         - DRB # same as DRB1?
         - DRB1
 Leontopithecus rosalia:
-  parent: Primata sp.
+  parent: NHP
   prefix: Lero
   name: Golden Lion Tamarin
 Lophocebus aterrimus:
-  parent: Primata sp.
+  parent: NHP
   prefix: Loat
   name: Black Crested Mangabey
   genes:
@@ -4742,7 +4753,7 @@ Lophocebus aterrimus:
       DQ:
         - DQA1
 Macaca arctoides:
-  parent: Primata sp.
+  parent: NHP
   prefix: Maar
   name: Stump-tailed Macaque
   genes:
@@ -4762,7 +4773,7 @@ Macaca arctoides:
         - DRB5
 
 Macaca assamensis:
-  parent: Primata sp.
+  parent: NHP
   prefix: Maas
   name: Assam Macaque
   genes:
@@ -4817,7 +4828,7 @@ Macaca fascicularis:
         - DRB5
         - DRB6
 Macaca fuscata:
-  parent: Primata sp.
+  parent: NHP
   prefix: Mafu
   name: Japanese Macaque
   genes:
@@ -4827,7 +4838,7 @@ Macaca fuscata:
         - DRB1
         - DRB3
 Mandrillus leucophaeus:
-  parent: Primata sp.
+  parent: NHP
   prefix: Male
   name: Drill
   genes:
@@ -4835,7 +4846,7 @@ Mandrillus leucophaeus:
       DR:
         - DRB1
 Macaca leonina:
-  parent: Primata sp.
+  parent: NHP
   prefix: Malo
   name: Northern Pig-tailed Macaque
   genes:
@@ -4874,7 +4885,7 @@ Macaca leonina:
 # a specific A gene. This seems similar to the situation in HLA-DR but with
 # even fewer sequence differences between the gene copies.
 Macaca sp.:
-  parent: Primata sp.
+  parent: NHP
   prefix: RhLA
   name: Macaque
   genes:
@@ -4960,7 +4971,7 @@ Macaca silenus:
   prefix: Masi
   name: Lion-tailed Macaque
 Mandrillus sphinx:
-  parent: Primata sp.
+  parent: NHP
   prefix: Masp
   name: Mandrill
   genes:
@@ -4978,7 +4989,7 @@ Macaca thibetana:
   name: Milne Edward's Macaque
 
 Papio anubis:
-  parent: Primata sp.
+  parent: NHP
   prefix: Paan
   name: Olive Baboon
   genes:
@@ -5006,7 +5017,7 @@ Papio anubis:
         - DRB5
         - DRB6
 Papio cynocephalus:
-  parent: Primata sp.
+  parent: NHP
   prefix: Pacy
   name: Yellow Baboon
   genes:
@@ -5019,7 +5030,7 @@ Papio cynocephalus:
       DQ:
         - DQA1
 Papio hamadryas:
-  parent: Primata sp.
+  parent: NHP
   prefix: Paha
   name: Hamadryas Baboon
   genes:
@@ -5040,7 +5051,7 @@ Papio hamadryas:
         - DRB1
 
 Papio papio:
-  parent: Primata sp.
+  parent: NHP
   prefix: Papp
   name: Guinea Baboon
   genes:
@@ -5048,7 +5059,7 @@ Papio papio:
       DQ:
         - DQA1
 Pan sp.:
-  parent: Primata sp.
+  parent: NHP
   prefix: ChLA
   name: Chimpanzee
   genes:
@@ -5101,7 +5112,7 @@ Pan paniscus:
     - Ppa
   name: Bonobo
 Papio ursinus:
-  parent: Primata sp.
+  parent: NHP
   prefix: Paur
   name: Chacma Baboon
   genes:
@@ -5113,7 +5124,7 @@ Papio ursinus:
         - DRB5
         - DRB6
 Pithecia pithecia:
-  parent: Primata sp.
+  parent: NHP
   prefix: Pipi
   name: White-faced Saki
   genes:
@@ -5125,7 +5136,7 @@ Pithecia pithecia:
         - DRB
         - DRB3
 Pongo sp.:
-  parent: Primata sp.
+  parent: NHP
   prefix: OrLA
   name: Orangutan
   genes:
@@ -5166,7 +5177,7 @@ Pongo pygmaeus:
   gene properties:
     Ap: {pseudogene: true}
 Rhinopithecus roxellana:
-  parent: Primata sp.
+  parent: NHP
   prefix: Rhro
   name: Golden Snub-nosed Monkey
   genes:
@@ -5180,7 +5191,7 @@ Rhinopithecus roxellana:
         - DRB1
         - DRB2
 Saguinus fuscicollis:
-  parent: Primata sp.
+  parent: NHP
   prefix: Safu
   name: Brown-mantled Tamarin
   genes:
@@ -5190,7 +5201,7 @@ Saguinus fuscicollis:
       - PS1
       - PS2
 Saguinus geoffroyi:
-  parent: Primata sp.
+  parent: NHP
   prefix: Sage
   name: Geoffroy's Tamarin
   genes:
@@ -5198,7 +5209,7 @@ Saguinus geoffroyi:
       - PS1
       - PS2
 Saguinus labiatus:
-  parent: Primata sp.
+  parent: NHP
   prefix: Sala
   name: White-lipped Tamarin
   genes:
@@ -5208,7 +5219,7 @@ Saguinus labiatus:
         - DRB
         - DRB1
 Saguinus mystax:
-  parent: Primata sp.
+  parent: NHP
   prefix: Samy
   name: Moustached Tamarin
   genes:
@@ -5216,7 +5227,7 @@ Saguinus mystax:
       - PS1
       - PS2
 Saguinus oedipus:
-  parent: Primata sp.
+  parent: NHP
   prefix: Saoe
   name: Cottontop Tamarin
   genes:
@@ -5242,7 +5253,7 @@ Saguinus oedipus:
         - DRB5
 
 Saimiri sciureus:
-  parent: Primata sp.
+  parent: NHP
   prefix: Sasc
   name: Common Squirrel Monkey
   genes:
@@ -5253,7 +5264,7 @@ Saimiri sciureus:
         - DRA
         - DRB
 Semnopithecus entellus:
-  parent: Primata sp.
+  parent: NHP
   prefix: Seen
   # Pren = Pr(esbytis) + en(tellus) under the Klein 1990 rule (PMID 2329006).
   # Presbytis entellus is the former name of this species, so it is the only
@@ -5269,7 +5280,7 @@ Semnopithecus entellus:
         - DRA
         - DRB
 Theropithecus gelada:
-  parent: Primata sp.
+  parent: NHP
   prefix: Thge
   # No 'old prefix: Pren' here, deliberately.
   #
@@ -5294,7 +5305,7 @@ Theropithecus gelada:
         - DRA
         - DRB
 Rhinopithecus strykeri:
-  parent: Primata sp.
+  parent: NHP
   prefix: RhinStry
   other prefixes:
     - Rhsi

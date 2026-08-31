@@ -178,34 +178,46 @@ URL.
   `mhcgnomes/data/underrepresented_taxa_source_registry.yaml` until they are
   resolved.
 
-### A parent link is containment; naming scope is separate
+### A parent link is containment, and every prefix owns a node
 
 A `parent` link says "this species is inside that group". It is taxonomic
 wherever it can be -- exactly one parent link in the ontology points at another
 genus's node -- and it is what the rest of the entry is inherited along.
 
-Whether an ancestor's *prefix* may name a descendant is a different question,
-and three separate mechanisms answer it.
+An umbrella MHC prefix covers everything beneath the node that owns it. The
+loader hands a parent's prefix down to a child as its `old prefix` when the
+parent's prefix is an MHC prefix rather than its own taxon name (`BoLA`, `DLA`,
+`RhLA` are inherited; `Aves`, `Rodentia`, `Primata` are not) and the child does
+not declare an `old prefix` of its own. Note this is the *immediate* parent:
+`Macaca mulatta` inherits `RhLA` from `Macaca sp.`, not `NHP` from further up.
 
-1. **Prefix inheritance.** The loader hands a parent's prefix down to a child
-   as its `old prefix` when the parent's prefix is an MHC prefix rather than
-   its own taxon name (`BoLA`, `NHP`, `DLA` are inherited; `Aves`, `Rodentia`,
-   `Crocodylia` are not), the child does not declare an `old prefix` of its
-   own, and the parent does not exclude it. Note this is the *immediate*
-   parent: `Macaca mulatta` inherits `RhLA` from `Macaca sp.`, not `NHP`.
-2. **`prefix excludes`.** A list of species an entry's prefix must never name,
-   even though they sit beneath it. There is one, and it exists because
-   IPD-MHC's `NHP` group code means Non-Human Primates
-   (https://www.ebi.ac.uk/ipd/mhc/group/NHP/), so it cannot denote a human even
-   though humans are primates.
-3. **`Species.can_name`.** The runtime query: ancestry, minus anything an
-   ancestor excludes. `compatible_with` follows it, and so does the
-   ancestor-to-descendant conversion behind `parse(..., species=...)`, which is
-   why `parse("NHP-E*01:01", species="Homo sapiens")` is refused rather than
-   silently returned as `HLA-E*01:01`. `is_ancestor_of` and `is_descendant_of`
-   deliberately do *not* follow it: they stay purely taxonomic, so
-   `Homo sapiens` is a descendant of `Primata sp.` and always was in fact, if
-   not in this file before #122.
+Because every prefix owns a node, "is X inside taxon Y?" and "can Y's prefix
+name X?" are the same ancestry question, and one predicate answers both.
+Keeping that true is a constraint on curation: **a prefix whose group is not a
+taxon needs its own node.** `NHP` is the case that forced it. IPD-MHC's NHP
+group (https://www.ebi.ac.uk/ipd/mhc/group/NHP/) is Non-Human Primates -- the
+primate order minus humans, which is paraphyletic -- so it cannot be the
+primate node. It is a separate entry, sibling to `Homo sapiens`:
+
+```
+Primata sp. [Primata]
+|-- Homo sapiens [HLA]
+`-- NHP [NHP]
+    `-- 55 non-human primates
+```
+
+Attaching human to `Primata sp.` while leaving `NHP` on that same node (as
+3.40.0 briefly did) makes the group an ancestor of human, and then
+`parse("NHP-E*01:01", species="Homo sapiens")` converts to `HLA-E*01:01`. That
+was patched at the time with a `prefix excludes` declaration and a
+`Species.can_name` predicate; splitting the node deletes both, along with the
+question of which of two near-identical predicates a caller wants (#126).
+
+A consequence to keep in mind when adding taxa: any node under `Primata sp.`
+must sit wholly inside or wholly outside `NHP`. `Homo sp.` (humans plus other
+*Homo* species) works as a sibling of `NHP`; `Hominidae sp.` would not, because
+it would have to pull `Gorilla sp.`, `Pan sp.` and `Pongo sp.` out of the
+umbrella.
 
 The one edge that is deliberately not taxonomy is `Bubalus bubalis` under `Bos
 sp.` -- a different genus, but IPD-MHC files water buffalo in the BoLA group
