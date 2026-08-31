@@ -335,7 +335,8 @@ in YAML data files under `mhcgnomes/data/`. The key files are:
 
 Species entries form a tree through their `parent` links. A `parent` is a
 containment claim — "this species is inside that group" — and it is taxonomic
-wherever it can be: of 671 entries, exactly one edge crosses a genus boundary.
+wherever it can be: exactly one parent link in the whole ontology crosses a
+genus boundary.
 
 The umbrella MHC prefix is a *separate* property of a node. It is handed down
 to a child only when the parent's prefix is an MHC prefix rather than a taxon
@@ -346,7 +347,7 @@ declare an `old prefix` of its own:
 Bos sp. [BoLA]     ->  Bota, Boin, Bofr, Bogr, Bubu
 Macaca sp. [RhLA]  ->  Mafa, Mamu, Mane, Masi, Math
 Canis sp. [DLA]    ->  Calu, Cala, Caru, Casi, Caba
-Primata sp. [NHP]  ->  54 non-human primates, plus Homo sapiens
+Primata sp. [NHP]  ->  every non-human primate, plus Homo sapiens
 ```
 
 **`Homo sapiens` is under `Primata sp.` and still never answers to `NHP`.**

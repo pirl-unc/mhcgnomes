@@ -181,8 +181,8 @@ URL.
 ### A parent link is containment; the umbrella prefix is separate
 
 A `parent` link says "this species is inside that group". It is taxonomic
-wherever it can be -- of 671 entries exactly one edge crosses a genus boundary
--- and it is what genes are inherited along.
+wherever it can be -- exactly one parent link in the whole ontology crosses a
+genus boundary -- and it is what genes are inherited along.
 
 The umbrella MHC prefix is a different mechanism layered on top. The loader
 hands a parent's prefix down to a child as its `old prefix` only when

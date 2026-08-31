@@ -439,9 +439,9 @@ Homo sapiens:
   # (https://www.ebi.ac.uk/ipd/mhc/group/NHP/, "a specialist database for the
   # Major Histocompatibility Complex genes of Non-Human Primates"), and human
   # alleles are of course never written NHP-*. Spelling out "old prefix" is
-  # what keeps HLA from inheriting NHP the way the other 54 primates do: the
-  # loader only hands a parent prefix down to children that do not declare one
-  # themselves. Parent link and umbrella prefix are separate mechanisms, so
+  # what keeps HLA from inheriting NHP the way every non-human primate does:
+  # the loader only hands a parent prefix down to children that do not declare
+  # one themselves. Parent link and umbrella prefix are separate mechanisms, so
   # humans can sit in the taxonomy without joining the naming group. See #122.
   old prefix: HLA
   name: Human

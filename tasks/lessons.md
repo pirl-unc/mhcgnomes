@@ -14,8 +14,7 @@ example. #122 pointed out that human's placement was not evidence for a model,
 it was a bug.
 
 **Why it was wrong.** One counterexample bounds a rule; it does not replace it.
-A sweep of all 671 entries found exactly one parent link that crosses a genus
-boundary. The tree is containment, taxonomic wherever it can be, with the
+A sweep of every parent link found exactly one that crosses a genus boundary. The tree is containment, taxonomic wherever it can be, with the
 umbrella prefix as a separate opt-out-able property -- which the loader had
 always implemented and which nobody had looked at.
 

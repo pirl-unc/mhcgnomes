@@ -46,7 +46,7 @@ that includes humans, scoped to a prefix that excludes them.
   `HLA` by inheritance unnoticed.
 - **The docs were over-corrected and are now fixed.** #120 read the water
   buffalo edge as proof that the tree is "prefix scope, not phylogeny". A sweep
-  of every parent link shows exactly one edge in 671 entries crosses a genus
+  of every parent link shows exactly one edge in the ontology crosses a genus
   boundary -- the buffalo -- and `Homo sapiens` was outside `Primata sp.` only
   because nothing had opted it out. The buffalo exception stands; the
   generalization does not.

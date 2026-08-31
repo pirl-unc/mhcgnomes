@@ -112,8 +112,8 @@ Do not tell the user you are "done" or that changes are "complete" until all thr
   parsing, what test covers it, what the papers actually write.
 - **Do not generalize one exception into a model.** The buffalo edge is a real
   departure from taxonomy, but reading it as proof that the whole tree is
-  "prefix scope, not phylogeny" was an over-correction: exactly one edge in 671
-  entries crosses a genus boundary, and `Homo sapiens` was outside `Primata
+  "prefix scope, not phylogeny" was an over-correction: exactly one parent link
+  in the ontology crosses a genus boundary, and `Homo sapiens` was outside `Primata
   sp.` only because nothing had opted it out of the `NHP` umbrella (#122). A
   parent link is containment and the umbrella prefix is a separate, opt-out-able
   property. One counterexample bounds a rule; it does not replace it.
