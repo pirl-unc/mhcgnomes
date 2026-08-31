@@ -433,17 +433,13 @@ Crocodylia sp.:
 ######################################################
 Homo sapiens:
   prefix: HLA
+  # Humans are primates -- NCBI Taxonomy places Homo sapiens (taxid 9606) in
+  # Primates (taxid 9443), https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=9606
+  # -- so the parent is the primate node. That node owns the prefix NHP, which
+  # can never name a human; the exclusion is declared on Primata sp. itself
+  # under "prefix excludes", because it is a property of what NHP means rather
+  # than of this entry. See #122.
   parent: Primata sp.
-  # Humans are primates, so the parent is the primate node. The umbrella
-  # prefix of that node is NHP, which IPD-MHC defines as "Non-Human Primates"
-  # (https://www.ebi.ac.uk/ipd/mhc/group/NHP/, "a specialist database for the
-  # Major Histocompatibility Complex genes of Non-Human Primates"), and human
-  # alleles are of course never written NHP-*. Spelling out "old prefix" is
-  # what keeps HLA from inheriting NHP the way every non-human primate does:
-  # the loader only hands a parent prefix down to children that do not declare
-  # one themselves. Parent link and umbrella prefix are separate mechanisms, so
-  # humans can sit in the taxonomy without joining the naming group. See #122.
-  old prefix: HLA
   name: Human
   genes:
     Ia:
@@ -2431,13 +2427,13 @@ Bos grunniens:
     - Domestic Yak
     - Yak
 Bubalus bubalis:
-  # The one parent link in the ontology that is naming rather than taxonomy:
+  # The only parent link in the file that points at another genus's node:
   # Bubalus is a separate genus from Bos, which is why this looks wrong on
   # first reading, but IPD-MHC files water buffalo in the BoLA group and its
   # class II sequences are assigned to cattle loci by trans-species
-  # polymorphism. Every other parent link stays within its genus, so do not
-  # read this one as licence to move others around; see the species tree
-  # section of docs/curation.md.
+  # polymorphism. Naming rather than taxonomy, and the only one, so do not
+  # read it as licence to move others around; see the species tree section of
+  # docs/curation.md.
   parent: Bos sp.
   prefix: Bubu
   name: Water Buffalo
@@ -4322,13 +4318,16 @@ Tyto alba:
 #
 ################################################################################
 Primata sp.:
-  # This node is the IPD-MHC "NHP" group -- https://www.ebi.ac.uk/ipd/mhc/group/NHP/
-  # describes it as "a specialist database for the Major Histocompatibility
+  # The primate order, holding the genes every primate shares. Its prefix is
+  # the IPD-MHC group code NHP, which https://www.ebi.ac.uk/ipd/mhc/group/NHP/
+  # describes as "a specialist database for the Major Histocompatibility
   # Complex genes of Non-Human Primates ... Apes and both Old World and New
-  # World monkeys". The prefix is therefore exclusionary by definition, while
-  # the node itself is the whole primate order: Homo sapiens is a child of it
-  # and opts out of the prefix with its own "old prefix". See #122.
+  # World monkeys" -- exclusionary by definition, unlike every other umbrella
+  # prefix in this file. So the node contains Homo sapiens, and the prefix is
+  # declared not to name it. See #122.
   prefix: NHP
+  prefix excludes:
+    - Homo sapiens
   name: Primate
   genes:
     Ib:

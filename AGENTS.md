@@ -113,10 +113,18 @@ Do not tell the user you are "done" or that changes are "complete" until all thr
 - **Do not generalize one exception into a model.** The buffalo edge is a real
   departure from taxonomy, but reading it as proof that the whole tree is
   "prefix scope, not phylogeny" was an over-correction: exactly one parent link
-  in the ontology crosses a genus boundary, and `Homo sapiens` was outside `Primata
-  sp.` only because nothing had opted it out of the `NHP` umbrella (#122). A
-  parent link is containment and the umbrella prefix is a separate, opt-out-able
-  property. One counterexample bounds a rule; it does not replace it.
+  in the ontology points at another genus's node, and `Homo sapiens` was
+  outside `Primata sp.` only because nothing expressed that `NHP` cannot name a
+  human (#122). A parent link is containment; naming scope is a separate
+  property, declared with `prefix excludes` and queried with
+  `Species.can_name`. One counterexample bounds a rule; it does not replace it.
+- **An invariant you assert in prose has to be tested on every path.** The
+  first fix for #122 blocked `NHP` from reaching humans through prefix
+  inheritance, and the PR said "`NHP-*` still cannot name it" -- but three
+  other things read the parent link, and `parse("NHP-E*01:01",
+  species="Homo sapiens")` duly returned `HLA-E*01:01`. Before claiming a
+  guarantee, enumerate the consumers of the thing you changed and test each
+  one.
 - **An official designation is not the same as attested usage.** The naming
   rule is mechanical, so several species can derive the same code, and only
   one of them is usually the one that appears in print — the rest are

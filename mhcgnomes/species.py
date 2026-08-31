@@ -148,6 +148,7 @@ class Species(Result):
     other_mhc_prefixes: Any = None
     context_only_mhc_prefixes: Any = None
     other_common_names: Any = None
+    prefix_excluded_species: Any = None
 
     def __init__(
         self,
@@ -171,6 +172,7 @@ class Species(Result):
         other_mhc_prefixes: Iterable[str] = [],
         context_only_mhc_prefixes: Iterable[str] = [],
         other_common_names: Iterable[str] = [],
+        prefix_excluded_species: Iterable[str] = [],
         raw_string: Union[str, None] = None,
         gene_name_to_properties: Union[Mapping[str, Mapping[str, Any]], None] = None,
         gene_family_name_to_gene_names: Union[Mapping[str, Iterable[str]], None] = None,
@@ -213,6 +215,11 @@ class Species(Result):
             self,
             "context_only_mhc_prefixes",
             FrozenSet(context_only_mhc_prefixes),
+        )
+        self._set_field(
+            self,
+            "prefix_excluded_species",
+            FrozenSet(prefix_excluded_species),
         )
         if old_mhc_prefix:
             normalized_old_mhc_prefix = old_mhc_prefix
@@ -346,19 +353,55 @@ class Species(Result):
             current = current.parent_species
         return False
 
+    def can_name(self, other):
+        """
+        Can a name written under this species' prefix denote `other`?
+
+        True for itself and for every descendant, except where an entry
+        declares "prefix excludes" -- an umbrella prefix that is exclusionary
+        by definition. "NHP" is IPD-MHC's group code for Non-Human Primates, so
+        Primata sp. cannot name Homo sapiens even though it is its ancestor:
+
+            Bos sp.     -> Bubalus bubalis   -> True
+            Primata sp. -> Macaca mulatta    -> True
+            Primata sp. -> Homo sapiens      -> False (prefix excludes)
+
+        This is the naming counterpart of is_ancestor_of, which stays purely
+        taxonomic. Use this one whenever the question is "may this name stand
+        for that species", such as reinterpreting a group-level allele name
+        under a specific species.
+        """
+        other = Species.get(other)
+        if other is None:
+            return False
+        if self == other:
+            return True
+        node = other
+        while node is not None and node != self:
+            if node.name in self.prefix_excluded_species:
+                return False
+            node = node.parent_species
+        return node == self
+
     def compatible_with(self, other):
         """
         Can these two species names describe the same sample?
 
-        True when they are the same species, or when one is a direct ancestor
-        of the other. Species legitimately differ in specificity: BoLA belongs
-        to the genus-level "Bos sp.", so a BoLA-N*013:01 allele on a sample
-        curated as Bos taurus is less specific, not contradictory.
+        True when they are the same species, or when one can name the other.
+        Species legitimately differ in specificity: BoLA belongs to the
+        genus-level "Bos sp.", so a BoLA-N*013:01 allele on a sample curated as
+        Bos taurus is less specific, not contradictory.
 
             Bos taurus        vs Bos sp.               -> True  (ancestor)
             Coturnix japonica vs Galliformes sp.       -> True  (above genus)
             Macaca mulatta    vs Macaca fascicularis   -> False (siblings)
             Carassius gibelio vs Homo sapiens          -> False
+            Homo sapiens      vs Primata sp.           -> False (prefix excludes)
+
+        The last one is the reason this is can_name rather than is_ancestor_of:
+        humans are primates, but "Primata sp." is the node that owns the NHP
+        prefix, and an NHP-* allele can never have come from a human sample.
+        For the taxonomic question, ask is_descendant_of.
 
         Note that "shares a common ancestor" is NOT a usable test in its place:
         every species descends from "Gnathostomata sp.", so that predicate is
@@ -371,7 +414,7 @@ class Species(Result):
         other = Species.get(other)
         if other is None:
             return False
-        return self == other or self.is_ancestor_of(other) or other.is_ancestor_of(self)
+        return self == other or self.can_name(other) or other.can_name(self)
 
     @property
     def historic_mhc_prefix(self):
@@ -986,10 +1029,27 @@ def create_species_for_latin_name(latin_name):
     if not prefix:
         raise ValueError(f"Missing 'prefix' for '{latin_name}' in species ontology")
 
+    # Species this entry's own prefix must never name, even though they sit
+    # beneath it in the tree. An umbrella prefix is normally handed down to
+    # every descendant, but a few of them are exclusionary by definition --
+    # IPD-MHC's "NHP" means Non-Human Primates, so it cannot name Homo sapiens
+    # even though humans are primates. See issue #122.
+    prefix_excluded_species = species_info.get("prefix excludes") or []
+    if type(prefix_excluded_species) is str:
+        prefix_excluded_species = [prefix_excluded_species]
+    for excluded_name in prefix_excluded_species:
+        if excluded_name not in raw_species_dict:
+            raise ValueError(
+                f"'prefix excludes' of '{latin_name}' names unknown species '{excluded_name}'"
+            )
+
     old_mhc_prefix = species_info.get("old prefix")
     if not old_mhc_prefix and parent_species:
         parent_prefix = parent_species.prefix
-        if not _is_taxonomic_prefix(parent_prefix, parent_species.name):
+        if (
+            not _is_taxonomic_prefix(parent_prefix, parent_species.name)
+            and latin_name not in parent_species.prefix_excluded_species
+        ):
             old_mhc_prefix = parent_prefix
 
     other_mhc_prefixes = species_info.get("other prefixes")
@@ -1217,6 +1277,7 @@ def create_species_for_latin_name(latin_name):
         other_mhc_prefixes=other_mhc_prefixes,
         context_only_mhc_prefixes=context_only_mhc_prefixes,
         other_common_names=[name for name in common_names if name != shortest_common_name],
+        prefix_excluded_species=prefix_excluded_species,
         raw_string=latin_name,
     )
 
