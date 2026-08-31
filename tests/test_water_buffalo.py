@@ -1,11 +1,12 @@
 """
 Water buffalo (Bubalus bubalis) MHC loci.
 
-Bubalus sits under Bos sp. because the species tree is a prefix-scope
-hierarchy: IPD-MHC files water buffalo in the BoLA group and its class II
-sequences are assigned to cattle loci by trans-species polymorphism. The
-entry declares the loci with published buffalo sequences itself, so that
-they round-trip as the literature writes them.
+Bubalus sits under Bos sp. even though Bubalus is a separate genus: it is
+the one parent link in the ontology that follows naming rather than
+taxonomy, because IPD-MHC files water buffalo in the BoLA group and its
+class II sequences are assigned to cattle loci by trans-species
+polymorphism. The entry declares the loci with published buffalo sequences
+itself, so that they round-trip as the literature writes them.
 
 Sources:
   PMID 12580780  Polymorphisms in MHC-DRA and -DRB alleles of water buffalo

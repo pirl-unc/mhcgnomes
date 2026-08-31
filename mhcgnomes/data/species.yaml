@@ -2431,11 +2431,13 @@ Bos grunniens:
     - Domestic Yak
     - Yak
 Bubalus bubalis:
-  # Under Bos sp. because the tree is prefix scope, not phylogeny: IPD-MHC
-  # files water buffalo in the BoLA group, and its class II sequences are
-  # assigned to cattle loci by trans-species polymorphism. See the species
-  # tree section of docs/curation.md. Bubalus is a separate genus from Bos,
-  # which is why this looks wrong on first reading.
+  # The one parent link in the ontology that is naming rather than taxonomy:
+  # Bubalus is a separate genus from Bos, which is why this looks wrong on
+  # first reading, but IPD-MHC files water buffalo in the BoLA group and its
+  # class II sequences are assigned to cattle loci by trans-species
+  # polymorphism. Every other parent link stays within its genus, so do not
+  # read this one as licence to move others around; see the species tree
+  # section of docs/curation.md.
   parent: Bos sp.
   prefix: Bubu
   name: Water Buffalo
