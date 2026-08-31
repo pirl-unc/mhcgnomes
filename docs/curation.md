@@ -178,25 +178,45 @@ URL.
   `mhcgnomes/data/underrepresented_taxa_source_registry.yaml` until they are
   resolved.
 
-### The tree is prefix scope, not phylogeny
+### A parent link is containment; the umbrella prefix is separate
 
-A `parent` link says "this species may be named under the ancestor's umbrella
-prefix". It is not a claim of descent, and reading it as one is the single most
-common misunderstanding of this file -- two independent readers have filed the
-same bug against `Bubalus bubalis` sitting under `Bos sp.`
+A `parent` link says "this species is inside that group". It is taxonomic
+wherever it can be -- of 671 entries exactly one edge crosses a genus boundary
+-- and it is what genes are inherited along.
 
-The clearest evidence is `Homo sapiens`, which attaches straight to the root
-rather than under `Primata sp.`, despite humans being primates: human alleles
-are never written `NHP-*`. `Bubalus bubalis` under `Bos sp.` is the mirror
-image -- a different genus, but IPD-MHC files water buffalo in the BoLA group
+The umbrella MHC prefix is a different mechanism layered on top. The loader
+hands a parent's prefix down to a child as its `old prefix` only when
+
+1. the parent's prefix is an MHC prefix rather than its own taxon name
+   (`BoLA`, `NHP`, `DLA` are inherited; `Aves`, `Rodentia`, `Crocodylia` are
+   not), and
+2. the child does not declare an `old prefix` of its own.
+
+Keeping the two apart is what lets `Homo sapiens` sit under `Primata sp.`
+without joining the group its prefix names. `NHP` is the IPD-MHC group code for
+Non-Human Primates (https://www.ebi.ac.uk/ipd/mhc/group/NHP/), so it must never
+reach a human -- but that is a fact about naming, not about membership, and
+spelling out `old prefix: HLA` on the human entry is the opt-out. Human is a
+primate for `is_descendant_of` and `compatible_with`, and `NHP-*` still cannot
+name it. Before #122 the entry hung off the root instead, which made
+`compatible_with("Homo sapiens", "Primata sp.")` false and read as a claim that
+humans are not primates.
+
+The one edge that is deliberately not taxonomy is `Bubalus bubalis` under `Bos
+sp.` -- a different genus, but IPD-MHC files water buffalo in the BoLA group
 and the literature assigns its class II sequences to cattle loci by
-trans-species polymorphism.
+trans-species polymorphism. Two independent readers have filed that as a bug
+(#109, #115); it is not one.
 
-Parent links are also load-bearing for parsing, because genes are inherited
-along them. Before changing one because it looks taxonomically wrong, check
-what stops parsing: water buffalo declares only `DQA`, `DQA1` and `DQB`, so
+Parent links are load-bearing for parsing, because genes are inherited along
+them. Before changing one because it looks taxonomically wrong, check what
+stops parsing: water buffalo declares only `DQA`, `DQA1` and `DQB`, so
 detaching it would break `Bubu-DRA`, `Bubu-DRB3`, `Bubu-DQA2` and `Bubu-DQB1`,
-every one of which is named in the published literature.
+every one of which is named in the published literature. Conversely, check what
+a *new* parent would hand down: reparenting human under `Primata sp.` was safe
+precisely because human already declares all sixteen genes that node owns, so
+nothing was inherited that was not already there. `tests/test_species_tree_shape.py`
+pins both halves of this.
 
 ### Inherited prefixes and inherited genes
 

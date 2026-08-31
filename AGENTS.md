@@ -98,18 +98,25 @@ Do not tell the user you are "done" or that changes are "complete" until all thr
   the next reader cannot tell it from a checked fact.
 - **Do not assume our existing curation is right.** It is a secondary source
   and it has been wrong: Patr-AL was class Ia when the paper describing it is
-  titled "nonclassical" (#107); water buffalo is parented under `Bos sp.`
-  (#109); `Caau` pointed at a goldfish rather than the golden jackal IPD
-  designates (#112). Existing tests can encode the same errors — check the
-  authority before assuming a failing test means your change is wrong.
+  titled "nonclassical" (#107); `Pren` was claimed by two different genera
+  (#110); `Homo sapiens` hung off the root rather than under the primate node,
+  so the library denied that humans are primates (#122). Existing tests can
+  encode the same errors — check the authority before assuming a failing test
+  means your change is wrong.
 - **Do not assume our curation is wrong either.** The inverse of the rule
   above, and just as costly. Structure that looks incorrect is often load-
   bearing: `Bubalus bubalis` sits under `Bos sp.` despite being another genus,
-  which two readers filed as a bug, but the species tree is a prefix-scope
-  hierarchy rather than a phylogeny, and detaching it would have broken every
-  published `Bubu-*` class II parse. Before changing a structure, check what
-  depends on it -- what stops parsing, what test covers it, what the papers
-  actually write.
+  which two readers filed as a bug, but IPD-MHC files water buffalo in the BoLA
+  group and detaching it would have broken every published `Bubu-*` class II
+  parse. Before changing a structure, check what depends on it -- what stops
+  parsing, what test covers it, what the papers actually write.
+- **Do not generalize one exception into a model.** The buffalo edge is a real
+  departure from taxonomy, but reading it as proof that the whole tree is
+  "prefix scope, not phylogeny" was an over-correction: exactly one edge in 671
+  entries crosses a genus boundary, and `Homo sapiens` was outside `Primata
+  sp.` only because nothing had opted it out of the `NHP` umbrella (#122). A
+  parent link is containment and the umbrella prefix is a separate, opt-out-able
+  property. One counterexample bounds a rule; it does not replace it.
 - **An official designation is not the same as attested usage.** The naming
   rule is mechanical, so several species can derive the same code, and only
   one of them is usually the one that appears in print — the rest are

@@ -176,15 +176,16 @@ COMPATIBLE = [
     ("Homo sapiens", "Homo sapiens"),
     ("Saimiri sciureus", "Primata sp."),
     ("Homo sapiens", "Gnathostomata sp."),
+    # Humans are primates. The NHP prefix on Primata sp. excludes them from the
+    # naming group, not from the taxon -- the parent link and the umbrella
+    # prefix are separate mechanisms. See issue #122.
+    ("Homo sapiens", "Primata sp."),
 ]
 
 INCOMPATIBLE = [
     ("Macaca mulatta", "Macaca fascicularis"),
     ("Carassius gibelio", "Homo sapiens"),
     ("Bos taurus", "Ovis aries"),
-    # the ontology is nomenclature-shaped: human hangs off the root, so
-    # Primata sp. is not one of its ancestors even though a squirrel monkey's is
-    ("Homo sapiens", "Primata sp."),
 ]
 
 

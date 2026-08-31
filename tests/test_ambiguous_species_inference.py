@@ -31,10 +31,9 @@ PREFIX_TO_EXPECTED_SPECIES = [
     ("CELA", "Cetacea sp."),
     ("ChLA", "Pan sp."),
     ("MusSp", "Mus sp."),
-    # NHP resolves to Primata sp. because that is what the ontology maps the
-    # prefix to. Worth noting that "NHP" means *non-human* primate while
-    # Primata sp. is an ancestor of Homo sapiens; that mismatch predates this
-    # change and is a curation question, not a parsing one.
+    # NHP resolves to Primata sp., the node that owns the prefix. Homo sapiens
+    # is a child of that node but does not answer to NHP, because it declares
+    # its own "old prefix" and so never inherits the umbrella one (#122).
     ("NHP", "Primata sp."),
     ("OmLA", "Aotus sp."),
     ("RT1", "Rattus sp."),

@@ -433,6 +433,17 @@ Crocodylia sp.:
 ######################################################
 Homo sapiens:
   prefix: HLA
+  parent: Primata sp.
+  # Humans are primates, so the parent is the primate node. The umbrella
+  # prefix of that node is NHP, which IPD-MHC defines as "Non-Human Primates"
+  # (https://www.ebi.ac.uk/ipd/mhc/group/NHP/, "a specialist database for the
+  # Major Histocompatibility Complex genes of Non-Human Primates"), and human
+  # alleles are of course never written NHP-*. Spelling out "old prefix" is
+  # what keeps HLA from inheriting NHP the way the other 54 primates do: the
+  # loader only hands a parent prefix down to children that do not declare one
+  # themselves. Parent link and umbrella prefix are separate mechanisms, so
+  # humans can sit in the taxonomy without joining the naming group. See #122.
+  old prefix: HLA
   name: Human
   genes:
     Ia:
@@ -4309,6 +4320,12 @@ Tyto alba:
 #
 ################################################################################
 Primata sp.:
+  # This node is the IPD-MHC "NHP" group -- https://www.ebi.ac.uk/ipd/mhc/group/NHP/
+  # describes it as "a specialist database for the Major Histocompatibility
+  # Complex genes of Non-Human Primates ... Apes and both Old World and New
+  # World monkeys". The prefix is therefore exclusionary by definition, while
+  # the node itself is the whole primate order: Homo sapiens is a child of it
+  # and opts out of the prefix with its own "old prefix". See #122.
   prefix: NHP
   name: Primate
   genes:

@@ -333,32 +333,37 @@ in YAML data files under `mhcgnomes/data/`. The key files are:
 
 ### The species tree
 
-Species entries form a tree through their `parent` links. **It is a
-prefix-scope hierarchy, not a phylogeny.** A `parent` says "this species may be
-named under the ancestor's umbrella prefix" — nothing more. Read as taxonomy it
-looks wrong in both directions, and two independent readers have filed the same
-bug against it:
+Species entries form a tree through their `parent` links. A `parent` is a
+containment claim — "this species is inside that group" — and it is taxonomic
+wherever it can be: of 671 entries, exactly one edge crosses a genus boundary.
+
+The umbrella MHC prefix is a *separate* property of a node. It is handed down
+to a child only when the parent's prefix is an MHC prefix rather than a taxon
+name (`BoLA` is inherited, `Aves` is not), and only when the child does not
+declare an `old prefix` of its own:
 
 ```
 Bos sp. [BoLA]     ->  Bota, Boin, Bofr, Bogr, Bubu
 Macaca sp. [RhLA]  ->  Mafa, Mamu, Mane, Masi, Math
 Canis sp. [DLA]    ->  Calu, Cala, Caru, Casi, Caba
-Primata sp. [NHP]  ->  45 non-human primates
+Primata sp. [NHP]  ->  54 non-human primates, plus Homo sapiens
 ```
 
-**`Homo sapiens` is not under `Primata sp.`.** It attaches straight to the
-root, despite humans plainly being primates — because human alleles are never
-written `NHP-*`. That is the clearest evidence of what the tree encodes.
+**`Homo sapiens` is under `Primata sp.` and still never answers to `NHP`.**
+`NHP` is the IPD-MHC group code for [Non-Human
+Primates](https://www.ebi.ac.uk/ipd/mhc/group/NHP/), so it is exclusionary by
+definition — but it is a naming property, not a membership one. Human declares
+its own `old prefix`, which is the opt-out, so it is a primate for
+`compatible_with` and `is_descendant_of` while `NHP-*` still cannot name it.
 
-**`Bubalus bubalis` is under `Bos sp.` despite being a different genus.** Water
-buffalo belongs to *Bubalus*, a sister genus of *Bos* within Bovini, so as
-taxonomy the edge is wrong. As prefix scope it is right: IPD-MHC files water
-buffalo in the BoLA group, and the literature assigns buffalo class II
-sequences to cattle loci by trans-species polymorphism — `Bubu-DRB` is the
-orthologue of `BoLA-DRB3`. The edge is also load-bearing: the entry declares
-only `DQA`, `DQA1` and `DQB` itself, so `Bubu-DRA`, `Bubu-DRB3`, `Bubu-DQA2`
-and `Bubu-DQB1` all parse by inheritance, and `Bubu-DRB` normalizes to
-`Bubu-DRB3` because of it.
+**`Bubalus bubalis` is under `Bos sp.` despite being a different genus.** This
+is the one edge that is deliberately not taxonomy. Water buffalo belongs to
+*Bubalus*, a sister genus of *Bos* within Bovini, but IPD-MHC files water
+buffalo in the BoLA group and the literature assigns buffalo class II sequences
+to cattle loci by trans-species polymorphism — `Bubu-DRB` is the orthologue of
+`BoLA-DRB3`. The edge is load-bearing: the entry declares only `DQA`, `DQA1`
+and `DQB` itself, so `Bubu-DRA`, `Bubu-DRB3`, `Bubu-DQA2` and `Bubu-DQB1` all
+parse by inheritance, and `Bubu-DRB` normalizes to `Bubu-DRB3` because of it.
 
 So before "correcting" a parent link that looks taxonomically wrong, check what
 parses through it.
@@ -382,9 +387,9 @@ mhcgnomes derives from an allele, since the two legitimately differ in
 specificity: `BoLA` belongs to the genus-level `Bos sp.`, so a `BoLA-N*013:01`
 allele on a sample curated as *Bos taurus* is compatible.
 
-**Compatibility is a claim about naming, not ancestry.** Because the tree is
-prefix scope, `compatible_with` answers "could these two names describe the
-same sample?" and not "are these related species?". A `Bubu-*` allele is
+**Compatibility can be broader than ancestry.** `compatible_with` answers
+"could these two names describe the same sample?". Where an edge exists for
+naming rather than descent, the answer follows the edge: a `Bubu-*` allele is
 compatible with a curated `Bos sp.`, since `Bos sp.` denotes the BoLA group and
 water buffalo is in it. That is the intended answer, not a wart.
 
