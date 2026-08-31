@@ -1074,7 +1074,7 @@ SPECIES_ENTRY_KEYS = frozenset(
     {
         # "alias" and "haplotype prefix" are present in species.yaml but nothing
         # reads them; they are listed so the file still loads, not because they
-        # do anything. See issue #136.
+        # do anything, and "alias" holds a transposed MhcPatr. See issue #139.
         "alias",
         "group",
         "context only prefixes",
