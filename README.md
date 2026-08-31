@@ -480,32 +480,65 @@ does not infer TAP membership from a regex or a shared gene-name pattern.
 ### Species prefix tiers
 
 As mhcgnomes supports more species, short prefix codes increasingly collide.
-Codes like `HLA`/`SLA`/`DLA`, `OrLA`, and four-letter codes like `Calu` all
-hit collisions as coverage grows. We support multiple prefix tiers so that
-every species is always parseable:
+Codes like `HLA`/`SLA`/`DLA`, `OrLA`, and four-letter codes like `Calu` all hit
+collisions as coverage grows. Three forms are supported so that every species
+is always reachable:
 
 | Tier | Form | Example | When used |
 | --- | --- | --- | --- |
 | Established short prefix | 1–4 letters | `HLA`, `Gaga`, `Crpo` | Published in MHC literature or IPD-MHC. Preferred for display. |
-| Novel 4+4 prefix | First 4 of genus + first 4 of species | `OryzLati`, `StruCame` | Standard display prefix for species without an established literature prefix. |
-| 5+5 long prefix | First 5 of genus + first 5 of species | `HomoSapie`, `OryziLatip` | Auto-generated alias for all binomial species. Always parseable. |
-| Full latin name | Concatenated genus + species | `HomoSapiens`, `ChrysemysPicta` | Always parseable as an alternative. Guaranteed collision-free. |
+| Full latin name | Concatenated genus + species | `HomoSapiens`, `ChrysemysPicta` | The default generated form. Collision-free across every binomial in the ontology. |
+| 4+4 shorthand | First 4 of genus + first 4 of species | `TachAcul`, `AbraBram` | Compact shorthand, and the curated prefix of most species without a literature code. Emitted as an alias only where globally unique. |
 
-All tiers are parsed case-insensitively. For example, these all parse to the
-same allele:
+All are parsed case-insensitively. These all resolve to the same allele:
 
 ```
 HLA-A*02:01          # established prefix
-HomoSapi-A*02:01     # 4+4 novel prefix (auto-generated alias)
-HomoSapie-A*02:01    # 5+5 long prefix (auto-generated alias)
 HomoSapiens-A*02:01  # full latin name
+HomoSapi-A*02:01     # 4+4 shorthand (auto-generated alias)
 Homo sapiens-A*02:01 # latin name with space
 ```
 
-The 8-letter (4+4) novel prefix space greatly reduces collision probability compared to
-4-letter codes, but only the full latin name is truly guaranteed to be unique.
-Since we don't yet know what naming conventions the scientific community will
-settle on for newer taxa, we support all tiers simultaneously.
+Two limits are worth knowing:
+
+**4+4 is not collision-free.** Five forms are derivable from two entries each —
+`ChryPict` from both *Chrysemys picta* and *Chrysolophus pictus*, `LaniColl`
+from two shrikes, `LeucLeuc` from a dace and a crane. A colliding form is never
+emitted as a global alias, and where one was previously chosen as a canonical
+prefix the entry now uses its concatenated binomial instead.
+
+**Subspecies mint no generated alias.** A trinomial entry such as *Canis lupus
+baileyi* deliberately does not claim `CanisLupus`, which belongs to its parent
+binomial, and no third-token variant is generated. Subspecies are reached by
+their curated prefix (`Caba`) or by latin name.
+
+A 5+5 form (`HomoSapie`) existed up to 3.41.0 as a leftover of the pre-v3.12
+scheme. It was removed in 3.42.0: no bundled corpus name, and no record in the
+sibling `mhcseqs` dataset, ever used one. See issue #128.
+
+### Where a prefix came from
+
+`Species.prefix_provenance` says how an entry came by its prefix:
+
+| value | meaning |
+| --- | --- |
+| `"designated"` | Published nomenclature — IPD-MHC or IMGT/HLA writes alleles with it. Curated with a source in `species.yaml`; never inferred. |
+| `"generated"` | mhcgnomes derived it from the latin name. Provable by re-deriving it. |
+| `"group label"` | Names a grouping rather than a species, and is never written on an allele: `Aves`, `Galliformes`, `NHP`. |
+| `None` | Not established. |
+
+```python
+>>> Species.get("HLA").prefix_provenance
+'designated'
+>>> Species.get("TachAcul").prefix_provenance
+'generated'
+>>> Species.get("NHP").prefix_provenance
+'group label'
+```
+
+`None` is deliberately distinct from `"designated"`: a prefix mhcgnomes did not
+generate is not thereby proven to be in published use. Most short prefixes are
+still unchecked — see issue #131.
 
 **Which prefixes are established vs generated:** Comments in `species.yaml`
 document which prefixes are attested in MHC literature and which were generated

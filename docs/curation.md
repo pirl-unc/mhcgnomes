@@ -394,11 +394,28 @@ and blue tit by different research groups).
 
 The [species identity model](species-latin-name-scoping.md) now uses latin
 names as canonical identity (see `Species.latin_name`,
-`Species.get_by_latin_name()`). Every species is also parseable via its full
-concatenated latin name (e.g., `HomoSapiens-A*02:01`) and a 4+4 truncated
-form (e.g., `HomoSapi-A*02:01`). See the
+`Species.get_by_latin_name()`). Every binomial species is also parseable via
+its full concatenated latin name (e.g., `HomoSapiens-A*02:01`) and, where the
+form is globally unique, a 4+4 truncation (e.g., `HomoSapi-A*02:01`). See the
 [prefix tier documentation](https://github.com/pirl-unc/mhcgnomes/blob/main/README.md#species-prefix-tiers)
 in the README.
+
+The 4+4 space is not collision-free: `ChryPict` derives from both *Chrysemys
+picta* and *Chrysolophus pictus*, `LaniColl` from two shrikes, `LeucLeuc` from
+a dace and a crane. Colliding forms are never emitted as global aliases, and
+where one had been picked as a canonical prefix the entry now carries its
+concatenated binomial instead -- which also retired two tie-breaks (`LaniCola`,
+`LeucisLeucis`) that belonged to no documented form. The concatenated binomial
+is the default generated alias, and is the only form with no collisions
+anywhere in the ontology.
+
+`Species.prefix_provenance` records how an entry came by its prefix:
+`"designated"` (published nomenclature, curated with a source), `"generated"`
+(mhcgnomes derived it from the latin name), `"group label"` (`Aves`, `NHP` --
+names a grouping, never written on an allele), or `None` for not established.
+Only the last three are ever inferred; `"designated"` must be curated, because
+a prefix we did not generate is not thereby proven to be in use -- see the
+`Caau` case in `AGENTS.md`.
 
 ### Current special cases
 

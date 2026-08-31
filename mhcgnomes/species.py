@@ -148,6 +148,7 @@ class Species(Result):
     other_mhc_prefixes: Any = None
     context_only_mhc_prefixes: Any = None
     other_common_names: Any = None
+    prefix_provenance: Union[str, None] = None
 
     def __init__(
         self,
@@ -171,6 +172,7 @@ class Species(Result):
         other_mhc_prefixes: Iterable[str] = [],
         context_only_mhc_prefixes: Iterable[str] = [],
         other_common_names: Iterable[str] = [],
+        prefix_provenance: Union[str, None] = None,
         raw_string: Union[str, None] = None,
         gene_name_to_properties: Union[Mapping[str, Mapping[str, Any]], None] = None,
         gene_family_name_to_gene_names: Union[Mapping[str, Iterable[str]], None] = None,
@@ -214,6 +216,7 @@ class Species(Result):
             "context_only_mhc_prefixes",
             FrozenSet(context_only_mhc_prefixes),
         )
+        self._set_field(self, "prefix_provenance", prefix_provenance)
         if old_mhc_prefix:
             normalized_old_mhc_prefix = old_mhc_prefix
         else:
@@ -840,19 +843,6 @@ def _make_long_prefix(latin_name):
     return genus.capitalize() + species.capitalize()
 
 
-def _make_5_5_prefix(latin_name):
-    """
-    Generate a 5+5 long prefix from a latin binomial name by taking the first
-    5 characters of each word, capitalized. Kept for backward compatibility.
-    """
-    parts = _scientific_name_parts(latin_name)
-    if len(parts) < 2:
-        return None
-    genus = parts[0][:5]
-    species = parts[1][:5]
-    return genus.capitalize() + species.capitalize()
-
-
 def _make_full_scientific_prefix(latin_name):
     """
     Generate a collision-resistant scientific-name alias from the canonical
@@ -876,32 +866,37 @@ def _make_generated_alias_counts(generator):
 
 
 _GENERATED_LONG_PREFIX_COUNTS = _make_generated_alias_counts(_make_long_prefix)
-_GENERATED_5_5_PREFIX_COUNTS = _make_generated_alias_counts(_make_5_5_prefix)
 
 
 def _auto_generated_prefixes_for_latin_name(latin_name):
     """
-    Auto-generated aliases are useful compatibility shorthands, but only the
-    collision-free truncated forms should be globally parseable. The fully
-    concatenated scientific name remains the unambiguous fallback.
+    The concatenated scientific name comes first: it is the default, and the
+    only form that never collides. The 4+4 truncation follows as a shorthand,
+    and only where it is globally unique.
+
+    The 5+5 form ("HomoSapie") was removed in 3.42.0. It was a leftover of the
+    pre-v3.12 scheme that 4cd6045 replaced, its own docstring described it as
+    kept for backward compatibility, docs/curation.md never listed it, and no
+    name in the bundled corpora or in the sibling mhcseqs dataset used one.
     """
     results = []
 
-    long_prefix = _make_long_prefix(latin_name)
-    if long_prefix and _GENERATED_LONG_PREFIX_COUNTS[long_prefix] == 1:
-        results.append(long_prefix)
-
-    compat_prefix = _make_5_5_prefix(latin_name)
-    if compat_prefix and _GENERATED_5_5_PREFIX_COUNTS[compat_prefix] == 1:
-        results.append(compat_prefix)
-
-    # Concatenated scientific-name aliases are only added for modeled
-    # binomials. Trinomial/subspecies entries should collapse to the binomial
-    # runtime alias rather than minting a third-token variant.
+    # The concatenated scientific name is the default generated alias: it is
+    # the only form with no collisions anywhere in the ontology. Added only for
+    # modeled binomials -- trinomial/subspecies entries mint no generated alias
+    # and are reached by their curated prefix or latin name.
     scientific_parts = _scientific_name_parts(latin_name)
     full_prefix = _make_full_scientific_prefix(latin_name)
     if full_prefix and len(scientific_parts) == 2:
         results.append(full_prefix)
+
+    # The 4+4 truncation is kept because it is the curated prefix of 467
+    # entries, but only where it is globally unique. It is a shorthand, not the
+    # default: 4+4 collides (ChryPict is both a painted turtle and a golden
+    # pheasant) and the ties have been broken with off-book forms.
+    long_prefix = _make_long_prefix(latin_name)
+    if long_prefix and _GENERATED_LONG_PREFIX_COUNTS[long_prefix] == 1:
+        results.append(long_prefix)
 
     deduped = []
     seen = set()
@@ -948,10 +943,21 @@ def _decorated_scientific_name_candidates(name):
     return candidates
 
 
-def _is_taxonomic_prefix(prefix, latin_name):
+def _prefix_is_derived_from_name(prefix, latin_name):
     """
-    Taxonomic helper prefixes like "Galliformes" or "Crocodylia" should not
-    become inherited old MHC prefixes for child species.
+    Is this entry's prefix just a normalization of its own name?
+
+    Used to decide whether a group node hands its prefix down to descendants.
+    "Galliformes sp." carries the prefix "Galliformes" and "NHP" carries "NHP";
+    neither is a published designation, so neither becomes a child's inherited
+    old MHC prefix. "Bos sp." carries "BoLA", which is not derived from the
+    name and is a real designation, so Bos taurus inherits it.
+
+    Note what this does NOT establish. It is a string test, not a claim about
+    nomenclature: "NHP" passes it and is a paraphyletic database section rather
+    than a taxon, and a species whose curated prefix happens to equal its own
+    concatenated binomial ("Bubo bubo" -> "BuboBubo") would pass it too. That
+    second case is why group_node is required -- see the caller.
     """
     normalized_prefix = re.sub(r"[^A-Za-z0-9]+", "", prefix).lower()
     latin_parts = [part for part in latin_name.split() if part.lower() != "sp."]
@@ -960,6 +966,47 @@ def _is_taxonomic_prefix(prefix, latin_name):
     normalized_first = re.sub(r"[^A-Za-z0-9]+", "", latin_parts[0]).lower()
     normalized_concat = "".join(re.sub(r"[^A-Za-z0-9]+", "", part).lower() for part in latin_parts)
     return normalized_prefix in {normalized_first, normalized_concat}
+
+
+def _is_group_entry(latin_name):
+    """
+    Does this entry stand for a group of species rather than one species?
+
+    Group entries are written "<taxon> sp." -- plus "NHP", which is IPD-MHC's
+    section for non-human primates and is not a taxon at all (see #122). Only
+    these hand a prefix down, which is what stops a tautonym such as
+    "Bubo bubo" (prefix "BuboBubo") from being mistaken for an umbrella.
+    """
+    return latin_name.endswith(" sp.") or latin_name == "NHP"
+
+
+# How an entry came by its prefix. "designated" means it is published
+# nomenclature -- IPD-MHC or IMGT/HLA writes alleles with it. "generated" means
+# mhcgnomes derived it from the latin name. "group label" means it names a
+# grouping rather than a species and is never written on an allele. None means
+# nobody has established which, and that is deliberately distinguishable from
+# "designated": a prefix that mhcgnomes did not generate is not thereby proven
+# to be in published use. See issue #128 and the Caau case in AGENTS.md.
+PREFIX_PROVENANCE_VALUES = frozenset({"designated", "generated", "group label"})
+
+
+def _derive_prefix_provenance(prefix, latin_name):
+    """
+    What can be established about a prefix without consulting a source.
+
+    Only two answers are provable by derivation: a group entry whose prefix is
+    its own name is a label, and a prefix reproduced exactly by one of the
+    generators is one we minted. Everything else returns None so that a curator
+    has to look it up rather than inherit a guess.
+    """
+    if _is_group_entry(latin_name) and _prefix_is_derived_from_name(prefix, latin_name):
+        return "group label"
+    normalized = prefix.lower()
+    for generator in (_make_full_scientific_prefix, _make_long_prefix):
+        generated = generator(latin_name)
+        if generated and generated.lower() == normalized:
+            return "generated"
+    return None
 
 
 _EMPTY_GENE_NAMES = NormalizingSet()
@@ -988,10 +1035,22 @@ def create_species_for_latin_name(latin_name):
     if not prefix:
         raise ValueError(f"Missing 'prefix' for '{latin_name}' in species ontology")
 
+    prefix_provenance = species_info.get("prefix source")
+    if prefix_provenance is not None and prefix_provenance not in PREFIX_PROVENANCE_VALUES:
+        raise ValueError(
+            f"'prefix source' of '{latin_name}' is {prefix_provenance!r}, "
+            f"expected one of {sorted(PREFIX_PROVENANCE_VALUES)}"
+        )
+    if prefix_provenance is None:
+        prefix_provenance = _derive_prefix_provenance(prefix, latin_name)
+
     old_mhc_prefix = species_info.get("old prefix")
     if not old_mhc_prefix and parent_species:
         parent_prefix = parent_species.prefix
-        if not _is_taxonomic_prefix(parent_prefix, parent_species.name):
+        if not (
+            _is_group_entry(parent_species.name)
+            and _prefix_is_derived_from_name(parent_prefix, parent_species.name)
+        ):
             old_mhc_prefix = parent_prefix
 
     other_mhc_prefixes = species_info.get("other prefixes")
@@ -1219,6 +1278,7 @@ def create_species_for_latin_name(latin_name):
         other_mhc_prefixes=other_mhc_prefixes,
         context_only_mhc_prefixes=context_only_mhc_prefixes,
         other_common_names=[name for name in common_names if name != shortest_common_name],
+        prefix_provenance=prefix_provenance,
         raw_string=latin_name,
     )
 
