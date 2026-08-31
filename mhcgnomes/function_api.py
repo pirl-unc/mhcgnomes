@@ -750,7 +750,12 @@ def parse(
                 result_species = result.species
                 if result_species == expected:
                     matches_expected = True
-                elif result_species.is_ancestor_of(expected):
+                # can_name rather than is_ancestor_of: an umbrella prefix that
+                # is exclusionary by definition must not be reinterpreted as one
+                # of the species it excludes. "NHP" names non-human primates, so
+                # parse("NHP-E*01:01", species="Homo sapiens") has to be rejected
+                # rather than converted to HLA-E*01:01. See issue #122.
+                elif result_species.can_name(expected):
                     converted = _reparse_result_for_species(
                         parser=parser,
                         result=result,

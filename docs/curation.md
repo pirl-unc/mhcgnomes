@@ -178,25 +178,54 @@ URL.
   `mhcgnomes/data/underrepresented_taxa_source_registry.yaml` until they are
   resolved.
 
-### The tree is prefix scope, not phylogeny
+### A parent link is containment; naming scope is separate
 
-A `parent` link says "this species may be named under the ancestor's umbrella
-prefix". It is not a claim of descent, and reading it as one is the single most
-common misunderstanding of this file -- two independent readers have filed the
-same bug against `Bubalus bubalis` sitting under `Bos sp.`
+A `parent` link says "this species is inside that group". It is taxonomic
+wherever it can be -- exactly one parent link in the ontology points at another
+genus's node -- and it is what the rest of the entry is inherited along.
 
-The clearest evidence is `Homo sapiens`, which attaches straight to the root
-rather than under `Primata sp.`, despite humans being primates: human alleles
-are never written `NHP-*`. `Bubalus bubalis` under `Bos sp.` is the mirror
-image -- a different genus, but IPD-MHC files water buffalo in the BoLA group
+Whether an ancestor's *prefix* may name a descendant is a different question,
+and three separate mechanisms answer it.
+
+1. **Prefix inheritance.** The loader hands a parent's prefix down to a child
+   as its `old prefix` when the parent's prefix is an MHC prefix rather than
+   its own taxon name (`BoLA`, `NHP`, `DLA` are inherited; `Aves`, `Rodentia`,
+   `Crocodylia` are not), the child does not declare an `old prefix` of its
+   own, and the parent does not exclude it. Note this is the *immediate*
+   parent: `Macaca mulatta` inherits `RhLA` from `Macaca sp.`, not `NHP`.
+2. **`prefix excludes`.** A list of species an entry's prefix must never name,
+   even though they sit beneath it. There is one, and it exists because
+   IPD-MHC's `NHP` group code means Non-Human Primates
+   (https://www.ebi.ac.uk/ipd/mhc/group/NHP/), so it cannot denote a human even
+   though humans are primates.
+3. **`Species.can_name`.** The runtime query: ancestry, minus anything an
+   ancestor excludes. `compatible_with` follows it, and so does the
+   ancestor-to-descendant conversion behind `parse(..., species=...)`, which is
+   why `parse("NHP-E*01:01", species="Homo sapiens")` is refused rather than
+   silently returned as `HLA-E*01:01`. `is_ancestor_of` and `is_descendant_of`
+   deliberately do *not* follow it: they stay purely taxonomic, so
+   `Homo sapiens` is a descendant of `Primata sp.` and always was in fact, if
+   not in this file before #122.
+
+The one edge that is deliberately not taxonomy is `Bubalus bubalis` under `Bos
+sp.` -- a different genus, but IPD-MHC files water buffalo in the BoLA group
 and the literature assigns its class II sequences to cattle loci by
-trans-species polymorphism.
+trans-species polymorphism. Two independent readers have filed that as a bug
+(#109, #115); it is not one.
 
-Parent links are also load-bearing for parsing, because genes are inherited
-along them. Before changing one because it looks taxonomically wrong, check
-what stops parsing: water buffalo declares only `DQA`, `DQA1` and `DQB`, so
+Parent links are load-bearing for parsing, because genes are inherited along
+them. Before changing one because it looks taxonomically wrong, check what
+stops parsing: water buffalo declares only `DQA`, `DQA1` and `DQB`, so
 detaching it would break `Bubu-DRA`, `Bubu-DRB3`, `Bubu-DQA2` and `Bubu-DQB1`,
 every one of which is named in the published literature.
+
+Conversely, check what a *new* parent hands down -- and note that gene names
+are only part of it. Gene properties, gene families, class II locus groupings
+and the seven side tables that merge by ancestor latin name (gene and allele
+aliases, known alleles, haplotypes, serotypes, heterodimers, supertypes) all
+inherit too, so a pseudogene flag added to `Primata sp.` would become one on
+`HLA`. `tests/test_species_tree_shape.py` checks each of those channels
+separately rather than trusting the gene list.
 
 ### Inherited prefixes and inherited genes
 

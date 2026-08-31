@@ -1,51 +1,82 @@
-# Curate the published water buffalo loci
+# Put Homo sapiens back in the primate order
 
-Tracking issues: follow-up to #109 / #115 (both closed as not-a-bug)
+Tracking issue: #122
 
-Those two issues asked whether `Bubalus bubalis` belongs under `Bos sp.`
-It does -- the tree is prefix scope. But checking the literature to answer
-that turned up a real gap: the entry did not record the loci the buffalo
-papers actually characterize.
+`Primata sp.` carries the prefix `NHP`, which IPD-MHC defines as "Non-Human
+Primates". `Homo sapiens` was therefore attached straight to the root, so the
+library answered `False` to "is a human a primate?" -- a node named for a taxon
+that includes humans, scoped to a prefix that excludes them.
 
 ## Specification
 
-- [x] Declare on `Bubalus bubalis` the class II loci with published buffalo
-      sequences, with sources cited next to each.
-- [x] Stop the cattle `DRB -> DRB3` alias renaming the buffalo locus, since
-      the literature reports homology rather than identity.
-- [x] Leave inherited cattle loci reachable.
-- [x] Decide, from IPD-MHC rather than one paper, whether `BoLA-DQB3` and
-      `BoLA-DQB4` should exist.
+- [x] Establish from the authority what `NHP` means and whether IPD files
+      humans in that group.
+- [x] Check whether the parent link and the umbrella prefix are actually the
+      same mechanism, or two separable ones.
+- [x] Reparent `Homo sapiens` under `Primata sp.` without letting `NHP` name
+      it by any route, and cite the source next to the entry.
+- [x] Check every consumer of the parent link, not just prefix inheritance.
+- [x] Measure: A/B every name in the bundled corpora, and diff every field of
+      all 671 species objects, between `main` and the branch.
+- [x] Sweep every parent link for the same class of defect and file what turns
+      up rather than folding it in.
+- [x] Correct the README, `docs/curation.md` and `AGENTS.md`, which had
+      generalized one exception into a model.
+- [x] Pin the invariants in tests.
 - [x] Bump the version and run `./format.sh`, `./lint.sh`, and `./test.sh`.
-- [x] Review the final diff and document the result below.
 
 ## Review
 
-- Declared `DRA`, `DRB`, `DQA2` in addition to the existing `DQA`, `DQA1`,
-  `DQB`. All were previously inherited from `Bos sp.`, which parsed them but
-  recorded no evidence that the buffalo locus itself had been characterized.
-  Sources: PMID 12580780 (buffalo DRA and DRB, eight Bubu-DRB alleles across
-  four breeds), PMID 22383896 (cites isolation of buffalo DQA1 and DQA2
-  cDNAs), and IPD-MHC, which holds 39 Bubu-DQA alleles.
-- **`Bubu-DRB` no longer renames to `Bubu-DRB3`.** `gene_aliases.yaml` maps
-  `DRB -> DRB3` under `BoLA`, which is right for cattle, where DRB3 is the
-  expressed DRB locus, and buffalo inherited it. PMID 22383896 says only that
-  "the Bubu-DRB sequence showed maximum homology with the BoLA-DRB3*0101
-  allele of cattle" -- homology, not identity -- and every paper writes the
-  locus as Bubu-DRB. Declaring `DRB` on the species stops the rename;
-  `Bubu-DRB3` still parses by inheritance.
-- **`BoLA-DQB3` and `BoLA-DQB4` deliberately not added.** A trans-species
-  phylogeny paper assigns buffalo sequences to loci it labels `BoLA-DQB1`,
-  `BoLA-DQB3` and `BoLA-DQB4`, but IPD-MHC registers only `BoLA-DQB`. Those
-  are that analysis's locus labels rather than designations. A test pins their
-  absence so the distinction is not lost.
-- Also added the prefix-scope explanation as a comment on the entry itself,
-  since it is the specific line two people have now filed bugs against.
-- No behaviour change on real data: 0 of 11,558 names in the bundled corpora
-  parse differently. The `Bubu-DRB` rename is the only behavioural change and
-  no corpus name exercises it.
-- Bumped 3.38.0 to 3.39.0 -- minor rather than patch, because `Bubu-DRB` now
-  returns a different gene name.
-- `./format.sh`: passed.
-- `./lint.sh`: passed.
-- `./test.sh`: passed (15,507 tests; 91% statement coverage).
+- **The fix is a parent link plus a first-class exclusion.** The issue proposed
+  either renaming the node or inserting a level above it. Neither was needed,
+  but the first attempt -- opting human out of the umbrella by spelling out
+  `old prefix: HLA` -- was not enough either. Code review found it only blocked
+  one of four consumers of the parent link:
+
+  ```
+  parse("NHP-E*01:01", species="Homo sapiens")  ->  HLA-E*01:01
+  ```
+
+  So the exclusion is now declared on the node that owns the prefix, and there
+  is a runtime query for it:
+
+  ```yaml
+  Primata sp.:
+    prefix: NHP
+    prefix excludes:
+      - Homo sapiens
+  ```
+
+  `Species.can_name(other)` is ancestry minus anything an ancestor excludes.
+  `compatible_with` follows it, and so does the ancestor-to-descendant
+  conversion in `function_api`. `is_ancestor_of` and `is_descendant_of` stay
+  purely taxonomic, which is what the issue was actually asking for.
+- **Authority.** https://www.ebi.ac.uk/ipd/mhc/group/NHP/ -- "a specialist
+  database for the Major Histocompatibility Complex genes of Non-Human
+  Primates ... Apes and both Old World and New World monkeys". The placement
+  itself cites NCBI Taxonomy: Homo sapiens (9606) sits in Primates (9443).
+- **Measured against a worktree of `main`, not a stash.** 0 of 11,558 corpus
+  names change; `compatible_with` is identical across all 450,241 species
+  pairs; 15 structural fields across all 671 species objects differ in exactly
+  one place, `Homo sapiens.parent`. The first round of this measurement used
+  `git stash`, which only reverts uncommitted work and so compared the branch
+  against itself -- recorded in `tasks/lessons.md`.
+- **The inertness guard now covers every inheritance channel.** Gene names were
+  only one of them: gene properties, gene families, class II locus groupings
+  and seven side tables keyed by ancestor latin name all flow down too. A
+  pseudogene flag added to `Primata sp.` reaches `HLA` and passed the original
+  name-only check; it now fails.
+- **The docs were over-corrected and are now fixed.** #120 read the water
+  buffalo edge as proof that the tree is "prefix scope, not phylogeny". Exactly
+  one parent link points at another genus's node -- the buffalo -- and `Homo
+  sapiens` was outside `Primata sp.` only because nothing expressed the NHP
+  exclusion. The buffalo exception stands; the generalization does not.
+- **Filed rather than folded: #123.** The same sweep found five primates
+  (`Macaca arctoides`, `M. assamensis`, `M. fuscata`, `M. leonina`,
+  `Callithrix pygmaea`) sitting outside their own genus node, so they inherit
+  almost no genes and `Mafu-A*01:01` does not parse while `Mamu-A*01:01` does.
+  Reparenting them is also 0/11,558, but it hands each one 49 macaque genes by
+  inheritance, which is a scientific claim that wants reading rather than
+  measuring. A test pins the list of five so it cannot grow silently.
+- Bumped 3.39.0 to 3.40.0 -- minor rather than patch, because `Species.can_name`
+  is new public API.
