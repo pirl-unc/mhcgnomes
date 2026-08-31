@@ -39,16 +39,3 @@ class ResultWithGene(ResultWithMhcClass):
     @property
     def gene_name(self):
         return self.gene.name
-
-    @property
-    def is_class2_alpha(self):
-        return (
-            self.is_class2
-            and self.species.class2_gene_name_to_chain_type[self.gene_name] == "alpha"
-        )
-
-    @property
-    def is_class2_beta(self):
-        return (
-            self.is_class2 and self.species.class2_gene_name_to_chain_type[self.gene_name] == "beta"
-        )
