@@ -996,12 +996,19 @@ def _is_group_entry(latin_name):
     """
     Does this entry stand for a group of species rather than one species?
 
-    Group entries are written "<taxon> sp." -- plus "NHP", which is IPD-MHC's
-    section for non-human primates and is not a taxon at all (see #122). Only
-    these hand a prefix down, which is what stops a tautonym such as
-    "Bubo bubo" (prefix "BuboBubo") from being mistaken for an umbrella.
+    Most group entries announce themselves by being written "<taxon> sp.". One
+    cannot: "NHP" is IPD-MHC's section for non-human primates and is not a
+    taxon at all (#122), so it declares "group: true" instead. Any future
+    database section that is not a clade does the same, rather than being
+    hardcoded here (#135).
+
+    Group-ness decides two things: whether a prefix that is merely the entry's
+    own name is suppressed rather than inherited, and whether provenance
+    reports "group label".
     """
-    return latin_name.endswith(" sp.") or latin_name == "NHP"
+    if raw_species_dict.get(latin_name, {}).get("group"):
+        return True
+    return latin_name.endswith(" sp.")
 
 
 # How an entry came by its prefix. "designated" means it is published
@@ -1069,6 +1076,7 @@ SPECIES_ENTRY_KEYS = frozenset(
         # reads them; they are listed so the file still loads, not because they
         # do anything. See issue #136.
         "alias",
+        "group",
         "context only prefixes",
         "gene families",
         "gene properties",

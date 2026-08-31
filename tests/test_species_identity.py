@@ -189,8 +189,8 @@ def test_5_5_prefixes_are_no_longer_generated():
 def test_colliding_4_4_forms_are_never_auto_generated():
     """
     Three 4+4 forms are derivable from two binomials each. None is emitted as a
-    generated alias, so the only route to one is an entry curating it, and only
-    one side of each pair does -- which is why they still resolve. See #134.
+    generated alias, and since #134 neither claimant curates one as a plain
+    alias either, so none of the three resolves on its own.
 
     A subspecies must not veto its parent's shorthand: CaniLupu and BalaMusc
     are derivable from a binomial and its own subspecies, and belong to the
@@ -200,8 +200,7 @@ def test_colliding_4_4_forms_are_never_auto_generated():
 
     for alias in ["ChryPict", "LaniColl", "LeucLeuc"]:
         eq_(_GENERATED_LONG_PREFIX_COUNTS[alias], 2)
-        assert Species.get(alias) is not None, f"{alias} lost its curated owner"
-        eq_(len(Species.get_multiple(alias)), 1)
+        assert Species.get(alias) is None, f"{alias} resolves globally"
 
     for alias, latin_name in [("CaniLupu", "Canis lupus"), ("BalaMusc", "Balaenoptera musculus")]:
         eq_(_GENERATED_LONG_PREFIX_COUNTS[alias], 1)
@@ -225,14 +224,28 @@ def test_trinomials_mint_no_generated_alias_at_all():
         assert Species.get_by_latin_name(subspecies) is not None
 
 
-def test_curated_prefix_keeps_global_owner_when_generated_alias_would_collide():
-    for prefix, latin_name in [
-        ("ChryPict", "Chrysemys picta"),
-        ("LaniColl", "Lanius collurio"),
+def test_contested_4_4_forms_resolve_only_under_explicit_species():
+    """
+    A 4+4 form derivable from two species names neither of them. Up to 3.42.0
+    one side curated it and won silently, so a caller who meant the golden
+    pheasant and wrote ChryPict got a painted turtle. Both claimants now list
+    it under `context only prefixes`, so a bare form fails and an explicit
+    species= still resolves. See #134.
+    """
+    from mhcgnomes.species import find_matching_context_only_species_objects
+
+    for form, claimants in [
+        ("ChryPict", {"Chrysemys picta", "Chrysolophus pictus"}),
+        ("LaniColl", {"Lanius collurio", "Lanius collaris"}),
+        ("LeucLeuc", {"Leucogeranus leucogeranus", "Leuciscus leuciscus"}),
     ]:
-        species = Species.get(prefix)
-        assert species is not None
-        eq_(species.name, latin_name)
+        assert Species.get(form) is None, f"bare {form!r} still resolves"
+        eq_(Species.get_multiple(form), ())
+        eq_({s.name for s in find_matching_context_only_species_objects(form)}, claimants)
+        for latin_name in claimants:
+            result = parse(f"{form}-DAB1", species=latin_name, raise_on_error=False)
+            assert result is not None, f"{form}-DAB1 not rescued by species={latin_name}"
+            eq_(result.species.name, latin_name)
 
 
 def test_explicit_short_prefixes_beat_generated_collision_aliases():
