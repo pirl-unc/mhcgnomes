@@ -113,11 +113,8 @@ Do not tell the user you are "done" or that changes are "complete" until all thr
 - **Do not generalize one exception into a model.** The buffalo edge is a real
   departure from taxonomy, but reading it as proof that the whole tree is
   "prefix scope, not phylogeny" was an over-correction: exactly one parent link
-  in the ontology points at another genus's node, and `Homo sapiens` was
-  outside `Primata sp.` only because nothing expressed that `NHP` cannot name a
-  human (#122). A parent link is containment; naming scope is a separate
-  property, declared with `prefix excludes` and queried with
-  `Species.can_name`. One counterexample bounds a rule; it does not replace it.
+  in the ontology points at another genus's node. One counterexample bounds a
+  rule; it does not replace it.
 - **An invariant you assert in prose has to be tested on every path.** The
   first fix for #122 blocked `NHP` from reaching humans through prefix
   inheritance, and the PR said "`NHP-*` still cannot name it" -- but three
@@ -125,6 +122,13 @@ Do not tell the user you are "done" or that changes are "complete" until all thr
   species="Homo sapiens")` duly returned `HLA-E*01:01`. Before claiming a
   guarantee, enumerate the consumers of the thing you changed and test each
   one.
+- **Prefer fixing the structure to encoding an exception.** The next attempt at
+  #122 kept `NHP` on the primate node and added a `prefix excludes` key, a
+  `Species.can_name` predicate and a docs section to explain when to use which
+  of two near-identical predicates. Giving `NHP` its own node deleted all three
+  and made both questions plain ancestry (#126). If a fix needs a new concept
+  to describe a special case, check whether the data can be shaped so the
+  special case does not exist.
 - **An official designation is not the same as attested usage.** The naming
   rule is mechanical, so several species can derive the same code, and only
   one of them is usually the one that appears in print — the rest are
