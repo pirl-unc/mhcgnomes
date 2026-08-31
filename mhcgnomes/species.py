@@ -865,7 +865,18 @@ def _make_generated_alias_counts(generator):
     return counts
 
 
-_GENERATED_LONG_PREFIX_COUNTS = _make_generated_alias_counts(_make_long_prefix)
+def _long_prefix_if_claimable(latin_name):
+    """
+    The 4+4 form only where the entry is allowed to claim it. Trinomials are
+    excluded, so a subspecies does not veto its parent binomial's shorthand by
+    deriving the same string.
+    """
+    if len(_scientific_name_parts(latin_name)) != 2:
+        return None
+    return _make_long_prefix(latin_name)
+
+
+_GENERATED_LONG_PREFIX_COUNTS = _make_generated_alias_counts(_long_prefix_if_claimable)
 
 
 def _auto_generated_prefixes_for_latin_name(latin_name):
@@ -951,6 +962,11 @@ def _decorated_scientific_name_candidates(name):
     return candidates
 
 
+def _normalize_identifier(value):
+    """Strip punctuation and case so two spellings of a prefix compare equal."""
+    return re.sub(r"[^A-Za-z0-9]+", "", value).lower()
+
+
 def _prefix_is_derived_from_name(prefix, latin_name):
     """
     Is this entry's prefix just a normalization of its own name?
@@ -967,13 +983,13 @@ def _prefix_is_derived_from_name(prefix, latin_name):
     concatenated binomial ("Bubo bubo" -> "BuboBubo") would pass it too. That
     second case is why _is_group_entry is required -- see the caller.
     """
-    normalized_prefix = re.sub(r"[^A-Za-z0-9]+", "", prefix).lower()
     latin_parts = [part for part in latin_name.split() if part.lower() != "sp."]
     if not latin_parts:
         return False
-    normalized_first = re.sub(r"[^A-Za-z0-9]+", "", latin_parts[0]).lower()
-    normalized_concat = "".join(re.sub(r"[^A-Za-z0-9]+", "", part).lower() for part in latin_parts)
-    return normalized_prefix in {normalized_first, normalized_concat}
+    return _normalize_identifier(prefix) in {
+        _normalize_identifier(latin_parts[0]),
+        "".join(_normalize_identifier(part) for part in latin_parts),
+    }
 
 
 def _is_group_entry(latin_name):
@@ -998,58 +1014,41 @@ def _is_group_entry(latin_name):
 PREFIX_PROVENANCE_VALUES = frozenset({"designated", "generated", "group label"})
 
 
-def _prefix_is_a_group_label(prefix, latin_name):
-    """
-    Is this group entry's prefix a made-up label for the group itself?
-
-    Covers the plain case, where the prefix is the taxon name ("Aves sp." with
-    "Aves"), and the decorated ones minted for group nodes: a 2+2 reading that
-    treats "sp." as the epithet ("Coregonus sp." -> "Cosp"), a genus truncation
-    ("Manacus sp." -> "Mana"), and the taxon with "Sp" appended ("Mus sp." ->
-    "MusSp"). None of these is ever written on an allele, so they are labels
-    rather than unchecked designations. Real umbrella designations are unlike
-    the name they sit on -- "Bos sp." carries "BoLA", "Felis sp." carries "FLA".
-    """
-    if not _is_group_entry(latin_name):
-        return False
-    if _prefix_is_derived_from_name(prefix, latin_name):
-        return True
-    taxon = latin_name[: -len(" sp.")] if latin_name.endswith(" sp.") else latin_name
-    taxon = re.sub(r"[^A-Za-z0-9]+", "", taxon).lower()
-    if not taxon:
-        return False
-    normalized = re.sub(r"[^A-Za-z0-9]+", "", prefix).lower()
-    return normalized in {taxon[:2] + "sp", taxon[:4], taxon + "sp"}
-
-
 def _is_inheritable_umbrella(prefix, latin_name):
     """
     Does this entry hand its prefix down to descendants as their old prefix?
 
-    True for a group entry carrying a real designation ("Bos sp." with "BoLA"),
-    false for one whose prefix is just its own name ("Aves sp." with "Aves"),
-    and false for any single species -- which is what stops a tautonym such as
-    "Bubo bubo" (prefix "BuboBubo") from acting as an umbrella.
+    True for anything carrying a prefix that is not simply its own name, which
+    covers real designations ("Bos sp." with "BoLA", "Mus sp." with "MusSp")
+    and every ordinary species. False only for a group entry labelled with its
+    own taxon: "Aves sp." with "Aves", "NHP" with "NHP".
+
+    The group-entry requirement is what fixes the tautonym case. "Bubo bubo"
+    carries "BuboBubo", which *is* derived from its name, but it is one species
+    rather than a grouping, so a subspecies parented under it should inherit
+    the prefix the way any other child does.
     """
-    return not _prefix_is_a_group_label(prefix, latin_name)
+    return not (_is_group_entry(latin_name) and _prefix_is_derived_from_name(prefix, latin_name))
 
 
 def _derive_prefix_provenance(prefix, latin_name):
     """
     What can be established about a prefix without consulting a source.
 
-    Only two answers are provable by derivation: a group entry whose prefix is
-    its own name is a label, and a prefix reproduced exactly by one of the
-    generators is one we minted. Everything else returns None so that a curator
-    has to look it up rather than inherit a guess.
+    Only two answers are provable: a group entry whose prefix is its own name is
+    a label, and a prefix this entry would actually be given by the alias
+    generator is one we minted. The second asks the emitter rather than the
+    generator functions, so a form the emitter declines -- a colliding 4+4, or
+    anything on a trinomial -- is not claimed as ours. Everything else returns
+    None so that a curator has to look it up rather than inherit a guess.
     """
-    if _prefix_is_a_group_label(prefix, latin_name):
+    if not _is_inheritable_umbrella(prefix, latin_name):
         return "group label"
     normalized = prefix.lower()
-    for generator in (_make_full_scientific_prefix, _make_long_prefix):
-        generated = generator(latin_name)
-        if generated and generated.lower() == normalized:
-            return "generated"
+    if any(
+        alias.lower() == normalized for alias in _auto_generated_prefixes_for_latin_name(latin_name)
+    ):
+        return "generated"
     return None
 
 
@@ -1066,6 +1065,9 @@ latin_name_to_own_gene_names = {}
 # silently, leaving the YAML asserting something the runtime never read.
 SPECIES_ENTRY_KEYS = frozenset(
     {
+        # "alias" and "haplotype prefix" are present in species.yaml but nothing
+        # reads them; they are listed so the file still loads, not because they
+        # do anything. See issue #136.
         "alias",
         "context only prefixes",
         "gene families",
@@ -1107,7 +1109,9 @@ def create_species_for_latin_name(latin_name):
         raise ValueError(f"Missing 'prefix' for '{latin_name}' in species ontology")
 
     prefix_provenance = species_info.get("prefix source")
-    if prefix_provenance is not None and prefix_provenance not in PREFIX_PROVENANCE_VALUES:
+    if prefix_provenance is not None and (
+        not isinstance(prefix_provenance, str) or prefix_provenance not in PREFIX_PROVENANCE_VALUES
+    ):
         raise ValueError(
             f"'prefix source' of '{latin_name}' is {prefix_provenance!r}, "
             f"expected one of {sorted(PREFIX_PROVENANCE_VALUES)}"

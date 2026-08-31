@@ -501,15 +501,16 @@ Homo sapiens-A*02:01 # latin name with space
 
 Two limits are worth knowing:
 
-**4+4 is not collision-free.** Five forms are derivable from two entries each —
-`ChryPict` from both *Chrysemys picta* and *Chrysolophus pictus*, `LaniColl`
-from two shrikes, `LeucLeuc` from a dace and a crane. A colliding form is never
-*auto-generated*, but that only suppresses the generated copy: where one side
-of a pair curates the form, it still resolves, and to that side alone —
-`ChryPict` gives the turtle, `LaniColl` gives *Lanius collurio*. Only forms
-neither side curates are unresolvable (`CaniLupu`, `BalaMusc`). Where a
-colliding form had been chosen as a canonical prefix, the entry now uses its
-concatenated binomial instead — three entries did, in 3.42.0:
+**4+4 is not collision-free.** Three forms are derivable from two species
+each — `ChryPict` from both *Chrysemys picta* and *Chrysolophus pictus*,
+`LaniColl` from two shrikes, `LeucLeuc` from a dace and a crane. None is ever
+*auto-generated*, but that only suppresses the generated copy: each is curated
+by one side of its pair, so it still resolves, confidently and to that side
+alone — `ChryPict` gives the turtle, `LaniColl` gives *Lanius collurio*,
+`LeucLeuc` gives the crane. Issue #134 tracks whether they should instead be
+demoted to context-only. Two of the three are still the canonical prefix of
+their owner; the entries that had a *contested* form as their canonical prefix
+now use the concatenated binomial instead — three entries did, in 3.42.0:
 
 | species | was | now |
 |---|---|---|
@@ -526,8 +527,20 @@ binomial, and no third-token variant is generated. Subspecies are reached by
 their curated prefix (`Caba`) or by latin name.
 
 A 5+5 form (`HomoSapie`) existed up to 3.41.0 as a leftover of the pre-v3.12
-scheme. It was removed in 3.42.0: no bundled corpus name, and no record in the
-sibling `mhcseqs` dataset, ever used one. See issue #128.
+scheme, and was removed in 3.42.0: no bundled corpus name, and no species token
+in the sibling `mhcseqs` dataset, ever used one. See issue #128.
+
+**This is a breaking parse change.** 596 auto-generated 5+5 aliases stop
+resolving, and so do ten that had been curated by hand as `other prefixes`
+when the scheme was introduced:
+
+```
+MonopAlbus  GaviaGange  CaimaCroco  CaimaLatir  CaretCaret
+ChrysPicta  CasuaCasua  CyaniCaeru  PhasiColch  CycluCarin
+```
+
+Anything written with a 5+5 form should move to the concatenated binomial —
+`HomoSapie-A*02:01` becomes `HomoSapiens-A*02:01`.
 
 ### Where a prefix came from
 

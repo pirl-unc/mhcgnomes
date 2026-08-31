@@ -4,6 +4,7 @@ and prefixes/common names are aliases that may be ambiguous.
 """
 
 from collections import defaultdict
+from contextlib import contextmanager
 
 import pytest
 
@@ -185,10 +186,27 @@ def test_5_5_prefixes_are_no_longer_generated():
         assert Species.get(retired) is None, f"{retired!r} still resolves"
 
 
-def test_generated_4_4_prefix_collisions_are_not_global_aliases():
-    for alias in ["CaniLupu"]:
-        assert Species.get(alias) is None
-        assert Species.get_multiple(alias) == ()
+def test_colliding_4_4_forms_are_never_auto_generated():
+    """
+    Three 4+4 forms are derivable from two binomials each. None is emitted as a
+    generated alias, so the only route to one is an entry curating it, and only
+    one side of each pair does -- which is why they still resolve. See #134.
+
+    A subspecies must not veto its parent's shorthand: CaniLupu and BalaMusc
+    are derivable from a binomial and its own subspecies, and belong to the
+    binomial.
+    """
+    from mhcgnomes.species import _GENERATED_LONG_PREFIX_COUNTS, _long_prefix_if_claimable
+
+    for alias in ["ChryPict", "LaniColl", "LeucLeuc"]:
+        eq_(_GENERATED_LONG_PREFIX_COUNTS[alias], 2)
+        assert Species.get(alias) is not None, f"{alias} lost its curated owner"
+        eq_(len(Species.get_multiple(alias)), 1)
+
+    for alias, latin_name in [("CaniLupu", "Canis lupus"), ("BalaMusc", "Balaenoptera musculus")]:
+        eq_(_GENERATED_LONG_PREFIX_COUNTS[alias], 1)
+        eq_(Species.get(alias).name, latin_name)
+    assert _long_prefix_if_claimable("Canis lupus baileyi") is None
 
 
 def test_trinomials_mint_no_generated_alias_at_all():
@@ -197,11 +215,13 @@ def test_trinomials_mint_no_generated_alias_at_all():
     from the parent binomial's first two words. Before 3.42.0 the 4+4 branch
     had no arity guard, so "Strix occidentalis caurina" claimed "StriOcci".
     """
-    for subspecies, shorthand in [
-        ("Strix occidentalis caurina", "StriOcci"),
-        ("Sapajus apella macrocephalus", "SapaApel"),
+    for subspecies, shorthand, concatenated in [
+        ("Strix occidentalis caurina", "StriOcci", "StrixOccidentalis"),
+        ("Sapajus apella macrocephalus", "SapaApel", "SapajusApella"),
+        ("Canis lupus baileyi", "CanisLupusBaileyi", "CanisLupusBaileyi"),
     ]:
-        assert Species.get(shorthand) is None, f"{shorthand!r} still resolves"
+        assert Species.get(shorthand) is None, f"{shorthand!r} resolves"
+        assert Species.get(concatenated) is None, f"{concatenated!r} resolves"
         assert Species.get_by_latin_name(subspecies) is not None
 
 
@@ -574,8 +594,18 @@ def test_every_designated_prefix_cites_a_source():
     from pathlib import Path
 
     text = (Path(__file__).parent.parent / "mhcgnomes" / "data" / "species.yaml").read_text()
-    for block in re.finditer(r"(?:^  #[^\n]*\n)+^  prefix source: designated$", text, re.M):
-        comment = block.group(0)
+    declarations = re.findall(r"^  prefix source: designated$", text, re.M)
+    cited = re.findall(r"(?:^  #[^\n]*\n)+^  prefix source: designated$", text, re.M)
+    # Count first: an entry with no comment block at all matches the second
+    # pattern zero times, so iterating matches alone would skip exactly the
+    # case this test exists to catch.
+    eq_(
+        len(cited),
+        len(declarations),
+        f"{len(declarations) - len(cited)} 'prefix source: designated' declaration(s) "
+        f"with no comment above them at all",
+    )
+    for comment in cited:
         assert "http" in comment or "PMID" in comment, (
             f"'prefix source: designated' with no citation:\n{comment}"
         )
@@ -646,43 +676,65 @@ def test_unestablished_provenance_stays_none():
         )
 
 
+@contextmanager
+def temporary_species_entry(latin_name, entry):
+    """
+    Add an entry to the loaded ontology for the body of a test and take it out
+    again, so a failing assertion cannot leave a synthetic species behind for
+    the rest of the session.
+    """
+    from mhcgnomes.species import raw_species_dict
+
+    raw_species_dict[latin_name] = entry
+    try:
+        yield
+    finally:
+        del raw_species_dict[latin_name]
+
+
 def test_unknown_species_yaml_keys_are_rejected():
     """
     A misspelled key used to load silently, so species.yaml could assert
     something the runtime never read -- `prefix_source` instead of
     `prefix source` being the case that motivated this.
     """
-    from mhcgnomes.species import (
-        SPECIES_ENTRY_KEYS,
-        create_species_for_latin_name,
-        raw_species_dict,
-    )
+    from mhcgnomes.species import SPECIES_ENTRY_KEYS, create_species_for_latin_name
 
     assert "prefix source" in SPECIES_ENTRY_KEYS
     assert "prefix_source" not in SPECIES_ENTRY_KEYS
 
-    raw_species_dict["Test typo sp."] = {
-        "prefix": "TestTypo",
-        "name": "test",
-        "prefix_source": "designated",
-    }
-    try:
-        with pytest.raises(ValueError, match="Unknown key"):
-            create_species_for_latin_name("Test typo sp.")
-    finally:
-        del raw_species_dict["Test typo sp."]
+    entry = {"prefix": "TestTypo", "name": "test", "prefix_source": "designated"}
+    with (
+        temporary_species_entry("Test typo sp.", entry),
+        pytest.raises(ValueError, match="Unknown key"),
+    ):
+        create_species_for_latin_name("Test typo sp.")
 
 
 def test_invalid_prefix_source_value_is_rejected():
-    from mhcgnomes.species import create_species_for_latin_name, raw_species_dict
+    from mhcgnomes.species import create_species_for_latin_name
 
-    raw_species_dict["Test value sp."] = {
-        "prefix": "TestValue",
-        "name": "test",
-        "prefix source": "attested",
-    }
-    try:
-        with pytest.raises(ValueError, match="prefix source"):
+    # A string outside the value set, and the list form a curator would reach
+    # for when adding a second citation -- which used to raise an unhandled
+    # TypeError at import, naming no species.
+    for bad_value in ["attested", ["designated"]]:
+        entry = {"prefix": "TestValue", "name": "test", "prefix source": bad_value}
+        with (
+            temporary_species_entry("Test value sp.", entry),
+            pytest.raises(ValueError, match="prefix source"),
+        ):
             create_species_for_latin_name("Test value sp.")
-    finally:
-        del raw_species_dict["Test value sp."]
+
+
+def test_4_4_shorthand_parses_an_allele():
+    """
+    The tier README.md documents as `HomoSapi-A*02:01`. Both allele-parse tests
+    above use the concatenated form, so without this nothing covers the 4+4
+    branch and a regression in its uniqueness guard would drop the whole tier
+    silently.
+    """
+    result = parse("HomoSapi-A*02:01", raise_on_error=True)
+    assert isinstance(result, Allele)
+    eq_(result.species.prefix, "HLA")
+    eq_(result.gene.name, "A")
+    eq_(result.allele_fields, ("02", "01"))
