@@ -191,10 +191,18 @@ def test_generated_4_4_prefix_collisions_are_not_global_aliases():
         assert Species.get_multiple(alias) == ()
 
 
-def test_trinomials_do_not_shadow_their_parent_binomial():
-    assert Species.get("CanisLupus") is not None
-    eq_(Species.get("CanisLupus").name, "Canis lupus")
-    assert Species.get("CanisLupusBaileyi") is None
+def test_trinomials_mint_no_generated_alias_at_all():
+    """
+    Neither the concatenated form nor the 4+4 shorthand, since both are built
+    from the parent binomial's first two words. Before 3.42.0 the 4+4 branch
+    had no arity guard, so "Strix occidentalis caurina" claimed "StriOcci".
+    """
+    for subspecies, shorthand in [
+        ("Strix occidentalis caurina", "StriOcci"),
+        ("Sapajus apella macrocephalus", "SapaApel"),
+    ]:
+        assert Species.get(shorthand) is None, f"{shorthand!r} still resolves"
+        assert Species.get_by_latin_name(subspecies) is not None
 
 
 def test_curated_prefix_keeps_global_owner_when_generated_alias_would_collide():
@@ -214,17 +222,16 @@ def test_explicit_short_prefixes_beat_generated_collision_aliases():
         for alias in record.get("other prefixes", []) or []:
             explicit_owners[normalize_string(alias)].add(latin_name)
 
-    for generator in (_make_long_prefix,):
-        for latin_name in raw_species_dict:
-            alias = generator(latin_name)
-            if not alias:
-                continue
-            owners = explicit_owners.get(normalize_string(alias))
-            if not owners:
-                continue
-            species = Species.get(alias)
-            assert species is not None
-            assert species.name in owners
+    for latin_name in raw_species_dict:
+        alias = _make_long_prefix(latin_name)
+        if not alias:
+            continue
+        owners = explicit_owners.get(normalize_string(alias))
+        if not owners:
+            continue
+        species = Species.get(alias)
+        assert species is not None
+        assert species.name in owners
 
 
 def test_trinomial_entries_do_not_get_full_concatenated_aliases():
@@ -537,13 +544,41 @@ def test_no_prefix_is_claimed_by_two_species():
 # ---------------------------------------------------------------------------
 
 
-def test_prefix_provenance_values_are_valid():
-    from mhcgnomes.species import PREFIX_PROVENANCE_VALUES, latin_name_to_species_object
+def test_designated_is_never_inferred():
+    """
+    "designated" has to come from a curator who read a source, so no entry
+    reporting it may be re-derivable from its latin name -- if it were, the
+    deriver would have said "generated" and the curation would be redundant or
+    wrong. Asserting membership in the value set instead would prove nothing:
+    the loader rejects anything else, and the deriver returns literals.
+    """
+    from mhcgnomes.species import _derive_prefix_provenance, latin_name_to_species_object
 
     for species in latin_name_to_species_object.values():
-        assert species.prefix_provenance is None or (
-            species.prefix_provenance in PREFIX_PROVENANCE_VALUES
-        ), f"{species.name} has provenance {species.prefix_provenance!r}"
+        if species.prefix_provenance != "designated":
+            continue
+        derived = _derive_prefix_provenance(species.prefix, species.name)
+        assert derived is None, (
+            f"{species.name} is curated 'designated' but derivation says "
+            f"{derived!r}; one of the two is wrong"
+        )
+
+
+def test_every_designated_prefix_cites_a_source():
+    """
+    CLAUDE.md: "Cite what you find in the YAML or code next to the change, with
+    a PMID or URL." This is the one provenance value that is a claim about the
+    outside world, so it is the one that must not ship uncited.
+    """
+    import re
+    from pathlib import Path
+
+    text = (Path(__file__).parent.parent / "mhcgnomes" / "data" / "species.yaml").read_text()
+    for block in re.finditer(r"(?:^  #[^\n]*\n)+^  prefix source: designated$", text, re.M):
+        comment = block.group(0)
+        assert "http" in comment or "PMID" in comment, (
+            f"'prefix source: designated' with no citation:\n{comment}"
+        )
 
 
 def test_generated_prefixes_are_reported_as_generated():
@@ -589,7 +624,65 @@ def test_unestablished_provenance_stays_none():
     """
     from mhcgnomes.species import latin_name_to_species_object
 
-    unknown = [s.name for s in latin_name_to_species_object.values() if s.prefix_provenance is None]
+    unknown = {s.name for s in latin_name_to_species_object.values() if s.prefix_provenance is None}
     assert unknown, "nothing left unestablished -- update this test if the sweep is finished"
-    # A canary: if this drops sharply, someone bulk-assigned provenance.
-    assert len(unknown) < 300, f"{len(unknown)} entries unestablished"
+    # Pinned by name rather than by count: #131 can then shrink the list one
+    # entry at a time with a citation each, while a bulk assignment that sweeps
+    # them all at once has to come here and say so. A count bound would have
+    # done neither -- it fires on ordinary growth and passes a bulk assignment.
+    for name in [
+        "Aotus sp.",
+        "Callithrix sp.",
+        "Felis sp.",
+        "Gorilla sp.",
+        "Macaca sp.",
+        "Oryctolagus sp.",
+        "Pan sp.",
+        "Pongo sp.",
+    ]:
+        assert name in unknown, (
+            f"{name} was given a provenance -- if that is a checked fact, cite "
+            f"the source in species.yaml and drop it from this list"
+        )
+
+
+def test_unknown_species_yaml_keys_are_rejected():
+    """
+    A misspelled key used to load silently, so species.yaml could assert
+    something the runtime never read -- `prefix_source` instead of
+    `prefix source` being the case that motivated this.
+    """
+    from mhcgnomes.species import (
+        SPECIES_ENTRY_KEYS,
+        create_species_for_latin_name,
+        raw_species_dict,
+    )
+
+    assert "prefix source" in SPECIES_ENTRY_KEYS
+    assert "prefix_source" not in SPECIES_ENTRY_KEYS
+
+    raw_species_dict["Test typo sp."] = {
+        "prefix": "TestTypo",
+        "name": "test",
+        "prefix_source": "designated",
+    }
+    try:
+        with pytest.raises(ValueError, match="Unknown key"):
+            create_species_for_latin_name("Test typo sp.")
+    finally:
+        del raw_species_dict["Test typo sp."]
+
+
+def test_invalid_prefix_source_value_is_rejected():
+    from mhcgnomes.species import create_species_for_latin_name, raw_species_dict
+
+    raw_species_dict["Test value sp."] = {
+        "prefix": "TestValue",
+        "name": "test",
+        "prefix source": "attested",
+    }
+    try:
+        with pytest.raises(ValueError, match="prefix source"):
+            create_species_for_latin_name("Test value sp.")
+    finally:
+        del raw_species_dict["Test value sp."]

@@ -778,7 +778,8 @@ Mus saxicola:
 #
 ######################################################
 Rattus sp.:
-  # prefix source: designated -- IPD-MHC RT1 group
+  # prefix source: designated -- listed as an IPD-MHC group, which files rat
+  # alleles under it: https://www.ebi.ac.uk/ipd/mhc/group/RT1/species
   prefix source: designated
   prefix: RT1
   name: Rat
@@ -939,7 +940,8 @@ Lycaon pictus:
   name: African wild dog
 Canis sp.:
   parent: Canidae sp.
-  # prefix source: designated -- IPD-MHC DLA group
+  # prefix source: designated -- listed as an IPD-MHC group, which files dog
+  # alleles under it: https://www.ebi.ac.uk/ipd/mhc/group/DLA/species
   prefix source: designated
   prefix: DLA
   name: Canine
@@ -1381,7 +1383,7 @@ Scophthalmus maximus:
   name: Turbot
 Monopterus albus:
   parent: Actinopterygii sp.
-  # mhcseqs report lists prefix as "Mhc" which collides; using 5+5.
+  # mhcseqs reports the prefix as "Mhc", which collides; using the 4+4 form.
   # UniProt-derived records reuse Moal-* for both Monopterus albus and
   # Motacilla alba. Keep Moal as a context-only rescue alias for species=
   # and use MonoAlbu as the collision-free runtime prefix.
@@ -2312,7 +2314,8 @@ Chiloscyllium plagiosum:
 ##############################################
 Ovis sp.:
   name: Sheep
-  # prefix source: designated -- IPD-MHC OLA group
+  # prefix source: designated -- listed as an IPD-MHC group, which files sheep
+  # alleles under it: https://www.ebi.ac.uk/ipd/mhc/group/OLA/species
   prefix source: designated
   prefix: OLA
   genes:
@@ -2351,7 +2354,9 @@ Ovis canadensis:
 #   https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3658703/
 ################################################################################
 Bos sp.:
-  # prefix source: designated -- IPD-MHC BoLA group; alleles are written BoLA-DRB3*011:01
+  # prefix source: designated -- an IPD-MHC group, and alleles are written with
+  # it (BoLA-DRB3*011:01, PMID 22383896):
+  # https://www.ebi.ac.uk/ipd/mhc/group/BoLA/species
   prefix source: designated
   prefix: BoLA
   name: Cattle
@@ -2475,7 +2480,9 @@ Bubalus bubalis:
 #
 ################################################################################
 Cetacea sp.:
-  # prefix source: designated -- IPD-MHC CeLA group
+  # prefix source: designated -- an IPD-MHC group, spelled CeLA there while the
+  # runtime prefix and published allele names use CELA:
+  # https://www.ebi.ac.uk/ipd/mhc/group/CeLA/species
   prefix source: designated
   prefix: CELA
   name:
@@ -2675,7 +2682,9 @@ Physeter macrocephalus:
 #
 ################################################################################
 Capra sp.:
-  # prefix source: designated -- IPD-MHC CLA group
+  # prefix source: designated -- listed as an IPD-MHC group, which files goat
+  # alleles under it: https://www.ebi.ac.uk/ipd/mhc/group/CLA/species
+  # (CLA is goat, not cat -- a page summary once reported otherwise, see AGENTS.md)
   prefix source: designated
   prefix: CLA
   name: Goat
@@ -2699,7 +2708,8 @@ Capra hircus:
 # - https://www.ebi.ac.uk/ipd/mhc/group/ELA/species
 ################################################################################
 Equus sp.:
-  # prefix source: designated -- IPD-MHC ELA group
+  # prefix source: designated -- listed as an IPD-MHC group, which files horse
+  # alleles under it: https://www.ebi.ac.uk/ipd/mhc/group/ELA/species
   prefix source: designated
   prefix: ELA
   name: Equine
@@ -2769,7 +2779,8 @@ Phacochoerus africanus:
   name: Common warthog
 Sus sp.:
   parent: Suidae sp.
-  # prefix source: designated -- IPD-MHC SLA group
+  # prefix source: designated -- listed as an IPD-MHC group, which files pig
+  # alleles under it: https://www.ebi.ac.uk/ipd/mhc/group/SLA/species
   prefix source: designated
   prefix: SLA
   name:
@@ -3931,7 +3942,7 @@ Pavo cristatus:
 Phasianus colchicus:
   parent: Galliformes sp.
   # Phco collides with Phylloscopus collybita in some datasets.
-  # Using 5+5 for display prefix.
+  # Using the 4+4 form for the display prefix.
   prefix: PhasColc
   name: Common pheasant
 Tympanuchus cupido:
@@ -4973,7 +4984,9 @@ Macaca sp.:
     G: {pseudogene: true}
 Macaca mulatta:
   parent: Macaca sp.
-  # prefix source: designated -- IPD-MHC NHP nomenclature page gives Mamu as a worked example of the 2+2 rule
+  # prefix source: designated -- the IPD-MHC NHP nomenclature page uses Mamu as a
+  # worked example of the 2+2 rule and links Mamu allele listings:
+  # https://www.ebi.ac.uk/ipd/mhc/group/NHP/nomenclature
   prefix source: designated
   prefix: Mamu
   name:
@@ -5120,7 +5133,9 @@ Pan sp.:
         - DRB7
 Pan troglodytes:
   parent: Pan sp.
-  # prefix source: designated -- https://www.ebi.ac.uk/ipd/mhc/group/NHP/nomenclature: "MhcPatr defines the MHC system of the common chimpanzee"
+  # prefix source: designated -- https://www.ebi.ac.uk/ipd/mhc/group/NHP/nomenclature
+  # states verbatim: "MhcPatr defines the MHC system of the common chimpanzee
+  # (Pan troglodytes)".
   prefix source: designated
   prefix: Patr
   other prefixes:

@@ -377,7 +377,7 @@ rationale.
 | `Orla` / `OrLA` | *Pongo sp.* (orangutan) / *Oryzias latipes* (medaka) and several killifish | Orangutan keeps `OrLA`; fish use long canonical prefixes, and `species=` can rescue source-side `Orla` strings | |
 | `Gaga` | *Gallus gallus* (chicken) / *Gavialis gangeticus* (gharial) | Chicken keeps `Gaga` ([IPD-MHC chicken](https://www.ebi.ac.uk/ipd/mhc/group/CHICKEN/)); gharial uses `GaviGang` | |
 | `Cyca` | *Cyprinus carpio* (carp) / *Cyclura carinata* (iguana) / *Cyanistes caeruleus* (blue tit) | Carp keeps `Cyca`; iguana uses `CyclCari`; blue tit uses `CyanCaer` | All three attested in literature: carp in [IPD-MHC](https://www.ebi.ac.uk/ipd/mhc/), iguana in Glaberman et al., blue tit in Westerdahl et al. |
-| `Chpi` | *Chrysolophus pictus* (golden pheasant) / *Chrysemys picta* (painted turtle) | Pheasant keeps `Chpi`; turtle uses `ChryPict` | |
+| `Chpi` | *Chrysolophus pictus* (golden pheasant) / *Chrysemys picta* (painted turtle) | Pheasant keeps `Chpi`; turtle uses `ChrysemysPicta` since 3.42.0, with `ChryPict` kept as an alias | |
 
 #### Low-risk collisions
 
@@ -402,9 +402,13 @@ in the README.
 
 The 4+4 space is not collision-free: `ChryPict` derives from both *Chrysemys
 picta* and *Chrysolophus pictus*, `LaniColl` from two shrikes, `LeucLeuc` from
-a dace and a crane. Colliding forms are never emitted as global aliases, and
-where one had been picked as a canonical prefix the entry now carries its
-concatenated binomial instead -- which also retired two tie-breaks (`LaniCola`,
+a dace and a crane. A colliding form is never *auto-generated* as an alias, but
+that only suppresses the generated copy -- where one side of a pair curates the
+form as its prefix or as an `other prefixes` entry, it still resolves globally
+and to that side alone. `ChryPict` resolves to the turtle, `LaniColl` to
+*Lanius collurio*, `LeucLeuc` to the crane. Where a colliding form had been
+picked as a canonical prefix the entry now carries its concatenated binomial
+instead -- which also retired two tie-breaks (`LaniCola`,
 `LeucisLeucis`) that belonged to no documented form. The concatenated binomial
 is the default generated alias, and is the only form with no collisions
 anywhere in the ontology.

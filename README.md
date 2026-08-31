@@ -504,8 +504,21 @@ Two limits are worth knowing:
 **4+4 is not collision-free.** Five forms are derivable from two entries each —
 `ChryPict` from both *Chrysemys picta* and *Chrysolophus pictus*, `LaniColl`
 from two shrikes, `LeucLeuc` from a dace and a crane. A colliding form is never
-emitted as a global alias, and where one was previously chosen as a canonical
-prefix the entry now uses its concatenated binomial instead.
+*auto-generated*, but that only suppresses the generated copy: where one side
+of a pair curates the form, it still resolves, and to that side alone —
+`ChryPict` gives the turtle, `LaniColl` gives *Lanius collurio*. Only forms
+neither side curates are unresolvable (`CaniLupu`, `BalaMusc`). Where a
+colliding form had been chosen as a canonical prefix, the entry now uses its
+concatenated binomial instead — three entries did, in 3.42.0:
+
+| species | was | now |
+|---|---|---|
+| *Chrysemys picta* | `ChryPict` | `ChrysemysPicta` |
+| *Lanius collaris* | `LaniCola` | `LaniusCollaris` |
+| *Leuciscus leuciscus* | `LeucisLeucis` | `LeuciscusLeuciscus` |
+
+Their normalized output changes accordingly, so `parse("ChryPict-UA")` now
+round-trips as `ChrysemysPicta-UA`. The old spellings stay parseable.
 
 **Subspecies mint no generated alias.** A trinomial entry such as *Canis lupus
 baileyi* deliberately does not claim `CanisLupus`, which belongs to its parent

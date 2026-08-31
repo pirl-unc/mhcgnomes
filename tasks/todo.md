@@ -55,4 +55,50 @@ Four changes, in increasing order of reach.
   would rename 467 of 672 entries and change `to_string()` for each. Asked, and
   the answer was to rename only the contested prefixes for now. #129 stays open
   for the wider change; `prefix_provenance` is the field it would key off.
+
+## Review round 2 (code review found a real bug in the same PR)
+
+- **The 4+4 branch was missing the binomial guard.** The concatenated form was
+  guarded on `len(scientific_parts) == 2`, the 4+4 form was not, so
+  `Strix occidentalis caurina` claimed `StriOcci` and
+  `Sapajus apella macrocephalus` claimed `SapaApel` -- both derived from their
+  *parent* binomial -- while the safer concatenated form was withheld. The two
+  other trinomials escaped only because their 4+4 collides with the parent, so
+  the guard was accidental. This directly contradicted a README paragraph added
+  by the same commit. Fixed, and pinned by a test naming both species.
+- **Four synthetic group labels were sitting in the "not established" bucket.**
+  `MusSp`, `Cosp`, `Trsp` and `Mana` are decorations of their own taxon name,
+  not designations, but `_prefix_is_derived_from_name` only matched the plain
+  form. They now report "group label", which takes them off #131's list; the
+  eight remaining group entries there (`OmLA`, `FLA`, `GoLA`, ...) are real
+  `_LA`-style codes that genuinely need checking.
+- **Nine of the eleven "designated" claims shipped without a URL**, against an
+  explicit rule in CLAUDE.md and AGENTS.md. All eleven now cite one, and
+  `test_every_designated_prefix_cites_a_source` fails if a future one does not
+  -- verified by mutation.
+- **Two tests could not fail.** `test_prefix_provenance_values_are_valid`
+  asserted membership in a set that both producers are constrained to by
+  construction; it is replaced by `test_designated_is_never_inferred`, which
+  checks the invariant that actually matters. The `assert len(unknown) < 300`
+  canary tested the wrong direction -- it passes a bulk assignment and fires on
+  ordinary growth -- and is replaced by pinning the eight unknowns by name.
+- **Unknown keys in species.yaml are now rejected.** A `prefix_source` typo
+  used to load silently, leaving the YAML asserting a provenance the runtime
+  never read.
+- Also fixed from review: a docstring pointing at a nonexistent `group_node`, a
+  stale numbered comment describing the deleted 5+5 tier and the wrong emission
+  order, a `docs/curation.md` collision-table row still naming `ChryPict`, two
+  species.yaml comments citing "5+5" above 4+4 prefixes, generated aliases
+  duplicating the entry's own prefix, a duplicated trinomial test, a
+  single-element `for` loop, and a "467" that is 466.
+- **Not fixed, filed instead:** #134 (colliding 4+4 forms still resolve
+  confidently to one side -- `ChryPict` gives a turtle to a caller who meant a
+  pheasant; the README now says so, but whether to demote them to
+  `context only prefixes` is a behaviour decision) and #135 (`_is_group_entry`
+  hardcodes the string `"NHP"`; the fact belongs in the data).
+- **Known and accepted:** this is a breaking parse change. 596 generated 5+5
+  aliases and 10 curated ones stop resolving, and three species normalize to a
+  new prefix. #128 laid out the choice between removing in one minor bump and a
+  deprecation cycle, and the first was chosen. Recorded in the README tier
+  section rather than a changelog, since the repo has no changelog.
 - Bumped 3.41.0 to 3.42.0.
