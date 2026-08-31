@@ -4,13 +4,14 @@ and prefixes/common names are aliases that may be ambiguous.
 """
 
 from collections import defaultdict
+from contextlib import contextmanager
 
 import pytest
 
 from mhcgnomes import Allele, Gene, ParseError, Species, parse
 from mhcgnomes.common import normalize_string
 from mhcgnomes.data import species as species_data
-from mhcgnomes.species import _make_5_5_prefix, _make_long_prefix, raw_species_dict
+from mhcgnomes.species import _make_long_prefix, raw_species_dict
 
 from .common import eq_
 
@@ -161,30 +162,67 @@ def test_species_get_by_latin_name_eagle_owl():
     eq_(species.prefix, "BuboBubo")
 
 
-def test_long_prefix_always_parseable():
-    """The 5+5 long prefix should always work for parsing any species."""
-    for latin, long_prefix in [
+def test_full_scientific_prefix_always_parseable():
+    """The concatenated binomial is the default generated alias for any species."""
+    for latin, full_prefix in [
         ("Bubo bubo", "BuboBubo"),
-        ("Chrysemys picta", "ChrysPicta"),
-        ("Gavialis gangeticus", "GaviaGange"),
-        ("Casuarius casuarius", "CasuaCasua"),
-        ("Caretta caretta", "CaretCaret"),
+        ("Chrysemys picta", "ChrysemysPicta"),
+        ("Gavialis gangeticus", "GavialisGangeticus"),
+        ("Casuarius casuarius", "CasuariusCasuarius"),
+        ("Caretta caretta", "CarettaCaretta"),
     ]:
-        species = Species.get(long_prefix)
-        assert species is not None, f"Species.get({long_prefix!r}) returned None"
+        species = Species.get(full_prefix)
+        assert species is not None, f"Species.get({full_prefix!r}) returned None"
         eq_(species.name, latin)
 
 
-def test_generated_4_4_prefix_collisions_are_not_global_aliases():
-    for alias in ["CaniLupu"]:
-        assert Species.get(alias) is None
-        assert Species.get_multiple(alias) == ()
+def test_5_5_prefixes_are_no_longer_generated():
+    """
+    The 5+5 tier was removed in 3.42.0 (see issue #128). These forms were
+    parseable up to 3.41.0 and are not any species' curated prefix, so they
+    should now resolve to nothing rather than to a species.
+    """
+    for retired in ["ChrysPicta", "GaviaGange", "CasuaCasua", "CaretCaret", "HomoSapie"]:
+        assert Species.get(retired) is None, f"{retired!r} still resolves"
 
 
-def test_generated_5_5_prefix_collisions_fall_back_to_full_scientific_name():
-    assert Species.get("CanisLupus") is not None
-    eq_(Species.get("CanisLupus").name, "Canis lupus")
-    assert Species.get("CanisLupusBaileyi") is None
+def test_colliding_4_4_forms_are_never_auto_generated():
+    """
+    Three 4+4 forms are derivable from two binomials each. None is emitted as a
+    generated alias, so the only route to one is an entry curating it, and only
+    one side of each pair does -- which is why they still resolve. See #134.
+
+    A subspecies must not veto its parent's shorthand: CaniLupu and BalaMusc
+    are derivable from a binomial and its own subspecies, and belong to the
+    binomial.
+    """
+    from mhcgnomes.species import _GENERATED_LONG_PREFIX_COUNTS, _long_prefix_if_claimable
+
+    for alias in ["ChryPict", "LaniColl", "LeucLeuc"]:
+        eq_(_GENERATED_LONG_PREFIX_COUNTS[alias], 2)
+        assert Species.get(alias) is not None, f"{alias} lost its curated owner"
+        eq_(len(Species.get_multiple(alias)), 1)
+
+    for alias, latin_name in [("CaniLupu", "Canis lupus"), ("BalaMusc", "Balaenoptera musculus")]:
+        eq_(_GENERATED_LONG_PREFIX_COUNTS[alias], 1)
+        eq_(Species.get(alias).name, latin_name)
+    assert _long_prefix_if_claimable("Canis lupus baileyi") is None
+
+
+def test_trinomials_mint_no_generated_alias_at_all():
+    """
+    Neither the concatenated form nor the 4+4 shorthand, since both are built
+    from the parent binomial's first two words. Before 3.42.0 the 4+4 branch
+    had no arity guard, so "Strix occidentalis caurina" claimed "StriOcci".
+    """
+    for subspecies, shorthand, concatenated in [
+        ("Strix occidentalis caurina", "StriOcci", "StrixOccidentalis"),
+        ("Sapajus apella macrocephalus", "SapaApel", "SapajusApella"),
+        ("Canis lupus baileyi", "CanisLupusBaileyi", "CanisLupusBaileyi"),
+    ]:
+        assert Species.get(shorthand) is None, f"{shorthand!r} resolves"
+        assert Species.get(concatenated) is None, f"{concatenated!r} resolves"
+        assert Species.get_by_latin_name(subspecies) is not None
 
 
 def test_curated_prefix_keeps_global_owner_when_generated_alias_would_collide():
@@ -204,17 +242,16 @@ def test_explicit_short_prefixes_beat_generated_collision_aliases():
         for alias in record.get("other prefixes", []) or []:
             explicit_owners[normalize_string(alias)].add(latin_name)
 
-    for generator in (_make_long_prefix, _make_5_5_prefix):
-        for latin_name in raw_species_dict:
-            alias = generator(latin_name)
-            if not alias:
-                continue
-            owners = explicit_owners.get(normalize_string(alias))
-            if not owners:
-                continue
-            species = Species.get(alias)
-            assert species is not None
-            assert species.name in owners
+    for latin_name in raw_species_dict:
+        alias = _make_long_prefix(latin_name)
+        if not alias:
+            continue
+        owners = explicit_owners.get(normalize_string(alias))
+        if not owners:
+            continue
+        species = Species.get(alias)
+        assert species is not None
+        assert species.name in owners
 
 
 def test_trinomial_entries_do_not_get_full_concatenated_aliases():
@@ -224,18 +261,18 @@ def test_trinomial_entries_do_not_get_full_concatenated_aliases():
     assert Species.get("CanisLupusBaileyi") is None
 
 
-def test_long_prefix_works_for_allele_parsing():
-    """HomoSapie-A*02:01 should parse as HLA-A*02:01."""
-    result = parse("HomoSapie-A*02:01", raise_on_error=True)
+def test_full_prefix_works_for_allele_parsing():
+    """HomoSapiens-A*02:01 should parse as HLA-A*02:01."""
+    result = parse("HomoSapiens-A*02:01", raise_on_error=True)
     assert isinstance(result, Allele)
     eq_(result.species.prefix, "HLA")
     eq_(result.gene.name, "A")
     eq_(result.allele_fields, ("02", "01"))
 
 
-def test_long_prefix_works_for_compact_allele():
-    """HomoSapie-A0201 should also parse."""
-    result = parse("HomoSapie-A0201", raise_on_error=True)
+def test_full_prefix_works_for_compact_allele():
+    """HomoSapiens-A0201 should also parse."""
+    result = parse("HomoSapiens-A0201", raise_on_error=True)
     assert isinstance(result, Allele)
     eq_(result.species.prefix, "HLA")
     eq_(result.allele_fields, ("02", "01"))
@@ -520,3 +557,184 @@ def test_no_prefix_is_claimed_by_two_species():
             claims[normalize_string(value)].add(latin_name)
     collisions = {p: sorted(v) for p, v in claims.items() if len(v) > 1}
     assert collisions == {}
+
+
+# ---------------------------------------------------------------------------
+# Prefix provenance (issue #128)
+# ---------------------------------------------------------------------------
+
+
+def test_designated_is_never_inferred():
+    """
+    "designated" has to come from a curator who read a source, so no entry
+    reporting it may be re-derivable from its latin name -- if it were, the
+    deriver would have said "generated" and the curation would be redundant or
+    wrong. Asserting membership in the value set instead would prove nothing:
+    the loader rejects anything else, and the deriver returns literals.
+    """
+    from mhcgnomes.species import _derive_prefix_provenance, latin_name_to_species_object
+
+    for species in latin_name_to_species_object.values():
+        if species.prefix_provenance != "designated":
+            continue
+        derived = _derive_prefix_provenance(species.prefix, species.name)
+        assert derived is None, (
+            f"{species.name} is curated 'designated' but derivation says "
+            f"{derived!r}; one of the two is wrong"
+        )
+
+
+def test_every_designated_prefix_cites_a_source():
+    """
+    CLAUDE.md: "Cite what you find in the YAML or code next to the change, with
+    a PMID or URL." This is the one provenance value that is a claim about the
+    outside world, so it is the one that must not ship uncited.
+    """
+    import re
+    from pathlib import Path
+
+    text = (Path(__file__).parent.parent / "mhcgnomes" / "data" / "species.yaml").read_text()
+    declarations = re.findall(r"^  prefix source: designated$", text, re.M)
+    cited = re.findall(r"(?:^  #[^\n]*\n)+^  prefix source: designated$", text, re.M)
+    # Count first: an entry with no comment block at all matches the second
+    # pattern zero times, so iterating matches alone would skip exactly the
+    # case this test exists to catch.
+    eq_(
+        len(cited),
+        len(declarations),
+        f"{len(declarations) - len(cited)} 'prefix source: designated' declaration(s) "
+        f"with no comment above them at all",
+    )
+    for comment in cited:
+        assert "http" in comment or "PMID" in comment, (
+            f"'prefix source: designated' with no citation:\n{comment}"
+        )
+
+
+def test_generated_prefixes_are_reported_as_generated():
+    """A prefix mhcgnomes minted from the latin name is provable by derivation."""
+    for latin_name, prefix in [
+        ("Tachyglossus aculeatus", "TachAcul"),
+        ("Abramis brama", "AbraBram"),
+        ("Chrysemys picta", "ChrysemysPicta"),
+    ]:
+        species = Species.get_by_latin_name(latin_name)
+        eq_(species.prefix, prefix)
+        eq_(species.prefix_provenance, "generated")
+
+
+def test_group_labels_are_reported_as_group_labels():
+    """Aves, Galliformes and NHP name groupings and are never written on alleles."""
+    for latin_name in ["Aves sp.", "Galliformes sp.", "Primata sp.", "NHP"]:
+        eq_(Species.get_by_latin_name(latin_name).prefix_provenance, "group label")
+
+
+def test_published_designations_are_curated_not_inferred():
+    """
+    These are marked in species.yaml with a source, because being absent from
+    the generated forms does not prove a prefix is in published use -- the Caau
+    case. Nothing infers "designated".
+    """
+    for latin_name, prefix in [
+        ("Homo sapiens", "HLA"),
+        ("Bos sp.", "BoLA"),
+        ("Pan troglodytes", "Patr"),
+        ("Macaca mulatta", "Mamu"),
+    ]:
+        species = Species.get_by_latin_name(latin_name)
+        eq_(species.prefix, prefix)
+        eq_(species.prefix_provenance, "designated")
+
+
+def test_unestablished_provenance_stays_none():
+    """
+    Most short prefixes have not been checked against IPD/IMGT yet. They report
+    None rather than being assumed published, so the gap is visible.
+    https://github.com/pirl-unc/mhcgnomes/issues/131
+    """
+    from mhcgnomes.species import latin_name_to_species_object
+
+    unknown = {s.name for s in latin_name_to_species_object.values() if s.prefix_provenance is None}
+    assert unknown, "nothing left unestablished -- update this test if the sweep is finished"
+    # Pinned by name rather than by count: #131 can then shrink the list one
+    # entry at a time with a citation each, while a bulk assignment that sweeps
+    # them all at once has to come here and say so. A count bound would have
+    # done neither -- it fires on ordinary growth and passes a bulk assignment.
+    for name in [
+        "Aotus sp.",
+        "Callithrix sp.",
+        "Felis sp.",
+        "Gorilla sp.",
+        "Macaca sp.",
+        "Oryctolagus sp.",
+        "Pan sp.",
+        "Pongo sp.",
+    ]:
+        assert name in unknown, (
+            f"{name} was given a provenance -- if that is a checked fact, cite "
+            f"the source in species.yaml and drop it from this list"
+        )
+
+
+@contextmanager
+def temporary_species_entry(latin_name, entry):
+    """
+    Add an entry to the loaded ontology for the body of a test and take it out
+    again, so a failing assertion cannot leave a synthetic species behind for
+    the rest of the session.
+    """
+    from mhcgnomes.species import raw_species_dict
+
+    raw_species_dict[latin_name] = entry
+    try:
+        yield
+    finally:
+        del raw_species_dict[latin_name]
+
+
+def test_unknown_species_yaml_keys_are_rejected():
+    """
+    A misspelled key used to load silently, so species.yaml could assert
+    something the runtime never read -- `prefix_source` instead of
+    `prefix source` being the case that motivated this.
+    """
+    from mhcgnomes.species import SPECIES_ENTRY_KEYS, create_species_for_latin_name
+
+    assert "prefix source" in SPECIES_ENTRY_KEYS
+    assert "prefix_source" not in SPECIES_ENTRY_KEYS
+
+    entry = {"prefix": "TestTypo", "name": "test", "prefix_source": "designated"}
+    with (
+        temporary_species_entry("Test typo sp.", entry),
+        pytest.raises(ValueError, match="Unknown key"),
+    ):
+        create_species_for_latin_name("Test typo sp.")
+
+
+def test_invalid_prefix_source_value_is_rejected():
+    from mhcgnomes.species import create_species_for_latin_name
+
+    # A string outside the value set, and the list form a curator would reach
+    # for when adding a second citation -- which used to raise an unhandled
+    # TypeError at import, naming no species.
+    for bad_value in ["attested", ["designated"]]:
+        entry = {"prefix": "TestValue", "name": "test", "prefix source": bad_value}
+        with (
+            temporary_species_entry("Test value sp.", entry),
+            pytest.raises(ValueError, match="prefix source"),
+        ):
+            create_species_for_latin_name("Test value sp.")
+
+
+def test_4_4_shorthand_parses_an_allele():
+    """
+    The tier README.md documents as `HomoSapi-A*02:01`. Both allele-parse tests
+    above use the concatenated form, so without this nothing covers the 4+4
+    branch and a regression in its uniqueness guard would drop the whole tier
+    silently.
+    """
+    result = parse("HomoSapi-A*02:01", raise_on_error=True)
+    assert isinstance(result, Allele)
+    eq_(result.species.prefix, "HLA")
+    eq_(result.gene.name, "A")
+    eq_(result.allele_fields, ("02", "01"))

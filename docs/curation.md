@@ -185,11 +185,14 @@ wherever it can be -- exactly one parent link in the ontology points at another
 genus's node -- and it is what the rest of the entry is inherited along.
 
 An umbrella MHC prefix covers everything beneath the node that owns it. The
-loader hands a parent's prefix down to a child as its `old prefix` when the
-parent's prefix is an MHC prefix rather than its own taxon name (`BoLA`, `DLA`,
-`RhLA` are inherited; `Aves`, `Rodentia`, `Primata` are not) and the child does
-not declare an `old prefix` of its own. Note this is the *immediate* parent:
-`Macaca mulatta` inherits `RhLA` from `Macaca sp.`, not `NHP` from further up.
+loader hands a parent's prefix down to a child as its `old prefix` unless the
+parent is a group entry labelled with its own taxon name -- `Aves sp.` with
+`Aves`, `NHP` with `NHP`. Designations are inherited (`BoLA`, `DLA`, `RhLA`),
+and so are decorated group labels that are not simply the taxon (`Mus sp.` with
+`MusSp`). The child must also not declare an `old prefix` of its own. Note this
+is the *immediate* parent: `Macaca mulatta` inherits `RhLA` from `Macaca sp.`,
+not `NHP` from further up. A single species is never treated as a taxon label,
+so a subspecies parented under `Bubo bubo` inherits `BuboBubo`.
 
 Because every prefix owns a node, "is X inside taxon Y?" and "can Y's prefix
 name X?" are the same ancestry question, and one predicate answers both.
@@ -377,7 +380,7 @@ rationale.
 | `Orla` / `OrLA` | *Pongo sp.* (orangutan) / *Oryzias latipes* (medaka) and several killifish | Orangutan keeps `OrLA`; fish use long canonical prefixes, and `species=` can rescue source-side `Orla` strings | |
 | `Gaga` | *Gallus gallus* (chicken) / *Gavialis gangeticus* (gharial) | Chicken keeps `Gaga` ([IPD-MHC chicken](https://www.ebi.ac.uk/ipd/mhc/group/CHICKEN/)); gharial uses `GaviGang` | |
 | `Cyca` | *Cyprinus carpio* (carp) / *Cyclura carinata* (iguana) / *Cyanistes caeruleus* (blue tit) | Carp keeps `Cyca`; iguana uses `CyclCari`; blue tit uses `CyanCaer` | All three attested in literature: carp in [IPD-MHC](https://www.ebi.ac.uk/ipd/mhc/), iguana in Glaberman et al., blue tit in Westerdahl et al. |
-| `Chpi` | *Chrysolophus pictus* (golden pheasant) / *Chrysemys picta* (painted turtle) | Pheasant keeps `Chpi`; turtle uses `ChryPict` | |
+| `Chpi` | *Chrysolophus pictus* (golden pheasant) / *Chrysemys picta* (painted turtle) | Pheasant keeps `Chpi`; turtle uses `ChrysemysPicta` since 3.42.0, with `ChryPict` kept as an alias | |
 
 #### Low-risk collisions
 
@@ -394,11 +397,35 @@ and blue tit by different research groups).
 
 The [species identity model](species-latin-name-scoping.md) now uses latin
 names as canonical identity (see `Species.latin_name`,
-`Species.get_by_latin_name()`). Every species is also parseable via its full
-concatenated latin name (e.g., `HomoSapiens-A*02:01`) and a 4+4 truncated
-form (e.g., `HomoSapi-A*02:01`). See the
+`Species.get_by_latin_name()`). Every binomial species is also parseable via
+its full concatenated latin name (e.g., `HomoSapiens-A*02:01`) and, where the
+form is globally unique, a 4+4 truncation (e.g., `HomoSapi-A*02:01`). See the
 [prefix tier documentation](https://github.com/pirl-unc/mhcgnomes/blob/main/README.md#species-prefix-tiers)
 in the README.
+
+The 4+4 space is not collision-free: `ChryPict` derives from both *Chrysemys
+picta* and *Chrysolophus pictus*, `LaniColl` from two shrikes, `LeucLeuc` from
+a dace and a crane. A colliding form is never *auto-generated* as an alias, but
+that only suppresses the generated copy -- where one side of a pair curates the
+form as its prefix or as an `other prefixes` entry, it still resolves globally
+and to that side alone -- confidently, which issue #134 tracks. `ChryPict`
+resolves to the turtle, `LaniColl` to *Lanius collurio*, `LeucLeuc` to the
+crane; two of the three are still their owner's canonical prefix.
+
+The entries that had a *contested* form as their canonical prefix now carry the
+concatenated binomial instead, which also demoted two tie-breaks belonging to
+no documented form -- `LaniCola` (a hand-tweaked 4+4) and `LeucisLeucis` (a
+6+6). Both are kept in `other prefixes` and still resolve; only their status as
+canonical changed. The concatenated binomial is the default generated alias,
+and is the only form with no collisions anywhere in the ontology.
+
+`Species.prefix_provenance` records how an entry came by its prefix:
+`"designated"` (published nomenclature, curated with a source), `"generated"`
+(mhcgnomes derived it from the latin name), `"group label"` (`Aves`, `NHP` --
+names a grouping, never written on an allele), or `None` for not established.
+Only the last three are ever inferred; `"designated"` must be curated, because
+a prefix we did not generate is not thereby proven to be in use -- see the
+`Caau` case in `AGENTS.md`.
 
 ### Current special cases
 

@@ -221,7 +221,7 @@ class TestCrocodyliaInheritance:
         eq_(result.species.name, "Alligator mississippiensis")
 
     def test_gharial_inherits_ua(self):
-        result = parse("GaviaGange-UA", raise_on_error=True)
+        result = parse("GavialisGangeticus-UA", raise_on_error=True)
         eq_(result.species.name, "Gavialis gangeticus")
 
     def test_crpo_has_inherited_plus_own(self):

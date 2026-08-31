@@ -432,6 +432,8 @@ Crocodylia sp.:
 # - http://www.imgt.org/IMGTrepertoireMHC/LocusGenes/nomenclatures/human/MHC/human_MHCnom.html
 ######################################################
 Homo sapiens:
+  # prefix source: designated -- IMGT/HLA names every human allele with it: https://hla.alleles.org/genes/index.html
+  prefix source: designated
   prefix: HLA
   # NCBI Taxonomy places Homo sapiens (taxid 9606) in Primates (taxid 9443),
   # https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=9606 -- so the
@@ -776,6 +778,9 @@ Mus saxicola:
 #
 ######################################################
 Rattus sp.:
+  # prefix source: designated -- listed as an IPD-MHC group, which files rat
+  # alleles under it: https://www.ebi.ac.uk/ipd/mhc/group/RT1/species
+  prefix source: designated
   prefix: RT1
   name: Rat
   genes:
@@ -935,6 +940,9 @@ Lycaon pictus:
   name: African wild dog
 Canis sp.:
   parent: Canidae sp.
+  # prefix source: designated -- listed as an IPD-MHC group, which files dog
+  # alleles under it: https://www.ebi.ac.uk/ipd/mhc/group/DLA/species
+  prefix source: designated
   prefix: DLA
   name: Canine
   genes:
@@ -1375,13 +1383,11 @@ Scophthalmus maximus:
   name: Turbot
 Monopterus albus:
   parent: Actinopterygii sp.
-  # mhcseqs report lists prefix as "Mhc" which collides; using 5+5.
+  # mhcseqs reports the prefix as "Mhc", which collides; using the 4+4 form.
   # UniProt-derived records reuse Moal-* for both Monopterus albus and
   # Motacilla alba. Keep Moal as a context-only rescue alias for species=
   # and use MonoAlbu as the collision-free runtime prefix.
   prefix: MonoAlbu
-  other prefixes:
-    - MonopAlbus
   context only prefixes:
     - Moal
   name: Asian swamp eel
@@ -1774,7 +1780,13 @@ Ladigesocypris ghigii:
   name: Rhodes minnow
 Leuciscus leuciscus:
   parent: Cyprinidae sp.
-  prefix: LeucisLeucis
+  # 'LeucisLeucis' was a 6+6 tie-break against Leucogeranus leucogeranus, the
+  # Siberian crane, which derives the same 4+4 form 'LeucLeuc'. A 6+6 is not
+  # any documented prefix form, so the canonical prefix is the concatenated
+  # binomial and the old spelling stays parseable. See #128.
+  prefix: LeuciscusLeuciscus
+  other prefixes:
+    - LeucisLeucis
   name: Common dace
 Squalius cephalus:
   parent: Cyprinidae sp.
@@ -2005,8 +2017,6 @@ Gavialis gangeticus:
   parent: Crocodylia sp.
   # Natural 4-letter prefix Gaga collides with chicken (Gallus gallus).
   prefix: GaviGang
-  other prefixes:
-    - GaviaGange
   name: Gharial
 Crocodylus moreletii:
   parent: Crocodylia sp.
@@ -2047,14 +2057,10 @@ Osteolaemus tetraspis:
 Caiman crocodilus:
   parent: Crocodylia sp.
   prefix: CaimCroc
-  other prefixes:
-    - CaimaCroco
   name: Spectacled caiman
 Caiman latirostris:
   parent: Crocodylia sp.
   prefix: CaimLati
-  other prefixes:
-    - CaimaLatir
   name: Broad-snouted caiman
 Crocodylus acutus:
   parent: Crocodylia sp.
@@ -2121,8 +2127,6 @@ Testudines sp.:
 Caretta caretta:
   parent: Testudines sp.
   prefix: CareCare
-  other prefixes:
-    - CaretCaret
   name: Loggerhead sea turtle
 Chelonia mydas:
   parent: Testudines sp.
@@ -2150,10 +2154,14 @@ Chelydra serpentina:
   name: Common snapping turtle
 Chrysemys picta:
   parent: Testudines sp.
-  # Natural 4-letter prefix Chpi collides with golden pheasant.
-  prefix: ChryPict
+  # The natural 4-letter prefix Chpi belongs to the golden pheasant, and the
+  # 4+4 form ChryPict is derived by the same rule from both this species and
+  # Chrysolophus pictus, so it is not a safe canonical prefix for either. The
+  # pheasant keeps Chpi; the turtle takes the concatenated binomial, which
+  # collides with nothing. ChryPict stays parseable. See #128.
+  prefix: ChrysemysPicta
   other prefixes:
-    - ChrysPicta
+    - ChryPict
   name: Painted turtle
 Pelodiscus sinensis:
   parent: Testudines sp.
@@ -2247,8 +2255,6 @@ Casuarius casuarius:
   # Natural 4-letter prefix Caca collides with Caretta caretta and others.
   # Using long prefix as display.
   prefix: CasuCasu
-  other prefixes:
-    - CasuaCasua
   name: Southern cassowary
 Nothoprocta perdicaria:
   parent: Aves sp.
@@ -2308,6 +2314,9 @@ Chiloscyllium plagiosum:
 ##############################################
 Ovis sp.:
   name: Sheep
+  # prefix source: designated -- listed as an IPD-MHC group, which files sheep
+  # alleles under it: https://www.ebi.ac.uk/ipd/mhc/group/OLA/species
+  prefix source: designated
   prefix: OLA
   genes:
     Ia:
@@ -2345,6 +2354,10 @@ Ovis canadensis:
 #   https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3658703/
 ################################################################################
 Bos sp.:
+  # prefix source: designated -- an IPD-MHC group, and alleles are written with
+  # it (BoLA-DRB3*011:01, PMID 22383896):
+  # https://www.ebi.ac.uk/ipd/mhc/group/BoLA/species
+  prefix source: designated
   prefix: BoLA
   name: Cattle
   genes:
@@ -2467,6 +2480,10 @@ Bubalus bubalis:
 #
 ################################################################################
 Cetacea sp.:
+  # prefix source: designated -- an IPD-MHC group, spelled CeLA there while the
+  # runtime prefix and published allele names use CELA:
+  # https://www.ebi.ac.uk/ipd/mhc/group/CeLA/species
+  prefix source: designated
   prefix: CELA
   name:
     - Cetacean
@@ -2665,6 +2682,10 @@ Physeter macrocephalus:
 #
 ################################################################################
 Capra sp.:
+  # prefix source: designated -- listed as an IPD-MHC group, which files goat
+  # alleles under it: https://www.ebi.ac.uk/ipd/mhc/group/CLA/species
+  # (CLA is goat, not cat -- a page summary once reported otherwise, see AGENTS.md)
+  prefix source: designated
   prefix: CLA
   name: Goat
   genes:
@@ -2687,6 +2708,9 @@ Capra hircus:
 # - https://www.ebi.ac.uk/ipd/mhc/group/ELA/species
 ################################################################################
 Equus sp.:
+  # prefix source: designated -- listed as an IPD-MHC group, which files horse
+  # alleles under it: https://www.ebi.ac.uk/ipd/mhc/group/ELA/species
+  prefix source: designated
   prefix: ELA
   name: Equine
   genes:
@@ -2755,6 +2779,9 @@ Phacochoerus africanus:
   name: Common warthog
 Sus sp.:
   parent: Suidae sp.
+  # prefix source: designated -- listed as an IPD-MHC group, which files pig
+  # alleles under it: https://www.ebi.ac.uk/ipd/mhc/group/SLA/species
+  prefix source: designated
   prefix: SLA
   name:
     - Pig
@@ -3421,8 +3448,6 @@ Cyanistes caeruleus:
   # Natural prefix Cyca collides with Cyprinus carpio (carp).
   # Cyca for blue tit attested in Westerdahl et al.; Cyca for carp in fish MHC literature.
   prefix: CyanCaer
-  other prefixes:
-    - CyaniCaeru
   name: Blue tit
 Corvus cornix:
   parent: Aves sp.
@@ -3861,7 +3886,13 @@ Haliaeetus albicilla:
   name: White-tailed eagle
 Lanius collaris:
   parent: Aves sp.
-  prefix: LaniCola
+  # 'LaniCola' was a hand-made tie-break, because this species and Lanius
+  # collurio both derive the 4+4 form 'LaniColl'. It is not any documented
+  # prefix form, so the canonical prefix is the concatenated binomial and the
+  # old spelling stays parseable. See #128.
+  prefix: LaniusCollaris
+  other prefixes:
+    - LaniCola
   name: Fiscal shrike
 Lanius senator:
   parent: Aves sp.
@@ -3911,10 +3942,8 @@ Pavo cristatus:
 Phasianus colchicus:
   parent: Galliformes sp.
   # Phco collides with Phylloscopus collybita in some datasets.
-  # Using 5+5 for display prefix.
+  # Using the 4+4 form for the display prefix.
   prefix: PhasColc
-  other prefixes:
-    - PhasiColch
   name: Common pheasant
 Tympanuchus cupido:
   parent: Galliformes sp.
@@ -4955,6 +4984,10 @@ Macaca sp.:
     G: {pseudogene: true}
 Macaca mulatta:
   parent: Macaca sp.
+  # prefix source: designated -- the IPD-MHC NHP nomenclature page uses Mamu as a
+  # worked example of the 2+2 rule and links Mamu allele listings:
+  # https://www.ebi.ac.uk/ipd/mhc/group/NHP/nomenclature
+  prefix source: designated
   prefix: Mamu
   name:
     - Rhesus monkey
@@ -5100,6 +5133,10 @@ Pan sp.:
         - DRB7
 Pan troglodytes:
   parent: Pan sp.
+  # prefix source: designated -- https://www.ebi.ac.uk/ipd/mhc/group/NHP/nomenclature
+  # states verbatim: "MhcPatr defines the MHC system of the common chimpanzee
+  # (Pan troglodytes)".
+  prefix source: designated
   prefix: Patr
   other prefixes:
     - Ptr
@@ -5650,8 +5687,6 @@ Cyclura carinata:
   # Natural prefix Cyca collides with Cyprinus carpio (carp).
   # Attested in literature (Glaberman et al. iguana MHC studies).
   prefix: CyclCari
-  other prefixes:
-    - CycluCarin
   name: Turks and Caicos rock iguana
 Anolis carolinensis:
   parent: Reptilia sp.
