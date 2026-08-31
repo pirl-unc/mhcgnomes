@@ -54,16 +54,26 @@ def test_human_does_not_inherit_the_nhp_prefix():
     ok_("NHP" not in set(human.all_identifiers))
 
 
-@pytest.mark.parametrize(
-    "name", ["NHP", "NHP class I", "NHP class II", "NHP-A*01:01", "NHP-DRB1*03:01"]
-)
-def test_nhp_strings_never_resolve_to_human(name):
+# What each NHP string resolves to today. None means "does not parse"; the point
+# of listing the resolutions rather than only asserting "not human" is that a
+# string which silently stopped parsing would otherwise pass this test.
+NHP_STRINGS = [
+    ("NHP", "Primata sp."),
+    ("NHP class I", "Primata sp."),
+    ("NHP class II", "Primata sp."),
+    ("NHP-A*01:01", None),
+    ("NHP-DRB1*03:01", None),
+]
+
+
+@pytest.mark.parametrize("name,expected", NHP_STRINGS)
+def test_nhp_strings_never_resolve_to_human(name, expected):
     result = parse(name, raise_on_error=False)
-    if result is None:
+    if expected is None:
+        eq_(result, None, f"'{name}' now parses as {result}")
         return
-    species = getattr(result, "species", None)
-    if species is None:
-        return
+    species = result if isinstance(result, Species) else result.species
+    eq_(species.name, expected)
     ok_(
         not species.is_human,
         f"'{name}' resolved to {species.name} through the non-human-primate prefix",
