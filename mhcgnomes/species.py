@@ -1116,21 +1116,19 @@ _EMPTY_GENE_NAMES = NormalizingSet()
 latin_name_to_own_gene_names = {}
 
 
-# Every key an entry in species.yaml may carry. Unknown keys are rejected
-# rather than ignored: a typo such as "prefix_source" would otherwise load
-# silently, leaving the YAML asserting something the runtime never read.
+# Every key an entry in species.yaml may carry, and every one of them is read
+# below. Unknown keys are rejected rather than ignored: a typo such as
+# "prefix_source" would otherwise load silently, leaving the YAML asserting
+# something the runtime never read. Whitelisting a key nothing reads has the
+# same effect with extra confidence, so do not add one here without a consumer
+# -- tests/test_ontology_hygiene.py checks that each key has one (#139).
 SPECIES_ENTRY_KEYS = frozenset(
     {
-        # "alias" and "haplotype prefix" are present in species.yaml but nothing
-        # reads them; they are listed so the file still loads, not because they
-        # do anything, and "alias" holds a transposed MhcPatr. See issue #139.
-        "alias",
         "context only prefixes",
         "gene families",
         "gene properties",
         "genes",
         "group",
-        "haplotype prefix",
         "name",
         "old prefix",
         "other prefixes",
