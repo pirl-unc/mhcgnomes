@@ -17,8 +17,9 @@ from dataclasses import dataclass
 from types import MappingProxyType
 from typing import Any, Union
 
-from .common import cache
+from .common import cache, normalize_string
 from .data import allele_aliases as raw_allele_aliases_dict
+from .data import evidenced_prefix_aliases as raw_evidenced_alias_dict
 from .data import gene_aliases as raw_gene_aliases_dict
 from .data import haplotypes as raw_haplotypes_dict
 from .data import heterodimers as raw_heterodimers_dict
@@ -26,12 +27,96 @@ from .data import known_alleles as raw_known_alleles_dict
 from .data import serotypes as raw_serotypes_dict
 from .data import species as raw_species_dict
 from .data import supertypes as raw_supertypes_dict
+from .data import underrepresented_taxa_source_registry as raw_holdback_registry
 from .mhc_class_helpers import class1_restrictions, class2_restrictions
 from .normalizing_dictionary import NormalizingDictionary
 from .normalizing_set import NormalizingSet
 from .result import Result
 
 _RAW_SPECIES_ORDER = {latin_name: i for i, latin_name in enumerate(raw_species_dict)}
+
+
+def _blocked_registry_prefixes():
+    """
+    Prefixes the curation registry deliberately keeps out of runtime.
+
+    `underrepresented_taxa_source_registry.yaml` is the holding area described
+    in docs/curation.md: real source signal that is not stable enough to parse
+    with. An entry marked `blocked` or `registry_only` stays out no matter how
+    well attested the spelling is.
+    """
+    blocked = set()
+
+    def walk(node):
+        if isinstance(node, dict):
+            for key, value in node.items():
+                if isinstance(value, dict) and "scientific_name" in value:
+                    if (
+                        value.get("curation_status") == "blocked"
+                        or value.get("ontology_status") == "registry_only"
+                    ):
+                        blocked.add(normalize_string(key))
+                else:
+                    walk(value)
+        elif isinstance(node, list):
+            for item in node:
+                walk(item)
+
+    walk(raw_holdback_registry)
+    return blocked
+
+
+def _partition_evidenced_aliases():
+    """
+    Split the attested aliases into globally parseable and context-only.
+
+    The rule is computed rather than curated, so it cannot go stale as species
+    are added: an alias claimed by exactly one species, and not already the
+    prefix or alias of some other entry, becomes a global alias. Anything
+    claimed by two or more -- or already owned elsewhere in species.yaml --
+    becomes context-only, so `species=` recovers the published record while a
+    bare prefix cannot silently pick a side. See issue #136.
+    """
+    withheld = _blocked_registry_prefixes()
+
+    claimants = defaultdict(set)
+    for latin_name, entries in raw_evidenced_alias_dict.items():
+        for entry in entries or []:
+            alias = normalize_string(entry["alias"])
+            if alias not in withheld:
+                claimants[alias].add(latin_name)
+
+    already_claimed = set()
+    for record in raw_species_dict.values():
+        already_claimed.add(normalize_string(record.get("prefix", "")))
+        for alias in record.get("other prefixes") or []:
+            already_claimed.add(normalize_string(alias))
+
+    global_aliases = defaultdict(list)
+    context_only = defaultdict(list)
+    for latin_name, entries in raw_evidenced_alias_dict.items():
+        for entry in entries or []:
+            alias = entry["alias"]
+            key = normalize_string(alias)
+            if len(alias) < 3:
+                # A one- or two-character alias cannot safely be a species
+                # prefix: "B" is real chicken nomenclature (B-F, B-L) but as a
+                # bare prefix it shadows the mouse haplotype b, and b/d stops
+                # parsing. Same reason the single-letter HLA fragments stay out
+                # of unprefixed resolution (#113).
+                continue
+            if key in withheld:
+                # underrepresented_taxa_source_registry.yaml is the holding area
+                # for prefixes deliberately kept out of runtime. An attested
+                # source spelling does not override that decision -- Otel, Phco
+                # and Phtr are blocked there and tests assert they do not parse.
+                continue
+            contested = len(claimants[key]) > 1 or key in already_claimed
+            (context_only if contested else global_aliases)[latin_name].append(alias)
+    return dict(global_aliases), dict(context_only)
+
+
+EVIDENCED_GLOBAL_ALIASES, EVIDENCED_CONTEXT_ONLY_ALIASES = _partition_evidenced_aliases()
 
 
 class FrozenList(list):
@@ -1198,6 +1283,17 @@ def create_species_for_latin_name(latin_name):
         context_only_mhc_prefixes = [context_only_mhc_prefixes]
     elif context_only_mhc_prefixes is None:
         context_only_mhc_prefixes = []
+
+    # Prefix spellings attested in an external database or the literature,
+    # from evidenced_prefix_aliases.yaml. Whether each is globally parseable or
+    # context-only was decided by _partition_evidenced_aliases from how many
+    # species claim it -- see issue #136.
+    for alias in EVIDENCED_GLOBAL_ALIASES.get(latin_name, ()):
+        if alias and alias != prefix and alias not in other_mhc_prefixes:
+            other_mhc_prefixes = [*list(other_mhc_prefixes), alias]
+    for alias in EVIDENCED_CONTEXT_ONLY_ALIASES.get(latin_name, ()):
+        if alias and alias != prefix and alias not in context_only_mhc_prefixes:
+            context_only_mhc_prefixes = [*list(context_only_mhc_prefixes), alias]
 
     # Auto-generate parseable aliases from the latin name, for binomials only:
     # 1. The full concatenated scientific name, which is the default and is

@@ -1,0 +1,977 @@
+# Species prefix spellings attested in an external database or in the
+# literature, imported from the sibling mhcseqs registry
+# (mhcseqs/mhc_prefix_aliases.csv, rows whose status is external_database,
+# literature_historical or formal_system). Issue #136.
+#
+# Every row carries its own evidence URL, which is the point: provenance lives
+# at the (species, alias) level, because one species can have current,
+# historical and database spellings from different sources.
+#
+# Whether an alias becomes globally parseable or context-only is NOT recorded
+# here -- it is computed at load time from how many species claim it, so the
+# answer cannot go stale as species are added:
+#
+#   claimed by one species, and unclaimed elsewhere  -> global alias
+#   claimed by more than one, or by another taxon    -> context only
+#
+# Context-only means `species=` recovers the published record while a bare
+# prefix cannot silently pick a side, which is what the Moal and Orla cases
+# already do.
+#
+# Not included: rows whose species is absent from species.yaml, genus-scope
+# rows, and IPD designations (those live in ipd_designations.yaml).
+
+
+Abramis brama:
+  - alias: Arbr
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A0A8E5GKZ6
+
+Acipenser sinensis:
+  - alias: Acsi
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/E0X5M3
+
+Acrocephalus arundinaceus:
+  - alias: Acaru
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/Q7YP77
+
+Acrocephalus scirpaceus:
+  - alias: Acsci
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A0A0S2MYP1
+
+Aegypius monachus:
+  - alias: Aemo
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A9LDM7
+
+Agalychnis callidryas:
+  - alias: Agca
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/I6PNB5
+
+Alauda razae:
+  - alias: Alra
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A0A6M6C8U2
+
+Ambystoma mexicanum:
+  - alias: Anme
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A5JVU8
+
+Amphilophus citrinellus:
+  - alias: Amci
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A0A1S6K7L2
+
+Anser indicus:
+  - alias: Anin
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/E8Z790
+
+Anthropoides paradiseus:
+  - alias: Grpa
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A0A0P0UVN5
+
+Anthropoides virgo:
+  - alias: Grvir
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A0A0N7KC06
+
+Antigone canadensis:
+  - alias: Grcan
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A0A0P0UW56
+
+Antigone vipio:
+  - alias: Grvip
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A0A0N7KC05
+
+Archoplites interruptus:
+  - alias: Arin
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/B5LT76
+
+Ardea alba:
+  - alias: Aral
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/E2J696
+
+Ardeola bacchus:
+  - alias: Arba
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/E2J694
+
+Arvicola amphibius:
+  - alias: Arte
+    status: external_database
+    evidence: https://pubmed.ncbi.nlm.nih.gov/17956550/
+
+Astur gentilis:
+  - alias: Acge
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A9LDM6
+
+Balearica pavonina:
+  - alias: Bapa
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A0A0P0UVQ5
+
+Brachyramphus marmoratus:
+  - alias: Brma
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/N0A1U8
+
+Bubo blakistoni:
+  - alias: Bubl
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A0A223ZXQ0
+
+Bubo bubo:
+  - alias: Bubbu
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A9LDQ3
+  - alias: Bubu
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/B3F8U8
+
+Bucanetes githagineus:
+  - alias: Bugi
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/E2E2S2
+
+Bugeranus carunculatus:
+  - alias: Buca
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A0A6B9UJ47
+  - alias: Grcar
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A0A0N7KC07
+
+Buteo buteo:
+  - alias: Buteo
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A9LDM9
+
+Cachryx defensor:
+  - alias: Ctde
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/B5LN06
+
+Calidris canutus:
+  - alias: Caca
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/L0H763
+
+Carassius gibelio:
+  - alias: Cagi
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/X5J5T9
+
+Carassius langsdorfii:
+  - alias: caau
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/F8WRI6
+
+Carduelis carduelis:
+  - alias: Caca
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A0A126AC28
+
+Carollia perspicillata:
+  - alias: Cape
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/H9U5N9
+
+Cavia porcellus:
+  - alias: GPL-A
+    status: literature_historical
+    evidence: https://pmc.ncbi.nlm.nih.gov/articles/PMC2190138/
+  - alias: GPLA
+    status: literature_historical
+    evidence: https://pmc.ncbi.nlm.nih.gov/articles/PMC2190138/
+
+Chersophilus duponti:
+  - alias: Chdu
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/E2E2S7
+
+Chiloscyllium plagiosum:
+  - alias: Chpl
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/I6ZPI8
+
+Chondrostoma nasus:
+  - alias: Chna
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/S6DEV0
+
+Circaetus gallicus:
+  - alias: Ciga
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A9LDN0
+
+Clarias gariepinus:
+  - alias: Clga
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/C1IQ54
+
+Clarias magur:
+  - alias: Cyca
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A0A8J4TGY8
+  - alias: Icpu
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A0A8J4TR97
+
+Conolophus subcristatus:
+  - alias: Cosu
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/B3UZY9
+
+Coronella austriaca:
+  - alias: Coau
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A0A161HPN2
+
+Corvus corax:
+  - alias: Coco
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/E2E2T0
+
+Cryptomys hottentotus:
+  - alias: BLA
+    status: external_database
+    evidence: https://pubmed.ncbi.nlm.nih.gov/15058438/
+
+Ctenomys boliviensis:
+  - alias: Ctbol
+    status: external_database
+    evidence: https://pubmed.ncbi.nlm.nih.gov/18049818/
+
+Ctenomys bonettoi:
+  - alias: Ctbon
+    status: external_database
+    evidence: https://rest.uniprot.org/unisave/Q95HT8?format=txt&versions=61
+
+Ctenomys talarum:
+  - alias: Cta
+    status: external_database
+    evidence: https://rest.uniprot.org/unisave/Q0H0P1?format=txt&versions=46
+
+Ctenopharyngodon idella:
+  - alias: Citd
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/B2X123
+
+Ctenophorus decresii:
+  - alias: Ctde
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A0A2P1A4H2
+
+Ctenosaura clarki:
+  - alias: Ctcl
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/B5LN07
+
+Cyanistes caeruleus:
+  - alias: Cyca
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A0A0S2MZR1
+  - alias: paca
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/Q2A642
+
+Cyclura carinata:
+  - alias: Cyca
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/B5LN10
+
+Cyclura cornuta:
+  - alias: Cyco
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/B5LN09
+
+Cyclura rileyi:
+  - alias: Cyri
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/B5LN08
+
+Desmodus rotundus:
+  - alias: Dero
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A0A1I9VYB6
+
+Egernia stokesii:
+  - alias: Egst
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A0A0K0N3L9
+
+Egretta eulophotes:
+  - alias: Egue
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/E2J6C6
+
+Elanus caeruleus:
+  - alias: Elca
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A9LDN2
+
+Emberiza cioides:
+  - alias: Emci
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A0A1D7YVK5
+
+Emberiza jankowskii:
+  - alias: Emja
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A0A1D7YVM6
+
+Epidalea calamita:
+  - alias: Buca
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A0A0D4D8C3
+
+Epinephelus akaara:
+  - alias: Epak
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/B2CC08
+
+Erithacus rubecula:
+  - alias: Erru
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/E2E2T3
+
+Espadarana prosoblepon:
+  - alias: Espr
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/I6PNC2
+
+Eurillas virens:
+  - alias: Anvi
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/Q30E80
+
+Falco biarmicus:
+  - alias: Fabi
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A9LDR2
+
+Falco cherrug:
+  - alias: Fach
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/I3ZR13
+
+Falco columbarius:
+  - alias: Facol
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/I3ZR11
+
+Falco concolor:
+  - alias: Facon
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/I3ZR08
+
+Falco eleonorae:
+  - alias: Fael
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/I3ZR05
+
+Falco fasciinucha:
+  - alias: Fafa
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/I3ZR12
+
+Falco femoralis:
+  - alias: Fafe
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A9LDR1
+
+Falco naumanni:
+  - alias: Fana
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A9LDQ9
+
+Falco rusticolus:
+  - alias: Faru
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/I3ZR10
+
+Falco subbuteo:
+  - alias: Fasu
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/I3ZR09
+
+Fringilla coelebs:
+  - alias: Frcoe
+    status: external_database
+    evidence: https://www.ncbi.nlm.nih.gov/nuccore/DQ257477
+
+Fukomys damarensis:
+  - alias: BLA
+    status: external_database
+    evidence: https://pubmed.ncbi.nlm.nih.gov/15058438/
+
+Gadus morhua:
+  - alias: gamr
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/O98272
+
+Gallus gallus:
+  - alias: B
+    status: literature_historical
+    evidence: https://pubmed.ncbi.nlm.nih.gov/6763913/
+  - alias: GSP
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/Q6I6J9
+
+Gobio gobio:
+  - alias: Gogo
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A0A0U3QRX5
+
+Gorsachius magnificus:
+  - alias: Goma
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/E2J698
+
+Grus grus:
+  - alias: Grgr
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A0A0N7KC08
+
+Grus monacha:
+  - alias: Grmo
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A0A0P0UVS1
+
+Grus nigricollis:
+  - alias: Grni
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A0A0P0UVP3
+
+Gypaetus barbatus:
+  - alias: Gypa
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A9LDN3
+
+Gyps africanus:
+  - alias: Gyaf
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A9LDN9
+
+Gyps coprotheres:
+  - alias: Gyco
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A9LDP8
+
+Haliaeetus albicilla:
+  - alias: Haal
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A0A3Q8TLJ6
+
+Harpyhaliaetus coronatus:
+  - alias: Haco
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A9LDN4
+
+Heliophobius argenteocinereus:
+  - alias: BLA
+    status: external_database
+    evidence: https://pubmed.ncbi.nlm.nih.gov/15058438/
+
+Heterocephalus glaber:
+  - alias: BLA
+    status: external_database
+    evidence: https://pubmed.ncbi.nlm.nih.gov/15058438/
+
+Hieraaetus pennatus:
+  - alias: Hipe
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A9LDN5
+
+Hippocampus erectus:
+  - alias: Hier
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A0A1B3IPW4
+
+Hippolais icterina:
+  - alias: Hiic
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A0A0S2MYW4
+
+Hypophthalmichthys molitrix:
+  - alias: Hymo
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A0A193PJZ3
+
+Ichthyosaura alpestris:
+  - alias: Meal
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/B1PXH2
+
+Iconisemion striatum:
+  - alias: ORLA
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A0A1A7XA08
+
+Ixobrychus cinnamomeus:
+  - alias: Ixci
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/E2J649
+
+Ixobrychus flavicollis:
+  - alias: Ixfl
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/E2J6A0
+
+Labeobarbus intermedius:
+  - alias: baic
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/Q5K4Z4
+  - alias: batr
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/Q5K530
+  - alias: bats
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/Q5K529
+
+Ladigesocypris ghigii:
+  - alias: Lagh
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/E3U3B4
+
+Lagopus scotica:
+  - alias: Lala
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A0A159AJS9
+
+Lanius collaris:
+  - alias: Laco
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A0A0S2MZT4
+
+Lanius senator:
+  - alias: Lase
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/E2E2T4
+
+Larimichthys crocea:
+  - alias: Pscr
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/B1NNU4
+
+Leiocassis longirostris:
+  - alias: Lelo
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/D5FL40
+
+Leucogeranus leucogeranus:
+  - alias: Grle
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A0A0N7KC04
+
+Lithobates yavapaiensis:
+  - alias: Liya
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/I6PND1
+
+Litoria verreauxii:
+  - alias: Livea
+    status: literature_historical
+    evidence: https://pmc.ncbi.nlm.nih.gov/articles/PMC4389617/
+
+Luscinia svecica:
+  - alias: Lusv
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A0A0S2MZR9
+
+Lyrurus tetrix:
+  - alias: Tete
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/X2JFU1
+
+Melospiza melodia:
+  - alias: Sosp
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A0A4P8DLY1
+
+Miichthys miiuy:
+  - alias: Mimi
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/D6PAH3
+
+Milvus milvus:
+  - alias: Mimil
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A9LDN6
+
+Molossus molossus:
+  - alias: Momo
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A0A1I9VYE6
+
+Monopterus albus:
+  - alias: Moal
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/V9PDN1
+
+Motacilla alba:
+  - alias: Moal
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/E2E2T7
+
+Mus caroli:
+  - alias: H2
+    status: external_database
+    evidence: https://pubmed.ncbi.nlm.nih.gov/9178014/
+
+Mus cervicolor:
+  - alias: H2
+    status: external_database
+    evidence: https://pubmed.ncbi.nlm.nih.gov/9178014/
+
+Mus cookii:
+  - alias: H2
+    status: external_database
+    evidence: https://pubmed.ncbi.nlm.nih.gov/9178014/
+
+Mus macedonicus:
+  - alias: H2
+    status: external_database
+    evidence: https://pubmed.ncbi.nlm.nih.gov/9178014/
+
+Mus platythrix:
+  - alias: H2
+    status: external_database
+    evidence: https://pubmed.ncbi.nlm.nih.gov/9178014/
+
+Mus spicilegus:
+  - alias: H2
+    status: external_database
+    evidence: https://pubmed.ncbi.nlm.nih.gov/9178014/
+
+Mus spretus:
+  - alias: H2
+    status: external_database
+    evidence: https://pubmed.ncbi.nlm.nih.gov/9178014/
+
+Myotis vivesi:
+  - alias: Myvi
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/D6QSQ7
+
+Nanorana parkeri:
+  - alias: Napa
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A0A172LRJ1
+
+Neophron percnopterus:
+  - alias: Nepe
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A9LDN7
+
+Noctilio albiventris:
+  - alias: Noal
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/E9KZI7
+
+Noctilio leporinus:
+  - alias: Nole
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/H9U5P8
+
+Nothobranchius furzeri:
+  - alias: ORLA
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A0A1A8V2B0
+
+Nothobranchius kadleci:
+  - alias: ORLA
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A0A1A8CNF3
+
+Nothobranchius korthausae:
+  - alias: ORLA
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A0A1A8F4C0
+
+Nothobranchius kuhntae:
+  - alias: ORLA
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A0A1A8HZD6
+
+Nothobranchius pienaari:
+  - alias: ORLA
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A0A1A8MQH5
+
+Nothobranchius rachovii:
+  - alias: ORLA
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A0A1A8SDN4
+
+Nycticorax nycticorax:
+  - alias: Nyny
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/E2J6B3
+
+Odorrana margaretae:
+  - alias: Odma
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A0A4D5YGT3
+
+Oncorhynchus gilae:
+  - alias: Ongi
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A5YVA9
+
+Oncorhynchus kisutch:
+  - alias: Onki
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/Q9GJB5
+
+Oncorhynchus nerka:
+  - alias: Onne
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A0A089WYW5
+
+Oncorhynchus tshawytscha:
+  - alias: Onts
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/Q9GJB6
+
+Oryzias latipes:
+  - alias: Orla
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/F5HRI2
+
+Otis tarda:
+  - alias: Otta
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A0A0P0UW16
+
+Otus elegans:
+  - alias: Otel
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A0A2Z5WB25
+
+Pachyptila belcheri:
+  - alias: Pabe
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/C1JEH9
+
+Pandion haliaetus:
+  - alias: Paha
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A9LDN8
+
+Passer hispaniolensis:
+  - alias: Pahi
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A0A0S2MZY6
+
+Passer montanus:
+  - alias: Pamo
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A0A0S2MZT7
+
+Pelophylax nigromaculatus:
+  - alias: Peni
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A0A2H4PSK8
+
+Perdix perdix:
+  - alias: Pepe
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A0A1S6Q3S2
+
+Phylloscopus collybita:
+  - alias: Phco
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A0A0S2MZ16
+
+Phylloscopus trochilus:
+  - alias: Phtr
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A0A0S2MZB9
+
+Poecilia reticulata:
+  - alias: Pore
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/O77958
+
+Polyodon spathula:
+  - alias: Posp
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/E0X5L7
+
+Polypedates megacephalus:
+  - alias: Pome
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/R9UQ24
+
+Psophia crepitans:
+  - alias: Pscr
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A0A0P0UVS2
+
+Rana japonica:
+  - alias: RAJA
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A0A1S5RAP3
+
+Rana ornativentris:
+  - alias: RAJA
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A0A1S5RAU7
+
+Rana tagoi:
+  - alias: RAJA
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A0A1S5RAW9
+
+Rattus norvegicus:
+  - alias: Ag-B
+    status: literature_historical
+    evidence: https://doi.org/10.1016/S0026-0495(83)80010-9
+  - alias: AgB
+    status: literature_historical
+    evidence: https://doi.org/10.1016/S0026-0495(83)80010-9
+  - alias: H-1
+    status: literature_historical
+    evidence: https://doi.org/10.1016/S0026-0495(83)80010-9
+  - alias: R-1
+    status: literature_historical
+    evidence: https://doi.org/10.1016/S0026-0495(83)80010-9
+  - alias: RtH-1
+    status: literature_historical
+    evidence: https://doi.org/10.1016/S0026-0495(83)80010-9
+
+Rhodeus ocellatus:
+  - alias: Rhoc
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/D2XBF1
+
+Saccopteryx bilineata:
+  - alias: Sabi
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/H9U5R0
+
+Salvelinus fontinalis:
+  - alias: Safo
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/B3FW09
+
+Salvelinus malma:
+  - alias: Sama
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/E1U2E0
+
+Smilisca phaeota:
+  - alias: Smph
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/I6PND3
+
+Spinus atratus:
+  - alias: Caat
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A0A384M0D1
+
+Spinus pinus:
+  - alias: Capi
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A0A139YCS1
+
+Spinus spinus:
+  - alias: Casp
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A0A139YCS2
+
+Sylvia borin:
+  - alias: Sybo
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A0A0S2MYY4
+
+Tachyglossus aculeatus:
+  - alias: Taac
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/Q6WGJ3
+
+Tiliqua adelaidensis:
+  - alias: Tiad
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A0A0K0N2V0
+
+Tiliqua rugosa:
+  - alias: Tiru
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A0A0K0N390
+
+Trachinotus ovatus:
+  - alias: TO
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A0A3G1LCB1
+
+Trichosurus vulpecula:
+  - alias: Truv
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/Q95IT0
+
+Triturus cristatus:
+  - alias: Trcr
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/B8XWH4
+
+Turdus atrogularis:
+  - alias: Tuat
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A0A6B9MDW2
+
+Turdus naumanni:
+  - alias: Tuna
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A0A6B9MIG4
+
+Turdus ruficollis:
+  - alias: Turu
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/A0A6B9MDV5
+
+Xenopus laevis:
+  - alias: XL-A
+    status: literature_historical
+    evidence: https://pubmed.ncbi.nlm.nih.gov/2653371/
+  - alias: XLA
+    status: literature_historical
+    evidence: https://pubmed.ncbi.nlm.nih.gov/2653371/
+
+Xiphophorus hellerii:
+  - alias: Xihe
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/O62885
+
+Xiphophorus maculatus:
+  - alias: Xima
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/O62884
+
+Xiphophorus multilineatus:
+  - alias: Ximu
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/B5AIX3
+
+Xiphophorus pygmaeus:
+  - alias: Xipy
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/B5AIY7
+
+Zhangixalus omeimontis:
+  - alias: Rhom
+    status: external_database
+    evidence: https://rest.uniprot.org/uniprotkb/R9UQ42
