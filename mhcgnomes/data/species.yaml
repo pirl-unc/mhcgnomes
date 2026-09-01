@@ -2837,8 +2837,11 @@ Sus domesticus:
 Sus scrofa:
   parent: Sus sp.
   prefix: Susc
-  # TODO: reflect this in the Species object
-  haplotype prefix: Hp
+  # Swine haplotypes are written with an "Hp" prefix. This was a
+  # `haplotype prefix: Hp` key, but nothing in the loader ever read it and no
+  # swine haplotype is curated for it to apply to -- haplotypes.yaml has no
+  # Sus scrofa entry, and Hp-1.1 does not parse. Kept as a note rather than a
+  # key that asserts support we do not have. See #143.
   name: Feral Pig
 ######################################################
 # Rodentia — rodents
@@ -5176,7 +5179,10 @@ Pan troglodytes:
   prefix: Patr
   other prefixes:
     - Ptr
-  alias: MhcPtar
+  # Was `alias: MhcPtar`, a transposition of MhcPatr that nothing read. The
+  # correct spelling already parses without an alias, because a leading "Mhc"
+  # is stripped as a fallback: parse("MhcPatr-A*01:01") gives Patr-A*01:01.
+  # See #139.
   name: Common Chimpanzee
 Pan paniscus:
   parent: Pan sp.

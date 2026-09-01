@@ -131,3 +131,35 @@ def test_gene_alias_entries_do_not_use_model_record_style_strings():
                         bad.append((species_key, role, value, substring))
                         break
     assert not bad, bad
+
+
+def test_every_whitelisted_species_key_has_a_consumer():
+    """
+    `SPECIES_ENTRY_KEYS` exists so a misspelled key cannot load silently while
+    the YAML asserts something the runtime never read. Whitelisting a key that
+    nothing reads has the same effect with extra confidence: `alias` and
+    `haplotype prefix` sat there unread until #139.
+
+    So every accepted key must be fetched somewhere in species.py.
+    """
+    from mhcgnomes.species import SPECIES_ENTRY_KEYS
+
+    source = (Path(__file__).parent.parent / "mhcgnomes" / "species.py").read_text()
+    # Match the call without its closing paren, since several are fetched with
+    # a default: species_info.get("genes", {}).
+    unread = sorted(key for key in SPECIES_ENTRY_KEYS if f'species_info.get("{key}"' not in source)
+    assert unread == [], (
+        f"species.yaml keys accepted but never read: {unread}. Either read them or "
+        f"drop them from SPECIES_ENTRY_KEYS -- see issue #139."
+    )
+
+
+def test_dropped_keys_are_gone_from_the_data_too():
+    """A key removed from the whitelist must not linger in species.yaml, or
+    the file stops loading."""
+    from mhcgnomes.species import SPECIES_ENTRY_KEYS
+
+    entries = load_yaml(SPECIES_PATH)
+    used = {key for entry in entries.values() for key in entry}
+    unexpected = sorted(used - set(SPECIES_ENTRY_KEYS))
+    assert unexpected == [], f"species.yaml uses keys the loader rejects: {unexpected}"
