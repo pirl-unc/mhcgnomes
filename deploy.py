@@ -27,11 +27,15 @@ Dry-run:
 """
 
 import argparse
+import json
 import os
 import shlex
 import shutil
 import subprocess
 import sys
+import time
+import urllib.error
+import urllib.request
 from collections.abc import Sequence
 from dataclasses import dataclass, replace
 from pathlib import Path
@@ -78,6 +82,11 @@ class Config:
     # None otherwise -- passing the venv's environment to a different
     # interpreter is the same drift, pointed the other way.
     build_env: Optional[dict[str, str]]
+    # How long to wait for the pushed tag to appear on PyPI, and whether to
+    # look at all. See await_pypi_publication and issue #83.
+    pypi_project: str
+    pypi_timeout: float
+    check_pypi: bool
 
 
 class CommandError(RuntimeError):
@@ -391,6 +400,107 @@ def tag_and_push(cfg: Config, tag: str, version: str, *, cwd: Path) -> None:
     ok("Tag pushed")
 
 
+# What a PyPI lookup can tell us. "absent" is the only one that means the
+# release failed; "unknown" means the question could not be asked.
+PYPI_PRESENT = "present"
+PYPI_ABSENT = "absent"
+PYPI_UNKNOWN = "unknown"
+
+
+def pypi_released_versions(project: str, *, timeout: float = 10.0) -> Optional[set[str]]:
+    """
+    Every version PyPI has for this project, or None if it could not be asked.
+
+    None and the empty set are different answers and the caller must not
+    conflate them: a network failure is not evidence that a release is missing.
+    """
+    url = f"https://pypi.org/pypi/{project}/json"
+    try:
+        with urllib.request.urlopen(url, timeout=timeout) as response:
+            payload = json.load(response)
+    except (urllib.error.URLError, TimeoutError, ValueError, OSError):
+        return None
+    releases = payload.get("releases")
+    if not isinstance(releases, dict):
+        return None
+    return set(releases)
+
+
+def await_pypi_publication(cfg: Config, version: str) -> str:
+    """
+    Wait for the pushed tag to become a PyPI release, and say what happened.
+
+    deploy.py used to end by printing "GitHub Actions will build and publish
+    this tag to PyPI", which has been false since #83: the trusted-publisher
+    exchange fails with `invalid-publisher`, the workflow stops, and the tag
+    sits on GitHub with nothing behind it. The script reported success anyway,
+    so "done means merged AND deployed" was being satisfied on paper by a
+    sentence rather than by a release.
+
+    Returns one of PYPI_PRESENT / PYPI_ABSENT / PYPI_UNKNOWN.
+    """
+    deadline = time.monotonic() + cfg.pypi_timeout
+    unreachable = False
+    attempt = 0
+    while True:
+        versions = pypi_released_versions(cfg.pypi_project)
+        attempt += 1
+        if versions is None:
+            unreachable = True
+        elif version in versions:
+            return PYPI_PRESENT
+        else:
+            unreachable = False
+        remaining = deadline - time.monotonic()
+        if remaining <= 0:
+            break
+        if attempt == 1:
+            note(
+                f"Waiting up to {cfg.pypi_timeout:.0f}s for {cfg.pypi_project} "
+                f"{version} to appear on PyPI..."
+            )
+        time.sleep(min(10.0, remaining))
+    return PYPI_UNKNOWN if unreachable else PYPI_ABSENT
+
+
+def report_pypi_outcome(cfg: Config, version: str, tag: str, *, cwd: Path) -> int:
+    """
+    Turn the lookup into an exit code and, when it failed, into instructions.
+
+    Exit 3 rather than 1 so a caller can tell "the release did not land" from
+    "the script could not run". The tag is already pushed at this point, so the
+    instructions must not be "run deploy.sh again" -- that fails on the
+    existing tag, which is the trap #152 was about.
+    """
+    if not cfg.check_pypi:
+        note("Skipping the PyPI check (--skip-pypi-check).")
+        note(f"Nothing has confirmed that {version} was published.")
+        return 0
+
+    outcome = await_pypi_publication(cfg, version)
+    if outcome == PYPI_PRESENT:
+        ok(f"{cfg.pypi_project} {version} is on PyPI")
+        return 0
+
+    artifacts = sorted(str(p) for p in (cwd / "dist").glob(f"*{version}*"))
+    if outcome == PYPI_UNKNOWN:
+        note(f"Could not reach PyPI to confirm {version}. The tag {tag} is pushed.")
+        note(f"Check https://pypi.org/project/{cfg.pypi_project}/ before calling this released.")
+        return 0
+
+    eprint(f"ERROR: {tag} is pushed but PyPI still has no {version}.")
+    eprint("This is issue #83: the release workflow's trusted-publisher exchange fails")
+    eprint("with `invalid-publisher`, so the tag lands on GitHub and nothing reaches PyPI.")
+    eprint("")
+    eprint("Do NOT re-run deploy.sh -- the tag exists now, and it will stop on that.")
+    if artifacts:
+        eprint("Upload what was already built:")
+        eprint(f"  python -m twine upload {' '.join(artifacts)}")
+    else:
+        eprint(f"No dist/ artifacts for {version} were found to upload.")
+    return 3
+
+
 def resolve_venv_bin(root: Path) -> Optional[Path]:
     for name in (".venv", "venv"):
         candidate = root / name / "bin"
@@ -494,6 +604,18 @@ def parse_args(argv: Sequence[str]) -> Config:
     p.add_argument("--version-file", default="mhcgnomes/version.py")
     p.add_argument("--required-branch", default="main")
     p.add_argument("--remote", default="origin")
+    p.add_argument("--pypi-project", default="mhcgnomes")
+    p.add_argument(
+        "--pypi-timeout",
+        type=float,
+        default=300.0,
+        help="Seconds to wait for the release to appear on PyPI (default 300).",
+    )
+    p.add_argument(
+        "--skip-pypi-check",
+        action="store_true",
+        help="Push the tag without checking whether PyPI received the release.",
+    )
 
     ns = p.parse_args(list(argv))
     require_nonempty("--required-branch", ns.required_branch)
@@ -510,6 +632,9 @@ def parse_args(argv: Sequence[str]) -> Config:
         # once the repo root and venv are known.
         python="",
         build_env=None,
+        pypi_project=ns.pypi_project,
+        pypi_timeout=float(ns.pypi_timeout),
+        check_pypi=not bool(ns.skip_pypi_check),
     )
 
 
@@ -578,14 +703,15 @@ def main(argv: Sequence[str]) -> int:
         note(f"  would run: {cfg.python} -m build --no-isolation")
         note(f"  would run: git tag -a {tag} -m 'Release {tag} ({version})'")
         note(f"  would run: git push {cfg.remote} refs/tags/{tag}")
+        if cfg.check_pypi:
+            note(f"  would then wait up to {cfg.pypi_timeout:.0f}s for PyPI to have {version}")
         ok("Dry run complete")
         return 0
 
     build_distributions(cfg, cwd=root)
     tag_and_push(cfg, tag, version, cwd=root)
     ok(f"Release tag pushed: {tag}")
-    note("GitHub Actions will build and publish this tag to PyPI.")
-    return 0
+    return report_pypi_outcome(cfg, version, tag, cwd=root)
 
 
 if __name__ == "__main__":

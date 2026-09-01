@@ -8,7 +8,12 @@
    exist — `deploy.py` takes no positional version, and because `deploy.sh`
    runs lint and tests first, invoking it that way burns the full suite before
    failing on argument parsing (#152).
-3. **"Done" means merged AND deployed to PyPI** — never stop at merge. After a PR merges, run `./deploy.sh` from a clean main. Skipping deploy = task not done.
+3. **"Done" means merged AND deployed to PyPI** — never stop at merge. After a
+   PR merges, run `./deploy.sh` from a clean main. Skipping deploy = task not
+   done. `deploy.sh` now checks: it waits for PyPI to have the version and
+   **exits 3** if it does not, printing the `twine upload` command for the
+   artifacts already built. Do not re-run `deploy.sh` after that — the tag is
+   already pushed and it will stop on it (#152, #83).
 4. **File problems as issues, don't silently work around them.** If you hit a bug here or in a sibling openvax/pirl-unc repo, open a GitHub issue on the correct repo and link it from the PR.
 5. **After a PR ships, look for the next block of work.** Read open issues across the relevant openvax repos, group by dependency + urgency. Prefer *foundational* changes that unblock multiple downstream improvements; otherwise chain the smallest independent improvements.
 

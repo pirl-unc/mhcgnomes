@@ -47,9 +47,44 @@ These are one-time repository setup tasks outside the codebase:
 3. Run `./deploy.sh --fetch` from a clean local checkout of `main`.
 4. Confirm the pushed `v<version>` tag starts the
    `.github/workflows/release.yml` workflow.
-5. Verify the workflow succeeds and the new version appears on PyPI.
+5. `deploy.sh` now does step 5 for you: it waits for the version to appear on
+   PyPI and says which of three things happened. See below.
 6. If needed, run `.github/workflows/release_testpypi.yml` manually against an
    existing tag before a production release.
+
+### Did it actually ship?
+
+`deploy.sh` used to end by printing "GitHub Actions will build and publish this
+tag to PyPI" and exiting 0. That sentence has been false since
+[#83](https://github.com/pirl-unc/mhcgnomes/issues/83): the workflow's
+trusted-publisher exchange fails with `invalid-publisher`, so the tag lands on
+GitHub and nothing reaches PyPI, while the script reports success. Golden Rule
+3 says done means deployed, and it was being satisfied by a sentence.
+
+After pushing the tag, `deploy.py` polls PyPI for up to `--pypi-timeout`
+seconds (default 300) and reports one of:
+
+| outcome | exit | meaning |
+|---|---|---|
+| `OK: mhcgnomes <version> is on PyPI` | 0 | released |
+| `Could not reach PyPI to confirm ...` | 0 | the question could not be asked; check by hand |
+| `ERROR: v<version> is pushed but PyPI still has no <version>` | 3 | **not released** |
+
+Exit 3 rather than 1 so a caller can tell "the release did not land" from "the
+script could not run". A network failure is deliberately not the same answer as
+a missing release; treating them alike would fail deploys on flaky wifi.
+
+When it exits 3, **do not re-run `deploy.sh`** — the tag exists by then, so the
+run stops on `ensure_tag_absent`, which is the trap described in
+[#152](https://github.com/pirl-unc/mhcgnomes/issues/152). The error message
+prints the upload command for the artifacts already in `dist/`:
+
+```bash
+python -m twine upload dist/mhcgnomes-<version>-py3-none-any.whl dist/mhcgnomes-<version>.tar.gz
+```
+
+`--skip-pypi-check` turns the whole thing off, and says plainly that nothing
+has confirmed the release.
 
 ## What `deploy.sh` Enforces
 
