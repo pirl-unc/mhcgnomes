@@ -133,6 +133,11 @@ dmypy.json
 *.csv
 *.zip
 *.xlsx
+# ...except the IPD-IMGT/HLA Dictionary, which serotypes.yaml names as its
+# source and scripts/generate_serotypes_from_hla_dictionary.py reads. Without
+# it in the repo nobody can regenerate the serotype table or check that the
+# shipped one still matches its source. See issue #156.
+!mhcgnomes/data/hla_dictionary.xlsx
 
 # Images
 *.png

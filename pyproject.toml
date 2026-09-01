@@ -38,6 +38,10 @@ dev = [
     "ruff",
     "pre-commit",
     "coveralls",
+    # pandas reads the IPD-IMGT/HLA Dictionary through openpyxl. Needed so
+    # tests/test_serotype_generation.py can check that the shipped serotype
+    # table still matches its source, rather than skipping in CI (#156).
+    "openpyxl",
 ]
 docs = [
     "mkdocs>=1.6",

@@ -1,35 +1,79 @@
-# Curate prefix provenance from the IPD-MHC NHP table
+# Make serotype regeneration idempotent, and fix the release flow AGENTS.md documents
 
-Tracking issue: #131 (48 entries still unestablished)
+Tracking issues: #156, #152
 
 ## Review
 
-- **64 more entries marked `designated`.** The count goes 128 designated and
-  48 unknown, from 61/112 before. Between this and the earlier batch, every
-  IPD-MHC group species table with a published page has now been transcribed
-  and checked.
-- **The NHP table was the one I had skipped**, because it is large enough that
-  a fetch summary cannot be trusted for it -- and it proved the point: the
-  fetch reported "Total: 68 rows" while listing 66. So I did not rely on it
-  alone.
-- **Every row was confirmed against two independent sources.** The IPD fetch,
-  and the `ipd_current` rows of the sibling mhcseqs registry, which was curated
-  separately from the same authority. Only rows where both agree *and* our
-  prefix already matches were marked:
+### #156 -- and I filed it with the hazard backwards
 
-  ```
-  confirmed by both, prefix matches ours : 64
-  in the IPD fetch only                  :  0
-  conflicts                              :  0
-  absent from our ontology               :  0
-  ```
+I reported that regenerating `serotypes_generated.yaml` would silently drop 15
+rows. That is wrong. I had compared `build_serotype_mappings` output -- the
+pure dictionary transform, 135 rows -- against the file, and never ran the
+script. `generate_yaml` explicitly carries forward serotypes the dictionary has
+no row for, with a comment saying so, and running it produces **170** rows, not
+135. The C locus above Cw10, the DP workshop specificities and the B17 splits
+are preserved by design.
 
-  Zero conflicts across 66 rows is itself worth recording: our primate prefixes
-  agree with IPD everywhere.
-- **What is left is a different kind of problem.** 48 entries: 12 group nodes
-  and 36 short codes. The eight pinned in the canary test are `_LA`-style group
-  codes -- `OmLA`, `FLA`, `GoLA`, `MaLA`, `RhLA`, `RLA`, `ChLA`, `OrLA` -- and
-  IPD publishes no group page for any of them, so establishing those means
-  reading the nomenclature reports rather than a species table.
-- **Measured:** 0 of 11,558 corpus names change. Provenance metadata only.
-- Bumped to 3.48.1.
+**The real hazard is narrower and points the other way.** Regenerating
+*re-adds* `A*2418` to `A3`, undoing a curation fix:
+
+```
+A*24:18   WHO Assigned Type = "A24(9)/A3"
+          Comments = "A2403x3; short A24 with most A3 and A9 reactive; NN: A24"
+```
+
+`parse_serotype` splits the dual type into both serotypes, so the allele lands
+in `A3` as well as `A24`. Curation had removed it from `A3` -- correctly, on
+the dictionary's own comment -- and a regeneration would put it back with
+nothing to notice.
+
+So the fix is a `CURATED_EXCLUSIONS` set in the generator, carrying the pair
+and the reason. With it, regenerating reproduces the runtime table exactly:
+
+```
+regenerated == serotypes.yaml : True
+differing rows                : []
+```
+
+Four tests pin it, including one asserting every exclusion is a pair the
+dictionary actually asserts, so a stale entry cannot outlive its reason.
+Verified by mutation: removing the exclusion fails the suite.
+
+This also settles part of #153. `Cw15` and `Cw17` are in the carried-forward
+set -- not derived from the dictionary -- so they are not evidence about what
+the dictionary says, and a test now names them so that stays visible.
+
+### #152 -- AGENTS.md documented a command that does not exist
+
+Golden Rule 2 said `deploy.sh <version>` handles the bump. `deploy.py` has no
+positional version argument, and `deploy.sh` runs `./lint.sh` and `./test.sh`
+before passing arguments through, so following the instruction burns the full
+suite and then fails on argparse.
+
+Corrected to the flow that exists and that every release in this repo actually
+uses: bump `version.py` in the PR, then `./deploy.sh` with no arguments from a
+clean `main`. Implementing the argument instead would have made `deploy.sh`
+mutate the working tree, which its own `ensure_clean_tree` check exists to
+prevent.
+
+- **Measured:** 0 of 11,558 corpus names change. The runtime serotype table is
+  byte-identical; only the intermediate artifact and the generator changed.
+### The deeper version of #156, found when CI failed
+
+The tests pinning regeneration could not run on the runner:
+
+```
+FileNotFoundError: .../mhcgnomes/data/hla_dictionary.xlsx
+```
+
+**The dictionary was gitignored** by a blanket `*.xlsx` rule and untracked, so
+the source `serotypes.yaml` names in its own header existed only on whichever
+machine last regenerated the table. Nobody else could regenerate it, or check
+that the shipped table still matched its source -- a larger version of the
+drift this issue is about, and the reason the drift went unnoticed.
+
+Tracked now, with a targeted un-ignore and the reason recorded beside it. The
+dictionary-dependent tests keep a skip guard so a checkout without the file
+degrades to a skip rather than an error.
+
+- Bumped to 3.48.2.
