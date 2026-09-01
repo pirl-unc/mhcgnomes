@@ -1,52 +1,45 @@
-# Finish the IPD-MHC namespace sweep; 15 more prefixes established (#131, #112)
+# HLA-Cw16 (#153)
 
 ## Review
 
-- **All eleven IPD-MHC groups are now transcribed**, not eight.
-  `ipd_designations.yaml` goes from 55 rows to 125 with CHICKEN, FISH, NHP and
-  the `Bos sp.` group row. The eight groups already there were re-read at the
-  same time and every row still agreed, code for code.
+- **I had the premise backwards, and the source I could not reach settles it.**
+  My earlier comment on this issue said the shipped `hla_dictionary.xlsx`
+  reports `WHO Assigned Type = "-"` for every `C*16` allele and tops out at
+  Cw10, and inferred that HLA-C serology might stop there -- which would have
+  put `Cw12`, `Cw14`, `Cw15`, `Cw17` and `Cw18` in doubt too. The dictionary
+  reading was right; the inference was wrong.
 
-- **The completed sweep found zero disagreements.** All 125 IPD designations
-  match our prefix, and every species IPD lists is in our ontology. That is now
-  a CI check rather than a thing someone did by hand once.
+- **The WHO file was reachable after all.** `hla.alleles.org/wmda/` is a 404,
+  but ANHIG/IMGTHLA mirrors the same files:
+  `wmda/hla_nom.txt` (3.65.0, 2026-07-14, "author: WHO, Steven G. E. Marsh")
+  reads
 
-- **Three groups are far smaller than they look**, which is itself the finding:
-  FISH is two species and CHICKEN is one. Every other fish and bird in this
-  ontology has a generated prefix or a literature citation, never a
-  designation. IPD also has no `Bos taurus` row -- cattle are filed as
-  `Bos sp. (BoLA)` -- so `Bota` is literature usage, not a committee
-  assignment, and `Boin` has nothing behind it at all.
+      Cw;12;20260128;;;      Cw;16;20260128;;;
+      Cw;14;20260128;;;      Cw;17;20260128;;;
+      Cw;15;20260128;;;      Cw;18;20260128;;;
 
-- **Fifteen prefixes established, 130 -> 146 designated, 46 -> 30 unknown.**
-  Three from IPD (Gaga, Onmy, Sasa) and twelve read verbatim from the papers:
-  Bota, Feca, Cyca, Coja, Saha, Xela, Modo, Anda, Dare, Ptal, Satr, and H2 from
-  the committee report that named the mouse system.
+  All six were assigned on 2026-01-28 by the 2026 HLA Nomenclature Report. The
+  dictionary is simply a snapshot from before that date -- it does not
+  disagree, it predates.
 
-- **`Iibi` is not a species prefix.** Greater prairie chicken carried it with
-  the note "mhcseqs uses Iibi -- unusual but attested". Nothing attested it.
-  PubMed has no occurrence; the nucleotide database has exactly one, GenBank
-  JX971120.1, where it is a *gene* symbol:
+- **That also explains #156.** Five of the fifteen rows the generator cannot
+  reproduce are exactly these C specificities, for the same reason.
 
-      gene   complement(5622..6980)
-             /gene="IIBI"
-             /product="MHC class II antigen beta chain 2"
+- **Two more absences are correct, and now cited.** The same file records
+  `Cw;11;19871121;19911114;1;Sequence error` -- assigned then withdrawn -- and
+  has no `Cw13` line at all. Both now have a test.
 
-  Meanwhile `Tycu` names 80 GenBank records at allele level (`Tycu-BLB*26` and
-  siblings) and is the Klein 2+2 code for the binomial. So `Tycu` is the
-  prefix; `Iibi` stays as an `other prefix` so strings already emitted under it
-  parse, but nothing is written with it. The same failure shape as `Caau`: a
-  code that cannot be derived from the binomial did not belong to it.
+- **Members from the authority, not from the shape of the neighbours.**
+  `wmda/rel_ser_ser.txt` reads `Cw;16;;1601/1602`, and `rel_dna_ser.txt` maps
+  `C*16:01 -> 1601` and `C*16:02 -> 1602`. The same file associates ~240
+  further `C*16` alleles with the broad specificity; those are left out for the
+  same reason the neighbouring rows leave out their own hundreds.
 
-- **A second authority on the six primate `_LA` codes.** The IPD-MHC NHP group
-  lists 66 primates, every one with a 2+2 code, and none of ChLA/GoLA/MaLA/
-  OmLA/OrLA/RhLA is among them -- agreeing with the de Groot report, which does
-  not contain them either. Recorded next to the canary list.
+- **Regenerated `serotypes_generated.yaml`** so the two files still match: the
+  generator carries forward rows the dictionary does not support, so `Cw16`
+  survives a re-run exactly as `Cw15` does.
 
-- **Could not establish, and said so**: 30 entries remain, including Acda,
-  Boin, Chpi, Crac, Crpo, Eqbu, Mega, Orcu, Pacr, Spau, Xetr and four
-  *Ctenomys*. Each was searched and none returned a usable citation.
-
-- **Measured:** 40 of 36,752 corpus names change, every one of them the
-  Iibi -> Tycu rename. 16,352 tests pass.
-- Bumped to 3.53.0.
+- **Measured:** 0 of 36,752 corpus names change -- `HLA-Cw16` is not in any
+  bundled corpus, which is why the hitlist scan found it and these did not.
+  16,373 tests pass.
+- Bumped to 3.54.0.
