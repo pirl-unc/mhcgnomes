@@ -303,6 +303,23 @@ Provenance is not part of a result's identity: two alleles that differ only in
 how their species was determined still compare equal and hash the same. It is
 also computed only when asked, so it costs nothing if you never look.
 
+A gene symbol only carries a species when it belongs to one lineage. `DRB1` is
+declared by 45 species across humans, cattle, dogs and horses, so on its own it
+names none of them:
+
+```python
+>>> parse("DRB1*01:01", default_species=None, raise_on_error=False) is None
+True
+>>> parse("DRB1*01:01").to_string()  # with the default species, as before
+'HLA-DRB1*01:01'
+>>> parse("BLB2*02").to_string()  # chicken and the Galliformes node: one lineage
+'Gaga-BLB2*02'
+```
+
+A species that uses a shared symbol but does not own its bare form says so in
+the ontology with `context only`, which is why `BF2*02:01` still resolves to
+the chicken although the guineafowl also has a BF2.
+
 ## How many digits per field?
 
 Originally alleles for many genes were numbered with two digits:

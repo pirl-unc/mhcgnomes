@@ -161,21 +161,111 @@ def test_bare_gene_resolves_to_a_species_that_declares_it():
     Every candidate under a broad parent group can see that group's genes, so
     the winner must be one that actually uses the name rather than whichever
     inheritor happens to have the largest gene list.
+
+    Ranking the declarers is only allowed to settle it when they lie in one
+    lineage -- see test_bare_gene_shared_across_lineages_names_no_species,
+    which took DBB1, DAB1 and Ia1 out of this list.
     """
     for gene_name, expected in [
+        # a group node and its own descendant: one lineage
         ("BLB2", "Gallus gallus"),
         ("BLB1", "Gallus gallus"),
+        # chicken and guineafowl are not one lineage, but the guineafowl's
+        # BF2 is marked `context only`, leaving the chicken sole claimant
         ("BF2", "Gallus gallus"),
-        # quail's own class II beta genes stay with the quail
-        ("DBB1", "Coturnix japonica"),
-        # these were reassigned to an inheriting group when the ranking
-        # measured gene-list size instead of declaration
-        ("DAB1", "Crocodylus porosus"),
-        ("Ia1", "Paralichthys olivaceus"),
     ]:
         result = parse(gene_name)
         eq_(result.species.name, expected)
         assert result.species.declares_gene(gene_name), gene_name
+
+
+# ---------------------------------------------------------------------------
+# 3. A gene symbol shared across lineages names no species
+# https://github.com/pirl-unc/mhcgnomes/issues/130
+# ---------------------------------------------------------------------------
+
+# The report: every one of these resolved to Macaca fascicularis, which
+# declares the symbol and happened to have the longest gene list among the
+# 45 species that do.
+CLASS2_SYMBOLS_SHARED_ACROSS_SPECIES = [
+    "DRB1*01:01",
+    "DQA1*01:01",
+    "DQB1*05:01",
+    "DPA1*01:03",
+    "DPB1*04:01",
+]
+
+
+@pytest.mark.parametrize("name", CLASS2_SYMBOLS_SHARED_ACROSS_SPECIES)
+def test_shared_class2_symbol_names_no_species_on_its_own(name):
+    eq_(parse(name, default_species=None, raise_on_error=False), None)
+
+
+@pytest.mark.parametrize("name", CLASS2_SYMBOLS_SHARED_ACROSS_SPECIES)
+def test_shared_class2_symbol_still_uses_the_default_species(name):
+    # The fix must not touch the ordinary human case: a caller who left
+    # default_species alone is asking for the human reading.
+    result = parse(name)
+    eq_(result.species.name, "Homo sapiens")
+    eq_(result.species_source, "default")
+
+
+@pytest.mark.parametrize(
+    "gene_name,declarers",
+    [
+        # quail class II beta versus the ray-finned fish group node
+        ("DBB1", ["Coturnix japonica", "Actinopterygii sp."]),
+        # nine declarers across crocodiles, amphibians, birds, fish and
+        # marsupials; the saltwater crocodile used to win on gene count
+        ("DAB1", ["Crocodylus porosus", "Amphibia sp."]),
+        # flounder "Ia1" and golden pheasant "IA1" normalize to one key, and
+        # the tokenizer lower-cases before the parser ever sees the spelling,
+        # so nothing can tell these apart. See #160.
+        ("Ia1", ["Paralichthys olivaceus", "Chrysolophus pictus"]),
+    ],
+)
+def test_bare_gene_shared_across_lineages_names_no_species(gene_name, declarers):
+    for latin_name in declarers:
+        species = Species.get_by_latin_name(latin_name)
+        assert species.declares_gene(gene_name), f"{latin_name} no longer declares {gene_name}"
+    eq_(parse(gene_name, raise_on_error=False), None)
+    # naming the species still works, which is the whole point of refusing to
+    # guess one
+    eq_(
+        parse(f"{Species.get_by_latin_name(declarers[0]).prefix}-{gene_name}").species.name,
+        declarers[0],
+    )
+
+
+def test_guineafowl_bf2_is_real_but_does_not_claim_the_bare_name():
+    """
+    GenBank EU430728.1 and EF643463.1 are both "Numida meleagris MHC class I
+    antigen (BF2) mRNA", so the gene is not a curation error. What the
+    guineafowl does not have is the bare form: IEDB publishes chicken alleles
+    as BF2*2101, BF2*0401 and so on, and nothing is published as a guineafowl
+    BF2 allele.
+    """
+    guineafowl = Species.get_by_latin_name("Numida meleagris")
+    assert guineafowl.declares_gene("BF2")
+    assert guineafowl.gene_is_context_only("BF2")
+    eq_(parse("NumiMele-BF2").species.name, "Numida meleagris")
+    eq_(parse("NumiMele-BF2*01:01").species.name, "Numida meleagris")
+    eq_(parse("BF2*02:01").species.name, "Gallus gallus")
+
+
+def test_species_inferred_from_a_gene_name_is_not_reported_as_explicit():
+    """
+    `infer_species_from_prefix` falls back to a gene name unique to one
+    species and returns an empty matched string to say so. `species_named_in`
+    counted it anyway, so `require_explicit_species` -- whose entire job is
+    rejecting an inferred species -- accepted "A8*01:01", where nothing names
+    a species. 98 gene names took that route.
+    """
+    for name in ["A8*01:01", "BF2*02:01", "B12c*01:01"]:
+        eq_(parse(name).species_source, "inferred")
+        eq_(parse(name, require_explicit_species=True, raise_on_error=False), None)
+    # and a string that does name its species is unaffected
+    eq_(parse("Gaga-BLB2*02", require_explicit_species=True).species.name, "Gallus gallus")
 
 
 # ---------------------------------------------------------------------------
