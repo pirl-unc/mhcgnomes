@@ -1,37 +1,38 @@
-# Re-spell three prefixes to the form the emitter produces (#129, #131)
+# A haplotype locus that is positively absent (#162)
 
 ## Review
 
-- **Asked, and got an answer.** These three had been sitting in #131's
-  "unestablished" list and #129's "you declined the rename" bucket at once,
-  which is not a place a decision can be made from. The call was to re-spell
-  them to 4+4, keeping the old spellings as aliases.
+- **Built on the decision, not on my recommendation.** I had argued for waiting
+  until the `Lr-` data is available, because the only consumer today is one
+  row. The call was to build it now, so `Hp-2.0` says what its source says
+  rather than recording it in a YAML comment.
 
-- **What was wrong with them.** Each followed no rule this library implements:
+- **Syntax follows the published notation.** Swine types are written
+  "SLA-1*15XX or Blank", so a member is `<gene>*Blank` -- `null` accepted too,
+  since Table 2 of PMC5472656 words it that way. Allele fields are numeric, so
+  it cannot be confused with one.
 
-      EudyChrys   4+5, a shape no tier has produced since 3.42.0 removed 5+5,
-                  while its own siblings are EudyFilh and EudyScla
-      MesoCriAu   not 2+2 (Meau), not 4+4 (MesoAura), not the binomial, next
-                  to a hamster spelled CricGris
-      NeosScha    not even a truncation of the genus -- Neomonachus gives
-                  "Neom", not "Neos"
+- **The bug I predicted appeared, in the place I predicted.**
+  `restrict_mhc_class` rebuilds a `Haplotype` from scratch, so a new field is
+  what such a method forgets -- the #137 shape. It did not forget it; it
+  filtered it with the wrong predicate. `is_valid_restriction` answers "may
+  this restriction be applied at all" and returns **False** for `("Ia", "I")`,
+  so `Hp-2.0 class I` kept its three class I alleles and lost its class I
+  absent locus. The alleles beside them go through `restrict_alleles`, which
+  uses a subtype table. Fixed with a `restrict_genes` twin sharing that table.
 
-  None was attested in the registry, the literature or IPD.
+- **The serotype path needed a guard, not a pass-through.** The loader is
+  shared with `Serotype`, and a serotype is a set of cross-reacting alleles
+  rather than a locus map, so `Blank` says nothing there. It raises. A silent
+  drop is how the swine haplotypes lost their alleles for years (#143).
 
-- **All three new forms were already aliases**, so promoting them collided with
-  nothing: `Species.get("EudyChry")` resolved to the right penguin before this.
+- **The #143 guard was extended rather than relaxed.** "Every curated haplotype
+  keeps every allele" now also requires every blank member to survive, so a
+  blank cannot be quietly dropped either.
 
-- **`EudyChry` carries a note.** It is also what the 4+4 rule would give
-  *Eudyptes chrysolophus*, the macaroni penguin, which this ontology does not
-  carry -- which may well be why the odd 4+5 form was chosen. A test fails if
-  that species is ever added, so the tie has to be broken deliberately.
+- **Not added to equality.** A haplotype's identity is its species and name --
+  which is why `alleles` is not in `eq_field_names` either.
 
-- **#131 drops 19 -> 16.** Not by finding a source but by removing a false
-  question: a prefix the emitter would produce is one we minted, and now says
-  so instead of reporting `None` and looking like an unchecked claim about the
-  outside world.
-
-- **Measured:** 113 of 36,752 corpus names change, every one of them one of the
-  three renames and nothing else. Old spellings still parse and normalize to
-  the new form. 16,423 tests pass.
-- Bumped to 3.58.0.
+- **Verified:** reverting the `restrict_genes` call fails 2 tests. 16,439 tests
+  pass. 0 corpus differences, since no bundled corpus name is a swine haplotype.
+- Bumped to 3.59.0.

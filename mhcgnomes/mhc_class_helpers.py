@@ -68,6 +68,26 @@ def restrict_alleles(alleles, mhc_class):
     return [allele for allele in alleles if allele.mhc_class in valid_subtypes]
 
 
+def restrict_genes(genes, mhc_class):
+    """
+    The gene-level twin of restrict_alleles, sharing its subtype table.
+
+    Written because Haplotype.absent_genes has to survive a class restriction
+    on the same terms as the alleles beside it. is_valid_restriction answers a
+    different question -- may this restriction be applied at all -- and returns
+    False for ("Ia", "I"), so using it here silently dropped a class I locus
+    from a class I reading.
+    """
+    if mhc_class == "I":
+        valid_subtypes = class1_restrictions
+    elif mhc_class == "II":
+        valid_subtypes = class2_restrictions
+    else:
+        valid_subtypes = {mhc_class}
+
+    return [gene for gene in genes if gene.mhc_class in valid_subtypes]
+
+
 def normalize_mhc_class_string(mhc_class, raise_on_error=True):
     original_string = mhc_class
     mhc_class = mhc_class.lower()

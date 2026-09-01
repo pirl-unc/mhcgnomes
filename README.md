@@ -127,6 +127,26 @@ lookup, so the shorthand keeps its meaning.
 'HLA-N'
 ```
 
+### A locus a haplotype does not have
+
+Some haplotypes are defined partly by what is *missing*. The swine haplotype
+`Hp-2.0` has no SLA-3 at all, which its source states as `null`, and
+low-resolution swine types are written `SLA-1*15XX or Blank`. That is a
+different claim from a locus nobody typed, so it is recorded rather than left
+out:
+
+```python
+>>> hap = mhcgnomes.parse("Hp-2.0")
+>>> [allele.to_string() for allele in hap.alleles]
+['SLA-1*02:01', 'SLA-1*07:01', 'SLA-2*02:01']
+>>> [gene.to_string() for gene in hap.absent_genes]
+['SLA-3']
+```
+
+`absent_genes` is empty for every haplotype that does not say otherwise, and it
+narrows with the alleles beside it: `parse("Hp-2.0 class II").absent_genes` is
+empty, because an absent class I locus says nothing about a class II reading.
+
 ### Mutations
 
 MHC proteins are sometimes described in terms of mutations to a known allele.
