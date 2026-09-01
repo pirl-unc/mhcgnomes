@@ -42,3 +42,32 @@ class ResultWithMhcClass(ResultWithSpecies):
     @property
     def is_class2(self):
         return is_class2(self.mhc_class)
+
+    @property
+    def class2_chain_type(self):
+        """
+        "alpha", "beta", or None for anything that does not name one gene.
+
+        Lives here rather than on ResultWithGene so that Gene gets it too.
+        Gene is a sibling of ResultWithGene rather than a subclass, so before
+        this it fell through to Result's `return False` stubs and every class II
+        gene reported neither chain -- which also made "HLA-DRA alpha"
+        unparseable, since the parser gates chain-suffixed candidates on these
+        predicates while listing Gene among the candidate types. See #137.
+
+        Pair has no single gene name and correctly answers None.
+        """
+        gene_name = getattr(self, "gene_name", None)
+        if not self.is_class2 or not gene_name:
+            return None
+        # .get rather than [] : a class II gene with no curated chain type is
+        # unknown, not a crash. None today, but the ontology grows.
+        return self.species.class2_gene_name_to_chain_type.get(gene_name)
+
+    @property
+    def is_class2_alpha(self):
+        return self.class2_chain_type == "alpha"
+
+    @property
+    def is_class2_beta(self):
+        return self.class2_chain_type == "beta"
