@@ -103,9 +103,9 @@ DELIBERATELY_ABSENT = {
     "24.0": "SLA-1 untyped, not blank",
     "33.0": "SLA-1 untyped, not blank",
     "0.29": "DRB1 untyped, not blank",
-    "38.0": "'+' means an allele beyond the group",
-    "45.0": "'+' at two loci",
-    "0.21": "'+' at DQA",
+    "38.0": "'+' notation not defined by the source",
+    "45.0": "'+' at two loci, notation not defined",
+    "0.21": "'+' at DQA, notation not defined",
     "52.0": "'/' means alternatives at one locus",
     "53.0": "'/' at SLA-2",
     "0.11": "'/' at DRB1",
@@ -154,6 +154,19 @@ def test_a_blank_locus_is_recorded_and_an_untyped_one_is_not():
 @pytest.mark.parametrize("name", sorted(DELIBERATELY_ABSENT))
 def test_the_rows_left_out_stay_out(name):
     eq_(parse(f"Lr-{name}", raise_on_error=False), None)
+
+
+def test_the_plus_rows_are_out_because_the_notation_is_undefined():
+    """
+    Not because "+" is hard to represent -- two members at one locus is
+    already how Lr-02.0 records "02XX,07XX". Table 1 never explains "+", and
+    Table 2's footnote 3 describes one instance as "Positive with both
+    DQA*04XX primer sets", which is an assay result rather than a definition.
+    Guessing between "a second allele", "a duplicated locus" and "an
+    unresolved call" is the kind of thing AGENTS.md exists to stop.
+    """
+    for name in ["38.0", "45.0", "0.21", "0.25", "0.27"]:
+        eq_(parse(f"Lr-{name}", raise_on_error=False), None)
 
 
 def test_multiple_alleles_at_one_locus_are_both_listed():

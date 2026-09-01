@@ -120,11 +120,19 @@ SLA:
   #   composite or unconfirmed name   01.0/04.0, 16.0 mod, 31.0/63.0,
   #                                   0.08b, 0.15a, 0.15b, 0.19a, 0.19b
   #   untyped locus (Blank + fn)      24.0, 33.0, 0.29
-  #   "+" -- an allele beyond group   38.0, 45.0, 0.21, 0.25, 0.27
+  #   "+" -- meaning not established  38.0, 45.0, 0.21, 0.25, 0.27
   #   "/" -- alternatives at a locus  52.0, 53.0, 0.11
   #
-  # The last two shapes need a member that is a disjunction, which this format
-  # does not have. That is the remaining half of #162.
+  # On "+": Table 1 does not explain it at all, and Table 2's footnote 3 says
+  # only "Positive with both DQA*04XX primer sets in lanes D12 and C12" of one
+  # instance -- which describes an assay result rather than defining the
+  # notation. Whether "12XX + 11:04" means a second allele at the locus, a
+  # duplicated locus, or an unresolved call is not something these tables say,
+  # so those five rows stay out until it can be read somewhere that does.
+  #
+  # "/" is safe by comparison: a slash between two specificities at one locus
+  # reads as alternatives, and that is a member this format cannot express --
+  # a disjunction. It is the remaining half of #162.
   ##########################################################################
   # ---- low-resolution class I haplotypes ----
   Lr-01.0:
