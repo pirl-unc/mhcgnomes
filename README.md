@@ -320,6 +320,22 @@ A species that uses a shared symbol but does not own its bare form says so in
 the ontology with `context only`, which is why `BF2*02:01` still resolves to
 the chicken although the guineafowl also has a BF2.
 
+Gene lookup is case- and separator-normalizing, so some symbols differ only in
+spelling. Where they do, your spelling decides:
+
+```python
+>>> parse("Ia1").species.name   # Paralichthys olivaceus spells it this way
+'Paralichthys olivaceus'
+>>> parse("IA1").species.name   # Chrysolophus pictus spells it this way
+'Chrysolophus pictus'
+>>> parse("ia1", raise_on_error=False) is None  # neither, so neither is named
+True
+```
+
+A species you name outright still wins over a spelling that points elsewhere —
+`OS=Mus musculus GN=Mr1` is a mouse gene even though *Rattus sp.* is the entry
+that spells `MR1` as `Mr1`.
+
 ## How many digits per field?
 
 Originally alleles for many genes were numbered with two digits:
