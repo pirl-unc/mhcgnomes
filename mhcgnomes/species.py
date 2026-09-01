@@ -1606,6 +1606,19 @@ def combine_species_aliases(
     return result
 
 
+def _hyphens_as_spaces(identifier):
+    """
+    The same identifier with hyphens written as spaces, or None if unchanged.
+
+    Only meaningful for names that already contain a space -- a single
+    hyphenated word normalizes to one token either way, and turning "DMB-1"
+    into "DMB 1" would invent a two-token gene name.
+    """
+    if not isinstance(identifier, str) or "-" not in identifier or " " not in identifier:
+        return None
+    return identifier.replace("-", " ")
+
+
 def create_species_lookup_dictionaries():
     gene_name_to_species_objects = NormalizingDictionary(default_value_fn=set)
     # Canonical index: latin name → species (never ambiguous)
@@ -1624,6 +1637,15 @@ def create_species_lookup_dictionaries():
         species_name_to_species[latin_name] = species
         for s in species.all_identifiers:
             alias_to_species_objects[s].add(species)
+            # A common name written with a hyphen is unreachable from a token
+            # sequence without this. normalize_string *deletes* hyphens, so
+            # "long-haired rat" is stored as LONGHAIRED RAT, while the parser
+            # builds its species query by joining tokens with a space and gets
+            # LONG HAIRED RAT. Registering the space-substituted spelling as
+            # well makes both reachable; it only ever adds keys. See #177.
+            spaced = _hyphens_as_spaces(s)
+            if spaced is not None:
+                alias_to_species_objects[spaced].add(species)
         for s in species.context_only_mhc_prefixes:
             context_only_alias_to_species_objects[s].add(species)
         for gene_name in species.gene_names_and_aliases:
