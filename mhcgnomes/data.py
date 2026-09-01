@@ -42,6 +42,15 @@ def load(yaml_filename, normalize_first_level_keys=False, normalize_second_level
 # dictionary mapping scientific name -> info dictionary
 species = load("species.yaml")
 
+# species -> [{alias, status, evidence}], attested prefix spellings imported
+# from the mhcseqs registry. Kept out of species.yaml because provenance here
+# is per (species, alias) rather than per species. See issue #136.
+evidenced_prefix_aliases = load("evidenced_prefix_aliases.yaml")
+
+# Curation holding area: source signal not yet stable enough for runtime. Read
+# so the evidenced-alias import cannot override a deliberate holdback (#136).
+underrepresented_taxa_source_registry = load("underrepresented_taxa_source_registry.yaml")
+
 # Dictionary mapping each species prefix to a dictionary from old gene
 # names to new ones
 gene_aliases = load(
