@@ -187,7 +187,10 @@ genus's node -- and it is what the rest of the entry is inherited along.
 An umbrella MHC prefix covers everything beneath the node that owns it. The
 loader hands a parent's prefix down to a child as its `old prefix` unless the
 parent is a group entry labelled with its own taxon name -- `Aves sp.` with
-`Aves`, `NHP` with `NHP`. Designations are inherited (`BoLA`, `DLA`, `RhLA`),
+`Aves`, `NHP` with `NHP`. Most group entries announce themselves by ending in
+`sp.`; `NHP` cannot, since it is not a taxon, so it carries `group: true`
+instead -- and so should any future database section that is not a clade,
+rather than being named in the loader (#135). Designations are inherited (`BoLA`, `DLA`, `RhLA`),
 and so are decorated group labels that are not simply the taxon (`Mus sp.` with
 `MusSp`). The child must also not declare an `old prefix` of its own. Note this
 is the *immediate* parent: `Macaca mulatta` inherits `RhLA` from `Macaca sp.`,
@@ -408,15 +411,17 @@ picta* and *Chrysolophus pictus*, `LaniColl` from two shrikes, `LeucLeuc` from
 a dace and a crane. A colliding form is never *auto-generated* as an alias, but
 that only suppresses the generated copy -- where one side of a pair curates the
 form as its prefix or as an `other prefixes` entry, it still resolves globally
-and to that side alone -- confidently, which issue #134 tracks. `ChryPict`
-resolves to the turtle, `LaniColl` to *Lanius collurio*, `LeucLeuc` to the
-crane; two of the three are still their owner's canonical prefix.
+and to that side alone -- confidently, which was the bug in #134. Since 3.43.0
+none of the three resolves on its own: both claimants list the form under
+`context only prefixes`, so `ChryPict-B` fails and
+`parse("ChryPict-B", species="Chrysolophus pictus")` works.
 
-The entries that had a *contested* form as their canonical prefix now carry the
-concatenated binomial instead, which also demoted two tie-breaks belonging to
-no documented form -- `LaniCola` (a hand-tweaked 4+4) and `LeucisLeucis` (a
-6+6). Both are kept in `other prefixes` and still resolve; only their status as
-canonical changed. The concatenated binomial is the default generated alias,
+**The rule this sets: a prefix two entries can derive is curated by neither as
+a plain alias.** Put it under `context only prefixes` on both, and give each
+species its concatenated binomial as the canonical prefix. Six entries follow
+it today. It also demoted two tie-breaks belonging to no documented form --
+`LaniCola` (a hand-tweaked 4+4) and `LeucisLeucis` (a 6+6) -- though those are
+uncontested, so they stay plain `other prefixes` aliases and still resolve. The concatenated binomial is the default generated alias,
 and is the only form with no collisions anywhere in the ontology.
 
 `Species.prefix_provenance` records how an entry came by its prefix:

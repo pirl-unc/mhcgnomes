@@ -501,25 +501,35 @@ Homo sapiens-A*02:01 # latin name with space
 
 Two limits are worth knowing:
 
-**4+4 is not collision-free.** Three forms are derivable from two species
-each — `ChryPict` from both *Chrysemys picta* and *Chrysolophus pictus*,
-`LaniColl` from two shrikes, `LeucLeuc` from a dace and a crane. None is ever
-*auto-generated*, but that only suppresses the generated copy: each is curated
-by one side of its pair, so it still resolves, confidently and to that side
-alone — `ChryPict` gives the turtle, `LaniColl` gives *Lanius collurio*,
-`LeucLeuc` gives the crane. Issue #134 tracks whether they should instead be
-demoted to context-only. Two of the three are still the canonical prefix of
-their owner; the entries that had a *contested* form as their canonical prefix
-now use the concatenated binomial instead — three entries did, in 3.42.0:
+**4+4 is not collision-free, and a contested form names nobody.** Three forms
+are derivable from two species each — `ChryPict` from both *Chrysemys picta*
+and *Chrysolophus pictus*, `LaniColl` from two shrikes, `LeucLeuc` from a dace
+and a crane. Since 3.43.0 none of them resolves on its own:
 
-| species | was | now |
-|---|---|---|
-| *Chrysemys picta* | `ChryPict` | `ChrysemysPicta` |
-| *Lanius collaris* | `LaniCola` | `LaniusCollaris` |
-| *Leuciscus leuciscus* | `LeucisLeucis` | `LeuciscusLeuciscus` |
+```python
+>>> parse("ChryPict-B", raise_on_error=False)
+None                       # was a painted turtle, even if you meant the pheasant
+>>> parse("ChryPict-B", species="Chrysolophus pictus").species.name
+'Chrysolophus pictus'      # explicit species still resolves it
+```
 
-Their normalized output changes accordingly, so `parse("ChryPict-UA")` now
-round-trips as `ChrysemysPicta-UA`. The old spellings stay parseable.
+Both claimants list the form under `context only prefixes`, so it resolves
+only when the caller has already said which species they mean. The species that
+had held a contested form as their canonical prefix use their concatenated
+binomial instead — three entries did, in 3.42.0:
+
+| species | was | now | old spelling |
+|---|---|---|---|
+| *Chrysemys picta* | `ChryPict` | `ChrysemysPicta` | context only |
+| *Chrysolophus pictus* | `Chpi` | `Chpi` | — |
+| *Lanius collurio* | `LaniColl` | `LaniusCollurio` | context only |
+| *Lanius collaris* | `LaniCola` | `LaniusCollaris` | alias |
+| *Leucogeranus leucogeranus* | `LeucLeuc` | `LeucogeranusLeucogeranus` | context only |
+| *Leuciscus leuciscus* | `LeucisLeucis` | `LeuciscusLeuciscus` | alias |
+
+Normalized output changes accordingly. The uncontested old spellings
+(`LaniCola`, `LeucisLeucis`) stay parseable as plain aliases; the contested
+ones (`ChryPict`, `LaniColl`, `LeucLeuc`) need an explicit `species=`.
 
 **Subspecies mint no generated alias.** A trinomial entry such as *Canis lupus
 baileyi* deliberately does not claim `CanisLupus`, which belongs to its parent
