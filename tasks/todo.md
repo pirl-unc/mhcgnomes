@@ -1,30 +1,37 @@
-# Make every printed form parse back (#177)
+# A shared identifier names the containing node (#129)
 
 ## Review
 
-- **The invariant was never tested, which is why 148 names violated it.**
-  Requiring that `parse(x.to_string())` succeed is now a test in its own right,
-  over every CD1 form in the ontology. Whatever is decided later about the CD1
-  branch, printing something unparseable fails here first.
+- **Found by asking what else the round-trip technique would find.** Sweeping
+  "does every identifier a species advertises resolve back to it" turned up 109
+  exceptions. 105 were umbrella prefixes resolving to their owner, which is
+  correct and by design. **Four were not.**
 
-- **Two causes, found by chasing rather than assuming.** #178 fixed the first:
-  the species matcher tried three leading tokens, so 41 long common names were
-  unreachable. That took the failures 148 -> 130 and no further, which is what
-  pointed at the second.
+- **`Species.get` disagreed with `parse` about the same string.**
+  `Species.get("swordtail")` returned None while
+  `parse("swordtail class I")` answered *Xiphophorus sp.* The public lookup and
+  the parser giving different answers is the bug; which one is right is
+  secondary.
 
-- **`normalize_string` deletes hyphens; the parser joins tokens with a space.**
-  So "long-haired rat" is stored as `LONGHAIRED RAT`, while a token sequence
-  produces `LONG HAIRED RAT`. A hyphenated multi-word name could never be
-  reconstructed, however wide the window. Registering the space-substituted
-  spelling as an additional alias makes both reachable, and only ever adds
-  keys.
+- **Another comment describing behaviour the code did not implement.** The
+  ladder's step 3 says "prefer the species that isn't a subspecies (no parent
+  with same identifier)" and tested `sp.parent_species is None` -- "no parent at
+  all" -- so it only ever fired for root entries. Umbrella prefixes were
+  unaffected because step 2 catches them: `MusSp` is *Mus sp.*'s own prefix. A
+  shared *common name* has no step 2, so it fell through to None. Same shape as
+  #160, where the case-aware ranking key had never fired.
 
-- **Guarded so it cannot invent gene names.** The extra alias is added only for
-  identifiers that already contain a space, so `DMB-1` cannot become the
-  two-token `DMB 1`. There is a test for exactly that.
+- **The predicate is now named and tested directly.** `_containing_species`
+  returns the one claimant that contains all the others, or None.
 
-- **Measured:** round-trip failures **130 -> 0**; every printed form in the
-  36,752-name corpus now parses back. 359 corpus names change, **every one
-  `None` -> a result**, none lost. 16,982 tests pass; removing the alias
-  registration fails 127 of them.
-- Bumped to 3.62.0.
+- **The ontology has zero aliases with unrelated claimants**, because #112 and
+  #134 moved every contested string -- Caau, Hyam, Moal, Orla -- to `context
+  only prefixes`. So the "decline to guess" branch is unexercised by data,
+  which is exactly why it is now tested with a constructed pair instead of
+  borrowed ones. My first draft asserted Caau was still ambiguous; it is not,
+  and the test failed and said so.
+
+- **Measured:** 0 of 36,752 corpus names change -- the parser already resolved
+  these; only the public lookup was wrong. 16,994 tests pass; restoring the old
+  predicate fails 4.
+- Bumped to 3.63.0.
