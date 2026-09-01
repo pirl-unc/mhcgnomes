@@ -697,7 +697,11 @@ def test_unestablished_provenance_stays_none():
         # allele", the chicken B-LB nomenclature, with no Pacr anywhere. And
         # Xenopus tropicalis, whose Xetr does appear in GenBank -- as clone
         # tags like "Xetr-T2R54" for bitter taste receptors, not for MHC.
-        # Neither absence is for want of looking.
+        # Neither absence is for want of looking. UniProt says the same: a
+        # gene:Pacr* search returns human PACRG and PACRGL, and gene:Xetr*
+        # returns nothing at all. It is the source that settled Chrysolophus
+        # pictus, which UniProt curates as Chpi-IA1/IA2/IA3, so these two are
+        # negatives from a source that demonstrably finds the positives.
         "Pavo cristatus",
         "Xenopus tropicalis",
         "Aotus sp.",

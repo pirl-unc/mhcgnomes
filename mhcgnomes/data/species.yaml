@@ -4425,6 +4425,13 @@ Gallus gallus:
 ################################################################################
 Chrysolophus pictus:
   parent: Galliformes sp.
+  # prefix source: designated -- UniProt curates the golden pheasant class I
+  # sequences under gene names that carry the prefix: A0A0U1ZFQ3 "Chpi-IA1",
+  # A0A0U1ZFL7 "Chpi-IA2", A0A0U1ZCW0 "Chpi-IA3", all on Chrysolophus pictus
+  # and all referencing PMID 26700854 -- the same paper cited for IA3's
+  # pseudogene status below, which writes the loci as IA1/IA2/IA3 without the
+  # prefix. https://rest.uniprot.org/uniprotkb/A0A0U1ZFQ3
+  prefix source: designated
   prefix: Chpi
   # ChryPict is derivable by the 4+4 rule from this species and from
   # Chrysemys picta (painted turtle) so it names neither; see "contested
