@@ -842,6 +842,31 @@ HLA:
     - C*15:02
     - C*15:05
     - C*15:10
+  # Cw16 was assigned by the 2026 HLA Nomenclature Report and so is not in
+  # hla_dictionary.xlsx, which predates it: every C*16 row there reads
+  # "WHO Assigned Type = -", "Expert Assigned Type = Undefined", and its WHO
+  # column stops at Cw10. That is why the generator cannot produce this row --
+  # nor Cw12, Cw14, Cw15, Cw17 or Cw18, which were assigned on the same day.
+  #
+  # The WHO Nomenclature Committee's own file has it. wmda/hla_nom.txt
+  # (IPD-IMGT/HLA 3.65.0, 2026-07-14, "author: WHO, Steven G. E. Marsh") reads
+  #     Cw;16;20260128;;;
+  # -- assigned 2026-01-28, never deleted. Contrast Cw11, which the same file
+  # records as assigned in 1987 and deleted in 1991 for "Sequence error", and
+  # Cw13, which has no line at all: those two absences are correct.
+  #
+  # The two members are the associated antigens WHO recognises under it.
+  # wmda/rel_ser_ser.txt reads
+  #     Cw;16;;1601/1602
+  # and rel_dna_ser.txt maps C*16:01 -> 1601 and C*16:02 -> 1602. The same
+  # file associates ~240 further C*16 alleles with the broad specificity 16;
+  # they are not listed for the same reason the neighbouring rows do not list
+  # their own hundreds. See #153 and #156.
+  #
+  # https://raw.githubusercontent.com/ANHIG/IMGTHLA/Latest/wmda/hla_nom.txt
+  Cw16:
+    - C*16:01
+    - C*16:02
   Cw17:
     - C*17:01
   Cw18:
