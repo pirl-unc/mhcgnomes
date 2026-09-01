@@ -1,49 +1,60 @@
-# A contested prefix names nobody, and group-ness lives in the data
+# Fix what the #138 review found, after it shipped
 
-Tracking issues: #134, #135
-
-## Specification
-
-- [x] #135: replace the hardcoded `latin_name == "NHP"` in `_is_group_entry`
-      with a `group: true` key, keeping the `" sp."` suffix as the shorthand.
-- [x] #134: stop a 4+4 form derivable from two species resolving confidently to
-      whichever of them curated it.
-- [x] Give the two species that still held a contested form as their canonical
-      prefix their concatenated binomial instead.
-- [x] Measure against a worktree of `main`; update README and `docs/curation.md`.
+Follow-up to #138 (3.43.0), which merged before its review reported.
 
 ## Review
 
-- **#135 is a three-line change.** `_is_group_entry` reads `group: true` from
-  the entry and falls back to the `" sp."` suffix, and `NHP` declares the flag.
-  `SPECIES_ENTRY_KEYS` already rejects unknown keys, so the flag cannot be
-  silently misspelled. Group-ness drives both prefix inheritance and
-  `prefix_provenance`, so the next non-taxon section added -- IPD-MHC also
-  groups by `FISH` and `CHICKEN` -- no longer has to be remembered in code.
-- **#134: a contested form now resolves only under an explicit `species=`.**
-  `ChryPict`, `LaniColl` and `LeucLeuc` are each derivable by the 4+4 rule from
-  two species. The generator already refused to emit them, but that only
-  suppressed the generated copy -- whichever claimant curated the form won
-  silently, so a caller who meant a golden pheasant and wrote `ChryPict` got a
-  painted turtle. Both claimants now list the form under
-  `context only prefixes`, which is the mechanism the ontology already uses for
-  `Moal` and `Orla`:
+- **The error message asserted something untrue.** A contested prefix reached
+  the `context only prefixes` bucket, whose message says the string is
+  "source-attested for multiple species". Nothing has ever published a
+  `ChryPict-*` allele -- the form exists only because the 4+4 rule derives it
+  from two binomials. The message now branches:
 
   ```
-  parse("ChryPict-B")                                   -> None
-  parse("ChryPict-B", species="Chrysolophus pictus")    -> Chrysolophus pictus
+  ChryPict -> "derivable by the same naming rule from Chrysemys picta,
+               Chrysolophus pictus, so it names neither"
+  Moal     -> "source-attested for multiple species (Monopterus albus,
+               Motacilla alba)"
   ```
 
-- **Two more canonical prefixes moved to the concatenated binomial.**
-  *Lanius collurio* held `LaniColl` and *Leucogeranus leucogeranus* held
-  `LeucLeuc`; both named their species only by curation order. They are now
-  `LaniusCollurio` and `LeucogeranusLeucogeranus`, forms that were already
-  parseable as generated aliases, so the rename promotes rather than invents.
-- **The rule is written down**, since the next collision will want it: a prefix
-  two entries can derive is curated by neither as a plain alias -- context only
-  on both, concatenated binomial as each canonical prefix.
-- **Measured against a worktree of `main` (3.42.0):** 0 of 11,558 corpus names
-  change. 16 structural fields differ across the 6 species involved, and no
-  others.
-- Bumped 3.42.0 to 3.43.0 -- three forms stop resolving bare, and two species
-  normalize to a new prefix.
+  `Moal` genuinely is attested for both, so it keeps the old wording.
+- **The remedy it offered had the same bug it was diagnosing.** The message
+  suggested `sp.prefix` as "a collision-free canonical prefix", which for
+  *Chrysolophus pictus* is `Chpi` -- and Klein's 2+2 rule derives `Chpi` from
+  *Chrysemys picta* too. It now offers the concatenated binomial, the only form
+  with no collisions anywhere in the ontology.
+- **An explicit non-claimant species lost the diagnostic.** The contested-prefix
+  message was only built when `species is None`, so
+  `parse("ChryPict-UA*01", species="Gallus gallus")` fell back to
+  "Could not parse" -- failing quietly in exactly the case where the caller had
+  been most explicit. It now explains, and adds which species was asked for.
+- **My README example demonstrated nothing.** It used `ChryPict-B`, but
+  *Chrysemys picta* declares no `B` gene, so that string returned `None` on
+  3.42.0 as well. The input that actually changed is `ChryPict-UA*01`. Both the
+  README and `docs/curation.md` used the vacuous one.
+- **The prefix table mixed two releases** under one "was -> now" heading, so a
+  reader on 3.42.0 would conclude *Chrysemys picta* was about to change (it had
+  already) and *Lanius collurio* had already (it was about to). Split by
+  release, and 3.43.0 now carries the breaking-change callout that 3.42.0's
+  section established.
+- **`group` accepted any truthy value.** Its neighbour `prefix source` is
+  validated against a value set, but `group` was read with a bare `.get`, so
+  `group: "false"` would have silently turned a species into a group entry --
+  stopping it handing its prefix down to every descendant. Only `true` is
+  accepted now.
+- **`Species.is_group` is public.** #135 moved group-ness into the data but
+  left it behind a module-private function reading `raw_species_dict`, so a
+  downstream consumer still had to re-derive it from `name.endswith(" sp.")` --
+  the heuristic that gets NHP wrong, which was the point of #135.
+- Also: `"group"` had been inserted directly under the comment declaring the
+  keys below it dead, so a future cleanup of #139 would have deleted it;
+  `_is_group_entry`'s docstring claimed group-ness alone decides provenance,
+  when it is one half of a conjunction; six identical four-line rationales in
+  `species.yaml` collapsed to one line each pointing at `docs/curation.md`; the
+  `context only prefixes` definition 290 lines earlier still said the bucket is
+  only for attested strings; five over-long prose lines re-wrapped; and a
+  function-local import moved to module scope.
+- **Measured:** 0 of 11,558 corpus names change against a worktree of `main`.
+  6 new tests, covering both wordings, the suggested prefix, the explicit-species
+  path, the `group` validation and `is_group`.
+- 3.43.2, since 3.43.1 is #140.

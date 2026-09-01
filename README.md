@@ -507,29 +507,46 @@ and *Chrysolophus pictus*, `LaniColl` from two shrikes, `LeucLeuc` from a dace
 and a crane. Since 3.43.0 none of them resolves on its own:
 
 ```python
->>> parse("ChryPict-B", raise_on_error=False)
-None                       # was a painted turtle, even if you meant the pheasant
->>> parse("ChryPict-B", species="Chrysolophus pictus").species.name
+>>> parse("ChryPict-UA*01", raise_on_error=False)
+None                       # 3.42.0 gave a painted turtle, even if you meant the pheasant
+>>> parse("ChryPict-UA*01", species="Chrysolophus pictus").species.name
 'Chrysolophus pictus'      # explicit species still resolves it
 ```
 
+Raising instead of returning `None` explains the ambiguity rather than the
+symptom:
+
+```
+Prefix 'ChryPict' is derivable by the same naming rule from Chrysemys picta,
+Chrysolophus pictus, so it names neither. Use species='<latin name>' or an
+unambiguous prefix such as ChrysemysPicta (Chrysemys picta),
+ChrysolophusPictus (Chrysolophus pictus).
+```
+
 Both claimants list the form under `context only prefixes`, so it resolves
-only when the caller has already said which species they mean. The species that
-had held a contested form as their canonical prefix use their concatenated
-binomial instead — three entries did, in 3.42.0:
+only when the caller has already said which species they mean. **This is a breaking parse change.** `ChryPict`, `LaniColl` and `LeucLeuc` all
+resolved on 3.42.0 and now need an explicit `species=`. The species that had
+held a contested form as their canonical prefix use their concatenated binomial
+instead, so their normalized output changes too.
+
+Canonical prefix changed **in 3.42.0**:
 
 | species | was | now | old spelling |
 |---|---|---|---|
-| *Chrysemys picta* | `ChryPict` | `ChrysemysPicta` | context only |
-| *Chrysolophus pictus* | `Chpi` | `Chpi` | — |
-| *Lanius collurio* | `LaniColl` | `LaniusCollurio` | context only |
-| *Lanius collaris* | `LaniCola` | `LaniusCollaris` | alias |
-| *Leucogeranus leucogeranus* | `LeucLeuc` | `LeucogeranusLeucogeranus` | context only |
-| *Leuciscus leuciscus* | `LeucisLeucis` | `LeuciscusLeuciscus` | alias |
+| *Chrysemys picta* | `ChryPict` | `ChrysemysPicta` | alias, then context only in 3.43.0 |
+| *Lanius collaris* | `LaniCola` | `LaniusCollaris` | plain alias, uncontested |
+| *Leuciscus leuciscus* | `LeucisLeucis` | `LeuciscusLeuciscus` | plain alias, uncontested |
 
-Normalized output changes accordingly. The uncontested old spellings
-(`LaniCola`, `LeucisLeucis`) stay parseable as plain aliases; the contested
-ones (`ChryPict`, `LaniColl`, `LeucLeuc`) need an explicit `species=`.
+Canonical prefix changed **in 3.43.0**, because each still held a form its
+sibling derives too:
+
+| species | was | now | old spelling |
+|---|---|---|---|
+| *Lanius collurio* | `LaniColl` | `LaniusCollurio` | context only |
+| *Leucogeranus leucogeranus* | `LeucLeuc` | `LeucogeranusLeucogeranus` | context only |
+
+*Chrysolophus pictus* keeps `Chpi` throughout and gains `ChryPict` as a
+context-only prefix, since it derives that form as well.
 
 **Subspecies mint no generated alias.** A trinomial entry such as *Canis lupus
 baileyi* deliberately does not claim `CanisLupus`, which belongs to its parent

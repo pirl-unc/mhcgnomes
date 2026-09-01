@@ -11,9 +11,13 @@ import pytest
 from mhcgnomes import Allele, Gene, ParseError, Species, parse
 from mhcgnomes.common import normalize_string
 from mhcgnomes.data import species as species_data
-from mhcgnomes.species import _make_long_prefix, raw_species_dict
+from mhcgnomes.species import (
+    _make_long_prefix,
+    find_matching_context_only_species_objects,
+    raw_species_dict,
+)
 
-from .common import eq_
+from .common import eq_, ok_
 
 # ---------------------------------------------------------------------------
 # 1. Species identity via latin name
@@ -232,8 +236,6 @@ def test_contested_4_4_forms_resolve_only_under_explicit_species():
     it under `context only prefixes`, so a bare form fails and an explicit
     species= still resolves. See #134.
     """
-    from mhcgnomes.species import find_matching_context_only_species_objects
-
     for form, claimants in [
         ("ChryPict", {"Chrysemys picta", "Chrysolophus pictus"}),
         ("LaniColl", {"Lanius collurio", "Lanius collaris"}),
@@ -751,3 +753,89 @@ def test_4_4_shorthand_parses_an_allele():
     eq_(result.species.prefix, "HLA")
     eq_(result.gene.name, "A")
     eq_(result.allele_fields, ("02", "01"))
+
+
+# ---------------------------------------------------------------------------
+# Error messages for a contested prefix (review of #138)
+# ---------------------------------------------------------------------------
+
+
+def test_a_derived_collision_is_not_called_source_attested():
+    """
+    ChryPict exists only because the 4+4 rule derives it from two binomials;
+    nothing has published a ChryPict-* allele. Telling the user it is
+    "source-attested" invents provenance, which AGENTS.md forbids.
+    """
+    from mhcgnomes import ParseError
+
+    with pytest.raises(ParseError) as excinfo:
+        parse("ChryPict-UA*01", raise_on_error=True)
+    message = str(excinfo.value)
+    assert "derivable by the same naming rule" in message, message
+    assert "source-attested" not in message, message
+
+
+def test_an_attested_collision_still_says_source_attested():
+    """The counterpart: Moal really is used for both species in source data."""
+    from mhcgnomes import ParseError
+
+    with pytest.raises(ParseError) as excinfo:
+        parse("Moal-DAB", raise_on_error=True)
+    assert "source-attested" in str(excinfo.value)
+
+
+def test_the_suggested_prefix_is_actually_unambiguous():
+    """
+    The message used to offer `sp.prefix`, which for Chrysolophus pictus is
+    `Chpi` -- derivable by Klein's 2+2 rule from Chrysemys picta as well, so
+    the advice moved the collision to a shorter tier instead of resolving it.
+    """
+    from mhcgnomes import ParseError
+
+    with pytest.raises(ParseError) as excinfo:
+        parse("ChryPict-UA*01", raise_on_error=True)
+    message = str(excinfo.value)
+    assert "ChrysolophusPictus" in message, message
+    assert "ChrysemysPicta" in message, message
+    assert "Chpi" not in message, message
+
+
+def test_an_explicit_non_claimant_species_still_gets_the_explanation():
+    """
+    Passing a species that is not one of the claimants used to downgrade the
+    diagnostic to a bare "Could not parse", so the form failed quietly in
+    exactly the case where the caller had been most explicit.
+    """
+    from mhcgnomes import ParseError
+
+    with pytest.raises(ParseError) as excinfo:
+        parse("ChryPict-UA*01", species="Gallus gallus", raise_on_error=True)
+    message = str(excinfo.value)
+    assert "derivable by the same naming rule" in message, message
+    assert "Gallus gallus" in message, message
+
+
+def test_group_flag_rejects_anything_but_true():
+    """`prefix source` validates its value; `group` did not, and it decides
+    whether an entry hands its prefix down to every descendant."""
+    from mhcgnomes.species import create_species_for_latin_name
+
+    for bad_value in ["true", "yes", 1, False]:
+        entry = {"prefix": "TestGroup", "name": "test", "group": bad_value}
+        with (
+            temporary_species_entry("Test group sp.", entry),
+            pytest.raises(ValueError, match="'group'"),
+        ):
+            create_species_for_latin_name("Test group sp.")
+
+
+def test_is_group_is_public_and_gets_nhp_right():
+    """
+    Consumers outside this module used to have to re-derive group-ness from
+    `name.endswith(" sp.")`, which classifies NHP as a species. See #135.
+    """
+    ok_(Species.get_by_latin_name("NHP").is_group)
+    ok_(Species.get_by_latin_name("Aves sp.").is_group)
+    ok_(Species.get_by_latin_name("Bos sp.").is_group)
+    ok_(not Species.get_by_latin_name("Homo sapiens").is_group)
+    ok_(not Species.get_by_latin_name("Bubo bubo").is_group)

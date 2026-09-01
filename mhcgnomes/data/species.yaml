@@ -1787,10 +1787,8 @@ Leuciscus leuciscus:
   prefix: LeuciscusLeuciscus
   other prefixes:
     - LeucisLeucis
-  # LeucLeuc is derived by the 4+4 rule from this species and from
-  # Leucogeranus leucogeranus (Siberian crane), so it can name neither on its own. Context only:
-  # it resolves under an explicit species=, and a bare LeucLeuc-* fails
-  # loudly rather than picking a side. See #134.
+  # LeucLeuc is derivable by the 4+4 rule from this species and from
+  # Leucogeranus leucogeranus (Siberian crane) so it names neither; see "contested prefixes" in docs/curation.md (#134).
   context only prefixes:
     - LeucLeuc
   name: Common dace
@@ -2166,10 +2164,8 @@ Chrysemys picta:
   # pheasant keeps Chpi; the turtle takes the concatenated binomial, which
   # collides with nothing. See #128.
   prefix: ChrysemysPicta
-  # ChryPict is derived by the 4+4 rule from this species and from
-  # Chrysolophus pictus (golden pheasant), so it can name neither on its own. Context only:
-  # it resolves under an explicit species=, and a bare ChryPict-* fails
-  # loudly rather than picking a side. See #134.
+  # ChryPict is derivable by the 4+4 rule from this species and from
+  # Chrysolophus pictus (golden pheasant) so it names neither; see "contested prefixes" in docs/curation.md (#134).
   context only prefixes:
     - ChryPict
   name: Painted turtle
@@ -3443,10 +3439,8 @@ Leucogeranus leucogeranus:
   # LeucLeuc was the canonical prefix here, but Leuciscus leuciscus derives the
   # same 4+4 form, so it named this species only by curation order. See #134.
   prefix: LeucogeranusLeucogeranus
-  # LeucLeuc is derived by the 4+4 rule from this species and from
-  # Leuciscus leuciscus (common dace), so it can name neither on its own. Context only:
-  # it resolves under an explicit species=, and a bare LeucLeuc-* fails
-  # loudly rather than picking a side. See #134.
+  # LeucLeuc is derivable by the 4+4 rule from this species and from
+  # Leuciscus leuciscus (common dace) so it names neither; see "contested prefixes" in docs/curation.md (#134).
   context only prefixes:
     - LeucLeuc
   name: Siberian crane
@@ -3535,10 +3529,8 @@ Lanius collurio:
   prefix: LaniusCollurio
   other prefixes:
     - Laco
-  # LaniColl is derived by the 4+4 rule from this species and from
-  # Lanius collaris (fiscal shrike), so it can name neither on its own. Context only:
-  # it resolves under an explicit species=, and a bare LaniColl-* fails
-  # loudly rather than picking a side. See #134.
+  # LaniColl is derivable by the 4+4 rule from this species and from
+  # Lanius collaris (fiscal shrike) so it names neither; see "contested prefixes" in docs/curation.md (#134).
   context only prefixes:
     - LaniColl
   name: Red-backed shrike
@@ -3919,10 +3911,8 @@ Lanius collaris:
   prefix: LaniusCollaris
   other prefixes:
     - LaniCola
-  # LaniColl is derived by the 4+4 rule from this species and from
-  # Lanius collurio (red-backed shrike), so it can name neither on its own. Context only:
-  # it resolves under an explicit species=, and a bare LaniColl-* fails
-  # loudly rather than picking a side. See #134.
+  # LaniColl is derivable by the 4+4 rule from this species and from
+  # Lanius collurio (red-backed shrike) so it names neither; see "contested prefixes" in docs/curation.md (#134).
   context only prefixes:
     - LaniColl
   name: Fiscal shrike
@@ -4047,10 +4037,8 @@ Gallus gallus:
 Chrysolophus pictus:
   parent: Galliformes sp.
   prefix: Chpi
-  # ChryPict is derived by the 4+4 rule from this species and from
-  # Chrysemys picta (painted turtle), so it can name neither on its own. Context only:
-  # it resolves under an explicit species=, and a bare ChryPict-* fails
-  # loudly rather than picking a side. See #134.
+  # ChryPict is derivable by the 4+4 rule from this species and from
+  # Chrysemys picta (painted turtle) so it names neither; see "contested prefixes" in docs/curation.md (#134).
   context only prefixes:
     - ChryPict
   name: Golden pheasant
