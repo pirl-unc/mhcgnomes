@@ -1,30 +1,28 @@
-# Establish Chpi from UniProt (#131)
+# Record the turkey negative, and that a search summary invented it (#131)
 
 ## Review
 
-- **One source I had never queried.** The `underrepresented_taxa_source_registry`
-  is built from UniProt gene names -- `uniprot_gene_name: Tycu-IA` is what its
-  own entries record -- and I had gone through IPD, PubMed and GenBank without
-  once asking UniProt. Same gap as the GenBank one, one layer along.
+- **A web search produced a plausible-looking answer, and it was wrong.** For
+  `Mega` (*Meleagris gallopavo*) the summary asserted that turkey class I genes
+  use "Mega-Ia1" and "Mega-Ia2". Both primary papers say otherwise:
+  "Defining the turkey MHC: sequence and genes of the B locus" (PMID 19864609)
+  and its class I/IIB sequel (PMID 21710346) describe the turkey MHC as
+  **MHC-B** and **MHC-Y** -- the chicken system -- and neither writes `Mega-`.
 
-- **It settles Chrysolophus pictus.** UniProt curates the golden pheasant class
-  I sequences under prefixed gene names: A0A0U1ZFQ3 `Chpi-IA1`, A0A0U1ZFL7
-  `Chpi-IA2`, A0A0U1ZCW0 `Chpi-IA3`, all referencing PMID 26700854 -- the paper
-  already cited in this entry for IA3's pseudogene status, which writes the
-  loci as IA1/IA2/IA3 *without* the prefix. The prefix is in the database
-  curation rather than the paper text, which is why PubMed searching missed it.
+- **GenBank agrees.** Of 35 turkey MHC records, **zero** contain "Mega-". The
+  gene labels are `MHC-B` (10), `IIb1`, `IIb2`, `IIb3`, `DMB2`. Same pattern as
+  the peafowl, deposited under the chicken `B-LB` nomenclature.
 
-- **And it strengthens two negatives rather than leaving them silent.** A
-  `gene:Pacr*` search returns human PACRG and PACRGL; `gene:Xetr*` returns
-  nothing. Those are negatives from a source that demonstrably finds the
-  positives, which is worth more than an absence of hits, and the canary test
-  now says so.
+- **So `Mega` moves from silence to evidence against**, joining `Pacr` and
+  `Xetr` in the canary test. Three of the five remaining unknowns now have a
+  positive reason rather than an absence of hits.
 
-- **Queried twice, with different shapes**, after the GenBank retmax lesson:
-  `"<prefix>" AND organism_name:"<species>"` and `gene:<prefix>*`. Boin, Mega,
-  Pacr, StriOccCaur and Xetr are empty on both.
+- **Third time this issue.** A summary of the IPD group list once reported
+  "CLA = cat" and "CeLA = deer", both wrong. The mhcseqs registry cites the
+  de Groot report for six `_LA` codes it does not contain. And now this. The
+  protocol that caught all three is the same: use search to find candidate
+  sources, then read each one verbatim before believing it.
 
-- **#131 is 158 designated / 15 unknown**, from 11/163 when filed.
-
-- **Measured:** 0 of 36,752 corpus names change. 16,439 tests pass.
-- Bumped to 3.59.1.
+- **Verified:** 16,439 tests pass; no data changed, so no corpus measurement
+  applies.
+- Bumped to 3.59.2.

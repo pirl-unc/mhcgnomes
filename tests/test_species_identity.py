@@ -702,6 +702,19 @@ def test_unestablished_provenance_stays_none():
         # returns nothing at all. It is the source that settled Chrysolophus
         # pictus, which UniProt curates as Chpi-IA1/IA2/IA3, so these two are
         # negatives from a source that demonstrably finds the positives.
+        #
+        # Meleagris gallopavo is here on the same footing, and is worth a
+        # sentence because a web search claims otherwise. Search summaries
+        # assert that turkey class I uses "Mega-Ia1"/"Mega-Ia2"; the primary
+        # sources do not. "Defining the turkey MHC: sequence and genes of the B
+        # locus" (PMID 19864609) and its class I/IIB sequel (PMID 21710346)
+        # both describe the turkey MHC as MHC-B and MHC-Y, the chicken system,
+        # and none of the 35 GenBank turkey MHC records contains "Mega-" --
+        # they are labelled MHC-B, IIb1, IIb2, IIb3. Same pattern as the
+        # peafowl's B-LB. This is the third time in this issue that a summary
+        # invented a plausible nomenclature: see also "CLA = cat" and the
+        # de Groot citation for the six _LA codes.
+        "Meleagris gallopavo",
         "Pavo cristatus",
         "Xenopus tropicalis",
         "Aotus sp.",
