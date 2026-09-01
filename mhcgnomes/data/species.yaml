@@ -3207,7 +3207,12 @@ Phodopus roborovskii:
         - Eb1
 Mesocricetus auratus:
   parent: Rodentia sp.
-  prefix: MesoCriAu
+  # MesoCriAu until 3.58.0, which follows no rule this library implements --
+  # not 2+2 (Meau), not 4+4 (MesoAura), not the full binomial -- while the
+  # hamster next to it is plain 4+4 (CricGris). Kept below as an alias.
+  prefix: MesoAura
+  other prefixes:
+    - MesoCriAu
   name: Golden hamster
 Cricetulus griseus:
   parent: Rodentia sp.
@@ -4234,9 +4239,18 @@ Eudyptes sclateri:
   name: Erect-crested penguin
 Eudyptes chrysocome:
   parent: Aves sp.
-  prefix: EudyChrys
+  # EudyChrys until 3.58.0. It was four-plus-five, a shape no tier has produced
+  # since 3.42.0 removed 5+5, and its own siblings are plain 4+4 (EudyFilh,
+  # EudyScla). Nothing in the literature or the registry attested it. Kept
+  # below so anything written with it still parses.
+  #
+  # The 4+4 form is worth a note: EudyChry is also what the rule would give
+  # Eudyptes chrysolophus, the macaroni penguin, which this ontology does not
+  # carry. If it is added, the uniqueness guard will have to break the tie.
+  prefix: EudyChry
   other prefixes:
     - Euch
+    - EudyChrys
   name: Southern rockhopper penguin
   genes:
     IIb:
@@ -5986,9 +6000,12 @@ Ailuropoda melanoleuca:
      - "128"
 Neomonachus schauinslandi:
   parent: Gnathostomata sp.
-  prefix: NeosScha
+  # NeosScha until 3.58.0. It was not even a truncation of the genus: the first
+  # four letters of Neomonachus are "Neom", not "Neos". Kept below as an alias.
+  prefix: NeomScha
   other prefixes:
     - Nesc
+    - NeosScha
   name: Hawaiian monk seal
   genes:
     IIa:
