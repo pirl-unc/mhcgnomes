@@ -4600,6 +4600,9 @@ NHP:
   prefix: NHP
   name: non-human primate
 Alouatta pigra:
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # NHP group: https://www.ebi.ac.uk/ipd/mhc/group/NHP/species
+  prefix source: designated
   prefix: Alpi
   parent: NHP
   name: Guatemalan black howler
@@ -4631,29 +4634,50 @@ Aotus sp.:
         - DQB2
 Aotus azarai:
   parent: Aotus sp.
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # NHP group: https://www.ebi.ac.uk/ipd/mhc/group/NHP/species
+  prefix source: designated
   prefix: Aoaz
   name: Azara's Night Monkey
 Aotus lemurinus:
   parent: Aotus sp.
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # NHP group: https://www.ebi.ac.uk/ipd/mhc/group/NHP/species
+  prefix source: designated
   prefix: Aole
   name: Gray-bellied Night Monkey
 Aotus nancymaae:
   parent: Aotus sp.
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # NHP group: https://www.ebi.ac.uk/ipd/mhc/group/NHP/species
+  prefix source: designated
   prefix: Aona
   name: Nancy Ma's Night Monkey
 Aotus nigriceps:
   parent: Aotus sp.
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # NHP group: https://www.ebi.ac.uk/ipd/mhc/group/NHP/species
+  prefix source: designated
   prefix: Aoni
   name: Black-headed Night Monkey
 Aotus trivirgatus:
   parent: Aotus sp.
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # NHP group: https://www.ebi.ac.uk/ipd/mhc/group/NHP/species
+  prefix source: designated
   prefix: Aotr
   name: Three-striped Night Monkey
 Aotus vociferans:
   parent: Aotus sp.
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # NHP group: https://www.ebi.ac.uk/ipd/mhc/group/NHP/species
+  prefix source: designated
   prefix: Aovo
   name: Spix's Night Monkey
 Ateles belzebuth:
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # NHP group: https://www.ebi.ac.uk/ipd/mhc/group/NHP/species
+  prefix source: designated
   prefix: Atbe
   parent: NHP
   name: White-fronted Spider Monkey
@@ -4665,6 +4689,9 @@ Ateles belzebuth:
         - DRA
         - DRB
 Ateles fusciceps:
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # NHP group: https://www.ebi.ac.uk/ipd/mhc/group/NHP/species
+  prefix source: designated
   prefix: Atfu
   parent: NHP
   name: Black-headed Spider Monkey
@@ -4735,6 +4762,9 @@ Callithrix sp.:
         - DPB1
 Callithrix jacchus:
   parent: Callithrix sp.
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # NHP group: https://www.ebi.ac.uk/ipd/mhc/group/NHP/species
+  prefix source: designated
   prefix: Caja
   name: Common Marmoset
   # IPD-MHC record NHP00121 names Caja-PS2, and van der Wiel et al. describe
@@ -4743,6 +4773,9 @@ Callithrix jacchus:
   gene properties:
     PS2: {pseudogene: true}
 Callicebus moloch:
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # NHP group: https://www.ebi.ac.uk/ipd/mhc/group/NHP/species
+  prefix source: designated
   prefix: Camo
   parent: NHP
   name: Red-bellied Titi
@@ -4762,6 +4795,9 @@ Callithrix pygmaea:
   # the genus node would be the wrong parent even though the key says
   # otherwise. See #123.
   parent: NHP
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # NHP group: https://www.ebi.ac.uk/ipd/mhc/group/NHP/species
+  prefix source: designated
   prefix: Capy
   old prefix: Cepy
   name: Pygmy Marmoset
@@ -4773,6 +4809,9 @@ Callithrix pygmaea:
         - DRB1
 Cebus apella:
   parent: NHP
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # NHP group: https://www.ebi.ac.uk/ipd/mhc/group/NHP/species
+  prefix source: designated
   prefix: Ceap
   name: Tufted Capuchin
   genes:
@@ -4790,46 +4829,79 @@ Cebus apella:
 ############################
 Cebus albifrons:
   parent: NHP
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # NHP group: https://www.ebi.ac.uk/ipd/mhc/group/NHP/species
+  prefix source: designated
   prefix: Ceal
   name: White-fronted capuchin
 Cebus capucinus:
   parent: NHP
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # NHP group: https://www.ebi.ac.uk/ipd/mhc/group/NHP/species
+  prefix source: designated
   prefix: Ceca
   name: White-faced capuchin
 Cebus imitator:
   parent: NHP
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # NHP group: https://www.ebi.ac.uk/ipd/mhc/group/NHP/species
+  prefix source: designated
   prefix: Ceim
   name: Panamanian white-faced capuchin
 Cebus kaapori:
   parent: NHP
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # NHP group: https://www.ebi.ac.uk/ipd/mhc/group/NHP/species
+  prefix source: designated
   prefix: Ceka
   name: Kaapori capuchin
 Cebus olivaceus:
   parent: NHP
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # NHP group: https://www.ebi.ac.uk/ipd/mhc/group/NHP/species
+  prefix source: designated
   prefix: Ceol
   name: Wedge-capped capuchin
 Sapajus cay:
   parent: NHP
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # NHP group: https://www.ebi.ac.uk/ipd/mhc/group/NHP/species
+  prefix source: designated
   prefix: Saca
   name: Hooded capuchin
 Sapajus libidinosus:
   parent: NHP
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # NHP group: https://www.ebi.ac.uk/ipd/mhc/group/NHP/species
+  prefix source: designated
   prefix: Sali
   name: Black-striped capuchin
 Sapajus apella macrocephalus:
   parent: NHP
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # NHP group: https://www.ebi.ac.uk/ipd/mhc/group/NHP/species
+  prefix source: designated
   prefix: Sama
   name: Large-headed capuchin
 Sapajus nigritus:
   parent: NHP
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # NHP group: https://www.ebi.ac.uk/ipd/mhc/group/NHP/species
+  prefix source: designated
   prefix: Sani
   name: Black capuchin
 Sapajus xanthosternos:
   parent: NHP
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # NHP group: https://www.ebi.ac.uk/ipd/mhc/group/NHP/species
+  prefix source: designated
   prefix: Saxa
   name: Golden-bellied capuchin
 Cercocebus atys:
   parent: NHP
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # NHP group: https://www.ebi.ac.uk/ipd/mhc/group/NHP/species
+  prefix source: designated
   prefix: Ceat
   name: Sooty Mangabey
   genes:
@@ -4842,6 +4914,9 @@ Cercocebus atys:
       - I
 Cercopithecus mitis:
   parent: NHP
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # NHP group: https://www.ebi.ac.uk/ipd/mhc/group/NHP/species
+  prefix source: designated
   prefix: Cemi
   name: Blue Monkey
   genes:
@@ -4853,6 +4928,9 @@ Cercopithecus mitis:
         - DQA1
 Cercopithecus neglectus:
   parent: NHP
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # NHP group: https://www.ebi.ac.uk/ipd/mhc/group/NHP/species
+  prefix source: designated
   prefix: Cene
   name: De Brazza's monkey
   genes:
@@ -4861,6 +4939,9 @@ Cercopithecus neglectus:
         - DQA1
 Chlorocebus aethiops:
   parent: NHP
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # NHP group: https://www.ebi.ac.uk/ipd/mhc/group/NHP/species
+  prefix source: designated
   prefix: Chae
   name: Grivet
   genes:
@@ -4879,6 +4960,9 @@ Chlorocebus aethiops:
         - DRB6
 Chlorocebus pygerythrus:
   parent: NHP
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # NHP group: https://www.ebi.ac.uk/ipd/mhc/group/NHP/species
+  prefix source: designated
   prefix: Chpy
   name: vervet monkey
   genes:
@@ -4887,6 +4971,9 @@ Chlorocebus pygerythrus:
       - B
 Chlorocebus sabaeus:
   parent: NHP
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # NHP group: https://www.ebi.ac.uk/ipd/mhc/group/NHP/species
+  prefix source: designated
   prefix: Chsa
   name: Green Monkey
   genes:
@@ -4908,6 +4995,9 @@ Chlorocebus sabaeus:
         - DRB5
 Colobus guereza:
   parent: NHP
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # NHP group: https://www.ebi.ac.uk/ipd/mhc/group/NHP/species
+  prefix source: designated
   prefix: Cogu
   name: Mantled Guereza
   genes:
@@ -4945,6 +5035,9 @@ Gorilla sp.:
         - DRB6
 Gorilla beringei:
   parent: Gorilla sp.
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # NHP group: https://www.ebi.ac.uk/ipd/mhc/group/NHP/species
+  prefix source: designated
   prefix: Gobe
   other prefixes:
     - Gbb
@@ -4953,6 +5046,9 @@ Gorilla beringei:
     - Eastern gorilla
 Gorilla gorilla:
   parent: Gorilla sp.
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # NHP group: https://www.ebi.ac.uk/ipd/mhc/group/NHP/species
+  prefix source: designated
   prefix: Gogo
   other prefixes:
     - Ggg
@@ -4960,6 +5056,9 @@ Gorilla gorilla:
     - Western gorilla
 Hylobates lar:
   parent: NHP
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # NHP group: https://www.ebi.ac.uk/ipd/mhc/group/NHP/species
+  prefix source: designated
   prefix: Hyla
   name: Lar Gibbon
   genes:
@@ -4974,6 +5073,9 @@ Hylobates lar:
         - DQB2
 Hylobates moloch:
   parent: NHP
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # NHP group: https://www.ebi.ac.uk/ipd/mhc/group/NHP/species
+  prefix source: designated
   prefix: Hymo
   name: Silvery Javan Gibbon
   genes:
@@ -4984,10 +5086,16 @@ Hylobates moloch:
         - DRB1
 Leontopithecus rosalia:
   parent: NHP
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # NHP group: https://www.ebi.ac.uk/ipd/mhc/group/NHP/species
+  prefix source: designated
   prefix: Lero
   name: Golden Lion Tamarin
 Lophocebus aterrimus:
   parent: NHP
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # NHP group: https://www.ebi.ac.uk/ipd/mhc/group/NHP/species
+  prefix source: designated
   prefix: Loat
   name: Black Crested Mangabey
   genes:
@@ -4996,6 +5104,9 @@ Lophocebus aterrimus:
         - DQA1
 Macaca arctoides:
   parent: Macaca sp.
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # NHP group: https://www.ebi.ac.uk/ipd/mhc/group/NHP/species
+  prefix source: designated
   prefix: Maar
   name: Stump-tailed Macaque
   genes:
@@ -5016,6 +5127,9 @@ Macaca arctoides:
 
 Macaca assamensis:
   parent: Macaca sp.
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # NHP group: https://www.ebi.ac.uk/ipd/mhc/group/NHP/species
+  prefix source: designated
   prefix: Maas
   name: Assam Macaque
   genes:
@@ -5026,6 +5140,9 @@ Macaca assamensis:
       - I
 Macaca fascicularis:
   parent: Macaca sp.
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # NHP group: https://www.ebi.ac.uk/ipd/mhc/group/NHP/species
+  prefix source: designated
   prefix: Mafa
   other prefixes:
     - MhcMafa
@@ -5071,6 +5188,9 @@ Macaca fascicularis:
         - DRB6
 Macaca fuscata:
   parent: Macaca sp.
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # NHP group: https://www.ebi.ac.uk/ipd/mhc/group/NHP/species
+  prefix source: designated
   prefix: Mafu
   name: Japanese Macaque
   genes:
@@ -5081,6 +5201,9 @@ Macaca fuscata:
         - DRB3
 Mandrillus leucophaeus:
   parent: NHP
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # NHP group: https://www.ebi.ac.uk/ipd/mhc/group/NHP/species
+  prefix source: designated
   prefix: Male
   name: Drill
   genes:
@@ -5089,6 +5212,9 @@ Mandrillus leucophaeus:
         - DRB1
 Macaca leonina:
   parent: Macaca sp.
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # NHP group: https://www.ebi.ac.uk/ipd/mhc/group/NHP/species
+  prefix source: designated
   prefix: Malo
   name: Northern Pig-tailed Macaque
   genes:
@@ -5210,14 +5336,23 @@ Macaca mulatta:
       - K
 Macaca nemestrina:
   parent: Macaca sp.
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # NHP group: https://www.ebi.ac.uk/ipd/mhc/group/NHP/species
+  prefix source: designated
   prefix: Mane
   name: Southern Pig-tailed Macaque
 Macaca silenus:
   parent: Macaca sp.
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # NHP group: https://www.ebi.ac.uk/ipd/mhc/group/NHP/species
+  prefix source: designated
   prefix: Masi
   name: Lion-tailed Macaque
 Mandrillus sphinx:
   parent: NHP
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # NHP group: https://www.ebi.ac.uk/ipd/mhc/group/NHP/species
+  prefix source: designated
   prefix: Masp
   name: Mandrill
   genes:
@@ -5231,11 +5366,17 @@ Mandrillus sphinx:
         - DRB6
 Macaca thibetana:
   parent: Macaca sp.
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # NHP group: https://www.ebi.ac.uk/ipd/mhc/group/NHP/species
+  prefix source: designated
   prefix: Math
   name: Milne Edward's Macaque
 
 Papio anubis:
   parent: NHP
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # NHP group: https://www.ebi.ac.uk/ipd/mhc/group/NHP/species
+  prefix source: designated
   prefix: Paan
   name: Olive Baboon
   genes:
@@ -5264,6 +5405,9 @@ Papio anubis:
         - DRB6
 Papio cynocephalus:
   parent: NHP
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # NHP group: https://www.ebi.ac.uk/ipd/mhc/group/NHP/species
+  prefix source: designated
   prefix: Pacy
   name: Yellow Baboon
   genes:
@@ -5277,6 +5421,9 @@ Papio cynocephalus:
         - DQA1
 Papio hamadryas:
   parent: NHP
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # NHP group: https://www.ebi.ac.uk/ipd/mhc/group/NHP/species
+  prefix source: designated
   prefix: Paha
   name: Hamadryas Baboon
   genes:
@@ -5298,6 +5445,9 @@ Papio hamadryas:
 
 Papio papio:
   parent: NHP
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # NHP group: https://www.ebi.ac.uk/ipd/mhc/group/NHP/species
+  prefix source: designated
   prefix: Papp
   name: Guinea Baboon
   genes:
@@ -5360,12 +5510,18 @@ Pan troglodytes:
   name: Common Chimpanzee
 Pan paniscus:
   parent: Pan sp.
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # NHP group: https://www.ebi.ac.uk/ipd/mhc/group/NHP/species
+  prefix source: designated
   prefix: Papa
   other prefixes:
     - Ppa
   name: Bonobo
 Papio ursinus:
   parent: NHP
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # NHP group: https://www.ebi.ac.uk/ipd/mhc/group/NHP/species
+  prefix source: designated
   prefix: Paur
   name: Chacma Baboon
   genes:
@@ -5378,6 +5534,9 @@ Papio ursinus:
         - DRB6
 Pithecia pithecia:
   parent: NHP
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # NHP group: https://www.ebi.ac.uk/ipd/mhc/group/NHP/species
+  prefix source: designated
   prefix: Pipi
   name: White-faced Saki
   genes:
@@ -5419,10 +5578,16 @@ Pongo sp.:
         - DRB6
 Pongo abelii:
   parent: Pongo sp.
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # NHP group: https://www.ebi.ac.uk/ipd/mhc/group/NHP/species
+  prefix source: designated
   prefix: Poab
   name: Sumatran Orangutan
 Pongo pygmaeus:
   parent: Pongo sp.
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # NHP group: https://www.ebi.ac.uk/ipd/mhc/group/NHP/species
+  prefix source: designated
   prefix: Popy
   name: Bornean Orangutan
   # IPD-MHC defines Ap as an MHC-A pseudogene specifically in Pongo pygmaeus.
@@ -5431,6 +5596,9 @@ Pongo pygmaeus:
     Ap: {pseudogene: true}
 Rhinopithecus roxellana:
   parent: NHP
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # NHP group: https://www.ebi.ac.uk/ipd/mhc/group/NHP/species
+  prefix source: designated
   prefix: Rhro
   name: Golden Snub-nosed Monkey
   genes:
@@ -5445,6 +5613,9 @@ Rhinopithecus roxellana:
         - DRB2
 Saguinus fuscicollis:
   parent: NHP
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # NHP group: https://www.ebi.ac.uk/ipd/mhc/group/NHP/species
+  prefix source: designated
   prefix: Safu
   name: Brown-mantled Tamarin
   genes:
@@ -5455,6 +5626,9 @@ Saguinus fuscicollis:
       - PS2
 Saguinus geoffroyi:
   parent: NHP
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # NHP group: https://www.ebi.ac.uk/ipd/mhc/group/NHP/species
+  prefix source: designated
   prefix: Sage
   name: Geoffroy's Tamarin
   genes:
@@ -5463,6 +5637,9 @@ Saguinus geoffroyi:
       - PS2
 Saguinus labiatus:
   parent: NHP
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # NHP group: https://www.ebi.ac.uk/ipd/mhc/group/NHP/species
+  prefix source: designated
   prefix: Sala
   name: White-lipped Tamarin
   genes:
@@ -5473,6 +5650,9 @@ Saguinus labiatus:
         - DRB1
 Saguinus mystax:
   parent: NHP
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # NHP group: https://www.ebi.ac.uk/ipd/mhc/group/NHP/species
+  prefix source: designated
   prefix: Samy
   name: Moustached Tamarin
   genes:
@@ -5481,6 +5661,9 @@ Saguinus mystax:
       - PS2
 Saguinus oedipus:
   parent: NHP
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # NHP group: https://www.ebi.ac.uk/ipd/mhc/group/NHP/species
+  prefix source: designated
   prefix: Saoe
   name: Cottontop Tamarin
   genes:
@@ -5507,6 +5690,9 @@ Saguinus oedipus:
 
 Saimiri sciureus:
   parent: NHP
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # NHP group: https://www.ebi.ac.uk/ipd/mhc/group/NHP/species
+  prefix source: designated
   prefix: Sasc
   name: Common Squirrel Monkey
   genes:
@@ -5518,6 +5704,9 @@ Saimiri sciureus:
         - DRB
 Semnopithecus entellus:
   parent: NHP
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # NHP group: https://www.ebi.ac.uk/ipd/mhc/group/NHP/species
+  prefix source: designated
   prefix: Seen
   # Pren = Pr(esbytis) + en(tellus) under the Klein 1990 rule (PMID 2329006).
   # Presbytis entellus is the former name of this species, so it is the only
@@ -5534,6 +5723,9 @@ Semnopithecus entellus:
         - DRB
 Theropithecus gelada:
   parent: NHP
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # NHP group: https://www.ebi.ac.uk/ipd/mhc/group/NHP/species
+  prefix source: designated
   prefix: Thge
   # No 'old prefix: Pren' here, deliberately.
   #

@@ -676,11 +676,11 @@ def test_unestablished_provenance_stays_none():
     # them all at once has to come here and say so. A count bound would have
     # done neither -- it fires on ordinary growth and passes a bulk assignment.
     for name in [
-        # The eight group-level _LA codes, still unchecked. IPD-MHC has no
-        # group page for any of them (there is no /group/FLA/, /group/OrLA/,
-        # ...), so establishing them means the primate nomenclature reports
-        # rather than a species table -- which is why they are the tail of
-        # #131 rather than part of the batch that was easy.
+        # Group-level _LA codes, still unchecked. IPD-MHC has no group page for
+        # any of them -- there is no /group/FLA/ or /group/OrLA/ -- so
+        # establishing them means the primate nomenclature reports rather than
+        # a species table. That is what is left of #131 after the IPD species
+        # tables were exhausted.
         "Aotus sp.",
         "Callithrix sp.",
         "Felis sp.",
