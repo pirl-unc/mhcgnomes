@@ -691,6 +691,15 @@ def test_unestablished_provenance_stays_none():
         # Felis sp. and Oryctolagus sp. used to be on this list and are not any
         # more: FLA and RLA are published (PMID 2492667, PMID 32522857) and are
         # now marked designated.
+        #
+        # Pavo cristatus is here for a different reason and is worth keeping:
+        # GenBank AY928104.1 names peafowl class II as "(B-LB) gene, B-LB-12
+        # allele", the chicken B-LB nomenclature, with no Pacr anywhere. And
+        # Xenopus tropicalis, whose Xetr does appear in GenBank -- as clone
+        # tags like "Xetr-T2R54" for bitter taste receptors, not for MHC.
+        # Neither absence is for want of looking.
+        "Pavo cristatus",
+        "Xenopus tropicalis",
         "Aotus sp.",
         "Callithrix sp.",
         "Gorilla sp.",

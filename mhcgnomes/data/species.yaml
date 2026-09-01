@@ -1289,6 +1289,11 @@ Oreochromis niloticus:
         - DDB
 Sparus aurata:
   parent: Actinopterygii sp.
+  # prefix source: designated -- GenBank DQ019411.1, "Sparus aurata MHC class
+  # II alpha antigen (Spau-DAA) mRNA, Spau-DAA-214 allele, complete cds", one
+  # of eleven records naming gilthead seabream class II alleles this way.
+  # https://www.ncbi.nlm.nih.gov/nuccore/DQ019411.1
+  prefix source: designated
   prefix: Spau
   other prefixes:
     - SparAura
@@ -1307,6 +1312,12 @@ Salarias fasciatus:
   name: Jewelled blenny
 Acipenser dabryanus:
   parent: Actinopterygii sp.
+  # prefix source: designated -- GenBank MN249667.1, "Acipenser dabryanus MHC
+  # class II beta antigen (Acda-DAB) mRNA, Acda-DAB*1102 allele", from
+  # "Molecular polymorphism and expression of MHC I alpha, II alpha, II beta
+  # and II invariant chain in the critically endangered Dabry's sturgeon".
+  # https://www.ncbi.nlm.nih.gov/nuccore/MN249667.1
+  prefix source: designated
   prefix: Acda
   other prefixes:
     - AcipDabr
@@ -1356,6 +1367,15 @@ Salmo trutta:
   name: Brown trout
 Salvelinus alpinus:
   parent: Salmonidae sp.
+  # prefix source: designated -- weaker in form than the others, so the form is
+  # stated rather than summarized. GenBank has 98 Salvelinus alpinus MHC class
+  # I records whose isolates are named Saal_UBA_101 through Saal_UBA_106 and
+  # onward (HQ620390.1-HQ620395.1): the species code and the salmonid class I
+  # locus, concatenated in an isolate label rather than written as an allele
+  # name. No "Saal-UBA*..." allele name is deposited. It is the same Saal used
+  # for this species alongside the IPD-designated Onmy and Sasa of its own
+  # family. https://www.ncbi.nlm.nih.gov/nuccore/HQ620395.1
+  prefix source: designated
   prefix: Saal
   name: Arctic char
   genes:
@@ -2094,6 +2114,11 @@ Conolophus subcristatus:
 ############################
 Crocodylus porosus:
   parent: Crocodylia sp.
+  # prefix source: designated -- GenBank KP118846.1, "Crocodylus porosus ...
+  # MHC class II beta chain (Crpo-DAB2) gene", from "Comparative genome
+  # analyses reveal distinct structure in the saltwater crocodile MHC".
+  # https://www.ncbi.nlm.nih.gov/nuccore/KP118846.1
+  prefix source: designated
   prefix: Crpo
   name: Saltwater crocodile
   genes:
@@ -2175,6 +2200,12 @@ Caiman latirostris:
   name: Broad-snouted caiman
 Crocodylus acutus:
   parent: Crocodylia sp.
+  # prefix source: designated -- GenBank GU126827.1 through GU126934.1 name
+  # the class II loci Crac-DB01 to Crac-DB06 and Crac-DA01, and HQ158325.1 to
+  # HQ158329.1 the class I genes Crac01 to Crac05, from "Evolution of MHC
+  # class I in the Order Crocodylia", Immunogenetics 2014;66:53.
+  # https://www.ncbi.nlm.nih.gov/nuccore/GU126827.1
+  prefix source: designated
   prefix: Crac
   name: American crocodile
 Crocodylus palustris:
@@ -3000,6 +3031,13 @@ Equus caballus:
   name: Horse
 Equus burchelli:
   parent: Equus sp.
+  # prefix source: designated -- GenBank MF997196.1 carries the allele name
+  # "DQB-Eqbu-DQB*0401", from "Genetic diversity, evolution and selection in
+  # the major histocompatibility complex DRB and DQB genes in the family
+  # Equidae". The record files it under Equus quagga burchellii, the accepted
+  # name for which Equus burchelli is the synonym used here.
+  # https://www.ncbi.nlm.nih.gov/nuccore/MF997196.1
+  prefix source: designated
   prefix: Eqbu
   name:
     - Plains zebra
@@ -3205,18 +3243,37 @@ Ctenomys sp.:
         - DRB
 Ctenomys talarum:
   parent: Ctenomys sp.
+  # prefix source: designated -- GenBank KY906266.1, "Ctenomys talarum MHC
+  # class II antigen (Ctta-DRB) gene, Ctta-DRB26 allele", same study as Ctau.
+  # https://www.ncbi.nlm.nih.gov/nuccore/KY906266.1
+  prefix source: designated
   prefix: Ctta
   name: Talas tuco-tuco
 Ctenomys australis:
   parent: Ctenomys sp.
+  # prefix source: designated -- GenBank KY906279.1, "Ctenomys australis MHC
+  # class II antigen (Ctau-DRB) gene, Ctau-DRB23 allele", from "Selection on
+  # MHC in a context of historical demographic change in two closely-
+  # distributed species of tuco-tucos".
+  # https://www.ncbi.nlm.nih.gov/nuccore/KY906279.1
+  prefix source: designated
   prefix: Ctau
   name: Southern tuco-tuco
 Ctenomys torquatus:
   parent: Ctenomys sp.
+  # prefix source: designated -- GenBank EU035230.1, "Ctenomys torquatus MHC
+  # class II antigen (Ctto-DQA02) gene", same study as Ctpe.
+  # https://www.ncbi.nlm.nih.gov/nuccore/EU035230.1
+  prefix source: designated
   prefix: Ctto
   name: Collared tuco-tuco
 Ctenomys pearsoni:
   parent: Ctenomys sp.
+  # prefix source: designated -- GenBank EU035225.1, "Ctenomys pearsoni MHC
+  # class II antigen (Ctpe-DQA03) gene", from "Trans-species polymorphism and
+  # evidence of selection on class II MHC loci in tuco-tucos (Rodentia:
+  # Ctenomyidae)". https://www.ncbi.nlm.nih.gov/nuccore/EU035225.1
+  prefix source: designated
   prefix: Ctpe
   name: Pearson's tuco-tuco
 Ctenomys haigi:
@@ -3453,6 +3510,11 @@ Oryctolagus sp.:
         - DOB
 Oryctolagus cuniculus:
   parent: Oryctolagus sp.
+  # prefix source: designated -- GenBank PV167019.1, "Oryctolagus cuniculus
+  # MHC class I antigen (Orcu-U2) gene, Orcu-U2*05:02:01:01 allele", one of a
+  # series naming rabbit class I alleles this way.
+  # https://www.ncbi.nlm.nih.gov/nuccore/PV167019.1
+  prefix source: designated
   prefix: Orcu
   name: European rabbit
 ################################################################################
