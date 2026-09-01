@@ -29,4 +29,4 @@ Tracking issue: #139
   `gene families`, which are fetched with a default argument. Broadened, then
   verified by mutation: adding a bogus key to the frozenset fails it.
 - **Measured:** 0 of 11,558 corpus names change.
-- Bumped to 3.43.3 -- data and hygiene only, no behaviour change.
+- Bumped to 3.44.1 -- data and hygiene only, no behaviour change.
