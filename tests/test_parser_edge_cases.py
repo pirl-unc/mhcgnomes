@@ -1185,7 +1185,11 @@ class TestAdversarialSpeciesStickiness:
     """Regression tests for species-scoped parsing."""
 
     def test_explicit_species_does_not_switch_to_other_species(self):
-        for s in ["Onmy-DAA2", "Sasa-DAA2", "Maar-A2"]:
+        # "Maar-A2" used to belong here, but since #123 put Macaca arctoides
+        # under Macaca sp. it inherits the genus A1/A2/A3 loci and resolves to
+        # its own species -- which is what stickiness asks for, so it no longer
+        # exercises the rule. "Maar-BLB2" (a chicken class II gene) does.
+        for s in ["Onmy-DAA2", "Sasa-DAA2", "Maar-BLB2", "Maar-UAA"]:
             assert parse(s, raise_on_error=False) is None
 
     def test_nested_species_prefix_does_not_override_explicit_species(self):

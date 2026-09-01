@@ -75,17 +75,22 @@ def test_parse_saoe_allele_alias_N_01_01():
 
 
 def test_parse_maar_gene_alias_A():
+    """
+    "Maar-A" used to normalize to A1, because Macaca arctoides declared A1 but
+    not A and sat outside Macaca sp. Since #123 it is under the genus node and
+    inherits A, so it behaves like every other macaque: Mamu-A, Mafa-A and
+    Mane-A all stay A. The old answer was the odd one out.
+    """
     result = parse("Maar-A", raise_on_error=True)
-    expected = Gene.get("Maar", "A1")
-    assert expected is not None
-    eq_(result, expected)
+    eq_(result, Gene.get("Maar", "A"))
+    eq_(parse("Mamu-A", raise_on_error=True).name, result.name)
 
 
 def test_parse_maar_allele_alias_A_01_01():
+    """The allele counterpart of the gene test above; see #123."""
     result = parse("Maar-A*01:01", raise_on_error=True)
-    expected = Allele.get("Maar", "A1", ("01", "01"))
-    assert expected is not None
-    eq_(result, expected)
+    eq_(result, Allele.get("Maar", "A", ("01", "01")))
+    eq_(result.gene.name, parse("Mamu-A*01:01", raise_on_error=True).gene.name)
 
 
 NHP_NOVEL_GENE_EXAMPLES = [
