@@ -96,3 +96,63 @@ branch against itself. Compare against a `git worktree` of `main` instead.
 More generally: when a measurement returns exactly the null result, check that
 the instrument was pointed at the thing being measured. A diff that shows no
 change to the line you just edited is an instrument fault, not a finding.
+
+## A corpus is only as good as what is in it
+
+**What happened.** Every measurement for several PRs was quoted as "0 of 25,200
+corpus names change". Measuring #130's lineage rule against that corpus also
+reported 0 differences -- while 17 tests failed, nearly all of them on IEDB's
+bare `BF2*2101` forms. The scratchpad corpus had been built from some of the
+bundled name lists and not others: `tests/iedb_allele_counts.csv` and the
+netMHCpan/netMHCIIpan lists were missing. Rebuilt, it is 36,752 names, and the
+BF2 forms showed up immediately.
+
+**Why it was wrong.** A zero from an incomplete corpus reads exactly like a
+zero from a complete one, and it is the more reassuring of the two. The
+earlier PRs' zeros happened to survive re-measurement against the larger set,
+but that was luck, not method.
+
+**How to apply.** Build the corpus from the repo's own name lists, by globbing
+them, not by hand. Before quoting a difference count, say which corpus and how
+many names -- a number that never changes between PRs is a sign it is stale.
+And when tests disagree with the corpus, the corpus is the thing to doubt.
+
+## "Attested" in our own curation is a claim, not evidence
+
+**What happened.** Two prefixes carried notes saying someone else had attested
+them. `Iibi` for the greater prairie chicken: *"mhcseqs uses Iibi -- unusual
+but attested"*. The six primate `_LA` codes: the mhcseqs registry cites the de
+Groot nomenclature report. Following both citations: `IIBI` occurs once in the
+entire nucleotide database, as `/gene="IIBI"` `/product="MHC class II antigen
+beta chain 2"` -- a gene symbol, harvested as a species code -- while `Tycu`
+names 80 GenBank records at allele level. And the de Groot report contains
+`Patr` 77 times and none of the six `_LA` codes at all.
+
+**Why it was wrong.** Both notes read as if the checking had been done. Neither
+recorded *what* was attested or *where*, so the claim propagated unexamined --
+in one case into the runtime prefix, so `Tycu-BLB*28` was displayed under a
+gene symbol.
+
+**How to apply.** A note that says "attested" without a PMID, accession or URL
+is a to-do, not a source. Both of these were also derivable-rule failures:
+neither `Iibi` nor any `_LA` code can be produced from its binomial by the
+Klein rule, which is a free check that would have flagged both.
+
+## When the canonical URL is dead, look for the mirror
+
+**What happened.** #153 turned on whether `Cw16` is a recognised serological
+specificity. `hla.alleles.org/pages/antigens/recognised_serology/` is a 404,
+the 2010 nomenclature paper's table did not extract, and the conclusion drawn
+from the shipped dictionary -- that HLA-C serology stops at Cw10 -- was wrong.
+
+**Why it was wrong.** The WHO Nomenclature Committee's own files were one fetch
+away the whole time. ANHIG/IMGTHLA mirrors `wmda/hla_nom.txt`,
+`rel_ser_ser.txt` and `rel_dna_ser.txt`, and `hla_nom.txt` records
+`Cw;16;20260128;;;` -- assigned by the 2026 nomenclature report, after the
+bundled dictionary was made. The same repository holds `Allelelist.txt`, which
+settled #113 in one fetch after I had asserted the opposite from the gene list.
+
+**How to apply.** For IPD-IMGT/HLA, go to
+`raw.githubusercontent.com/ANHIG/IMGTHLA/Latest/` first: it is versioned,
+machine-readable, and current. "The source is unreachable" is a claim about
+one URL, not about the source.
