@@ -1,20 +1,88 @@
 #########################################
-# Swine MHC haplotypes copied from:
-#   https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5472656/
+# Swine (SLA) MHC haplotypes
+#
+# Naming. The ISAG/IUIS-VIC SLA Nomenclature Committee gives swine haplotypes
+# their own prefix, separate from the SLA- used for genes and alleles, and two
+# series of it: `Hp-` for high-resolution haplotypes, defined by sequenced
+# alleles, and `Lr-` for low-resolution ones, defined by PCR-SSP allele groups.
+# The number is <class I>.<class II>, so a class I haplotype ends in ".0" and a
+# class II one begins with "0." -- Hp-04.0 and Hp-0.03 are the two halves of
+# the NIH/MGH minipig's type, not variants of one thing.
+#
+# Both facts are stated in Reiner et al. 2024 (PMC10925748, Göttingen Minipig
+# SLA diversity): "SLA class I ... and class II ... genes were characterized by
+# PCR-based low-resolution (Lr) haplotyping. Criteria and nomenclature used for
+# SLA haplotyping were proposed by the ISAG/IUIS-VIC SLA Nomenclature
+# Committee", alongside class I types Lr-24.0 and Hp-55.0 and class II types
+# Lr-0.21 and Hp-0.03.
+#
+# The prefix lives in the haplotype names below rather than in a per-species
+# key: "Hp-1a.0" and "SLA-Hp-1a.0" both parse, and a `haplotype prefix` field
+# would only restate what the names already carry. That answers the open
+# question in #143; #139 removed the key that asserted it with nothing behind
+# it.
+#
+# Contents. The nine high-resolution class I haplotypes below are the ones
+# designated by the SLA Nomenclature Committee, as tabulated under "Known
+# haplotypes" in Table 2 of Bækbo et al. 2017
+# (https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5472656/), whose columns run
+# Hp- | SLA-1 | SLA-3 | SLA-2. The same table's second half proposes
+# haplotypes A.0 through Z.0 from that study alone; those are the authors'
+# suggestions rather than committee designations, and several rest on
+# unnamed sequences (NS#5, HB01), so they are deliberately not listed here.
 ##########################################
 SLA:
-  # TODO:
-  #   no one writes "SLA-Hp-1a.0", pigs actually have a distinct prefix
-  #   "Hp" for haplotypes which is distinct from the prefix used for
-  #   gene names and alleles
+  # Large White. Table 2: SLA-1*0101, SLA-3*0101, SLA-2*0101.
   Hp-1a.0:
-    - SLA-1*01:01
-    - SLA-2*01:01
-    - SLA-3*01:01
+    - 1*01:01
+    - 3*01:01
+    - 2*01:01
+  # NIH, Sinclair and Hanford minipigs. Table 2 gives two SLA-1 alleles for
+  # this haplotype, "0201(a), 0701(b)", and *null* for SLA-3 -- the locus is
+  # absent, not unknown. The third allele here used to read SLA-3*02:01, which
+  # is the SLA-2 column misfiled under SLA-3.
   Hp-2.0:
-    - SLA-1*02:01
-    - SLA-1*07:01
-    - SLA-3*02:01
+    - 1*02:01
+    - 1*07:01
+    - 2*02:01
+  # Yucatan miniature pigs; the most prevalent class I haplotype in Danish
+  # commercial pigs by its low-resolution counterpart Lr-4.0.
+  Hp-4b.0:
+    - 1*04:01
+    - 3*04:01
+    - 2*04:02:01
+  # Yucatan and Microminipig.
+  Hp-6.0:
+    - 1*08:05
+    - 3*06:01
+    - 2*05:04
+  # Yucatan.
+  Hp-7.0:
+    - 1*08:01
+    - 3*07:01:01
+    - 2*05:02
+  # Clawn and Microminipig.
+  Hp-17.0:
+    - 1*08:04
+    - 3*03:05
+    - 2*06:03
+  # Landrace. Two SLA-1 alleles again, "0901(a), 1501(b)".
+  Hp-28.0:
+    - 1*09:01
+    - 1*15:01
+    - 3*07:01:02
+    - 2*05:03
+  # CMAH/Gal knockout pigs.
+  Hp-32.0:
+    - 1*07:02
+    - 3*04:02
+    - 2*02:02
+  # Landrace. Table 2 gives SLA-3 as "04hb06", a provisional designation rather
+  # than a committee-assigned allele name, so only the two named alleles are
+  # listed.
+  Hp-62.0:
+    - 1*14:01
+    - 2*06:02
 
 #########################################
 # Mouse MHC haplotypes copied from:

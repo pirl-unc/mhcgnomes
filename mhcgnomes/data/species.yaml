@@ -3047,11 +3047,12 @@ Sus scrofa:
   # SLA group: https://www.ebi.ac.uk/ipd/mhc/group/SLA/species
   prefix source: designated
   prefix: Susc
-  # Swine haplotypes are written with an "Hp" prefix. This was a
-  # `haplotype prefix: Hp` key, but nothing in the loader ever read it and no
-  # swine haplotype is curated for it to apply to -- haplotypes.yaml has no
-  # Sus scrofa entry, and Hp-1.1 does not parse. Kept as a note rather than a
-  # key that asserts support we do not have. See #143.
+  # Swine haplotypes carry their own prefix -- "Hp-" for high resolution,
+  # "Lr-" for low -- separate from the SLA- used for genes and alleles, and no
+  # `haplotype prefix` key is needed to express it: the names in
+  # haplotypes.yaml begin with it, so "Hp-17.0" and "SLA-Hp-17.0" both parse.
+  # The entries are keyed there by MHC prefix, so they hang off Sus sp. rather
+  # than this entry. See the header of haplotypes.yaml and #143.
   name: Feral Pig
 ######################################################
 # Rodentia — rodents
