@@ -73,6 +73,12 @@ def parse_standard_allele_format(
 
     if species_prefix is None:
         species = Species.get(default_species)
+        # An assumed species cannot resolve a gene marked `context only`:
+        # "N*01:01" names no species, and bare "N" is rodent haplotype
+        # shorthand. The caller who writes "HLA-N*01:01", or passes
+        # species=, gets it. See Species.gene_is_context_only and issue #113.
+        if species is not None and species.gene_is_context_only(gene_name):
+            return None
     elif len(species_prefix) >= 2 and species_prefix[-1] == "-":
         species = Species.get(species_prefix[:-1])
     else:

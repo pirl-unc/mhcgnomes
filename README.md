@@ -93,6 +93,40 @@ False
 True
 ```
 
+### Loci that name no alleles
+
+A few loci are named by a nomenclature authority which then deposits no
+sequence under them. IMGT/HLA names the class I gene fragments `X` and `Z`, the
+class II pseudogenes `DQB3` and `DPA3`, and `MICC`/`MICD`/`MICE`/`PSMB8`/
+`PSMB9`, and IPD-IMGT/HLA gives every one of them zero alleles. The gene
+resolves; an allele built on top of it does not.
+
+```python
+>>> mhcgnomes.parse("HLA-Z")
+Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='Z', mutations=())
+>>> mhcgnomes.parse("HLA-Z*01:01", raise_on_error=False) is None
+True
+>>> mhcgnomes.parse("HLA-W*01:01:01:01").gene.name  # W has 13 deposited alleles
+'W'
+```
+
+### Genes which need the species named
+
+Every HLA class I gene fragment is a single letter, and a bare `N`, `R`, `S`,
+`U` or `Z` is mouse or rat haplotype shorthand long before it is a human gene.
+These genes are marked `context only` in the ontology: they resolve when the
+species is named -- by prefix or by `species=` -- and stay out of species-less
+lookup, so the shorthand keeps its meaning.
+
+```python
+>>> mhcgnomes.parse("N").to_string()      # rat haplotype, as it always was
+'RT1-n'
+>>> mhcgnomes.parse("HLA-N").to_string()
+'HLA-N'
+>>> mhcgnomes.parse("N", species="Homo sapiens").to_string()
+'HLA-N'
+```
+
 ### Mutations
 
 MHC proteins are sometimes described in terms of mutations to a known allele.

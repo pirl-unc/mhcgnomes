@@ -225,6 +225,11 @@ class Allele(ResultWithGene):
         if gene is None:
             return None
 
+        # A locus its own nomenclature authority gives no alleles cannot have
+        # one built for it -- see Species.gene_has_no_alleles and issue #113.
+        if gene.species is not None and gene.species.gene_has_no_alleles(gene.name):
+            return None
+
         allele_fields = cls.split_allele_fields(allele_fields)
 
         if len(allele_fields) == 0:

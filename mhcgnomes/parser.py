@@ -64,6 +64,20 @@ _MHC_REGION_RE = re.compile(
 )
 
 
+def _names_context_only_gene(result):
+    """
+    Does this parse result rest on a gene that needs the species named first?
+
+    See Species.gene_is_context_only: the gene is real, but the string is
+    contested enough that it should not be handed to a caller who never said
+    which species they meant.
+    """
+    gene = result if isinstance(result, Gene) else getattr(result, "gene", None)
+    if gene is None or gene.species is None:
+        return False
+    return gene.species.gene_is_context_only(gene.name)
+
+
 def _parse_mhc_region_label(seq):
     """
     Parse MHC region labels like MHCIIB, mhc2a, MHC-IA, mhc1.
@@ -1581,6 +1595,13 @@ class Parser:
 
         species, str_after_species = self.parse_species(name=seq, default_species=default_species)
 
+        # When nothing in the token named a species, parse_species hands back
+        # the default species and the whole token as the remainder. A gene
+        # marked `context only` must not be resolved on that assumption: bare
+        # "N" is rat haplotype shorthand, and only "HLA-N" or an explicit
+        # species= argument makes it the human class I fragment. See #113.
+        species_was_named = strict_default_species or str_after_species != seq
+
         if species is not None:
             if len(str_after_species) == 0:
                 parse_candidates.append(species)
@@ -1621,6 +1642,12 @@ class Parser:
                         raise ParseError(
                             f"Unexpected result '{result}' while parsing '{raw_string}'"
                         )
+                if not species_was_named:
+                    parse_candidates = [
+                        candidate
+                        for candidate in parse_candidates
+                        if not _names_context_only_gene(candidate)
+                    ]
         parse_candidates = unique(parse_candidates)
         # update all the objects to set their raw_string field to raw_string
         # and also perform optional transformations

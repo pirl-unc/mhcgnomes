@@ -469,22 +469,31 @@ Homo sapiens:
       - CD1e
       - MR1
     I:
-      # pseudogenes
-      #
-      # IMGT/HLA (https://hla.alleles.org/genes/index.html) also names the
-      # class I gene fragments N, R, S, T, U, W, X, Y and Z. They are
-      # deliberately not listed here: every one is a single letter, and
-      # adding them flips bare "n", "s", "t", "u" and "w" from the
-      # mouse/rat haplotype shorthand they resolve to today into human gene
-      # fragments, and lets allele-less fragments accept allele fields
-      # ("Z*01:01"). The same shadowing already affects H/J/K/L/P/V versus
-      # H2-k and friends, which needs resolving first. See issue #113.
+      # Non-functional class I loci. IMGT/HLA
+      # (https://hla.alleles.org/genes/index.html) splits these two ways in its
+      # Description column: H, J, K and L are "HLA class I pseudogene", while
+      # N, P, R, S, T, U, V, W, X, Y and Z are "HLA class I gene fragment".
+      # Our `pseudogene` flag is the coarser not-expressed/expressed
+      # distinction, so both kinds carry it -- as P and V already did.
       - H
       - J
       - K
       - L
       - P
       - V
+      # The eleven single-letter fragments are all `context only`, because a
+      # bare "N", "R", "S", "U" or "Z" is mouse or rat haplotype shorthand
+      # long before it is a human gene fragment. See the gene properties
+      # below, Species.gene_is_context_only, and issue #113.
+      - N
+      - R
+      - S
+      - T
+      - U
+      - W
+      - X
+      - Y
+      - Z
     IIa:
       DR:
         - DRA
@@ -527,6 +536,23 @@ Homo sapiens:
       - PSMB8
       - PSMB9
   # Source: https://www.ebi.ac.uk/ipd/imgt/hla/about/statistics/
+  #
+  # `alleles: none` marks a locus IMGT/HLA names and deposits no sequence for.
+  # The counts below are from IPD-IMGT/HLA 3.65.0 Allelelist.txt (dated
+  # 2026-07-14, https://raw.githubusercontent.com/ANHIG/IMGTHLA/Latest/Allelelist.txt),
+  # which is the authority on what has actually been deposited: HLA-X, HLA-Z,
+  # HLA-DQB3, HLA-DPA3, MICC, MICD, MICE, PSMB8 and PSMB9 have zero alleles
+  # each. Every other fragment does have them -- W has 13, T 9, S and U 7 each,
+  # N and P 5, V 4, Y 3, R 2 -- so "HLA-W*01:01:01:01" is a real allele name
+  # and parses.
+  #
+  # `context only: true` keeps a gene out of species-less lookup; it still
+  # resolves under "HLA-" or an explicit species= argument. It is on the nine
+  # loci added for #113 and not on P or V, which are equally single letters:
+  # bare "P" and "V" have resolved to HLA-P and HLA-V since long before this,
+  # and flipping them to the H2-p and H2-v haplotypes is a parser policy
+  # change about ambiguous bare tokens, which is issue #130. Adding data
+  # should not quietly move parses that already exist.
   gene properties:
     G: {pseudogene: false}
     H: {pseudogene: true}
@@ -535,18 +561,29 @@ Homo sapiens:
     L: {pseudogene: true}
     P: {pseudogene: true}
     V: {pseudogene: true}
+    N: {pseudogene: true, context only: true}
+    R: {pseudogene: true, context only: true}
+    S: {pseudogene: true, context only: true}
+    T: {pseudogene: true, context only: true}
+    U: {pseudogene: true, context only: true}
+    W: {pseudogene: true, context only: true}
+    X: {pseudogene: true, context only: true, alleles: none}
+    Y: {pseudogene: true, context only: true}
+    Z: {pseudogene: true, context only: true, alleles: none}
     DRB2: {pseudogene: true}
     DRB6: {pseudogene: true}
     DRB7: {pseudogene: true}
     DRB8: {pseudogene: true}
     DRB9: {pseudogene: true}
-    DQB3: {pseudogene: true}
+    DQB3: {pseudogene: true, alleles: none}
     DPA2: {pseudogene: true}
-    DPA3: {pseudogene: true}
+    DPA3: {pseudogene: true, alleles: none}
     DPB2: {pseudogene: true}
-    MICC: {pseudogene: true}
-    MICD: {pseudogene: true}
-    MICE: {pseudogene: true}
+    MICC: {pseudogene: true, alleles: none}
+    MICD: {pseudogene: true, alleles: none}
+    MICE: {pseudogene: true, alleles: none}
+    PSMB8: {alleles: none}
+    PSMB9: {alleles: none}
 ######################################################
 #
 # Mouse
