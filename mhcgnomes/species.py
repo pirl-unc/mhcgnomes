@@ -620,11 +620,21 @@ class Species(Result):
         ]
         if len(prefix_matches) == 1:
             return prefix_matches[0]
-        # 3. For auto-generated long prefixes (e.g., CanisLupus), prefer
-        # the species that isn't a subspecies (no parent with same identifier)
-        non_child = [sp for sp in species_objects if sp.parent_species is None]
-        if len(non_child) == 1:
-            return non_child[0]
+        # 3. When one claimant contains all the others, it is the answer: an
+        # identifier shared by a node and its own descendants names the node.
+        # "MusSp" reaches this shape and is settled by step 2 because it is
+        # also Mus sp.'s prefix, but a shared *common name* has no step 2 --
+        # "tropheus cichlid" belongs to Tropheus sp. and to Tropheus moorii
+        # under it, and used to return None while parse() answered Tropheus sp.
+        #
+        # This used to test `sp.parent_species is None`, which is "has no
+        # parent at all" rather than the "no parent with same identifier" its
+        # comment claimed, so it only ever fired for root entries. A genuine
+        # collision between unrelated species still returns None, which is what
+        # keeps Caau and Hyam honest.
+        containing = _containing_species(species_objects)
+        if containing is not None:
+            return containing
         # Ambiguous alias: return None instead of picking a heuristic winner
         return None
 
@@ -1604,6 +1614,24 @@ def combine_species_aliases(
                         value = old_value + t(value)
                 result[key] = value
     return result
+
+
+def _containing_species(species_objects):
+    """
+    The one claimant that contains all the others, or None.
+
+    An identifier shared by a node and its own descendants names the node.
+    Unrelated claimants have no container, and get None rather than a
+    heuristic winner -- which is what #112 is about.
+    """
+    containing = [
+        candidate
+        for candidate in species_objects
+        if all(other is candidate or candidate.is_ancestor_of(other) for other in species_objects)
+    ]
+    if len(containing) == 1:
+        return containing[0]
+    return None
 
 
 def _hyphens_as_spaces(identifier):
