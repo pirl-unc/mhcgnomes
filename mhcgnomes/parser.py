@@ -47,6 +47,7 @@ from .result_sorting import pick_best_result
 from .result_with_species import ResultWithSpecies
 from .serotype import Serotype
 from .species import (
+    MAX_SPECIES_NAME_TOKENS_RANGE,
     Species,
     classify_species_source,
     find_matching_species_objects,
@@ -2316,7 +2317,7 @@ class Parser:
 
         species_candidates = []
         found_species_prefix = False
-        for num_species_tokens in [3, 2, 1]:
+        for num_species_tokens in MAX_SPECIES_NAME_TOKENS_RANGE:
             if len(tokens) >= (num_species_tokens + 1):
                 # try peeling off species names such as
                 # "homo sapiens" at the beginning of a token sequence

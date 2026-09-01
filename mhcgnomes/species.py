@@ -1647,6 +1647,18 @@ def create_species_lookup_dictionaries():
 ) = create_species_lookup_dictionaries()
 
 
+# How many leading tokens may be a species name. The longest common name in the
+# ontology is five tokens once hyphens are split -- "rio grande silvery minnow"
+# is four, "thirteen-lined ground squirrel" four, and two reach five -- and the
+# window used to stop at three, so none of the 41 names longer than that could
+# be read back. Gene.to_string prints CD1 genes with the common name, so it was
+# emitting 148 strings the parser then refused (#177).
+#
+# tests/test_long_species_names.py fails if a longer name is ever curated.
+MAX_SPECIES_NAME_TOKENS = 5
+MAX_SPECIES_NAME_TOKENS_RANGE = list(range(MAX_SPECIES_NAME_TOKENS, 0, -1))
+
+
 def species_named_in(name):
     """
     Which species, if any, the string names outright.
@@ -1679,7 +1691,7 @@ def species_named_in(name):
 
     tokenization_result = tokenize(name)
     tokens = tokenization_result.tokens
-    for num_species_tokens in [3, 2, 1]:
+    for num_species_tokens in MAX_SPECIES_NAME_TOKENS_RANGE:
         if len(tokens) >= num_species_tokens:
             query = " ".join([t.seq for t in tokens[:num_species_tokens]])
             token_matches = find_matching_species_objects(query)
