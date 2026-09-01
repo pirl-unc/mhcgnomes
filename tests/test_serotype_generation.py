@@ -16,6 +16,9 @@ import pytest
 import yaml
 
 pd = pytest.importorskip("pandas")
+# pandas needs openpyxl to read .xlsx. In the dev extra so these run in CI; the
+# skip is for a checkout that installed the package without it.
+pytest.importorskip("openpyxl")
 DATA = Path(__file__).parent.parent / "mhcgnomes" / "data"
 sys.path.insert(0, str(Path(__file__).parent.parent / "scripts"))
 generator = pytest.importorskip("generate_serotypes_from_hla_dictionary")
