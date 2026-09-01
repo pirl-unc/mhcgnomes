@@ -99,6 +99,17 @@ def load_hla_dictionary(xlsx_path: Path) -> pd.DataFrame:
     return pd.read_excel(xlsx_path, sheet_name="A")
 
 
+# Allele/serotype pairs the dictionary asserts but curation has rejected, with
+# the reason. Without this, regenerating silently undoes the correction: the
+# dictionary gives A*24:18 the dual type "A24(9)/A3", parse_serotype splits it
+# into both, and it lands back in A3. The dictionary's own Comments column for
+# that row reads "A2403x3; short A24 with most A3 and A9 reactive; NN: A24",
+# so A24 is the assignment and A3 is the weaker cross-reaction. See issue #156.
+CURATED_EXCLUSIONS = {
+    ("A3", "A*2418"),
+}
+
+
 def build_serotype_mappings(df: pd.DataFrame) -> dict[str, dict[str, list[str]]]:
     """
     Build serotype-to-allele mappings from the HLA dictionary.
@@ -124,6 +135,8 @@ def build_serotype_mappings(df: pd.DataFrame) -> dict[str, dict[str, list[str]]]
         normalized = normalize_allele_name(allele)
 
         for serotype in serotypes:
+            if (serotype, normalized) in CURATED_EXCLUSIONS:
+                continue
             serotype_to_alleles[serotype].add(normalized)
 
     # Organize by gene prefix (A, B, C, DR, DQ, DP)
