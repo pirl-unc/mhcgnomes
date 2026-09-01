@@ -1,30 +1,43 @@
-# Sweep the four group nodes, the last entries never checked (#131)
+# Curate the low-resolution (Lr-) swine haplotype series (#162)
 
 ## Review
 
-- **A gap in my own method, not in the sources.** The GenBank sweep in #169
-  skipped every `<Genus> sp.` row -- `if species.endswith(" sp."): continue` --
-  because a group node has no organism to search under. So four of #131's
-  fifteen had never actually been searched, while I was describing the list as
-  exhaustively checked.
+- **The data was reachable after all, and I had said twice that it was not.**
+  I checked PMC for Ho et al. 2009 and Hammer et al. 2020 (no full text) and
+  read the cohort papers' HTML tables (per-line counts only), then concluded
+  the compositions were paywalled. What I never tried was **Europe PMC**, which
+  serves the same articles as structured full-text XML:
 
-- **Searching under the genus instead finds nothing**, in nuccore or protein:
+      https://www.ebi.ac.uk/europepmc/webservices/rest/PMC8362188/fullTextXML
 
-      Coregonus + Cosp   0        Manacus + Mana   0
-      Tropheus  + Trsp   0        Mus     + MusSp  0 as a prefix
+  Tables 1 and 2 are in it in full -- 49 class I and 31 class II rows. The
+  supplementary route was a dead end too (PMC gates the download behind an
+  interstitial; Europe PMC's supplementaryFiles endpoint serves it, and it
+  turned out to hold only primer layouts and frequency figures).
 
-- **`MusSp` returns 18 records and none of them count.** They are *Mus spretus*
-  microsatellites named `MUSSP-16`, `MUSSP-17`, `MUSSP-18` -- a coincidental
-  string, the same false-positive shape as `Xetr` appearing only as clone tags
-  for bitter taste receptors.
+  My greps for "Lr-" had also been finding nothing because the XML uses a
+  Unicode hyphen, U+2010.
 
-- **They stay `None`, and now for a checked reason rather than an unchecked
-  one.** Reclassifying them as "group label" would need the predicate that also
-  gates prefix inheritance, and 18 species inherit these as `old_mhc_prefix`.
-  That trade is recorded on #131 and has not changed.
+- **59 haplotypes curated**, 39 class I and 20 class II, every member a
+  one-field allele because that is what a group specificity is: `1*04` is
+  SLA-1*04XX.
 
-- **All fifteen of #131's remaining entries have now been searched**, which was
-  not true before this.
+- **The footnotes carry the finding.** Table 1's footnote 5 is "Untyped SLA
+  class I locus", and Lr-24.0 and Lr-33.0 show `Blank` **with that footnote**.
+  Same word, opposite claim from the plain `Blank` in Lr-23.0. A naive import
+  would have recorded two untyped loci as positively absent -- exactly the
+  distinction #162 was filed about, confirmed by the source itself.
 
-- No data changed, so no corpus measurement applies. 16,994 tests pass.
-- Bumped to 3.63.2.
+- **19 rows deliberately left out, each with its reason recorded** in the YAML
+  and pinned in a test: composite or unconfirmed names, untyped loci, `+`
+  meaning an allele beyond the group, and `/` meaning alternatives. The last
+  two need a disjunction member, which is the only part of #162 still open.
+
+- **Cross-validation, unlooked for.** Footnote 3 says Lr-02.0 "did not appear
+  to possess an expressed SLA-3 gene", which is the same fact Table 2 of
+  PMC5472656 records as Hp-2.0's SLA-3 being *null*. Two independent papers,
+  one haplotype at two resolutions, agreeing.
+
+- **Measured:** 0 of 36,752 corpus names change; 0 printed forms fail to parse
+  back; 17,129 tests pass, 76 new; no parser warnings from the new entries.
+- Bumped to 3.64.0.
