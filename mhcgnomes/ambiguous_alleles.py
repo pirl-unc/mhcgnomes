@@ -23,10 +23,11 @@ from .species import Species
 class AmbiguousAlleles(ResultWithMultipleAlleles):
     """
     A set of distinct allele designations that an input string cannot
-    disambiguate between. Used for IPD-MHC style slash designations
-    such as "SahaI*74/88" (Caldwell et al. 2018, PMC6092122), where an
-    observed sequence matches two database entries because they are
-    identical in the region that was typed.
+    disambiguate between. Used for source-specific slash designations such as
+    "SahaI*74/88" (Caldwell et al. 2018, PMCID PMC6092122), where one observed
+    exon-2 sequence carries two historical candidate allele designations. The
+    source-data FASTA contains one sequence for that label
+    (https://doi.org/10.7554/eLife.35314.015); it is not a molecular pair.
 
     Unlike Serotype or Haplotype, the grouping here does not reflect a
     biological or serological relationship — just typing ambiguity.

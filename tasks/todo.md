@@ -1,25 +1,52 @@
-# Correct what the Lr- tables say about "+" (#162)
+# Prevent Tasmanian-devil ambiguity labels from becoming `Pair`
+
+GitHub issue: #186
+
+## Evidence and intended behavior
+
+- [x] Check the current IPD-MHC release rather than inferring registry coverage
+  from search results. IPD-MHC 3.17.0.0 (2026-07-26; 12,833 entries) contains
+  zero entry names beginning `Saha` and zero entries whose organism contains
+  `Sarcophilus`.
+- [x] Check primary literature for the nomenclature. `SahaI*NN` is an attested
+  author-used convention: Siddle et al. deposited `SahaI*27`--`*85`
+  (PMID 20219742), and Caldwell et al. use `SahaI*49/82` and `SahaI*74/88`
+  (PMCID PMC6092122). This is literature usage, not an IPD-MHC registration.
+- [x] Check the underlying records. The candidate designations correspond to
+  GenBank GQ411457 (`SahaI*49`), GQ411490 (`SahaI*82`), GQ411482
+  (`SahaI*74`), and JN389436 (`SahaI*88`). Caldwell's source-data FASTA has
+  one sequence for each slash label, so neither label denotes two paired MHC
+  molecules.
+- [x] Keep both candidates gene-unassigned. Caldwell explicitly labels
+  `SahaI*74/88` unassigned, and the compound labels do not justify promoting
+  either candidate to a particular locus.
+
+## Implementation
+
+- [x] Recognize only the two published Saha compound labels as allele-name
+  ambiguity, independent of the optional alias-resolution flag.
+- [x] Keep ordinary slash parsing unchanged, especially the common class-II
+  alpha/beta `Pair` case.
+- [x] Replace incorrect "IPD-style" / "IPD entries" prose with citations to
+  Caldwell's paper, source-data FASTA, and the four GenBank accessions.
+- [x] Add regression tests for both spellings (`SahaI` and `Saha-I`), both
+  alias settings, gene-unassigned members, class-I context, and non-creation
+  of `Pair`.
+- [x] Add a non-regression test for a genuine class-II alpha/beta pair.
+- [x] Run `./format.sh`, `./lint.sh`, and `./test.sh`.
 
 ## Review
 
-- **I wrote an interpretation into a curated file that the source does not
-  state.** #183's comment said the five excluded rows use `+` to mean "an
-  additional allele beyond the group". That was my reading, not the paper's.
-
-- **What the paper actually says.** Table 1 never explains `+` at all. Table 2's
-  footnote 3 addresses one instance and says only "Positive with both DQA*04XX
-  primer sets in lanes D12 and C12" -- an assay result, not a definition of the
-  notation. Whether `12XX + 11:04` means a second allele at the locus, a
-  duplicated locus, or an unresolved call is not something these tables say.
-
-- **And "+" was never the representation problem I implied.** Two members at
-  one locus is already how Lr-02.0 records `02XX,07XX`. Those five rows are out
-  because the meaning is unestablished, not because the format cannot hold
-  them -- a materially different reason, and the one a future curator needs.
-
-- **"/" is unaffected.** A slash between two specificities at one locus reads
-  as alternatives, and a disjunction really is a member this format cannot
-  express. That remains the open half of #162.
-
-- No data changed; 17,130 tests pass.
-- Bumped to 3.64.1.
+- IPD-MHC 3.17.0.0 was checked directly: 0 `Saha` entry names and 0
+  *Sarcophilus* organisms. The nomenclature is nevertheless attested by Siddle
+  et al. (PMID 20219742), Caldwell et al. (PMCID PMC6092122), Caldwell's
+  one-record-per-label source FASTA, and GenBank GQ411457/GQ411490/GQ411482/
+  JN389436.
+- Both `SahaI*49/82` and `SahaI*74/88` now return `AmbiguousAlleles` containing
+  two gene-unassigned class-I candidates with aliases either off or on. The
+  parser never constructs a `Pair` from the source's `I` placeholder.
+- The exception is deliberately source-specific. An invented `SahaI*49/74`
+  stays unresolved; ordinary HLA class-II alpha/beta slash notation still
+  returns `Pair`. The broader alias-based ambiguity conversion was removed.
+- `./format.sh` passed; `./lint.sh` passed; all 17,143 tests passed with 92%
+  coverage. Bumped to 3.64.2.

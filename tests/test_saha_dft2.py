@@ -12,7 +12,7 @@ attribution.
 
 import pytest
 
-from mhcgnomes import AlleleWithoutGene, AmbiguousAlleles, parse
+from mhcgnomes import AlleleWithoutGene, AmbiguousAlleles, Pair, parse
 
 from .common import eq_
 
@@ -84,20 +84,22 @@ def test_em_dash_normalizes_to_hyphen():
 @pytest.mark.parametrize(
     ("paper_name", "expected_numbers"),
     [
-        # Paper Table 1 slash-ambiguous designations: a single observed
-        # DFT2 sequence that matches two IPD entries identical in the
-        # region typed. Treated as two distinct alleles the input cannot
-        # disambiguate between — not one allele with a slash in its name.
+        # Caldwell Table 1 and its source-data FASTA use each slash label for
+        # one observed exon-2 sequence with two historical candidate names.
+        # The candidates are GenBank records, not IPD-MHC entries or a pair.
         ("SahaI*49/82", ("49", "82")),
         ("SahaI*74/88", ("74", "88")),
+        ("Saha-I*49/82", ("49", "82")),
         ("Saha-I*74/88", ("74", "88")),
     ],
 )
-def test_slash_ambiguity_produces_two_alleles(paper_name, expected_numbers):
-    result = parse(paper_name, use_allele_aliases=True)
+@pytest.mark.parametrize("use_allele_aliases", [False, True])
+def test_slash_ambiguity_produces_two_alleles(paper_name, expected_numbers, use_allele_aliases):
+    result = parse(paper_name, use_allele_aliases=use_allele_aliases)
     assert isinstance(result, AmbiguousAlleles), (
         f"{paper_name!r} should produce AmbiguousAlleles, got {type(result).__name__}"
     )
+    assert not isinstance(result, Pair)
     eq_(result.num_alleles, 2)
     # alleles are sorted by value in ResultWithMultipleAlleles
     names = tuple(a.name for a in result.alleles)
@@ -111,17 +113,45 @@ def test_ambiguous_alleles_round_trip_string():
     result = parse("SahaI*74/88", use_allele_aliases=True)
     eq_(result.to_string(), "Saha-74/88")
     eq_(result.to_string(include_species=False), "74/88")
+    reparsed = parse(result.to_string())
+    assert isinstance(reparsed, AmbiguousAlleles)
+    eq_(tuple(a.name for a in reparsed.alleles), ("74", "88"))
+
+
+@pytest.mark.parametrize("use_allele_aliases", [False, True])
+def test_unpublished_saha_numeric_slash_is_not_inferred_as_pair(use_allele_aliases):
+    # The I token is Caldwell's class-I placeholder, not one chain of a
+    # biological pair. Only the two source-attested combinations above are
+    # promoted to AmbiguousAlleles; other combinations remain unresolved.
+    result = parse(
+        "SahaI*49/74",
+        use_allele_aliases=use_allele_aliases,
+        raise_on_error=False,
+    )
+    assert result is None
+
+
+@pytest.mark.parametrize("use_allele_aliases", [False, True])
+def test_saha_guard_does_not_change_class_ii_pair(use_allele_aliases):
+    result = parse(
+        "HLA-DPA1*01:03/DPB1*04:01",
+        use_allele_aliases=use_allele_aliases,
+    )
+    assert isinstance(result, Pair)
+    eq_(result.alpha.gene_name, "DPA1")
+    eq_(result.beta.gene_name, "DPB1")
 
 
 @pytest.mark.parametrize(
     "paper_name",
     ["SahaI*29", "SahaI*49", "SahaI*49/82", "SahaI*74/88"],
 )
-def test_class_i_context_preserved_without_locus(paper_name):
+@pytest.mark.parametrize("use_allele_aliases", [False, True])
+def test_class_i_context_preserved_without_locus(paper_name, use_allele_aliases):
     # The "I" placeholder gene carries class I context; alias resolution
     # should thread that into AlleleWithoutGene / AmbiguousAlleles so
     # downstream class-based filters continue to work.
-    result = parse(paper_name, use_allele_aliases=True)
+    result = parse(paper_name, use_allele_aliases=use_allele_aliases)
     eq_(result.mhc_class, "I")
     assert result.is_class1
     if isinstance(result, AmbiguousAlleles):

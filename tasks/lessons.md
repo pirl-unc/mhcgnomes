@@ -203,3 +203,20 @@ siblings are and run them once. Six were checked here; two found bugs and four
 came back clean, and the clean ones are worth knowing too -- they are why the
 sweep could stop. Stop when the technique stops producing, not when the list of
 possible probes runs out.
+
+## Published nomenclature is not registry membership
+
+**What happened.** Comments called `SahaI*49/82` and `SahaI*74/88` "IPD-style"
+and said their four candidate names were "IPD entries". The `SahaI*NN`
+convention is real and well attested in Tasmanian-devil papers and GenBank, but
+the current IPD-MHC release contains no `Saha` or *Sarcophilus* entry at all.
+
+**Why it was wrong.** A name can be used consistently in primary literature
+without being curated by the registry that governs related nomenclature. The
+paper and registry answer different questions, and borrowing the registry's
+authority made the source-specific slash semantics sound standardized.
+
+**How to apply.** Cite the paper for how an author writes a name, the sequence
+accession for what biological record it denotes, and the registry release for
+whether the registry contains it. Never substitute one of those checks for
+another.
