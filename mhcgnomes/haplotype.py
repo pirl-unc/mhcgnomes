@@ -16,9 +16,11 @@ from typing import Union
 
 from .allele import Allele
 from .class2_locus import Class2Locus
+from .gene import Gene
 from .mhc_class_helpers import (
     is_valid_restriction,
     restrict_alleles,
+    restrict_genes,
 )
 from .pair import Pair
 from .result_with_multiple_alleles import ResultWithMultipleAlleles
@@ -80,6 +82,11 @@ class Haplotype(ResultWithMultipleAlleles):
     class_restriction: Union[str, None] = None
     locus_restriction: Union[Class2Locus, None] = None
     parent_haplotypes: Union[tuple["Haplotype", ...], None] = None
+    # Loci this haplotype positively lacks, as against loci nobody typed. See
+    # Parser._blank_locus_gene_name and issue #162. Deliberately not in
+    # eq_field_names: a haplotype's identity is its species and name, which is
+    # why `alleles` is not there either.
+    absent_genes: tuple["Gene", ...] = ()
 
     def __init__(
         self,
@@ -90,6 +97,7 @@ class Haplotype(ResultWithMultipleAlleles):
         locus_restriction: Union[Class2Locus, None] = None,
         parent_haplotypes: Union[Sequence["Haplotype"], None] = None,
         raw_string: Union[str, None] = None,
+        absent_genes: Union[Sequence["Gene"], None] = None,
     ):
         ResultWithMultipleAlleles.__init__(
             self, species=species, name=name, alleles=alleles, raw_string=raw_string
@@ -101,6 +109,7 @@ class Haplotype(ResultWithMultipleAlleles):
             "parent_haplotypes",
             tuple(parent_haplotypes) if parent_haplotypes is not None else None,
         )
+        self._set_field(self, "absent_genes", tuple(absent_genes or ()))
 
     @classmethod
     def str_field_names(cls):
@@ -138,6 +147,13 @@ class Haplotype(ResultWithMultipleAlleles):
             class_restriction=class_restriction,
             locus_restriction=self.locus_restriction,
             raw_string=self.raw_string,
+            # Restricted by the same rule as the alleles beside them --
+            # restrict_alleles, not is_valid_restriction, which answers a
+            # different question and would have dropped SLA-3 ("Ia") from a
+            # class I reading. Dropping the field here instead would be the
+            # #137 failure: a rebuilt object quietly losing what its source
+            # said.
+            absent_genes=restrict_genes(self.absent_genes, class_restriction),
         )
 
     def restrict_class2_locus(self, class2_locus: Class2Locus, raise_on_error=True):
@@ -162,6 +178,9 @@ class Haplotype(ResultWithMultipleAlleles):
             class_restriction=self.class_restriction,
             locus_restriction=class2_locus,
             raw_string=self.raw_string,
+            # Same rule as the alleles beside them: keep only the loci this
+            # restriction is about.
+            absent_genes=[gene for gene in self.absent_genes if gene in valid_genes],
         )
 
     def collapse_if_possible(self):

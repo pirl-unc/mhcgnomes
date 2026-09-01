@@ -41,10 +41,15 @@ SLA:
   # this haplotype, "0201(a), 0701(b)", and *null* for SLA-3 -- the locus is
   # absent, not unknown. The third allele here used to read SLA-3*02:01, which
   # is the SLA-2 column misfiled under SLA-3.
+  #
+  # "3*Blank" is how that null is written. Omitting SLA-3 would record it as a
+  # locus nobody typed, which is a different claim from one the source says is
+  # not there. Reachable as Haplotype.absent_genes. See #162.
   Hp-2.0:
     - 1*02:01
     - 1*07:01
     - 2*02:01
+    - 3*Blank
   # Yucatan miniature pigs; the most prevalent class I haplotype in Danish
   # commercial pigs by its low-resolution counterpart Lr-4.0.
   Hp-4b.0:

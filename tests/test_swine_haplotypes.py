@@ -25,6 +25,7 @@ import pytest
 
 from mhcgnomes import Haplotype, parse
 from mhcgnomes.data import haplotypes as raw_haplotypes
+from mhcgnomes.parser import _blank_locus_gene_name
 
 from .common import eq_, ok_
 
@@ -32,7 +33,7 @@ from .common import eq_, ok_
 # the alleles Table 2 lists for it.
 SLA_HAPLOTYPES = {
     "Hp-1a.0": ["SLA-1*01:01", "SLA-2*01:01", "SLA-3*01:01"],
-    "Hp-2.0": ["SLA-1*02:01", "SLA-1*07:01", "SLA-2*02:01"],
+    "Hp-2.0": ["SLA-1*02:01", "SLA-1*07:01", "SLA-2*02:01"],  # plus SLA-3 blank
     "Hp-4b.0": ["SLA-1*04:01", "SLA-2*04:02:01", "SLA-3*04:01"],
     "Hp-6.0": ["SLA-1*08:05", "SLA-2*05:04", "SLA-3*06:01"],
     "Hp-7.0": ["SLA-1*08:01", "SLA-2*05:02", "SLA-3*07:01:01"],
@@ -60,6 +61,14 @@ def test_swine_haplotype_parses_with_and_without_the_species_prefix(name):
     # prefix. Both spellings appear in print.
     eq_(parse(name).to_string(), f"SLA-{name}")
     eq_(parse(f"SLA-{name}").to_string(), f"SLA-{name}")
+
+
+def test_hp_2_0_records_its_null_sla3_rather_than_omitting_it():
+    """
+    Table 2 gives SLA-3 as *null* for this haplotype. Since #162 that is data
+    rather than a comment.
+    """
+    eq_([gene.to_string() for gene in parse("Hp-2.0").absent_genes], ["SLA-3"])
 
 
 def test_hp_2_0_has_no_class3_allele():
@@ -105,9 +114,19 @@ def test_every_curated_haplotype_keeps_every_allele(prefix, name, allele_names):
     with redirect_stdout(captured):
         result = parse(f"{prefix}-{name}", required_result_types=[Haplotype], raise_on_error=False)
     ok_(result is not None, f"{prefix}-{name} has no haplotype reading")
+    # A "<gene>*Blank" member is a locus the haplotype positively lacks, so it
+    # lands in absent_genes rather than alleles (#162). It is still a member,
+    # and still must not be dropped.
+    blank_members = [m for m in allele_names if _blank_locus_gene_name(m) is not None]
+    expected_alleles = len(allele_names) - len(blank_members)
     eq_(
         len(result.alleles),
-        len(allele_names),
-        f"{prefix}-{name} kept {len(result.alleles)} of {len(allele_names)} alleles"
+        expected_alleles,
+        f"{prefix}-{name} kept {len(result.alleles)} of {expected_alleles} alleles"
         + (f"; parser said: {captured.getvalue().strip()}" if captured.getvalue() else ""),
+    )
+    eq_(
+        len(result.absent_genes),
+        len(blank_members),
+        f"{prefix}-{name} kept {len(result.absent_genes)} of {len(blank_members)} blank loci",
     )

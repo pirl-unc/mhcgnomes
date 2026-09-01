@@ -81,6 +81,25 @@ def _spelling_as_written(normalized_name, raw_name):
     return normalized_name
 
 
+def _blank_locus_gene_name(member: str):
+    """
+    The gene name in a "<gene>*Blank" haplotype member, or None.
+
+    A blank locus is a positive finding -- the haplotype carries no allele
+    there -- as against a locus nobody typed. Published swine haplotypes state
+    it: Table 2 of PMC5472656 gives Hp-2.0's SLA-3 as *null*, and low-resolution
+    types are written "SLA-1*15XX or Blank". Leaving the locus out of the list
+    records it as untyped instead, which is a different claim. See issue #162.
+    """
+    if member.count("*") != 1:
+        return None
+    gene_name, allele_field = member.split("*")
+    if allele_field.strip().lower() not in ("blank", "null"):
+        return None
+    gene_name = gene_name.strip()
+    return gene_name or None
+
+
 def _lie_in_one_lineage(species_objects):
     """
     Is every one of these species an ancestor or descendant of every other?
@@ -337,7 +356,20 @@ class Parser:
             return None
 
         alleles = []
+        absent_genes = []
         for allele_name in allele_names:
+            blank_gene_name = _blank_locus_gene_name(allele_name)
+            if blank_gene_name is not None:
+                gene = Gene.get(species, blank_gene_name)
+                if gene is None:
+                    print(
+                        f"Warning: unknown gene '{blank_gene_name}' marked blank "
+                        f"for '{normalized_name}'"
+                    )
+                else:
+                    absent_genes.append(gene)
+                continue
+
             candidates = self.parse_allele_or_gene_candidates(
                 species, str_after_species=allele_name
             )
@@ -349,7 +381,7 @@ class Parser:
                 )
             else:
                 alleles.append(allele)
-        return (normalized_name, alleles)
+        return (normalized_name, alleles, absent_genes)
 
     def get_serotype(self, species: Union[Species, str], serotype_name: str):
         """
@@ -371,7 +403,15 @@ class Parser:
         if name_and_alleles is None:
             return None
 
-        normalized_name, alleles = name_and_alleles
+        normalized_name, alleles, absent_genes = name_and_alleles
+        if absent_genes:
+            # A serotype is a set of alleles that cross-react, not a locus map,
+            # so "blank" says nothing there. Loudly, because a silent drop is
+            # how the swine haplotypes lost their alleles for years (#143).
+            raise ParseError(
+                f"Serotype '{normalized_name}' marks "
+                f"{[gene.name for gene in absent_genes]} blank; only haplotypes may."
+            )
 
         return Serotype(
             species=species, name=normalized_name, alleles=alleles, raw_string=serotype_name
@@ -540,10 +580,14 @@ class Parser:
         if name_and_alleles is None:
             return None
 
-        normalized_name, alleles = name_and_alleles
+        normalized_name, alleles, absent_genes = name_and_alleles
 
         return Haplotype(
-            species=species, name=normalized_name, alleles=alleles, raw_string=haplotype_name
+            species=species,
+            name=normalized_name,
+            alleles=alleles,
+            absent_genes=absent_genes,
+            raw_string=haplotype_name,
         )
 
     def create_crossed_haplotype(
