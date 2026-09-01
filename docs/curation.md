@@ -107,9 +107,14 @@ behavior.
 1. If the species prefix and canonical gene names are stable, add them to `species.yaml`.
 2. If a new string can normalize to an existing canonical gene, put it in `gene_aliases.yaml`.
 3. If a new string can normalize to an existing canonical allele, put it in `allele_aliases.yaml`.
-4. If the source only tells us "this clade probably has class I / class IIbeta / TAP genes" but not stable canonical names, capture it in `underrepresented_taxa_source_registry.yaml`.
-5. If the source is a survey paper with paper-local allele IDs, do not put those IDs in runtime YAML unless they map cleanly onto stable canonical names.
-6. If the data encodes a derived concept like a serotype, supertype, haplotype, or heterodimer shorthand, use the dedicated file for that concept rather than overloading `species.yaml`.
+4. If the source only tells us "this clade probably has class I / class IIbeta
+/ TAP genes" but not stable canonical names, capture it in
+`underrepresented_taxa_source_registry.yaml`.
+5. If the source is a survey paper with paper-local allele IDs, do not put
+those IDs in runtime YAML unless they map cleanly onto stable canonical names.
+6. If the data encodes a derived concept like a serotype, supertype,
+haplotype, or heterodimer shorthand, use the dedicated file for that concept
+rather than overloading `species.yaml`.
 
 ## Prefix Conflict Resolution Plan
 
@@ -136,6 +141,14 @@ but `parse(..., species="<latin name>")` may reinterpret them in the requested
 species context. This is the right bucket for cases like `Hymo`, `Moal`, and
 fish-side `Orla`, where the source string is real but the bare prefix is not a
 safe global identifier.
+
+    A second case belongs here too, added in 3.43.0: a prefix that is *not*
+    attested for anyone, because two entries derive it by the same mechanical
+    rule. `ChryPict` comes from the 4+4 rule applied to both *Chrysemys picta*
+    and *Chrysolophus pictus*, so both list it as context-only and neither owns
+    it. The error message distinguishes the two cases -- "source-attested for
+    multiple species" versus "derivable by the same naming rule ... so it names
+    neither" -- because calling a derived form attested invents provenance.
 
 Corollary: do not auto-generate new 2+2 / 4-letter runtime aliases from Latin
 names. Add a short alias only when an explicit source attests that exact
@@ -190,7 +203,8 @@ parent is a group entry labelled with its own taxon name -- `Aves sp.` with
 `Aves`, `NHP` with `NHP`. Most group entries announce themselves by ending in
 `sp.`; `NHP` cannot, since it is not a taxon, so it carries `group: true`
 instead -- and so should any future database section that is not a clade,
-rather than being named in the loader (#135). Designations are inherited (`BoLA`, `DLA`, `RhLA`),
+rather than being named in the loader (#135). Designations are inherited
+(`BoLA`, `DLA`, `RhLA`),
 and so are decorated group labels that are not simply the taxon (`Mus sp.` with
 `MusSp`). The child must also not declare an `old prefix` of its own. Note this
 is the *immediate* parent: `Macaca mulatta` inherits `RhLA` from `Macaca sp.`,
@@ -413,15 +427,18 @@ that only suppresses the generated copy -- where one side of a pair curates the
 form as its prefix or as an `other prefixes` entry, it still resolves globally
 and to that side alone -- confidently, which was the bug in #134. Since 3.43.0
 none of the three resolves on its own: both claimants list the form under
-`context only prefixes`, so `ChryPict-B` fails and
-`parse("ChryPict-B", species="Chrysolophus pictus")` works.
+`context only prefixes`, so `ChryPict-UA*01` raises with an explanation and
+`parse("ChryPict-UA*01", species="Chrysolophus pictus")` works. (`ChryPict-B`
+is not the example to reach for: *Chrysemys picta* has no `B` gene, so that
+string failed on 3.42.0 too.)
 
 **The rule this sets: a prefix two entries can derive is curated by neither as
 a plain alias.** Put it under `context only prefixes` on both, and give each
 species its concatenated binomial as the canonical prefix. Six entries follow
 it today. It also demoted two tie-breaks belonging to no documented form --
 `LaniCola` (a hand-tweaked 4+4) and `LeucisLeucis` (a 6+6) -- though those are
-uncontested, so they stay plain `other prefixes` aliases and still resolve. The concatenated binomial is the default generated alias,
+uncontested, so they stay plain `other prefixes` aliases and still resolve.
+The concatenated binomial is the default generated alias,
 and is the only form with no collisions anywhere in the ontology.
 
 `Species.prefix_provenance` records how an entry came by its prefix:

@@ -31,7 +31,12 @@ from .parser import (
     Parser,
 )
 from .result import Result
-from .species import Species, infer_species_from_context_only_prefix
+from .species import (
+    Species,
+    infer_species_from_context_only_prefix,
+    prefix_is_derived_for,
+    unambiguous_prefix_for,
+)
 
 
 @cache
@@ -160,7 +165,11 @@ def _format_species_options(species_objects, max_items=4):
 
 
 def _format_canonical_prefix_options(species_objects, max_items=4):
-    shown = [f"{sp.prefix} ({sp.name})" for sp in species_objects[:max_items]]
+    # unambiguous_prefix_for, not sp.prefix: "Chpi" is Chrysolophus pictus's
+    # canonical prefix and is derivable by Klein's 2+2 rule from Chrysemys
+    # picta too, so recommending it as the way out of a collision just moves
+    # the collision to a shorter tier.
+    shown = [f"{unambiguous_prefix_for(sp)} ({sp.name})" for sp in species_objects[:max_items]]
     if len(species_objects) > max_items:
         shown.append(f"+{len(species_objects) - max_items} more")
     return ", ".join(shown)
@@ -185,10 +194,22 @@ def _context_only_prefix_error_message(raw_string: str):
             f"{canonical_options}."
         )
 
+    # A contested form is not necessarily an attested one. "ChryPict" exists
+    # only because the 4+4 rule derives it from two different binomials, and
+    # nothing has ever published a ChryPict-* allele; saying "source-attested"
+    # there asserts exactly the kind of thing AGENTS.md says not to invent.
+    if all(prefix_is_derived_for(matched_prefix, sp.name) for sp in candidate_species):
+        origin = (
+            f"Prefix '{matched_prefix}' is derivable by the same naming rule from "
+            f"{_format_species_options(candidate_species)}, so it names neither"
+        )
+    else:
+        origin = (
+            f"Prefix '{matched_prefix}' is source-attested for multiple species "
+            f"({_format_species_options(candidate_species)}) and is not globally unique"
+        )
     return (
-        f"Prefix '{matched_prefix}' is source-attested for multiple species "
-        f"({_format_species_options(candidate_species)}) and is not globally unique. "
-        f"Use species='<latin name>' or a collision-free canonical prefix such as "
+        f"{origin}. Use species='<latin name>' or an unambiguous prefix such as "
         f"{canonical_options}."
     )
 
@@ -719,9 +740,13 @@ def parse(
             parser_error = None
 
     if parser_error is not None:
-        maybe_context_message = (
-            _context_only_prefix_error_message(raw_string) if species is None else None
-        )
+        # Explain the contested prefix whether or not species= was supplied.
+        # Before this, passing a species that is not one of the claimants
+        # downgraded a specific diagnostic to a bare "Could not parse", so the
+        # form failed quietly in exactly the case the caller was most explicit.
+        maybe_context_message = _context_only_prefix_error_message(raw_string)
+        if maybe_context_message is not None and species is not None:
+            maybe_context_message += f" The requested species={species!r} is not one of them."
         if maybe_context_message is not None:
             raise ParseError(maybe_context_message) from parser_error
         raise parser_error

@@ -379,6 +379,20 @@ class Species(Result):
         return self == other or self.is_ancestor_of(other) or other.is_ancestor_of(self)
 
     @property
+    def is_group(self):
+        """
+        Does this entry stand for a grouping rather than one species?
+
+        True for every "<taxon> sp." node and for any entry declaring
+        `group: true` -- currently NHP, IPD-MHC's non-human primate section,
+        which is not a taxon and so cannot announce itself by name (#122).
+
+        Exposed because the alternative is every consumer re-deriving it from
+        `name.endswith(" sp.")`, which gets NHP wrong. See #135.
+        """
+        return _is_group_entry(self.name)
+
+    @property
     def historic_mhc_prefix(self):
         """
         Return older species name which is now used to group multiple
@@ -1002,9 +1016,11 @@ def _is_group_entry(latin_name):
     database section that is not a clade does the same, rather than being
     hardcoded here (#135).
 
-    Group-ness decides two things: whether a prefix that is merely the entry's
-    own name is suppressed rather than inherited, and whether provenance
-    reports "group label".
+    Group-ness alone decides nothing; it is one half of both tests that use it.
+    A prefix is suppressed rather than inherited, and reports provenance
+    "group label", only when the entry is a group *and* the prefix is merely
+    its own name. A group entry carrying a real designation is unaffected:
+    "Bos sp." reports "designated" and hands "BoLA" down.
     """
     if raw_species_dict.get(latin_name, {}).get("group"):
         return True
@@ -1036,6 +1052,39 @@ def _is_inheritable_umbrella(prefix, latin_name):
     the prefix the way any other child does.
     """
     return not (_is_group_entry(latin_name) and _prefix_is_derived_from_name(prefix, latin_name))
+
+
+def prefix_is_derived_for(prefix, latin_name):
+    """
+    Would mhcgnomes mint this prefix for that species from its latin name?
+
+    True for the concatenated binomial and for the 4+4 shorthand, whether or
+    not the emitter actually offers it -- a colliding 4+4 is withheld but is
+    still *derivable*, which is exactly what makes it contested. Used to keep
+    error messages from calling a derived form "source-attested".
+    """
+    normalized = _normalize_identifier(prefix)
+    for generator in (_make_full_scientific_prefix, _make_long_prefix):
+        generated = generator(latin_name)
+        if generated and _normalize_identifier(generated) == normalized:
+            return True
+    return False
+
+
+def unambiguous_prefix_for(species):
+    """
+    A prefix that names this species and nothing else.
+
+    The concatenated binomial where there is one -- it is the only form with no
+    collisions anywhere in the ontology -- otherwise the curated prefix. Do not
+    offer `species.prefix` blindly: "Chpi" is Chrysolophus pictus's canonical
+    prefix and is derivable by Klein's 2+2 rule from Chrysemys picta too, so
+    recommending it in a collision message just moves the collision.
+    """
+    full = _make_full_scientific_prefix(species.name)
+    if full and len(_scientific_name_parts(species.name)) == 2:
+        return full
+    return species.prefix
 
 
 def _derive_prefix_provenance(prefix, latin_name):
@@ -1076,11 +1125,11 @@ SPECIES_ENTRY_KEYS = frozenset(
         # reads them; they are listed so the file still loads, not because they
         # do anything, and "alias" holds a transposed MhcPatr. See issue #139.
         "alias",
-        "group",
         "context only prefixes",
         "gene families",
         "gene properties",
         "genes",
+        "group",
         "haplotype prefix",
         "name",
         "old prefix",
@@ -1115,6 +1164,13 @@ def create_species_for_latin_name(latin_name):
     prefix = species_info.get("prefix")
     if not prefix:
         raise ValueError(f"Missing 'prefix' for '{latin_name}' in species ontology")
+
+    group_flag = species_info.get("group")
+    if group_flag is not None and group_flag is not True:
+        raise ValueError(
+            f"'group' of '{latin_name}' is {group_flag!r}; the only accepted value is true. "
+            f"Omit the key for an ordinary species."
+        )
 
     prefix_provenance = species_info.get("prefix source")
     if prefix_provenance is not None and (
