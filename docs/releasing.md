@@ -79,11 +79,17 @@ built with the launching interpreter anyway; the fix is that it now tells you.
 To build under the venv, install the tools there:
 
 ```bash
-.venv/bin/python -m pip install build twine
+.venv/bin/python -m pip install build setuptools wheel
 ```
 
-To choose an interpreter explicitly, set `DEPLOY_PYTHON` -- `deploy.sh` uses it
-to launch `deploy.py`, so it becomes the launching interpreter:
+`setuptools` is not optional and is not pulled in by `build`: Python 3.12
+dropped it from new venvs, and `--no-isolation` means pyproject's
+`requires = ["setuptools>=61.0", "wheel"]` must already be importable. Add
+`twine` too if you publish from that venv.
+
+To choose an interpreter explicitly, set `DEPLOY_PYTHON`. `deploy.sh` uses it
+to launch `deploy.py`, and an explicit request outranks even a venv that could
+build, so it is the way to force a specific interpreter:
 
 ```bash
 DEPLOY_PYTHON=.venv/bin/python ./deploy.sh

@@ -23,9 +23,10 @@ same?           False
 
 - `Config` carries a `python` field alongside `env`, so the interpreter and the
   environment cannot drift apart.
-- Resolution order is `DEPLOY_PYTHON`, then the venv interpreter, then
-  `sys.executable`. The middle one is the fix: selecting a venv now selects its
-  interpreter, not just its `bin` on `PATH`.
+- Resolution order is `DEPLOY_PYTHON`, then a venv interpreter **that can
+  actually build**, then `sys.executable`. See round 2 below: the first version
+  of this bullet described preferring the venv unconditionally, which review
+  showed would break every release here.
 - The build-availability check gets `cfg.env` too; it did not before, so it
   could pass while the real build failed.
 - `deploy.py` now prints `Build interpreter: <path>`, so a mismatch is visible
@@ -123,4 +124,42 @@ leave it unexercised. The artifact actions are not exercised at all.
   burns the full suite before failing on argparse. Two documented release
   processes, one of which does not exist; picking between them is a call about
   how releases should work.
+## Review round 3
+
+- **The `upload-pages-artifact` revert was wrong, and my justification was the
+  wrong fact.** I said it is composite so it never had Node 20 exposure. It is
+  composite -- and its own `action.yml` invokes `actions/upload-artifact@v4`,
+  a Node 20 action. v4 nests v4.6.2, also Node 20. **v5 is the only release
+  whose nested action runs on Node 24**, so reverting to v3 left the exact gap
+  #94 exists to close, in the one workflow that publishes.
+
+  v5 with `include-hidden-files: true` clears Node 20 *and* restores the
+  dotfile behaviour v4 changed, so neither concern has to be traded away.
+- **`DEPLOY_PYTHON` could not actually force an interpreter.** A capable venv
+  silently outranked it, while the failure message told the user to set it.
+  Now checked first -- by presence, not by re-reading the path, since
+  `deploy.sh` already launches `deploy.py` with it.
+- **The build environment did not match the build interpreter.** `cfg.env`
+  always names the venv, and I had passed it to a build that may run under the
+  launching interpreter -- so `python` and `pip` inside the build would resolve
+  to a different interpreter than the one running it. That is #101's drift
+  pointed the other way, and it was new: the old code passed no env at all.
+  `Config.build_env` now carries the environment that matches `Config.python`.
+- **`Path("") .exists()` is `True`** -- it is `PosixPath(".")` -- so the
+  existence guard never fired for the empty placeholder it was written for. An
+  explicit emptiness check first, then `require_cmd` for relative names so the
+  lookup honours the same PATH the build will use.
+- **`--dry-run` skipped the one check that matters.** It returns before
+  `build_distributions`, so a rehearsal reported success on a checkout that
+  cannot build. Split into `check_build_prerequisites`, which both paths call.
+- **The probe threw away its diagnostics.** A `build` that is installed but
+  broken now reports its actual traceback instead of a fixed message asserting
+  the imports are missing.
+- **Two tests asserted on source text.** One would have passed a probe with an
+  inverted return; the other indexed `source.split('\"\"\"')[2]` and would
+  raise `IndexError` on a docstring edit. Replaced with behavioural stubs -- the
+  setuptools one uses an interpreter that fails only the two-module import.
+- **Tests now cover what the change delivers**, not only its helpers: that
+  `Config` carries both the interpreter and its environment, that the probe
+  precedes the cleanup, and that `--dry-run` rehearses it.
 - Bumped to 3.47.1. No library code changes.

@@ -69,12 +69,15 @@ class Config:
     dry_run: bool
     fetch: bool
     env: Optional[dict[str, str]]
-    # The interpreter that goes with `env`. Builds must use this rather than
-    # sys.executable, which is whatever launched deploy.py -- the 3.33.6
-    # release reported "Using venv: .venv" and then built with a Homebrew
-    # Python 3.14 that had no `build` module, after lint and 15,127 tests had
-    # already passed. See issue #101.
+    # The interpreter that runs the build. Not necessarily the one that goes
+    # with `env`: `env` always names the venv, while the build falls back to the
+    # launching interpreter when the venv cannot build. See issue #101.
     python: str
+    # The environment for the build subprocess, which must match `python`.
+    # `env` (venv PATH + VIRTUAL_ENV) when the venv is the build interpreter,
+    # None otherwise -- passing the venv's environment to a different
+    # interpreter is the same drift, pointed the other way.
+    build_env: Optional[dict[str, str]]
 
 
 class CommandError(RuntimeError):
@@ -302,29 +305,56 @@ def clean_build_artifacts(*, cwd: Path, dry_run: bool) -> None:
         shutil.rmtree(path, ignore_errors=True)
 
 
+def check_build_prerequisites(cfg: Config) -> None:
+    """
+    Can the resolved interpreter actually build? Separate from
+    build_distributions so `--dry-run` runs it too: a dry run exists to rehearse
+    the release, and reporting success on a checkout that cannot build is the
+    #101 experience in miniature. Also runs before anything is deleted --
+    clean_build_artifacts removes dist/, build/ and *.egg-info, including the
+    editable install's, so failing after it leaves the checkout worse off.
+    """
+    build_python = cfg.python
+    note(f"Checking build availability with {build_python}...")
+    # Not `Path(x).exists()` alone: Path("") is PosixPath("."), which exists, so
+    # an empty interpreter would slip straight past. require_cmd does the
+    # env-aware PATH lookup, so a bare name resolves against the same PATH the
+    # build will run with.
+    if not build_python:
+        die("No build interpreter was resolved.")
+    if Path(build_python).is_absolute():
+        if not Path(build_python).is_file():
+            die(f"Build interpreter does not exist: {build_python}")
+    else:
+        require_cmd(build_python, env=cfg.build_env)
+
+    can_build, why_not = interpreter_can_build(build_python, env=cfg.build_env)
+    if not can_build:
+        die(
+            f"{build_python} cannot run `python -m build --no-isolation`, which needs "
+            f"both 'build' and 'setuptools' importable.\n{why_not}\n"
+            f"Install them there:\n"
+            f"    {build_python} -m pip install build setuptools wheel\n"
+            f"or set DEPLOY_PYTHON to an interpreter that has them."
+        )
+    ok(f"{build_python} can build")
+
+
 def build_distributions(cfg: Config, *, cwd: Path) -> None:
     build_python = cfg.python
-
-    # Probe before deleting anything. clean_build_artifacts removes dist/,
-    # build/ and *.egg-info -- including the editable install's -- so failing
-    # after it leaves the checkout worse off than before the attempt.
-    note(f"Checking build availability with {build_python}...")
-    if not Path(build_python).exists() and shutil.which(build_python) is None:
-        die(f"Build interpreter does not exist: {build_python}")
-    if not interpreter_can_build(build_python, env=cfg.env):
-        die(
-            f"{build_python} cannot import both 'build' and 'setuptools', which "
-            f"`python -m build --no-isolation` needs. Install them there, or set "
-            f"DEPLOY_PYTHON to an interpreter that has them."
-        )
-
+    check_build_prerequisites(cfg)
     clean_build_artifacts(cwd=cwd, dry_run=cfg.dry_run)
 
     note(f"Building distributions with {build_python} -m build (no isolation)...")
+    # Deliberately not cfg.env. That environment names the venv -- VIRTUAL_ENV
+    # set, its bin prepended to PATH -- and when the build falls back to the
+    # launching interpreter the two disagree, so `python` and `pip` inside the
+    # build would resolve to a different interpreter than the one running it.
+    # That is the drift #101 is about, pointed the other way.
     run_effectful(
         [build_python, "-m", "build", "--no-isolation"],
         cwd=cwd,
-        env=cfg.env,
+        env=cfg.build_env,
         dry_run=cfg.dry_run,
     )
     ok("Build step complete")
@@ -380,9 +410,9 @@ def venv_python(venv_bin: Optional[Path]) -> Optional[Path]:
     return None
 
 
-def interpreter_can_build(python: str, env: Optional[dict[str, str]] = None) -> bool:
+def interpreter_can_build(python: str, env: Optional[dict[str, str]] = None) -> tuple[bool, str]:
     """
-    Can this interpreter run `python -m build --no-isolation`?
+    Can this interpreter run `python -m build --no-isolation`, and if not, why?
 
     Both imports matter. `--no-isolation` means the build backend is not
     provisioned for us, so pyproject's `requires = ["setuptools>=61.0", "wheel"]`
@@ -393,12 +423,18 @@ def interpreter_can_build(python: str, env: Optional[dict[str, str]] = None) -> 
         result = subprocess.run(
             [python, "-c", "import build, setuptools"],
             capture_output=True,
+            text=True,
             env=env,
             check=False,
         )
-    except OSError:
-        return False
-    return result.returncode == 0
+    except OSError as exc:
+        return False, str(exc)
+    if result.returncode == 0:
+        return True, ""
+    # Keep the traceback. A `build` that is installed but broken -- a stale
+    # .pth, an incompatible `packaging` -- exits non-zero for a reason the
+    # fixed message would otherwise throw away.
+    return False, (result.stderr or result.stdout or "").strip()
 
 
 def resolve_build_python(
@@ -421,10 +457,17 @@ def resolve_build_python(
     arrives as sys.executable.
     """
     fallback = sys.executable or "python3"
+    # deploy.sh runs `PYTHON_BIN="${DEPLOY_PYTHON:-python3}"; "$PYTHON_BIN" deploy.py`,
+    # so when the variable is set the launching interpreter *is* the requested
+    # one. Checking for its presence -- rather than re-reading the path -- lets
+    # an explicit request outrank a capable venv, which it must: it is the only
+    # way to force an interpreter, and the failure message points at it.
+    if os.environ.get("DEPLOY_PYTHON"):
+        return fallback, "DEPLOY_PYTHON"
     candidate = venv_python(venv_bin)
     if candidate is None:
         return fallback, "launching interpreter; no project venv found"
-    if interpreter_can_build(str(candidate), env=env):
+    if interpreter_can_build(str(candidate), env=env)[0]:
         return str(candidate), "project venv"
     return (
         fallback,
@@ -463,9 +506,10 @@ def parse_args(argv: Sequence[str]) -> Config:
         dry_run=bool(ns.dry_run),
         fetch=bool(ns.fetch),
         env=None,
-        # Placeholder. main() resolves the real one with resolve_build_python
+        # Placeholders. main() resolves the real ones with resolve_build_python
         # once the repo root and venv are known.
         python="",
+        build_env=None,
     )
 
 
@@ -477,6 +521,7 @@ def main(argv: Sequence[str]) -> int:
     venv_bin = resolve_venv_bin(root)
     run_env = build_run_env(venv_bin)
     build_python, build_python_reason = resolve_build_python(venv_bin, run_env)
+    build_env = run_env if build_python_reason == "project venv" else None
 
     # Interpret configured paths relative to repo root so deploy.sh works from
     # anywhere. dataclasses.replace rather than a field-by-field rebuild, so a
@@ -486,6 +531,7 @@ def main(argv: Sequence[str]) -> int:
         version_file=(root / cfg.version_file).resolve(),
         env=run_env,
         python=build_python,
+        build_env=build_env,
     )
 
     ok(f"Repo root: {root}")
@@ -526,8 +572,10 @@ def main(argv: Sequence[str]) -> int:
     ensure_tag_absent(cfg, tag, cwd=root)
 
     if cfg.dry_run:
+        # Rehearse the part that actually breaks releases.
+        check_build_prerequisites(cfg)
         note("Dry run summary:")
-        note("  would run: python -m build --no-isolation")
+        note(f"  would run: {cfg.python} -m build --no-isolation")
         note(f"  would run: git tag -a {tag} -m 'Release {tag} ({version})'")
         note(f"  would run: git push {cfg.remote} refs/tags/{tag}")
         ok("Dry run complete")

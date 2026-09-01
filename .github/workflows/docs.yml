@@ -42,9 +42,14 @@ jobs:
 
       - name: Upload Pages artifact
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: site
+          # v4 stopped including dotfiles in the artifact. v5 is still the only
+          # release whose nested actions/upload-artifact runs on Node 24 (v3
+          # pins upload-artifact@v4 and v4 pins v4.6.2, both Node 20), so the
+          # flag restores v3's behaviour rather than accepting the change.
+          include-hidden-files: true
 
   deploy:
     if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
