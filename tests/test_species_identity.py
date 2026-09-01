@@ -676,6 +676,11 @@ def test_unestablished_provenance_stays_none():
     # them all at once has to come here and say so. A count bound would have
     # done neither -- it fires on ordinary growth and passes a bulk assignment.
     for name in [
+        # The eight group-level _LA codes, still unchecked. IPD-MHC has no
+        # group page for any of them (there is no /group/FLA/, /group/OrLA/,
+        # ...), so establishing them means the primate nomenclature reports
+        # rather than a species table -- which is why they are the tail of
+        # #131 rather than part of the batch that was easy.
         "Aotus sp.",
         "Callithrix sp.",
         "Felis sp.",
@@ -839,3 +844,35 @@ def test_is_group_is_public_and_gets_nhp_right():
     ok_(Species.get_by_latin_name("Bos sp.").is_group)
     ok_(not Species.get_by_latin_name("Homo sapiens").is_group)
     ok_(not Species.get_by_latin_name("Bubo bubo").is_group)
+
+
+def test_designated_marks_match_the_ipd_group_they_cite():
+    """
+    Every `prefix source: designated` comment names where the claim came from.
+    For the batch curated in #131 that is an IPD-MHC group species table, and
+    the group in the URL has to be one IPD actually publishes -- a typo there
+    would send the next curator to a 404, which is how `/group/FLA/` was found
+    not to exist.
+    """
+    import re
+    from pathlib import Path
+
+    # The groups IPD-MHC publishes, read verbatim off https://www.ebi.ac.uk/ipd/mhc/
+    known_groups = {
+        "NHP",
+        "DLA",
+        "FISH",
+        "OLA",
+        "BoLA",
+        "ELA",
+        "SLA",
+        "RT1",
+        "CHICKEN",
+        "CLA",
+        "CeLA",
+    }
+    text = (Path(__file__).parent.parent / "mhcgnomes" / "data" / "species.yaml").read_text()
+    cited = re.findall(r"ebi\.ac\.uk/ipd/mhc/group/([A-Za-z0-9]+)/", text)
+    assert cited, "no IPD group citations found at all"
+    unknown = sorted(set(cited) - known_groups)
+    eq_(unknown, [], f"species.yaml cites IPD groups that are not in the published set: {unknown}")

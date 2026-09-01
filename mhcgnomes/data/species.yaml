@@ -880,12 +880,18 @@ Rattus sp.:
         - DMB
 Rattus norvegicus:
   parent: Rattus sp.
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # RT1 group: https://www.ebi.ac.uk/ipd/mhc/group/RT1/species
+  prefix source: designated
   prefix: Rano
   name:
     - Norway Rat
     - Norwegian Rat
 Rattus rattus:
   parent: Rattus sp.
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # RT1 group: https://www.ebi.ac.uk/ipd/mhc/group/RT1/species
+  prefix source: designated
   prefix: Rara
   name: Black Rat
 Rattus fuscipes:
@@ -933,10 +939,16 @@ Canidae sp.:
   name: Canid
 Cuon alpinus:
   parent: Canidae sp.
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # DLA group: https://www.ebi.ac.uk/ipd/mhc/group/DLA/species
+  prefix source: designated
   prefix: Cual
   name: Dhole
 Lycaon pictus:
   parent: Canidae sp.
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # DLA group: https://www.ebi.ac.uk/ipd/mhc/group/DLA/species
+  prefix source: designated
   prefix: Lypi
   name: African wild dog
 Canis sp.:
@@ -965,14 +977,23 @@ Canis sp.:
         - DRB1
 Canis lupus baileyi:
   parent: Canis sp.
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # DLA group: https://www.ebi.ac.uk/ipd/mhc/group/DLA/species
+  prefix source: designated
   prefix: Caba
   name: Mexican Gray Wolf
 Canis latrans:
   parent: Canis sp.
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # DLA group: https://www.ebi.ac.uk/ipd/mhc/group/DLA/species
+  prefix source: designated
   prefix: Cala
   name: Coyote
 Canis lupus:
   parent: Canis sp.
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # DLA group: https://www.ebi.ac.uk/ipd/mhc/group/DLA/species
+  prefix source: designated
   prefix: Calu
   name:
     - Gray Wolf
@@ -980,10 +1001,16 @@ Canis lupus:
     - Dog
 Canis rufus:
   parent: Canis sp.
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # DLA group: https://www.ebi.ac.uk/ipd/mhc/group/DLA/species
+  prefix source: designated
   prefix: Caru
   name: Red Wolf
 Canis simensis:
   parent: Canis sp.
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # DLA group: https://www.ebi.ac.uk/ipd/mhc/group/DLA/species
+  prefix source: designated
   prefix: Casi
   name: Ethiopian Wolf
 Canis aureus:
@@ -1001,10 +1028,16 @@ Canis aureus:
   name: Golden Jackal
 Canis adustus:
   parent: Canis sp.
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # DLA group: https://www.ebi.ac.uk/ipd/mhc/group/DLA/species
+  prefix source: designated
   prefix: Caad
   name: Side-striped jackal
 Canis mesomelas:
   parent: Canis sp.
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # DLA group: https://www.ebi.ac.uk/ipd/mhc/group/DLA/species
+  prefix source: designated
   prefix: Came
   name: Black-backed jackal
 ############################
@@ -2345,11 +2378,17 @@ Ovis sp.:
         - DRB1
 Ovis aries:
   parent: Ovis sp.
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # OLA group: https://www.ebi.ac.uk/ipd/mhc/group/OLA/species
+  prefix source: designated
   prefix: Ovar
   name:
     - Domestic Sheep
 Ovis canadensis:
   parent: Ovis sp.
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # OLA group: https://www.ebi.ac.uk/ipd/mhc/group/OLA/species
+  prefix source: designated
   prefix: Ovca
   name:
     - Bighorn Sheep
@@ -2438,10 +2477,16 @@ Bos indicus:
   name: Zebu
 Bos frontalis:
   parent: Bos sp.
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # BoLA group: https://www.ebi.ac.uk/ipd/mhc/group/BoLA/species
+  prefix source: designated
   prefix: Bofr
   name: Gayal
 Bos grunniens:
   parent: Bos sp.
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # BoLA group: https://www.ebi.ac.uk/ipd/mhc/group/BoLA/species
+  prefix source: designated
   prefix: Bogr
   name:
     - Domestic Yak
@@ -2455,6 +2500,9 @@ Bubalus bubalis:
   # read it as licence to move others around; see the species tree section of
   # docs/curation.md.
   parent: Bos sp.
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # BoLA group: https://www.ebi.ac.uk/ipd/mhc/group/BoLA/species
+  prefix source: designated
   prefix: Bubu
   name: Water Buffalo
   genes:
@@ -2524,70 +2572,121 @@ Cetacea sp.:
         - DMB
 Balaenoptera musculus:
   parent: Cetacea sp.
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # CeLA group: https://www.ebi.ac.uk/ipd/mhc/group/CeLA/species
+  prefix source: designated
   prefix: Bamu
   name: Blue whale
 Balaenoptera acutorostrata:
   parent: Cetacea sp.
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # CeLA group: https://www.ebi.ac.uk/ipd/mhc/group/CeLA/species
+  prefix source: designated
   prefix: Baac
   name: Minke whale
 Balaenoptera edeni:
   parent: Cetacea sp.
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # CeLA group: https://www.ebi.ac.uk/ipd/mhc/group/CeLA/species
+  prefix source: designated
   prefix: Baed
   name: Bryde's whale
 Cephalorhynchus hectori:
   parent: Cetacea sp.
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # CeLA group: https://www.ebi.ac.uk/ipd/mhc/group/CeLA/species
+  prefix source: designated
   prefix: Cehe
   name: Hector's dolphin
 Delphinus delphis:
   parent: Cetacea sp.
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # CeLA group: https://www.ebi.ac.uk/ipd/mhc/group/CeLA/species
+  prefix source: designated
   prefix: Dede
   name: Common dolphin
 Eubalaena australis:
   parent: Cetacea sp.
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # CeLA group: https://www.ebi.ac.uk/ipd/mhc/group/CeLA/species
+  prefix source: designated
   prefix: Euau
   name: Southern right whale
 Globicephala melas:
   parent: Cetacea sp.
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # CeLA group: https://www.ebi.ac.uk/ipd/mhc/group/CeLA/species
+  prefix source: designated
   prefix: Glme
   name: Long-finned pilot whale
 Grampus griseus:
   parent: Cetacea sp.
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # CeLA group: https://www.ebi.ac.uk/ipd/mhc/group/CeLA/species
+  prefix source: designated
   prefix: Grgr
   name: Risso's dolphin
 Kogia breviceps:
   parent: Cetacea sp.
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # CeLA group: https://www.ebi.ac.uk/ipd/mhc/group/CeLA/species
+  prefix source: designated
   prefix: Kobr
   name: Pygmy sperm whale
 Lagenorhynchus obscurus:
   parent: Cetacea sp.
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # CeLA group: https://www.ebi.ac.uk/ipd/mhc/group/CeLA/species
+  prefix source: designated
   prefix: Laob
   name: Dusky dolphin
 Mesoplodon densirostris:
   parent: Cetacea sp.
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # CeLA group: https://www.ebi.ac.uk/ipd/mhc/group/CeLA/species
+  prefix source: designated
   prefix: Mede
   name: Blainville's beaked whale
 Mesoplodon europaeus:
   parent: Cetacea sp.
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # CeLA group: https://www.ebi.ac.uk/ipd/mhc/group/CeLA/species
+  prefix source: designated
   prefix: Meeu
   name: Gervais' beaked whale
 Mesoplodon grayi:
   parent: Cetacea sp.
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # CeLA group: https://www.ebi.ac.uk/ipd/mhc/group/CeLA/species
+  prefix source: designated
   prefix: Megr
   name: Gray's beaked whale
 Megaptera novaeangliae:
   parent: Cetacea sp.
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # CeLA group: https://www.ebi.ac.uk/ipd/mhc/group/CeLA/species
+  prefix source: designated
   prefix: Meno
   name: Humpback whale
 Steno bredanensis:
   parent: Cetacea sp.
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # CeLA group: https://www.ebi.ac.uk/ipd/mhc/group/CeLA/species
+  prefix source: designated
   prefix: Stbr
   name: Rough-toothed dolphin
 Stenella coeruleoalba:
   parent: Cetacea sp.
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # CeLA group: https://www.ebi.ac.uk/ipd/mhc/group/CeLA/species
+  prefix source: designated
   prefix: Stco
   name: Striped dolphin
 Tursiops truncatus:
   parent: Cetacea sp.
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # CeLA group: https://www.ebi.ac.uk/ipd/mhc/group/CeLA/species
+  prefix source: designated
   prefix: Tutr
   name: Bottlenose dolphin
 Hyperoodon ampullatus:
@@ -2602,6 +2701,9 @@ Hyperoodon ampullatus:
   name: Northern bottlenose whale
 Ziphius cavirostris:
   parent: Cetacea sp.
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # CeLA group: https://www.ebi.ac.uk/ipd/mhc/group/CeLA/species
+  prefix source: designated
   prefix: Zica
   name: Cuvier's beaked whale
 ############################
@@ -2613,46 +2715,79 @@ Ziphius cavirostris:
 ############################
 Balaenoptera musculus brevicauda:
   parent: Cetacea sp.
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # CeLA group: https://www.ebi.ac.uk/ipd/mhc/group/CeLA/species
+  prefix source: designated
   prefix: Bamubr
   name: Pygmy blue whale
 Balaenoptera ricei:
   parent: Cetacea sp.
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # CeLA group: https://www.ebi.ac.uk/ipd/mhc/group/CeLA/species
+  prefix source: designated
   prefix: Bari
   name: Rice's whale
 Eschrichtius robustus:
   parent: Cetacea sp.
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # CeLA group: https://www.ebi.ac.uk/ipd/mhc/group/CeLA/species
+  prefix source: designated
   prefix: Esro
   name: Gray whale
 Eubalaena glacialis:
   parent: Cetacea sp.
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # CeLA group: https://www.ebi.ac.uk/ipd/mhc/group/CeLA/species
+  prefix source: designated
   prefix: Eugl
   name: North Atlantic right whale
 Inia geoffrensis:
   parent: Cetacea sp.
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # CeLA group: https://www.ebi.ac.uk/ipd/mhc/group/CeLA/species
+  prefix source: designated
   prefix: Inge
   name: Amazon river dolphin
 Kogia sima:
   parent: Cetacea sp.
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # CeLA group: https://www.ebi.ac.uk/ipd/mhc/group/CeLA/species
+  prefix source: designated
   prefix: Kosi
   name: Dwarf sperm whale
 Lagenorhynchus albirostris:
   parent: Cetacea sp.
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # CeLA group: https://www.ebi.ac.uk/ipd/mhc/group/CeLA/species
+  prefix source: designated
   prefix: Laal
   name: White-beaked dolphin
 Lipotes vexillifer:
   parent: Cetacea sp.
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # CeLA group: https://www.ebi.ac.uk/ipd/mhc/group/CeLA/species
+  prefix source: designated
   prefix: Live
   name: Baiji
 Monodon monoceros:
   parent: Cetacea sp.
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # CeLA group: https://www.ebi.ac.uk/ipd/mhc/group/CeLA/species
+  prefix source: designated
   prefix: Momo
   name: Narwhal
 Phocoena phocoena:
   parent: Cetacea sp.
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # CeLA group: https://www.ebi.ac.uk/ipd/mhc/group/CeLA/species
+  prefix source: designated
   prefix: Phph
   name: Harbor porpoise
 Phocoena sinus:
   parent: Cetacea sp.
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # CeLA group: https://www.ebi.ac.uk/ipd/mhc/group/CeLA/species
+  prefix source: designated
   prefix: Phsi
   name: Vaquita
 Caperea marginata:
@@ -2706,6 +2841,9 @@ Capra sp.:
         - DRB1
 Capra hircus:
   parent: Capra sp.
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # CLA group: https://www.ebi.ac.uk/ipd/mhc/group/CLA/species
+  prefix source: designated
   prefix: Cahi
   name:
     - Domestic goat
@@ -2759,6 +2897,9 @@ Equus sp.:
         - DMB
 Equus caballus:
   parent: Equus sp.
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # ELA group: https://www.ebi.ac.uk/ipd/mhc/group/ELA/species
+  prefix source: designated
   prefix: Eqca
   name: Horse
 Equus burchelli:
@@ -2784,6 +2925,9 @@ Suidae sp.:
   name: Suid
 Phacochoerus africanus:
   parent: Suidae sp.
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # SLA group: https://www.ebi.ac.uk/ipd/mhc/group/SLA/species
+  prefix source: designated
   prefix: Phaf
   name: Common warthog
 Sus sp.:
@@ -2832,10 +2976,16 @@ Sus sp.:
         - DMB
 Sus domesticus:
   parent: Sus sp.
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # SLA group: https://www.ebi.ac.uk/ipd/mhc/group/SLA/species
+  prefix source: designated
   prefix: Sudo
   name: Domestic Pig
 Sus scrofa:
   parent: Sus sp.
+  # prefix source: designated -- listed with this code in the IPD-MHC
+  # SLA group: https://www.ebi.ac.uk/ipd/mhc/group/SLA/species
+  prefix source: designated
   prefix: Susc
   # Swine haplotypes are written with an "Hp" prefix. This was a
   # `haplotype prefix: Hp` key, but nothing in the loader ever read it and no

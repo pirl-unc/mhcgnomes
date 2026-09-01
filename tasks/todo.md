@@ -1,43 +1,57 @@
-# Put the four macaques under their genus node
+# Curate prefix provenance from the IPD-MHC species tables
 
-Tracking issue: #123
+Tracking issue: #131 (partial -- 113 entries still unestablished)
 
 ## Review
 
-- **Four of the five, not five.** #123 listed five primates sitting outside a
-  genus node that exists. Four are macaques and move under `Macaca sp.` The
-  fifth does not, and checking why was the useful part.
-- **`Callithrix pygmaea` is not a Callithrix.** NCBI Taxonomy accepts
-  *Cebuella pygmaea* (taxid 9493, lineage `... Callitrichinae > Cebuella`) and
-  lists *Callithrix pygmaea* only as a homotypic synonym -- which is also where
-  the entry's `old prefix: Cepy` comes from. Moving it under `Callithrix sp.`
-  would have been a taxonomic error dressed up as a consistency fix. The entry
-  keeps its parent, with the reason recorded on it, and the tree-shape test
-  keeps it in the allowlist with the citation rather than as an open gap.
-- **What the macaques gained.** 24-34 genes each, up to the 68 the genus node
-  provides, so the names in the issue now parse:
+- **50 entries marked `designated`, each citing an IPD-MHC group species
+  table.** The count goes 11 -> 61, and the unestablished tail 163 -> 113.
+  Rather than 163 individual lookups, the group tables list every species and
+  its designation in one page each, so this is eight fetches:
 
-  ```
-  Mafu-A*01:01     None  ->  Macaca fuscata A*01:01
-  Maas-DRB1*01:01  None  ->  Macaca assamensis DRB1*01:01
-  ```
+  | group | rows | marked |
+  |---|---|---|
+  | DLA | 10 | 9 |
+  | CeLA | 33 | 29 |
+  | SLA | 3 | 3 |
+  | BoLA | 4 | 3 |
+  | OLA | 2 | 2 |
+  | RT1 | 2 | 2 |
+  | CLA | 1 | 1 |
+  | ELA | 1 | 1 |
 
-- **Two existing tests encoded the old inconsistency**, which is what
-  `AGENTS.md` warns to check before assuming a failing test means the change is
-  wrong:
-  - `Maar-A` normalized to `A1`, because *M. arctoides* declared `A1` but not
-    `A`. Every other macaque leaves `A` alone -- `Mamu-A`, `Mafa-A`, `Mane-A`
-    -- so the old answer was the odd one out, not the new one.
-  - An adversarial stickiness test used `Maar-A2` as a name that must not
-    parse. It parses now, but to *M. arctoides* itself rather than by switching
-    species, so it no longer exercises stickiness at all. Replaced with
-    `Maar-BLB2` and `Maar-UAA`, which do.
-- **One of my new tests was wrong too.** It asserted the reparented species
-  have the same gene count as *Macaca mulatta*, which declares its own `K` on
-  top of the genus list and so has one more. Changed to assert every gene the
-  genus declares is visible to them.
-- **Measured:** 0 of 11,558 corpus names change. Four entries change
-  `old_mhc_prefix` (`Maar`/`Maas`/`Mafu`/`Malo` -> `RhLA`), which is the
-  umbrella every other macaque already carries.
-- Bumped 3.44.0 to 3.45.0: names that returned `None` now parse, and `Maar-A`
-  normalizes differently.
+  Each was read verbatim rather than from a summary, per `AGENTS.md`, and every
+  row was checked against our prefix before marking.
+
+- **Zero of the 56 species IPD lists in these groups is missing from our
+  ontology**, and the prefixes agree everywhere except five.
+
+- **Four of the five disagreements are known or newly filed:**
+  - `Canis aureus`: IPD designates `Caau`, which is in published use for the
+    goldfish *Carassius auratus*. Our entry keeps `CaniAure` and holds `Caau`
+    as a context-only prefix -- #112's resolution, working as intended.
+  - `Hyperoodon ampullatus`: IPD designates `Hyam`, which resolves to the Rio
+    Grande silvery minnow. Same shape, same resolution.
+  - `Delphinapterus leucas`, `Neophocaena asiaeorientalis`, `Orcinus orca`: our
+    canonical prefix is a generated 4+4 (`DeleLuca`, `NeopAsia`, `OrciOrca`)
+    while IPD designates `Dele`, `Neas`, `Oror` -- and those already resolve to
+    the right species as aliases, with nothing else claiming them. So we emit a
+    name we invented in preference to the published one. Filed as **#146**,
+    since swapping them changes normalized output for three species.
+
+- **The remaining 113 are the harder half**, and the eight pinned in
+  `test_unestablished_provenance_stays_none` show why: `OmLA`, `FLA`, `GoLA`,
+  `MaLA`, `RhLA`, `RLA`, `ChLA`, `OrLA` are group-level `_LA` codes, and
+  IPD-MHC publishes no group page for any of them -- `/group/FLA/` is a 404.
+  Establishing those means the primate nomenclature reports rather than a
+  species table.
+
+- **A new test pins the citations themselves.** Every IPD group named in a
+  `species.yaml` URL must be one of the eleven IPD publishes, read off
+  `https://www.ebi.ac.uk/ipd/mhc/`. Its first draft failed on `FISH` and
+  `CHICKEN`, which are real groups I had left out of the set -- so it caught my
+  error rather than a data error. Verified by mutation: mistyping `CeLA` as
+  `CELA` in a citation fails it.
+
+- **Measured:** 0 of 11,558 corpus names change. Provenance only.
+- Bumped to 3.45.1.
