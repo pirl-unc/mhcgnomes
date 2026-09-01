@@ -65,6 +65,22 @@ _MHC_REGION_RE = re.compile(
 )
 
 
+def _spelling_as_written(normalized_name, raw_name):
+    """
+    The caller's own spelling of a name the tokenizer has lower-cased.
+
+    Gene lookup is case-normalizing, so "Ia1" (Paralichthys olivaceus) and
+    "IA1" (Chrysolophus pictus) share one key and only the spelling tells them
+    apart -- but the tokenizer lower-cases before the parser sees anything, so
+    the case-aware ranking in parse_gene_without_species had nothing to rank
+    on. Token.raw_string keeps the original, and this hands it back when it is
+    the same name, falling back to the normalized form otherwise. See #160.
+    """
+    if raw_name and raw_name.lower() == normalized_name.lower():
+        return raw_name
+    return normalized_name
+
+
 def _lie_in_one_lineage(species_objects):
     """
     Is every one of these species an ancestor or descendant of every other?
@@ -1356,6 +1372,7 @@ class Parser:
         gene_name: str,
         default_species: Union[Sequence, str, None] = None,
         strict_default_species: bool = False,
+        raw_gene_name: Union[str, None] = None,
     ):
         """
         Parse the gene name without any associated species based on being
@@ -1369,12 +1386,14 @@ class Parser:
 
         species = None
         species_candidates = Species.get_species_with_gene_name(gene_name)
-        if (
-            len(species_candidates) > 1
-            and default_species is not None
-            and default_species in species_candidates
-        ):
-            species = default_species
+        # Species.get first: callers pass default_species as a latin name, a
+        # prefix or an object, and a bare string never matches a list of
+        # Species, so this preference used to fire only for object callers.
+        # A UniProt line naming "OS=Mus musculus GN=Mr1" then lost its own
+        # species to whichever one spells the gene that way. See #160.
+        default_species_object = Species.get(default_species) if default_species else None
+        if len(species_candidates) > 1 and default_species_object in species_candidates:
+            species = default_species_object
         if len(species_candidates) == 1:
             species = species_candidates[0]
         # When a distinctive gene name (contains a digit, e.g. BF2, DPB1)
@@ -1408,7 +1427,10 @@ class Parser:
         # nothing. A species which does use the name but does not own its bare
         # form says so with `context only` in the ontology. See issue #130.
         if species is None and len(species_candidates) > 1 and any(c.isdigit() for c in gene_name):
-            declarers = [s for s in species_candidates if s.declares_gene_with_same_case(gene_name)]
+            cased_gene_name = _spelling_as_written(gene_name, raw_gene_name)
+            declarers = [
+                s for s in species_candidates if s.declares_gene_with_same_case(cased_gene_name)
+            ]
             if not declarers:
                 declarers = [s for s in species_candidates if s.declares_gene(gene_name)]
             if len(declarers) == 1:
@@ -1432,6 +1454,7 @@ class Parser:
         allele_name: str,
         default_species: Union[str, Species, None] = None,
         strict_default_species: bool = False,
+        raw_allele_name: Union[str, None] = None,
     ):
         """
         Parse the allele name without any associated species based on being
@@ -1448,10 +1471,19 @@ class Parser:
             gene_name, allele_string = split_digits_at_end(allele_name)
 
         if gene_name and allele_string:
+            # Split the original spelling the same way, so "Ia1*01:01" reaches
+            # the gene lookup as "Ia1" and not just "ia1". See issue #160.
+            raw_gene_name = None
+            if raw_allele_name and _spelling_as_written(allele_name, raw_allele_name):
+                if raw_allele_name.count("*") == 1:
+                    raw_gene_name = raw_allele_name.split("*")[0]
+                else:
+                    raw_gene_name = split_digits_at_end(raw_allele_name)[0]
             gene = self.parse_gene_without_species(
                 gene_name=gene_name,
                 default_species=default_species,
                 strict_default_species=strict_default_species,
+                raw_gene_name=raw_gene_name,
             )
             if gene:
                 return self.parse_allele_or_gene_candidates(
@@ -1594,18 +1626,22 @@ class Parser:
         # all of these functions are expected to take the sequence
         # without any additional knowledge of which species it is associated
         # with.
+        # The gene and allele lookups also get the token as the caller spelled
+        # it, since gene names collide only in case. parse_haplotype has no use
+        # for it. See _spelling_as_written and issue #160.
         fns_without_species = [
-            self.parse_haplotype,
-            self.parse_gene_without_species,
-            self.parse_allele_without_species,
+            (self.parse_haplotype, {}),
+            (self.parse_gene_without_species, {"raw_gene_name": raw_string}),
+            (self.parse_allele_without_species, {"raw_allele_name": raw_string}),
         ]
         if self.verbose:
             print("=== Functions without required species argument ===")
-        for fn in fns_without_species:
+        for fn, extra_kwargs in fns_without_species:
             result = fn(
                 seq,
                 default_species=default_species,
                 strict_default_species=strict_default_species,
+                **extra_kwargs,
             )
 
             if self.verbose:

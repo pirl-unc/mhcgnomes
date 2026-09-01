@@ -218,10 +218,11 @@ def test_shared_class2_symbol_still_uses_the_default_species(name):
         # nine declarers across crocodiles, amphibians, birds, fish and
         # marsupials; the saltwater crocodile used to win on gene count
         ("DAB1", ["Crocodylus porosus", "Amphibia sp."]),
-        # flounder "Ia1" and golden pheasant "IA1" normalize to one key, and
-        # the tokenizer lower-cases before the parser ever sees the spelling,
-        # so nothing can tell these apart. See #160.
-        ("Ia1", ["Paralichthys olivaceus", "Chrysolophus pictus"]),
+        # flounder "Ia1" and golden pheasant "IA1" normalize to one key, so
+        # a caller who spells it neither way has named neither species. The
+        # cased spellings do resolve -- see
+        # test_gene_name_spelling_picks_the_species_that_uses_it.
+        ("ia1", ["Paralichthys olivaceus", "Chrysolophus pictus"]),
     ],
 )
 def test_bare_gene_shared_across_lineages_names_no_species(gene_name, declarers):
@@ -235,6 +236,73 @@ def test_bare_gene_shared_across_lineages_names_no_species(gene_name, declarers)
         parse(f"{Species.get_by_latin_name(declarers[0]).prefix}-{gene_name}").species.name,
         declarers[0],
     )
+
+
+# The spellings that do tell two species apart. Gene lookup normalizes case and
+# separators, so these pairs share one key; only the caller's own spelling says
+# which species is meant. https://github.com/pirl-unc/mhcgnomes/issues/160
+SPELLING_TO_SPECIES = [
+    ("Ia1", "Paralichthys olivaceus"),
+    ("Ia2", "Paralichthys olivaceus"),
+    ("IA1", "Chrysolophus pictus"),
+    ("IA2", "Chrysolophus pictus"),
+    ("AB1", "Mus musculus"),
+    ("Ab1", "Phodopus roborovskii"),
+    ("DAA-1", "Reptilia sp."),
+    ("DAA2", "Nipponia nippon"),
+    ("DMB-1", "Spheniscus mendiculus"),
+]
+
+
+@pytest.mark.parametrize("spelling,expected", SPELLING_TO_SPECIES)
+def test_gene_name_spelling_picks_the_species_that_uses_it(spelling, expected):
+    """
+    The tokenizer lower-cases every token, so the case-aware ranking key in
+    parse_gene_without_species had nothing to rank on and these all returned
+    None. Token.raw_string kept the spelling the whole time.
+    """
+    species = Species.get_by_latin_name(expected)
+    assert species.declares_gene_with_same_case(spelling), (
+        f"{expected} no longer spells it that way"
+    )
+    eq_(parse(spelling).species.name, expected)
+
+
+@pytest.mark.parametrize(
+    "spelling,expected",
+    # "AB1*01:01" is left out: a bare mouse gene with numeric allele fields
+    # does not parse at all, with or without this change, because mouse
+    # alleles are haplotype letters ("AB1*b" works). That is a separate
+    # question from which species a spelling names.
+    [(s, e) for s, e in SPELLING_TO_SPECIES if e != "Mus musculus"],
+)
+def test_gene_name_spelling_also_decides_for_an_allele(spelling, expected):
+    eq_(parse(f"{spelling}*01:01").species.name, expected)
+
+
+def test_a_spelling_nobody_uses_still_names_no_species():
+    # Lower-casing it yourself puts you back where the tokenizer was.
+    eq_(parse("ia1", raise_on_error=False), None)
+    eq_(parse("ia1*01:01", raise_on_error=False), None)
+
+
+def test_a_named_species_outranks_a_spelling_that_points_elsewhere():
+    """
+    Rattus sp. is the only entry spelling MR1 as "Mr1", but a UniProt line
+    carrying "OS=Mus musculus GN=Mr1" has named its species outright and must
+    keep it. The preference for a named species was there, and compared a
+    latin-name string against a list of Species objects, so it only ever fired
+    for callers passing an object.
+    """
+    uniprot = (
+        "Major histocompatibility complex class I-related gene protein "
+        "OS=Mus musculus OX=10090 GN=Mr1 PE=1 SV=2"
+    )
+    eq_(parse(uniprot).species.name, "Mus musculus")
+    eq_(parse("Mr1", species="Mus musculus").species.name, "Mus musculus")
+    eq_(parse("Mr1", default_species="Mus musculus").species.name, "Mus musculus")
+    # and with no species named at all, the spelling still decides
+    eq_(parse("Mr1", default_species=None).species.name, "Rattus sp.")
 
 
 def test_guineafowl_bf2_is_real_but_does_not_claim_the_bare_name():

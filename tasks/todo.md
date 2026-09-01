@@ -1,42 +1,34 @@
-# Curate SLA (swine) haplotypes (#143)
+# Carry the caller's spelling to the gene lookup (#160)
 
 ## Review
 
-- **The issue's premise was half wrong, and the half that was right hid a
-  live bug.** `haplotypes.yaml` did have swine entries -- keyed by MHC prefix
-  as `SLA:`, not by latin name, which is why a search for "Sus scrofa" found
-  nothing. But both entries wrote their member alleles *with* the species
-  prefix (`SLA-1*01:01`), and the loader hands the parser the string after the
-  species. So both haplotypes resolved carrying **zero alleles** and printed
-  six warnings to stdout on every parse. Nothing read those warnings.
+- **The ranking key had never fired.** `parse_gene_without_species` ranks
+  candidate species by `declares_gene_with_same_case(gene_name)` first, and the
+  comment above it explains that "Ia1" is *Paralichthys olivaceus* and "IA1" is
+  *Chrysolophus pictus*. But the tokenizer lower-cases every token, so the
+  function only ever saw `ia1`, which nobody spells that way. The key was dead
+  code the comment described as working.
 
-- **One of the two was also wrong on the data.** Table 2 of Baekbo et al. 2017
-  (PMC5472656) gives Hp-2.0 as SLA-1*0201/*0701, SLA-3 *null*, SLA-2*0201. The
-  entry read `SLA-3*02:01` -- the SLA-2 column filed one locus over. SLA-3*02:01
-  is a real allele, so nothing could have complained.
+- **`Token.raw_string` had the spelling the whole time.** Threaded it to the
+  gene and allele lookups; `parse_haplotype` has no use for it, so the call
+  loop pairs each function with its own kwargs rather than growing a
+  parameter nobody wants.
 
-- **The naming question the issue asks in step 3 has an answer in the
-  literature.** Reiner et al. 2024 (PMC10925748) states the ISAG/IUIS-VIC
-  scheme: swine haplotypes carry their own prefix, `Hp-` high resolution and
-  `Lr-` low resolution, numbered `<class I>.<class II>` -- so `Hp-04.0` and
-  `Hp-0.03` are the two halves of one animal's type, not variants. No
-  `haplotype prefix` field is needed: the prefix is part of the name, and
-  `Hp-17.0` and `SLA-Hp-17.0` both parse.
+- **19 gene forms that returned None now resolve**, and nothing stops
+  resolving: `Ia1`/`IA1`, `Ia2`/`IA2`, `AB1` (mouse) vs `Ab1` (Roborovski
+  hamster), `DAA-1`, `DAA-2`, `DAA2`, `DMB-1`. Each has exactly one same-case
+  declarer, so each is precise rather than a guess.
 
-- **Curated all nine designated class I haplotypes**, not just the two:
-  Hp-1a.0, 2.0, 4b.0, 6.0, 7.0, 17.0, 28.0, 32.0, 62.0, from the "Known
-  haplotypes" half of Table 2. The same table's A.0-Z.0 rows are that study's
-  own proposals resting partly on unnamed sequences, so they are left out.
+- **A second bug fell out of the first.** The preference for a species the
+  caller named compared `default_species` -- often a latin-name *string* --
+  against a list of `Species` objects, so it fired only for callers passing an
+  object. Nothing noticed while the case-aware key was dead. Once spellings
+  worked, a UniProt line reading `OS=Mus musculus ... GN=Mr1` lost its own
+  species to *Rattus sp.*, the only entry spelling MR1 that way. Fixed by
+  resolving `default_species` before the membership test; a named species now
+  outranks a spelling, which is the right order.
 
-- **Added the general guard.** Every one of the 71 curated haplotypes must keep
-  every allele it lists. That is the test that would have caught this: the
-  failure mode is a warning on stdout and a haplotype that claims a name and
-  carries nothing.
-
-- **Filed #162** for what could not be sourced: `Lr-` haplotypes are defined by
-  allele *groups* (`SLA-1*15XX`, `Blank`), which the file format cannot express,
-  and the class II `Hp-0.y` compositions are in a paywalled table.
-
-- **Measured:** 0 of 36,752 corpus names change. 16,110 tests pass; restoring
-  either wrong spelling fails the guard.
-- Bumped to 3.51.0.
+- **Measured:** 0 of 36,752 corpus names change; 19 of 1,066 gene forms change,
+  all None -> a resolution. 16,129 tests pass. Reverting the spelling
+  pass-through fails 18 tests, reverting the default-species fix fails 2.
+- Bumped to 3.52.0.
