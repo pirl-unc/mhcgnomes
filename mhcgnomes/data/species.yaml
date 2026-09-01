@@ -1049,6 +1049,11 @@ Canis mesomelas:
 #
 ############################
 Felis sp.:
+  # prefix source: designated -- PMID 2492667 (Winkler et al., PNAS 1989;86:943)
+  # is titled "Genetic characterization of FLA, the cat major histocompatibility
+  # complex" and writes "the major histocompatibility complex (MHC) of the
+  # domestic cat (termed FLA)".
+  prefix source: designated
   prefix: FLA
   name: Cat
   genes:
@@ -3338,6 +3343,10 @@ Pteropus alecto:
 #
 ################################################################################
 Oryctolagus sp.:
+  # prefix source: designated -- PMID 32522857 (Zhang et al., J Virol 2020;94:e00396-20)
+  # names "rabbit Major Histocompatibility Complex Class I Molecule RLA-A1" in its
+  # title, so alleles are written with the prefix.
+  prefix source: designated
   prefix: RLA
   name: Rabbit
   genes:
