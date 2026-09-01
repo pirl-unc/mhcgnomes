@@ -45,9 +45,20 @@ def test_venv_python_is_none_without_a_venv():
     assert deploy.venv_python(None) is None
 
 
-def test_interpreter_can_build_is_true_for_an_environment_that_can():
-    """The interpreter running this test suite is one, by construction."""
-    assert deploy.interpreter_can_build(sys.executable)
+def test_interpreter_can_build_is_true_when_the_imports_succeed(tmp_path):
+    """
+    Against a controlled stub, not against sys.executable. The first version of
+    this test asserted the interpreter running the suite can build, which is
+    true locally and false in CI -- the repo's own `dev` extra has no `build`,
+    which is the exact environment this whole change exists to handle.
+    """
+    bin_dir = _make_venv(tmp_path, can_build=True)
+    assert deploy.interpreter_can_build(str(bin_dir / "python"))
+
+
+def test_interpreter_can_build_is_false_when_the_imports_fail(tmp_path):
+    bin_dir = _make_venv(tmp_path, can_build=False)
+    assert not deploy.interpreter_can_build(str(bin_dir / "python"))
 
 
 def test_interpreter_can_build_is_false_for_a_missing_interpreter(tmp_path):

@@ -104,7 +104,13 @@ leave it unexercised. The artifact actions are not exercised at all.
   immediately caught a `%`-format in the new test.
 - **`dataclasses.replace`** instead of rebuilding `Config` field by field, so a
   future field cannot be silently dropped.
-- **10 tests, where there were none.** `resolve_build_python` and
+- **CI caught one of my new tests making the very assumption this PR removes.**
+  It asserted the interpreter running the suite can build. True on this
+  machine, false on the runner -- the repo's `dev` extra has no `build`, which
+  is exactly the environment the change exists to handle. Rewritten against a
+  controlled stub, so the suite no longer depends on the runner having build
+  tooling at all.
+- **11 tests, where there were none.** `resolve_build_python` and
   `interpreter_can_build` are pure enough to test with `tmp_path`; the stub
   venv exits non-zero, since a stub that exits 0 for everything claims it can
   build -- which is how the first version of that test passed wrongly.
