@@ -1,42 +1,46 @@
-# Establish 11 more prefixes from GenBank (#131)
+# Add the rabbit class I locus series Orcu-U1..U9 (#170)
 
 ## Review
 
-- **I stopped short of my own method.** The `Iibi` finding in #165 came from
-  searching GenBank nuccore, and it worked because deposited records name
-  species prefixes at allele level. I then reported the remaining 30 entries as
-  "could not establish" having searched only PubMed and the IPD group tables.
-  Running the same nuccore sweep across all of them establishes **eleven**.
+- **Filed this issue and then answered it.** I found `Orcu-U2*05:02:01:01`
+  failing to parse while establishing the `Orcu` prefix from GenBank (#169),
+  filed #170, and handed it back on the grounds that `U` is the teleost class I
+  convention and so deserved the literature rather than an accession title.
+  Reading further settles it in the other direction.
 
-- **A query shape hid two more.** The first sweep asked for
-  `"<species>"[Organism] AND (<prefix> OR MHC OR histocompatibility)`, so for
-  species with many MHC records the prefix hits fell outside `retmax`. Re-run
-  with the prefix *required*, `Spau` and `Saal` appeared. A zero from a query
-  that could not have found the answer is not a negative result.
+- **It is a system, not a submitter's label.** GenBank has 104
+  *Oryctolagus cuniculus* MHC class I records spread over nine loci:
 
-- **Nine with allele-level names**: Acda (`Acda-DAB*1102`), Crac (`Crac-DB01`
-  through `-DB06`), Crpo (`Crpo-DAB2`), Ctau (`Ctau-DRB23`), Ctpe
-  (`Ctpe-DQA03`), Ctta (`Ctta-DRB26`), Ctto (`Ctto-DQA02`), Eqbu
-  (`DQB-Eqbu-DQB*0401`), Orcu (`Orcu-U2*05:02:01:01`). Plus Spau
-  (`Spau-DAA-214`).
+      Orcu-U1  29    Orcu-U4  10    Orcu-U7   9
+      Orcu-U2  17    Orcu-U5   5    Orcu-U8   9
+      Orcu-U3  13    Orcu-U6   5    Orcu-U9   7
 
-- **One weaker, and said so in the entry.** `Saal` appears in 98 records as the
-  *isolate* label `Saal_UBA_101`..`_106`, not as an allele name. That is the
-  species code and the salmonid class I locus concatenated, which is real
-  usage, but it is not `Saal-UBA*01:01` and the comment says so rather than
-  rounding it up.
+  The submissions accompany Zhang et al., "MHC-I diversity enables rapid
+  adaptation during a viral pandemic in wild rabbit populations", PNAS
+  2026;123:e2532064123 (PMID 42113988), whose authors include Jim Kaufman. The
+  `U` prefix being a non-mammalian convention is what made it worth checking,
+  and is not evidence against it.
 
-- **Two negatives now have evidence rather than silence**, and are pinned in
-  the canary test: peafowl class II is deposited as `(B-LB) gene, B-LB-12
-  allele` -- the chicken nomenclature, no `Pacr` anywhere -- and `Xetr` does
-  occur in GenBank, as clone tags like `Xetr-T2R54` for bitter taste
-  receptors, not for MHC.
+- **Filed as class I with no subclass.** The records say "MHC class I antigen"
+  and nothing establishes which of the nine are classical.
 
-- **#131 is now 157 designated / 19 unknown**, from 11/163 when filed and 30
-  before this. Ten of the nineteen are group nodes with no organism of their
-  own; the other nine are Boin, Chpi, EudyChrys, Mega, MesoCriAu, NeosScha,
-  Pacr, StriOccCaur and Xetr.
+- **On the species, not the genus node**, because that is what the records
+  name. The A/A1/A2/A3/D series stays where it is on `Oryctolagus sp.` under
+  the RLA prefix (PMID 32522857); how the two nomenclatures relate is still
+  open and is the remaining half of #170.
 
-- **Measured:** 0 of 36,752 corpus names change -- provenance is metadata, not
-  parsing. 16,387 tests pass.
-- Bumped to 3.56.0.
+- **The bare `Orcu*19` form is deliberately not added.** Twenty-one older
+  records label the gene with the species code itself. Making a prefix its own
+  gene name is the shape that put a class II beta chain symbol in the prefix
+  column for the greater prairie chicken (#165).
+
+- **Bare `U1` and `U2` stop resolving, and that is the honest answer.** Rattus
+  sp. declares both, so they are now genuinely ambiguous between rat and
+  rabbit; nothing attests the bare form for either, and the rat won them only
+  by being the sole declarer. `RT1-U1` and `Orcu-U1` both work. U3-U9 have one
+  declarer and resolve bare.
+
+- **Measured:** 0 of 36,752 corpus names change. Of 1,080 gene forms, 4 stop
+  resolving (`U1`, `U2` and their allele forms) and 14 start. 16,409 tests
+  pass.
+- Bumped to 3.57.0.
