@@ -4342,7 +4342,20 @@ Numida meleagris:
   name: Helmeted guineafowl
   genes:
     Ia:
+      # Real, and deposited under exactly this name: GenBank EU430728.1 and
+      # EF643463.1 are both "Numida meleagris MHC class I antigen (BF2) mRNA,
+      # partial cds".
+      #
+      # `context only` because the bare form belongs to the chicken. BF2 is
+      # chicken B-F nomenclature, and the bare spelling is what IEDB publishes
+      # chicken alleles under -- BF2*2101, BF2*0401, BF2*1301 and more, 170
+      # assay entries between them (tests/iedb_allele_counts.csv). Nothing is
+      # published as a guineafowl BF2 allele. So "NumiMele-BF2" resolves and a
+      # bare "BF2*21:01" stays with Gallus gallus rather than becoming
+      # ambiguous between the two. See issue #130.
       - BF2
+  gene properties:
+    BF2: {context only: true}
 Perdix perdix:
   parent: Galliformes sp.
   prefix: PerdPerd

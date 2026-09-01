@@ -10,6 +10,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import itertools
 import re
 from collections import defaultdict
 from collections.abc import Iterable, Mapping, Sequence
@@ -62,6 +63,22 @@ _MHC_REGION_RE = re.compile(
     r"^mhc[-_]?(I{1,3}|1|2)(a|b)?$",
     re.IGNORECASE,
 )
+
+
+def _lie_in_one_lineage(species_objects):
+    """
+    Is every one of these species an ancestor or descendant of every other?
+
+    A gene declared by a group node and by species beneath it names one lineage,
+    however many entries see it. A gene declared by a chicken and a guineafowl
+    names two, and picking between them is a guess.
+    """
+    for first, second in itertools.combinations(species_objects, 2):
+        if first is second:
+            continue
+        if not (first.is_ancestor_of(second) or second.is_ancestor_of(first)):
+            return False
+    return True
 
 
 def _names_context_only_gene(result):
@@ -1380,18 +1397,32 @@ class Parser:
         # "Ia1" belongs to Paralichthys olivaceus and "IA1" to Chrysolophus
         # pictus.  Prefer the species that spells the gene the way the caller
         # did before falling back to a case-insensitive match.
+        #
+        # Ranking the declarers was enough for BLB2, where the two are a group
+        # node and its own descendant, but it silently answered DRB1 too --
+        # ranking 45 unrelated declarers by gene-list size and returning
+        # Macaca fascicularis for a symbol shared by humans, cattle, dogs and
+        # horses. So the ranking now only runs when the declarers lie in a
+        # single lineage; otherwise the name names no species and this returns
+        # None, which is what issue #108 established for input that justifies
+        # nothing. A species which does use the name but does not own its bare
+        # form says so with `context only` in the ontology. See issue #130.
         if species is None and len(species_candidates) > 1 and any(c.isdigit() for c in gene_name):
-            species = max(
-                species_candidates,
-                key=lambda s: (
-                    s.declares_gene_with_same_case(gene_name),
-                    s.declares_gene(gene_name),
-                    s.num_genes,
-                    # purely so a genuine tie resolves the same way every run;
-                    # a later latin name is not a better answer
-                    s.name,
-                ),
-            )
+            declarers = [s for s in species_candidates if s.declares_gene_with_same_case(gene_name)]
+            if not declarers:
+                declarers = [s for s in species_candidates if s.declares_gene(gene_name)]
+            if len(declarers) == 1:
+                species = declarers[0]
+            elif len(declarers) > 1 and _lie_in_one_lineage(declarers):
+                species = max(
+                    declarers,
+                    key=lambda s: (
+                        s.num_genes,
+                        # purely so a genuine tie resolves the same way every
+                        # run; a later latin name is not a better answer
+                        s.name,
+                    ),
+                )
         if species is None:
             return None
         return Gene.get(species, gene_name)

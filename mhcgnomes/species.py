@@ -1661,7 +1661,13 @@ def species_named_in(name):
     matches = []
 
     species_from_prefix = infer_species_from_prefix(name)
-    if species_from_prefix is not None:
+    # The second element is the part of the string that matched. It is empty
+    # when infer_species_from_prefix fell through to its last resort and
+    # inferred the species from a gene name unique to one entry, which is the
+    # opposite of naming it: "A8*01:01" reported its species as explicit, so
+    # require_explicit_species accepted a string that names no species at all.
+    # 98 gene names took that route. See issue #130.
+    if species_from_prefix is not None and species_from_prefix[1]:
         matches.append(species_from_prefix[0])
 
     tokenization_result = tokenize(name)
