@@ -1,0 +1,118 @@
+# Species designations published by IPD-MHC, read verbatim from the group
+# species tables rather than from a summary.
+#
+# This is a non-runtime curation file, like
+# underrepresented_taxa_source_registry.yaml: nothing loads it at import, and
+# tests/test_ipd_designations.py checks the runtime ontology against it.
+#
+# What it is for. mhcgnomes generates a prefix for any species without a
+# curated one, guarded only by uniqueness within this repo, so it has no
+# knowledge of the IPD-MHC namespace (#112). This file is that namespace, for
+# the groups checked so far, and the test turns "discovered by sweep" into
+# "fails in CI".
+#
+# The check allows exactly two outcomes per row:
+#   1. our prefix for that species IS the IPD code, or
+#   2. the code is listed under "context only prefixes" on our entry, because
+#      another species holds it in published use -- the Caau and Hyam cases.
+# Anything else is a disagreement nobody has looked at.
+#
+# Groups not yet transcribed: NHP, FISH, CHICKEN. Their tables are large enough
+# that a fetch summary cannot be trusted for them, which is why they are the
+# tail of #131 rather than part of this file.
+
+
+BoLA:
+  name: Cattle and buffalo
+  url: https://www.ebi.ac.uk/ipd/mhc/group/BoLA/species
+  species:
+    Bos frontalis: Bofr
+    Bos grunniens: Bogr
+    Bubalus bubalis: Bubu
+
+CLA:
+  name: Caprids
+  url: https://www.ebi.ac.uk/ipd/mhc/group/CLA/species
+  species:
+    Capra hircus: Cahi
+
+CeLA:
+  name: Cetaceans
+  url: https://www.ebi.ac.uk/ipd/mhc/group/CeLA/species
+  species:
+    Balaenoptera acutorostrata: Baac
+    Balaenoptera edeni: Baed
+    Balaenoptera musculus: Bamu
+    Balaenoptera musculus brevicauda: Bamubr
+    Balaenoptera ricei: Bari
+    Cephalorhynchus hectori: Cehe
+    Delphinus delphis: Dede
+    Delphinapterus leucas: Dele
+    Eschrichtius robustus: Esro
+    Eubalaena australis: Euau
+    Eubalaena glacialis: Eugl
+    Globicephala melas: Glme
+    Grampus griseus: Grgr
+    Hyperoodon ampullatus: Hyam
+    Inia geoffrensis: Inge
+    Kogia breviceps: Kobr
+    Kogia sima: Kosi
+    Lagenorhynchus albirostris: Laal
+    Lagenorhynchus obscurus: Laob
+    Lipotes vexillifer: Live
+    Mesoplodon densirostris: Mede
+    Mesoplodon europaeus: Meeu
+    Mesoplodon grayi: Megr
+    Megaptera novaeangliae: Meno
+    Monodon monoceros: Momo
+    Neophocaena asiaeorientalis: Neas
+    Orcinus orca: Oror
+    Phocoena phocoena: Phph
+    Phocoena sinus: Phsi
+    Steno bredanensis: Stbr
+    Stenella coeruleoalba: Stco
+    Tursiops truncatus: Tutr
+    Ziphius cavirostris: Zica
+
+DLA:
+  name: Canids
+  url: https://www.ebi.ac.uk/ipd/mhc/group/DLA/species
+  species:
+    Canis adustus: Caad
+    Canis aureus: Caau
+    Canis lupus baileyi: Caba
+    Canis latrans: Cala
+    Canis lupus: Calu
+    Canis mesomelas: Came
+    Canis rufus: Caru
+    Canis simensis: Casi
+    Cuon alpinus: Cual
+    Lycaon pictus: Lypi
+
+ELA:
+  name: Equids
+  url: https://www.ebi.ac.uk/ipd/mhc/group/ELA/species
+  species:
+    Equus caballus: Eqca
+
+OLA:
+  name: Ovids
+  url: https://www.ebi.ac.uk/ipd/mhc/group/OLA/species
+  species:
+    Ovis aries: Ovar
+    Ovis canadensis: Ovca
+
+RT1:
+  name: Murids
+  url: https://www.ebi.ac.uk/ipd/mhc/group/RT1/species
+  species:
+    Rattus norvegicus: Rano
+    Rattus rattus: Rara
+
+SLA:
+  name: Swine
+  url: https://www.ebi.ac.uk/ipd/mhc/group/SLA/species
+  species:
+    Phacochoerus africanus: Phaf
+    Sus domesticus: Sudo
+    Sus scrofa: Susc
