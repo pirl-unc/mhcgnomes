@@ -31,6 +31,7 @@ from .gene import Gene
 from .haplotype import Haplotype
 from .mhc_class import MhcClass
 from .mutation import Mutation
+from .non_mhc_genes import is_non_mhc_gene_name
 from .pair import Pair, infer_class2_alpha_chain
 from .parsing_helpers import (
     contains_any_letters,
@@ -685,6 +686,22 @@ class Parser:
         Returns list of (Gene, remaining_string) pairs.
         """
         if contains_whitespace(str_after_species):
+            return []
+
+        # A curated non-MHC gene name is never split into a locus plus an
+        # allele suffix. "Kdm5d" under a mouse species would otherwise become
+        # H2-K*dm5d -- the real locus K, with everything after it read as an
+        # allele -- and "Daxx" becomes H2-D*axx. Both look valid and get
+        # dispatched onward, so the false positive is silent (#133).
+        #
+        # Only when the species does not declare the name itself: most entries
+        # in that table (TAP1, TAPBP, B2M, ...) are real genes in the ontology
+        # and must keep parsing.
+        stripped_token = self.strip_extra_chars(str_after_species)
+        if (
+            is_non_mhc_gene_name(stripped_token)
+            and species.find_matching_gene_name(stripped_token) is None
+        ):
             return []
 
         candidates = []

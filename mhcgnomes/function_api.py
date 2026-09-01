@@ -20,6 +20,7 @@ from .errors import ParseError
 from .gene import Gene
 from .gene_class_info import GeneClassInfo
 from .mhc_class import MhcClass
+from .non_mhc_genes import NON_MHC_REGION_GENE_NAMES, normalize_non_mhc_gene_name
 from .pair import Pair
 from .parser import (
     COLLAPSE_SINGLETON_HAPLOTYPES,
@@ -214,26 +215,6 @@ def _context_only_prefix_error_message(raw_string: str):
     )
 
 
-_NON_MHC_REGION_GENE_NAMES = {
-    "ABCB2": "TAP1",
-    "ABCB3": "TAP2",
-    "B2M": "B2M",
-    "CIITA": "CIITA",
-    "HAM1": "TAP1",
-    "HAM2": "TAP2",
-    "HM13": "HM13",
-    "PRR3": "PRR3",
-    "PSF1": "TAP1",
-    "PSF2": "TAP2",
-    "RING11": "TAP2",
-    "RING4": "TAP1",
-    "TAP-L": "TAP-L",
-    "TAPL": "TAP-L",
-    "TAP1": "TAP1",
-    "TAP2": "TAP2",
-    "TAPBP": "TAPBP",
-}
-
 _LENIENT_GENE_SUFFIX_RULES = {
     "A-U": ("I", "alpha"),
     "BLB": ("IIa", "beta"),
@@ -340,7 +321,9 @@ def _build_gene_class_info_from_parsed(parsed: Result, raw_string: str):
 
 
 def _normalize_inference_gene_token(gene_token: str):
-    return gene_token.strip().strip(",;").upper()
+    # Same rule as non_mhc_genes.normalize_non_mhc_gene_name, which is what
+    # keys the shared table.
+    return normalize_non_mhc_gene_name(gene_token)
 
 
 def _strip_gene_token(candidate_gene_string: str):
@@ -467,10 +450,10 @@ def _build_gene_class_info_from_token(species: Species, gene_token: str, raw_str
         return family_info
 
     normalized = _normalize_inference_gene_token(gene_token)
-    if normalized in _NON_MHC_REGION_GENE_NAMES:
+    if normalized in NON_MHC_REGION_GENE_NAMES:
         return GeneClassInfo(
             species=species,
-            gene_name=_NON_MHC_REGION_GENE_NAMES[normalized],
+            gene_name=NON_MHC_REGION_GENE_NAMES[normalized],
             mhc_class="other",
             chain=None,
             non_mhc=True,
