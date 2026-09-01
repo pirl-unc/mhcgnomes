@@ -432,7 +432,8 @@ Crocodylia sp.:
 # - http://www.imgt.org/IMGTrepertoireMHC/LocusGenes/nomenclatures/human/MHC/human_MHCnom.html
 ######################################################
 Homo sapiens:
-  # prefix source: designated -- IMGT/HLA names every human allele with it: https://hla.alleles.org/genes/index.html
+  # prefix source: designated -- IMGT/HLA names every human allele with it:
+  # https://hla.alleles.org/genes/index.html
   prefix source: designated
   prefix: HLA
   # NCBI Taxonomy places Homo sapiens (taxid 9606) in Primates (taxid 9443),
