@@ -89,6 +89,289 @@ SLA:
     - 1*14:01
     - 2*06:02
 
+  ##########################################################################
+  # Low-resolution (Lr-) haplotypes
+  #
+  # The other half of the ISAG/IUIS-VIC scheme: Lr- types are defined by
+  # PCR-SSP allele *groups* rather than by sequenced alleles, so a member here
+  # is a one-field allele -- "1*04" is SLA-1*04XX, any allele in group 04.
+  #
+  # Source: Table 1 (class I) and Table 2 (class II) of Hammer et al.,
+  # "Comparative analysis of swine leukocyte antigen gene diversity in
+  # European farmed pigs", Animal Genetics 2021;52:523, read from the
+  # Europe PMC full-text XML of PMC8362188. The paper states its criteria and
+  # nomenclature "were based on those proposed by the SLA Nomenclature
+  # Committee (Ho et al. 2009b and reviewed in Hammer et al. 2020)".
+  #
+  # Two things the tables say that a naive import would get wrong:
+  #
+  #   * "Blank" and "Blank(5)" are different. Footnote 5 of Table 1 reads
+  #     "Untyped SLA class I locus", so Lr-24.0 and Lr-33.0 do not assert an
+  #     absent SLA-1 -- they assert nothing about it, and are left out rather
+  #     than recorded as blank. Plain "Blank" is the positive finding and is
+  #     written "<gene>*Blank" (#162).
+  #   * A parenthetical such as "04XX (04:04)" is footnote 1's "medium- or
+  #     high-resolution specificity" refining the group to its left. The group
+  #     is what the low-resolution haplotype asserts, so that is what is
+  #     recorded.
+  #
+  # Nineteen rows are deliberately absent, each for a stated reason:
+  #
+  #   composite or unconfirmed name   01.0/04.0, 16.0 mod, 31.0/63.0,
+  #                                   0.08b, 0.15a, 0.15b, 0.19a, 0.19b
+  #   untyped locus (Blank + fn)      24.0, 33.0, 0.29
+  #   "+" -- an allele beyond group   38.0, 45.0, 0.21, 0.25, 0.27
+  #   "/" -- alternatives at a locus  52.0, 53.0, 0.11
+  #
+  # The last two shapes need a member that is a disjunction, which this format
+  # does not have. That is the remaining half of #162.
+  ##########################################################################
+  # ---- low-resolution class I haplotypes ----
+  Lr-01.0:
+    - 1*01
+    - 3*01
+    - 2*01
+  Lr-02.0:
+    - 1*02
+    - 1*07
+    - 3*04
+    - 2*02
+  Lr-04.0:
+    - 1*04
+    - 3*04
+    - 2*04
+  Lr-05.0:
+    - 1*04
+    - 3*05
+    - 2*08
+  Lr-06.0:
+    - 1*08
+    - 3*06
+    - 2*05
+  Lr-07.0:
+    - 1*08
+    - 3*07
+    - 2*05
+  Lr-08.0:
+    - 1*02
+    - 1*04
+    - 3*03
+    - 2*07
+  Lr-11.0:
+    - 1*01
+    - 1*09
+    - 3*07
+    - 2*05
+  Lr-18.0:
+    - 1*04
+    - 3*03
+    - 2*06
+  Lr-21.0:
+    - 1*07:03
+    - 3*06
+    - 2*05
+  Lr-22.0:
+    - 1*08
+    - 3*06
+    - 2*12
+  Lr-23.0:
+    - 1*12
+    - 3*03
+    - 2*Blank
+  Lr-25.0:
+    - 1*11
+    - 3*03
+    - 2*07
+  Lr-26.0:
+    - 1*08
+    - 3*05
+    - 2*10
+  Lr-27.0:
+    - 1*06
+    - 1*08
+    - 3*01
+    - 2*01
+  Lr-28.0:
+    - 1*09
+    - 1*15
+    - 3*07
+    - 2*05
+  Lr-29.0:
+    - 1*Blank
+    - 3*05
+    - 2*09
+  Lr-32.0:
+    - 1*07
+    - 3*04
+    - 2*02
+  Lr-34.0:
+    - 1*Blank
+    - 3*04
+    - 2*05
+  Lr-35.0:
+    - 1*12
+    - 1*13
+    - 3*05
+    - 2*10
+  Lr-36.0:
+    - 1*02
+    - 3*01
+    - 2*11
+  Lr-37.0:
+    - 1*07
+    - 3*05
+    - 2*09
+  Lr-39.0:
+    - 1*Blank
+    - 3*05
+    - 2*10
+  Lr-40.0:
+    - 1*16
+    - 3*05
+    - 2*10
+  Lr-42.0:
+    - 1*08
+    - 3*06
+    - 2*09
+  Lr-43.0:
+    - 1*11
+    - 3*04
+    - 2*04
+  Lr-46.0:
+    - 1*12
+    - 3*04
+    - 2*06
+  Lr-47.0:
+    - 1*Blank
+    - 3*06
+    - 2*05
+  Lr-49.0:
+    - 1*08
+    - 3*05
+    - 2*Blank
+  Lr-55.0:
+    - 1*15
+    - 3*04
+    - 2*11:04
+  Lr-56.0:
+    - 1*11
+    - 3*03
+    - 2*15
+  Lr-57.0:
+    - 1*02
+    - 3*01
+    - 2*11
+  Lr-58.0:
+    - 1*08
+    - 3*03
+    - 2*09
+  Lr-59.0:
+    - 1*11
+    - 3*05
+    - 2*16:02
+  Lr-61.0:
+    - 1*07:05
+    - 3*03
+    - 2*06
+  Lr-62.0:
+    - 1*14
+    - 3*04:04
+    - 2*06
+  Lr-64.0:
+    - 1*14
+    - 3*05
+    - 2*10
+  Lr-66.0:
+    - 1*15
+    - 3*04
+    - 2*04
+  Lr-67.0:
+    - 1*15
+    - 3*05
+    - 2*10
+
+  # ---- low-resolution class II haplotypes ----
+  Lr-0.01:
+    - DRB1*01
+    - DQB1*01
+    - DQA*01
+  Lr-0.02:
+    - DRB1*02
+    - DQB1*02
+    - DQA*02
+  Lr-0.04:
+    - DRB1*02
+    - DQB1*04
+    - DQA*02
+  Lr-0.05:
+    - DRB1*05
+    - DQB1*02
+    - DQA*02
+  Lr-0.06:
+    - DRB1*05
+    - DQB1*08
+    - DQA*01
+  Lr-0.07:
+    - DRB1*06
+    - DQB1*06
+    - DQA*01
+  Lr-0.09:
+    - DRB1*02
+    - DQB1*04
+    - DQA*03
+  Lr-0.10:
+    - DRB1*04
+    - DQB1*08
+    - DQA*03
+  Lr-0.12:
+    - DRB1*06
+    - DQB1*07
+    - DQA*01
+  Lr-0.13:
+    - DRB1*04
+    - DQB1*03
+    - DQA*02
+  Lr-0.14:
+    - DRB1*09
+    - DQB1*08
+    - DQA*03
+  Lr-0.20:
+    - DRB1*06
+    - DQB1*03
+    - DQA*01
+  Lr-0.22:
+    - DRB1*06
+    - DQB1*02
+    - DQA*02
+  Lr-0.23:
+    - DRB1*10
+    - DQB1*06
+    - DQA*01
+  Lr-0.24:
+    - DRB1*07
+    - DQB1*02
+    - DQA*02
+  Lr-0.26:
+    - DRB1*11
+    - DQB1*04
+    - DQA*02
+  Lr-0.30:
+    - DRB1*11
+    - DQB1*05
+    - DQA*02
+  Lr-0.32:
+    - DRB1*06
+    - DQB1*Blank
+    - DQA*02
+  Lr-0.33:
+    - DRB1*11
+    - DQB1*02
+    - DQA*02
+  Lr-0.35:
+    - DRB1*01
+    - DQB1*04
+    - DQA*02
+
 #########################################
 # Mouse MHC haplotypes copied from:
 # http://www.biolegend.com/media_assets/support_resource/BioLegend_Mouse_Alloantigens.pdf
