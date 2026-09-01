@@ -683,6 +683,11 @@ def test_unestablished_provenance_stays_none():
         # RhLA zero times, case-insensitively. So the citation is wrong and
         # these stay unestablished until someone finds the actual source.
         #
+        # A second authority now agrees: the IPD-MHC NHP group species table
+        # lists 66 primates, every one with a two-plus-two code, and none of
+        # the six appears there either.
+        # https://www.ebi.ac.uk/ipd/mhc/group/NHP/species
+        #
         # Felis sp. and Oryctolagus sp. used to be on this list and are not any
         # more: FLA and RLA are published (PMID 2492667, PMID 32522857) and are
         # now marked designated.

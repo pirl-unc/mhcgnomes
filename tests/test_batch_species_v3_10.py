@@ -45,7 +45,9 @@ BATCH_SPECIES = [
     ("LaceAgil", "Lacerta agilis"),
     # Birds
     ("PhasColc", "Phasianus colchicus"),
-    ("Iibi", "Tympanuchus cupido"),
+    # Tycu since #131: Iibi turned out to be GenBank's gene symbol for the
+    # class II beta chain (JX971120.1 /gene="IIBI"), not a species code.
+    ("Tycu", "Tympanuchus cupido"),
     ("CicoBoyc", "Ciconia boyciana"),
     ("AgelPhoe", "Agelaius phoeniceus"),
     ("OceaLeuc", "Oceanodroma leucorhoa"),
@@ -102,7 +104,7 @@ def test_pheasant_inherits_bf_from_galliformes():
 
 
 def test_prairie_chicken_inherits_blb_from_galliformes():
-    result = parse("Iibi-BLB", raise_on_error=True)
+    result = parse("Tycu-BLB", raise_on_error=True)
     eq_(result.species.name, "Tympanuchus cupido")
 
 
@@ -169,8 +171,18 @@ def test_pctn_prefix_for_softnose():
     eq_(Species.get("Pctn").name, "Parachondrostoma toxostoma")
 
 
-def test_iibi_prefix_for_prairie_chicken():
+def test_tycu_prefix_for_prairie_chicken():
+    """
+    Tycu is what GenBank writes prairie chicken alleles with -- 80 records,
+    Tycu-BLB*20 through *28. Iibi, which used to be the prefix here, still
+    resolves so that strings already emitted under it keep working, but it is
+    not written any more. See #131.
+    """
+    eq_(Species.get("Tycu").name, "Tympanuchus cupido")
+    eq_(Species.get("Tycu").prefix, "Tycu")
     eq_(Species.get("Iibi").name, "Tympanuchus cupido")
+    eq_(parse("Iibi-BLB*01").to_string(), "Tycu-BLB*01")
+    eq_(parse("Tycu-BLB*28").to_string(), "Tycu-BLB*28")
 
 
 def test_lasc_prefix_for_gull():

@@ -17,9 +17,14 @@
 #      another species holds it in published use -- the Caau and Hyam cases.
 # Anything else is a disagreement nobody has looked at.
 #
-# Groups not yet transcribed: NHP, FISH, CHICKEN. Their tables are large enough
-# that a fetch summary cannot be trusted for them, which is why they are the
-# tail of #131 rather than part of this file.
+# All eleven IPD-MHC groups are transcribed here -- BoLA, CeLA, CHICKEN, CLA,
+# DLA, ELA, FISH, NHP, OLA, RT1, SLA -- read from the group species tables
+# rather than a fetch summary. 125 rows. The eight groups that were here before
+# were re-read at the same time and every row still agreed, code for code.
+#
+# Where a row's parentheses carry two codes the first is the species
+# designation and the second is usually the group label ("Canis lupus
+# (Calu,DLA)"); only the species code is recorded.
 
 
 BoLA:
@@ -28,7 +33,17 @@ BoLA:
   species:
     Bos frontalis: Bofr
     Bos grunniens: Bogr
+    # The group node itself: IPD files cattle under "Bos sp. (BoLA)" and has no
+    # separate row for Bos taurus or Bos indicus, so their two-plus-two codes
+    # are ours rather than designations. See #131.
+    Bos sp.: BoLA
     Bubalus bubalis: Bubu
+
+CHICKEN:
+  name: Chicken
+  url: https://www.ebi.ac.uk/ipd/mhc/group/CHICKEN/species
+  species:
+    Gallus gallus: Gaga
 
 CLA:
   name: Caprids
@@ -94,6 +109,84 @@ ELA:
   url: https://www.ebi.ac.uk/ipd/mhc/group/ELA/species
   species:
     Equus caballus: Eqca
+
+FISH:
+  name: Fish
+  url: https://www.ebi.ac.uk/ipd/mhc/group/FISH/species
+  species:
+    Oncorhynchus mykiss: Onmy
+    Salmo salar: Sasa
+
+NHP:
+  name: Non-human primates
+  url: https://www.ebi.ac.uk/ipd/mhc/group/NHP/species
+  species:
+    Alouatta pigra: Alpi
+    Aotus azarai: Aoaz
+    Aotus lemurinus: Aole
+    Aotus nancymaae: Aona
+    Aotus nigriceps: Aoni
+    Aotus trivirgatus: Aotr
+    Aotus vociferans: Aovo
+    Ateles belzebuth: Atbe
+    Ateles fusciceps: Atfu
+    Callicebus moloch: Camo
+    Callithrix jacchus: Caja
+    Callithrix pygmaea: Capy
+    Cebus albifrons: Ceal
+    Cebus apella: Ceap
+    Cebus capucinus: Ceca
+    Cebus imitator: Ceim
+    Cebus kaapori: Ceka
+    Cebus olivaceus: Ceol
+    Cercocebus atys: Ceat
+    Cercopithecus mitis: Cemi
+    Cercopithecus neglectus: Cene
+    Chlorocebus aethiops: Chae
+    Chlorocebus pygerythrus: Chpy
+    Chlorocebus sabaeus: Chsa
+    Colobus guereza: Cogu
+    Gorilla beringei: Gobe
+    Gorilla gorilla: Gogo
+    Hylobates lar: Hyla
+    Hylobates moloch: Hymo
+    Leontopithecus rosalia: Lero
+    Lophocebus aterrimus: Loat
+    Macaca arctoides: Maar
+    Macaca assamensis: Maas
+    Macaca fascicularis: Mafa
+    Macaca fuscata: Mafu
+    Macaca leonina: Malo
+    Macaca mulatta: Mamu
+    Macaca nemestrina: Mane
+    Macaca silenus: Masi
+    Macaca thibetana: Math
+    Mandrillus leucophaeus: Male
+    Mandrillus sphinx: Masp
+    Pan paniscus: Papa
+    Pan troglodytes: Patr
+    Papio anubis: Paan
+    Papio cynocephalus: Pacy
+    Papio hamadryas: Paha
+    Papio papio: Papp
+    Papio ursinus: Paur
+    Pithecia pithecia: Pipi
+    Pongo abelii: Poab
+    Pongo pygmaeus: Popy
+    Rhinopithecus roxellana: Rhro
+    Saguinus fuscicollis: Safu
+    Saguinus geoffroyi: Sage
+    Saguinus labiatus: Sala
+    Saguinus mystax: Samy
+    Saguinus oedipus: Saoe
+    Saimiri sciureus: Sasc
+    Sapajus apella macrocephalus: Sama
+    Sapajus cay: Saca
+    Sapajus libidinosus: Sali
+    Sapajus nigritus: Sani
+    Sapajus xanthosternos: Saxa
+    Semnopithecus entellus: Seen
+    Theropithecus gelada: Thge
 
 OLA:
   name: Ovids

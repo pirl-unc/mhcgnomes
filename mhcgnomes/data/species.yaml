@@ -622,6 +622,13 @@ Mus sp.:
         - DMB2
 Mus musculus:
   parent: Mus sp.
+  # prefix source: designated -- Klein J, Benoist C, David CS, Demant P,
+  # Lindahl KF, Flaherty L, Flavell RA, Hammerling U, Hood LE, Hunt SW et al.,
+  # "Revised nomenclature of mouse H-2 genes", Immunogenetics 1990;32:147-9
+  # (PMID 2228044), the committee report naming the mouse system. The report
+  # writes it hyphenated, "H-2"; the unhyphenated form is what allele strings
+  # use and what "old prefix" carries here.
+  prefix source: designated
   prefix: H2
   name: [Mouse, Murine]
   genes:
@@ -1124,6 +1131,10 @@ Felis sp.:
         - DMB
 Felis catus:
   parent: Felis sp.
+  # prefix source: designated -- PMID 9058818 (Yuhki & O'Brien, J Immunol
+  # 1997;158:2822) reports "limited variation in the domestic cat Feca-DRA
+  # gene ... but abundant variation in the Feca-DRB gene".
+  prefix source: designated
   prefix: Feca
   name: Domestic cat
 ############################
@@ -1146,12 +1157,20 @@ Ctenopharyngodon idella:
       - B2M-2
 Oncorhynchus mykiss:
   parent: Salmonidae sp.
+  # prefix source: designated -- one of the two species in the IPD-MHC FISH
+  # group, listed as "Oncorhynchus mykiss (Onmy)":
+  # https://www.ebi.ac.uk/ipd/mhc/group/FISH/species
+  prefix source: designated
   prefix: Onmy
   name:
     - Rainbow Trout
     - Trout
 Salmo salar:
   parent: Salmonidae sp.
+  # prefix source: designated -- the other species in the IPD-MHC FISH group,
+  # listed as "Salmo salar (Sasa)":
+  # https://www.ebi.ac.uk/ipd/mhc/group/FISH/species
+  prefix source: designated
   prefix: Sasa
   genes:
     Ia:
@@ -1205,6 +1224,9 @@ Salmonidae sp.:
   name: Salmonid
 Danio rerio:
   parent: Actinopterygii sp.
+  # prefix source: designated -- PMID 10799891 (Michalova et al., J Immunol
+  # 2000;164:5296) lists the zebrafish class I loci as "Dare-UDA, -UEA, -UFA".
+  prefix source: designated
   prefix: Dare
   other prefixes:
     # Old genus: Brachydanio rerio → Danio rerio
@@ -1243,6 +1265,10 @@ Oryzias latipes:
       - UHA
 Cyprinus carpio:
   parent: Cyprinidae sp.
+  # prefix source: designated -- PMID 9877432 (Rodrigues et al., Dev Comp
+  # Immunol 1998;22:493), titled "Expression of MhcCyca class I and class II
+  # molecules ... common carp", names Cyca-UA, Cyca-B2m, Cyca-DXA and Cyca-DAB.
+  prefix source: designated
   prefix: Cyca
   name: Common carp
   genes:
@@ -1322,6 +1348,10 @@ Epinephelus coioides:
   name: Orange-spotted grouper
 Salmo trutta:
   parent: Salmonidae sp.
+  # prefix source: designated -- PMID 22957875 (O'Farrell et al., J Fish Biol
+  # 2012;81:1357) describes "an MHC class I (satr-uba)-linked microsatellite
+  # locus" in wild brown trout.
+  prefix source: designated
   prefix: Satr
   name: Brown trout
 Salvelinus alpinus:
@@ -2511,6 +2541,12 @@ Bos sp.:
         - DIB
 Bos taurus:
   parent: Bos sp.
+  # prefix source: designated -- PMID 1559718 (Ammer et al., Immunogenetics
+  # 1992;35:332) writes "we identified different Bota-DRB alleles" of a study
+  # "focused on cattle (Bos taurus)". Note IPD-MHC does not designate it: the
+  # BoLA group files cattle under "Bos sp. (BoLA)" with no Bos taurus row, so
+  # this is literature usage rather than a committee assignment.
+  prefix source: designated
   prefix: Bota
   name: Cow
 Bos indicus:
@@ -3359,6 +3395,10 @@ Heliophobius argenteocinereus:
 ################################################################################
 Pteropus alecto:
   parent: Chiroptera sp.
+  # prefix source: designated -- PMID 31076531 (Qu et al., J Immunol
+  # 2019;202:3493) determined the structures of "peptide-MHC I complexes of
+  # Pteropus alecto, Ptal-N*01:01/HEV-1".
+  prefix source: designated
   prefix: Ptal
   name:
     - Black fruit bat
@@ -4193,14 +4233,34 @@ Phasianus colchicus:
   name: Common pheasant
 Tympanuchus cupido:
   parent: Galliformes sp.
-  # mhcseqs uses Iibi — unusual but attested
-  prefix: Iibi
+  # prefix source: designated -- GenBank names greater prairie chicken alleles
+  # with Tycu: 80 records, e.g. HM011586.1 "Tympanuchus cupido MHC class II
+  # antigen B (Tycu-BLB) gene, Tycu-BLB*26 allele", at
+  # https://www.ncbi.nlm.nih.gov/nuccore/HM011586.1 -- and it is the Klein 2+2
+  # code for the binomial, so it can be derived as well as cited.
+  prefix source: designated
+  prefix: Tycu
   other prefixes:
-    # Attested in UniProt gene_names; see registry entry Tycu.
-    - Tycu
+    # Iibi was the runtime prefix here until #131 traced it. It is not a
+    # species code at all: it is a *gene* symbol, read off GenBank JX971120.1
+    # (Immunogenetics 2013;65:133), which annotates the prairie chicken MHC-B
+    # locus with
+    #     gene   complement(5622..6980)
+    #            /gene="IIBI"
+    #            /product="MHC class II antigen beta chain 2"
+    # and that is its only occurrence in the nucleotide database. PubMed has
+    # none. It cannot be derived from Tympanuchus cupido either, and a prefix
+    # that cannot be derived from a binomial does not belong to it. Kept here
+    # so strings already emitted under it still parse, but nothing is written
+    # with it any more.
+    - Iibi
   name: Greater prairie chicken
 Gallus gallus:
   parent: Galliformes sp.
+  # prefix source: designated -- the only species in the IPD-MHC CHICKEN group,
+  # listed as "Gallus gallus (Gaga)":
+  # https://www.ebi.ac.uk/ipd/mhc/group/CHICKEN/species
+  prefix source: designated
   prefix: Gaga
   name: Chicken
   genes:
@@ -4278,6 +4338,11 @@ Chrysolophus pictus:
       - IA3
 Coturnix japonica:
   parent: Galliformes sp.
+  # prefix source: designated -- PMID 10199914 (Shiina et al., Immunogenetics
+  # 1999;49:384) is titled "Gene organization of the quail major
+  # histocompatibility complex (MhcCoja) class I gene region" and names
+  # Coja-A, Coja-B, Coja-C and Coja-D.
+  prefix source: designated
   prefix: Coja
   name: Japanese quail
   genes:
@@ -5915,6 +5980,10 @@ Chiroptera sp.:
 ##########################
 Xenopus laevis:
   parent: Xenopus sp.
+  # prefix source: designated -- PMID 31776204 (Ma et al., J Immunol
+  # 2020;204:147) reports "the single classical MHC class I (MHC-I) molecule
+  # Xela-UAA" for Xenopus laevis.
+  prefix source: designated
   prefix: Xela
   name: African clawed frog
   genes:
@@ -5998,6 +6067,10 @@ Ambystoma tigrinum:
   name: Tiger salamander
 Andrias davidianus:
   parent: Caudata sp.
+  # prefix source: designated -- PMID 24135718 is titled "Extensive
+  # diversification of MHC in Chinese giant salamanders Andrias davidianus
+  # (Anda-MHC) reveals novel splice variants".
+  prefix source: designated
   prefix: Anda
   other prefixes:
     - AndrDavi
@@ -6207,6 +6280,9 @@ Tiliqua adelaidensis:
 ##########################
 Monodelphis domestica:
   parent: Marsupialia sp.
+  # prefix source: designated -- PMID 16738937 (Gouin et al., Immunogenetics
+  # 2006) is titled "Modo-UG, a marsupial nonclassical MHC class I locus".
+  prefix source: designated
   prefix: Modo
   name: Gray short-tailed opossum
   genes:
@@ -6228,6 +6304,10 @@ Monodelphis domestica:
       - UT8
 Sarcophilus harrisii:
   parent: Marsupialia sp.
+  # prefix source: designated -- PMID 35335675 (Hussey et al., Pathogens
+  # 2022;11:351) is titled "Expression of the Nonclassical MHC Class I,
+  # Saha-UD in the Transmissible Cancer Devil Facial Tumour Disease".
+  prefix source: designated
   prefix: Saha
   name: Tasmanian devil
   genes:
