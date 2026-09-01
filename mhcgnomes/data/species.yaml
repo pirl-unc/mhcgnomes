@@ -4737,6 +4737,12 @@ Callicebus moloch:
         - DRB11
         - DRB3
 Callithrix pygmaea:
+  # Stays directly under NHP rather than moving to Callithrix sp.: NCBI
+  # Taxonomy accepts Cebuella pygmaea (taxid 9493, lineage ... Callitrichinae >
+  # Cebuella) and lists Callithrix pygmaea only as a homotypic synonym, which
+  # is also where the old prefix Cepy comes from. It is not a Callithrix, so
+  # the genus node would be the wrong parent even though the key says
+  # otherwise. See #123.
   parent: NHP
   prefix: Capy
   old prefix: Cepy
@@ -4971,7 +4977,7 @@ Lophocebus aterrimus:
       DQ:
         - DQA1
 Macaca arctoides:
-  parent: NHP
+  parent: Macaca sp.
   prefix: Maar
   name: Stump-tailed Macaque
   genes:
@@ -4991,7 +4997,7 @@ Macaca arctoides:
         - DRB5
 
 Macaca assamensis:
-  parent: NHP
+  parent: Macaca sp.
   prefix: Maas
   name: Assam Macaque
   genes:
@@ -5046,7 +5052,7 @@ Macaca fascicularis:
         - DRB5
         - DRB6
 Macaca fuscata:
-  parent: NHP
+  parent: Macaca sp.
   prefix: Mafu
   name: Japanese Macaque
   genes:
@@ -5064,7 +5070,7 @@ Mandrillus leucophaeus:
       DR:
         - DRB1
 Macaca leonina:
-  parent: NHP
+  parent: Macaca sp.
   prefix: Malo
   name: Northern Pig-tailed Macaque
   genes:

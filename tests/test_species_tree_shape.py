@@ -218,16 +218,17 @@ def test_only_documented_edges_point_at_another_genus_node():
     eq_(sorted(crossing), sorted(GENUS_CROSSING_EDGES))
 
 
-# Species that sit at a higher node even though their own genus has one. These
-# are curation gaps rather than decisions: reparenting them would hand them the
-# genus gene list, which needs its own check against the literature.
-# https://github.com/pirl-unc/mhcgnomes/issues/123
+# Species that sit at a higher node even though an entry named for their genus
+# exists. The four macaques were moved under Macaca sp. in #123; the one left
+# is not a curation gap:
+#
+# Callithrix pygmaea is a synonym. NCBI Taxonomy accepts Cebuella pygmaea
+# (taxid 9493, lineage ... Callitrichinae > Cebuella) and lists Callithrix
+# pygmaea as a homotypic synonym, which is where the old prefix Cepy comes
+# from. It is not a Callithrix, so Callithrix sp. would be the wrong parent
+# even though the key says otherwise.
 UNPLACED_WITHIN_GENUS = {
     "Callithrix pygmaea",
-    "Macaca arctoides",
-    "Macaca assamensis",
-    "Macaca fuscata",
-    "Macaca leonina",
 }
 
 
@@ -240,3 +241,55 @@ def test_species_sit_under_their_genus_node_when_one_exists():
         and not GENUS_NODES[species.name.split()[0]].is_ancestor_of(species)
     }
     eq_(sorted(unplaced), sorted(UNPLACED_WITHIN_GENUS))
+
+
+# ---------------------------------------------------------------------------
+# 5. The macaques placed under their genus node (#123)
+# ---------------------------------------------------------------------------
+
+REPARENTED_MACAQUES = [
+    "Macaca arctoides",
+    "Macaca assamensis",
+    "Macaca fuscata",
+    "Macaca leonina",
+]
+
+
+@pytest.mark.parametrize("latin_name", REPARENTED_MACAQUES)
+def test_every_macaque_is_under_the_genus_node(latin_name):
+    macaca = Species.get_by_latin_name("Macaca sp.")
+    ok_(Species.get_by_latin_name(latin_name).is_descendant_of(macaca))
+
+
+@pytest.mark.parametrize("latin_name", REPARENTED_MACAQUES)
+def test_reparented_macaques_behave_like_their_siblings(latin_name):
+    """
+    The point of #123: these four inherited almost nothing, so Mafu-A*01:01
+    did not parse while Mamu-A*01:01 did. They should now be indistinguishable
+    from the macaques that were already under the genus node.
+    """
+    species = Species.get_by_latin_name(latin_name)
+    genus = Species.get_by_latin_name("Macaca sp.")
+    # Every gene the genus declares is visible to them. Not an equality against
+    # a sibling: Macaca mulatta declares its own K on top of the genus list, so
+    # its gene count is one higher than everyone else's.
+    missing = sorted(g for g in genus.own_gene_names if species.find_matching_gene_name(g) is None)
+    eq_(missing, [], f"{latin_name} does not see {missing}")
+    eq_(species.old_mhc_prefix, "RhLA")
+    prefix = species.prefix
+    for gene_name in ["A", "A1", "A2", "B", "DRB1", "DQA1", "DQB1"]:
+        result = parse(f"{prefix}-{gene_name}*01:01", raise_on_error=False)
+        assert result is not None, f"{prefix}-{gene_name}*01:01 does not parse"
+        eq_(result.species.name, latin_name)
+
+
+def test_the_pygmy_marmoset_is_not_a_callithrix():
+    """
+    The fifth species #123 listed is not a curation gap. NCBI Taxonomy accepts
+    Cebuella pygmaea (taxid 9493) and lists Callithrix pygmaea as a homotypic
+    synonym, so the genus node would be the wrong parent. Its historic prefix
+    Cepy comes from the accepted name.
+    """
+    marmoset = Species.get_by_latin_name("Callithrix pygmaea")
+    ok_(not marmoset.is_descendant_of(Species.get_by_latin_name("Callithrix sp.")))
+    eq_(marmoset.old_mhc_prefix, "Cepy")

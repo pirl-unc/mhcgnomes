@@ -54,4 +54,4 @@ Tracking issue: #131 (partial -- 113 entries still unestablished)
   `CELA` in a citation fails it.
 
 - **Measured:** 0 of 11,558 corpus names change. Provenance only.
-- Bumped to 3.44.2.
+- Bumped to 3.45.1.
