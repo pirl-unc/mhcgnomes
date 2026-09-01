@@ -1788,7 +1788,8 @@ Leuciscus leuciscus:
   other prefixes:
     - LeucisLeucis
   # LeucLeuc is derivable by the 4+4 rule from this species and from
-  # Leucogeranus leucogeranus (Siberian crane) so it names neither; see "contested prefixes" in docs/curation.md (#134).
+  # Leucogeranus leucogeranus (Siberian crane) so it names neither; see "contested
+  # prefixes" in docs/curation.md (#134).
   context only prefixes:
     - LeucLeuc
   name: Common dace
@@ -2165,7 +2166,8 @@ Chrysemys picta:
   # collides with nothing. See #128.
   prefix: ChrysemysPicta
   # ChryPict is derivable by the 4+4 rule from this species and from
-  # Chrysolophus pictus (golden pheasant) so it names neither; see "contested prefixes" in docs/curation.md (#134).
+  # Chrysolophus pictus (golden pheasant) so it names neither; see "contested
+  # prefixes" in docs/curation.md (#134).
   context only prefixes:
     - ChryPict
   name: Painted turtle
@@ -3440,7 +3442,8 @@ Leucogeranus leucogeranus:
   # same 4+4 form, so it named this species only by curation order. See #134.
   prefix: LeucogeranusLeucogeranus
   # LeucLeuc is derivable by the 4+4 rule from this species and from
-  # Leuciscus leuciscus (common dace) so it names neither; see "contested prefixes" in docs/curation.md (#134).
+  # Leuciscus leuciscus (common dace) so it names neither; see "contested
+  # prefixes" in docs/curation.md (#134).
   context only prefixes:
     - LeucLeuc
   name: Siberian crane
@@ -3530,7 +3533,8 @@ Lanius collurio:
   other prefixes:
     - Laco
   # LaniColl is derivable by the 4+4 rule from this species and from
-  # Lanius collaris (fiscal shrike) so it names neither; see "contested prefixes" in docs/curation.md (#134).
+  # Lanius collaris (fiscal shrike) so it names neither; see "contested
+  # prefixes" in docs/curation.md (#134).
   context only prefixes:
     - LaniColl
   name: Red-backed shrike
@@ -3912,7 +3916,8 @@ Lanius collaris:
   other prefixes:
     - LaniCola
   # LaniColl is derivable by the 4+4 rule from this species and from
-  # Lanius collurio (red-backed shrike) so it names neither; see "contested prefixes" in docs/curation.md (#134).
+  # Lanius collurio (red-backed shrike) so it names neither; see "contested
+  # prefixes" in docs/curation.md (#134).
   context only prefixes:
     - LaniColl
   name: Fiscal shrike
@@ -4038,7 +4043,8 @@ Chrysolophus pictus:
   parent: Galliformes sp.
   prefix: Chpi
   # ChryPict is derivable by the 4+4 rule from this species and from
-  # Chrysemys picta (painted turtle) so it names neither; see "contested prefixes" in docs/curation.md (#134).
+  # Chrysemys picta (painted turtle) so it names neither; see "contested
+  # prefixes" in docs/curation.md (#134).
   context only prefixes:
     - ChryPict
   name: Golden pheasant
