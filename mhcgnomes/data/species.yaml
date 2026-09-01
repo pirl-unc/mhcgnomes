@@ -2798,21 +2798,39 @@ Caperea marginata:
   name: Pygmy right whale
 Delphinapterus leucas:
   parent: Cetacea sp.
-  prefix: DeleLuca
+  # prefix source: designated -- listed verbatim as "Delphinapterus leucas (Dele,Dele)" in
+  # the IPD-MHC CeLA group: https://www.ebi.ac.uk/ipd/mhc/group/CeLA/species
+  # DeleLuca was the canonical prefix until #146, which is backwards: it is
+  # a form mhcgnomes generated, while Dele is the published designation and is
+  # derivable by the 2+2 rule from this species alone. Nothing else claims it.
+  prefix source: designated
+  prefix: Dele
   other prefixes:
-    - Dele
+    - DeleLuca
   name: Beluga whale
 Neophocaena asiaeorientalis:
   parent: Cetacea sp.
-  prefix: NeopAsia
+  # prefix source: designated -- listed verbatim as "Neophocaena asiaeorientalis (Neas,Neas)" in
+  # the IPD-MHC CeLA group: https://www.ebi.ac.uk/ipd/mhc/group/CeLA/species
+  # NeopAsia was the canonical prefix until #146, which is backwards: it is
+  # a form mhcgnomes generated, while Neas is the published designation and is
+  # derivable by the 2+2 rule from this species alone. Nothing else claims it.
+  prefix source: designated
+  prefix: Neas
   other prefixes:
-    - Neas
+    - NeopAsia
   name: Narrow-ridged finless porpoise
 Orcinus orca:
   parent: Cetacea sp.
-  prefix: OrciOrca
+  # prefix source: designated -- listed verbatim as "Orcinus orca (Oror,Oror)" in
+  # the IPD-MHC CeLA group: https://www.ebi.ac.uk/ipd/mhc/group/CeLA/species
+  # OrciOrca was the canonical prefix until #146, which is backwards: it is
+  # a form mhcgnomes generated, while Oror is the published designation and is
+  # derivable by the 2+2 rule from this species alone. Nothing else claims it.
+  prefix source: designated
+  prefix: Oror
   other prefixes:
-    - Oror
+    - OrciOrca
   name: Killer whale
 Physeter macrocephalus:
   parent: Cetacea sp.
