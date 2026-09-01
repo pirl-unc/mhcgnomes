@@ -1,28 +1,38 @@
-# Check our prefixes against the IPD-MHC namespace in CI
+# Support the hyphenated class shorthand
 
-Tracking issue: #112 (stacked on #146)
+Tracking issue: #104
 
 ## Review
 
-- **#112 asked for the namespace, and I now have it.** The issue proposed a
-  curated reservation set so the prefix generator could not claim a code IPD
-  has assigned elsewhere. Its own follow-up comment established the generator
-  is not the culprit -- it never mints 2+2 codes -- but the underlying gap
-  stands: nothing in this repo knows what IPD has designated, which is why
-  `Caau` and `Hyam` were found by a manual sweep months late.
-- **`mhcgnomes/data/ipd_designations.yaml`** transcribes 55 designations across
-  8 groups, verbatim from the species tables. Non-runtime curation data, like
-  `underrepresented_taxa_source_registry.yaml`; nothing loads it at import.
-- **The check allows exactly two outcomes per row**: our prefix is the IPD
-  code, or the code is context-only on our entry because another species holds
-  it in published use. Today that is 53 and 2. A third case cannot be added to
-  the allowlist without a canary test failing.
-- **My first version of the test missed the failure the issue is named for.**
-  It returned early when an IPD code resolved to nothing, so a mutation that
-  made the goldfish claim `Cala` passed -- two owners make `Species.get`
-  ambiguous, and the designation silently stops working, which is the same
-  defect wearing a different face. Now asserted, and all three mutations fail:
-  a squatted code, a dropped designation, and a removed species.
-- **Measured:** 0 of 11,558 corpus names change. Test-time only.
-- Bumped to 3.46.1.
-
+- **The reported bug is real and now fixed.** `SLA-I`, `BoLA-I`, `HLA-I`,
+  `DLA-I`, `Patr-I`, `Gaga-I` and `<prefix>-II` everywhere returned `None`,
+  while `<prefix> class I` worked. Both spellings now give the same
+  `MhcClass`, which is what a caller pulling MHC tokens out of curated text
+  needs -- the reported failure was a sample silently ending up with no
+  genotype.
+- **But two of the issue's three claims do not hold**, and checking them was
+  the point:
+  - **`Mamu-I` is not a misparse.** It is a published macaque MHC class I
+    locus: J Immunol 2000;164:1386, *"Mamu-I: A Novel Primate MHC Class I
+    B-Related Locus with Unusually Low Variability"*, and the ontology declares
+    the gene. The issue called it "wrong-but-plausible"; it is right. It stays
+    a `Gene`.
+  - **`H2-I` is a curated mouse haplotype**, `i`. The issue's observation that
+    mouse literature also writes `H2-I` for the class II region is a genuine
+    ambiguity in the source material, but the haplotype is what the ontology
+    has evidence for, so it stays. Recorded in the test rather than silently.
+- **So the shorthand is offered as a candidate, not a short-circuit.** Result
+  sorting picks the `Gene` for `Mamu-I` and the `Haplotype` for `H2-I`, and the
+  `MhcClass` everywhere else. `-II` is unambiguous for every species -- gene
+  `II` resolves nowhere in the ontology -- so it works even for those two.
+- **The digit spelling is deliberately left alone.** My first version mapped
+  `<prefix>-1` as well, and the tests caught it: `SLA-1`, `BoLA-1` and `ELA-1`
+  are real class I gene names. Mapping the digits would have shadowed genuine
+  loci for some species and not others -- recreating the exact inconsistency
+  this issue is about. `HLA-1` still returns `None`, as on `main`.
+- **A sweep test guards the boundary**: gene `I` resolves for 12 species (the
+  macaque group plus two others) and gene `II` for none, so a future addition
+  cannot quietly take the shorthand away from a prefix that has it.
+- **Measured:** 0 of 11,558 corpus names change -- no bundled corpus name uses
+  the shorthand. 48 new tests; removing the shorthand fails 42 of them.
+- Bumped 3.46.1 to 3.47.0: strings that returned `None` now parse.

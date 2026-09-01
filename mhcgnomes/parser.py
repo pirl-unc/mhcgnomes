@@ -1414,6 +1414,31 @@ class Parser:
                 )
         return None
 
+    def parse_class_marker_after_species(self, species, str_after_species):
+        """
+        The hyphenated class shorthand: "SLA-I", "BoLA-II", "HLA-I".
+
+        Common in the literature, and it returned None for almost every species
+        before 3.47.0 -- so a caller pulling MHC tokens out of curated text got
+        nothing at all and the sample silently ended up with no genotype (#104).
+
+        Offered as one candidate among the others rather than short-circuiting,
+        because two species have a better answer: Mamu-I is a published macaque
+        class I locus (J Immunol 2000;164:1386, "Mamu-I: A Novel Primate MHC
+        Class I B-Related Locus") and H2-i is a mouse haplotype. Result sorting
+        decides between them.
+
+        Roman numerals only. "SLA-1", "BoLA-1" and "ELA-1" are real class I
+        gene names, so mapping the digits would shadow genuine loci for some
+        species and not others -- recreating the inconsistency this fixes.
+        """
+        normalized = str_after_species.strip().strip("-").lower()
+        if normalized == "i":
+            return MhcClass.get(species, "I")
+        if normalized == "ii":
+            return MhcClass.get(species, "II")
+        return None
+
     def parse_single_token_to_multiple_candidates(
         self,
         token: Token,
@@ -1476,6 +1501,7 @@ class Parser:
                 fns_with_species = [
                     Class2Locus.get,
                     Gene.get,
+                    self.parse_class_marker_after_species,
                     self.get_heterodimer,
                     self.get_serotype,
                     self.get_supertype,
@@ -1567,6 +1593,7 @@ class Parser:
                 fns_with_species = [
                     Class2Locus.get,
                     Gene.get,
+                    self.parse_class_marker_after_species,
                     self.get_heterodimer,  # Check heterodimers before serotypes (DQ2.5 vs DQ2)
                     self.get_serotype,
                     self.get_supertype,  # Check supertypes (A02, B07, etc.)
