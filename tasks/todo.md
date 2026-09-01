@@ -1,45 +1,35 @@
-# HLA-Cw16 (#153)
+# Make deploy.sh tell the truth about whether the release shipped (#83)
 
 ## Review
 
-- **I had the premise backwards, and the source I could not reach settles it.**
-  My earlier comment on this issue said the shipped `hla_dictionary.xlsx`
-  reports `WHO Assigned Type = "-"` for every `C*16` allele and tops out at
-  Cw10, and inferred that HLA-C serology might stop there -- which would have
-  put `Cw12`, `Cw14`, `Cw15`, `Cw17` and `Cw18` in doubt too. The dictionary
-  reading was right; the inference was wrong.
+- **The trusted-publisher configuration is still the user's to do** -- it needs
+  pypi.org access. What was fixable here is the second half of #83, quoted from
+  the issue itself: *"`./deploy.sh` looks like it succeeds (it pushes the tag)
+  but the package never lands on PyPI -- violates the 'done = merged AND
+  deployed' Golden Rule silently."*
 
-- **The WHO file was reachable after all.** `hla.alleles.org/wmda/` is a 404,
-  but ANHIG/IMGTHLA mirrors the same files:
-  `wmda/hla_nom.txt` (3.65.0, 2026-07-14, "author: WHO, Steven G. E. Marsh")
-  reads
+- **The script ended with a claim, not a check.**
 
-      Cw;12;20260128;;;      Cw;16;20260128;;;
-      Cw;14;20260128;;;      Cw;17;20260128;;;
-      Cw;15;20260128;;;      Cw;18;20260128;;;
+      ok(f"Release tag pushed: {tag}")
+      note("GitHub Actions will build and publish this tag to PyPI.")
 
-  All six were assigned on 2026-01-28 by the 2026 HLA Nomenclature Report. The
-  dictionary is simply a snapshot from before that date -- it does not
-  disagree, it predates.
+  That second line has been false for every release since #83 was filed. Golden
+  Rule 3 was being satisfied by a sentence.
 
-- **That also explains #156.** Five of the fifteen rows the generator cannot
-  reproduce are exactly these C specificities, for the same reason.
+- **Three outcomes, not two.** A network failure is not evidence that a release
+  is missing, so `pypi_released_versions` returns `None` for "could not ask"
+  and a set for "asked". Conflating them with an empty set would fail every
+  offline deploy. Present -> exit 0, unknown -> exit 0 with no claim of
+  success, absent -> exit 3.
 
-- **Two more absences are correct, and now cited.** The same file records
-  `Cw;11;19871121;19911114;1;Sequence error` -- assigned then withdrawn -- and
-  has no `Cw13` line at all. Both now have a test.
+- **Exit 3, not 1**, so a caller can tell "the release did not land" from "the
+  script could not run".
 
-- **Members from the authority, not from the shape of the neighbours.**
-  `wmda/rel_ser_ser.txt` reads `Cw;16;;1601/1602`, and `rel_dna_ser.txt` maps
-  `C*16:01 -> 1601` and `C*16:02 -> 1602`. The same file associates ~240
-  further `C*16` alleles with the broad specificity; those are left out for the
-  same reason the neighbouring rows leave out their own hundreds.
+- **The failure message cannot say "re-run deploy.sh".** The tag is pushed by
+  then, so a re-run stops on `ensure_tag_absent` -- the trap #152 was about. It
+  prints the `twine upload` line for the artifacts already in `dist/` instead.
 
-- **Regenerated `serotypes_generated.yaml`** so the two files still match: the
-  generator carries forward rows the dictionary does not support, so `Cw16`
-  survives a re-run exactly as `Cw15` does.
-
-- **Measured:** 0 of 36,752 corpus names change -- `HLA-Cw16` is not in any
-  bundled corpus, which is why the hitlist scan found it and these did not.
-  16,373 tests pass.
-- Bumped to 3.54.0.
+- **Verified:** 14 new tests; breaking either mechanism (returning an empty set
+  for an unreachable index, or exiting 0 on absent) fails 5 of them. 16,387
+  tests pass.
+- Bumped to 3.55.0.
