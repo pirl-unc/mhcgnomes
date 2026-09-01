@@ -65,6 +65,43 @@ _MHC_REGION_RE = re.compile(
     re.IGNORECASE,
 )
 
+# Caldwell et al. 2018, eLife 7:e35314, Table 1 (PMCID PMC6092122) uses each
+# slash label for one sequenced exon-2 product, not for two paired molecules.
+# Its source-data FASTA has one record named DFT2_CL_74_88 and one named
+# Spln_Teu_49_82 (https://doi.org/10.7554/eLife.35314.015). The historical
+# candidate allele records are GenBank GQ411457 (SahaI*49), GQ411490 (*82),
+# GQ411482 (*74), and JN389436 (*88). These are literature-specific compound
+# labels: IPD-MHC release 3.17.0.0 contains no Saha or Sarcophilus entries.
+_PUBLISHED_SAHA_SLASH_AMBIGUITIES = frozenset({("49", "82"), ("74", "88")})
+
+
+def _is_saha_i_placeholder_allele(result):
+    """Is this Caldwell's ``SahaI*NN`` parser placeholder, not a biological locus?"""
+    return (
+        type(result) is Allele and result.species.mhc_prefix == "Saha" and result.gene_name == "I"
+    )
+
+
+def _published_saha_slash_ambiguity(first, second):
+    """Return Caldwell's two gene-unassigned candidates for an attested slash label."""
+    if not _is_saha_i_placeholder_allele(first):
+        return None
+    if type(second) is not AlleleWithoutGene or first.species != second.species:
+        return None
+    if (first.name, second.name) not in _PUBLISHED_SAHA_SLASH_AMBIGUITIES:
+        return None
+
+    alleles = tuple(
+        AlleleWithoutGene.get(
+            first.species,
+            name,
+            mhc_class="I",
+            raw_string=source.raw_string,
+        )
+        for name, source in ((first.name, first), (second.name, second))
+    )
+    return AmbiguousAlleles(species=first.species, alleles=alleles)
+
 
 def _spelling_as_written(normalized_name, raw_name):
     """
@@ -1268,40 +1305,7 @@ class Parser:
             alpha = self.transform_parse_candidate(parse_candidate.alpha)
             beta = self.transform_parse_candidate(parse_candidate.beta)
             if alpha != parse_candidate.alpha or beta != parse_candidate.beta:
-                if (
-                    isinstance(alpha, AlleleWithoutGene)
-                    and isinstance(beta, AlleleWithoutGene)
-                    and alpha.species == beta.species
-                ):
-                    # A slash between two gene-less allele designators of the
-                    # same species is IPD-style typing ambiguity (e.g.
-                    # SahaI*74/88), not a class II alpha/beta pair. The right
-                    # side of the slash is tokenized as a bare number and
-                    # lacks class context on its own, so propagate the class
-                    # from whichever member resolved it.
-                    shared_class = alpha.mhc_class or beta.mhc_class
-                    if shared_class is not None:
-                        if alpha.mhc_class is None:
-                            alpha = AlleleWithoutGene.get(
-                                alpha.species,
-                                alpha.name,
-                                mhc_class=shared_class,
-                                raw_string=alpha.raw_string,
-                            )
-                        if beta.mhc_class is None:
-                            beta = AlleleWithoutGene.get(
-                                beta.species,
-                                beta.name,
-                                mhc_class=shared_class,
-                                raw_string=beta.raw_string,
-                            )
-                    transformed = AmbiguousAlleles(
-                        species=alpha.species,
-                        alleles=(alpha, beta),
-                        raw_string=parse_candidate.raw_string,
-                    )
-                else:
-                    transformed = Pair.get(alpha, beta, raw_string=parse_candidate.raw_string)
+                transformed = Pair.get(alpha, beta, raw_string=parse_candidate.raw_string)
         elif t in (AlleleWithoutGene, Allele):
             raw_string = parse_candidate.raw_string
             species = parse_candidate.species
@@ -1914,14 +1918,23 @@ class Parser:
                         continue
                     if result_before.species != result_after.species:
                         continue
+                    saha_ambiguity = _published_saha_slash_ambiguity(result_before, result_after)
+                    if saha_ambiguity is not None:
+                        candidates.append(saha_ambiguity)
+                        continue
+                    if _is_saha_i_placeholder_allele(result_before):
+                        # `I` exists only to parse the literature's SahaI*NN
+                        # notation. It is neither a biological locus nor one
+                        # chain of a molecular pair, so an unattested numeric
+                        # slash must not fall through to Pair.get().
+                        continue
                     class2_pair = Pair.get(result_before, result_after)
                     if class2_pair:
                         candidates.append(class2_pair)
             elif type(result_before) is AlleleWithoutGene:
-                # IPD-style slash ambiguity between two gene-less allele
-                # designators of the same species, e.g. "SahaI*74/88" from
-                # Caldwell et al. 2018 (PMC6092122) which cannot be
-                # attributed to SahaI*74 or SahaI*88 from the typed region.
+                # A slash between two gene-less allele designators can express
+                # source-specific typing ambiguity. This branch is separate
+                # from Pair because neither candidate identifies a chain.
                 species = result_before.species if result_before.has_species else default_species
                 for result_after in self.parse_tokens_to_multiple_candidates(
                     tokens=tokens_after,

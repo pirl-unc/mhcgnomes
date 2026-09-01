@@ -6419,9 +6419,10 @@ Monodelphis domestica:
       - UT8
 Sarcophilus harrisii:
   parent: Marsupialia sp.
-  # prefix source: designated -- PMID 35335675 (Hussey et al., Pathogens
-  # 2022;11:351) is titled "Expression of the Nonclassical MHC Class I,
-  # Saha-UD in the Transmissible Cancer Devil Facial Tumour Disease".
+  # prefix source: designated -- Saha is literature-attested, not currently
+  # registered in IPD-MHC. Siddle et al. 2010 (PMID 20219742) deposited
+  # GQ411435--GQ411493 as SahaI*27--SahaI*85; IPD-MHC release 3.17.0.0 has no
+  # Saha or Sarcophilus entries.
   prefix source: designated
   prefix: Saha
   name: Tasmanian devil
