@@ -717,6 +717,27 @@ def test_unestablished_provenance_stays_none():
         "Meleagris gallopavo",
         "Pavo cristatus",
         "Xenopus tropicalis",
+        #
+        # The four group-node abbreviations. These were the last entries never
+        # swept, because the GenBank pass skipped "<Genus> sp." rows -- a group
+        # node has no organism of its own to search under. Searching under the
+        # genus instead finds nothing for any of them, in nuccore or protein:
+        #
+        #   Coregonus + Cosp   0      Manacus + Mana   0
+        #   Tropheus  + Trsp   0      Mus     + MusSp  0 as a prefix
+        #
+        # MusSp does return 18 records, all of them Mus spretus microsatellites
+        # named MUSSP-16, MUSSP-17, MUSSP-18 -- a coincidental string, not a
+        # prefix, the same false positive shape as Xetr's taste receptors.
+        #
+        # So all four are labels this project minted. They stay None rather
+        # than being reclassified: the predicate that would call them
+        # "group label" also gates prefix inheritance, and 18 species inherit
+        # these as old_mhc_prefix. See the comment on #131.
+        "Coregonus sp.",
+        "Manacus sp.",
+        "Mus sp.",
+        "Tropheus sp.",
         "Aotus sp.",
         "Callithrix sp.",
         "Gorilla sp.",
