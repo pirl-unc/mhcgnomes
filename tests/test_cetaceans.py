@@ -126,3 +126,36 @@ def test_parse_historic_cela_input_uses_generic_species():
     eq_(allele.species.prefix, "CELA")
     eq_(allele.gene.name, "DQA")
     eq_(allele.allele_fields, ("001", "01", "01"))
+
+
+# ---------------------------------------------------------------------------
+# IPD designations preferred over generated forms (#146)
+# ---------------------------------------------------------------------------
+
+IPD_DESIGNATED = [
+    ("Delphinapterus leucas", "Dele", "DeleLuca"),
+    ("Neophocaena asiaeorientalis", "Neas", "NeopAsia"),
+    ("Orcinus orca", "Oror", "OrciOrca"),
+]
+
+
+@pytest.mark.parametrize("latin_name,designated,generated", IPD_DESIGNATED)
+def test_ipd_designation_is_the_canonical_prefix(latin_name, designated, generated):
+    """
+    These three carried a mhcgnomes-generated 4+4 as their canonical prefix
+    while IPD-MHC's CeLA table designates a 2+2 that already resolved to them.
+    So normalized output was a name we invented in preference to the published
+    one. See #146.
+    """
+    species = Species.get_by_latin_name(latin_name)
+    eq_(species.prefix, designated)
+    eq_(species.prefix_provenance, "designated")
+    assert generated in species.other_mhc_prefixes, f"{generated} stopped being an alias"
+
+
+@pytest.mark.parametrize("latin_name,designated,generated", IPD_DESIGNATED)
+def test_both_spellings_parse_and_normalize_to_the_designation(latin_name, designated, generated):
+    for prefix in (designated, generated):
+        result = parse(f"{prefix}-DQB1", raise_on_error=True)
+        eq_(result.species.name, latin_name)
+        eq_(result.to_string(), f"{designated}-DQB1")
