@@ -53,6 +53,51 @@ These are one-time repository setup tasks outside the codebase:
 
 ## What `deploy.sh` Enforces
 
+### Which interpreter builds
+
+`deploy.py` resolves a project venv (`.venv`, then `venv`) and puts its `bin`
+on `PATH`, but the **build** runs under whichever interpreter can actually do
+it, and the log says which and why:
+
+```
+OK: Using venv: /path/to/repo/.venv
+OK: Build interpreter: /path/to/.venv/bin/python (project venv)
+```
+
+The venv is preferred only when it can import both `build` and `setuptools` --
+`python -m build --no-isolation` needs the backend already present.
+`develop.sh` installs `.[dev,docs]`, which contains neither, so on a plain
+development checkout the line reads:
+
+```
+OK: Build interpreter: /usr/local/bin/python3 (launching interpreter;
+    /path/to/.venv/bin/python cannot import build and setuptools)
+```
+
+That is not a failure. Before #101 the script printed the venv and silently
+built with the launching interpreter anyway; the fix is that it now tells you.
+To build under the venv, install the tools there:
+
+```bash
+.venv/bin/python -m pip install build setuptools wheel
+```
+
+`setuptools` is not optional and is not pulled in by `build`: Python 3.12
+dropped it from new venvs, and `--no-isolation` means pyproject's
+`requires = ["setuptools>=61.0", "wheel"]` must already be importable. Add
+`twine` too if you publish from that venv.
+
+To choose an interpreter explicitly, set `DEPLOY_PYTHON`. `deploy.sh` uses it
+to launch `deploy.py`, and an explicit request outranks even a venv that could
+build, so it is the way to force a specific interpreter:
+
+```bash
+DEPLOY_PYTHON=.venv/bin/python ./deploy.sh
+```
+
+The check runs *before* `dist/`, `build/` and `*.egg-info` are cleaned, so a
+missing `build` aborts without leaving the checkout worse off than it started.
+
 `deploy.sh` still runs the full local test and lint gates before calling
 `deploy.py`. `deploy.py` then enforces:
 
