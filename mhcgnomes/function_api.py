@@ -157,6 +157,50 @@ def _reparse_with_context_only_prefix(
     return reparsed.copy(raw_string=raw_string)
 
 
+def _reparse_context_only_gene(
+    parser: Parser,
+    raw_string: str,
+    expected_species: Species,
+    infer_class2_pairing: bool,
+    required_result_types,
+    preferred_result_types,
+    only_class1: bool,
+    only_class2: bool,
+    max_allele_fields,
+):
+    """
+    Rescue a gene which resolves only once the species is known.
+
+    A gene marked `context only` stays out of species-less lookup, so bare "N"
+    parses as the rat haplotype rather than the human class I fragment (see
+    Species.gene_is_context_only). But `species=` is the strict form: the
+    caller has named the species, so there is nothing left to guess, and the
+    string is retried as the parser would have needed to see it -- "N" under
+    Homo sapiens as "HLA-N". Mirrors _reparse_with_context_only_prefix, which
+    does the same for a contested species prefix. See issue #113.
+    """
+    gene_token = raw_string.split("*")[0].strip()
+    if not gene_token:
+        return None
+    gene_name = expected_species.find_matching_gene_name(gene_token)
+    if gene_name is None or not expected_species.gene_is_context_only(gene_name):
+        return None
+    reparsed = parser.parse(
+        f"{expected_species.prefix}-{raw_string}",
+        default_species=expected_species,
+        infer_class2_pairing=infer_class2_pairing,
+        raise_on_error=False,
+        required_result_types=required_result_types,
+        preferred_result_types=preferred_result_types,
+        only_class1=only_class1,
+        only_class2=only_class2,
+        max_allele_fields=max_allele_fields,
+    )
+    if reparsed is None:
+        return None
+    return reparsed.copy(raw_string=raw_string)
+
+
 def _format_species_options(species_objects, max_items=4):
     names = [sp.name for sp in species_objects]
     shown = names[:max_items]
@@ -721,6 +765,24 @@ def parse(
         if rescued is not None:
             result = rescued
             parser_error = None
+        # Also when something else claimed the string: bare "N" parses as the
+        # rat haplotype, so a caller who asked for Homo sapiens gets a species
+        # mismatch rather than nothing at all.
+        if result is None or getattr(result, "species", None) != expected_species:
+            rescued = _reparse_context_only_gene(
+                parser=parser,
+                raw_string=raw_string,
+                expected_species=expected_species,
+                infer_class2_pairing=infer_class2_pairing,
+                required_result_types=required_result_types,
+                preferred_result_types=preferred_result_types,
+                only_class1=only_class1,
+                only_class2=only_class2,
+                max_allele_fields=max_allele_fields,
+            )
+            if rescued is not None:
+                result = rescued
+                parser_error = None
 
     if parser_error is not None:
         # Explain the contested prefix whether or not species= was supplied.

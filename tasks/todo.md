@@ -1,41 +1,45 @@
-# Establish FLA and RLA; correct the citation for the six primate _LA codes
-
-Tracking issue: #131 (46 entries still unestablished)
+# Add the nine HLA class I gene fragments (#113)
 
 ## Review
 
-- **AGENTS.md names the de Groot nomenclature report as the authority for
-  primate prefixes, so I read it** rather than repeating that IPD has no group
-  page for these codes. Extracting the full text of
-  `Groot_Nomenclature_Immunogenetics_2020_3174021.pdf`:
+- **The issue's premise had gone stale, and my own reading of it was wrong.**
+  Fourteen of the nineteen genes it lists were added by #114 and already parse.
+  What remained were the nine class I fragments `N R S T U W X Y Z`, which
+  `species.yaml` deliberately held back with a comment giving two reasons.
 
-  ```
-  Patr 77 hits   Mamu 8   Gogo 7   Popy 3   Mafa 3
-  OmLA / MaLA / GoLA / ChLA / OrLA / RhLA : 0, case-insensitively
-  ```
+- **I had recorded that these nine have no alleles. They do.** IPD-IMGT/HLA
+  3.65.0 `Allelelist.txt` (2026-07-14) gives W 13, T 9, S and U 7 each, N 5,
+  Y 3, R 2 -- only X and Z have none. So `HLA-W*01:01:01:01` is a real allele
+  name that should parse, and a blanket "these name no alleles" rule would
+  have been wrong for seven of the nine. Read the allele list, not the gene
+  list.
 
-  The extraction is sound -- the 2+2 codes the report does use are all there.
-  So the six primate `_LA` codes are absent from it.
+- **Two properties, because the held-back comment named two distinct hazards.**
+  - `alleles: none` -- the authority names the locus and deposits nothing under
+    it. `Allele.get_with_gene` refuses to build on such a gene, so `HLA-Z`
+    resolves and `HLA-Z*01:01` is None. This also closes a live gap: today
+    `HLA-MICC*01:01` and `HLA-DQB3*01:01` mint alleles for loci with zero
+    deposited sequences. Nine loci carry it.
+  - `context only: true` -- the gene stays out of species-less lookup, the
+    gene-level analogue of `context only prefixes`. Bare `N` stays `RT1-n` and
+    bare `S` stays `H2-s`; `HLA-N` and `parse("N", species="Homo sapiens")`
+    resolve.
 
-- **That matters because the mhcseqs registry cites exactly that paper as their
-  evidence.** `mhc_prefix_aliases.csv` gives all six
-  `status: literature_historical` with the de Groot PDF as the URL, and the PDF
-  does not contain them. The citation does not check out, so they stay `None`.
-  Marking them designated on it would be the `Caau` mistake with a footnote.
+- **The guard had to go in three places, not one.** The bare-token path, the
+  species-inference path in `parse_species`, and `parse_standard_allele_format`
+  -- which returns before either, so `N*01:01` was still resolving to human
+  after the first two were done.
 
-- **Two of the eight had different evidence, and it holds.** Read from PubMed
-  directly rather than the search summary:
-  - `FLA` -- PMID 2492667, *"Genetic characterization of FLA, the cat major
-    histocompatibility complex"*, and the abstract says "the major
-    histocompatibility complex (MHC) of the domestic cat (termed FLA)".
-  - `RLA` -- PMID 32522857, whose title names "rabbit Major Histocompatibility
-    Complex Class I Molecule **RLA-A1**", so alleles carry the prefix.
+- **A test encoded the gap as a fact.** `test_nonsense_inputs.py` listed
+  `HLA-X` under "X is not a valid gene". IMGT/HLA names it. Replaced with
+  positive coverage and a note.
 
-  Both marked `designated` with the citation on the entry.
+- **P and V are deliberately not `context only`.** They are equally single
+  letters, but bare `P` and `V` have meant `HLA-P`/`HLA-V` since long before
+  this; flipping them to `H2-p`/`H2-v` is a parser policy question about
+  ambiguous bare tokens, which is #130. Adding data should not quietly move
+  parses that already exist.
 
-- **#131 is now 130 designated / 46 unknown**, from 11/163 when it was filed.
-  The canary list drops from eight names to six, with the reason recorded next
-  to it so the next reader does not re-follow the same broken citation.
-
-- **Measured:** 0 of 11,558 corpus names change.
-- Bumped to 3.48.3.
+- **Measured:** 0 of 25,200 corpus names change. 15,996 tests pass. Disabling
+  either new mechanism fails 29 of the new tests, so they are not vacuous.
+- Bumped to 3.49.0.

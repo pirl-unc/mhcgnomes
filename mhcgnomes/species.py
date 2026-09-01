@@ -777,6 +777,44 @@ class Species(Result):
             return None
         return self.gene_name_to_properties.get(gene_name, MappingProxyType({}))
 
+    def gene_has_no_alleles(self, gene_name):
+        """
+        Does this locus name alleles at all?
+
+        A few loci are named by a nomenclature authority that deposits no
+        sequence for them: IPD-IMGT/HLA 3.65.0 lists HLA-X, HLA-Z, HLA-DQB3,
+        HLA-DPA3, MICC, MICD, MICE, PSMB8 and PSMB9 as genes and gives every
+        one of them zero alleles. Building "HLA-Z*01:01" out of such a name is
+        the pattern issue #108 ruled out -- a confidently structured answer for
+        an input that justifies nothing -- so the entry carries
+        `alleles: none` and `Allele.get_with_gene` refuses it.
+
+        Absence from IPD-IMGT/HLA is *not* what this flag means: CD1a-e, MR1
+        and BTN3A1 are absent from it too because it does not curate them, and
+        they vary. The flag says the authority names the locus and publishes no
+        alleles under it. See issue #113.
+        """
+        properties = self.get_gene_properties(gene_name)
+        return properties is not None and properties.get("alleles") == "none"
+
+    def gene_is_context_only(self, gene_name):
+        """
+        Does this gene name resolve only once the species is already known?
+
+        The species-level analogue is `context only prefixes`, and the reason
+        is the same: the string is real but too contested to hand out to a
+        caller who has not said which species they mean. Every HLA class I gene
+        fragment is a single letter, and bare "N", "R", "S", "U" and "Z" are
+        mouse and rat haplotype shorthand long before they are human gene
+        fragments. Marked genes stay out of `get_species_with_gene_name`, so
+        they never win a species-less parse, while `HLA-N` and
+        `parse("N", species="Homo sapiens")` resolve normally. See issue #113.
+        """
+        # get_gene_properties returns None for a name this species does not
+        # carry, and both callers ask about arbitrary strings.
+        properties = self.get_gene_properties(gene_name)
+        return properties is not None and properties.get("context only") is True
+
     def get_pseudogene_status_of_gene(self, gene_name):
         """Return explicit pseudogene status, or ``None`` when it is not curated."""
         properties = self.get_gene_properties(gene_name)
@@ -843,14 +881,19 @@ class Species(Result):
         return None
 
     @classmethod
-    def get_species_with_gene_name(self, gene_name):
+    def get_species_with_gene_name(self, gene_name, include_context_only: bool = False):
         """
-        Returns list of Species which have the given gene name
+        Returns list of Species which have the given gene name.
+
+        Both callers use this to guess a species from a bare gene name, so by
+        default genes marked `context only` are left out: they are real names
+        which are too contested to imply a species on their own. Pass
+        `include_context_only=True` to ask the raw ontology question instead.
         """
-        if gene_name in gene_name_to_species_objects:
-            return list(gene_name_to_species_objects[gene_name])
-        else:
-            return []
+        species_objects = list(gene_name_to_species_objects.get(gene_name, []))
+        if include_context_only:
+            return species_objects
+        return [s for s in species_objects if not s.gene_is_context_only(gene_name)]
 
     @property
     def is_mouse(self):
@@ -1390,7 +1433,9 @@ def create_species_for_latin_name(latin_name):
             raise ValueError(
                 f"Malformed properties for gene '{canonical_gene_name}' of '{latin_name}'"
             )
-        unexpected_properties = set(raw_properties).difference({"pseudogene"})
+        unexpected_properties = set(raw_properties).difference(
+            {"pseudogene", "alleles", "context only"}
+        )
         if unexpected_properties:
             raise ValueError(
                 f"Unknown properties for gene '{canonical_gene_name}' of '{latin_name}': "
@@ -1400,6 +1445,15 @@ def create_species_for_latin_name(latin_name):
             raise ValueError(
                 f"Pseudogene status for gene '{canonical_gene_name}' of '{latin_name}' "
                 "must be boolean"
+            )
+        if "alleles" in raw_properties and raw_properties["alleles"] != "none":
+            raise ValueError(
+                f"'alleles' for gene '{canonical_gene_name}' of '{latin_name}' is "
+                f"{raw_properties['alleles']!r}; the only accepted value is 'none'"
+            )
+        if "context only" in raw_properties and type(raw_properties["context only"]) is not bool:
+            raise ValueError(
+                f"'context only' for gene '{canonical_gene_name}' of '{latin_name}' must be boolean"
             )
         combined_properties = dict(gene_name_to_properties.get(canonical_gene_name, {}))
         combined_properties.update(raw_properties)

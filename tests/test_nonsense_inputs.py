@@ -88,15 +88,30 @@ class TestPartialInputs:
     @pytest.mark.parametrize(
         "inp",
         [
-            "HLA-X",  # X is not a valid gene
             "HLA-Z99",
-            "Z*01:01",  # Z is not a valid gene letter
+            # Z is a real locus, but IPD-IMGT/HLA deposits no sequence under
+            # it, so it names no allele -- and a bare "Z*01:01" does not name
+            # a species either. See tests/test_hla_class1_fragments.py.
+            "Z*01:01",
+            "HLA-Z*01:01",
         ],
     )
     def test_invalid_genes_rejected(self, inp):
         """Invalid gene names should be rejected."""
         with pytest.raises(ParseError):
             parse(inp)
+
+    def test_class1_gene_fragments_are_valid_genes(self):
+        """
+        "HLA-X" was listed as an invalid gene here until #113. IMGT/HLA names
+        it, and eight more class I fragments, at
+        https://hla.alleles.org/genes/index.html -- the test was encoding a gap
+        in our ontology as a fact about the nomenclature.
+        """
+        for gene_name in ["N", "R", "S", "T", "U", "W", "X", "Y", "Z"]:
+            result = parse(f"HLA-{gene_name}")
+            assert isinstance(result, Gene)
+            assert result.name == gene_name
 
 
 class TestMalformedAlleles:
