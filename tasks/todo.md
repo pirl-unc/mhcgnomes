@@ -1,38 +1,57 @@
-# Support the hyphenated class shorthand
+# Release infra: build with the venv, and get the workflows off Node 20
 
-Tracking issue: #104
+Tracking issues: #101, #94
 
 ## Review
 
-- **The reported bug is real and now fixed.** `SLA-I`, `BoLA-I`, `HLA-I`,
-  `DLA-I`, `Patr-I`, `Gaga-I` and `<prefix>-II` everywhere returned `None`,
-  while `<prefix> class I` worked. Both spellings now give the same
-  `MhcClass`, which is what a caller pulling MHC tokens out of curated text
-  needs -- the reported failure was a sample silently ending up with no
-  genotype.
-- **But two of the issue's three claims do not hold**, and checking them was
-  the point:
-  - **`Mamu-I` is not a misparse.** It is a published macaque MHC class I
-    locus: J Immunol 2000;164:1386, *"Mamu-I: A Novel Primate MHC Class I
-    B-Related Locus with Unusually Low Variability"*, and the ontology declares
-    the gene. The issue called it "wrong-but-plausible"; it is right. It stays
-    a `Gene`.
-  - **`H2-I` is a curated mouse haplotype**, `i`. The issue's observation that
-    mouse literature also writes `H2-I` for the class II region is a genuine
-    ambiguity in the source material, but the haplotype is what the ontology
-    has evidence for, so it stays. Recorded in the test rather than silently.
-- **So the shorthand is offered as a candidate, not a short-circuit.** Result
-  sorting picks the `Gene` for `Mamu-I` and the `Haplotype` for `H2-I`, and the
-  `MhcClass` everywhere else. `-II` is unambiguous for every species -- gene
-  `II` resolves nowhere in the ontology -- so it works even for those two.
-- **The digit spelling is deliberately left alone.** My first version mapped
-  `<prefix>-1` as well, and the tests caught it: `SLA-1`, `BoLA-1` and `ELA-1`
-  are real class I gene names. Mapping the digits would have shadowed genuine
-  loci for some species and not others -- recreating the exact inconsistency
-  this issue is about. `HLA-1` still returns `None`, as on `main`.
-- **A sweep test guards the boundary**: gene `I` resolves for 12 species (the
-  macaque group plus two others) and gene `II` for none, so a future addition
-  cannot quietly take the shorthand away from a prefix that has it.
-- **Measured:** 0 of 11,558 corpus names change -- no bundled corpus name uses
-  the shorthand. 48 new tests; removing the shorthand fails 42 of them.
-- Bumped 3.46.1 to 3.47.0: strings that returned `None` now parse.
+### #101 -- deploy.py announced a venv and then built with something else
+
+`build_distributions` used `sys.executable`, which is whatever interpreter
+launched `deploy.py`, not the venv the script had just resolved and reported.
+The 3.33.6 release reproduced it: "Using venv: .venv", then a build through a
+Homebrew Python 3.14 with no `build` module, after lint and 15,127 tests had
+passed.
+
+Still live on this machine, which is how I confirmed it rather than trusting
+the report:
+
+```
+sys.executable  /Users/.../shared-virtual-env/bin/python3
+venv python     /Users/.../uv/python/cpython-3.12.6-.../bin/python3.12
+same?           False
+```
+
+- `Config` carries a `python` field alongside `env`, so the interpreter and the
+  environment cannot drift apart.
+- Resolution order is `DEPLOY_PYTHON`, then the venv interpreter, then
+  `sys.executable`. The middle one is the fix: selecting a venv now selects its
+  interpreter, not just its `bin` on `PATH`.
+- The build-availability check gets `cfg.env` too; it did not before, so it
+  could pass while the real build failed.
+- `deploy.py` now prints `Build interpreter: <path>`, so a mismatch is visible
+  in the log rather than discovered when `build` turns out to be missing.
+
+### #94 -- Node 20 deprecation
+
+Every `actions/*` pin moved to the **lowest major that runs on Node 24**, read
+from each action's own `action.yml` rather than assumed:
+
+| action | was | now | `runs.using` |
+|---|---|---|---|
+| checkout | v4 | v5 | node24 |
+| setup-python | v5 | v6 | node24 |
+| upload-artifact | v4 | v6 | node24 |
+| download-artifact | v4 | v7 | node24 |
+| cache | v4 | v5 | node24 |
+| configure-pages | v5 | v6 | node24 |
+| deploy-pages | v4 | v5 | node24 |
+| upload-pages-artifact | v3 | v5 | composite |
+
+Lowest-that-qualifies rather than latest, deliberately. `download-artifact@v8`
+makes a hash mismatch a hard error and migrates to ESM, and both artifact
+actions only run on tag push and `workflow_dispatch` -- so PR CI cannot verify
+them, and taking the smallest step that clears the deprecation is the lower
+risk. `checkout`, `setup-python` and `cache` are exercised by `tests.yml` and
+`docs.yml` on this PR, so those three are proven by it.
+
+- Bumped to 3.47.1. No library code changes.

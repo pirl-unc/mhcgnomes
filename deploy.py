@@ -69,6 +69,12 @@ class Config:
     dry_run: bool
     fetch: bool
     env: Optional[dict[str, str]]
+    # The interpreter that goes with `env`. Builds must use this rather than
+    # sys.executable, which is whatever launched deploy.py -- the 3.33.6
+    # release reported "Using venv: .venv" and then built with a Homebrew
+    # Python 3.14 that had no `build` module, after lint and 15,127 tests had
+    # already passed. See issue #101.
+    python: str
 
 
 class CommandError(RuntimeError):
@@ -301,17 +307,23 @@ def build_distributions(cfg: Config, *, cwd: Path) -> None:
 
     clean_build_artifacts(cwd=cwd, dry_run=cfg.dry_run)
 
-    build_python = sys.executable or "python3"
-    note("Checking build availability...")
+    build_python = cfg.python
+    note(f"Checking build availability with {build_python}...")
     run_checked(
         [build_python, "-m", "build", "--version"],
         cwd=cwd,
+        env=cfg.env,
         capture_stdout=True,
         capture_stderr=True,
     )
 
-    note("Building distributions with python -m build (no isolation)...")
-    run_effectful([build_python, "-m", "build", "--no-isolation"], cwd=cwd, dry_run=cfg.dry_run)
+    note(f"Building distributions with {build_python} -m build (no isolation)...")
+    run_effectful(
+        [build_python, "-m", "build", "--no-isolation"],
+        cwd=cwd,
+        env=cfg.env,
+        dry_run=cfg.dry_run,
+    )
     ok("Build step complete")
 
     dist_dir = cwd / "dist"
@@ -354,6 +366,17 @@ def resolve_venv_bin(root: Path) -> Optional[Path]:
     return None
 
 
+def resolve_venv_python(venv_bin: Optional[Path]) -> Optional[str]:
+    """The interpreter inside the venv whose bin directory this is."""
+    if venv_bin is None:
+        return None
+    for name in ("python", "python3"):
+        candidate = venv_bin / name
+        if candidate.exists():
+            return str(candidate)
+    return None
+
+
 def build_run_env(venv_bin: Optional[Path]) -> dict[str, str]:
     env = os.environ.copy()
     if venv_bin is not None:
@@ -385,6 +408,7 @@ def parse_args(argv: Sequence[str]) -> Config:
         dry_run=bool(ns.dry_run),
         fetch=bool(ns.fetch),
         env=None,
+        python=sys.executable or "python3",
     )
 
 
@@ -395,6 +419,15 @@ def main(argv: Sequence[str]) -> int:
     root = repo_root()
     venv_bin = resolve_venv_bin(root)
     run_env = build_run_env(venv_bin)
+    # DEPLOY_PYTHON, then the venv interpreter, then whatever launched us. The
+    # middle one is the fix for #101: selecting a venv has to select its
+    # interpreter too, not just prepend its bin directory to PATH.
+    build_python = (
+        os.environ.get("DEPLOY_PYTHON")
+        or resolve_venv_python(venv_bin)
+        or sys.executable
+        or "python3"
+    )
 
     # Interpret configured paths relative to repo root so deploy.sh works from anywhere.
     cfg = Config(
@@ -404,6 +437,7 @@ def main(argv: Sequence[str]) -> int:
         dry_run=cfg.dry_run,
         fetch=cfg.fetch,
         env=run_env,
+        python=build_python,
     )
 
     ok(f"Repo root: {root}")
@@ -411,6 +445,10 @@ def main(argv: Sequence[str]) -> int:
         ok(f"Using venv: {venv_bin.parent}")
     else:
         note("No venv found; using system PATH")
+    # Name the interpreter that will actually run the build, so a mismatch is
+    # visible in the log rather than discovered when `build` turns out to be
+    # missing (#101).
+    ok(f"Build interpreter: {cfg.python}")
 
     # Preflight: cheap local checks first.
     ensure_remote_exists(cfg, cwd=root)
