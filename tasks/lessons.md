@@ -156,3 +156,50 @@ settled #113 in one fetch after I had asserted the opposite from the gene list.
 `raw.githubusercontent.com/ANHIG/IMGTHLA/Latest/` first: it is versioned,
 machine-readable, and current. "The source is unreachable" is a claim about
 one URL, not about the source.
+
+## A comment and its code disagreeing means the code has never done it
+
+**What happened.** Three separate bugs in one session, all the same shape.
+
+- `parse_gene_without_species` ranked candidates by
+  `declares_gene_with_same_case`, above a comment explaining that "Ia1" is
+  *Paralichthys olivaceus* and "IA1" is *Chrysolophus pictus*. The tokenizer
+  lower-cases every token, so the key had never once fired (#160).
+- `Gene.to_string` renders CD1 genes with "the common species name **if
+  possible**", and never checked whether it was possible. 148 printed forms did
+  not parse back (#177).
+- `Species.get`'s ladder said "prefer the species that isn't a subspecies (**no
+  parent with same identifier**)" and tested `sp.parent_species is None` -- no
+  parent at all -- so it only fired for root entries, and a common name shared
+  by a genus node and its own descendant resolved to nothing (#180).
+
+**Why it happens.** A comment records what someone meant. The code records what
+they wrote. Nothing keeps them together, and the mismatch is invisible because
+the comment reads as documentation of working behaviour -- in each case the
+surrounding tests passed, because they tested the outcome the broken path
+happened to produce by another route.
+
+**How to apply.** When reading a comment that explains *why* a line is subtle,
+check that the line does the subtle thing. Cheapest version: construct the
+input the comment is about and watch it flow through. "Ia1" versus "IA1",
+`Aole-CD1a`, `Species.get("swordtail")` -- one example each, and all three fell
+over immediately. A comment that names a specific case is offering you a test;
+write it.
+
+## Ask what else an invariant would catch
+
+**What happened.** #176 needed a measurement, so it got one: every string the
+package prints must parse back. That had never been tested. It failed 148 times
+and produced #178 and #179. Asking the same question about a *different*
+property -- does every identifier a species advertises resolve back to it --
+produced #180 within minutes.
+
+**Why it matters.** None of the three was reported by anyone. They were found by
+stating a property the package obviously ought to have and then checking it,
+which is much cheaper than reading code looking for bugs.
+
+**How to apply.** After adding a measurement for one change, ask what its
+siblings are and run them once. Six were checked here; two found bugs and four
+came back clean, and the clean ones are worth knowing too -- they are why the
+sweep could stop. Stop when the technique stops producing, not when the list of
+possible probes runs out.
