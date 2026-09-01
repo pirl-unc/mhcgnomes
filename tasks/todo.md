@@ -1,39 +1,36 @@
-# An opt-in policy for printing only attested prefixes (#129)
+# Let a species be named by more than three words (#177)
 
 ## Review
 
-- **The issue proposes this, and I had not read it closely enough.** #129's
-  "API/compatibility shape" section says the change "could ship as an explicit
-  formatting policy first, then become the default in a documented minor
-  release". The 467-species migration was declined; the opt-in policy had never
-  been on the table. I had been reporting the whole issue as blocked on a
-  decision that only covered half of it.
+- **Found by a measurement, not by a report.** #176 required that every printed
+  form parse back. 148 did not, all CD1 -- and chasing why turned up something
+  much wider than CD1.
 
-- **It reads a curated judgement rather than making a new one.**
-  `Species.prefix_provenance` is what #131 spent its length populating:
-  "designated" means a URL or PMID sits beside the entry. So the policy is one
-  branch -- designated keeps its short prefix, everything else prints the
-  concatenated binomial.
+- **The species matcher tried three leading tokens, then two, then one.**
+  Forty-one common names in the ontology are longer than that once hyphens are
+  counted: "north atlantic right whale", "thirteen-lined ground squirrel",
+  "kemp's ridley sea turtle", "rio grande silvery minnow". **None of them could
+  be parsed at all.** Not a CD1 problem -- a whole class of input that silently
+  failed.
 
-- **One property, not ten signatures.** Every `to_string` in the package reads
-  `species_prefix`, so the policy lives there. No call-site churn, and
-  `MhcClass`, `Haplotype`, `Serotype` and a bare `Species` all inherit it.
+- **My first diagnosis on #177 was wrong, and testing it is what corrected it.**
+  I filed the issue blaming hyphens and apostrophes in common names. It is the
+  word count: `gray bellied night monkey-CD1a`, with no punctuation at all,
+  failed identically.
 
-- **Two recursions, both caught immediately.** `Species.prefix` delegates to
-  `species_prefix`, so reading `.prefix` inside the policy recursed until the
-  stack gave out; the same for `unambiguous_prefix_for`'s fallback. Both now
-  read `canonical_mhc_prefix`, the underlying curated field.
+- **The window is now a named bound with a test.** `MAX_SPECIES_NAME_TOKENS = 5`
+  covers the longest name curated, and the test fails if a longer one is added
+  -- otherwise that name silently stops parsing, which is the state all 41 were
+  in.
 
-- **Thread-local, not a module global**, so a policy set by one caller cannot
-  change what another thread is midway through formatting. There is a test.
+- **Measured:** 28 of 36,752 corpus names change, **every one of them `None` ->
+  a result**. Nothing stops parsing; the loop already tried longest-first, so a
+  wider window cannot change a shorter match. All 41 long common names now
+  work. 16,521 tests pass; setting the bound back to 3 fails 16 of them.
 
-- **Found a pre-existing bug while measuring.** Requiring that every printed
-  form parse back showed **148** corpus names that do not -- all CD1, where
-  `Gene.to_string` renders class `Id` genes with the *common species name*:
-  "gray-bellied night monkey-CD1a". Identical count on main, so this change
-  neither caused nor worsened it. Filed separately.
-
-- **Measured:** 0 of 36,752 corpus names change under the default policy. Under
-  ATTESTED, 25,389 printed forms differ and every one parses back. 16,473 tests
-  pass.
-- Bumped to 3.60.0.
+- **#177 keeps the residual, with a sharper diagnosis.** Round-trip failures
+  drop 148 -> 130. The rest are common names whose *first* token contains a
+  hyphen -- "long-haired rat-CD1a" tokenizes as `[long-haired, rat-cd1a]`, so
+  no leading-token query can match. That is a tokenizer question, not a window
+  one.
+- Bumped to 3.61.0.
