@@ -33,7 +33,7 @@ import shutil
 import subprocess
 import sys
 from collections.abc import Sequence
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from pathlib import Path
 from typing import NoReturn, Optional
 
@@ -303,19 +303,22 @@ def clean_build_artifacts(*, cwd: Path, dry_run: bool) -> None:
 
 
 def build_distributions(cfg: Config, *, cwd: Path) -> None:
-    require_cmd("python3", env=cfg.env)
+    build_python = cfg.python
+
+    # Probe before deleting anything. clean_build_artifacts removes dist/,
+    # build/ and *.egg-info -- including the editable install's -- so failing
+    # after it leaves the checkout worse off than before the attempt.
+    note(f"Checking build availability with {build_python}...")
+    if not Path(build_python).exists() and shutil.which(build_python) is None:
+        die(f"Build interpreter does not exist: {build_python}")
+    if not interpreter_can_build(build_python, env=cfg.env):
+        die(
+            f"{build_python} cannot import both 'build' and 'setuptools', which "
+            f"`python -m build --no-isolation` needs. Install them there, or set "
+            f"DEPLOY_PYTHON to an interpreter that has them."
+        )
 
     clean_build_artifacts(cwd=cwd, dry_run=cfg.dry_run)
-
-    build_python = cfg.python
-    note(f"Checking build availability with {build_python}...")
-    run_checked(
-        [build_python, "-m", "build", "--version"],
-        cwd=cwd,
-        env=cfg.env,
-        capture_stdout=True,
-        capture_stderr=True,
-    )
 
     note(f"Building distributions with {build_python} -m build (no isolation)...")
     run_effectful(
@@ -366,15 +369,67 @@ def resolve_venv_bin(root: Path) -> Optional[Path]:
     return None
 
 
-def resolve_venv_python(venv_bin: Optional[Path]) -> Optional[str]:
+def venv_python(venv_bin: Optional[Path]) -> Optional[Path]:
     """The interpreter inside the venv whose bin directory this is."""
     if venv_bin is None:
         return None
     for name in ("python", "python3"):
         candidate = venv_bin / name
         if candidate.exists():
-            return str(candidate)
+            return candidate
     return None
+
+
+def interpreter_can_build(python: str, env: Optional[dict[str, str]] = None) -> bool:
+    """
+    Can this interpreter run `python -m build --no-isolation`?
+
+    Both imports matter. `--no-isolation` means the build backend is not
+    provisioned for us, so pyproject's `requires = ["setuptools>=61.0", "wheel"]`
+    has to already be importable here. Probing only `build` would pass on an
+    environment that then fails inside the build.
+    """
+    try:
+        result = subprocess.run(
+            [python, "-c", "import build, setuptools"],
+            capture_output=True,
+            env=env,
+            check=False,
+        )
+    except OSError:
+        return False
+    return result.returncode == 0
+
+
+def resolve_build_python(
+    venv_bin: Optional[Path], env: Optional[dict[str, str]]
+) -> tuple[str, str]:
+    """
+    The interpreter that will run the build, and a phrase explaining the choice.
+
+    Issue #101 was that deploy.py resolved a venv, said so, and then built with
+    `sys.executable` -- whatever launched it. The obvious fix, always preferring
+    the venv, is worse: develop.sh installs only `.[dev,docs]`, which has no
+    `build` and no `setuptools`, so the venv usually cannot build at all. That
+    would turn a working release into one that aborts after lint and the full
+    test suite.
+
+    So prefer the venv *when it can actually build*, fall back otherwise, and
+    return the reason either way so the log can say which and why. Note there is
+    no DEPLOY_PYTHON check here: deploy.sh launches deploy.py with it
+    (`PYTHON_BIN="${DEPLOY_PYTHON:-python3}"`), so an explicit override already
+    arrives as sys.executable.
+    """
+    fallback = sys.executable or "python3"
+    candidate = venv_python(venv_bin)
+    if candidate is None:
+        return fallback, "launching interpreter; no project venv found"
+    if interpreter_can_build(str(candidate), env=env):
+        return str(candidate), "project venv"
+    return (
+        fallback,
+        f"launching interpreter; {candidate} cannot import build and setuptools",
+    )
 
 
 def build_run_env(venv_bin: Optional[Path]) -> dict[str, str]:
@@ -408,7 +463,9 @@ def parse_args(argv: Sequence[str]) -> Config:
         dry_run=bool(ns.dry_run),
         fetch=bool(ns.fetch),
         env=None,
-        python=sys.executable or "python3",
+        # Placeholder. main() resolves the real one with resolve_build_python
+        # once the repo root and venv are known.
+        python="",
     )
 
 
@@ -419,23 +476,14 @@ def main(argv: Sequence[str]) -> int:
     root = repo_root()
     venv_bin = resolve_venv_bin(root)
     run_env = build_run_env(venv_bin)
-    # DEPLOY_PYTHON, then the venv interpreter, then whatever launched us. The
-    # middle one is the fix for #101: selecting a venv has to select its
-    # interpreter too, not just prepend its bin directory to PATH.
-    build_python = (
-        os.environ.get("DEPLOY_PYTHON")
-        or resolve_venv_python(venv_bin)
-        or sys.executable
-        or "python3"
-    )
+    build_python, build_python_reason = resolve_build_python(venv_bin, run_env)
 
-    # Interpret configured paths relative to repo root so deploy.sh works from anywhere.
-    cfg = Config(
+    # Interpret configured paths relative to repo root so deploy.sh works from
+    # anywhere. dataclasses.replace rather than a field-by-field rebuild, so a
+    # future Config field cannot be silently dropped here.
+    cfg = replace(
+        cfg,
         version_file=(root / cfg.version_file).resolve(),
-        required_branch=cfg.required_branch,
-        remote=cfg.remote,
-        dry_run=cfg.dry_run,
-        fetch=cfg.fetch,
         env=run_env,
         python=build_python,
     )
@@ -445,10 +493,10 @@ def main(argv: Sequence[str]) -> int:
         ok(f"Using venv: {venv_bin.parent}")
     else:
         note("No venv found; using system PATH")
-    # Name the interpreter that will actually run the build, so a mismatch is
-    # visible in the log rather than discovered when `build` turns out to be
-    # missing (#101).
-    ok(f"Build interpreter: {cfg.python}")
+    # Name the interpreter that will actually run the build, and why it was
+    # chosen. The bug in #101 was not that the wrong one was picked, it was that
+    # the log said one thing and the build did another.
+    ok(f"Build interpreter: {cfg.python} ({build_python_reason})")
 
     # Preflight: cheap local checks first.
     ensure_remote_exists(cfg, cwd=root)
