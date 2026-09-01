@@ -13,6 +13,7 @@
 from dataclasses import dataclass
 from typing import Any
 
+from .prefix_display_policy import display_prefix_for
 from .result import Result
 
 
@@ -36,7 +37,10 @@ class ResultWithSpecies(Result):
 
     @property
     def species_prefix(self):
-        return self.species.prefix
+        # Every to_string in the package reads this one property, which is why
+        # the display policy lives here rather than as a parameter on ten
+        # signatures. The default is unchanged. See prefix_display_policy, #129.
+        return display_prefix_for(self.species)
 
     @property
     def species_common_name(self):

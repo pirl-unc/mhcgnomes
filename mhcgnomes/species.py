@@ -538,7 +538,12 @@ class Species(Result):
 
     @property
     def species_prefix(self):
-        return self.canonical_mhc_prefix
+        # A bare Species prints under the same policy as everything carrying
+        # one. Imported inside the property because prefix_display_policy asks
+        # this module for unambiguous_prefix_for. See #129.
+        from .prefix_display_policy import display_prefix_for
+
+        return display_prefix_for(self)
 
     @property
     def prefix(self):
@@ -1212,7 +1217,9 @@ def unambiguous_prefix_for(species):
     full = _make_full_scientific_prefix(species.name)
     if full and len(_scientific_name_parts(species.name)) == 2:
         return full
-    return species.prefix
+    # The curated field rather than `.prefix`, which routes through
+    # prefix_display_policy and would call straight back here.
+    return species.canonical_mhc_prefix
 
 
 def _derive_prefix_provenance(prefix, latin_name):
