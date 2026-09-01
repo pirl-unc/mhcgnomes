@@ -3517,6 +3517,35 @@ Oryctolagus cuniculus:
   prefix source: designated
   prefix: Orcu
   name: European rabbit
+  genes:
+    # The rabbit class I locus series, deposited in GenBank as Orcu-U1 through
+    # Orcu-U9 across 104 records -- e.g. PV167019.1, "Oryctolagus cuniculus MHC
+    # class I antigen (Orcu-U2) gene, Orcu-U2*05:02:01:01 allele". The
+    # submissions accompany Zhang et al., "MHC-I diversity enables rapid
+    # adaptation during a viral pandemic in wild rabbit populations", PNAS
+    # 2026;123:e2532064123 (PMID 42113988).
+    #
+    # Filed as class I with no subclass: the records say "MHC class I antigen"
+    # and nothing establishes which of the nine are classical. Kept on the
+    # species rather than on Oryctolagus sp., because that is what the records
+    # name; the A/A1/A2/A3/D series on the parent node is the older RLA-A
+    # nomenclature (PMID 32522857) and is left alone. How the two relate is
+    # open -- see #170.
+    #
+    # An older set of 21 records labels the gene with the bare species code and
+    # writes alleles as "Orcu*19" (KU848263.1). That is deliberately not added:
+    # making a species prefix its own gene name is the shape that put a class
+    # II beta chain symbol in the prefix column for the prairie chicken (#165).
+    I:
+      - U1
+      - U2
+      - U3
+      - U4
+      - U5
+      - U6
+      - U7
+      - U8
+      - U9
 ################################################################################
 #
 # Passerine birds
