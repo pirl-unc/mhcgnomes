@@ -22,9 +22,19 @@ generator = pytest.importorskip("generate_serotypes_from_hla_dictionary")
 
 from .common import eq_, ok_  # noqa: E402
 
+DICTIONARY = DATA / "hla_dictionary.xlsx"
+
+# The dictionary was gitignored by a blanket `*.xlsx` rule until #156, so it
+# existed only on whichever machine last regenerated the table. It is tracked
+# now; the guard stays so a checkout without it degrades to a skip rather than
+# an error.
+needs_dictionary = pytest.mark.skipif(
+    not DICTIONARY.exists(), reason="hla_dictionary.xlsx is not present in this checkout"
+)
+
 
 def _mappings():
-    df = pd.read_excel(DATA / "hla_dictionary.xlsx")
+    df = pd.read_excel(DICTIONARY)
     df.columns = [c.strip() for c in df.columns]
     return generator.build_serotype_mappings(df)
 
@@ -41,6 +51,7 @@ def test_regenerating_reproduces_the_runtime_table():
     eq_(differing, [], f"generated and runtime disagree on: {differing}")
 
 
+@needs_dictionary
 def test_the_curated_exclusion_survives_regeneration():
     """
     A*24:18 carries the dual WHO type "A24(9)/A3", so parse_serotype puts it in
@@ -53,12 +64,13 @@ def test_the_curated_exclusion_survives_regeneration():
     ok_("A*2418" in mappings.get("A24", []), "A*2418 should still be an A24 allele")
 
 
+@needs_dictionary
 def test_every_exclusion_is_one_the_dictionary_actually_asserts():
     """
     An exclusion for a pair the dictionary never produces is dead weight that
     will outlive whatever it was for.
     """
-    df = pd.read_excel(DATA / "hla_dictionary.xlsx")
+    df = pd.read_excel(DICTIONARY)
     df.columns = [c.strip() for c in df.columns]
     asserted = set()
     for _, row in df.iterrows():
@@ -72,6 +84,7 @@ def test_every_exclusion_is_one_the_dictionary_actually_asserts():
     eq_(stale, [], f"exclusions for pairs the dictionary never assigns: {stale}")
 
 
+@needs_dictionary
 def test_rows_the_dictionary_does_not_support_are_still_carried():
     """
     The generator preserves serotypes the dictionary has no row for -- the C

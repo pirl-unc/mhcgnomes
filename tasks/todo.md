@@ -58,4 +58,22 @@ prevent.
 
 - **Measured:** 0 of 11,558 corpus names change. The runtime serotype table is
   byte-identical; only the intermediate artifact and the generator changed.
+### The deeper version of #156, found when CI failed
+
+The tests pinning regeneration could not run on the runner:
+
+```
+FileNotFoundError: .../mhcgnomes/data/hla_dictionary.xlsx
+```
+
+**The dictionary was gitignored** by a blanket `*.xlsx` rule and untracked, so
+the source `serotypes.yaml` names in its own header existed only on whichever
+machine last regenerated the table. Nobody else could regenerate it, or check
+that the shipped table still matched its source -- a larger version of the
+drift this issue is about, and the reason the drift went unnoticed.
+
+Tracked now, with a targeted un-ignore and the reason recorded beside it. The
+dictionary-dependent tests keep a skip guard so a checkout without the file
+degrades to a skip rather than an error.
+
 - Bumped to 3.48.2.
