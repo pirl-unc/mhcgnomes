@@ -676,17 +676,20 @@ def test_unestablished_provenance_stays_none():
     # them all at once has to come here and say so. A count bound would have
     # done neither -- it fires on ordinary growth and passes a bulk assignment.
     for name in [
-        # Group-level _LA codes, still unchecked. IPD-MHC has no group page for
-        # any of them -- there is no /group/FLA/ or /group/OrLA/ -- so
-        # establishing them means the primate nomenclature reports rather than
-        # a species table. That is what is left of #131 after the IPD species
-        # tables were exhausted.
+        # The six primate _LA codes. IPD-MHC has no group page for any of them,
+        # and the 2019/2020 de Groot nomenclature report -- which the mhcseqs
+        # registry cites as their evidence -- does not contain them: extracting
+        # its text finds Patr 77 times and Mamu 8, and OmLA/MaLA/GoLA/ChLA/OrLA/
+        # RhLA zero times, case-insensitively. So the citation is wrong and
+        # these stay unestablished until someone finds the actual source.
+        #
+        # Felis sp. and Oryctolagus sp. used to be on this list and are not any
+        # more: FLA and RLA are published (PMID 2492667, PMID 32522857) and are
+        # now marked designated.
         "Aotus sp.",
         "Callithrix sp.",
-        "Felis sp.",
         "Gorilla sp.",
         "Macaca sp.",
-        "Oryctolagus sp.",
         "Pan sp.",
         "Pongo sp.",
     ]:
