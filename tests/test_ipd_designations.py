@@ -6,9 +6,9 @@ only by uniqueness within this repo, so it has no knowledge of the IPD-MHC
 namespace. That is how `Caau` and `Hyam` were found pointing at a goldfish and
 a minnow -- by a manual sweep, months after the fact.
 
-`mhcgnomes/data/ipd_designations.yaml` is that namespace for the groups checked
-so far, transcribed verbatim from the group species tables. These tests turn
-the sweep into something CI does.
+`mhcgnomes/data/ipd_designations.yaml` is that namespace -- all eleven groups,
+125 species, transcribed verbatim from the group species tables. These tests
+turn the sweep into something CI does.
 
 https://github.com/pirl-unc/mhcgnomes/issues/112
 """
@@ -43,8 +43,25 @@ DELIBERATE_DISAGREEMENTS = {
 
 
 def test_the_file_covers_the_groups_it_claims():
-    eq_(sorted(GROUPS), ["BoLA", "CLA", "CeLA", "DLA", "ELA", "OLA", "RT1", "SLA"])
-    eq_(len(ROWS), 55)
+    # All eleven IPD-MHC groups, so the whole published namespace is checked
+    # against ours in CI rather than the two thirds of it that were here first.
+    eq_(
+        sorted(GROUPS),
+        [
+            "BoLA",
+            "CHICKEN",
+            "CLA",
+            "CeLA",
+            "DLA",
+            "ELA",
+            "FISH",
+            "NHP",
+            "OLA",
+            "RT1",
+            "SLA",
+        ],
+    )
+    eq_(len(ROWS), 125)
 
 
 @pytest.mark.parametrize("group,latin_name,code", ROWS)
@@ -110,3 +127,56 @@ def test_the_documented_disagreements_are_still_the_only_ones():
         if species is not None and species.prefix.lower() != code.lower():
             actual.add((latin_name, code))
     eq_(sorted(actual), sorted(DELIBERATE_DISAGREEMENTS))
+
+
+# ---------------------------------------------------------------------------
+# What the completed sweep established
+# https://github.com/pirl-unc/mhcgnomes/issues/131
+# ---------------------------------------------------------------------------
+
+# Every group table read in full, and every row agreed with our prefix. Pinned
+# so a later curation change that breaks the agreement has to come here.
+GROUP_SIZES = {
+    "BoLA": 4,
+    "CHICKEN": 1,
+    "CLA": 1,
+    "CeLA": 33,
+    "DLA": 10,
+    "ELA": 1,
+    "FISH": 2,
+    "NHP": 66,
+    "OLA": 2,
+    "RT1": 2,
+    "SLA": 3,
+}
+
+
+@pytest.mark.parametrize("group,size", sorted(GROUP_SIZES.items()))
+def test_each_group_has_the_number_of_species_the_page_listed(group, size):
+    eq_(len(GROUPS[group]["species"]), size)
+
+
+def test_the_fish_and_chicken_groups_are_smaller_than_they_look():
+    """
+    A guard against a plausible-looking bulk import. IPD-MHC's FISH group is
+    two species and CHICKEN is one -- not the hundreds of fish and dozens of
+    birds this ontology carries. Everything else in those clades has a prefix
+    we generated or a literature citation, never an IPD designation.
+    """
+    eq_(sorted(GROUPS["FISH"]["species"]), ["Oncorhynchus mykiss", "Salmo salar"])
+    eq_(sorted(GROUPS["CHICKEN"]["species"]), ["Gallus gallus"])
+
+
+def test_cattle_are_designated_at_the_genus_node_not_the_species():
+    """
+    IPD files cattle as "Bos sp. (BoLA)" and has no row for Bos taurus or Bos
+    indicus, so their two-plus-two codes are not designations. Bota is marked
+    designated from the literature instead (PMID 1559718); Boin is not marked
+    at all, because nothing was found for it.
+    """
+    species = GROUPS["BoLA"]["species"]
+    eq_(species["Bos sp."], "BoLA")
+    ok_("Bos taurus" not in species, "IPD now lists Bos taurus; mark it from the page")
+    ok_("Bos indicus" not in species, "IPD now lists Bos indicus; mark it from the page")
+    eq_(Species.get_by_latin_name("Bos taurus").prefix_provenance, "designated")
+    eq_(Species.get_by_latin_name("Bos indicus").prefix_provenance, None)

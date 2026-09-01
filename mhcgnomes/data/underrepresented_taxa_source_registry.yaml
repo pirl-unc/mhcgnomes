@@ -1010,11 +1010,17 @@ taxa:
       - https://www.uniprot.org/uniprotkb/A0A024B555/entry
     observed_structure:
       - uniprot_gene_name: Tycu-IA
-      - runtime_alias_addition: short alias Tycu added alongside canonical prefix Iibi
+      - genbank_allele_names: Tycu-BLB*20 through Tycu-BLB*28, 80 records
+      - runtime_prefix: Tycu, since #131
     notes: >
-      Greater prairie chicken already used the unusual but attested Iibi
-      prefix in runtime. The short Tycu alias is now accepted because
-      UniProt-derived source records use exact Tycu-IA labels.
+      Tycu is the prefix. The note here used to say the greater prairie chicken
+      "already used the unusual but attested Iibi prefix in runtime", and that
+      was wrong twice over: nothing attested it, and it is not a species code.
+      IIBI is a gene symbol, annotated on GenBank JX971120.1 as
+      /gene="IIBI" /product="MHC class II antigen beta chain 2", and that is
+      its only occurrence anywhere in the nucleotide database. Tycu meanwhile
+      names 80 GenBank records at allele level (Tycu-BLB*26 and siblings) and
+      is the Klein two-plus-two code for the binomial. See #131.
 
   Euma:
     scientific_name: Eublepharis macularius
