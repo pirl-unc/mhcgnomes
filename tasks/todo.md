@@ -50,3 +50,37 @@ GitHub issue: #186
   returns `Pair`. The broader alias-based ambiguity conversion was removed.
 - `./format.sh` passed; `./lint.sh` passed; all 17,143 tests passed with 92%
   coverage. Bumped to 3.64.2.
+# Preserve explicit mutations during allele normalization (#193)
+
+An alias changes the reference allele designation; it must not erase the
+experimentally supplied substitutions attached to that allele. Today
+`transform_parse_candidate` constructs a replacement allele without copying
+mutations, including when it recursively transforms a class-II pair.
+
+Scope: retain the exact ordered mutation objects and raw input on transformed
+Alleles, including aliases that change the gene. Keep an original mutant Allele
+when the alias target is AlleleWithoutGene, whose current representation cannot
+carry mutations. Do not change curated aliases, invent locus assignments, or
+change default alias opt-in behavior. Apply the invariant after both alias and
+known-allele normalization. Preserve chain-local mutation ownership in pairs.
+
+- [x] Reproduce the single-chain and pair losses on current main 8d8f30a.
+- [x] Add failing regressions for one/multiple mutations, class-II chain
+      ownership, gene-changing aliases, and unrepresentable alias targets.
+- [x] Implement mutation preservation at the normalization boundary.
+- [x] Audit all mutant names in hitlist's complete current vocabulary before/after;
+      check existing alias and mutation behavior, raw strings and idempotence.
+- [x] Run format.sh, lint.sh and test.sh (17,151 passed, 75.67 s).
+- [ ] Inspect supported-Python CI before merge.
+- [ ] Bump 3.64.3, review the complete diff, open/merge a PR, and deploy clean main.
+
+Review: the seven initial regression cases failed on main; all pass after the
+change. The 1,304 distinct restriction strings from 5,333,255 hitlist observation
+and binding rows include 48 mutant labels. The fix changes 14 labels (993 rows),
+all by restoring dropped mutations. Every parsed mutant retains its original
+chain-local mutation/annotation identity; all non-mutant results are unchanged.
+An additional real alpha-chain F54C spelling is covered end to end. The focused
+127-test suite and the initial 17,150-test full run passed; final gates include
+the added F54C case. A separate alpha-selector tokenization loss was filed as
+#194; this PR does not broaden into that independent parser path. Alias tables
+and scientific curation remain unchanged.
