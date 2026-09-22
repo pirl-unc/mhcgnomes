@@ -1366,6 +1366,13 @@ class Parser:
                             transformed = self.parse_allele_with_gene(
                                 new_gene, new_allele_name, preserve_caps=True, raw_string=raw_string
                             )
+            if transformed is not None and t is Allele and parse_candidate.is_mutant:
+                if type(transformed) is Allele:
+                    transformed = transformed.copy(mutations=parse_candidate.mutations)
+                else:
+                    # AlleleWithoutGene cannot represent substitutions. Keep
+                    # the explicit mutant instead of silently returning WT.
+                    transformed = None
         if self.verbose:
             print("=== Transform ===")
             print(f"In:  {parse_candidate}")
