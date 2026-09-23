@@ -1188,6 +1188,8 @@ class Parser:
                     return None
                 mutations.extend(alpha_mutations)
             elif result.is_class2_beta:
+                if alpha_mutations:
+                    return None
                 mutations.extend(beta_mutations)
             else:
                 if alpha_mutations or beta_mutations:
@@ -2005,6 +2007,29 @@ class Parser:
             )
         elif "/" in tokens:
             slash_index = tokens.index("/")
+            # An explicit selector after a completed pair belongs to the
+            # pair, not just the chain text following the slash (#194).
+            # Otherwise an alpha mutation can reach the isolated beta
+            # parser and disappear. Leave unqualified mutation syntax on
+            # the existing parsing path, including reversed pairs.
+            if tokens[-1].is_mutant:
+                candidates = []
+                for start in range(slash_index + 2, len(tokens) - 1):
+                    selector = tokens[start]
+                    if not (selector.is_alpha_or_beta or ":" in selector.seq):
+                        continue
+                    for pair in self.parse_tokens_to_multiple_candidates(
+                        tokens=tokens[:start],
+                        default_species=default_species,
+                        strict_default_species=strict_default_species,
+                    ):
+                        if type(pair) is not Pair:
+                            continue
+                        mutated = self.parse_and_apply_mutations(pair, tokens[start:])
+                        if mutated is not None:
+                            candidates.append(mutated)
+                if candidates:
+                    return self.transform_parse_candidates(candidates)
             return self.parse_tokens_around_slash(
                 tokens_before=tokens[:slash_index],
                 tokens_after=tokens[slash_index + 1 :],

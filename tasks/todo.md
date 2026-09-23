@@ -84,3 +84,38 @@ An additional real alpha-chain F54C spelling is covered end to end. The focused
 the added F54C case. A separate alpha-selector tokenization loss was filed as
 #194; this PR does not broaden into that independent parser path. Alias tables
 and scientific curation remain unchanged.
+
+# Preserve explicitly selected mutation chains (#194)
+
+The parser accepts `alpha`/`beta` mutation selectors, but a paired input can
+be split at its slash before selectors are applied. A mutation selected for
+alpha is then presented to the isolated beta parser, which currently accepts
+it and returns an unchanged beta chain. This can silently erase an explicit
+mutation. The resulting wildcard/wild-type identity is not an acceptable
+fallback for an experimentally modified molecule.
+
+Treat a terminal mutation clause as belonging to the whole molecule/pair
+when it follows a completed pair. Reject mutations directed at an absent or
+opposite single chain. Preserve existing inline per-chain mutations and the
+legacy unqualified class-II beta default. No ontology or allele data changes;
+all new mutation strings are synthetic parser tests, not biological claims.
+
+- [x] Add failing regressions for alpha, beta, both chains, gene selectors,
+      invalid opposite-chain requests, and inline mutant chains.
+- [x] Fix mutation ownership at the parser boundary, avoiding dropped tokens.
+- [x] Audit existing mutant corpus strings and canonical round trips.
+- [ ] Run format.sh, lint.sh, test.sh and final CI; review the complete diff.
+- [ ] Bump 3.64.4, open a PR, merge and deploy from clean main.
+
+Review: 12 corrected regression cases fail on the original parser, with 8
+preservation cases already passing. All 58 focused cases and the complete
+17,171-test suite pass (81.69 s); format/lint pass. No changes across the
+complete 1,304-string / 5,333,255-row downstream vocabulary, including all
+48 mutant strings. Public parse results preserve explicit alpha/beta/gene
+selectors and round-trip through canonical serialization with aliases on/off.
+
+Self-review checked opposite-chain rejection, inline mutations, reversed
+pairs, species context propagation and the existing unqualified beta default.
+No source allele data or biological claims were added. Final CI and release
+remain pending. Downstream hitlist#528 separately fixes genotype-field
+segmentation; hitlist#456 already preserves alias-transformed mutations.
