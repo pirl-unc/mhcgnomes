@@ -114,6 +114,22 @@ complete 1,304-string / 5,333,255-row downstream vocabulary, including all
 48 mutant strings. Public parse results preserve explicit alpha/beta/gene
 selectors and round-trip through canonical serialization with aliases on/off.
 
+# Make external-data CLI inventory readable
+
+- [x] Keep `mhcgnomes data` and `data list` equivalent and offline.
+- [x] Group registered source files by purpose; show column headings, local
+      verified status, and filenames without printing long URLs in the table.
+- [x] Let list inspect an explicit destination/cache directory and filter by
+      purpose group; preserve download behavior and parsing CLI behavior.
+- [x] Test present, cached, missing, invalid, and grouped output.
+- [x] Run format, lint, test, and live CLI checks; record results here.
+
+Review: `mhcgnomes data list` from the repository shows the three verified
+allele-alias sources as downloaded and the optional sources as missing. Listing
+does not download. `data` and `data list` remain equivalent. `./format.sh` and
+`./lint.sh` passed; the full suite passed (17,172 tests). The change does not
+alter parsing or source retrieval.
+
 Self-review checked opposite-chain rejection, inline mutations, reversed
 pairs, species context propagation and the existing unqualified beta default.
 No source allele data or biological claims were added. Final CI and release

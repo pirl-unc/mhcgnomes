@@ -70,6 +70,63 @@ def test_data_command_lists_sources_by_default_without_downloading(arguments, mo
     output = capsys.readouterr().out
     assert "imgt-hla-allele-history-3.42.0" in output
     assert "ipd-mhc-3.8.0.0-protein" in output
+    assert "SOURCE" in output
+    assert "STATUS" in output
+    assert "allele-aliases" in output
+
+
+def test_data_list_groups_files_and_reports_verified_local_status(tmp_path, monkeypatch, capsys):
+    downloaded = make_source(id="downloaded", filename="downloaded.dat", groups=("allele-aliases",))
+    cached = make_source(
+        payload=b"cached payload", id="cached", filename="cached.dat", groups=("allele-aliases",)
+    )
+    invalid = make_source(
+        payload=b"expected invalid",
+        id="invalid",
+        filename="invalid.dat",
+        groups=("validation",),
+        default=False,
+    )
+    missing = make_source(
+        payload=b"missing payload",
+        id="missing",
+        filename="missing.dat",
+        groups=("validation",),
+        default=False,
+    )
+    sources = (downloaded, cached, invalid, missing)
+    monkeypatch.setattr(external_data, "load_manifest", lambda: sources)
+    destination = tmp_path / "destination"
+    cache = tmp_path / "cache"
+    destination.mkdir()
+    cache.mkdir()
+    (destination / downloaded.filename).write_bytes(b"source payload")
+    (cache / cached.sha256).write_bytes(b"cached payload")
+    (destination / invalid.filename).write_bytes(b"wrong data")
+
+    assert (
+        external_data.main(["list", "--destination", str(destination), "--cache-dir", str(cache)])
+        == 0
+    )
+    output = capsys.readouterr().out
+    assert "allele-aliases (2 sources)" in output
+    assert "validation (2 sources)" in output
+    for source_id, status in (
+        ("downloaded", "downloaded"),
+        ("cached", "cached"),
+        ("invalid", "invalid"),
+        ("missing", "missing"),
+    ):
+        assert any(
+            line.startswith(source_id + " ") and status in line for line in output.splitlines()
+        )
+
+    assert external_data.main(["list", "--group", "validation"]) == 0
+    filtered = capsys.readouterr().out
+    assert "validation (2 sources)" in filtered
+    assert "allele-aliases" not in filtered
+    assert external_data.main(["list", "--group", "unknown"]) == 1
+    assert "Unknown source group" in capsys.readouterr().err
 
 
 def test_select_sources_defaults_and_unions_explicit_groups():

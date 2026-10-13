@@ -342,11 +342,14 @@ def build_parser() -> argparse.ArgumentParser:
         description="List or download checksum-pinned IMGT/IPD inputs.",
     )
     subparsers = parser.add_subparsers(dest="data_command")
-    subparsers.add_parser(
+    list_parser = subparsers.add_parser(
         "list",
         help="List registered sources (default)",
-        description="List registered external-data sources and purpose groups.",
+        description="Browse registered source files and verified local copies.",
     )
+    list_parser.add_argument("--group", help="Show one purpose group")
+    list_parser.add_argument("--destination", type=Path, default=Path(".external-data"))
+    list_parser.add_argument("--cache-dir", type=Path, default=default_cache_dir())
     download_parser = subparsers.add_parser(
         "download",
         help="Download and cache verified sources",
@@ -356,11 +359,38 @@ def build_parser() -> argparse.ArgumentParser:
     return parser
 
 
-def print_sources(sources: Sequence[Source]) -> None:
-    for source in sources:
-        groups = ",".join(source.groups)
-        default = " default" if source.default else ""
-        print(f"{source.id}\t{source.provider} {source.release}\t{groups}{default}")
+def print_sources(
+    sources: Sequence[Source], *, destination_dir: Path, cache_dir: Path, group: str | None = None
+) -> None:
+    groups = sorted({name for source in sources for name in source.groups})
+    if group and group not in groups:
+        raise ExternalDataError(f"Unknown source group: {group}")
+    print(f"Destination: {destination_dir.expanduser().resolve()}")
+    print(f"Cache: {cache_dir.expanduser().resolve()}")
+    for name in groups:
+        if group and name != group:
+            continue
+        selected = [source for source in sources if name in source.groups]
+        print(f"\n{name} ({len(selected)} source{'s' if len(selected) != 1 else ''})")
+        rows = []
+        for source in selected:
+            destination = destination_dir.expanduser() / source.filename
+            cache = cache_dir.expanduser() / source.sha256
+            if is_verified(destination, source.sha256):
+                status = "downloaded"
+            elif is_verified(cache, source.sha256):
+                status = "cached"
+            elif destination.exists() or cache.exists():
+                status = "invalid"
+            else:
+                status = "missing"
+            rows.append((source.id, status, source.filename, "yes" if source.default else "no"))
+        headers = ("SOURCE", "STATUS", "FILE", "DEFAULT")
+        widths = [max(len(headers[i]), *(len(row[i]) for row in rows)) for i in range(4)]
+        print("  ".join(header.ljust(widths[i]) for i, header in enumerate(headers)))
+        for row in rows:
+            print("  ".join(value.ljust(widths[i]) for i, value in enumerate(row)).rstrip())
+    print("\nStatus checks SHA-256; 'cached' means the destination copy is absent or invalid.")
 
 
 def main(argv: Sequence[str] | None = None) -> int:
@@ -368,7 +398,12 @@ def main(argv: Sequence[str] | None = None) -> int:
     args = parser.parse_args(list(argv) if argv is not None else None)
     try:
         if args.data_command in {None, "list"}:
-            print_sources(load_manifest())
+            print_sources(
+                load_manifest(),
+                destination_dir=getattr(args, "destination", Path(".external-data")),
+                cache_dir=getattr(args, "cache_dir", default_cache_dir()),
+                group=getattr(args, "group", None),
+            )
             return 0
         sources = load_manifest(args.manifest)
         selected = select_sources(
