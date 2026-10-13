@@ -36,6 +36,22 @@ Out[3]: 'A0201'
 
 ```
 
+## External data CLI
+
+The source inventory is available offline. It groups checksum-pinned IMGT/IPD
+files by purpose and reports whether each file is verified in the destination,
+verified in the shared cache, missing, or invalid.
+
+```sh
+mhcgnomes data list
+mhcgnomes data list --group validation
+mhcgnomes data list --destination /path/to/data --cache-dir /path/to/cache
+mhcgnomes data download --group validation
+```
+
+`mhcgnomes data` is an alias for `mhcgnomes data list`. See
+`mhcgnomes data download --help` for retrieval options.
+
 ## The problem: MHC nomenclature is nuts
 
 Despite the valiant efforts of groups such as the [Comparative MHC Nomenclature Committee](https://www.ebi.ac.uk/ipd/mhc/committee/), the names of MHC alleles you might encounter in different datasets (or accepted by immunoinformatics tools) are frustratingly ill-specified. It's not uncommon to see dozens of different forms for the same allele.
