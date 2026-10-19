@@ -1,3 +1,19 @@
+H2:
+  K:
+    # PMID 6300887: cloned H-2Kbm1 variant gene, distinct from parental Kb.
+    - bm1
+    # PMID 1857349: cloned H-2Kbm8 variant gene and measured substitutions.
+    - bm8
+    # PMCID PMC2829095: H-2Kwm7 molecules yielded eluted self peptides.
+    - wm7
+  D:
+    # PMCID PMC2195857: H-2Dbm13 is a studied Db mutant molecule.
+    - bm13
+AnasPlat:
+  UAA:
+    # PMID 32721646, doi:10.1016/j.rvsc.2020.07.009, GenBank MN398410:
+    # Anpl-UAA*SD heavy chain was purified with a Tembusu-virus peptide.
+    - sd
 SLA:
   "1":
     - CDY
