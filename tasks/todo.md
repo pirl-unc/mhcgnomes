@@ -135,3 +135,37 @@ pairs, species context propagation and the existing unqualified beta default.
 No source allele data or biological claims were added. Final CI and release
 remain pending. Downstream hitlist#528 separately fixes genotype-field
 segmentation; hitlist#456 already preserves alias-transformed mutations.
+# Source-backed non-roster molecules — #207 / Hitlist #606
+
+Specification: register only the five independently documented, single-field
+MHC-I molecule names in `known_alleles.yaml`, keyed by gene rather than by
+haplotype. Evidence: H-2Kwm7 peptide-elution/structural study (PMCID
+PMC2829095); H-2Kbm1 cloned gene (PMID 6300887); H-2Kbm8 cloned gene (PMID
+1857349); H-2Dbm13 functional study (PMCID PMC2195857); Anpl-UAA*SD
+peptide-complex study with sequence MN398410 (Liu et al. 2020). Keep the
+canonical parser spellings `H2-K*wm7`, `H2-K*bm1`, `H2-K*bm8`, `H2-D*bm13`,
+and `AnasPlat-UAA*sd`. Do not add a `bm`/`wm` pattern or a partial genotype
+to the haplotype roster. Duck UAA already derives class Ia from `Aves sp.`;
+no species-ontology edit is needed (closed #208 records the correction).
+Document each source beside its data entry. Bump 3.64.5 to 3.64.6, then run
+format/lint/test, review the diff, land by PR, and deploy from clean main.
+
+- [x] Add failing positive tests for canonical and attested spellings and
+  negative tests for invented `bm999`, `wm999` and unsupported genes.
+- [x] Add the five sourced known-allele entries and local citations.
+- [x] Compare parser class, identity and known-allele behavior before/after.
+- [x] Run `./format.sh`, `./lint.sh`, `./test.sh` and review the diff.
+- [ ] Open PR and verify CI.
+- [ ] Verify CI, merge, `./deploy.sh` from clean main, and PyPI publication.
+
+## Review
+
+The five positive known-allele checks failed on the unchanged baseline and
+pass after adding the YAML entries; four invented/wrong-gene checks remain
+negative. Parser outputs and Ia class for all five designations were already
+correct and remain so. Direct parser verification also showed that duck UAA
+inherits class I from `Aves sp.`; the incorrectly filed #208 was closed and
+#207 corrected before implementation. No haplotype roster or parser rule was
+changed. `./format.sh` and `./lint.sh` pass; the full repository-local
+environment suite passed all 17,181 tests with 90% coverage. CI and
+deployment remain.
