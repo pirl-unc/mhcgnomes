@@ -11,18 +11,32 @@
 # limitations under the License.
 
 
-def strip_chars(s: str, chars_to_remove, _cache=None):
-    if _cache is None:
-        _cache = {}
-    if s in _cache:
-        return _cache[s]
-    original = s
+def strip_chars(s: str, chars_to_remove):
+    """
+    Strip characters from both ends of a string, one character at a time.
+
+    Unlike str.strip, the characters are removed in the order given: all
+    leading and trailing copies of the first character, then of the second,
+    and so on. A character exposed by a later pass is not revisited, so
+    strip_chars(" -x", "- ") returns "-x" where str.strip would return "x".
+
+    Parameters
+    ----------
+    s : str
+        String to strip.
+    chars_to_remove : iterable of str
+        Single characters to remove, in order.
+
+    Returns
+    -------
+    str
+        The stripped string.
+    """
     for c in chars_to_remove:
         while s and s[0] == c:
             s = s[1:]
         while s and s[-1] == c:
             s = s[:-1]
-    _cache[original] = s
     return s
 
 

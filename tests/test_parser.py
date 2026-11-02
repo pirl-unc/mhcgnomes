@@ -1,5 +1,6 @@
 from mhcgnomes import (
     Allele,
+    AlleleWithoutGene,
     Gene,
     Haplotype,
     Mutation,
@@ -342,3 +343,77 @@ def test_parse_B_27_215N():
     allele = parser.parse("B*27:215N")
     eq_(allele.allele_fields, ("27", "215"))
     eq_(allele.annotations, ("N",))
+
+
+def test_parse_renamed_allele_same_gene_reuses_source_gene():
+    parser = Parser()
+    gene = Gene.get("SLA", "2")
+    result = parser.parse_renamed_allele(
+        species=gene.species,
+        source_gene=gene,
+        source_mhc_class=gene.mhc_class,
+        target_gene_name="2",
+        target_allele_name="07:03",
+        raw_string="SLA-2*07we01",
+    )
+    eq_(result, Allele.get("SLA", "2", "07", "03"))
+    assert result.gene is gene
+    eq_(result.raw_string, "SLA-2*07we01")
+
+
+def test_parse_renamed_allele_other_gene_is_looked_up():
+    parser = Parser()
+    source_gene = Gene.get("HLA", "A")
+    result = parser.parse_renamed_allele(
+        species=source_gene.species,
+        source_gene=source_gene,
+        source_mhc_class=source_gene.mhc_class,
+        target_gene_name="B",
+        target_allele_name="07:02",
+        raw_string="x",
+    )
+    eq_(result, Allele.get("HLA", "B", "07", "02"))
+
+
+def test_parse_renamed_allele_unknown_gene_is_none():
+    parser = Parser()
+    source_gene = Gene.get("HLA", "A")
+    result = parser.parse_renamed_allele(
+        species=source_gene.species,
+        source_gene=source_gene,
+        source_mhc_class=source_gene.mhc_class,
+        target_gene_name="NOT_A_GENE",
+        target_allele_name="01:01",
+        raw_string="x",
+    )
+    assert result is None
+
+
+def test_parse_renamed_allele_geneless_target_keeps_source_class():
+    parser = Parser()
+    species = Species.get("Saha")
+    result = parser.parse_renamed_allele(
+        species=species,
+        source_gene=None,
+        source_mhc_class="I",
+        target_gene_name=None,
+        target_allele_name="27",
+        raw_string="SahaI*27",
+    )
+    eq_(type(result), AlleleWithoutGene)
+    eq_(result.name, "27")
+    eq_(result.mhc_class, "I")
+    eq_(result.raw_string, "SahaI*27")
+
+
+def test_parse_renamed_allele_geneless_target_with_star_is_none():
+    parser = Parser()
+    result = parser.parse_renamed_allele(
+        species=Species.get("HLA"),
+        source_gene=None,
+        source_mhc_class=None,
+        target_gene_name=None,
+        target_allele_name="A*02:01",
+        raw_string="x",
+    )
+    assert result is None

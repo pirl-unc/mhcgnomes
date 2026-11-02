@@ -57,14 +57,34 @@ def is_valid_restriction(original_class=None, new_class=None):
     return mhc_class_is_more_specific(original_class, new_class)
 
 
-def restrict_alleles(alleles, mhc_class):
-    if mhc_class == "I":
-        valid_subtypes = class1_restrictions
-    elif mhc_class == "II":
-        valid_subtypes = class2_restrictions
-    else:
-        valid_subtypes = {mhc_class}
+def mhc_classes_within(mhc_class):
+    """
+    The MHC class strings that satisfy a restriction to ``mhc_class``.
 
+    Shared by restrict_alleles and restrict_genes so that alleles and genes
+    are filtered by the same table.
+
+    Parameters
+    ----------
+    mhc_class : str
+        Class restriction, e.g. "I", "II", "Ia" or "IIb".
+
+    Returns
+    -------
+    frozenset of str
+        The contents of class1_restrictions for "I" ("I" plus its subtypes
+        "Ia" to "Id"), of class2_restrictions for "II" ("II", "IIa", "IIb"),
+        and otherwise just ``mhc_class`` itself.
+    """
+    if mhc_class == "I":
+        return frozenset(class1_restrictions)
+    if mhc_class == "II":
+        return frozenset(class2_restrictions)
+    return frozenset({mhc_class})
+
+
+def restrict_alleles(alleles, mhc_class):
+    valid_subtypes = mhc_classes_within(mhc_class)
     return [allele for allele in alleles if allele.mhc_class in valid_subtypes]
 
 
@@ -78,13 +98,7 @@ def restrict_genes(genes, mhc_class):
     False for ("Ia", "I"), so using it here silently dropped a class I locus
     from a class I reading.
     """
-    if mhc_class == "I":
-        valid_subtypes = class1_restrictions
-    elif mhc_class == "II":
-        valid_subtypes = class2_restrictions
-    else:
-        valid_subtypes = {mhc_class}
-
+    valid_subtypes = mhc_classes_within(mhc_class)
     return [gene for gene in genes if gene.mhc_class in valid_subtypes]
 
 
