@@ -535,6 +535,47 @@ def parse_gene_class(
     such as ``F10`` or ``DR-1`` and for known non-MHC-region helper genes like
     ``CIITA`` or ``TAP1``. Exact ontology-backed family names such as ``TAP``
     can be classified without inventing a specific member gene.
+
+    The fallback only runs when the species is known: either ``species`` was
+    given or the string starts with a species prefix.
+
+    Parameters
+    ----------
+    raw_string : str
+        Allele, gene, locus, pair or class name to classify.
+    default_species : str
+        Species assumed by the strict parse when the string names none, as in
+        :func:`parse`.
+    species : str or None
+        Strict species, as in :func:`parse`. Also lets the fallback run on a
+        string without a species prefix.
+    raise_on_error : bool
+        Raise ParseError when nothing can be inferred. If False, return None
+        instead.
+
+    Returns
+    -------
+    GeneClassInfo or None
+        The inferred species, gene name, MHC class and chain. ``source``
+        records which step answered, e.g. "parsed_allele", "canonical_gene",
+        "ontology_family", "non_mhc_name" or "heuristic_suffix". None when
+        nothing could be inferred and raise_on_error is False.
+
+    Raises
+    ------
+    ParseError
+        If raise_on_error is True and ``species`` is unknown, the string's
+        prefix contradicts ``species`` or is ambiguous, or no class can be
+        inferred.
+    ValueError
+        If both ``species`` and a non-default ``default_species`` are given
+        (raised by :func:`parse`, whatever raise_on_error is).
+
+    Examples
+    --------
+    >>> info = parse_gene_class("HLA-A*02:01")
+    >>> (info.gene_name, info.mhc_class, info.chain, info.source)
+    ('A', 'Ia', 'alpha', 'parsed_allele')
     """
     expected_species = Species.get(species) if species is not None else None
     if species is not None and expected_species is None:
@@ -594,6 +635,31 @@ def infer_mhc_class(
     """
     Convenience wrapper around :func:`parse_gene_class` returning only the
     inferred MHC class string.
+
+    Parameters
+    ----------
+    raw_string : str
+        Allele, gene, locus, pair or class name to classify.
+    default_species : str
+        Species assumed when the string names none, as in :func:`parse`.
+    species : str or None
+        Strict species, as in :func:`parse`.
+
+    Returns
+    -------
+    str or None
+        The MHC class, e.g. "Ia", "IIa" or "other" for a non-MHC-region
+        gene, or None when nothing can be inferred. Never raises ParseError.
+
+    Raises
+    ------
+    ValueError
+        If both ``species`` and a non-default ``default_species`` are given.
+
+    Examples
+    --------
+    >>> infer_mhc_class("HLA-DRB1")
+    'IIa'
     """
     result = parse_gene_class(
         raw_string,

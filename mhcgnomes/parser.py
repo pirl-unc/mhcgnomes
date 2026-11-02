@@ -231,7 +231,8 @@ class Parser:
     use_allele_aliases : bool, default False
         Convert old allele aliases to newer names.
     map_species_group_to_top_species : bool, default False
-        Map species group prefixes to the primary species.
+        Accepted and stored for backward compatibility, but no parsing code
+        reads it, so it has no effect.
     collapse_singleton_haplotypes : bool, default True
         If a haplotype contains a single allele, return the allele directly.
     collapse_singleton_serotypes : bool, default False
@@ -264,6 +265,7 @@ class Parser:
             change "SLA-2*07we01" to "SLA-2*07:03"
 
         map_species_group_to_top_species : bool
+            Has no effect; see the class docstring.
 
         gene_seps : iterable of str
             Possible separators used after gene names
