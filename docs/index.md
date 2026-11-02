@@ -2,6 +2,11 @@
 
 `mhcgnomes` is a Python library and CLI for parsing MHC nomenclature across
 human, model-organism, veterinary, and comparative immunogenetics datasets.
+It aims to correctly parse every name in [IEDB](http://www.iedb.org/),
+[IMGT/HLA](https://www.ebi.ac.uk/ipd/imgt/hla/),
+[IPD/MHC](https://www.ebi.ac.uk/ipd/mhc/), and the NetMHCpan and NetMHCIIpan
+allele lists, so that databases and tools with different naming conventions
+can be compared.
 
 It is designed to normalize the strings you actually encounter in the wild:
 
@@ -17,55 +22,50 @@ It is designed to normalize the strings you actually encounter in the wild:
 pip install mhcgnomes
 ```
 
-For local development, `./develop.sh` installs the package with both dev and
-docs dependencies so `mkdocs serve` works without extra setup.
+Requires Python 3.9 or later. There are no MHC data downloads: the curated
+species and gene ontology ships with the package.
 
-## Python API
+## Quick start
 
 ```python
-import mhcgnomes
-
-result = mhcgnomes.parse("HLA-A0201")
-print(type(result).__name__)
-print(result.to_string())
-print(result.compact_string())
+>>> import mhcgnomes
+>>> [mhcgnomes.parse(s).to_string() for s in ["A*02:01", "HLA-A0201", "hla-a:02:01"]]
+['HLA-A*02:01', 'HLA-A*02:01', 'HLA-A*02:01']
+>>> mhcgnomes.parse("DQ2.5").to_string()
+'HLA-DQA1*05:01/DQB1*02:01'
+>>> type(mhcgnomes.parse("HLA-A2")).__name__
+'Serotype'
+>>> mhcgnomes.parse("H2-Kk").to_string()
+'H2-K*k'
 ```
 
-Expected output:
+`parse` returns a structured object, not a string: an `Allele`, `Gene`,
+`Pair`, `Serotype`, `Haplotype`, `MhcClass` or `Species`, depending on how much
+the input actually specified. `to_string()` gives the normalized spelling and
+`compact_string()` the short one.
 
-```text
-Allele
-HLA-A*02:01
-A0201
-```
+## Where to go next
 
-## CLI
+Roughly in reading order:
 
-```bash
-mhcgnomes "HLA-A*02:01" "DQ2.5"
-python -m mhcgnomes --format json "HLA-A*02:01" "not a real allele"
-```
+1. [MHC nomenclature in the wild](nomenclature.md): why one allele has a dozen
+   spellings, what the suffixes mean, and which named entities are not alleles.
+2. [Parsing guide](parsing.md): the result types and how they are ranked,
+   restricting results for untrusted input, telling an explicit species from an
+   inferred one, and `species=` versus `default_species=`.
+3. [Command line](cli.md): parsing names from the shell, machine-readable
+   output, and the pinned external data commands.
+4. [Species and gene ontology](species-ontology.md): the curated YAML files,
+   the species tree and what its edges mean, prefix tiers and provenance.
+5. [Curation guide](curation.md): where new species, genes, aliases, and
+   partial-source data should live.
+6. [Immutable data objects](immutable-data-objects.md): the `3.0.0`
+   object-model refactor and behavior compatibility notes.
+7. [Species identity proposal](species-latin-name-scoping.md): make scientific
+   name the canonical species key and treat prefixes/common names as aliases.
+8. [Release process](releasing.md): how a merged version bump reaches PyPI.
 
-The CLI reports:
-
-- parsed result type
-- normalized and compact forms
-- species, gene, and MHC class where available
-- structured `to_record()` fields for downstream inspection
-
-Use `--strict` to fail fast on bad inputs instead of returning `ParseError`
-rows.
-
-## Docs In This Site
-
-- [Curation Guide](curation.md): where new species, genes, aliases, and
-  partial-source data should live
-- [Immutable Data Objects](immutable-data-objects.md): the `3.0.0` object-model
-  refactor and behavior compatibility notes
-- [Species Identity Proposal](species-latin-name-scoping.md): make scientific
-  name the canonical species key and treat prefixes/common names as aliases
-
-## Local Docs Commands
+## Local docs commands
 
 ```bash
 ./develop.sh
@@ -73,7 +73,7 @@ mkdocs serve
 mkdocs build --strict
 ```
 
-## Project Links
+## Project links
 
 - Repository: <https://github.com/pirl-unc/mhcgnomes>
 - PyPI: <https://pypi.org/project/mhcgnomes/>

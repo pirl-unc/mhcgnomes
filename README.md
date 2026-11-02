@@ -5,15 +5,20 @@
 <a href="https://pypi.python.org/pypi/mhcgnomes/">
 <img src="https://img.shields.io/pypi/v/mhcgnomes.svg?maxAge=1000" alt="PyPI" />
 </a>
+[![Docs](https://img.shields.io/badge/docs-pirl--unc.github.io%2Fmhcgnomes-blue)](https://pirl-unc.github.io/mhcgnomes/)
 
 ![](https://raw.githubusercontent.com/pirl-unc/mhcgnomes/main/gnome-red-text.png)
 
 # mhcgnomes: Parsing MHC nomenclature in the wild
 
-Documentation site: <https://pirl-unc.github.io/mhcgnomes/>
-
 MHCgnomes is a parsing library for multi-species MHC nomenclature which
 aims to correctly parse every name in [IEDB](http://www.iedb.org/), [IMGT/HLA](https://www.ebi.ac.uk/ipd/imgt/hla/), [IPD/MHC](https://www.ebi.ac.uk/ipd/mhc/), and the allele lists for both [NetMHCpan](https://services.healthtech.dtu.dk/service.php?NetMHCpan-4.1) and [NetMHCIIpan](https://services.healthtech.dtu.dk/service.php?NetMHCIIpan-4.0) predictors. This allows for standardization between immune databases and tools, which often use different naming conventions.
+
+It is the allele-naming layer of the openvax stack:
+[mhctools](https://github.com/openvax/mhctools),
+[mhcflurry](https://github.com/openvax/mhcflurry) and
+[mhcseqs](https://github.com/pirl-unc/mhcseqs) all normalize allele names
+through it rather than parsing strings themselves.
 
 ## Install
 
@@ -21,716 +26,64 @@ aims to correctly parse every name in [IEDB](http://www.iedb.org/), [IMGT/HLA](h
 pip install mhcgnomes
 ```
 
-## Usage example
+Requires Python 3.9 or later. There are no MHC data downloads: the curated
+species and gene ontology ships with the package.
+
+## Quick start
 
 ```python
 >>> import mhcgnomes
+>>> [mhcgnomes.parse(s).to_string() for s in ["A*02:01", "HLA-A0201", "hla-a:02:01"]]
+['HLA-A*02:01', 'HLA-A*02:01', 'HLA-A*02:01']
+>>> mhcgnomes.parse("DQ2.5").to_string()
+'HLA-DQA1*05:01/DQB1*02:01'
+>>> type(mhcgnomes.parse("HLA-A2")).__name__
+'Serotype'
+>>> mhcgnomes.parse("H2-Kk").to_string()
+'H2-K*k'
+```
+
+`parse` returns a structured object, not a string: an `Allele`, `Gene`,
+`Pair`, `Serotype`, `Haplotype`, `MhcClass` or `Species`, depending on how much
+the input actually specified. `to_string()` gives the normalized spelling and
+`compact_string()` the short one:
+
+```python
 >>> mhcgnomes.parse("HLA-A0201")
 Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('02', '01'), annotations=(), mutations=())
->>> mhcgnomes.parse("HLA-A0201").to_string()
-'HLA-A*02:01'
 >>> mhcgnomes.parse("HLA-A0201").compact_string()
 'A0201'
 ```
 
-## External data CLI
+Pass `raise_on_error=False` to get `None` instead of a `ParseError`, and
+`required_result_types=` to say which of those types you will accept. Both
+matter when the input is not a curated allele list; see
+[parsing untrusted input](https://pirl-unc.github.io/mhcgnomes/parsing/#parsing-untrusted-input).
 
-The source inventory is available offline. It groups checksum-pinned IMGT/IPD
-files by purpose and reports whether each file is verified in the destination,
-verified in the shared cache, missing, or invalid.
-
-```sh
-mhcgnomes data list
-mhcgnomes data list --group validation
-mhcgnomes data list --destination /path/to/data --cache-dir /path/to/cache
-mhcgnomes data download --group validation
-```
-
-`mhcgnomes data` is an alias for `mhcgnomes data list`. See
-`mhcgnomes data download --help` for retrieval options.
-
-## The problem: MHC nomenclature is nuts
-
-Despite the valiant efforts of groups such as the [Comparative MHC Nomenclature Committee](https://www.ebi.ac.uk/ipd/mhc/committee/), the names of MHC alleles you might encounter in different datasets (or accepted by immunoinformatics tools) are frustratingly ill-specified. It's not uncommon to see dozens of different forms for the same allele.
-
-For example, these all refer to the same MHC protein sequence:
-
-- "HLA-A\*02:01"
-- "HLA-A02:01"
-- "HLA-A:02:01"
-- "HLA-A0201"
-
-Additionally, for human alleles, the species prefix is often omitted:
-
-- "A\*02:01"
-- "A\*0201"
-- "A02:01"
-- "A:02:01"
-- "A0201"
-
-### Annotations
-
-Sometimes, alleles are bundled with modifier suffixes which specify
-the functionality or abundance of the MHC. Here's an example with an allele
-which is secreted instead of membrane-bound:
-
-- "HLA-A\*02:01:01S"
-
-These are collected in the `annotations` field of an
-[`Allele`](https://github.com/pirl-unc/mhcgnomes/blob/main/mhcgnomes/allele.py)
-result.
-
-Multi-letter annotations are also used in some non-human systems. In particular,
-`Ps` (pseudogene) and `Sp` (splice variant) appear as suffixes on allele fields,
-e.g. `Mamu-B*074:03Sp` or `Caja-B5*01:01Ps`, and are parsed into the
-`annotations` field as `Sp` or `Ps` respectively.
-
-Note that `Ps` can also appear as part of a gene name (prefix or suffix) in
-non-human primates, such as `Caja-G2Ps*01`. In those cases `Ps` is treated as
-part of the gene name, not an allele annotation.
-
-The suffix-specific `annotation_pseudogene` property remains separate from
-species/gene ontology status. `Gene.pseudogene_status` is `True`, `False`, or
-`None` when no status has been curated; `Gene.is_pseudogene` is true only for a
-curated pseudogene. `Allele.is_pseudogene` combines gene-level status with an
-explicit `Ps` suffix:
-
-```python
->>> mhcgnomes.parse("HLA-H*02:01").is_pseudogene
-True
->>> mhcgnomes.parse("Mamu-G*01:01").is_pseudogene
-True
->>> mhcgnomes.parse("HLA-G*01:01").is_pseudogene
-False
->>> mhcgnomes.parse("Caja-B5*01:01Ps").annotation_pseudogene
-True
-```
-
-### Loci that name no alleles
-
-A few loci are named by a nomenclature authority which then deposits no
-sequence under them. IMGT/HLA names the class I gene fragments `X` and `Z`, the
-class II pseudogenes `DQB3` and `DPA3`, and `MICC`/`MICD`/`MICE`/`PSMB8`/
-`PSMB9`, and IPD-IMGT/HLA gives every one of them zero alleles. The gene
-resolves; an allele built on top of it does not.
-
-```python
->>> mhcgnomes.parse("HLA-Z")
-Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='Z', mutations=())
->>> mhcgnomes.parse("HLA-Z*01:01", raise_on_error=False) is None
-True
->>> mhcgnomes.parse("HLA-W*01:01:01:01").gene.name  # W has 13 deposited alleles
-'W'
-```
-
-### Genes which need the species named
-
-Every HLA class I gene fragment is a single letter, and a bare `N`, `R`, `S`,
-`U` or `Z` is mouse or rat haplotype shorthand long before it is a human gene.
-These genes are marked `context only` in the ontology: they resolve when the
-species is named -- by prefix or by `species=` -- and stay out of species-less
-lookup, so the shorthand keeps its meaning.
-
-```python
->>> mhcgnomes.parse("N").to_string()      # rat haplotype, as it always was
-'RT1-n'
->>> mhcgnomes.parse("HLA-N").to_string()
-'HLA-N'
->>> mhcgnomes.parse("N", species="Homo sapiens").to_string()
-'HLA-N'
-```
-
-### A locus a haplotype does not have
-
-Some haplotypes are defined partly by what is *missing*. The swine haplotype
-`Hp-2.0` has no SLA-3 at all, which its source states as `null`, and
-low-resolution swine types are written `SLA-1*15XX or Blank`. That is a
-different claim from a locus nobody typed, so it is recorded rather than left
-out:
-
-```python
->>> hap = mhcgnomes.parse("Hp-2.0")
->>> [allele.to_string() for allele in hap.alleles]
-['SLA-1*02:01', 'SLA-1*07:01', 'SLA-2*02:01']
->>> [gene.to_string() for gene in hap.absent_genes]
-['SLA-3']
-```
-
-`absent_genes` is empty for every haplotype that does not say otherwise, and it
-narrows with the alleles beside it: `parse("Hp-2.0 class II").absent_genes` is
-empty, because an absent class I locus says nothing about a class II reading.
-
-### Mutations
-
-MHC proteins are sometimes described in terms of mutations to a known allele.
-
-- "HLA-B\*08:01 N80I mutant"
-
-These mutations are collected in the `mutations` field of an
-[`Allele`](https://github.com/pirl-unc/mhcgnomes/blob/main/mhcgnomes/allele.py) result.
-
-### Beyond humans
-
-To make things worse, several model organisms (like mice and rats) use archaic
-naming systems, where there is no notion of allele groups or four/six/eight
-digit alleles but every allele is simply given a name, such as:
-
-- "H2-Kk"
-- "RT1-9.5f"
-
-In the above example "H2"/"RT1" correspond to species, "K"/"9.5" are
-the gene names and "k"/"f" are the allele names.
-
-To make these even worse, the name of a species is subject to variation (e.g. "H2" vs. "H-2") as well as drift over time (e.g. ChLA -> MhcPatr -> Patr).
-
-### Serotypes, supertypes, haplotypes, and other named entities
-
-Besides alleles there are also other named MHC related entities you'll encounter in immunological data. Closely related to alleles are serotypes, which effectively denote a grouping of alleles that are all recognized by the same antibody:
-
-- "HLA-A2"
-- "A2"
-
-Supertypes are functional groupings based on shared peptide-binding specificity rather than serological reactivity (Sidney et al. 2008). These are parsed when the "supertype" keyword is present:
-
-- "A2 supertype"
-- "HLA-B44 supertype"
-
-Class II heterodimers can be specified using dot notation, which is common in celiac disease literature:
-
-- "DQ2.5" (equivalent to DQA1\*05:01/DQB1\*02:01)
-- "DQ8.5"
-
-In many datasets the exact allele is not known but an experiment might note the genetic background of a model animal, resulting in loose haplotype restrictions such as:
-
-- "H2-k class I"
-
-Yes, good luck disambiguating "H2-k" the haplotype from "H2-K" the gene, especially since capitalization is not stable enough to be relied on for parsing.
-
-In some cases immunological data comes only with a denoted species (e.g. "mouse"), a gene (e.g. "HLA-A"), or an MHC class ("human class I"). MHCgnomes has a structured representation for all of these cases and more.
-
-## CLI
-
-After installation, a `mhcgnomes` CLI is available:
+## Command line
 
 ```bash
 mhcgnomes "HLA-A*02:01" "DQ2.5"
-# or:
-python -m mhcgnomes "HLA-A*02:01" "DQ2.5"
 ```
 
-This prints a table with:
-
-- input string
-- parsed result type
-- normalized and compact forms
-- species/gene/MHC class
-- parsed properties from `to_record()`
-
-You can also use machine-friendly output:
-
-```bash
-mhcgnomes --format tsv "HLA-A*02:01" "HLA-A2"
-mhcgnomes --format json "HLA-A*02:01" "not a real allele"
-```
-
-By default, unparseable values are shown as `ParseError` rows.
-Use strict mode to fail fast:
-
-```bash
-mhcgnomes --strict "not a real allele"
-```
-
-## Parsing strategy
-
-It is a fool's errand to curate _all_ possible MHC allele names since that list grows daily as the MHC loci of more people (and non-human animals) are sequenced. Instead, MHCgnomes contains an ontology of curated species and genes and then attempts to parse any given string into multiple candidates of the following types:
-
-- [`Species`](https://github.com/pirl-unc/mhcgnomes/blob/main/mhcgnomes/species.py)
-- [`Gene`](https://github.com/pirl-unc/mhcgnomes/blob/main/mhcgnomes/gene.py)
-- [`Allele`](https://github.com/pirl-unc/mhcgnomes/blob/main/mhcgnomes/allele.py)
-- [`AlleleWithoutGene`](https://github.com/pirl-unc/mhcgnomes/blob/main/mhcgnomes/allele_without_gene.py)
-- [`Pair`](https://github.com/pirl-unc/mhcgnomes/blob/main/mhcgnomes/pair.py)
-- [`Class2Locus`](https://github.com/pirl-unc/mhcgnomes/blob/main/mhcgnomes/class2_locus.py)
-- [`MhcClass`](https://github.com/pirl-unc/mhcgnomes/blob/main/mhcgnomes/mhc_class.py)
-- [`Haplotype`](https://github.com/pirl-unc/mhcgnomes/blob/main/mhcgnomes/haplotype.py)
-- [`Serotype`](https://github.com/pirl-unc/mhcgnomes/blob/main/mhcgnomes/serotype.py)
-- [`Supertype`](https://github.com/pirl-unc/mhcgnomes/blob/main/mhcgnomes/supertype.py)
-
-The set of candidate interpretations for each string are then
-ranked according to heuristic rules. For example, a string will be
-preferentially interpreted as an [`Allele`](https://github.com/pirl-unc/mhcgnomes/blob/main/mhcgnomes/allele.py) rather
-than a [`Serotype`](https://github.com/pirl-unc/mhcgnomes/blob/main/mhcgnomes/serotype.py)
-or [`Haplotype`](https://github.com/pirl-unc/mhcgnomes/blob/main/mhcgnomes/haplotype.py).
-
-## Parsing untrusted input
-
-`parse` accepts anything that looks like MHC nomenclature, which is the right
-default for a known-good allele list and the wrong one for free text. Scanning
-curator notes or a spreadsheet column, "it parsed" is not the same as "this is
-an MHC molecule": a stray `HLA class I` is a valid `MhcClass`, and a bare `d`
-is a valid mouse `Haplotype`.
-
-Say what you will accept, and let anything else come back as `None`:
-
-```python
-from mhcgnomes import parse, Allele, Gene, Pair
-
-result = parse(token, required_result_types=(Allele, Gene, Pair), raise_on_error=False)
-if result is None:
-    continue  # not an MHC molecule
-```
-
-```
-HLA-A*02:01                -> Allele        n/a                 -> None
-H2-K*b                     -> Allele        -                   -> None
-Patr-AL                    -> Gene          HLA class I         -> None
-HLA-DPB1*06:01/DPA1*01:03  -> Pair          d                   -> None
-```
-
-This is more robust than filtering on the returned type yourself, since it also
-prevents a lower-ranked interpretation from being chosen in the first place.
-
-### Which result type means what
-
-Several result types are legitimate MHC designations without being molecules,
-which is why `HLA-DR15` and `BoLA-DR` parse cleanly but yield no allele:
-
-| Type | Means | Example |
-| --- | --- | --- |
-| `Allele` | A specific allele | `HLA-A*02:01` |
-| `Gene` | A locus, no allele given | `Patr-AL` |
-| `Pair` | Class II alpha/beta pairing | `HLA-DPA1*01:03/DPB1*06:01` |
-| `AlleleWithoutGene` | Allele name whose gene is unknown | `BoLA-D18.4` |
-| `Class2Locus` | A class II locus family | `BoLA-DR` |
-| `Serotype` | Serological group, may cover many alleles | `HLA-DR15` |
-| `Haplotype` | Named haplotype | `H2-b` |
-| `Supertype` | Functional grouping of alleles | `HLA-A02` |
-| `MhcClass` | Just a class, with or without species | `HLA class I` |
-| `Species` | Only a species was named | `HLA` |
-
-### Was the species explicit, or guessed?
-
-Species inference is right most of the time and load-bearing when it is wrong.
-A bare gene symbol can carry a species you never supplied, and the default
-species means a deliberately generic string still comes back with one:
-
-```python
->>> parse("Gaga-BLB2*02").species_source
-'explicit'
->>> parse("BLB2*02").species_source     # inferred from the gene name
-'inferred'
->>> parse("MHC class II").species_source  # fell back to default_species
-'default'
-```
-
-`result.species_from_input` is the boolean form, true only for `explicit` — it
-answers the question a caller actually has: did I supply this species, or did
-the parser? To reject anything you did not name outright — the right rule when
-validating curated data — ask for it at parse time:
-
-```python
->>> parse("BLB2*02", require_explicit_species=True, raise_on_error=False) is None
-True
-```
-
-Provenance is not part of a result's identity: two alleles that differ only in
-how their species was determined still compare equal and hash the same. It is
-also computed only when asked, so it costs nothing if you never look.
-
-### Printing only the prefixes a source attests
-
-`HLA-A*02:01` and `CyanCaer-DAB1` look alike, but only the first is published
-nomenclature — the second was minted here so the blue tit would have a unique
-prefix. `prefix_provenance` tells them apart, and an opt-in display policy acts
-on it:
-
-```python
->>> from mhcgnomes.prefix_display_policy import prefix_display_policy, ATTESTED
->>> parse("CyanCaer-DAB1").to_string()
-'CyanCaer-DAB1'
->>> with prefix_display_policy(ATTESTED):
-...     parse("CyanCaer-DAB1").to_string()
-'CyanistesCaeruleus-DAB1'
->>> with prefix_display_policy(ATTESTED):
-...     parse("HLA-A*02:01").to_string()   # designated, so untouched
-'HLA-A*02:01'
-```
-
-The default is unchanged, both spellings parse under either policy, and group
-labels such as `SLA` and `BoLA` keep their labels. `set_prefix_display_policy`
-is the process-wide form; the policy is thread-local.
-
-A gene symbol only carries a species when it belongs to one lineage. `DRB1` is
-declared by 45 species across humans, cattle, dogs and horses, so on its own it
-names none of them:
-
-```python
->>> parse("DRB1*01:01", default_species=None, raise_on_error=False) is None
-True
->>> parse("DRB1*01:01").to_string()  # with the default species, as before
-'HLA-DRB1*01:01'
->>> parse("BLB2*02").to_string()  # chicken and the Galliformes node: one lineage
-'Gaga-BLB2*02'
-```
-
-A species that uses a shared symbol but does not own its bare form says so in
-the ontology with `context only`, which is why `BF2*02:01` still resolves to
-the chicken although the guineafowl also has a BF2.
-
-Gene lookup is case- and separator-normalizing, so some symbols differ only in
-spelling. Where they do, your spelling decides:
-
-```python
->>> parse("Ia1").species.name   # Paralichthys olivaceus spells it this way
-'Paralichthys olivaceus'
->>> parse("IA1").species.name   # Chrysolophus pictus spells it this way
-'Chrysolophus pictus'
->>> parse("ia1", raise_on_error=False) is None  # neither, so neither is named
-True
-```
-
-A species you name outright still wins over a spelling that points elsewhere —
-`OS=Mus musculus GN=Mr1` is a mouse gene even though *Rattus sp.* is the entry
-that spells `MR1` as `Mr1`.
-
-## How many digits per field?
-
-Originally alleles for many genes were numbered with two digits:
-
-- "HLA-MICB\*01"
-
-But as the number of identified alleles increased, the number of
-fields specifying a distinct protein increased to two. This became
-conventionally called a "four digit" format, since each field has two
-digits. Yet, as the number of identified alleles continued to increase,
-the number of digits per field has often increased from two to three:
-
-- "MICB\*002:01"
-- "HLA-A00201"
-- "A:002:01"
-- "A\*00201"
-
-MHCgnomes normalizes allele field widths by zero-padding to each gene's canonical minimum (e.g. 3 digits for MICA/MICB). Coverage of per-gene field widths is still incomplete for some non-human species.
-
-However, if databases such as [IPD-MHC](https://www.ebi.ac.uk/ipd/mhc/) or [IMGT-HLA](https://www.ebi.ac.uk/ipd/imgt/hla/) recorded an older form of an allele, then MHCgnomes can optionally map it onto the modern version (including capturing differences in numbers of digits per field).
-
-## Species-directed parsing
-
-`species=` constrains parsing to a single species. The final parsed object
-must match that species exactly, or parsing fails. This is useful when you
-know the organism and want to reject cross-species mismatches:
-
-```python
->>> mhcgnomes.parse("BoLA-DRB3*01:01", species="Bos taurus").to_string()
-'Bota-DRB3*01:01'
->>> mhcgnomes.parse("HLA-A*02:01", species="Bos taurus", raise_on_error=False) is None
-True
->>> mhcgnomes.parse("A*02:01", species="Homo sapiens").species.name
-'Homo sapiens'
-```
-
-When the input uses an ancestor prefix (like `BoLA` for genus-level *Bos sp.*),
-`species=` rewrites the result to the requested descendant species if valid.
-
-`default_species=` is a less strict alternative — it provides a fallback
-species hint for inputs that don't contain a species prefix, but does not
-reject inputs that resolve to a different species:
-
-```python
->>> mhcgnomes.parse("A*02:01", default_species="Homo sapiens").species.name
-'Homo sapiens'
->>> mhcgnomes.parse("DMA", default_species="Chelonia mydas").species.name
-'Chelonia mydas'
-```
-
-## Species and gene ontology
-
-MHCgnomes maintains a curated ontology of species prefixes and MHC gene names
-in YAML data files under `mhcgnomes/data/`. The key files are:
-
-| File | Purpose |
-| --- | --- |
-| `species.yaml` | Canonical species entries with MHC prefixes, genes, classes, properties, and families |
-| `gene_aliases.yaml` | Alternative gene spellings that normalize to canonical genes |
-| `allele_aliases.yaml` | Retired or shorthand allele names that normalize to canonical alleles |
-| `known_alleles.yaml` | Curated known allele labels per species/gene |
-
-### The species tree
-
-Species entries form a tree through their `parent` links. A `parent` is a
-containment claim — "this species is inside that group" — and it is taxonomic
-wherever it can be: exactly one parent link in the whole ontology points at
-another genus's node. Genes, and the rest of a species' curated data, are
-inherited along these links.
-
-Every MHC prefix owns a node, and an umbrella prefix covers everything beneath
-its node:
-
-```
-Bos sp. [BoLA]     ->  Bota, Boin, Bofr, Bogr, Bubu
-Macaca sp. [RhLA]  ->  Mafa, Mamu, Mane, Masi, Math
-Canis sp. [DLA]    ->  Calu, Cala, Caru, Casi, Caba
-```
-
-**`NHP` is a node, not the primate order.** IPD-MHC's `NHP` group is [Non-Human
-Primates](https://www.ebi.ac.uk/ipd/mhc/group/NHP/), so it is the primate order
-*minus humans* — paraphyletic, and not a taxon. It gets its own entry, sibling
-to `Homo sapiens`:
-
-```
-Primata sp. [Primata]        the primate order, and the genes all primates share
-├── Homo sapiens [HLA]
-└── NHP [NHP]                the IPD-MHC group
-    └── 55 non-human primates
-```
-
-That keeps both questions as plain ancestry, with no second predicate:
-
-```python
->>> Species.get("Homo sapiens").compatible_with("Primata sp.")
-True                              # humans are primates
->>> Species.get("Homo sapiens").compatible_with("NHP")
-False                             # NHP-* cannot denote one
->>> parse("NHP-E*01:01", species="Homo sapiens", raise_on_error=False) is None
-True                              # so this is refused, not converted
-```
-
-Because `NHP` is paraphyletic, any taxon added under `Primata sp.` has to sit
-wholly inside or wholly outside it. A `Homo sp.` node holding *H. sapiens* and
-*H. neanderthalensis* is fine as a sibling of `NHP`; a `Hominidae sp.` spanning
-humans and the great apes is not, since it would have to pull `Gorilla sp.`,
-`Pan sp.` and `Pongo sp.` out of the `NHP` umbrella.
-
-**`Bubalus bubalis` is under `Bos sp.` despite being a different genus.** This
-is the one edge that is deliberately not taxonomy. Water buffalo belongs to
-*Bubalus*, a sister genus of *Bos* within Bovini, but IPD-MHC files water
-buffalo in the BoLA group and the literature assigns buffalo class II sequences
-to cattle loci by trans-species polymorphism — `Bubu-DRB` is the orthologue of
-`BoLA-DRB3`. The edge is load-bearing: the entry declares only `DQA`, `DQA1`
-and `DQB` itself, so `Bubu-DRA`, `Bubu-DRB3`, `Bubu-DQA2` and `Bubu-DQB1` all
-parse by inheritance, and `Bubu-DRB` normalizes to `Bubu-DRB3` because of it.
-
-So before "correcting" a parent link that looks taxonomically wrong, check what
-parses through it.
-
-Two further consequences are easy to get wrong:
-
-**`Gnathostomata sp.` is a universal root.** Every species descends from it, so
-"do these two share a common ancestor?" is true for any pair and useless as a
-compatibility test — worse, it fails open. Only a direct ancestor or descendant
-relation is meaningful. `Species.compatible_with` implements that rule:
-
-```python
->>> Species.get("Bos taurus").compatible_with("Bos sp.")
-True                     # less specific, not contradictory
->>> Species.get("Macaca mulatta").compatible_with("Macaca fascicularis")
-False                    # siblings
-```
-
-This is what you want when checking a declared species against the species
-mhcgnomes derives from an allele, since the two legitimately differ in
-specificity: `BoLA` belongs to the genus-level `Bos sp.`, so a `BoLA-N*013:01`
-allele on a sample curated as *Bos taurus* is compatible.
-
-**Compatibility can follow an edge that exists for naming.** A `Bubu-*` allele
-is compatible with a curated `Bos sp.`, since `Bos sp.` denotes the BoLA group
-and water buffalo is in it. That is the intended answer, not a wart.
-
-An `X sp.` node is a group entry: it holds the prefix and the genes shared by
-everything beneath it. `Bos sp.` owns `BoLA` and the cattle gene list; `Bos
-taurus` inherits both.
-
-### Species prefix conventions
-
-Each species is identified by a short prefix (usually 2-4 characters) such as
-`HLA` (human), `H2` (mouse), `Gaga` (chicken), or `Dare` (zebrafish). The
-parser uses these prefixes to identify species before parsing gene names and
-allele fields.
-
-Prefixes are matched case-insensitively after stripping punctuation. A leading
-`Mhc` prefix (common in bird MHC literature, e.g. `MhcTyal-DAB1*01:01`) is
-automatically stripped as a fallback when normal prefix matching fails.
-
-Some historically important prefixes are not single-species codes. Prefixes
-such as `DLA`, `SLA`, `OLA`, `BoLA`, and `CELA` are curated as umbrella taxon
-nodes in the ontology because the external nomenclature itself is genus- or
-clade-level rather than species-specific. For example:
-
-- `DLA` maps to `Canis sp.`, while `Calu` maps specifically to `Canis lupus`
-- `SLA` maps to `Sus sp.`, while `Susc` maps specifically to `Sus scrofa`
-- `BoLA` maps to `Bos sp.`, while `Bota` maps specifically to `Bos taurus`
-- `OLA` maps to `Ovis sp.`, while `Ovar` maps specifically to `Ovis aries`
-- `CELA` maps to `Cetacea sp.`, while `Tutr` maps specifically to `Tursiops truncatus`
-
-This distinction matters when interpreting parsed objects: an allele parsed
-from `BoLA-...` is attached to the generic cattle node unless the parse is
-explicitly constrained or rewritten to a descendant species.
-
-### MHC gene class assignments
-
-Genes in `species.yaml` are organized by MHC class:
-
-- **Ia**: Classical class I (associates with B2M, presents peptides)
-- **Ib**: Non-classical class I (in MHC locus, associates with B2M)
-- **Ic**: Related MHC locus genes, no B2M association (e.g. MICA)
-- **Id**: Class I-related genes on other chromosomes
-- **IIa**: Classical class II alpha/beta chains presenting peptides
-- **IIb**: Accessory or non-classical class II proteins
-- **other**: Antigen processing genes (TAP1, TAP2, TAPBP, B2M)
-
-### Species-specific gene properties and families
-
-`species.yaml` can attach source-backed properties to canonical genes. These
-properties inherit through the species tree and descendants can override them,
-so the same gene name may have different biology in different lineages. For
-example, human HLA-G is explicitly functional while MHC-G is a pseudogene in
-the macaque lineage. Missing metadata remains unknown rather than being inferred
-from the spelling of a gene.
-
-The ontology can also define exact gene families. The jawed-vertebrate root
-defines `TAP` as the family containing `TAP1` and `TAP2`. The strict parser does
-not promote `TAP` to a gene, but the species-aware `parse_gene_class` API can
-classify legacy family-level inputs without choosing a family member:
-
-```python
->>> info = mhcgnomes.parse_gene_class("SLA-TAP*1*01:01")
->>> (info.gene_name, info.mhc_class, info.non_mhc, info.source)
-('TAP', 'other', True, 'ontology_family')
-```
-
-This classification uses the selected species' inherited ontology family; it
-does not infer TAP membership from a regex or a shared gene-name pattern.
-
-### Species prefix tiers
-
-As mhcgnomes supports more species, short prefix codes increasingly collide.
-Codes like `HLA`/`SLA`/`DLA`, `OrLA`, and four-letter codes like `Calu` all hit
-collisions as coverage grows. Three forms are supported so that every species
-is always reachable:
-
-| Tier | Form | Example | When used |
-| --- | --- | --- | --- |
-| Established short prefix | 1–4 letters | `HLA`, `Gaga`, `Crpo` | Published in MHC literature or IPD-MHC. Preferred for display. |
-| Full latin name | Concatenated genus + species | `HomoSapiens`, `ChrysemysPicta` | The default generated form. Collision-free across every binomial in the ontology. |
-| 4+4 shorthand | First 4 of genus + first 4 of species | `TachAcul`, `AbraBram` | Compact shorthand, and the curated prefix of most species without a literature code. Emitted as an alias only where globally unique. |
-
-All are parsed case-insensitively. These all resolve to the same allele:
-
-```
-HLA-A*02:01          # established prefix
-HomoSapiens-A*02:01  # full latin name
-HomoSapi-A*02:01     # 4+4 shorthand (auto-generated alias)
-Homo sapiens-A*02:01 # latin name with space
-```
-
-Two limits are worth knowing:
-
-**4+4 is not collision-free, and a contested form names nobody.** Three forms
-are derivable from two species each — `ChryPict` from both *Chrysemys picta*
-and *Chrysolophus pictus*, `LaniColl` from two shrikes, `LeucLeuc` from a dace
-and a crane. Since 3.43.0 none of them resolves on its own:
-
-```python
->>> parse("ChryPict-UA*01", raise_on_error=False) is None
-True                       # 3.42.0 gave a painted turtle, even if you meant the pheasant
->>> parse("ChryPict-UA*01", species="Chrysolophus pictus").species.name
-'Chrysolophus pictus'      # explicit species still resolves it
-```
-
-Raising instead of returning `None` explains the ambiguity rather than the
-symptom:
-
-```
-Prefix 'ChryPict' is derivable by the same naming rule from Chrysemys picta,
-Chrysolophus pictus, so it names neither. Use species='<latin name>' or an
-unambiguous prefix such as ChrysemysPicta (Chrysemys picta),
-ChrysolophusPictus (Chrysolophus pictus).
-```
-
-Both claimants list the form under `context only prefixes`, so it resolves
-only when the caller has already said which species they mean. **This is a breaking parse change.** `ChryPict`, `LaniColl` and `LeucLeuc` all
-resolved on 3.42.0 and now need an explicit `species=`. The species that had
-held a contested form as their canonical prefix use their concatenated binomial
-instead, so their normalized output changes too.
-
-Canonical prefix changed **in 3.42.0**:
-
-| species | was | now | old spelling |
-|---|---|---|---|
-| *Chrysemys picta* | `ChryPict` | `ChrysemysPicta` | alias, then context only in 3.43.0 |
-| *Lanius collaris* | `LaniCola` | `LaniusCollaris` | plain alias, uncontested |
-| *Leuciscus leuciscus* | `LeucisLeucis` | `LeuciscusLeuciscus` | plain alias, uncontested |
-
-Canonical prefix changed **in 3.43.0**, because each still held a form its
-sibling derives too:
-
-| species | was | now | old spelling |
-|---|---|---|---|
-| *Lanius collurio* | `LaniColl` | `LaniusCollurio` | context only |
-| *Leucogeranus leucogeranus* | `LeucLeuc` | `LeucogeranusLeucogeranus` | context only |
-
-*Chrysolophus pictus* keeps `Chpi` throughout and gains `ChryPict` as a
-context-only prefix, since it derives that form as well.
-
-**Subspecies mint no generated alias.** A trinomial entry such as *Canis lupus
-baileyi* deliberately does not claim `CanisLupus`, which belongs to its parent
-binomial, and no third-token variant is generated. Subspecies are reached by
-their curated prefix (`Caba`) or by latin name.
-
-A 5+5 form (`HomoSapie`) existed up to 3.41.0 as a leftover of the pre-v3.12
-scheme, and was removed in 3.42.0: no bundled corpus name, and no species token
-in the sibling `mhcseqs` dataset, ever used one. See issue #128.
-
-**This is a breaking parse change.** 596 auto-generated 5+5 aliases stop
-resolving, and so do ten that had been curated by hand as `other prefixes`
-when the scheme was introduced:
-
-```
-MonopAlbus  GaviaGange  CaimaCroco  CaimaLatir  CaretCaret
-ChrysPicta  CasuaCasua  CyaniCaeru  PhasiColch  CycluCarin
-```
-
-Anything written with a 5+5 form should move to the concatenated binomial —
-`HomoSapie-A*02:01` becomes `HomoSapiens-A*02:01`.
-
-### Where a prefix came from
-
-`Species.prefix_provenance` says how an entry came by its prefix:
-
-| value | meaning |
-| --- | --- |
-| `"designated"` | Published nomenclature — IPD-MHC or IMGT/HLA writes alleles with it. Curated with a source in `species.yaml`; never inferred. |
-| `"generated"` | mhcgnomes derived it from the latin name. Provable by re-deriving it. |
-| `"group label"` | Names a grouping rather than a species, and is never written on an allele: `Aves`, `Galliformes`, `NHP`. |
-| `None` | Not established. |
-
-```python
->>> Species.get("HLA").prefix_provenance
-'designated'
->>> Species.get("TachAcul").prefix_provenance
-'generated'
->>> Species.get("NHP").prefix_provenance
-'group label'
-```
-
-`None` is deliberately distinct from `"designated"`: a prefix mhcgnomes did not
-generate is not thereby proven to be in published use. Most short prefixes are
-still unchecked — see issue #131.
-
-**Which prefixes are established vs generated:** Comments in `species.yaml`
-document which prefixes are attested in MHC literature and which were generated
-by mhcgnomes. Established prefixes are never changed; generated prefixes are
-subject to replacement if a community convention emerges.
-
-See the [Curation Guide](https://pirl-unc.github.io/mhcgnomes/curation/) for
-the full prefix conflict resolution policy ([source](docs/curation.md)).
-
-## References
-
-- [IPD-MHC: nomenclature requirements for the non-human major histocompatibility complex in the next-generation sequencing era](https://link.springer.com/article/10.1007%2Fs00251-018-1072-4)
-- [Comparative MHC nomenclature: report from the ISAG/IUIS-VIC committee 2018](https://link.springer.com/article/10.1007/s00251-018-1074-2)
-- [ISAG/IUIS-VIC Comparative MHC Nomenclature
-  Committee report, 2005](https://link.springer.com/content/pdf/10.1007%2Fs00251-005-0071-4.pdf)
-- [Nomenclature for factors of the SLA system, update 2008](https://www.ncbi.nlm.nih.gov/pubmed/19317739)
+This prints one row per input with the parsed result type, the normalized and
+compact forms, species, gene, MHC class, and the parsed properties from
+`to_record()`. `--format tsv` and `--format json` give machine-readable
+output, `--strict` exits non-zero on the first parse error, and
+`mhcgnomes data` manages the pinned external IMGT/IPD files. The
+[command-line guide](https://pirl-unc.github.io/mhcgnomes/cli/) shows the full
+output of each.
+
+## Documentation
+
+Full documentation: [pirl-unc.github.io/mhcgnomes](https://pirl-unc.github.io/mhcgnomes/).
+
+- [MHC nomenclature in the wild](https://pirl-unc.github.io/mhcgnomes/nomenclature/): why one allele has a dozen spellings, and what the other named entities are
+- [Parsing guide](https://pirl-unc.github.io/mhcgnomes/parsing/): result types, untrusted input, species inference, `species=` vs `default_species=`
+- [Command line](https://pirl-unc.github.io/mhcgnomes/cli/)
+- [Species and gene ontology](https://pirl-unc.github.io/mhcgnomes/species-ontology/): the species tree, prefix tiers and provenance, gene classes
+- [Curation guide](https://pirl-unc.github.io/mhcgnomes/curation/): where new species, genes and aliases go
+- [Immutable data objects](https://pirl-unc.github.io/mhcgnomes/immutable-data-objects/) and the [release process](https://pirl-unc.github.io/mhcgnomes/releasing/)
 
 ## Development
 
@@ -749,10 +102,14 @@ Raw IPD-IMGT/HLA and IPD-MHC snapshots are not committed or bundled in releases.
 [External IMGT/IPD data](EXTERNAL_DATA.md) for checksum-pinned downloads, local/CI caches,
 optional mirrors, offline use, and alias regeneration.
 
-### Local docs
+To work on the documentation site:
 
 ```bash
 ./develop.sh
 mkdocs serve
 mkdocs build --strict
 ```
+
+## License
+
+[Apache License 2.0](LICENSE).
