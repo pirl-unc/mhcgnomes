@@ -112,4 +112,4 @@ mkdocs build --strict
 
 ## License
 
-[Apache License 2.0](LICENSE).
+[Apache License 2.0](https://github.com/pirl-unc/mhcgnomes/blob/main/LICENSE).
