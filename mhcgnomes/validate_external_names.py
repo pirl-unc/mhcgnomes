@@ -130,6 +130,14 @@ def run_validation(paths: Sequence[Path], max_failures: int) -> int:
     int
         0 when every file exists, has at least one FASTA header, and every
         header's name parses as an Allele; otherwise 1.
+
+    Raises
+    ------
+    UnicodeDecodeError
+        If a file is not valid UTF-8. Files before it have already been
+        reported.
+    OSError
+        If a file exists but cannot be read.
     """
     failed = False
     for path in paths:
