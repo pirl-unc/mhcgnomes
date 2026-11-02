@@ -1398,10 +1398,11 @@ class Parser:
         -------
         Allele, AlleleWithoutGene, or None
             An AlleleWithoutGene when the target has no gene and its allele
-            name has no "*"; otherwise the result of parse_allele_with_gene
-            for the target gene. None when a gene-less target contains "*",
-            when the species has no gene called target_gene_name, or when
-            the allele name does not parse under that gene.
+            name is non-empty and has no "*"; otherwise the result of
+            parse_allele_with_gene for the target gene. None when a gene-less
+            target's allele name is empty or contains "*", when the species
+            has no gene called target_gene_name, or when the allele name does
+            not parse under that gene.
         """
         if target_gene_name is None:
             if "*" in target_allele_name:
