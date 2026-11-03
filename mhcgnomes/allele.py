@@ -16,6 +16,12 @@ from dataclasses import dataclass, field
 from functools import cache
 from typing import Union
 
+from .allele_annotations import (
+    _CELL_SURFACE_EXPRESSION_UNCERTAIN,
+    _LOW_CELL_SURFACE_EXPRESSION,
+    _NOT_ON_CELL_SURFACE,
+    annotation_descriptions,
+)
 from .data import min_first_field_widths as _MIN_FIRST_FIELD_WIDTHS
 from .data import single_field_alleles as _SINGLE_FIELD_ALLELES
 from .gene import Gene
@@ -482,7 +488,7 @@ class Allele(ResultWithGene):
         return self._check_annotation("N")
 
     @property
-    def annotation_cystosolic(self):
+    def annotation_cytosolic(self):
         return self._check_annotation("C")
 
     @property
@@ -503,9 +509,57 @@ class Allele(ResultWithGene):
 
     @property
     def annotation_group(self):
-        # designates a group of genomic sequence alleles
-        # with identical peptide binding region
+        # G group: alleles with identical nucleotide sequence across the
+        # exons encoding the peptide-binding domain
         return self._check_annotation("G")
+
+    @property
+    def annotation_descriptions(self):
+        """
+        What each of this allele's annotations means.
+
+        Returns
+        -------
+        dict of str to str
+            Each annotation in ``annotations``, in order, mapped to its entry
+            in ``mhcgnomes.allele_annotations.annotation_descriptions``, e.g.
+            ``{"L": "low cell-surface expression"}`` for HLA-A*24:02:01:02L.
+            Empty when the name carries no annotation.
+        """
+        return {
+            annotation: annotation_descriptions[annotation]
+            for annotation in self.annotations
+            if annotation in annotation_descriptions
+        }
+
+    @property
+    def cell_surface_expression(self):
+        """
+        What the allele name says about expression on the cell surface.
+
+        Callers deciding whether to accept an allele for a cell-surface
+        question (binding prediction, for instance) can use this instead of
+        choosing their own set of suffixes.
+
+        Returns
+        -------
+        str or None
+            ``"absent"`` for a null (N), secreted (S), cytoplasmic (C) or
+            pseudogene allele, the last by a Ps suffix or by the gene's
+            curated status; ``"uncertain"`` for aberrant (A) or questionable
+            (Q) expression; ``"low"`` for low expression (L). When several
+            apply, the first in that order wins. None when nothing in the name
+            bears on expression, which is not a claim that expression is
+            normal.
+        """
+        annotations = set(self.annotations)
+        if annotations & _NOT_ON_CELL_SURFACE or self.is_pseudogene:
+            return "absent"
+        if annotations & _CELL_SURFACE_EXPRESSION_UNCERTAIN:
+            return "uncertain"
+        if annotations & _LOW_CELL_SURFACE_EXPRESSION:
+            return "low"
+        return None
 
     @property
     def annotation_pseudogene(self):
@@ -527,6 +581,5 @@ class Allele(ResultWithGene):
 
     @property
     def annotation_splice_variant(self):
-        # designates a group of genomic sequence alleles
-        # with identical peptide binding region
+        # Sp: the allele is a splice variant (IPD-MHC NHP nomenclature)
         return self._check_annotation("Sp")

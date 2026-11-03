@@ -159,8 +159,8 @@ class Pair(ResultWithMhcClass):
         return self.alpha.annotation_null or self.beta.annotation_null
 
     @property
-    def annotation_cystosolic(self):
-        return self.alpha.annotation_cystosolic or self.beta.annotation_cystosolic
+    def annotation_cytosolic(self):
+        return self.alpha.annotation_cytosolic or self.beta.annotation_cytosolic
 
     @property
     def annotation_secreted(self):

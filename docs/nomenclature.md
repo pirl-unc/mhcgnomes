@@ -36,7 +36,26 @@ which is secreted instead of membrane-bound:
 
 These are collected in the `annotations` field of an
 [`Allele`](https://github.com/pirl-unc/mhcgnomes/blob/main/mhcgnomes/allele.py)
-result.
+result. `annotation_descriptions` says what each one means; the full table is
+`mhcgnomes.allele_annotations.annotation_descriptions`, with the IMGT/HLA or
+IPD-MHC definition behind each entry cited in its source. A caller that only
+needs to know whether the protein reaches the cell surface can ask
+`cell_surface_expression`. It returns `"absent"` for N, S, C or a pseudogene,
+`"uncertain"` for A or Q, `"low"` for L, and `None` when the name says
+nothing about expression:
+
+```python
+>>> import mhcgnomes
+>>> allele = mhcgnomes.parse("HLA-A*24:02:01:02L")
+>>> allele.annotation_descriptions
+{'L': 'low cell-surface expression'}
+>>> allele.cell_surface_expression
+'low'
+>>> mhcgnomes.parse("HLA-B*44:02:01:02S").cell_surface_expression
+'absent'
+>>> mhcgnomes.parse("HLA-A*02:01").cell_surface_expression is None
+True
+```
 
 Multi-letter annotations are also used in some non-human systems. In particular,
 `Ps` (pseudogene) and `Sp` (splice variant) appear as suffixes on allele fields,

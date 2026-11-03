@@ -1,45 +1,38 @@
-# `Allele.is_allele_group`: one allele or an allele group? (#215)
+# Public meanings for allele-name annotations; `annotation_cytosolic` (#217)
 
-GitHub issue: #215
+GitHub issue: #217
 
 ## Evidence
 
-- [x] Check whether "one numeric field = group" holds, against the registries
-  rather than by assumption. It does not. In the pinned IPD-IMGT/HLA 3.42.0,
-  85 MICA, 25 MICB and 3 HFE current names have one field (`MICA*001`). In
-  IPD-MHC 3.8.0.0, 174 names across 110 genes do, many of them numeric
-  (`Papa-B*03`, `Mamu-G*05`, `Patr-DPB1*18`).
-- [x] Check the other direction. `SLA-1*15XX` parses as one non-numeric field
-  (`15xx`), yet it names every allele in group 15: Hammer et al. 2021
-  (PMC8362188), as already cited in haplotypes.yaml. A "letters = one
-  molecule" rule would call it one allele, a silent wrong answer.
-- [x] Check whether alias data can tell old names apart. Not safely: the HLA
-  table has `MICA*008 -> MICA*008:01:01` (IMGT history), but `MICA*008` is also
-  the current group. So the property does not consult aliases; old names are
-  recognized by resolving them (`use_allele_aliases=True`, fixed in #216).
+- [x] Source every annotation from the authority, verbatim, not from the old
+  comment (which guessed "P = same as G?"):
+  - N, L, S, C, A, Q: hla.alleles.org naming and suffix pages.
+  - G, P: the IMGT/HLA G- and P-group pages. P is coarser than G: same
+    protein, not same nucleotides.
+  - Ps, Sp: IPD-MHC's NHP nomenclature page.
+- [x] Check W. The parser called it a "workshop" prefix. In the names it
+  meets, it is IPD-MHC's "allele cannot be defined to a locus/gene yet"
+  (Mamu-DRB*W003:07). HLA's workshop "w" was serological (Cw, Bw4), never on
+  an allele field.
+- [x] Find every `annotation_cystosolic`: `Result`, `Allele`, `Pair` and
+  `ResultWithMultipleAlleles`. No sibling repo under ~/code uses it.
 
 ## Implementation
 
-- [x] `scripts/generate_single_field_alleles.py` writes
-  `mhcgnomes/data/single_field_alleles.yaml`: complete names with one numeric
-  field (185 across 19 prefixes), from the pinned allele-aliases inputs. The
-  External data CI job regenerates it and fails on drift. The script is in
-  `scripts/`, not the package, so the wheel does not ship it (#221).
-- [x] `Allele.is_allele_group`: True for an `NNXX` field, or for a single
-  numeric field (optionally `W`-prefixed) that is not a registry name.
-  Otherwise False. Errors only toward "group".
-- [x] Docs: "One allele or an allele group?" in docs/parsing.md, doctested.
-- [x] Tests: the issue's examples; IPD lineages; XX; provisional names;
-  registry names and their siblings; G/P; NetMHC short names with and without
-  aliases; every registry entry parses to a non-group and resolves to a
-  species and gene; the generator's filter and YAML round-trip.
-- [x] Bump to 3.65.0 (new public API); run `./format.sh`, `./lint.sh`,
+- [x] `allele_annotations.annotation_descriptions`: public mapping, each entry
+  cited beside it; `valid_functional_annotations` is now derived from it.
+- [x] `Allele.annotation_descriptions` (this allele's annotations, in order).
+- [x] `Allele.cell_surface_expression`: "absent" (N, S, C, pseudogene by Ps or
+  gene curation), "uncertain" (A, Q), "low" (L), or None. This is graded rather
+  than the issue's single "in doubt" flag, because L is still on the surface
+  (IMGT: low "when compared to normal levels"). A caller wanting the issue's
+  set uses `is not None`.
+- [x] `annotation_cytosolic` on all four classes. `annotation_cystosolic` is
+  defined once, on `Result`, as a deprecated alias.
+- [x] Correct the W comments and the copy-pasted `annotation_splice_variant`
+  comment.
+- [x] Docs: docs/nomenclature.md, doctested.
+- [x] File #235: BoLA's splice-variant suffix is `SV`, which is not
+  recognized.
+- [x] Bump to 3.66.0 (new public API); run `./format.sh`, `./lint.sh`,
   `./test.sh`.
-
-## Review
-
-- I had suggested a True/False/None result. With the registry list, the
-  remaining unknowns are old names the alias table does not cover (e.g.
-  chicken `Gaga-BF2*21`, #199). Every such case comes out as True, which is
-  the safe direction for a caller that needs one molecule, so a plain bool
-  suffices and a None would only push a policy choice back onto every caller.
