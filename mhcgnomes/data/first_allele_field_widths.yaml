@@ -1,6 +1,18 @@
-# Curated minimum width of the first allele field for genes whose official
-# nomenclature differs from the two-digit default. IPD-MHC is the authoritative
-# source for non-human MHC names:
-# https://www.ebi.ac.uk/ipd/mhc/group/DLA/
+# Compatibility minimum widths, made explicit from the 3.66.1 normalizer.
+# Previously inferred from alias-target frequencies; refreshing historical aliases
+# must not change default parsing (#244). The default for every other gene is 2.
+# These preserve existing behavior; changes require nomenclature evidence.
+# DLA-88 authority: https://www.ebi.ac.uk/ipd/mhc/group/DLA/
+BoLA:
+  "1": 3
+  "2": 3
+  "3": 3
+  "6": 3
 DLA:
   "88": 3
+HLA:
+  "MICA": 3
+  "MICB": 3
+Mamu:
+  "A1": 3
+  "B": 3

@@ -242,3 +242,15 @@ pipe a write command through a filter that can drop its error. While `gh pr
 edit` is broken by the Projects (classic) deprecation, edit PRs through REST:
 `gh api -X PATCH repos/pirl-unc/mhcgnomes/pulls/<n> -f base=main` or
 `-F body=@file`.
+
+## Give directly tested helpers a public, documented contract
+
+**Correction.** The user explicitly wants helpers that tests call directly to
+be public, with clear scope and API. I previously rejected blanket promotion
+on the grounds that tests alone did not establish a public contract.
+
+**Rule.** Follow the project's requested API policy: when a helper is tested
+directly, give it a public name and document its purpose, input/output types,
+error behavior, and intended callers. Update tests and internal callers to use
+that API. Keep implementation details private when they are tested only through
+a public operation. Do not re-litigate this preference in later cleanup work.

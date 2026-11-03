@@ -78,14 +78,14 @@ Run:
 The script fetches missing inputs through the cache and combines:
 
 - IPD-MHC 3.8.0.0 nomenclature history from `MHC.xml`;
-- IPD-IMGT/HLA 3.42.0 allele history;
-- IPD-IMGT/HLA 3.42.0 deleted-allele and suffix-change records; and
+- IPD-IMGT/HLA 3.66.0 allele history;
+- IPD-IMGT/HLA 3.66.0 deleted-allele and suffix-change records; and
 - `curated_allele_aliases.yaml`.
 
-The official 3.42.0 `Deleted_alleles.txt` contains the suffix-change section, so no locally split
+The official 3.66.0 `Deleted_alleles.txt` contains the suffix-change section, so no locally split
 copy is needed. The historical IPD-MHC 3.5.0.1 XML remains registered for reproducibility, but it is
 not an alias input: the old shell command repeated an argparse option, causing 3.8.0.0 to replace
-3.5.0.1. Preserving only 3.8.0.0 keeps the generated runtime index byte-for-byte stable.
+3.5.0.1. The maintained non-human source is 3.8.0.0.
 
 Exhaustive compatibility validation and the evaluation notebook use the optional protein inputs.
 Fetch them first with `mhcgnomes data download --group validation`; they are read from
@@ -102,3 +102,54 @@ arguments: optional FASTA paths (default `.external-data/hla_prot.fasta` and
 
 The normal test suite stays fully offline and contains a small explicit, accession-backed inventory
 covering all 69 species prefixes in IPD-MHC 3.8.0.0. The cached CI job runs the exhaustive check.
+
+## Source precedence and audit API
+
+The generator reads IPD-MHC history from
+`additional_fields/field[@name="nomenclature"]`, including comma-separated names.
+Missing history fields fail regeneration instead of silently dropping a source.
+HLA history and deletions are pinned to release 3.66.0 at immutable commit
+`b2055ea33ef464781b9e8ecab20b275b6704f878` (see the manifest for URLs/checksums).
+The deletion reader uses accession identity for suffix reversals and explicit
+rename/equality clauses for deleted accessions; it does not infer sequence identity
+from a later resubmission mentioned in prose.
+
+Exact current names win over all redirects. Curated evidence wins over automatic
+history. Conflicting automatic targets are excluded; targets differing only by
+additional colon-separated fields select the longest supported target for a
+renamed legacy key. A spelling that is only a shorter colon-delimited prefix of
+its target is not redirected: history must not silently choose a more specific
+member of a partial name. Cycles fail
+regeneration. Historical bare names are excluded unless curated: they can name
+loci or haplotypes, so `Mamu-B17` remains a locus. Aliases remain opt-in.
+
+`data-sources/allele-alias-audit.json` records source coverage, decision counts,
+excluded/conflicting mappings and unresolved deletion descriptions. Each emitted
+alias cites its source filename and accession beside the data. The generated
+`current_allele_names.yaml` is a sparse precedence guard: it includes current names
+sharing an allele-field string with any alias key, because lookup also tries
+inherited species tables and alternate gene names. It is not a membership catalog.
+CI regenerates all three artifacts and audits every current name and emitted alias
+with `python scripts/validate_alias_sources.py`. The one existing unparseable source
+accession NHP10764 is reported and tracked in issue #243; new failures fail CI.
+
+The public maintainer API lives in `mhcgnomes/data/combine_allele_aliases.py`:
+`RegistryRecord` and `AliasCandidate` hold source identities/provenance;
+`read_ipd_xml`, `read_hla_history`, `read_hla_deletions`, and `read_curated_aliases`
+read the documented source formats; `resolve_aliases` returns aliases, provenance,
+and audit decisions. `protected_current_names` builds the sparse guards.
+`write_aliases` and `write_current_name_guards` write deterministic YAML.
+`alias_key`, `strip_species`, and `meaningful_alias` implement the documented
+name-key and candidate policies. These helpers operate on paths, records and plain
+mappings, independently of runtime parsing. Malformed required source structure
+and cycles raise `ValueError`; file and decoding errors propagate. See docstrings
+and `tests/test_alias_generation.py` for input/output contracts and source fixtures.
+
+The separate `allele-classification` download group pins HLA 3.42.0 for the
+single-field naming classifier. Its historical complete names remain recognized
+when later releases add fields; this does not claim they are current registry
+entries. Alias generation uses the current HLA 3.66.0 source exclusively.
+
+Default padding widths are explicit compatibility settings in
+`first_allele_field_widths.yaml`. They no longer depend on historical alias
+frequencies, so refreshing this opt-in data cannot change default parsing.

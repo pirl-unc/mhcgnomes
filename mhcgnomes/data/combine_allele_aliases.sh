@@ -17,6 +17,8 @@ python3 "$data_dir/combine_allele_aliases.py" \
     --xml-input-file "$external_data_dir/IPD-MHC-3.8.0.0.xml" \
     --yaml-input-file "$data_dir/curated_allele_aliases.yaml" \
     --allele-history-input-file \
-        "$external_data_dir/IMGT-HLA-Allelelist-history-3.42.0.txt" \
-    --csv-input-file "$external_data_dir/IMGT-HLA-Deleted-alleles-3.42.0.txt" \
-    --output "$data_dir/allele_aliases.yaml"
+        "$external_data_dir/IMGT-HLA-Allelelist-history-3.66.0.txt" \
+    --csv-input-file "$external_data_dir/IMGT-HLA-Deleted-alleles-3.66.0.txt" \
+    --output "$data_dir/allele_aliases.yaml" \
+    --current-names-output "$data_dir/current_allele_names.yaml" \
+    --audit-output "$repo_root/data-sources/allele-alias-audit.json"

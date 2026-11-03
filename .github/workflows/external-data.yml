@@ -8,11 +8,15 @@ on:
       - ".github/workflows/external-data.yml"
       - "mhcgnomes/**"
       - "pyproject.toml"
+      - "scripts/**"
+      - "data-sources/**"
   pull_request:
     paths:
       - ".github/workflows/external-data.yml"
       - "mhcgnomes/**"
       - "pyproject.toml"
+      - "scripts/**"
+      - "data-sources/**"
 
 permissions:
   contents: read
@@ -51,10 +55,15 @@ jobs:
         run: ./mhcgnomes/data/combine_allele_aliases.sh
 
       - name: Verify generated aliases are current
-        run: git diff --exit-code -- mhcgnomes/data/allele_aliases.yaml
+        run: git diff --exit-code -- mhcgnomes/data/allele_aliases.yaml mhcgnomes/data/current_allele_names.yaml data-sources/allele-alias-audit.json
 
-      - name: Regenerate single-field allele names from the same sources
-        run: python scripts/generate_single_field_alleles.py
+      - name: Audit current identities and every historical alias
+        run: python scripts/validate_alias_sources.py
+
+      - name: Regenerate the historical single-field naming classifier
+        run: |
+          mhcgnomes data download --group allele-classification
+          python scripts/generate_single_field_alleles.py
 
       - name: Verify generated single-field allele names are current
         run: git diff --exit-code -- mhcgnomes/data/single_field_alleles.yaml

@@ -45,7 +45,7 @@ def test_data_command_lists_sources_by_default():
     result = run_cli("data")
 
     assert result.returncode == 0
-    assert "imgt-hla-allele-history-3.42.0" in result.stdout
+    assert "imgt-hla-allele-history-3.66.0" in result.stdout
     assert "ipd-mhc-3.8.0.0-protein" in result.stdout
 
 

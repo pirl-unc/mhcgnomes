@@ -49,8 +49,9 @@ which is why `HLA-DR15` and `BoLA-DR` parse cleanly but yield no allele:
 
 An `Allele` can also be an allele group. In IMGT/HLA and IPD-MHC names the
 first field is the group and the second names a protein, so `HLA-A*02` is a
-group and `HLA-A*02:01` is one allele. A tool that needs one molecule, such as
-a binding predictor, should ask `is_allele_group` rather than count fields.
+group and `HLA-A*02:01` is one allele. `is_allele_group` classifies the written name; it does not validate a molecule.
+False does not establish registry membership, a complete sequence, normal
+expression, or suitability for a binding predictor.
 Field counts alone go wrong both ways: `HLA-MICA*001` is one complete allele,
 and `SLA-1*15XX` is a group.
 
@@ -63,10 +64,10 @@ and `SLA-1*15XX` is a group.
 ```
 
 Old names are recognized only after alias resolution. NetMHC's `Mamu-A01` is
-one allele, `Mamu-A1*001:01`, once `use_allele_aliases=True` resolves it.
+an allele in the `Mamu-A1*001:01` lineage once `use_allele_aliases=True` resolves it.
 Without alias resolution it stays the one-field `Mamu-A*01` and reads as a
-group. An unrecognized old name therefore errs toward "group", so a caller that
-needs one molecule refuses it instead of accepting a group.
+group. Unknown names can still parse: validate the sequence and any downstream
+requirements separately. G/P groups also require separate handling.
 
 ```python
 >>> parse("Mamu-A01", use_allele_aliases=True).is_allele_group
