@@ -1077,9 +1077,9 @@ class Parser:
         )
 
         if allele_fields:
-            # for now we only expect a "W" prefix annotation, indicating
-            # that it's a workshop allele, so we just put that back in the
-            # sequence.
+            # for now we only expect a "W" prefix annotation, IPD-MHC's mark
+            # for an allele not yet assigned to a locus (Mamu-DRB*W003:07),
+            # so we just put that back in the sequence.
             first_field = "".join(prefix_annotations) + allele_fields[0]
             allele_fields = (first_field, *tuple(allele_fields[1:]))
             return self.parse_allele_from_allele_fields(

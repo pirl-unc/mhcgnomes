@@ -11,6 +11,7 @@
 # limitations under the License.
 
 import inspect
+import warnings
 from dataclasses import dataclass
 from typing import Union
 
@@ -252,8 +253,18 @@ class Result:
         return False
 
     @property
-    def annotation_cystosolic(self):
+    def annotation_cytosolic(self):
         return False
+
+    @property
+    def annotation_cystosolic(self):
+        """Deprecated misspelling of ``annotation_cytosolic`` (#217)."""
+        warnings.warn(
+            f"{type(self).__name__}.annotation_cystosolic is deprecated; use annotation_cytosolic",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+        return self.annotation_cytosolic
 
     @property
     def annotation_secreted(self):

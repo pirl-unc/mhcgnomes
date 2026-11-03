@@ -42,7 +42,7 @@ def test_annotation_null_HLA_DRA_01_01_01_01_DRB1_01_01_01_01N():
 @pytest.mark.parametrize(
     "annotation, property_name",
     [
-        ("C", "annotation_cystosolic"),
+        ("C", "annotation_cytosolic"),
         ("S", "annotation_secreted"),
         ("Q", "annotation_questionable"),
         ("L", "annotation_low_expression"),

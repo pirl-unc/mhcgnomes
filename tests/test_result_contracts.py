@@ -6,7 +6,7 @@ from mhcgnomes import Allele, Gene, Haplotype, MhcClass, Pair, Serotype, Superty
 
 ANNOTATION_FLAGS = (
     "annotation_null",
-    "annotation_cystosolic",
+    "annotation_cytosolic",
     "annotation_secreted",
     "annotation_questionable",
     "annotation_low_expression",

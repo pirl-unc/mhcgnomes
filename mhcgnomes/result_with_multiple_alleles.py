@@ -123,8 +123,8 @@ class ResultWithMultipleAlleles(ResultWithSpecies):
         return any(allele.annotation_null for allele in self.alleles)
 
     @property
-    def annotation_cystosolic(self):
-        return any(allele.annotation_cystosolic for allele in self.alleles)
+    def annotation_cytosolic(self):
+        return any(allele.annotation_cytosolic for allele in self.alleles)
 
     @property
     def annotation_secreted(self):

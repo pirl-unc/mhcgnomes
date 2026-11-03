@@ -161,7 +161,7 @@ class TestAnnotatedAlleles:
         # Secreted (soluble)
         ("HLA-A*24:02S", "A", ("24", "02"), ("S",), "annotation_secreted"),
         # Cytoplasmic (not on cell surface)
-        ("HLA-B*44:02C", "B", ("44", "02"), ("C",), "annotation_cystosolic"),
+        ("HLA-B*44:02C", "B", ("44", "02"), ("C",), "annotation_cytosolic"),
         # Questionable
         ("HLA-A*02:01Q", "A", ("02", "01"), ("Q",), "annotation_questionable"),
         # Aberrant expression

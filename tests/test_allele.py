@@ -25,7 +25,7 @@ def test_restrict_num_allele_fields_A02010101():
 def test_no_annotations():
     allele = Allele.get("HLA", "A", "02", "01", "01", "01")
     assert not allele.annotation_null
-    assert not allele.annotation_cystosolic
+    assert not allele.annotation_cytosolic
     assert not allele.annotation_aberrant_expression
     assert not allele.annotation_secreted
     assert not allele.annotation_pseudogene
@@ -38,7 +38,7 @@ def test_no_annotations():
 def test_annotation_null():
     allele = Allele.get("HLA", "A", "02", "01", "01", "01", annotation="N")
     assert allele.annotation_null
-    assert not allele.annotation_cystosolic
+    assert not allele.annotation_cytosolic
     assert not allele.annotation_aberrant_expression
     assert not allele.annotation_secreted
     assert not allele.annotation_pseudogene
@@ -51,7 +51,7 @@ def test_annotation_null():
 def test_annotation_cytosolic():
     allele = Allele.get("HLA", "A", "02", "01", "01", "01", annotation="C")
     assert not allele.annotation_null
-    assert allele.annotation_cystosolic
+    assert allele.annotation_cytosolic
     assert not allele.annotation_aberrant_expression
     assert not allele.annotation_secreted
     assert not allele.annotation_pseudogene
@@ -64,7 +64,7 @@ def test_annotation_cytosolic():
 def test_annotation_secreted():
     allele = Allele.get("HLA", "A", "02", "01", "01", "01", annotation="S")
     assert not allele.annotation_null
-    assert not allele.annotation_cystosolic
+    assert not allele.annotation_cytosolic
     assert not allele.annotation_aberrant_expression
     assert allele.annotation_secreted
     assert not allele.annotation_pseudogene
@@ -77,7 +77,7 @@ def test_annotation_secreted():
 def test_annotation_questionable():
     allele = Allele.get("HLA", "A", "02", "01", "01", "01", annotation="Q")
     assert not allele.annotation_null
-    assert not allele.annotation_cystosolic
+    assert not allele.annotation_cytosolic
     assert not allele.annotation_aberrant_expression
     assert not allele.annotation_secreted
     assert not allele.annotation_pseudogene
@@ -90,7 +90,7 @@ def test_annotation_questionable():
 def test_annotation_group():
     allele = Allele.get("HLA", "A", "02", "01", "01", "01", annotation="G")
     assert not allele.annotation_null
-    assert not allele.annotation_cystosolic
+    assert not allele.annotation_cytosolic
     assert not allele.annotation_aberrant_expression
     assert not allele.annotation_secreted
     assert not allele.annotation_pseudogene
@@ -103,7 +103,7 @@ def test_annotation_group():
 def test_annotation_splice_variant():
     allele = Allele.get("HLA", "A", "02", "01", "01", "01", annotation="Sp")
     assert not allele.annotation_null
-    assert not allele.annotation_cystosolic
+    assert not allele.annotation_cytosolic
     assert not allele.annotation_aberrant_expression
     assert not allele.annotation_secreted
     assert not allele.annotation_pseudogene
@@ -116,7 +116,7 @@ def test_annotation_splice_variant():
 def test_annotation_pseudogene():
     allele = Allele.get("HLA", "A", "02", "01", "01", "01", annotation="Ps")
     assert not allele.annotation_null
-    assert not allele.annotation_cystosolic
+    assert not allele.annotation_cytosolic
     assert not allele.annotation_aberrant_expression
     assert not allele.annotation_secreted
     assert allele.annotation_pseudogene
