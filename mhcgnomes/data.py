@@ -14,6 +14,7 @@ from os.path import dirname, join
 
 import yaml
 
+from .common import normalize_allele_alias
 from .normalizing_dictionary import NormalizingDictionary
 
 package_dir = dirname(__file__)
@@ -103,8 +104,11 @@ gene_aliases = load(
 
 # Dictionary mapping each species prefix to a dictionary from
 # old/retired/provisional allele names to standard new names
-allele_aliases = load(
-    "allele_aliases.yaml", normalize_first_level_keys=True, normalize_second_level_keys=True
+allele_aliases = NormalizingDictionary.from_dict(
+    {
+        prefix: NormalizingDictionary.from_dict(aliases, normalize_fn=normalize_allele_alias)
+        for prefix, aliases in load("allele_aliases.yaml").items()
+    }
 )
 
 # Curated minimum width of the first allele field, keyed by species and gene.

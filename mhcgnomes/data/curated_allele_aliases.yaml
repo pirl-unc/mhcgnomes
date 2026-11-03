@@ -389,6 +389,10 @@ HLA:
   C*02:16:03: C*02:16:02
   C*03:01: C*03:04:01:01
   C*04:02: C*04:01:01:01
+  # IMGT/HLA Deleted_alleles.txt (3.66.0): HLA02592 (Cw*0422) was
+  # identical to HLA02578 (Cw*0421), subsequently renamed C*04:15:02.
+  # Runtime alias resolution must follow this chain through the Cw/C synonym.
+  # https://raw.githubusercontent.com/ANHIG/IMGTHLA/3660/Deleted_alleles.txt
   C*04:21: C*04:15:02
   C*04:22: Cw*04:21
   C*05:02: C*05:09

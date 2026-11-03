@@ -17,7 +17,7 @@ from dataclasses import dataclass
 from types import MappingProxyType
 from typing import Any, Union
 
-from .common import cache, normalize_string
+from .common import cache, normalize_allele_alias, normalize_string
 from .data import allele_aliases as raw_allele_aliases_dict
 from .data import evidenced_prefix_aliases as raw_evidenced_alias_dict
 from .data import gene_aliases as raw_gene_aliases_dict
@@ -281,7 +281,9 @@ class Species(Result):
             class2_gene_name_to_chain_type
         )
         gene_aliases = _ensure_normalizing_dictionary(gene_aliases)
-        allele_aliases = _ensure_normalizing_dictionary(allele_aliases)
+        allele_aliases = NormalizingDictionary(
+            *(allele_aliases or {}).items(), normalize_fn=normalize_allele_alias
+        )
         known_alleles = _ensure_normalizing_dictionary(
             known_alleles, default_value_fn=NormalizingSet
         )
@@ -837,12 +839,16 @@ class Species(Result):
             return None
         return properties.get("pseudogene")
 
-    def get_known_allele(self, gene_name, allele_name):
-        gene_name_candidates = {gene_name}
+    def _allele_gene_names(self, gene_name):
+        """Try the supplied gene first, then alternate names in a stable order."""
+        if gene_name is None:
+            return [None]
+        canonical = self.gene_aliases.get(gene_name, gene_name)
+        aliases = self.reverse_gene_aliases.get(canonical, ())
+        return list(dict.fromkeys([gene_name, canonical, *sorted(aliases)]))
 
-        if gene_name is not None:
-            gene_aliases = self.reverse_gene_aliases.get(gene_name, [])
-            gene_name_candidates.update(gene_aliases)
+    def get_known_allele(self, gene_name, allele_name):
+        gene_name_candidates = self._allele_gene_names(gene_name)
 
         for gene_name in gene_name_candidates:
             known_alleles_for_gene_name = self.known_alleles.get(gene_name)
@@ -868,32 +874,32 @@ class Species(Result):
     @cache
     def get_allele_alias(self, gene_name: str, allele_name: str):
         """
-        Returns None if no alias found, otherwise pair of
-        (gene name, allele name)
+        Return the terminal (gene, allele) alias target, or None if absent.
+
+        Field boundaries are significant. The supplied gene takes precedence
+        over alternate gene names, which are tried in sorted order. Cycles
+        raise ValueError, including cycles through alternate gene names.
         """
-        gene_name_candidates = {gene_name}
-
-        if gene_name is not None:
-            gene_aliases = self.reverse_gene_aliases.get(gene_name, [])
-            gene_name_candidates.update(gene_aliases)
-
-        # if allele isn't in known_alleles try looking at the keys of
-        # allele_aliases
-        for gene_name in gene_name_candidates:
-            if gene_name:
-                key = f"{gene_name}*{allele_name}"
+        visited = set()
+        target = None
+        while True:
+            for candidate_gene in self._allele_gene_names(gene_name):
+                key = f"{candidate_gene}*{allele_name}" if candidate_gene else allele_name
+                value = self.allele_aliases.get(key)
+                if value is None:
+                    continue
+                parts = value.split("*")
+                if len(parts) > 2:
+                    continue
+                normalized_key = normalize_allele_alias(key)
+                if normalized_key in visited:
+                    raise ValueError(f"Cyclic allele alias for {self.prefix}: {key}")
+                visited.add(normalized_key)
+                gene_name, allele_name = parts if len(parts) == 2 else (None, value)
+                target = (gene_name, allele_name)
+                break
             else:
-                key = allele_name
-            if key in self.allele_aliases:
-                value = self.allele_aliases[key]
-                if "*" in value:
-                    parts = value.split("*")
-                    if len(parts) != 2:
-                        continue
-                    return tuple(parts)
-                else:
-                    return (None, value)
-        return None
+                return target
 
     @classmethod
     def get_species_with_gene_name(self, gene_name, include_context_only: bool = False):
@@ -1548,7 +1554,9 @@ def create_species_for_latin_name(latin_name):
     # elsewhere. Another reason is that a few species share the same
     # prefix ('Bubu' belongs to both an owl species and water buffalo).
     gene_aliases = combine_species_aliases(raw_gene_aliases_dict, all_identifiers)
-    allele_aliases = combine_species_aliases(raw_allele_aliases_dict, all_identifiers)
+    allele_aliases = combine_species_aliases(
+        raw_allele_aliases_dict, all_identifiers, normalize_fn=normalize_allele_alias
+    )
     haplotypes = combine_species_aliases(raw_haplotypes_dict, all_identifiers)
     serotypes = combine_species_aliases(raw_serotypes_dict, all_identifiers)
     heterodimers = combine_species_aliases(raw_heterodimers_dict, all_identifiers)
@@ -1586,12 +1594,16 @@ def create_species_for_latin_name(latin_name):
 
 
 def combine_species_aliases(
-    species_dict, species_names, dictionary_class=NormalizingDictionary, value_class=None
+    species_dict,
+    species_names,
+    dictionary_class=NormalizingDictionary,
+    value_class=None,
+    normalize_fn=normalize_string,
 ):
     if value_class:
-        result = dictionary_class(default_value_fn=value_class)
+        result = dictionary_class(default_value_fn=value_class, normalize_fn=normalize_fn)
     else:
-        result = dictionary_class()
+        result = dictionary_class(normalize_fn=normalize_fn)
     for species_name in species_names:
         value_for_species = species_dict.get(species_name)
         if value_for_species:

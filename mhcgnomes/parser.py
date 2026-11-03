@@ -26,7 +26,7 @@ from .allele_annotations import (
 from .allele_without_gene import AlleleWithoutGene
 from .ambiguous_alleles import AmbiguousAlleles
 from .class2_locus import Class2Locus
-from .common import cache, normalize_string, unique
+from .common import cache, unique
 from .data import haplotypes as raw_haplotypes_data
 from .errors import ParseError
 from .gene import Gene
@@ -351,7 +351,7 @@ class Parser:
         current_name = name_without_species
         visited = set()
         while current_name in species.allele_aliases:
-            normalized_name = normalize_string(current_name)
+            normalized_name = species.allele_aliases.normalize_fn(current_name)
             if normalized_name in visited:
                 raise ValueError(
                     f"Cyclic allele alias for {species.prefix}: {name_without_species}"
@@ -1026,6 +1026,15 @@ class Parser:
 
         species = gene.species
 
+        # Preserve legacy digit strings before splitting them into modern fields:
+        # A*02172 is an alias, whereas A*02:172 is a different current allele.
+        # Transformation stays in transform_parse_candidate, after composite
+        # interpretation and mutation attachment have retained their context.
+        if self.use_allele_aliases and species.get_allele_alias(gene.name, str_after_gene):
+            return Allele.get_with_gene(
+                gene, str_after_gene, raw_string=raw_string, normalize_fields=False
+            )
+
         if species.is_mouse:
             if str_after_gene.isalnum() and not str_after_gene.isnumeric():
                 # mouse alleles can be a mixture of numbers and letters
@@ -1051,7 +1060,10 @@ class Parser:
                     str_after_gene if preserve_caps else str_after_gene.upper(),
                     raw_string=raw_string,
                 )
-            elif contains_any_letters(str_after_gene):
+            elif contains_any_letters(parse_annotations_from_seq(str_after_gene)[0]):
+                # A numeric name ending in N (or another functional suffix)
+                # is not provisional. Let the annotation parser below handle
+                # it, including when it is the target of an allele alias.
                 return Allele.get_with_gene(
                     gene,
                     str_after_gene if preserve_caps else str_after_gene.lower(),
