@@ -286,11 +286,6 @@ class Parser:
         self.gene_seps = gene_seps
         self.verbose = verbose
 
-        # technically we could just wrap the transform method with @cache
-        # but since it's called a lot it's faster to make a dedicated cache
-        # for a single input argument
-        self._transform_cache = {}
-
     def parse_species_from_prefix(self, name: str):
         """
         Returns tuple with two elements:
@@ -1287,8 +1282,6 @@ class Parser:
         """
         if parse_candidate is None:
             return None
-        # if parse_candidate in self._transform_cache: ##FG removed. causing caching issues
-        #     return self._transform_cache[parse_candidate]
         t = type(parse_candidate)
         transformed = None
         if t in (Serotype, Haplotype):
@@ -1329,45 +1322,27 @@ class Parser:
 
                 if allele_alias is not None:
                     new_gene_name, new_allele_name = allele_alias
-                    if new_gene_name is None:
-                        if "*" not in new_allele_name:
-                            transformed = AlleleWithoutGene.get(
-                                species,
-                                new_allele_name,
-                                mhc_class=source_mhc_class,
-                                raw_string=raw_string,
-                            )
-                    else:
-                        if new_gene_name == gene_name:
-                            new_gene = gene
-                        else:
-                            new_gene = Gene.get(species, new_gene_name)
-                        if new_gene is not None:
-                            transformed = self.parse_allele_with_gene(
-                                new_gene, new_allele_name, preserve_caps=True, raw_string=raw_string
-                            )
+                    transformed = self._parse_renamed_allele(
+                        species=species,
+                        source_gene=gene,
+                        source_mhc_class=source_mhc_class,
+                        target_gene_name=new_gene_name,
+                        target_allele_name=new_allele_name,
+                        raw_string=raw_string,
+                    )
 
             if transformed is None:
                 known_allele = species.get_known_allele(gene_name=gene_name, allele_name=old_name)
                 if known_allele is not None:
                     new_gene_name, new_allele_name = known_allele
-                    if new_gene_name is None:
-                        if "*" not in new_allele_name:
-                            transformed = AlleleWithoutGene.get(
-                                species,
-                                new_allele_name,
-                                mhc_class=source_mhc_class,
-                                raw_string=raw_string,
-                            )
-                    else:
-                        if new_gene_name == gene_name:
-                            new_gene = gene
-                        else:
-                            new_gene = Gene.get(species, new_gene_name)
-                        if new_gene is not None:
-                            transformed = self.parse_allele_with_gene(
-                                new_gene, new_allele_name, preserve_caps=True, raw_string=raw_string
-                            )
+                    transformed = self._parse_renamed_allele(
+                        species=species,
+                        source_gene=gene,
+                        source_mhc_class=source_mhc_class,
+                        target_gene_name=new_gene_name,
+                        target_allele_name=new_allele_name,
+                        raw_string=raw_string,
+                    )
             if transformed is not None and t is Allele and parse_candidate.is_mutant:
                 if type(transformed) is Allele:
                     transformed = transformed.copy(mutations=parse_candidate.mutations)
@@ -1380,11 +1355,73 @@ class Parser:
             print(f"In:  {parse_candidate}")
             print(f"Out: {transformed}")
         if transformed is not None:
-            result = transformed
+            return transformed
+        return parse_candidate
+
+    def _parse_renamed_allele(
+        self,
+        species: Species,
+        source_gene: Optional[Gene],
+        source_mhc_class: Optional[str],
+        target_gene_name: Optional[str],
+        target_allele_name: str,
+        raw_string: Optional[str],
+    ) -> Union[Allele, AlleleWithoutGene, None]:
+        """
+        Build the allele that an alias or known-allele entry renames to.
+
+        Species.get_allele_alias and Species.get_known_allele both answer with
+        a (gene name, allele name) target. This turns that target into a
+        result object for transform_parse_candidate, which applies it the same
+        way whichever table it came from.
+
+        Parameters
+        ----------
+        species : Species
+            Species of the allele being renamed.
+        source_gene : Gene or None
+            Gene of the allele being renamed, or None when it is an
+            AlleleWithoutGene. Reused as-is when the target names the same
+            gene instead of being looked up again.
+        source_mhc_class : str or None
+            MHC class of the allele being renamed. Given to a gene-less target
+            so that it stays discoverable through is_class1 / mhc_class
+            filters (for example Saha's "I" placeholder gene).
+        target_gene_name : str or None
+            Gene named by the target, or None when the target has no gene.
+        target_allele_name : str
+            Allele name of the target, without the gene.
+        raw_string : str or None
+            Raw input string to record on the returned result.
+
+        Returns
+        -------
+        Allele, AlleleWithoutGene, or None
+            An AlleleWithoutGene when the target has no gene and its allele
+            name is non-empty and has no "*"; otherwise the result of
+            parse_allele_with_gene for the target gene. None when a gene-less
+            target's allele name is empty or contains "*", when the species
+            has no gene called target_gene_name, or when the allele name does
+            not parse under that gene.
+        """
+        if target_gene_name is None:
+            if "*" in target_allele_name:
+                return None
+            return AlleleWithoutGene.get(
+                species,
+                target_allele_name,
+                mhc_class=source_mhc_class,
+                raw_string=raw_string,
+            )
+        if source_gene is not None and target_gene_name == source_gene.name:
+            target_gene = source_gene
         else:
-            result = parse_candidate
-        self._transform_cache[parse_candidate] = result
-        return result
+            target_gene = Gene.get(species, target_gene_name)
+        if target_gene is None:
+            return None
+        return self.parse_allele_with_gene(
+            target_gene, target_allele_name, preserve_caps=True, raw_string=raw_string
+        )
 
     def transform_parse_candidates(self, parse_candidates: Sequence[Result]):
         """
