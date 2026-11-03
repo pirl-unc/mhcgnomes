@@ -245,3 +245,42 @@ is a legacy key. For example, `HLA-B*08:01` retains two fields, while the old
 apply. Alias tables are curated historical data, not a live registry validator;
 see [#238](https://github.com/pirl-unc/mhcgnomes/issues/238) for the remaining
 current-name conflicts found in the registry audit.
+
+## Missing inputs and DataFrames
+
+`parse`, `Parser.parse`, and `parse_gene_class` treat `None` and scalar missing
+values such as float NaN, `pandas.NA`, and NaT consistently: they raise `ParseError`
+by default or return `None` with `raise_on_error=False`. `infer_mhc_class` returns
+`None` for these values. Other non-string inputs, including numbers, bytes,
+booleans, lists and arrays, always raise `TypeError`. Strings are not coerced;
+a literal `"nan"` remains text for the parser.
+
+`dataframe_from_string_list` forwards parser options and preserves one row per
+input in tolerant mode:
+
+```python
+>>> from mhcgnomes import dataframe_from_string_list
+>>> frame = dataframe_from_string_list(
+...     ["HLA-A*02:01", None, "zzz-not-mhc", "H2-b"], raise_on_error=False)
+>>> frame["type"].tolist()
+['Allele', 'ParseError', 'ParseError', 'Haplotype']
+>>> frame["error"].iloc[1]
+'Missing MHC name'
+```
+
+Pass `species`, `use_allele_aliases`, `require_explicit_species`,
+`required_result_types`, or other `parse` options as keywords. The default
+`raise_on_error=True` stops at the first parse failure. Tolerant mode catches
+only `ParseError`; invalid types and invalid options still raise.
+
+Common columns describe the input, result type, normalized/compact names,
+species, short `gene_name`, MHC class, properties and error. Available legacy
+`to_record()` fields follow, including full `gene` and `allele` identifiers.
+Input values and order are preserved; a pandas Series' index is not reused.
+Empty input produces zero rows with the common outcome columns. Haplotype
+results have those common columns even without a record schema.
+
+`dataframe_from_parsed_objects` accepts result objects and, with
+`raise_on_error=False`, `None`/`ParseError` outcomes. Its input column uses
+`raw_string`, or `None` when the original text is unavailable. Both DataFrames
+and CLI rendering share the public [outcome-row API](helper-api.md).

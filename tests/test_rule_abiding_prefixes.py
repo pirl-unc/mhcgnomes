@@ -35,16 +35,16 @@ RESPELLED = [
 def test_the_new_prefix_is_the_one_the_emitter_would_make(
     latin_name, new_prefix, old_prefix, gene_name
 ):
-    from mhcgnomes.species import _auto_generated_prefixes_for_latin_name
+    from mhcgnomes.species import auto_generated_prefixes_for_latin_name
 
     species = Species.get_by_latin_name(latin_name)
     eq_(species.prefix, new_prefix)
     ok_(
-        new_prefix in _auto_generated_prefixes_for_latin_name(latin_name),
+        new_prefix in auto_generated_prefixes_for_latin_name(latin_name),
         f"{new_prefix} is not a form the generator produces for {latin_name}",
     )
     ok_(
-        old_prefix not in _auto_generated_prefixes_for_latin_name(latin_name),
+        old_prefix not in auto_generated_prefixes_for_latin_name(latin_name),
         f"{old_prefix} turns out to be generatable after all; revisit the rename",
     )
 

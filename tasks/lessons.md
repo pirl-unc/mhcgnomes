@@ -254,3 +254,12 @@ directly, give it a public name and document its purpose, input/output types,
 error behavior, and intended callers. Update tests and internal callers to use
 that API. Keep implementation details private when they are tested only through
 a public operation. Do not re-litigate this preference in later cleanup work.
+
+
+## Preserve test discovery when promoting helper names
+
+Use identifier boundaries when renaming a private helper. A substring rewrite of
+`_parse_renamed_allele` also changed `test_parse_renamed_allele...` into
+`testparse_renamed_allele...`, removing five tests from collection. The final diff
+and collection review caught it before the PR. Compare collected test counts and
+inspect renamed definitions, not just whether the remaining tests pass.

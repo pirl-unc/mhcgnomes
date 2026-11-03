@@ -19,6 +19,7 @@ from .common import cache
 from .errors import ParseError
 from .gene import Gene
 from .gene_class_info import GeneClassInfo
+from .input_validation import validate_mhc_input
 from .mhc_class import MhcClass
 from .non_mhc_genes import NON_MHC_REGION_GENE_NAMES, normalize_non_mhc_gene_name
 from .pair import Pair
@@ -536,7 +537,8 @@ def parse_gene_class(
     Parameters
     ----------
     raw_string : str
-        Allele, gene, locus, pair or class name to classify.
+        Allele, gene, locus, pair or class name to classify. Scalar missing
+        values follow raise_on_error; other non-strings raise TypeError.
     default_species : str
         Species assumed by the strict parse when the string names none, as in
         :func:`parse`.
@@ -571,6 +573,9 @@ def parse_gene_class(
     >>> (info.gene_name, info.mhc_class, info.chain, info.source)
     ('A', 'Ia', 'alpha', 'parsed_allele')
     """
+    if not validate_mhc_input(raw_string, raise_on_error=raise_on_error):
+        return None
+
     expected_species = Species.get(species) if species is not None else None
     if species is not None and expected_species is None:
         if raise_on_error:
@@ -633,7 +638,8 @@ def infer_mhc_class(
     Parameters
     ----------
     raw_string : str
-        Allele, gene, locus, pair or class name to classify.
+        Allele, gene, locus, pair or class name to classify. Scalar missing
+        inputs return None; other non-strings raise TypeError.
     default_species : str
         Species assumed when the string names none, as in :func:`parse`.
     species : str or None
@@ -647,6 +653,8 @@ def infer_mhc_class(
 
     Raises
     ------
+    TypeError
+        If raw_string is neither a string nor a scalar missing value.
     ValueError
         If both ``species`` and a non-default ``default_species`` are given.
 
@@ -689,7 +697,9 @@ def parse(
     Parameters
     ----------
     raw_string : str
-       String corresponding to allele, locus, or other MHC-related name
+       String corresponding to allele, locus, or other MHC-related name.
+       None and scalar missing values (NaN, pandas.NA, NaT) follow
+       raise_on_error. Other non-strings always raise TypeError.
 
     default_species : str
        By default, parse alleles like "A*02:01" as human but it's possible
@@ -771,6 +781,9 @@ def parse(
     >>> allele.to_string()
     'HLA-A*02:01'
     """
+    if not validate_mhc_input(raw_string, raise_on_error=raise_on_error):
+        return None
+
     if preferred_result_types is None:
         preferred_result_types = []
     if required_result_types is None:

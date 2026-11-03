@@ -105,16 +105,16 @@ def normalize_string(name):
 
     Parameters
     ----------
-    name : str, int, float, None, or other
+    name : str, int, float, or None
         Name to normalize.
 
     Returns
     -------
-    str, None, or other
+    str or None
         For a str: the name with every '-', '_', "'" and ':' removed,
         surrounding whitespace stripped, and upper-cased. For an int or
-        float: str(name). For None: None. Any other value is returned
-        unchanged.
+        float: str(name). For None: None. Other types raise TypeError;
+        this helper accepts numeric YAML keys, not arbitrary parse inputs.
     """
     if name is None:
         return None
@@ -122,6 +122,6 @@ def normalize_string(name):
     t = type(name)
     if t is float or t is int:
         return str(name)
-    if t is not str:
-        return name
+    if not isinstance(name, str):
+        raise TypeError(f"expected str, int, float or None, got {t.__name__}")
     return name.replace("-", "").replace("_", "").replace("'", "").replace(":", "").strip().upper()

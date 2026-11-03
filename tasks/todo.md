@@ -47,11 +47,11 @@ from PyPI outside the checkout. Keep the shared virtualenv outside this work.
 - [x] Source spec and authoritative evidence; regression fixtures.
 - [x] Source readers, conflict policy, audit output and regenerated data.
 - [x] Audit current names, aliases, default-parser differences and source coverage.
-- [ ] Ship registry-source PR and verify PyPI.
-- [ ] Implement and verify missing-input policy.
-- [ ] Implement and verify DataFrame outcome API.
-- [ ] Implement and verify CLI option parity.
-- [ ] Promote directly tested helpers and document their contracts.
+- [x] Ship registry-source PR and verify PyPI.
+- [x] Implement and verify missing-input policy.
+- [x] Implement and verify DataFrame outcome API.
+- [x] Implement and verify CLI option parity.
+- [x] Promote directly tested helpers and document their contracts.
 - [ ] Ship interface/helper changes with fresh-PyPI verification.
 - [ ] Recheck relevant downstream issues and record remaining work.
 
@@ -69,3 +69,33 @@ recognized the source-defined BoLA SV suffix (#235). Documentation builds strict
 Format/lint/full suite passed (17,309 tests; 2 skipped). CI and PyPI verification
 will be recorded after shipping. Guard lookup uses canonical species identity,
 independent of the configurable display prefix.
+
+
+## Interface implementation contract
+
+Validate scalar input before caches; strings pass unchanged, pandas scalar missing
+values join None/NaN, and other types raise TypeError even in tolerant mode.
+DataFrame tolerance catches ParseError only, retaining input order and one row per
+input. A public outcome-row function supplies normalized text, status and error;
+legacy to_record columns (especially full gene names) remain available. The CLI
+projects that shared row into its existing display columns, with a short gene
+name. Empty frames have fixed outcome columns. Haplotype records may be absent,
+but normalized results still have rows. Unknown parse options propagate normally.
+CLI options forward the public parser constraints; invalid result types and
+mutually exclusive species options fail before parsing. The public-helper audit
+includes direct calls, imports and monkeypatch references; promote those helpers
+and document their module/class scope without broadening their algorithms.
+
+
+Source PR #245 merged as e4c041c and deployed as 3.66.2. All CI checks passed
+(Python 3.9–3.12 and exhaustive regeneration/audit). ./deploy.sh confirmed PyPI;
+#83 required upload of the existing artifacts. A clean PyPI environment verified
+source regressions, 5,796 named-gene alias reparses, retained classifier behavior,
+and pip check. The release checkout is clean.
+
+Interface review: direct-helper AST audit finds no private function references
+from tests (including imports and monkeypatch strings), and all existing test
+function names are preserved. New APIs are documented in docs/helper-api.md;
+strict docs build and all 71 interactive documentation examples pass. All 17,750
+baseline default result types/texts remain unchanged. Format/lint/full suite
+passed (17,364 passed, 2 skipped). CI and PyPI verification remain.

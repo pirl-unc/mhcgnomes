@@ -25,7 +25,7 @@ import pytest
 
 from mhcgnomes import Haplotype, parse
 from mhcgnomes.data import haplotypes as raw_haplotypes
-from mhcgnomes.parser import _blank_locus_gene_name
+from mhcgnomes.parser import blank_locus_gene_name
 
 from .common import eq_, ok_
 
@@ -117,7 +117,7 @@ def test_every_curated_haplotype_keeps_every_allele(prefix, name, allele_names):
     # A "<gene>*Blank" member is a locus the haplotype positively lacks, so it
     # lands in absent_genes rather than alleles (#162). It is still a member,
     # and still must not be dropped.
-    blank_members = [m for m in allele_names if _blank_locus_gene_name(m) is not None]
+    blank_members = [m for m in allele_names if blank_locus_gene_name(m) is not None]
     expected_alleles = len(allele_names) - len(blank_members)
     eq_(
         len(result.alleles),

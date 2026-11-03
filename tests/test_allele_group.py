@@ -9,7 +9,7 @@ import pytest
 import yaml
 
 from mhcgnomes import Allele, parse
-from mhcgnomes.allele import _single_field_allele_names
+from mhcgnomes.allele import single_field_allele_names
 from mhcgnomes.data import single_field_alleles
 
 
@@ -90,7 +90,7 @@ def test_every_registry_single_field_name_is_one_allele():
 
 def test_every_registry_entry_resolves_to_a_species_and_gene():
     entries = sum(len(genes) for genes in single_field_alleles.values())
-    assert len(_single_field_allele_names()) == entries
+    assert len(single_field_allele_names()) == entries
 
 
 def _load_generator():

@@ -31,6 +31,7 @@ from .data import haplotypes as raw_haplotypes_data
 from .errors import ParseError
 from .gene import Gene
 from .haplotype import Haplotype
+from .input_validation import validate_mhc_input
 from .mhc_class import MhcClass
 from .mutation import Mutation
 from .non_mhc_genes import is_non_mhc_gene_name
@@ -120,7 +121,7 @@ def _spelling_as_written(normalized_name, raw_name):
     return normalized_name
 
 
-def _blank_locus_gene_name(member: str):
+def blank_locus_gene_name(member: str):
     """
     The gene name in a "<gene>*Blank" haplotype member, or None.
 
@@ -363,14 +364,19 @@ class Parser:
             return None
         return species, current_name
 
-    def _find_matching_name_and_parse_alleles(
+    def find_matching_name_and_parse_alleles(
         self, query_name: str, name_to_alleles_dict: Mapping[str, Sequence[str]], species: Species
     ):
         """
-        Factoring out this function since it's shared between
-        Haplotype and Serotype
+        Resolve a named haplotype/serotype entry for a known Species.
 
-        Returns (str, list of Allele) or None
+        query_name is tried directly and with species gene-alias prefixes.
+        name_to_alleles_dict must support membership, indexing and original_key
+        (normally NormalizingDictionary), with sequences of member strings.
+        Returns (canonical name, parsed member list, absent Gene list), or None
+        if no entry matches. Blank/null members populate absent genes. Invalid
+        members emit UserWarning and are omitted; other parser errors propagate.
+        Intended for curated composite definitions, not arbitrary input parsing.
         """
         gene_aliases_dict = species.gene_aliases
 
@@ -394,7 +400,7 @@ class Parser:
         alleles = []
         absent_genes = []
         for allele_name in allele_names:
-            blank_gene_name = _blank_locus_gene_name(allele_name)
+            blank_gene_name = blank_locus_gene_name(allele_name)
             if blank_gene_name is not None:
                 gene = Gene.get(species, blank_gene_name)
                 if gene is None:
@@ -437,7 +443,7 @@ class Parser:
         if species is None:
             return None
 
-        name_and_alleles = self._find_matching_name_and_parse_alleles(
+        name_and_alleles = self.find_matching_name_and_parse_alleles(
             query_name=serotype_name, name_to_alleles_dict=species.serotypes, species=species
         )
 
@@ -614,7 +620,7 @@ class Parser:
         if species is None:
             return None
 
-        name_and_alleles = self._find_matching_name_and_parse_alleles(
+        name_and_alleles = self.find_matching_name_and_parse_alleles(
             query_name=haplotype_name, name_to_alleles_dict=species.haplotypes, species=species
         )
 
@@ -1381,7 +1387,7 @@ class Parser:
 
                 if allele_alias is not None:
                     new_gene_name, new_allele_name = allele_alias
-                    transformed = self._parse_renamed_allele(
+                    transformed = self.parse_renamed_allele(
                         species=species,
                         source_gene=gene,
                         source_mhc_class=source_mhc_class,
@@ -1394,7 +1400,7 @@ class Parser:
                 known_allele = species.get_known_allele(gene_name=gene_name, allele_name=old_name)
                 if known_allele is not None:
                     new_gene_name, new_allele_name = known_allele
-                    transformed = self._parse_renamed_allele(
+                    transformed = self.parse_renamed_allele(
                         species=species,
                         source_gene=gene,
                         source_mhc_class=source_mhc_class,
@@ -1417,7 +1423,7 @@ class Parser:
             return transformed
         return parse_candidate
 
-    def _parse_renamed_allele(
+    def parse_renamed_allele(
         self,
         species: Species,
         source_gene: Optional[Gene],
@@ -2563,7 +2569,7 @@ class Parser:
                 )
         return self.transform_parse_candidates(results)
 
-    def _parse_explicit_species_allele_candidates(self, name: str):
+    def parse_explicit_species_allele_candidates(self, name: str):
         """Parse a simple, explicitly species-prefixed allele without tokenizing it.
 
         This path reuses the complete parser's ontology-backed gene lookup,
@@ -2609,12 +2615,18 @@ class Parser:
         """
         Public parse entrypoint. Returns an immutable cached result object.
 
+        Scalar missing inputs follow raise_on_error (None or ParseError).
+        Other non-string inputs raise TypeError before caching/tokenization.
+
         require_explicit_species : bool
             Only accept results whose species the input actually named. Use
             this when validating curated or free-text input, where a confident
             but inferred species is worse than no answer. See
             Result.species_source.
         """
+        if not validate_mhc_input(name, raise_on_error=raise_on_error):
+            return None
+
         result = self._parse_cached(
             name=name,
             infer_class2_pairing=infer_class2_pairing,
@@ -2720,7 +2732,7 @@ class Parser:
             preferred_result_types or required_result_types or only_class1 or only_class2
         )
         candidates = (
-            [] if has_candidate_filters else self._parse_explicit_species_allele_candidates(name)
+            [] if has_candidate_filters else self.parse_explicit_species_allele_candidates(name)
         )
         if len(candidates) == 0:
             candidates = self.parse_multiple_candidates(name, default_species=default_species)

@@ -61,7 +61,7 @@ def test_shipped_manifest_is_valid_and_uses_official_providers():
 def test_data_command_lists_sources_by_default_without_downloading(arguments, monkeypatch, capsys):
     monkeypatch.setattr(
         external_data,
-        "_download_to_cache",
+        "download_to_cache",
         lambda *_args, **_kwargs: pytest.fail("listing must not download data"),
     )
 
@@ -162,7 +162,7 @@ def test_verified_destination_avoids_cache_and_network(tmp_path, monkeypatch):
 
     monkeypatch.setattr(
         external_data,
-        "_download_to_cache",
+        "download_to_cache",
         lambda *_args, **_kwargs: pytest.fail("network should not be used"),
     )
     path, origin = external_data.resolve_source(
@@ -181,7 +181,7 @@ def test_content_cache_is_materialized_without_network(tmp_path, monkeypatch):
     (cache / source.sha256).write_bytes(payload)
     monkeypatch.setattr(
         external_data,
-        "_download_to_cache",
+        "download_to_cache",
         lambda *_args, **_kwargs: pytest.fail("network should not be used"),
     )
 
@@ -222,7 +222,7 @@ def test_http_mirror_precedes_official_source(tmp_path, monkeypatch):
         cache_path.parent.mkdir(parents=True, exist_ok=True)
         cache_path.write_bytes(payload)
 
-    monkeypatch.setattr(external_data, "_download_to_cache", fake_download)
+    monkeypatch.setattr(external_data, "download_to_cache", fake_download)
     path, origin = external_data.resolve_source(
         source,
         destination_dir=tmp_path / "destination",
@@ -247,7 +247,7 @@ def test_http_mirror_can_expose_content_by_hash(tmp_path, monkeypatch):
         cache_path.parent.mkdir(parents=True, exist_ok=True)
         cache_path.write_bytes(payload)
 
-    monkeypatch.setattr(external_data, "_download_to_cache", fake_download)
+    monkeypatch.setattr(external_data, "download_to_cache", fake_download)
     path, origin = external_data.resolve_source(
         source,
         destination_dir=tmp_path / "destination",
@@ -267,7 +267,7 @@ def test_offline_mode_skips_network_mirror_and_primary(tmp_path, monkeypatch):
     source = make_source()
     monkeypatch.setattr(
         external_data,
-        "_download_to_cache",
+        "download_to_cache",
         lambda *_args, **_kwargs: pytest.fail("network should not be used"),
     )
     with pytest.raises(external_data.ExternalDataError, match="Offline"):
@@ -315,7 +315,7 @@ def test_checksum_mismatch_is_rejected_without_poisoning_cache(tmp_path, monkeyp
     cache_path = tmp_path / "cache" / source.sha256
 
     with pytest.raises(external_data.ExternalDataError, match="Checksum mismatch"):
-        external_data._download_to_cache(source.url, source, cache_path)
+        external_data.download_to_cache(source.url, source, cache_path)
 
     assert not cache_path.exists()
 
@@ -336,7 +336,7 @@ def test_nontransient_http_error_is_not_retried(tmp_path, monkeypatch):
     )
 
     with pytest.raises(external_data.ExternalDataError, match="Failed to download"):
-        external_data._download_to_cache(source.url, source, tmp_path / "cache" / source.sha256)
+        external_data.download_to_cache(source.url, source, tmp_path / "cache" / source.sha256)
 
     assert requests == [(source.url, 60)]
 

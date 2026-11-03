@@ -15,6 +15,7 @@ nav:
   - MHC Nomenclature in the Wild: nomenclature.md
   - Parsing Guide: parsing.md
   - Command Line: cli.md
+  - Helper APIs: helper-api.md
   - Species and Gene Ontology: species-ontology.md
   - Curation Guide: curation.md
   - Immutable Data Objects: immutable-data-objects.md

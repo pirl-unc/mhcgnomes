@@ -1,7 +1,7 @@
 """
 Curated-data problems in haplotype and serotype entries (#213).
 
-Parser._find_matching_name_and_parse_alleles drops a member it cannot use: a
+Parser.find_matching_name_and_parse_alleles drops a member it cannot use: a
 "<gene>*Blank" member naming a gene the species does not have, or an allele
 name that does not parse. It used to say so with print(), which wrote into the
 middle of whatever the caller was printing -- `mhcgnomes --format json` would
@@ -47,7 +47,7 @@ def test_every_shipped_entry_loads_without_dropping_members(lookup, table, capsy
 
 def _find(members, species="SLA"):
     table = NormalizingDictionary.from_dict({"Test-1": members})
-    return Parser()._find_matching_name_and_parse_alleles(
+    return Parser().find_matching_name_and_parse_alleles(
         query_name="Test-1", name_to_alleles_dict=table, species=Species.get(species)
     )
 

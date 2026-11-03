@@ -348,7 +348,7 @@ def test_parse_B_27_215N():
 def test_parse_renamed_allele_same_gene_reuses_source_gene():
     parser = Parser()
     gene = Gene.get("SLA", "2")
-    result = parser._parse_renamed_allele(
+    result = parser.parse_renamed_allele(
         species=gene.species,
         source_gene=gene,
         source_mhc_class=gene.mhc_class,
@@ -364,7 +364,7 @@ def test_parse_renamed_allele_same_gene_reuses_source_gene():
 def test_parse_renamed_allele_other_gene_is_looked_up():
     parser = Parser()
     source_gene = Gene.get("HLA", "A")
-    result = parser._parse_renamed_allele(
+    result = parser.parse_renamed_allele(
         species=source_gene.species,
         source_gene=source_gene,
         source_mhc_class=source_gene.mhc_class,
@@ -378,7 +378,7 @@ def test_parse_renamed_allele_other_gene_is_looked_up():
 def test_parse_renamed_allele_unknown_gene_is_none():
     parser = Parser()
     source_gene = Gene.get("HLA", "A")
-    result = parser._parse_renamed_allele(
+    result = parser.parse_renamed_allele(
         species=source_gene.species,
         source_gene=source_gene,
         source_mhc_class=source_gene.mhc_class,
@@ -392,7 +392,7 @@ def test_parse_renamed_allele_unknown_gene_is_none():
 def test_parse_renamed_allele_geneless_target_keeps_source_class():
     parser = Parser()
     species = Species.get("Saha")
-    result = parser._parse_renamed_allele(
+    result = parser.parse_renamed_allele(
         species=species,
         source_gene=None,
         source_mhc_class="I",
@@ -408,7 +408,7 @@ def test_parse_renamed_allele_geneless_target_keeps_source_class():
 
 def test_parse_renamed_allele_geneless_target_with_star_is_none():
     parser = Parser()
-    result = parser._parse_renamed_allele(
+    result = parser.parse_renamed_allele(
         species=Species.get("HLA"),
         source_gene=None,
         source_mhc_class=None,

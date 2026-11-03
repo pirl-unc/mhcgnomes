@@ -74,11 +74,11 @@ def test_a_hyphenated_gene_name_is_not_split_into_two_words():
     The alias is added only for identifiers that already contain a space, so
     "DMB-1" cannot become the two-token gene name "DMB 1".
     """
-    from mhcgnomes.species import _hyphens_as_spaces
+    from mhcgnomes.species import hyphens_as_spaces
 
-    eq_(_hyphens_as_spaces("DMB-1"), None)
-    eq_(_hyphens_as_spaces("long-haired rat"), "long haired rat")
-    eq_(_hyphens_as_spaces("rhesus monkey"), None)
+    eq_(hyphens_as_spaces("DMB-1"), None)
+    eq_(hyphens_as_spaces("long-haired rat"), "long haired rat")
+    eq_(hyphens_as_spaces("rhesus monkey"), None)
     eq_(parse("DMB-1").to_string(), "SpheMend-DMB-1")
 
 

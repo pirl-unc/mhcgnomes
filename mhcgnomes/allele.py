@@ -14,6 +14,7 @@ import re
 from collections.abc import Iterable
 from dataclasses import dataclass, field
 from functools import cache
+from types import MappingProxyType
 from typing import Union
 
 from .allele_annotations import (
@@ -43,8 +44,15 @@ _NUMERIC_FIELD = re.compile(r"[Ww]?\d+")
 
 
 @cache
-def _single_field_allele_names():
-    """(species name, gene name) -> registry fields from single_field_alleles.yaml."""
+def single_field_allele_names():
+    """Return a cached read-only index of historical complete one-field names.
+
+    Keys are (scientific species name, canonical gene name); values are
+    frozensets of field strings from the pinned single_field_alleles.yaml.
+    Intended for naming classification/inspection, not current registry
+    validation. Takes no arguments; unknown species/genes in the table are
+    omitted. The returned mapping and values cannot be mutated.
+    """
     index = {}
     for prefix, genes in _SINGLE_FIELD_ALLELES.items():
         species = Species.get(prefix)
@@ -54,7 +62,7 @@ def _single_field_allele_names():
             gene = Gene.get(species, gene_name)
             if gene is not None:
                 index[(species.name, gene.name)] = frozenset(fields)
-    return index
+    return MappingProxyType(index)
 
 
 @dataclass(eq=False, repr=False, frozen=True, init=False)
@@ -240,7 +248,7 @@ class Allele(ResultWithGene):
             return True
         if len(fields) != 1 or not _NUMERIC_FIELD.fullmatch(fields[0]):
             return False
-        registry_names = _single_field_allele_names().get((self.species.name, self.gene.name), ())
+        registry_names = single_field_allele_names().get((self.species.name, self.gene.name), ())
         return fields[0] not in registry_names
 
     @property

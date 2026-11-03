@@ -37,7 +37,7 @@ from .result import Result
 _RAW_SPECIES_ORDER = {latin_name: i for i, latin_name in enumerate(raw_species_dict)}
 
 
-def _blocked_registry_prefixes():
+def blocked_registry_prefixes():
     """
     Prefixes the curation registry deliberately keeps out of runtime.
 
@@ -78,7 +78,7 @@ def _partition_evidenced_aliases():
     becomes context-only, so `species=` recovers the published record while a
     bare prefix cannot silently pick a side. See issue #136.
     """
-    withheld = _blocked_registry_prefixes()
+    withheld = blocked_registry_prefixes()
 
     claimants = defaultdict(set)
     for latin_name, entries in raw_evidenced_alias_dict.items():
@@ -635,7 +635,7 @@ class Species(Result):
         # comment claimed, so it only ever fired for root entries. A genuine
         # collision between unrelated species still returns None, which is what
         # keeps Caau and Hyam honest.
-        containing = _containing_species(species_objects)
+        containing = containing_species(species_objects)
         if containing is not None:
             return containing
         # Ambiguous alias: return None instead of picking a heuristic winner
@@ -994,7 +994,7 @@ def _scientific_name_parts(latin_name):
     return parts
 
 
-def _make_long_prefix(latin_name):
+def make_long_prefix(latin_name):
     """
     Generate a 4+4 novel prefix from a latin binomial name by taking the first
     4 characters of each word, capitalized. E.g.:
@@ -1034,7 +1034,7 @@ def _make_generated_alias_counts(generator):
     return counts
 
 
-def _long_prefix_if_claimable(latin_name):
+def binomial_long_prefix(latin_name):
     """
     The 4+4 form only where the entry is allowed to claim it. Trinomials are
     excluded, so a subspecies does not veto its parent binomial's shorthand by
@@ -1042,13 +1042,23 @@ def _long_prefix_if_claimable(latin_name):
     """
     if len(_scientific_name_parts(latin_name)) != 2:
         return None
-    return _make_long_prefix(latin_name)
+    return make_long_prefix(latin_name)
 
 
-_GENERATED_LONG_PREFIX_COUNTS = _make_generated_alias_counts(_long_prefix_if_claimable)
+_GENERATED_LONG_PREFIX_COUNTS = _make_generated_alias_counts(binomial_long_prefix)
 
 
-def _auto_generated_prefixes_for_latin_name(latin_name):
+def generated_long_prefix_count(prefix):
+    """Return the number of modeled binomials claiming an exact 4+4 prefix.
+
+    prefix is a case-sensitive string in make_long_prefix's output format.
+    Unknown prefixes return 0. Counts come from the bundled species ontology;
+    the lookup does not modify it and does not establish published usage.
+    """
+    return _GENERATED_LONG_PREFIX_COUNTS.get(prefix, 0)
+
+
+def auto_generated_prefixes_for_latin_name(latin_name):
     """
     The concatenated scientific name comes first: it is the default, and the
     only form that never collides. The 4+4 truncation follows as a shorthand,
@@ -1078,12 +1088,8 @@ def _auto_generated_prefixes_for_latin_name(latin_name):
     # Guarded on binomials for the same reason as the concatenated form: a
     # trinomial's 4+4 is built from its parent's genus and species, so
     # "Strix occidentalis caurina" would otherwise claim "StriOcci".
-    long_prefix = _make_long_prefix(latin_name)
-    if (
-        long_prefix
-        and len(scientific_parts) == 2
-        and _GENERATED_LONG_PREFIX_COUNTS[long_prefix] == 1
-    ):
+    long_prefix = make_long_prefix(latin_name)
+    if long_prefix and len(scientific_parts) == 2 and generated_long_prefix_count(long_prefix) == 1:
         results.append(long_prefix)
 
     deduped = []
@@ -1219,7 +1225,7 @@ def prefix_is_derived_for(prefix, latin_name):
     error messages from calling a derived form "source-attested".
     """
     normalized = _normalize_identifier(prefix)
-    for generator in (_make_full_scientific_prefix, _make_long_prefix):
+    for generator in (_make_full_scientific_prefix, make_long_prefix):
         generated = generator(latin_name)
         if generated and _normalize_identifier(generated) == normalized:
             return True
@@ -1244,7 +1250,7 @@ def unambiguous_prefix_for(species):
     return species.canonical_mhc_prefix
 
 
-def _derive_prefix_provenance(prefix, latin_name):
+def derive_prefix_provenance(prefix, latin_name):
     """
     What can be established about a prefix without consulting a source.
 
@@ -1259,7 +1265,7 @@ def _derive_prefix_provenance(prefix, latin_name):
         return "group label"
     normalized = prefix.lower()
     if any(
-        alias.lower() == normalized for alias in _auto_generated_prefixes_for_latin_name(latin_name)
+        alias.lower() == normalized for alias in auto_generated_prefixes_for_latin_name(latin_name)
     ):
         return "generated"
     return None
@@ -1336,7 +1342,7 @@ def create_species_for_latin_name(latin_name):
             f"expected one of {sorted(PREFIX_PROVENANCE_VALUES)}"
         )
     if prefix_provenance is None:
-        prefix_provenance = _derive_prefix_provenance(prefix, latin_name)
+        prefix_provenance = derive_prefix_provenance(prefix, latin_name)
 
     old_mhc_prefix = species_info.get("old prefix")
     if not old_mhc_prefix and parent_species:
@@ -1373,7 +1379,7 @@ def create_species_for_latin_name(latin_name):
     # 2. A 4+4 shorthand, only when it is globally unique.
     # Trinomial entries mint neither, so a subspecies never claims a name
     # derived from its parent binomial.
-    for alias in _auto_generated_prefixes_for_latin_name(latin_name):
+    for alias in auto_generated_prefixes_for_latin_name(latin_name):
         if alias and alias != prefix and alias not in other_mhc_prefixes:
             other_mhc_prefixes = [*list(other_mhc_prefixes), alias]
 
@@ -1634,7 +1640,7 @@ def combine_species_aliases(
     return result
 
 
-def _containing_species(species_objects):
+def containing_species(species_objects):
     """
     The one claimant that contains all the others, or None.
 
@@ -1652,7 +1658,7 @@ def _containing_species(species_objects):
     return None
 
 
-def _hyphens_as_spaces(identifier):
+def hyphens_as_spaces(identifier):
     """
     The same identifier with hyphens written as spaces, or None if unchanged.
 
@@ -1689,7 +1695,7 @@ def create_species_lookup_dictionaries():
             # builds its species query by joining tokens with a space and gets
             # LONG HAIRED RAT. Registering the space-substituted spelling as
             # well makes both reachable; it only ever adds keys. See #177.
-            spaced = _hyphens_as_spaces(s)
+            spaced = hyphens_as_spaces(s)
             if spaced is not None:
                 alias_to_species_objects[spaced].add(species)
         for s in species.context_only_mhc_prefixes:

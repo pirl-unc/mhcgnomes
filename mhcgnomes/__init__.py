@@ -25,6 +25,7 @@ from .mutation import Mutation
 from .normalizing_dictionary import NormalizingDictionary
 from .normalizing_set import NormalizingSet
 from .pair import Pair
+from .parse_outcome import parse_outcome_to_row
 from .parser import Parser
 from .serotype import Serotype
 from .species import Species
@@ -55,4 +56,5 @@ __all__ = [
     "infer_mhc_class",
     "parse",
     "parse_gene_class",
+    "parse_outcome_to_row",
 ]
