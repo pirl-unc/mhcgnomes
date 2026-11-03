@@ -1322,7 +1322,7 @@ class Parser:
 
                 if allele_alias is not None:
                     new_gene_name, new_allele_name = allele_alias
-                    transformed = self.parse_renamed_allele(
+                    transformed = self._parse_renamed_allele(
                         species=species,
                         source_gene=gene,
                         source_mhc_class=source_mhc_class,
@@ -1335,7 +1335,7 @@ class Parser:
                 known_allele = species.get_known_allele(gene_name=gene_name, allele_name=old_name)
                 if known_allele is not None:
                     new_gene_name, new_allele_name = known_allele
-                    transformed = self.parse_renamed_allele(
+                    transformed = self._parse_renamed_allele(
                         species=species,
                         source_gene=gene,
                         source_mhc_class=source_mhc_class,
@@ -1358,7 +1358,7 @@ class Parser:
             return transformed
         return parse_candidate
 
-    def parse_renamed_allele(
+    def _parse_renamed_allele(
         self,
         species: Species,
         source_gene: Optional[Gene],
