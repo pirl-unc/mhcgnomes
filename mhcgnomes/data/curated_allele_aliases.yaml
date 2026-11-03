@@ -503,6 +503,18 @@ Mamu:
   # Copied from Supplementary Table 1 of:
   #   Nomenclature report on the major histocompatibility complex, genes,
   #   and alleles of Great Ape, Old and New World monkey species (2012)
+  # de Groot et al., Immunogenetics 64:615 (PMID 22526602, PMC3396756), ESM1
+  # ("Official designation | Previous Designation"). Re-checked against the
+  # supplement in #216: all 26 rows below match it.
+  #
+  # Do NOT "correct" these from IPD-MHC's `previous` field. For two-digit
+  # Mamu-A*NN / Mamu-B*NN names that field usually names the allele numbered
+  # NN+1 (33 of its 57 such names): it gives Mamu-A*26 as a previous name of
+  # A1*011:01 (NHP01884), A*25 of A1*026:01 (NHP01224), A*11 of A1*012:01
+  # (NHP01897) and A*12 of B*001:01 (NHP02219). The 2012 supplement, NetMHC's
+  # allele list, Wiseman et al. 2011 Table 1 (PMID 21270169) and the original
+  # GenBank deposits all give the same-numbered allele -- e.g. U41834
+  # "Mamu A*06" is A1*006:01 by sequence, not IPD's A1*008:01.
   A*01: A1*001:01
   A*0102: A1*001:02
   A*0103: A1*001:03
@@ -531,6 +543,19 @@ Mamu:
   A1*5801: A1*061:01
   # copied from allele list of NetMHC
   # http://www.cbs.dtu.dk/services/NetMHC/MHC_allele_names.txt
+  # (now https://services.healthtech.dtu.dk/services/NetMHC-4.0/MHC_allele_names.txt)
+  # That file maps NetMHC's short names to full names and gives the old name in
+  # parentheses, e.g. "Mamu-B08  Mamu-B*00801 (Mamu-B*08)". The 2012 supplement
+  # lists no previous designation for these B alleles.
+  #
+  # NetMHC's short name Mamu-B17 (-> B*017:01) is NOT aliased: Mamu-B17 is
+  # also an IPD-MHC locus (Mamu-B17*01:01:01 ... *01:08, e.g. NHP02096), so a
+  # bare "Mamu-B17" parses as that gene. "Mamu-B*17" reaches B*017:01 (#216).
+  #
+  # "Mamu-A07  Mamu-A1*00701 (Mamu-A*07)" in that file; Wiseman et al. 2011
+  # (J Virol 85:3250, PMID 21270169) Table 1 pairs new name Mamu-A1*007:01
+  # with old name Mamu-A*07.
+  A*07: A1*007:01
   A*2201: A1*022:01
   A*2601: A1*026:01
   B*01: B*001:01
@@ -544,6 +569,10 @@ Mamu:
   B*66: B*066:01
   B*6601: B*066:01
   B*8301: B*083:01
+  # "Mamu-B8701  Mamu-B*08701" in NetMHC's file. This row had ended up under
+  # Saha (Tasmanian devil, which has no B locus) when that section was inserted
+  # above it, so it was looked up for the wrong species (#216).
+  B*8701: B*087:01
 
 ####################################################
 #
@@ -589,4 +618,3 @@ Saha:
   I*82: "82"
   I*74: "74"
   I*88: "88"
-  B*8701: B*087:01
