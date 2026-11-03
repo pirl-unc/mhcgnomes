@@ -18,6 +18,9 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
+from .validate_external_names import DESCRIPTION as VALIDATE_DESCRIPTION
+from .validate_external_names import add_validation_arguments, run_validation
+
 MANIFEST_PATH = Path(__file__).with_name("data") / "external_sources.json"
 CACHE_ENV = "MHCGNOMES_DATA_CACHE"
 MIRRORS_ENV = "MHCGNOMES_DATA_MIRRORS"
@@ -339,7 +342,7 @@ def _add_download_arguments(parser: argparse.ArgumentParser) -> None:
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="mhcgnomes data",
-        description="List or download checksum-pinned IMGT/IPD inputs.",
+        description="List, download, or validate checksum-pinned IMGT/IPD inputs.",
     )
     subparsers = parser.add_subparsers(dest="data_command")
     list_parser = subparsers.add_parser(
@@ -356,6 +359,15 @@ def build_parser() -> argparse.ArgumentParser:
         description="Download checksum-pinned inputs through local and CI-friendly caches.",
     )
     _add_download_arguments(download_parser)
+    validate_parser = subparsers.add_parser(
+        "validate",
+        help="Parse every allele name in downloaded validation FASTA files",
+        description=(
+            f"{VALIDATE_DESCRIPTION} Same as the mhcgnomes-validate-data command. "
+            "Fetch the files first with 'mhcgnomes data download --group validation'."
+        ),
+    )
+    add_validation_arguments(validate_parser)
     return parser
 
 
@@ -405,6 +417,8 @@ def main(argv: Sequence[str] | None = None) -> int:
                 group=getattr(args, "group", None),
             )
             return 0
+        if args.data_command == "validate":
+            return run_validation(args.paths, args.max_failures)
         sources = load_manifest(args.manifest)
         selected = select_sources(
             sources,

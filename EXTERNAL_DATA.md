@@ -93,8 +93,12 @@ Fetch them first with `mhcgnomes data download --group validation`; they are rea
 name through the parser without generating or committing a transformed copy of the database:
 
 ```bash
-mhcgnomes-validate-data
+mhcgnomes data validate
 ```
+
+`mhcgnomes-validate-data` is the same command under its original name and accepts the same
+arguments: optional FASTA paths (default `.external-data/hla_prot.fasta` and
+`.external-data/MHC_prot.fasta`) and `--max-failures`.
 
 The normal test suite stays fully offline and contains a small explicit, accession-backed inventory
 covering all 69 species prefixes in IPD-MHC 3.8.0.0. The cached CI job runs the exhaustive check.
