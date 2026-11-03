@@ -9,7 +9,7 @@ GitHub issue: #216
   and `transform_parse_candidate` looks the alias up afterwards, by `B*008`.
 - [x] Measure it across the whole table rather than for one species. Parsing
   every gene-bearing alias key with `use_allele_aliases=True` and comparing
-  with its target found 22 unreachable keys: the 7 Mamu-B two-digit names,
+  with its target found 21 unreachable keys: the 7 Mamu-B two-digit names,
   Mamu `A1*1701`, `A1*5801`, `A1*030102`, and 11 old 5-digit MICA/MICB names
   (`MICA*00201` became `MICA*000:201`, not `MICA*002:01:01`). It also found a
   Mamu NetMHC row, `B*8701 -> B*087:01`, filed under Saha.

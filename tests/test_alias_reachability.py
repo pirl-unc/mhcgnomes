@@ -5,7 +5,7 @@ Alias keys are old names, written with the digits their authors used. The
 parser used to zero-pad allele fields before transform_parse_candidate looked
 the name up, so a key narrower than the gene's canonical width could never
 match: the curated "Mamu-B*08 -> B*008:01" saw "B*008", and "MICA*00201" was
-split and padded into "MICA*000:201". 22 keys were dead that way.
+split and padded into "MICA*000:201". 21 keys were dead that way.
 """
 
 import pytest
