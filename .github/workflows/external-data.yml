@@ -53,6 +53,12 @@ jobs:
       - name: Verify generated aliases are current
         run: git diff --exit-code -- mhcgnomes/data/allele_aliases.yaml
 
+      - name: Regenerate single-field allele names from the same sources
+        run: python scripts/generate_single_field_alleles.py
+
+      - name: Verify generated single-field allele names are current
+        run: git diff --exit-code -- mhcgnomes/data/single_field_alleles.yaml
+
       - name: Fetch exhaustive validation inputs
         run: mhcgnomes data download --group validation
 

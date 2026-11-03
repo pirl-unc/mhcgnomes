@@ -140,6 +140,11 @@ supertypes = load(
     "supertypes.yaml", normalize_first_level_keys=True, normalize_second_level_keys=True
 )
 
+# Complete allele names whose only field is numeric (HLA-MICA*001, Papa-B*03),
+# generated from the pinned IMGT/HLA and IPD-MHC releases by
+# scripts/generate_single_field_alleles.py. Read by Allele.is_allele_group.
+single_field_alleles = load("single_field_alleles.yaml")
+
 
 def _compute_min_first_field_widths():
     """
