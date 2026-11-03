@@ -84,27 +84,33 @@ def cache(fn):
     return cached_fn
 
 
-def normalize_string(name, _cache=None):
+def normalize_string(name):
     """
-    Return uppercase string without any surrounding whitespace and
-    without any characters such as '-', '_' ':' or "'"
+    Normalize a name into the key used for case- and punctuation-blind lookup.
+
+    This is the default key function of NormalizingDictionary and
+    NormalizingSet, so every species, gene, allele and alias table is keyed
+    by it.
+
+    Parameters
+    ----------
+    name : str, int, float, None, or other
+        Name to normalize.
+
+    Returns
+    -------
+    str, None, or other
+        For a str: the name with every '-', '_', "'" and ':' removed,
+        surrounding whitespace stripped, and upper-cased. For an int or
+        float: str(name). For None: None. Any other value is returned
+        unchanged.
     """
-    if _cache is None:
-        _cache = {}
     if name is None:
         return None
 
-    if name in _cache:
-        return _cache[name]
-
     t = type(name)
     if t is float or t is int:
-        result = str(name)
-    elif t is not str:
-        result = name
-    else:
-        result = (
-            name.replace("-", "").replace("_", "").replace("'", "").replace(":", "").strip().upper()
-        )
-    _cache[name] = result
-    return result
+        return str(name)
+    if t is not str:
+        return name
+    return name.replace("-", "").replace("_", "").replace("'", "").replace(":", "").strip().upper()
