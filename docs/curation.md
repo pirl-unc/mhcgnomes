@@ -417,8 +417,8 @@ names as canonical identity (see `Species.latin_name`,
 `Species.get_by_latin_name()`). Every binomial species is also parseable via
 its full concatenated latin name (e.g., `HomoSapiens-A*02:01`) and, where the
 form is globally unique, a 4+4 truncation (e.g., `HomoSapi-A*02:01`). See the
-[prefix tier documentation](https://github.com/pirl-unc/mhcgnomes/blob/main/README.md#species-prefix-tiers)
-in the README.
+[prefix tier documentation](species-ontology.md#species-prefix-tiers)
+on the species and gene ontology page.
 
 The 4+4 space is not collision-free: `ChryPict` derives from both *Chrysemys
 picta* and *Chrysolophus pictus*, `LaniColl` from two shrikes, `LeucLeuc` from
