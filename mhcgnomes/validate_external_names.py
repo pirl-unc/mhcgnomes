@@ -59,19 +59,88 @@ def validate_fasta(path: Path) -> ValidationResult:
     return ValidationResult(path, record_count, len(names), tuple(failures))
 
 
-def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(
-        description="Parse every allele name in cached official IMGT/IPD protein FASTA files."
+DESCRIPTION = "Parse every allele name in cached official IMGT/IPD protein FASTA files."
+
+
+def add_validation_arguments(parser: argparse.ArgumentParser) -> None:
+    """
+    Attach the FASTA paths and failure-limit options to a parser.
+
+    Shared by the standalone ``mhcgnomes-validate-data`` command and by
+    ``mhcgnomes data validate`` so both accept the same arguments.
+
+    Parameters
+    ----------
+    parser : argparse.ArgumentParser
+        Parser or subparser to extend. Parsed arguments gain ``paths`` (list
+        of Path) and ``max_failures`` (int).
+
+    Returns
+    -------
+    None
+    """
+    parser.add_argument(
+        "paths",
+        nargs="*",
+        type=Path,
+        default=DEFAULT_FASTA_PATHS,
+        help=(
+            "Protein FASTA files to check (default: .external-data/hla_prot.fasta and "
+            ".external-data/MHC_prot.fasta, the 'validation' download group)"
+        ),
     )
-    parser.add_argument("paths", nargs="*", type=Path, default=DEFAULT_FASTA_PATHS)
-    parser.add_argument("--max-failures", type=int, default=20)
+    parser.add_argument(
+        "--max-failures",
+        type=int,
+        default=20,
+        help="Print at most this many failing names per file (default: 20)",
+    )
+
+
+def build_parser() -> argparse.ArgumentParser:
+    """
+    Build the argument parser for the standalone ``mhcgnomes-validate-data`` command.
+
+    Returns
+    -------
+    argparse.ArgumentParser
+        Parser accepting the arguments described in add_validation_arguments.
+    """
+    parser = argparse.ArgumentParser(description=DESCRIPTION)
+    add_validation_arguments(parser)
     return parser
 
 
-def main(argv: Sequence[str] | None = None) -> int:
-    args = build_parser().parse_args(list(argv) if argv is not None else None)
+def run_validation(paths: Sequence[Path], max_failures: int) -> int:
+    """
+    Validate each FASTA file, print a summary per file and return an exit code.
+
+    The per-file summary goes to stdout; missing files and failing names go
+    to stderr.
+
+    Parameters
+    ----------
+    paths : sequence of Path
+        Protein FASTA files to check with validate_fasta.
+    max_failures : int
+        Print at most this many failures for each file.
+
+    Returns
+    -------
+    int
+        0 when every file exists, has at least one FASTA header, and every
+        header's name parses as an Allele; otherwise 1.
+
+    Raises
+    ------
+    UnicodeDecodeError
+        If a file is not valid UTF-8. Files before it have already been
+        reported.
+    OSError
+        If a file exists but cannot be read.
+    """
     failed = False
-    for path in args.paths:
+    for path in paths:
         if not path.is_file():
             print(
                 f"ERROR: missing {path}; run 'mhcgnomes data download --group validation' first",
@@ -87,9 +156,27 @@ def main(argv: Sequence[str] | None = None) -> int:
         if result.failures:
             failed = True
             print(f"ERROR: {len(result.failures)} names failed:", file=sys.stderr)
-            for failure in result.failures[: args.max_failures]:
+            for failure in result.failures[:max_failures]:
                 print(f"  {failure}", file=sys.stderr)
     return 1 if failed else 0
+
+
+def main(argv: Sequence[str] | None = None) -> int:
+    """
+    Run ``mhcgnomes-validate-data``; same as ``mhcgnomes data validate``.
+
+    Parameters
+    ----------
+    argv : sequence of str or None
+        Command-line arguments without the program name; None reads sys.argv.
+
+    Returns
+    -------
+    int
+        Exit code from run_validation.
+    """
+    args = build_parser().parse_args(list(argv) if argv is not None else None)
+    return run_validation(args.paths, args.max_failures)
 
 
 if __name__ == "__main__":

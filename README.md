@@ -44,10 +44,13 @@ mhcgnomes data list
 mhcgnomes data list --group validation
 mhcgnomes data list --destination /path/to/data --cache-dir /path/to/cache
 mhcgnomes data download --group validation
+mhcgnomes data validate
 ```
 
 `mhcgnomes data` is an alias for `mhcgnomes data list`. See
-`mhcgnomes data download --help` for retrieval options.
+`mhcgnomes data download --help` for retrieval options. `mhcgnomes data validate`
+parses every allele name in the downloaded validation FASTA files; it is the
+same command as `mhcgnomes-validate-data`.
 
 ## The problem: MHC nomenclature is nuts
 

@@ -369,3 +369,23 @@ def test_cli_can_materialize_from_local_mirror_offline(tmp_path, capsys):
     assert result == 0
     assert (destination / source.filename).read_bytes() == payload
     assert "mirror" in capsys.readouterr().out
+
+
+def test_validate_subcommand_parses_fasta_without_network(tmp_path, monkeypatch, capsys):
+    def no_network(*args, **kwargs):
+        raise AssertionError("validate must not touch the network")
+
+    monkeypatch.setattr(external_data.urllib.request, "urlopen", no_network)
+    fasta = tmp_path / "hla_prot.fasta"
+    fasta.write_text(">HLA:HLA00001 A*01:01:01:01 365 bp\nAAAA\n", encoding="utf-8")
+
+    assert external_data.main(["validate", str(fasta)]) == 0
+    assert "parsed 1 unique allele names from 1 FASTA records" in capsys.readouterr().out
+
+
+def test_validate_subcommand_fails_on_unparseable_name(tmp_path, capsys):
+    fasta = tmp_path / "bad.fasta"
+    fasta.write_text(">DB not-an-allele\nAAAA\n", encoding="utf-8")
+
+    assert external_data.main(["validate", "--max-failures", "5", str(fasta)]) == 1
+    assert "not-an-allele" in capsys.readouterr().err
