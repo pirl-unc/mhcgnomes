@@ -220,3 +220,27 @@ reject inputs that resolve to a different species:
 >>> mhcgnomes.parse("DMA", default_species="Chelonia mydas").species.name
 'Chelonia mydas'
 ```
+
+## Resolving legacy allele names
+
+Alias resolution is opt-in: `parse(name, use_allele_aliases=True)`. It follows
+curated renames to their terminal target. Lookup tries the supplied gene first,
+then its canonical name and sorted alternate names, so the answer does not
+depend on Python's hash seed.
+
+Colons are meaningful in alias keys. A legacy digit string is looked up before
+it is split into modern fields:
+
+```pycon
+>>> parse("HLA-A*02172", use_allele_aliases=True).to_string()
+'HLA-A*02:17:02:01'
+>>> parse("HLA-A*02:172", use_allele_aliases=True).to_string()
+'HLA-A*02:172'
+```
+
+A modern two-field name is not expanded merely because its colon-free spelling
+is a legacy key. For example, `HLA-B*08:01` retains two fields, while the old
+`HLA-B*0801` resolves to `HLA-B*08:01:01:01`. Explicit modern-name renames still
+apply. Alias tables are curated historical data, not a live registry validator;
+see [#238](https://github.com/pirl-unc/mhcgnomes/issues/238) for the remaining
+current-name conflicts found in the registry audit.

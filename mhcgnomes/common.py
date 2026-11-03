@@ -84,6 +84,17 @@ def cache(fn):
     return cached_fn
 
 
+def normalize_allele_alias(name):
+    """Normalize alias spelling without discarding allele field boundaries.
+
+    IMGT/HLA Allelelist.txt (3.66.0), HLA03784 and HLA02465, names
+    A*02:172 and B*15:112. They are distinct from the legacy alias keys
+    A*02172 and B*15112 (#231). Case and other separators remain lenient.
+    https://raw.githubusercontent.com/ANHIG/IMGTHLA/3660/Allelelist.txt
+    """
+    return ":".join(normalize_string(part) for part in str(name).split(":"))
+
+
 def normalize_string(name):
     """
     Normalize a name into the key used for case- and punctuation-blind lookup.

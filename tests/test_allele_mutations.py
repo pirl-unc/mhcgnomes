@@ -22,8 +22,10 @@ def test_mutation_get_preserves_raw_string():
 @pytest.mark.parametrize(
     ("text", "reference"),
     [
-        ("HLA-B*08:01 E76C mutant", "HLA-B*08:01:01:01"),
-        ("HLA-B*08:01 E76C G86Y mutant", "HLA-B*08:01:01:01"),
+        ("HLA-B*0801 E76C mutant", "HLA-B*08:01:01:01"),
+        ("HLA-B*0801 E76C G86Y mutant", "HLA-B*08:01:01:01"),
+        # Modern fields must retain their reported resolution (#231).
+        ("HLA-B*08:01 E76C mutant", "HLA-B*08:01"),
         ("HLA-C*03:01 N80I mutant", "HLA-C*03:04:01:01"),
         # Synthetic substitution tests an existing gene-changing alias;
         # it does not assert that this mutant was observed biologically.
@@ -44,13 +46,13 @@ def test_allele_alias_preserves_explicit_mutations(text, reference):
     ("text", "expected", "alpha_mutations", "beta_mutations"),
     [
         (
-            "HLA-DRA*01:01/DRB1*01:01 C30S mutant",
+            "HLA-DRA*01:01/DRB1*0101 C30S mutant",
             "HLA-DRA*01:01:01:01/DRB1*01:01:01:01 C30S mutant",
             (),
             (Mutation.parse("C30S"),),
         ),
         (
-            "HLA-DRA*01:01 F54C mutant/DRB1*01:01",
+            "HLA-DRA*01:01 F54C mutant/DRB1*0101",
             "HLA-DRA*01:01:01:01 F54C mutant/DRB1*01:01:01:01",
             (Mutation.parse("F54C"),),
             (),
@@ -76,7 +78,9 @@ def test_alias_transform_keeps_mutations_on_their_original_chains():
     assert result.alpha.mutations == alpha.mutations
     assert result.beta.mutations == beta.mutations
     assert result.alpha.allele_fields == ("01", "01", "01", "01")
-    assert result.beta.allele_fields == ("01", "01", "01", "01")
+    # Only the explicit DRA*01:01 key applies; the DRB1*0101 legacy key
+    # must not expand a modern DRB1*01:01 to four-field resolution.
+    assert result.beta.allele_fields == ("01", "01")
     assert result.raw_string == pair.raw_string
     assert parser.transform_parse_candidate(result) == result
 

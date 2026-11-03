@@ -13,18 +13,6 @@ import pytest
 from mhcgnomes import Gene, parse
 from mhcgnomes.data import allele_aliases
 
-# Known failures of the sweep below that have their own issues. Remove an entry
-# when its issue is fixed; the sweep then guards it.
-KNOWN_FAILURES = {
-    # #231: the target is a current name that collides with an old colon-free
-    # key ("A*02:172" and "A*02172" normalize alike), so it is renamed again.
-    ("HLA", "A*9272"),
-    ("HLA", "B*9512"),
-    # #232: resolution of these depends on PYTHONHASHSEED.
-    ("HLA", "C*04:22"),
-    ("HLA", "Cw*0422"),
-}
-
 
 def _gene_bearing_alias_keys():
     for prefix, table in allele_aliases.items():
@@ -46,11 +34,12 @@ def test_every_alias_key_resolves_to_its_target():
         want = parse(f"{prefix}-{target}", use_allele_aliases=True, raise_on_error=False)
         if want is None:
             failures.append((prefix, key, f"target {target!r} does not parse"))
-        elif got is None or got.to_string() != want.to_string():
+        elif got != want:
             failures.append((prefix, key, f"{got} != {want.to_string()}"))
+        elif parse(got.to_string(), use_allele_aliases=True) != got:
+            failures.append((prefix, key, "resolved name is not stable on reparse"))
     assert checked > 3000
-    unexpected = [f for f in failures if (f[0], f[1]) not in KNOWN_FAILURES]
-    assert unexpected == []
+    assert failures == []
 
 
 # NetMHC 4.0's short rhesus macaque names, with the full name its
