@@ -228,3 +228,49 @@ def test_cli_errors_when_no_input_is_provided():
 
     assert result.returncode == 2
     assert "Provide one or more names" in result.stderr
+
+
+def test_cli_alias_species_and_filter_parity():
+    from mhcgnomes import Allele, parse
+
+    examples = [
+        (["--use-allele-aliases"], "HLA-A*02:01:08", {"use_allele_aliases": True}),
+        (["--species", "Bos taurus"], "BoLA-DRB3*01:01", {"species": "Bos taurus"}),
+        (
+            ["--result-types", "Allele", "--class", "I"],
+            "HLA-A*02:01",
+            {"required_result_types": [Allele], "only_class1": True},
+        ),
+    ]
+    for flags, name, kwargs in examples:
+        response = run_cli("--format", "json", *flags, name)
+        assert response.returncode == 0, response.stderr
+        assert json.loads(response.stdout)[0]["normalized"] == parse(name, **kwargs).to_string()
+
+
+def test_cli_rejection_rows_and_strict_status_agree():
+    for flags, name in [
+        (["--require-explicit-species"], "A*02:01"),
+        (["--result-types", "Allele"], "HLA"),
+        (["--class", "II"], "HLA-A*02:01"),
+        (["--species", "Mus musculus"], "HLA-A*02:01"),
+    ]:
+        tolerant = run_cli("--format", "json", *flags, name)
+        assert tolerant.returncode == 0, tolerant.stderr
+        assert json.loads(tolerant.stdout)[0]["type"] == "ParseError"
+        strict = run_cli("--strict", *flags, name)
+        assert strict.returncode == 1
+        assert "ParseError:" in strict.stderr
+
+
+def test_cli_invalid_options_are_argument_errors():
+    for flags in [
+        ["--species", "HLA", "--default-species", "HLA"],
+        ["--result-types", "NotAResult"],
+        ["--result-types", "Allele,"],
+        ["--class", "III"],
+    ]:
+        result = run_cli(*flags, "HLA-A*02:01")
+        assert result.returncode == 2
+        assert "error:" in result.stderr
+        assert "Traceback" not in result.stderr

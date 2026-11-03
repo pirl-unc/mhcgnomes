@@ -16,7 +16,7 @@ import pytest
 
 from mhcgnomes import Haplotype, Serotype, parse
 from mhcgnomes.errors import ParseError
-from mhcgnomes.parser import Parser, _blank_locus_gene_name
+from mhcgnomes.parser import Parser, blank_locus_gene_name
 
 from .common import eq_, ok_
 
@@ -53,7 +53,7 @@ def test_a_haplotype_with_no_blank_has_an_empty_tuple_not_none():
     ],
 )
 def test_the_member_syntax_is_recognized_exactly(member, expected):
-    eq_(_blank_locus_gene_name(member), expected)
+    eq_(blank_locus_gene_name(member), expected)
 
 
 # ---------------------------------------------------------------------------
@@ -106,7 +106,7 @@ def test_a_class2_locus_restriction_also_carries_the_field():
 
 def test_a_serotype_that_marks_a_locus_blank_is_an_error():
     """
-    _find_matching_name_and_parse_alleles is shared with Serotype. A serotype
+    find_matching_name_and_parse_alleles is shared with Serotype. A serotype
     is a set of cross-reacting alleles, not a locus map, so "blank" says
     nothing there -- and a silent drop is how the swine haplotypes lost their
     alleles for years (#143).
@@ -119,7 +119,7 @@ def test_a_serotype_that_marks_a_locus_blank_is_an_error():
     table["FakeSero"] = ["A*02:01", "B*Blank"]
 
     parser = Parser()
-    normalized, alleles, absent = parser._find_matching_name_and_parse_alleles(
+    normalized, alleles, absent = parser.find_matching_name_and_parse_alleles(
         query_name="FakeSero", name_to_alleles_dict=table, species=human
     )
     # The helper reports it rather than dropping it...

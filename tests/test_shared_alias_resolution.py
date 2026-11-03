@@ -86,18 +86,18 @@ def test_unrelated_claimants_would_still_be_refused():
     The branch the test above leaves unexercised. Built rather than borrowed,
     because relying on data that no longer collides is how a guard rots.
     """
-    from mhcgnomes.species import _containing_species
+    from mhcgnomes.species import containing_species
 
     human = Species.get_by_latin_name("Homo sapiens")
     chicken = Species.get_by_latin_name("Gallus gallus")
     primates = Species.get_by_latin_name("Primata sp.")
 
     ok_(not human.is_ancestor_of(chicken) and not chicken.is_ancestor_of(human))
-    eq_(_containing_species([human, chicken]), None)
+    eq_(containing_species([human, chicken]), None)
 
     # and the shape that does resolve
-    eq_(_containing_species([primates, human]), primates)
-    eq_(_containing_species([human]), human)
+    eq_(containing_species([primates, human]), primates)
+    eq_(containing_species([human]), human)
 
 
 def test_every_identifier_resolves_to_its_owner_or_a_containing_ancestor():

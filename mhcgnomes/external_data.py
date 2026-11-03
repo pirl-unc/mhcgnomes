@@ -160,7 +160,18 @@ def _atomic_copy(source_path: Path, destination: Path) -> None:
         temporary.unlink(missing_ok=True)
 
 
-def _download_to_cache(url: str, source: Source, cache_path: Path, retries: int = 3) -> None:
+def download_to_cache(url: str, source: Source, cache_path: Path, retries: int = 3) -> None:
+    """Download url to cache_path only after verifying source.sha256.
+
+    This low-level cache transport creates parent directories and atomically
+    replaces the destination with verified content. Source supplies its id
+    and expected checksum; cache_path is a pathlib.Path. retries is the total
+    attempt count (default 3); transient HTTP/network failures back off between
+    attempts. Checksum mismatches and terminal download failures raise
+    ExternalDataError. Temporary files are cleaned even after failure; local
+    filesystem errors outside the transfer may propagate as OSError.
+    Prefer resolve_source for normal cache/mirror/offline resolution.
+    """
     cache_path.parent.mkdir(parents=True, exist_ok=True)
     last_error: Exception | None = None
     for attempt in range(retries):
@@ -242,7 +253,7 @@ def resolve_source(
                     continue
                 for mirror_key in (source.filename, source.sha256):
                     try:
-                        _download_to_cache(_mirror_url(mirror, mirror_key), source, cache_path)
+                        download_to_cache(_mirror_url(mirror, mirror_key), source, cache_path)
                     except ExternalDataError:
                         continue
                     origin = f"mirror {mirror}"
@@ -258,7 +269,7 @@ def resolve_source(
                 raise ExternalDataError(
                     f"Offline and no verified cache or local mirror contains {source.id}"
                 )
-            _download_to_cache(source.url, source, cache_path)
+            download_to_cache(source.url, source, cache_path)
             origin = "official source"
 
     _atomic_copy(cache_path, destination)

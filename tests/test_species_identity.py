@@ -12,8 +12,8 @@ from mhcgnomes import Allele, Gene, ParseError, Species, parse
 from mhcgnomes.common import normalize_string
 from mhcgnomes.data import species as species_data
 from mhcgnomes.species import (
-    _make_long_prefix,
     find_matching_context_only_species_objects,
+    make_long_prefix,
     raw_species_dict,
 )
 
@@ -200,16 +200,16 @@ def test_colliding_4_4_forms_are_never_auto_generated():
     are derivable from a binomial and its own subspecies, and belong to the
     binomial.
     """
-    from mhcgnomes.species import _GENERATED_LONG_PREFIX_COUNTS, _long_prefix_if_claimable
+    from mhcgnomes.species import binomial_long_prefix, generated_long_prefix_count
 
     for alias in ["ChryPict", "LaniColl", "LeucLeuc"]:
-        eq_(_GENERATED_LONG_PREFIX_COUNTS[alias], 2)
+        eq_(generated_long_prefix_count(alias), 2)
         assert Species.get(alias) is None, f"{alias} resolves globally"
 
     for alias, latin_name in [("CaniLupu", "Canis lupus"), ("BalaMusc", "Balaenoptera musculus")]:
-        eq_(_GENERATED_LONG_PREFIX_COUNTS[alias], 1)
+        eq_(generated_long_prefix_count(alias), 1)
         eq_(Species.get(alias).name, latin_name)
-    assert _long_prefix_if_claimable("Canis lupus baileyi") is None
+    assert binomial_long_prefix("Canis lupus baileyi") is None
 
 
 def test_trinomials_mint_no_generated_alias_at_all():
@@ -258,7 +258,7 @@ def test_explicit_short_prefixes_beat_generated_collision_aliases():
             explicit_owners[normalize_string(alias)].add(latin_name)
 
     for latin_name in raw_species_dict:
-        alias = _make_long_prefix(latin_name)
+        alias = make_long_prefix(latin_name)
         if not alias:
             continue
         owners = explicit_owners.get(normalize_string(alias))
@@ -587,12 +587,12 @@ def test_designated_is_never_inferred():
     wrong. Asserting membership in the value set instead would prove nothing:
     the loader rejects anything else, and the deriver returns literals.
     """
-    from mhcgnomes.species import _derive_prefix_provenance, latin_name_to_species_object
+    from mhcgnomes.species import derive_prefix_provenance, latin_name_to_species_object
 
     for species in latin_name_to_species_object.values():
         if species.prefix_provenance != "designated":
             continue
-        derived = _derive_prefix_provenance(species.prefix, species.name)
+        derived = derive_prefix_provenance(species.prefix, species.name)
         assert derived is None, (
             f"{species.name} is curated 'designated' but derivation says "
             f"{derived!r}; one of the two is wrong"

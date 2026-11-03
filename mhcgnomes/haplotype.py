@@ -83,7 +83,7 @@ class Haplotype(ResultWithMultipleAlleles):
     locus_restriction: Union[Class2Locus, None] = None
     parent_haplotypes: Union[tuple["Haplotype", ...], None] = None
     # Loci this haplotype positively lacks, as against loci nobody typed. See
-    # Parser._blank_locus_gene_name and issue #162. Deliberately not in
+    # Parser.blank_locus_gene_name and issue #162. Deliberately not in
     # eq_field_names: a haplotype's identity is its species and name, which is
     # why `alleles` is not there either.
     absent_genes: tuple["Gene", ...] = ()

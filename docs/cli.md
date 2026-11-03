@@ -78,7 +78,28 @@ ParseError: Could not parse 'not a real allele'
 `--default-species` sets the species used when the input has no prefix (`HLA`
 by default), `--infer-class2-pairing` fills in the canonical class II alpha
 chain when only a beta chain is given, and `--max-allele-fields` restricts
-parsed alleles to that many fields. `mhcgnomes --help` lists them all.
+parsed alleles to that many fields.
+
+| Option | Python API behavior |
+|---|---|
+| `--species SPECIES` | Strict `species=` constraint, including source-prefix disambiguation and valid ancestor-to-species reparsing. Mutually exclusive with `--default-species`. |
+| `--use-allele-aliases` | Resolve supported historical names with `use_allele_aliases=True`. |
+| `--require-explicit-species` | Reject a result whose species was inferred or defaulted. |
+| `--result-types Allele,Gene,Pair` | Apply `required_result_types`; names are case-sensitive public result class names, separated by commas. Unknown or empty entries are argument errors. |
+| `--class I` or `--class II` | Apply `only_class1` or `only_class2`. |
+
+For example:
+
+```bash
+mhcgnomes --use-allele-aliases --format json 'HLA-A*02:01:08'
+mhcgnomes --species 'Bos taurus' 'BoLA-DRB3*01:01'
+mhcgnomes --require-explicit-species --result-types Allele,Pair --class II --strict 'HLA-DRB1*04:01'
+```
+
+Parse failures become error rows by default; `--strict` returns status 1.
+Invalid options return status 2 before any input is parsed. `mhcgnomes --help`
+lists supported options. The CLI keeps its short `gene` display; the shared
+Python row also exposes `gene_name` and any full legacy `gene` record field.
 
 ## External data
 

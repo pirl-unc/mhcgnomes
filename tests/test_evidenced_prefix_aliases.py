@@ -21,7 +21,7 @@ from mhcgnomes import Species, parse
 from mhcgnomes.species import (
     EVIDENCED_CONTEXT_ONLY_ALIASES,
     EVIDENCED_GLOBAL_ALIASES,
-    _blocked_registry_prefixes,
+    blocked_registry_prefixes,
     find_matching_context_only_species_objects,
 )
 
@@ -117,7 +117,7 @@ def test_the_curation_holdback_is_respected():
     Phco and Phtr are blocked there, and tests/test_birds.py asserts they do
     not parse.
     """
-    blocked = _blocked_registry_prefixes()
+    blocked = blocked_registry_prefixes()
     ok_(blocked, "expected some blocked prefixes in the registry")
     imported = {a.lower() for v in EVIDENCED_GLOBAL_ALIASES.values() for a in v}
     imported |= {a.lower() for v in EVIDENCED_CONTEXT_ONLY_ALIASES.values() for a in v}

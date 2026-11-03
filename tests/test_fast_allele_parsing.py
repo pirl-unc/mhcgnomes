@@ -49,7 +49,7 @@ def test_explicit_species_allele_fast_path_is_cross_species(monkeypatch, name, e
     ],
 )
 def test_fast_path_defers_unprefixed_non_allele_and_complex_names(name):
-    assert Parser()._parse_explicit_species_allele_candidates(name) == []
+    assert Parser().parse_explicit_species_allele_candidates(name) == []
 
 
 def test_fast_path_preserves_ambiguous_candidates_for_result_type_filters():
@@ -92,7 +92,7 @@ def test_fast_path_matches_general_parser_for_checked_in_netmhcpan_inventory():
 
     fast_parser = Parser()
     general_parser = Parser()
-    general_parser._parse_explicit_species_allele_candidates = lambda name: []
+    general_parser.parse_explicit_species_allele_candidates = lambda name: []
 
     fast_results = [fast_parser.parse(name) for name in names]
     general_results = [general_parser.parse(name) for name in names]
