@@ -45,6 +45,36 @@ which is why `HLA-DR15` and `BoLA-DR` parse cleanly but yield no allele:
 | `MhcClass` | Just a class, with or without species | `HLA class I` |
 | `Species` | Only a species was named | `HLA` |
 
+### One allele or an allele group?
+
+An `Allele` can also be an allele group. In IMGT/HLA and IPD-MHC names the
+first field is the group and the second names a protein, so `HLA-A*02` is a
+group and `HLA-A*02:01` is one allele. A tool that needs one molecule, such as
+a binding predictor, should ask `is_allele_group` rather than count fields.
+Field counts alone go wrong both ways: `HLA-MICA*001` is one complete allele,
+and `SLA-1*15XX` is a group.
+
+```python
+>>> from mhcgnomes import parse
+>>> [parse(name).is_allele_group for name in ["HLA-A*02", "HLA-A*02:01", "H2-Kb"]]
+[True, False, False]
+>>> [parse(name).is_allele_group for name in ["HLA-MICA*001", "SLA-1*15XX"]]
+[False, True]
+```
+
+Old names are recognized only after alias resolution. NetMHC's `Mamu-A01` is
+one allele, `Mamu-A1*001:01`, once `use_allele_aliases=True` resolves it.
+Without alias resolution it stays the one-field `Mamu-A*01` and reads as a
+group. An unrecognized old name therefore errs toward "group", so a caller that
+needs one molecule refuses it instead of accepting a group.
+
+```python
+>>> parse("Mamu-A01", use_allele_aliases=True).is_allele_group
+False
+>>> parse("Mamu-A01").is_allele_group
+True
+```
+
 ## Parsing untrusted input
 
 `parse` accepts anything that looks like MHC nomenclature, which is the right

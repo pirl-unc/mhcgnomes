@@ -10,18 +10,45 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import re
 from collections.abc import Iterable
 from dataclasses import dataclass, field
+from functools import cache
 from typing import Union
 
 from .data import min_first_field_widths as _MIN_FIRST_FIELD_WIDTHS
+from .data import single_field_alleles as _SINGLE_FIELD_ALLELES
 from .gene import Gene
 from .mutation import Mutation
 from .result_with_gene import ResultWithGene
+from .species import Species
 
 # Default minimum digit width for allele fields
 _DEFAULT_FIRST_FIELD_WIDTH = 2
 _DEFAULT_FIELD_WIDTH = 2
+
+# A field such as "15XX": a low-resolution type naming every allele in group
+# 15, e.g. SLA-1*15XX (Hammer et al. 2021, PMC8362188; see haplotypes.yaml).
+_ALLELE_GROUP_FIELD = re.compile(r"\d*xx", re.IGNORECASE)
+
+# A single field that reads as an allele group: digits, optionally after
+# IPD-MHC's "W" prefix (an allele not yet assigned to a locus).
+_NUMERIC_FIELD = re.compile(r"[Ww]?\d+")
+
+
+@cache
+def _single_field_allele_names():
+    """(species name, gene name) -> registry fields from single_field_alleles.yaml."""
+    index = {}
+    for prefix, genes in _SINGLE_FIELD_ALLELES.items():
+        species = Species.get(prefix)
+        if species is None:
+            continue
+        for gene_name, fields in genes.items():
+            gene = Gene.get(species, gene_name)
+            if gene is not None:
+                index[(species.name, gene.name)] = frozenset(fields)
+    return index
 
 
 @dataclass(eq=False, repr=False, frozen=True, init=False)
@@ -165,6 +192,48 @@ class Allele(ResultWithGene):
     @property
     def num_allele_fields(self):
         return len(self.allele_fields)
+
+    @property
+    def is_allele_group(self):
+        """
+        Whether this name denotes an allele group rather than one allele.
+
+        In IMGT/HLA and IPD-MHC nomenclature the first field of an allele name
+        is the allele group (lineage) and the second names a specific protein,
+        so HLA-A*02 and HLA-DRB1*04 are groups and HLA-A*02:01 is one allele.
+
+        True when:
+
+        - a field is a low-resolution group such as SLA-1*15XX, or
+        - the name has a single numeric field (HLA-A*02, Mamu-A1*001), unless
+          IMGT/HLA or IPD-MHC has a complete allele with that name
+          (HLA-MICA*001, Papa-B*03; listed in single_field_alleles.yaml).
+
+        False for names with two or more fields, and for a single field that is
+        not a number, such as the haplotype-letter names H2-K*b and RT1-A*a or
+        a provisional name such as SLA-1*es11. G and P groups (HLA-A*02:01:01G,
+        HLA-A*02:01P) are not allele groups in this sense: each fixes the
+        peptide-binding domain, so this is False for them; see annotations.
+
+        Old names are only recognized after alias resolution. With
+        ``use_allele_aliases=True``, NetMHC's Mamu-A01 becomes
+        Mamu-A1*001:01 and this is False. Without it the parse keeps
+        Mamu-A*01, which reads as a one-field group name, so this is True.
+        The same holds for old names the alias table does not cover, such as
+        chicken haplotype-based names like Gaga-BF2*21 (#199). An unrecognized
+        old name is therefore reported as a group, never the reverse.
+
+        Returns
+        -------
+        bool
+        """
+        fields = self.allele_fields
+        if any(_ALLELE_GROUP_FIELD.fullmatch(field) for field in fields):
+            return True
+        if len(fields) != 1 or not _NUMERIC_FIELD.fullmatch(fields[0]):
+            return False
+        registry_names = _single_field_allele_names().get((self.species.name, self.gene.name), ())
+        return fields[0] not in registry_names
 
     @property
     def name(self):
