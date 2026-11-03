@@ -54,6 +54,7 @@ curated pseudogene. `Allele.is_pseudogene` combines gene-level status with an
 explicit `Ps` suffix:
 
 ```python
+>>> import mhcgnomes
 >>> mhcgnomes.parse("HLA-H*02:01").is_pseudogene
 True
 >>> mhcgnomes.parse("Mamu-G*01:01").is_pseudogene

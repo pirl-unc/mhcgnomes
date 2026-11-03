@@ -80,6 +80,8 @@ A bare gene symbol can carry a species you never supplied, and the default
 species means a deliberately generic string still comes back with one:
 
 ```python
+>>> import mhcgnomes
+>>> from mhcgnomes import parse
 >>> parse("Gaga-BLB2*02").species_source
 'explicit'
 >>> parse("BLB2*02").species_source     # inferred from the gene name

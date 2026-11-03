@@ -803,7 +803,7 @@ def test_invalid_prefix_source_value_is_rejected():
 
 def test_4_4_shorthand_parses_an_allele():
     """
-    The tier README.md documents as `HomoSapi-A*02:01`. Both allele-parse tests
+    The tier docs/species-ontology.md documents as `HomoSapi-A*02:01`. Both allele-parse tests
     above use the concatenated form, so without this nothing covers the 4+4
     branch and a regression in its uniqueness guard would drop the whole tier
     silently.

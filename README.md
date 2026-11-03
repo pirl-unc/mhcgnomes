@@ -96,10 +96,10 @@ Full documentation: [pirl-unc.github.io/mhcgnomes](https://pirl-unc.github.io/mh
 
 Every pull request bumps `mhcgnomes/version.py`; see the
 [release process](https://pirl-unc.github.io/mhcgnomes/releasing/)
-([source](docs/releasing.md)) for how a merged version reaches PyPI.
+([source](https://github.com/pirl-unc/mhcgnomes/blob/main/docs/releasing.md)) for how a merged version reaches PyPI.
 
 Raw IPD-IMGT/HLA and IPD-MHC snapshots are not committed or bundled in releases. See
-[External IMGT/IPD data](EXTERNAL_DATA.md) for checksum-pinned downloads, local/CI caches,
+[External IMGT/IPD data](https://github.com/pirl-unc/mhcgnomes/blob/main/EXTERNAL_DATA.md) for checksum-pinned downloads, local/CI caches,
 optional mirrors, offline use, and alias regeneration.
 
 To work on the documentation site:

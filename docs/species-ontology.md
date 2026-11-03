@@ -48,6 +48,8 @@ Primata sp. [Primata]        the primate order, and the genes all primates share
 That keeps both questions as plain ancestry, with no second predicate:
 
 ```python
+>>> import mhcgnomes
+>>> from mhcgnomes import Species, parse
 >>> Species.get("Homo sapiens").compatible_with("Primata sp.")
 True                              # humans are primates
 >>> Species.get("Homo sapiens").compatible_with("NHP")
