@@ -1,33 +1,47 @@
-# Curated-data warnings go to `warnings`, not stdout
+# Make old-name allele aliases reachable; NetMHC's short Mamu names (#216)
 
-GitHub issue: #213
+GitHub issue: #216
 
-## Problem
+## Evidence
 
-`Parser._find_matching_name_and_parse_alleles` printed two curated-data
-problems to stdout with bare `print()`: a `<gene>*Blank` haplotype member
-naming a gene the species does not have, and a member that does not parse.
-Either would have landed in the middle of a caller's output; `mhcgnomes
---format json` would have stopped producing valid JSON, and callers could not
-filter or silence it.
+- [x] Find why `Mamu-B08` ignored the curated `B*08 -> B*008:01`. The parser
+  zero-pads allele fields (Mamu-B to 3 digits) when it builds the `Allele`,
+  and `transform_parse_candidate` looks the alias up afterwards, by `B*008`.
+- [x] Measure it across the whole table rather than for one species. Parsing
+  every gene-bearing alias key with `use_allele_aliases=True` and comparing
+  with its target found 22 unreachable keys: the 7 Mamu-B two-digit names,
+  Mamu `A1*1701`, `A1*5801`, `A1*030102`, and 11 old 5-digit MICA/MICB names
+  (`MICA*00201` became `MICA*000:201`, not `MICA*002:01:01`). It also found a
+  Mamu NetMHC row, `B*8701 -> B*087:01`, filed under Saha.
+- [x] Settle "IPD's old names vs NetMHC's" from primary sources, not from our
+  table. Our Mamu block matches the 2012 nomenclature report's ESM1 (PMID
+  22526602) row for row. IPD-MHC's `previous` field names the allele numbered
+  NN+1 for 33 of its 57 two-digit Mamu-A/B old names (A*26 -> A1*011:01,
+  NHP01884). NetMHC 4.0's `MHC_allele_names.txt`, Wiseman 2011 Table 1 (PMID
+  21270169) and the GenBank deposits' sequences agree with the report.
+- [x] Check `Mamu-B17`: it is an IPD-MHC locus (`Mamu-B17*01:02:02`,
+  NHP02096), not only NetMHC's short name for B*017:01.
 
-## Plan
+## Implementation
 
-- [x] Confirm both sites (`parser.py`, the blank-gene and unparseable-member
-  branches) and that no other non-verbose `print()` exists in library code.
-- [x] Replace both with `warnings.warn(..., stacklevel=2)`, naming the species
-  prefix, the member and the entry, and saying the member is left out.
-- [x] Add a test that loads every shipped haplotype and serotype with warnings
-  turned into errors, and asserts nothing reaches stdout.
-- [x] Unit tests for each condition (warns, prints nothing, keeps the other
-  members) and for a known blank gene (recorded, no warning).
-- [x] Prove the walk catches a real curation error: adding `NOTAGENE*Blank` to
-  SLA `Hp-2.0` makes it fail with the entry named.
-- [x] Bump to 3.64.11; run `./format.sh`, `./lint.sh`, `./test.sh`.
+- [x] `Parser._is_allele_alias_as_written`: when aliases are on and the fields
+  as written are an alias key, build the allele without zero-padding so the
+  alias step finds it. Default parsing is unchanged.
+- [x] Add `A*07 -> A1*007:01` (NetMHC's `Mamu-A07`), move `B*8701` back to
+  Mamu, and cite the sources in `curated_allele_aliases.yaml`. Regenerate
+  `allele_aliases.yaml` with `combine_allele_aliases.sh`.
+- [x] Leave bare `Mamu-B17` as the gene, and say why in the YAML and a test.
+- [x] Tests: a sweep that every alias key resolves to its target (exceptions
+  only for #231/#232), the issue's NetMHC table, narrow old names, default
+  mode unchanged, current lineage names untouched, `Mamu-B17` stays the locus.
+- [x] File what the sweep found that is not this bug: #231 (current names
+  `A*02:172` / `B*15:112` collide with old colon-free keys) and #232 (alias
+  resolution depends on `PYTHONHASHSEED`).
+- [x] Bump to 3.64.12; run `./format.sh`, `./lint.sh`, `./test.sh`.
 
 ## Review
 
-- Both conditions are latent: every shipped haplotype and serotype loads with
-  warnings as errors. The walk is what keeps them latent; the warning is what a
-  user sees if the data ever regresses.
-- The `--verbose` debug prints in `parser.py` are opt-in and unchanged.
+- Without aliases, `Mamu-B08` still parses to `Mamu-B*008`, which reads as
+  the current B*008 lineage although the input names one allele. Resolving old
+  names stays opt-in, as the issue suggested; #215 has to treat that output
+  accordingly.

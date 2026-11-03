@@ -759,7 +759,46 @@ class Parser:
             if gene.is_chicken and not all((c.isdigit() or c == ".") for c in allele_field):
                 return None
         return Allele.get_with_gene(
-            gene, allele_fields, annotations=functional_annotations, raw_string=raw_string
+            gene,
+            allele_fields,
+            annotations=functional_annotations,
+            raw_string=raw_string,
+            normalize_fields=not self._is_allele_alias_as_written(gene, allele_fields),
+        )
+
+    def _is_allele_alias_as_written(self, gene: Gene, allele_fields: Sequence[str]) -> bool:
+        """
+        Whether alias resolution is on and these fields, as written, are an
+        allele-alias key of the gene's species.
+
+        Alias keys are old names, and old names are looked up by the digits
+        they were written with. Zero-padding is a normalization for current
+        names, and applying it first made such keys unreachable (#216):
+        "Mamu-B*08" was padded to "B*008" before transform_parse_candidate
+        looked it up, so the curated "B*08 -> B*008:01" never matched, and
+        "MICA*00201" became "MICA*000:201" instead of "MICA*002:01:01". When
+        this is True the allele keeps its written fields, and
+        transform_parse_candidate replaces it with the alias target.
+
+        Parameters
+        ----------
+        gene : Gene
+            Gene the fields were parsed under.
+        allele_fields : sequence of str
+            Allele fields as split from the input, before zero-padding and
+            without annotations.
+
+        Returns
+        -------
+        bool
+            False whenever use_allele_aliases is off, so default parsing is
+            unchanged.
+        """
+        if not self.use_allele_aliases or gene.species is None:
+            return False
+        written_name = ":".join(allele_fields)
+        return (
+            gene.species.get_allele_alias(gene_name=gene.name, allele_name=written_name) is not None
         )
 
     def get_gene_or_locus(self, species: Union[Species, str], name: str):
