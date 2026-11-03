@@ -220,3 +220,25 @@ authority made the source-specific slash semantics sound standardized.
 accession for what biological record it denotes, and the registry release for
 whether the registry contains it. Never substitute one of those checks for
 another.
+
+## Do not filter out output you have not read
+
+**What happened.** #214 was stacked on #212's branch, and its description said
+to change its base to `main` after #212 merged. The base change ran as
+`gh pr edit 214 --base main | grep -v "Projects (classic)"`, to hide GitHub's
+deprecation notice about classic Projects. That line was not a notice. It was
+the error: `gh pr edit` fails outright on that GraphQL deprecation, so the base
+stayed `cleanup/docs`, and the merge went into that branch instead of `main`.
+An earlier `gh pr edit 210 --body-file` had failed the same way, unnoticed.
+#229 re-landed the change.
+
+**Why it was wrong.** A `grep -v` written to hide a message is chosen before the
+message is read. The exit status was swallowed by the pipe, so nothing else
+reported the failure either.
+
+**How to apply.** After any command that changes GitHub state, read the state
+back (`gh pr view --json baseRefName`, the PR body) before relying on it. Never
+pipe a write command through a filter that can drop its error. While `gh pr
+edit` is broken by the Projects (classic) deprecation, edit PRs through REST:
+`gh api -X PATCH repos/pirl-unc/mhcgnomes/pulls/<n> -f base=main` or
+`-F body=@file`.

@@ -12,6 +12,7 @@
 
 import itertools
 import re
+import warnings
 from collections import defaultdict
 from collections.abc import Iterable, Mapping, Sequence
 from typing import Optional, Union
@@ -397,9 +398,12 @@ class Parser:
             if blank_gene_name is not None:
                 gene = Gene.get(species, blank_gene_name)
                 if gene is None:
-                    print(
-                        f"Warning: unknown gene '{blank_gene_name}' marked blank "
-                        f"for '{normalized_name}'"
+                    # A library must not write to stdout (#213); every shipped
+                    # entry is checked by tests/test_curated_data_warnings.py.
+                    warnings.warn(
+                        f"{species.prefix}: unknown gene '{blank_gene_name}' marked blank "
+                        f"for '{normalized_name}'; it is left out",
+                        stacklevel=2,
                     )
                 else:
                     absent_genes.append(gene)
@@ -411,8 +415,10 @@ class Parser:
 
             allele = pick_best_result(candidates, raise_on_error=False)
             if allele is None:
-                print(
-                    f"Warning: unable to parse allele name '{allele_name}' for '{normalized_name}'"
+                warnings.warn(
+                    f"{species.prefix}: unable to parse allele name '{allele_name}' "
+                    f"for '{normalized_name}'; it is left out",
+                    stacklevel=2,
                 )
             else:
                 alleles.append(allele)
