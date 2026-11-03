@@ -364,12 +364,6 @@ def _build_gene_class_info_from_parsed(parsed: Result, raw_string: str):
     return None
 
 
-def _normalize_inference_gene_token(gene_token: str):
-    # Same rule as non_mhc_genes.normalize_non_mhc_gene_name, which is what
-    # keys the shared table.
-    return normalize_non_mhc_gene_name(gene_token)
-
-
 def _strip_gene_token(candidate_gene_string: str):
     candidate_gene_string = candidate_gene_string.strip()
     if not candidate_gene_string:
@@ -427,7 +421,7 @@ def _extract_species_and_gene_string(
 
 
 def _infer_gene_rule(gene_token: str):
-    normalized = _normalize_inference_gene_token(gene_token)
+    normalized = normalize_non_mhc_gene_name(gene_token)
     if normalized in _LENIENT_GENE_SUFFIX_RULES:
         mhc_class, chain = _LENIENT_GENE_SUFFIX_RULES[normalized]
         return normalized, mhc_class, chain
@@ -493,7 +487,7 @@ def _build_gene_class_info_from_token(species: Species, gene_token: str, raw_str
     if family_info is not None:
         return family_info
 
-    normalized = _normalize_inference_gene_token(gene_token)
+    normalized = normalize_non_mhc_gene_name(gene_token)
     if normalized in NON_MHC_REGION_GENE_NAMES:
         return GeneClassInfo(
             species=species,
