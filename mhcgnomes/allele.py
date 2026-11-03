@@ -202,7 +202,10 @@ class Allele(ResultWithGene):
     @property
     def is_allele_group(self):
         """
-        Whether this name denotes an allele group rather than one allele.
+        Whether this written name has allele-group form.
+
+        This is a naming classifier, not validation of registry membership, a
+        fully specified molecule, a complete sequence, or normal expression.
 
         In IMGT/HLA and IPD-MHC nomenclature the first field of an allele name
         is the allele group (lineage) and the second names a specific protein,
@@ -223,11 +226,10 @@ class Allele(ResultWithGene):
 
         Old names are only recognized after alias resolution. With
         ``use_allele_aliases=True``, NetMHC's Mamu-A01 becomes
-        Mamu-A1*001:01 and this is False. Without it the parse keeps
+        an allele in the Mamu-A1*001:01 lineage and this is False. Without it the parse keeps
         Mamu-A*01, which reads as a one-field group name, so this is True.
         The same holds for old names the alias table does not cover, such as
-        chicken haplotype-based names like Gaga-BF2*21 (#199). An unrecognized
-        old name is therefore reported as a group, never the reverse.
+        chicken haplotype-based names like Gaga-BF2*21 (#199). Unknown names can still parse; validate downstream requirements separately.
 
         Returns
         -------
@@ -582,4 +584,4 @@ class Allele(ResultWithGene):
     @property
     def annotation_splice_variant(self):
         # Sp: the allele is a splice variant (IPD-MHC NHP nomenclature)
-        return self._check_annotation("Sp")
+        return self._check_annotation("Sp") or self._check_annotation("SV")

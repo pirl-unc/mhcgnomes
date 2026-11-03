@@ -1,0 +1,4431 @@
+{
+  "coverage": {
+    "IMGT-HLA-Allelelist-history-3.66.0.txt": {
+      "current_records": 47424,
+      "historical_names": 53708,
+      "records_with_history": 46652
+    },
+    "IPD-MHC-3.8.0.0.xml": {
+      "current_records": 11756,
+      "historical_names": 7288,
+      "records_with_history": 5261
+    }
+  },
+  "decisions": [
+    {
+      "accession": "BoLA03219",
+      "curated": false,
+      "new": "NC1*004:01SV",
+      "old": "NC1*004:01",
+      "reason": "current_name",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "BoLA"
+    },
+    {
+      "accession": "CHICKEN08561",
+      "curated": false,
+      "new": "BF1*012:01:01",
+      "old": "BF1*1201",
+      "reason": "ambiguous",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Gaga"
+    },
+    {
+      "accession": "CHICKEN08574",
+      "curated": false,
+      "new": "BF2*012:01:01",
+      "old": "BF1*1201",
+      "reason": "ambiguous",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Gaga"
+    },
+    {
+      "accession": "NHP00192",
+      "curated": false,
+      "new": "C*01:01:02",
+      "old": "C*01:02",
+      "reason": "current_name",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Gogo"
+    },
+    {
+      "accession": "HLA12112",
+      "curated": false,
+      "new": "A*01:159Q",
+      "old": "A*01:159",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Allelelist-history-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA12112",
+      "curated": false,
+      "new": "A*01:159Q",
+      "old": "A*01:159",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA20210",
+      "curated": false,
+      "new": "A*01:281Q",
+      "old": "A*01:281",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Allelelist-history-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA20210",
+      "curated": false,
+      "new": "A*01:281Q",
+      "old": "A*01:281",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA22341",
+      "curated": false,
+      "new": "A*01:301Q",
+      "old": "A*01:301",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Allelelist-history-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA22341",
+      "curated": false,
+      "new": "A*01:301Q",
+      "old": "A*01:301",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA03587",
+      "curated": false,
+      "new": "A*01:01:38L",
+      "old": "A*01:34N",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Allelelist-history-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA06674",
+      "curated": false,
+      "new": "A*01:01:38L",
+      "old": "A*01:34N",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "",
+      "curated": true,
+      "new": "A*02:01:14Q",
+      "old": "A*02:01:14",
+      "reason": "current_name",
+      "source": "curated_allele_aliases.yaml",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA08586",
+      "curated": false,
+      "new": "A*02:01:84",
+      "old": "A*02:01:82",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA00022",
+      "curated": false,
+      "new": "A*02:17:02:01",
+      "old": "A*02:17:01",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA09819",
+      "curated": false,
+      "new": "A*02:437Q",
+      "old": "A*02:437",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Allelelist-history-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA09819",
+      "curated": false,
+      "new": "A*02:437Q",
+      "old": "A*02:437",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA13849",
+      "curated": false,
+      "new": "A*02:581Q",
+      "old": "A*02:581",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Allelelist-history-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA13849",
+      "curated": false,
+      "new": "A*02:581Q",
+      "old": "A*02:581",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA18885",
+      "curated": false,
+      "new": "A*02:728Q",
+      "old": "A*02:728",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Allelelist-history-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA18885",
+      "curated": false,
+      "new": "A*02:728Q",
+      "old": "A*02:728",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA21487",
+      "curated": false,
+      "new": "A*02:795Q",
+      "old": "A*02:795",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Allelelist-history-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA21487",
+      "curated": false,
+      "new": "A*02:795Q",
+      "old": "A*02:795",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA11939",
+      "curated": false,
+      "new": "A*03:213",
+      "old": "A*03:194",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA12146",
+      "curated": false,
+      "new": "A*03:266N",
+      "old": "A*03:200Q",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA15827",
+      "curated": false,
+      "new": "A*03:284N",
+      "old": "A*03:260",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA03183",
+      "curated": false,
+      "new": "A*23:19N",
+      "old": "A*23:19Q",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Allelelist-history-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA03183",
+      "curated": false,
+      "new": "A*23:19N",
+      "old": "A*23:19Q",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA12676",
+      "curated": false,
+      "new": "A*23:01:01:01",
+      "old": "A*23:69",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA19895",
+      "curated": false,
+      "new": "A*24:02:01:17Q",
+      "old": "A*24:02:01:17",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Allelelist-history-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA19895",
+      "curated": false,
+      "new": "A*24:02:01:17Q",
+      "old": "A*24:02:01:17",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA08806",
+      "curated": false,
+      "new": "A*24:135:02",
+      "old": "A*24:211",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA14501",
+      "curated": false,
+      "new": "A*24:329Q",
+      "old": "A*24:329",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Allelelist-history-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA14501",
+      "curated": false,
+      "new": "A*24:329Q",
+      "old": "A*24:329",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA16924",
+      "curated": false,
+      "new": "A*24:378Q",
+      "old": "A*24:378",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Allelelist-history-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA16924",
+      "curated": false,
+      "new": "A*24:378Q",
+      "old": "A*24:378",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA22313",
+      "curated": false,
+      "new": "A*24:447Q",
+      "old": "A*24:447",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Allelelist-history-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA22313",
+      "curated": false,
+      "new": "A*24:447Q",
+      "old": "A*24:447",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA23544",
+      "curated": false,
+      "new": "A*24:450Q",
+      "old": "A*24:450",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Allelelist-history-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA23544",
+      "curated": false,
+      "new": "A*24:450Q",
+      "old": "A*24:450",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA04741",
+      "curated": false,
+      "new": "A*26:111",
+      "old": "A*26:03:02",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Allelelist-history-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA13249",
+      "curated": false,
+      "new": "A*26:111",
+      "old": "A*26:03:02",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA04751",
+      "curated": false,
+      "new": "A*26:43:02",
+      "old": "A*26:44",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Allelelist-history-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA05425",
+      "curated": false,
+      "new": "A*26:43:02",
+      "old": "A*26:44",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA09547",
+      "curated": false,
+      "new": "A*30:02:12",
+      "old": "A*30:100",
+      "reason": "current_name",
+      "source": "IMGT-HLA-Allelelist-history-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA03594",
+      "curated": false,
+      "new": "A*33:03:03Q",
+      "old": "A*33:03:03",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Allelelist-history-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA03594",
+      "curated": false,
+      "new": "A*33:03:03Q",
+      "old": "A*33:03:03",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA06029",
+      "curated": false,
+      "new": "A*33:44",
+      "old": "A*33:38",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA02350",
+      "curated": false,
+      "new": "B*07:44N",
+      "old": "B*07:44",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Allelelist-history-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA02350",
+      "curated": false,
+      "new": "B*07:44N",
+      "old": "B*07:44",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA00151",
+      "curated": false,
+      "new": "B*08:20:01",
+      "old": "B*08:06",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA01476",
+      "curated": false,
+      "new": "B*13:08",
+      "old": "B*13:08Q",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Allelelist-history-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA01476",
+      "curated": false,
+      "new": "B*13:08",
+      "old": "B*13:08Q",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA19082",
+      "curated": false,
+      "new": "B*18:01:01:12Q",
+      "old": "B*18:01:01:12",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Allelelist-history-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA19082",
+      "curated": false,
+      "new": "B*18:01:01:12Q",
+      "old": "B*18:01:01:12",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA12661",
+      "curated": false,
+      "new": "B*18:106Q",
+      "old": "B*18:106",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Allelelist-history-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA12661",
+      "curated": false,
+      "new": "B*18:106Q",
+      "old": "B*18:106",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA21247",
+      "curated": false,
+      "new": "B*27:185Q",
+      "old": "B*27:185",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Allelelist-history-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA21247",
+      "curated": false,
+      "new": "B*27:185Q",
+      "old": "B*27:185",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA24070",
+      "curated": false,
+      "new": "B*27:05:02:01",
+      "old": "B*27:215N",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA05274",
+      "curated": false,
+      "new": "B*35:185",
+      "old": "B*35:43:02",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Allelelist-history-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA07321",
+      "curated": false,
+      "new": "B*35:185",
+      "old": "B*35:43:02",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA04073",
+      "curated": false,
+      "new": "B*37:16Q",
+      "old": "B*3716",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Allelelist-history-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA04073",
+      "curated": false,
+      "new": "B*37:16Q",
+      "old": "B*3716",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA17410",
+      "curated": false,
+      "new": "B*38:68L",
+      "old": "B*38:68Q",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Allelelist-history-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA17410",
+      "curated": false,
+      "new": "B*38:68L",
+      "old": "B*38:68Q",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA19847",
+      "curated": false,
+      "new": "B*41:56Q",
+      "old": "B*41:56",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Allelelist-history-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA19847",
+      "curated": false,
+      "new": "B*41:56Q",
+      "old": "B*41:56",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA19088",
+      "curated": false,
+      "new": "B*44:02:01:13Q",
+      "old": "B*44:02:01:13",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Allelelist-history-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA19088",
+      "curated": false,
+      "new": "B*44:02:01:13Q",
+      "old": "B*44:02:01:13",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA07449",
+      "curated": false,
+      "new": "B*44:142",
+      "old": "B*44:142Q",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Allelelist-history-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA07449",
+      "curated": false,
+      "new": "B*44:142",
+      "old": "B*44:142Q",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA08432",
+      "curated": false,
+      "new": "B*44:160Q",
+      "old": "B*44:160",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Allelelist-history-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA08432",
+      "curated": false,
+      "new": "B*44:160Q",
+      "old": "B*44:160",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA26732",
+      "curated": false,
+      "new": "B*45:01:01:01",
+      "old": "B*45:26",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA00332",
+      "curated": false,
+      "new": "B*47:01:01:03",
+      "old": "B*47:01:01:01",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA05834",
+      "curated": false,
+      "new": "B*49:01:01:01",
+      "old": "B*49:15",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA18098",
+      "curated": false,
+      "new": "B*56:55:01:02",
+      "old": "B*56:55:01:01",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA05299",
+      "curated": false,
+      "new": "B*58:01:01:01",
+      "old": "B*58:30",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA00393",
+      "curated": false,
+      "new": "B*78:01:01:02",
+      "old": "B*78:01:01:01",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA07476",
+      "curated": false,
+      "new": "C*01:141",
+      "old": "C*01:63:01",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Allelelist-history-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA17559",
+      "curated": false,
+      "new": "C*01:141",
+      "old": "C*01:63:01",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA01471",
+      "curated": false,
+      "new": "C*02:10:06",
+      "old": "C*02:02:05",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Allelelist-history-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA22495",
+      "curated": false,
+      "new": "C*02:10:06",
+      "old": "C*02:02:05",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA02593",
+      "curated": false,
+      "new": "C*02:137",
+      "old": "C*02:16:01",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Allelelist-history-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA18539",
+      "curated": false,
+      "new": "C*02:137",
+      "old": "C*02:16:01",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA09035",
+      "curated": false,
+      "new": "C*02:67Q",
+      "old": "C*02:67",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Allelelist-history-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA09035",
+      "curated": false,
+      "new": "C*02:67Q",
+      "old": "C*02:67",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA01125",
+      "curated": false,
+      "new": "C*03:19",
+      "old": "C*03:12",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA08540",
+      "curated": false,
+      "new": "C*03:169Q",
+      "old": "C*03:169",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Allelelist-history-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA08540",
+      "curated": false,
+      "new": "C*03:169Q",
+      "old": "C*03:169",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA02444",
+      "curated": false,
+      "new": "C*03:23N",
+      "old": "C*03:23",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Allelelist-history-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA02444",
+      "curated": false,
+      "new": "C*03:23N",
+      "old": "C*03:23",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA05752",
+      "curated": false,
+      "new": "C*01:169:01",
+      "old": "C*03:99:01",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Allelelist-history-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA21932",
+      "curated": false,
+      "new": "C*01:169:01",
+      "old": "C*03:99:01",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA17243",
+      "curated": false,
+      "new": "C*01:169:02",
+      "old": "C*03:99:02",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Allelelist-history-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA21933",
+      "curated": false,
+      "new": "C*01:169:02",
+      "old": "C*03:99:02",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA20733",
+      "curated": false,
+      "new": "C*04:01:01:27",
+      "old": "C*04:01:01:30",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA20860",
+      "curated": false,
+      "new": "C*04:338Q",
+      "old": "C*04:338",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Allelelist-history-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA20860",
+      "curated": false,
+      "new": "C*04:338Q",
+      "old": "C*04:338",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA23722",
+      "curated": false,
+      "new": "C*04:382Q",
+      "old": "C*04:382",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Allelelist-history-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA23722",
+      "curated": false,
+      "new": "C*04:382Q",
+      "old": "C*04:382",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA07733",
+      "curated": false,
+      "new": "C*06:74Q",
+      "old": "C*06:74",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Allelelist-history-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA07733",
+      "curated": false,
+      "new": "C*06:74Q",
+      "old": "C*06:74",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA07484",
+      "curated": false,
+      "new": "C*07:226Q",
+      "old": "C*07:226",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Allelelist-history-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA07484",
+      "curated": false,
+      "new": "C*07:226Q",
+      "old": "C*07:226",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA07756",
+      "curated": false,
+      "new": "C*07:235Q",
+      "old": "C*07:235",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Allelelist-history-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA07756",
+      "curated": false,
+      "new": "C*07:235Q",
+      "old": "C*07:235",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA13556",
+      "curated": false,
+      "new": "C*07:432Q",
+      "old": "C*07:432",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Allelelist-history-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA13556",
+      "curated": false,
+      "new": "C*07:432Q",
+      "old": "C*07:432",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA21111",
+      "curated": false,
+      "new": "C*07:713Q",
+      "old": "C*07:713",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Allelelist-history-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA21111",
+      "curated": false,
+      "new": "C*07:713Q",
+      "old": "C*07:713",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA39175",
+      "curated": false,
+      "new": "C*08:273",
+      "old": "C*08:276",
+      "reason": "current_name",
+      "source": "IMGT-HLA-Allelelist-history-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA08201",
+      "curated": false,
+      "new": "C*08:33:03",
+      "old": "C*08:64",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Allelelist-history-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA08807",
+      "curated": false,
+      "new": "C*08:33:03",
+      "old": "C*08:64",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA08738",
+      "curated": false,
+      "new": "C*08:70Q",
+      "old": "C*08:70",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Allelelist-history-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA08738",
+      "curated": false,
+      "new": "C*08:70Q",
+      "old": "C*08:70",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA12709",
+      "curated": false,
+      "new": "C*12:139Q",
+      "old": "C*12:139",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Allelelist-history-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA12709",
+      "curated": false,
+      "new": "C*12:139Q",
+      "old": "C*12:139",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA26288",
+      "curated": false,
+      "new": "C*12:329N",
+      "old": "C*12:274:02N",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Allelelist-history-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA29057",
+      "curated": false,
+      "new": "C*12:329N",
+      "old": "C*12:274:02N",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA25418",
+      "curated": false,
+      "new": "C*12:03:01:01",
+      "old": "C*12:299N",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA02838",
+      "curated": false,
+      "new": "C*15:27",
+      "old": "C*15:20",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA00481",
+      "curated": false,
+      "new": "C*17:01:01:02",
+      "old": "C*17:01:01:01",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA00508",
+      "curated": false,
+      "new": "DPA1*02:07:01:01",
+      "old": "DPA1*02:02:01",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA25318",
+      "curated": false,
+      "new": "DPA1*02:02:02:01",
+      "old": "DPA1*02:02:02:06Q",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA04110",
+      "curated": false,
+      "new": "DPB1*621:01",
+      "old": "DPB1*35:01:02",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Allelelist-history-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA16638",
+      "curated": false,
+      "new": "DPB1*621:01",
+      "old": "DPB1*35:01:02",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA21931",
+      "curated": false,
+      "new": "DPB1*786:01:02N",
+      "old": "DPB1*793:01N",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA22270",
+      "curated": false,
+      "new": "DPB1*939:01",
+      "old": "DPB1*939:01N",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Allelelist-history-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA22270",
+      "curated": false,
+      "new": "DPB1*939:01",
+      "old": "DPB1*939:01N",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA17304",
+      "curated": false,
+      "new": "DQA1*01:01:01:01",
+      "old": "DQA1*01:01:01:04",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA01905",
+      "curated": false,
+      "new": "DQA1*01:07Q",
+      "old": "DQA1*01:07",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Allelelist-history-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA01905",
+      "curated": false,
+      "new": "DQA1*01:07Q",
+      "old": "DQA1*01:07",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA24174",
+      "curated": false,
+      "new": "DQA1*02:01:01:01",
+      "old": "DQA1*02:06",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA26397",
+      "curated": false,
+      "new": "DQA1*03:01:01:01",
+      "old": "DQA1*03:01:01:02",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA17310",
+      "curated": false,
+      "new": "DQA1*03:02:01:02",
+      "old": "DQA1*03:02:01:03",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA20231",
+      "curated": false,
+      "new": "DQB1*02:02:06:02",
+      "old": "DQB1*02:02:06:01",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA17368",
+      "curated": false,
+      "new": "DQB1*03:01:01:07",
+      "old": "DQB1*03:01:01:13",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA21930",
+      "curated": false,
+      "new": "DQB1*03:317:02",
+      "old": "DQB1*03:325",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA16167",
+      "curated": false,
+      "new": "DQB1*04:02:01:01",
+      "old": "DQB1*04:02:01:02",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA16186",
+      "curated": false,
+      "new": "DQB1*04:02:01:01",
+      "old": "DQB1*04:02:01:03",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA16145",
+      "curated": false,
+      "new": "DQB1*06:217",
+      "old": "DQB1*06:220",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA04406",
+      "curated": false,
+      "new": "DRB1*03:81",
+      "old": "DRB1*03:11:02",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Allelelist-history-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA07779",
+      "curated": false,
+      "new": "DRB1*03:81",
+      "old": "DRB1*03:11:02",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA06843",
+      "curated": false,
+      "new": "DRB1*04:05:14",
+      "old": "DRB1*04:05:12",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA14178",
+      "curated": false,
+      "new": "DRB1*04:212N",
+      "old": "DRB1*04:94:02N",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Allelelist-history-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA14939",
+      "curated": false,
+      "new": "DRB1*04:212N",
+      "old": "DRB1*04:94:02N",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA02257",
+      "curated": false,
+      "new": "DRB1*08:01:01:01",
+      "old": "DRB1*08:01:03",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA02157",
+      "curated": false,
+      "new": "DRB1*11:11:01",
+      "old": "DRB1*11:11:02",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA14662",
+      "curated": false,
+      "new": "DRB4*01:14N",
+      "old": "DRB4*01:14",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Allelelist-history-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA14662",
+      "curated": false,
+      "new": "DRB4*01:14N",
+      "old": "DRB4*01:14",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA23474",
+      "curated": false,
+      "new": "DRB5*02:26N",
+      "old": "DRB5*02:26",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Allelelist-history-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA23474",
+      "curated": false,
+      "new": "DRB5*02:26N",
+      "old": "DRB5*02:26",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA28116",
+      "curated": false,
+      "new": "E*01:117N",
+      "old": "E*01:21:02N",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Allelelist-history-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA29058",
+      "curated": false,
+      "new": "E*01:117N",
+      "old": "E*01:21:02N",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA02275",
+      "curated": false,
+      "new": "F*01:01:01:09",
+      "old": "F*01:01:03:01",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Allelelist-history-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA14593",
+      "curated": false,
+      "new": "F*01:01:01:09",
+      "old": "F*01:01:03:01",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA02270",
+      "curated": false,
+      "new": "F*01:01:01:10",
+      "old": "F*01:01:03:02",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Allelelist-history-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA14594",
+      "curated": false,
+      "new": "F*01:01:01:10",
+      "old": "F*01:01:03:02",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA02277",
+      "curated": false,
+      "new": "F*01:01:01:11",
+      "old": "F*01:01:03:03",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Allelelist-history-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA14595",
+      "curated": false,
+      "new": "F*01:01:01:11",
+      "old": "F*01:01:03:03",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA02278",
+      "curated": false,
+      "new": "F*01:01:01:12",
+      "old": "F*01:01:03:04",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Allelelist-history-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA14596",
+      "curated": false,
+      "new": "F*01:01:01:12",
+      "old": "F*01:01:03:04",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA01382",
+      "curated": false,
+      "new": "MICA*111:01",
+      "old": "MICA*007:02",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA07097",
+      "curated": false,
+      "new": "MICA*112:01:01",
+      "old": "MICA*007:04",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Allelelist-history-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA27320",
+      "curated": false,
+      "new": "MICA*112:01:01",
+      "old": "MICA*007:04",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA26364",
+      "curated": false,
+      "new": "MICA*008:01:10",
+      "old": "MICA*008:07",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Allelelist-history-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA29059",
+      "curated": false,
+      "new": "MICA*008:01:10",
+      "old": "MICA*008:07",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA01337",
+      "curated": false,
+      "new": "MICA*012:03",
+      "old": "MICA*021",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA07766",
+      "curated": false,
+      "new": "MICA*017:01:01",
+      "old": "MICA*071",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "HLA02189",
+      "curated": false,
+      "new": "MICB*005:05",
+      "old": "MICB*017",
+      "reason": "curated_precedence",
+      "source": "IMGT-HLA-Deleted-alleles-3.66.0.txt",
+      "species": "HLA"
+    },
+    {
+      "accession": "NHP02674",
+      "curated": false,
+      "new": "B*031:01",
+      "old": "B*001:01",
+      "reason": "current_name",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Mafa"
+    },
+    {
+      "accession": "NHP02673",
+      "curated": false,
+      "new": "B*030:17:01:01",
+      "old": "B*03001",
+      "reason": "current_name",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Mafa"
+    },
+    {
+      "accession": "NHP04329",
+      "curated": false,
+      "new": "B*051:26",
+      "old": "B*051:06:03",
+      "reason": "current_name",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Mafa"
+    },
+    {
+      "accession": "NHP02673",
+      "curated": false,
+      "new": "B*030:17:01:01",
+      "old": "B*146:01",
+      "reason": "current_name",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Mafa"
+    },
+    {
+      "accession": "NHP01614",
+      "curated": false,
+      "new": "DPA1*13:01:01:01",
+      "old": "DPA1*02:02",
+      "reason": "current_name",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Mafa"
+    },
+    {
+      "accession": "NHP01616",
+      "curated": false,
+      "new": "DPA1*13:03",
+      "old": "DPA1*02:03",
+      "reason": "current_name",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Mafa"
+    },
+    {
+      "accession": "NHP01328",
+      "curated": false,
+      "new": "DPB1*07:03:01",
+      "old": "DPB1*06:03",
+      "reason": "current_name",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Mafa"
+    },
+    {
+      "accession": "NHP01335",
+      "curated": false,
+      "new": "DPB1*08:07",
+      "old": "DPB1*06:04",
+      "reason": "current_name",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Mafa"
+    },
+    {
+      "accession": "NHP01329",
+      "curated": false,
+      "new": "DPB1*25:01",
+      "old": "DPB1*08:01",
+      "reason": "current_name",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Mafa"
+    },
+    {
+      "accession": "NHP01216",
+      "curated": false,
+      "new": "DPB1*25:02",
+      "old": "DPB1*08:03",
+      "reason": "current_name",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Mafa"
+    },
+    {
+      "accession": "NHP02061",
+      "curated": false,
+      "new": "DPB1*25:03",
+      "old": "DPB1*08:04",
+      "reason": "current_name",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Mafa"
+    },
+    {
+      "accession": "NHP00302",
+      "curated": false,
+      "new": "DQB1*27:01",
+      "old": "DQB1*18:03",
+      "reason": "current_name",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Mafa"
+    },
+    {
+      "accession": "NHP00305",
+      "curated": false,
+      "new": "DQB1*27:02",
+      "old": "DQB1*18:06",
+      "reason": "current_name",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Mafa"
+    },
+    {
+      "accession": "NHP02065",
+      "curated": false,
+      "new": "DQB1*27:03",
+      "old": "DQB1*18:07",
+      "reason": "current_name",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Mafa"
+    },
+    {
+      "accession": "NHP02065",
+      "curated": false,
+      "new": "DQB1*27:03",
+      "old": "DQB1*18:07:02",
+      "reason": "current_name",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Mafa"
+    },
+    {
+      "accession": "NHP00307",
+      "curated": false,
+      "new": "DQB1*28:01",
+      "old": "DQB1*18:08",
+      "reason": "current_name",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Mafa"
+    },
+    {
+      "accession": "NHP02623",
+      "curated": false,
+      "new": "DRA*01:02:18",
+      "old": "DRA*01:02:21",
+      "reason": "current_name",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Mafa"
+    },
+    {
+      "accession": "NHP01139",
+      "curated": false,
+      "new": "DRB1*03:16:02",
+      "old": "DRB1*03:24",
+      "reason": "current_name",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Mafa"
+    },
+    {
+      "accession": "NHP01115",
+      "curated": false,
+      "new": "DRB1*04:07:02",
+      "old": "DRB1*04:08",
+      "reason": "current_name",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Mafa"
+    },
+    {
+      "accession": "NHP04808",
+      "curated": false,
+      "new": "F*02:03:01",
+      "old": "F*01:03:01",
+      "reason": "current_name",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Mafa"
+    },
+    {
+      "accession": "NHP04809",
+      "curated": false,
+      "new": "F*02:04:01",
+      "old": "F*01:04:01",
+      "reason": "current_name",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Mafa"
+    },
+    {
+      "accession": "NHP04811",
+      "curated": false,
+      "new": "F*02:06:01",
+      "old": "F*01:06:01",
+      "reason": "current_name",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Mafa"
+    },
+    {
+      "accession": "NHP01884",
+      "curated": false,
+      "new": "A1*011:01:01:01",
+      "old": "A1*011:04",
+      "reason": "current_name",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Mamu"
+    },
+    {
+      "accession": "NHP01839",
+      "curated": false,
+      "new": "A2*05:55:01:01",
+      "old": "A2*05:03:02",
+      "reason": "current_name",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Mamu"
+    },
+    {
+      "accession": "NHP10420",
+      "curated": false,
+      "new": "A4*14:03:01:05",
+      "old": "A4*14:03:01:02",
+      "reason": "current_name",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Mamu"
+    },
+    {
+      "accession": "NHP00363",
+      "curated": false,
+      "new": "DPB1*08:02",
+      "old": "DPB1*06:01",
+      "reason": "current_name",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Mamu"
+    },
+    {
+      "accession": "NHP00366",
+      "curated": false,
+      "new": "DPB1*22:01",
+      "old": "DPB1*13:01",
+      "reason": "current_name",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Mamu"
+    },
+    {
+      "accession": "NHP00416",
+      "curated": false,
+      "new": "DQB1*26:01",
+      "old": "DQB1*17:02",
+      "reason": "current_name",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Mamu"
+    },
+    {
+      "accession": "NHP00418",
+      "curated": false,
+      "new": "DQB1*26:02",
+      "old": "DQB1*17:04",
+      "reason": "current_name",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Mamu"
+    },
+    {
+      "accession": "NHP00419",
+      "curated": false,
+      "new": "DQB1*26:03",
+      "old": "DQB1*17:05",
+      "reason": "current_name",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Mamu"
+    },
+    {
+      "accession": "NHP00420",
+      "curated": false,
+      "new": "DQB1*26:04:01",
+      "old": "DQB1*17:06:01",
+      "reason": "current_name",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Mamu"
+    },
+    {
+      "accession": "NHP00423",
+      "curated": false,
+      "new": "DQB1*26:05",
+      "old": "DQB1*17:09",
+      "reason": "current_name",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Mamu"
+    },
+    {
+      "accession": "NHP01277",
+      "curated": false,
+      "new": "DQB1*26:06",
+      "old": "DQB1*17:10",
+      "reason": "current_name",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Mamu"
+    },
+    {
+      "accession": "NHP00429",
+      "curated": false,
+      "new": "DQB1*28:01",
+      "old": "DQB1*18:08",
+      "reason": "current_name",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Mamu"
+    },
+    {
+      "accession": "NHP00430",
+      "curated": false,
+      "new": "DQB1*27:01",
+      "old": "DQB1*18:09",
+      "reason": "current_name",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Mamu"
+    },
+    {
+      "accession": "NHP00432",
+      "curated": false,
+      "new": "DQB1*27:02",
+      "old": "DQB1*18:11",
+      "reason": "current_name",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Mamu"
+    },
+    {
+      "accession": "NHP01067",
+      "curated": false,
+      "new": "DQB1*27:03",
+      "old": "DQB1*18:15",
+      "reason": "current_name",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Mamu"
+    },
+    {
+      "accession": "NHP02191",
+      "curated": false,
+      "new": "DQB1*27:04",
+      "old": "DQB1*18:17",
+      "reason": "current_name",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Mamu"
+    },
+    {
+      "accession": "NHP02199",
+      "curated": false,
+      "new": "DQB1*27:05",
+      "old": "DQB1*18:21",
+      "reason": "current_name",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Mamu"
+    },
+    {
+      "accession": "NHP01627",
+      "curated": false,
+      "new": "F*02:01",
+      "old": "F*01:01",
+      "reason": "current_name",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Mamu"
+    },
+    {
+      "accession": "NHP02347",
+      "curated": false,
+      "new": "F*02:02",
+      "old": "F*01:02",
+      "reason": "current_name",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Mamu"
+    },
+    {
+      "accession": "NHP01983",
+      "curated": false,
+      "new": "F*02:03:01",
+      "old": "F*01:03",
+      "reason": "current_name",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Mamu"
+    },
+    {
+      "accession": "NHP01983",
+      "curated": false,
+      "new": "F*02:03:01",
+      "old": "F*01:03:01",
+      "reason": "current_name",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Mamu"
+    },
+    {
+      "accession": "NHP00585",
+      "curated": false,
+      "new": "F*02:04:01",
+      "old": "F*01:04",
+      "reason": "current_name",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Mamu"
+    },
+    {
+      "accession": "NHP00585",
+      "curated": false,
+      "new": "F*02:04:01",
+      "old": "F*01:04:01",
+      "reason": "current_name",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Mamu"
+    },
+    {
+      "accession": "NHP02348",
+      "curated": false,
+      "new": "F*02:05",
+      "old": "F*01:05",
+      "reason": "current_name",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Mamu"
+    },
+    {
+      "accession": "NHP02644",
+      "curated": false,
+      "new": "F*02:06",
+      "old": "F*01:06",
+      "reason": "current_name",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Mamu"
+    },
+    {
+      "accession": "NHP00588",
+      "curated": false,
+      "new": "G*02:03",
+      "old": "G*03",
+      "reason": "current_name",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Mamu"
+    },
+    {
+      "accession": "NHP02903",
+      "curated": false,
+      "new": "I*01:09:02",
+      "old": "I*01:06:08",
+      "reason": "current_name",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Mamu"
+    },
+    {
+      "accession": "NHP02589",
+      "curated": false,
+      "new": "I*01:34:01:01",
+      "old": "I*01:20:02",
+      "reason": "current_name",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Mamu"
+    },
+    {
+      "accession": "NHP04043",
+      "curated": false,
+      "new": "A4*14:02",
+      "old": "A4*01:03",
+      "reason": "current_name",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Mane"
+    },
+    {
+      "accession": "NHP02137",
+      "curated": false,
+      "new": "I*01:25",
+      "old": "I*01:01:02",
+      "reason": "current_name",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Mane"
+    },
+    {
+      "accession": "NHP02144",
+      "curated": false,
+      "new": "I*01:24",
+      "old": "I*01:01:03",
+      "reason": "current_name",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Mane"
+    },
+    {
+      "accession": "NHP02548",
+      "curated": false,
+      "new": "I*01:17:02",
+      "old": "I*01:01:04",
+      "reason": "current_name",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Mane"
+    },
+    {
+      "accession": "NHP00780",
+      "curated": false,
+      "new": "C*03:02:02:01",
+      "old": "C*03:03",
+      "reason": "current_name",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Patr"
+    },
+    {
+      "accession": "NHP00802",
+      "curated": false,
+      "new": "DPA1*01:05",
+      "old": "DPA1*03:01",
+      "reason": "current_name",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Patr"
+    },
+    {
+      "accession": "NHP00803",
+      "curated": false,
+      "new": "DPB1*03:01",
+      "old": "DPB1*01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Patr"
+    },
+    {
+      "accession": "NHP00804",
+      "curated": false,
+      "new": "DPB1*03:02",
+      "old": "DPB1*02",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Patr"
+    },
+    {
+      "accession": "NHP00806",
+      "curated": false,
+      "new": "DPB1*03:04",
+      "old": "DPB1*04",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Patr"
+    },
+    {
+      "accession": "NHP00807",
+      "curated": false,
+      "new": "DPB1*01:01",
+      "old": "DPB1*05",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Patr"
+    },
+    {
+      "accession": "NHP00808",
+      "curated": false,
+      "new": "DPB1*01:02",
+      "old": "DPB1*06",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Patr"
+    },
+    {
+      "accession": "NHP00809",
+      "curated": false,
+      "new": "DPB1*01:03",
+      "old": "DPB1*07",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Patr"
+    },
+    {
+      "accession": "NHP00810",
+      "curated": false,
+      "new": "DPB1*01:04",
+      "old": "DPB1*08",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Patr"
+    },
+    {
+      "accession": "NHP00811",
+      "curated": false,
+      "new": "DPB1*01:05",
+      "old": "DPB1*09",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Patr"
+    },
+    {
+      "accession": "NHP00812",
+      "curated": false,
+      "new": "DPB1*01:06",
+      "old": "DPB1*10",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Patr"
+    },
+    {
+      "accession": "NHP00813",
+      "curated": false,
+      "new": "DPB1*01:07",
+      "old": "DPB1*11",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Patr"
+    },
+    {
+      "accession": "NHP00814",
+      "curated": false,
+      "new": "DPB1*01:08",
+      "old": "DPB1*12",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Patr"
+    },
+    {
+      "accession": "NHP00815",
+      "curated": false,
+      "new": "DPB1*01:09",
+      "old": "DPB1*13",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Patr"
+    },
+    {
+      "accession": "NHP00817",
+      "curated": false,
+      "new": "DPB1*01:10",
+      "old": "DPB1*15",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Patr"
+    },
+    {
+      "accession": "NHP00818",
+      "curated": false,
+      "new": "DPB1*01:11",
+      "old": "DPB1*16",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Patr"
+    },
+    {
+      "accession": "NHP00819",
+      "curated": false,
+      "new": "DPB1*01:12",
+      "old": "DPB1*17",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Patr"
+    },
+    {
+      "accession": "",
+      "curated": true,
+      "new": "DPB1*01:09",
+      "old": "DPB1*18",
+      "reason": "current_name",
+      "source": "curated_allele_aliases.yaml",
+      "species": "Patr"
+    },
+    {
+      "accession": "NHP00821",
+      "curated": false,
+      "new": "DPB1*02:01",
+      "old": "DPB1*19",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Patr"
+    },
+    {
+      "accession": "",
+      "curated": true,
+      "new": "DPB1*02:02",
+      "old": "DPB1*20",
+      "reason": "current_name",
+      "source": "curated_allele_aliases.yaml",
+      "species": "Patr"
+    },
+    {
+      "accession": "",
+      "curated": true,
+      "new": "DPB1*01:17",
+      "old": "DPB1*21",
+      "reason": "current_name",
+      "source": "curated_allele_aliases.yaml",
+      "species": "Patr"
+    },
+    {
+      "accession": "NHP00824",
+      "curated": false,
+      "new": "DPB1*01:13:01",
+      "old": "DPB1*22",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Patr"
+    },
+    {
+      "accession": "",
+      "curated": true,
+      "new": "DPB1*01:07",
+      "old": "DPB1*23",
+      "reason": "current_name",
+      "source": "curated_allele_aliases.yaml",
+      "species": "Patr"
+    },
+    {
+      "accession": "",
+      "curated": true,
+      "new": "DPB1*01:09",
+      "old": "DPB1*24",
+      "reason": "current_name",
+      "source": "curated_allele_aliases.yaml",
+      "species": "Patr"
+    },
+    {
+      "accession": "",
+      "curated": true,
+      "new": "DPB1*01:11",
+      "old": "DPB1*25",
+      "reason": "current_name",
+      "source": "curated_allele_aliases.yaml",
+      "species": "Patr"
+    },
+    {
+      "accession": "",
+      "curated": true,
+      "new": "DPB1*01:11",
+      "old": "DPB1*26",
+      "reason": "current_name",
+      "source": "curated_allele_aliases.yaml",
+      "species": "Patr"
+    },
+    {
+      "accession": "NHP00829",
+      "curated": false,
+      "new": "DPB1*01:14",
+      "old": "DPB1*27",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Patr"
+    },
+    {
+      "accession": "NHP00830",
+      "curated": false,
+      "new": "DPB1*01:15",
+      "old": "DPB1*28",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Patr"
+    },
+    {
+      "accession": "NHP01447",
+      "curated": false,
+      "new": "DPB1*03:05",
+      "old": "DPB1*29",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Patr"
+    },
+    {
+      "accession": "NHP08840",
+      "curated": false,
+      "new": "DPB1*01:16",
+      "old": "DPB1*30",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Patr"
+    },
+    {
+      "accession": "NHP08841",
+      "curated": false,
+      "new": "DPB1*01:17",
+      "old": "DPB1*31",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Patr"
+    },
+    {
+      "accession": "NHP08842",
+      "curated": false,
+      "new": "DPB1*01:18",
+      "old": "DPB1*32",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Patr"
+    },
+    {
+      "accession": "NHP00868",
+      "curated": false,
+      "new": "DRB3*02:07:02:01N",
+      "old": "DRB3*02:08",
+      "reason": "current_name",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "Patr"
+    },
+    {
+      "accession": "SLA06102",
+      "curated": false,
+      "new": "1*01:03",
+      "old": "1*01rh28",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06105",
+      "curated": false,
+      "new": "1*02:03",
+      "old": "1*02we02",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06107",
+      "curated": false,
+      "new": "1*04:03",
+      "old": "1*04gx01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06108",
+      "curated": false,
+      "new": "1*04:04",
+      "old": "1*04gz01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06109",
+      "curated": false,
+      "new": "1*04:05",
+      "old": "1*04we01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06112",
+      "curated": false,
+      "new": "1*06:02",
+      "old": "1*06an04",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06114",
+      "curated": false,
+      "new": "1*07:02",
+      "old": "1*07ce08",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06117",
+      "curated": false,
+      "new": "1*08:12",
+      "old": "1*08Lw02",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06116",
+      "curated": false,
+      "new": "1*08:02",
+      "old": "1*08an03",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06118",
+      "curated": false,
+      "new": "1*08:13",
+      "old": "1*08ms05",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06119",
+      "curated": false,
+      "new": "1*08:07",
+      "old": "1*08pt13",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06120",
+      "curated": false,
+      "new": "1*08:08",
+      "old": "1*08sk11",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06121",
+      "curated": false,
+      "new": "1*08:03",
+      "old": "1*08sm08",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06122",
+      "curated": false,
+      "new": "1*08:05",
+      "old": "1*08sy01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06141",
+      "curated": false,
+      "new": "1*09:02",
+      "old": "1*09sm09",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06124",
+      "curated": false,
+      "new": "1*11:02",
+      "old": "1*11jh01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06125",
+      "curated": false,
+      "new": "1*11:03",
+      "old": "1*11jh02",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06126",
+      "curated": false,
+      "new": "1*11:04",
+      "old": "1*11mp11",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06127",
+      "curated": false,
+      "new": "1*11:06",
+      "old": "1*11yn01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06130",
+      "curated": false,
+      "new": "1*12:02",
+      "old": "1*12Lw01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06129",
+      "curated": false,
+      "new": "1*12:03",
+      "old": "1*12hy01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06132",
+      "curated": false,
+      "new": "1*13:02",
+      "old": "1*13ms21",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06136",
+      "curated": false,
+      "new": "1*14:02",
+      "old": "1*14es11",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06133",
+      "curated": false,
+      "new": "1*16:01",
+      "old": "1*an01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06134",
+      "curated": false,
+      "new": "1*16:02",
+      "old": "1*an02",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06135",
+      "curated": false,
+      "new": "1*17:01",
+      "old": "1*cs02",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06136",
+      "curated": false,
+      "new": "1*14:02",
+      "old": "1*es11",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06137",
+      "curated": false,
+      "new": "1*14:01",
+      "old": "1*es12",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06138",
+      "curated": false,
+      "new": "1*07:03",
+      "old": "1*rh03",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06139",
+      "curated": false,
+      "new": "1*18:01",
+      "old": "1*sk13",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06140",
+      "curated": false,
+      "new": "1*07:05",
+      "old": "1*st11",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06117",
+      "curated": false,
+      "new": "1*08:12",
+      "old": "1*w08Lw02",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06121",
+      "curated": false,
+      "new": "1*08:03",
+      "old": "1*w08sm08",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06122",
+      "curated": false,
+      "new": "1*08:05",
+      "old": "1*w08sy01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06115",
+      "curated": false,
+      "new": "1*08:01",
+      "old": "1*w08sz01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06141",
+      "curated": false,
+      "new": "1*09:02",
+      "old": "1*w09sm09",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06142",
+      "curated": false,
+      "new": "1*10:02",
+      "old": "1*w10cs01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06143",
+      "curated": false,
+      "new": "1*10:01",
+      "old": "1*w10sm21",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06125",
+      "curated": false,
+      "new": "1*11:03",
+      "old": "1*w11jh02",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06127",
+      "curated": false,
+      "new": "1*11:06",
+      "old": "1*w11yn01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06130",
+      "curated": false,
+      "new": "1*12:02",
+      "old": "1*w12Lw01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06132",
+      "curated": false,
+      "new": "1*13:02",
+      "old": "1*w13ms21",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06147",
+      "curated": false,
+      "new": "2*03:03",
+      "old": "2*03gz01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06153",
+      "curated": false,
+      "new": "2*05:05",
+      "old": "2*05rh03",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06154",
+      "curated": false,
+      "new": "2*05:03",
+      "old": "2*05rh07",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06155",
+      "curated": false,
+      "new": "2*05:06",
+      "old": "2*05rh34",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06156",
+      "curated": false,
+      "new": "2*05:04",
+      "old": "2*05sy01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06158",
+      "curated": false,
+      "new": "2*06:03",
+      "old": "2*06an03",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06159",
+      "curated": false,
+      "new": "2*06:06",
+      "old": "2*06me01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06160",
+      "curated": false,
+      "new": "2*06:02:01",
+      "old": "2*06sr01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06161",
+      "curated": false,
+      "new": "2*06:08",
+      "old": "2*06sv01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06163",
+      "curated": false,
+      "new": "2*07:02",
+      "old": "2*07an05",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06164",
+      "curated": false,
+      "new": "2*07:03",
+      "old": "2*07we01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06167",
+      "curated": false,
+      "new": "2*10:04",
+      "old": "2*10es21",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06168",
+      "curated": false,
+      "new": "2*10:05",
+      "old": "2*10sk21",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06169",
+      "curated": false,
+      "new": "2*10:03",
+      "old": "2*10sm01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06172",
+      "curated": false,
+      "new": "2*11:03",
+      "old": "2*11so01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06174",
+      "curated": false,
+      "new": "2*12:02",
+      "old": "2*12Lw01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06175",
+      "curated": false,
+      "new": "2*17:01",
+      "old": "2*an04",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06176",
+      "curated": false,
+      "new": "2*11:04",
+      "old": "2*es22",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06221",
+      "curated": false,
+      "new": "2*16:01",
+      "old": "2*hy02",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06177",
+      "curated": false,
+      "new": "2*15:01",
+      "old": "2*jh01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06178",
+      "curated": false,
+      "new": "2*16:02",
+      "old": "2*jh02",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06179",
+      "curated": false,
+      "new": "2*08:05",
+      "old": "2*w08gx01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06222",
+      "curated": false,
+      "new": "2*08:03",
+      "old": "2*w08hy01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06180",
+      "curated": false,
+      "new": "2*08:02",
+      "old": "2*w08sw01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06181",
+      "curated": false,
+      "new": "2*09:01",
+      "old": "2*w09an02",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06182",
+      "curated": false,
+      "new": "2*09:03",
+      "old": "2*w09pt22",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06183",
+      "curated": false,
+      "new": "2*09:02",
+      "old": "2*w09sn01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06185",
+      "curated": false,
+      "new": "2*14:01",
+      "old": "2*w14yn01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06187",
+      "curated": false,
+      "new": "3*01:04",
+      "old": "3*01ev04",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06188",
+      "curated": false,
+      "new": "3*01:03",
+      "old": "3*01rh12",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06189",
+      "curated": false,
+      "new": "3*01:02",
+      "old": "3*01rh28",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06194",
+      "curated": false,
+      "new": "3*03:05",
+      "old": "3*03an02",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06195",
+      "curated": false,
+      "new": "3*03:08",
+      "old": "3*03an04",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06196",
+      "curated": false,
+      "new": "3*03:09",
+      "old": "3*03an05",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06197",
+      "curated": false,
+      "new": "3*03:06",
+      "old": "3*03pt31",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06200",
+      "curated": false,
+      "new": "3*04:03",
+      "old": "3*04es32",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06204",
+      "curated": false,
+      "new": "3*05:05",
+      "old": "3*05sw01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06208",
+      "curated": false,
+      "new": "3*07:01:02",
+      "old": "3*0701sm19",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06209",
+      "curated": false,
+      "new": "3*07:02",
+      "old": "3*07Lw02",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06210",
+      "curated": false,
+      "new": "3*07:03",
+      "old": "3*07rh34",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06211",
+      "curated": false,
+      "new": "3*08:01",
+      "old": "3*hm22",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06215",
+      "curated": false,
+      "new": "6*04:01",
+      "old": "6*01sx01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06217",
+      "curated": false,
+      "new": "6*06:01",
+      "old": "6*01we01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06218",
+      "curated": false,
+      "new": "6*07:01",
+      "old": "6*w02sa01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06219",
+      "curated": false,
+      "new": "6*08:01",
+      "old": "6*w03sy01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06220",
+      "curated": false,
+      "new": "6*09:01",
+      "old": "6*w04jh01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA05928",
+      "curated": false,
+      "new": "DQA*01:07",
+      "old": "DQA*01ch01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA05929",
+      "curated": false,
+      "new": "DQA*01:06",
+      "old": "DQA*01my01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA05935",
+      "curated": false,
+      "new": "DQA*02:06",
+      "old": "DQA*02cs01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA05936",
+      "curated": false,
+      "new": "DQA*02:05",
+      "old": "DQA*02jh01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA05937",
+      "curated": false,
+      "new": "DQA*02:07",
+      "old": "DQA*02xu01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA05939",
+      "curated": false,
+      "new": "DQA*03:03",
+      "old": "DQA*03ta01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA05940",
+      "curated": false,
+      "new": "DQA*03:02",
+      "old": "DQA*03we01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA05942",
+      "curated": false,
+      "new": "DQA*04:02",
+      "old": "DQA*04ta01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA05943",
+      "curated": false,
+      "new": "DQA*06:01",
+      "old": "DQA*ka01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA05944",
+      "curated": false,
+      "new": "DQA*05:01",
+      "old": "DQA*w05ch01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA05948",
+      "curated": false,
+      "new": "DQB1*01:05",
+      "old": "DQB1*01Lu01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA05946",
+      "curated": false,
+      "new": "DQB1*01:03",
+      "old": "DQB1*01be01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA05947",
+      "curated": false,
+      "new": "DQB1*01:04",
+      "old": "DQB1*01ha02",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA05949",
+      "curated": false,
+      "new": "DQB1*01:06",
+      "old": "DQB1*01me03",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA05950",
+      "curated": false,
+      "new": "DQB1*01:02",
+      "old": "DQB1*01sh01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA05957",
+      "curated": false,
+      "new": "DQB1*02:08",
+      "old": "DQB1*02La03",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA05955",
+      "curated": false,
+      "new": "DQB1*02:07",
+      "old": "DQB1*02du01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA05956",
+      "curated": false,
+      "new": "DQB1*02:05",
+      "old": "DQB1*02kg02",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA05958",
+      "curated": false,
+      "new": "DQB1*02:09",
+      "old": "DQB1*02me01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA05959",
+      "curated": false,
+      "new": "DQB1*02:06",
+      "old": "DQB1*02zs16",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA05966",
+      "curated": false,
+      "new": "DQB1*04:02:02",
+      "old": "DQB1*0402we01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA05967",
+      "curated": false,
+      "new": "DQB1*04:04",
+      "old": "DQB1*04hg09",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA05968",
+      "curated": false,
+      "new": "DQB1*04:03",
+      "old": "DQB1*04sk51",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA05969",
+      "curated": false,
+      "new": "DQB1*04:05",
+      "old": "DQB1*04sp16",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA05973",
+      "curated": false,
+      "new": "DQB1*05:04",
+      "old": "DQB1*05sp06",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA05980",
+      "curated": false,
+      "new": "DQB1*08:03",
+      "old": "DQB1*08Lu03",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA05979",
+      "curated": false,
+      "new": "DQB1*08:02",
+      "old": "DQB1*08ch01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA05982",
+      "curated": false,
+      "new": "DQB1*09:02",
+      "old": "DQB1*09zh01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA05984",
+      "curated": false,
+      "new": "DQB1*03:04",
+      "old": "DQB1*Lu02",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA05983",
+      "curated": false,
+      "new": "DQB1*10:01",
+      "old": "DQB1*es51",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA05985",
+      "curated": false,
+      "new": "DQB1*11:01",
+      "old": "DQB1*sh03",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA05986",
+      "curated": false,
+      "new": "DQB1*06:03",
+      "old": "DQB1*zs12",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA05987",
+      "curated": false,
+      "new": "DQB1*08:06",
+      "old": "DQB1*zs13",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA05988",
+      "curated": false,
+      "new": "DQB1*10:02",
+      "old": "DQB1*zs14",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA05991",
+      "curated": false,
+      "new": "DRA*01:01:03",
+      "old": "DRA*0101ta01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA05992",
+      "curated": false,
+      "new": "DRA*01:01:04",
+      "old": "DRA*0101we01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA05994",
+      "curated": false,
+      "new": "DRA*02:01:02",
+      "old": "DRA*0201jh01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA05998",
+      "curated": false,
+      "new": "DRA*02:02:04",
+      "old": "DRA*0202Lw02",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA05996",
+      "curated": false,
+      "new": "DRA*02:02:02",
+      "old": "DRA*0202mm16",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA05997",
+      "curated": false,
+      "new": "DRA*02:02:03",
+      "old": "DRA*0202mw01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06000",
+      "curated": false,
+      "new": "DRA*02:03:02",
+      "old": "DRA*0203my01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06001",
+      "curated": false,
+      "new": "DRA*03:01",
+      "old": "DRA*w03ta01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06063",
+      "curated": false,
+      "new": "DRB1*01:03",
+      "old": "DRB1*01ha01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06064",
+      "curated": false,
+      "new": "DRB1*01:04",
+      "old": "DRB1*01ha04",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06078",
+      "curated": false,
+      "new": "DRB1*01:05",
+      "old": "DRB1*01me02",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06005",
+      "curated": false,
+      "new": "DRB1*02:01:02",
+      "old": "DRB1*0201br05",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06006",
+      "curated": false,
+      "new": "DRB1*02:01:03",
+      "old": "DRB1*0201du02",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06007",
+      "curated": false,
+      "new": "DRB1*02:02",
+      "old": "DRB1*02du01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06006",
+      "curated": false,
+      "new": "DRB1*02:01:03",
+      "old": "DRB1*02du02",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06008",
+      "curated": false,
+      "new": "DRB1*02:03",
+      "old": "DRB1*02du03",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06009",
+      "curated": false,
+      "new": "DRB1*02:04",
+      "old": "DRB1*02ka05",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06010",
+      "curated": false,
+      "new": "DRB1*02:05",
+      "old": "DRB1*02ka06",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06011",
+      "curated": false,
+      "new": "DRB1*02:06",
+      "old": "DRB1*02ka08",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06012",
+      "curated": false,
+      "new": "DRB1*02:07",
+      "old": "DRB1*02sp02",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06013",
+      "curated": false,
+      "new": "DRB1*02:08",
+      "old": "DRB1*02sp08",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06014",
+      "curated": false,
+      "new": "DRB1*02:09",
+      "old": "DRB1*02zs13",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06020",
+      "curated": false,
+      "new": "DRB1*04:05",
+      "old": "DRB1*04ga01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06019",
+      "curated": false,
+      "new": "DRB1*04:04",
+      "old": "DRB1*04ns01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06021",
+      "curated": false,
+      "new": "DRB1*04:06",
+      "old": "DRB1*04ta01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06024",
+      "curated": false,
+      "new": "DRB1*05:03",
+      "old": "DRB1*05ch01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06025",
+      "curated": false,
+      "new": "DRB1*05:04",
+      "old": "DRB1*05ka01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06026",
+      "curated": false,
+      "new": "DRB1*05:05",
+      "old": "DRB1*05ka03",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06027",
+      "curated": false,
+      "new": "DRB1*05:06",
+      "old": "DRB1*05np01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06028",
+      "curated": false,
+      "new": "DRB1*05:07",
+      "old": "DRB1*05sp06",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06032",
+      "curated": false,
+      "new": "DRB1*06:04",
+      "old": "DRB1*06sL47",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06033",
+      "curated": false,
+      "new": "DRB1*06:05",
+      "old": "DRB1*06zs12",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06035",
+      "curated": false,
+      "new": "DRB1*07:02",
+      "old": "DRB1*07ka03",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06036",
+      "curated": false,
+      "new": "DRB1*07:03",
+      "old": "DRB1*07yo02",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06038",
+      "curated": false,
+      "new": "DRB1*08:02",
+      "old": "DRB1*0801hg06",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06038",
+      "curated": false,
+      "new": "DRB1*08:02",
+      "old": "DRB1*08hg06",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06039",
+      "curated": false,
+      "new": "DRB1*08:03",
+      "old": "DRB1*08hg09",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06040",
+      "curated": false,
+      "new": "DRB1*08:04",
+      "old": "DRB1*08ka83",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06041",
+      "curated": false,
+      "new": "DRB1*08:05",
+      "old": "DRB1*08ka92",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06042",
+      "curated": false,
+      "new": "DRB1*08:06",
+      "old": "DRB1*08sp05",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06044",
+      "curated": false,
+      "new": "DRB1*09:01:02",
+      "old": "DRB1*0901br04",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06045",
+      "curated": false,
+      "new": "DRB1*09:03",
+      "old": "DRB1*09sL48",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06046",
+      "curated": false,
+      "new": "DRB1*09:02",
+      "old": "DRB1*09ta01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06050",
+      "curated": false,
+      "new": "DRB1*10:05",
+      "old": "DRB1*10Lu03",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06048",
+      "curated": false,
+      "new": "DRB1*10:04",
+      "old": "DRB1*10jh01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06049",
+      "curated": false,
+      "new": "DRB1*10:03",
+      "old": "DRB1*10ka06",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06051",
+      "curated": false,
+      "new": "DRB1*10:02",
+      "old": "DRB1*10sp07",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06054",
+      "curated": false,
+      "new": "DRB1*11:03",
+      "old": "DRB1*11ac21",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06055",
+      "curated": false,
+      "new": "DRB1*11:04",
+      "old": "DRB1*11br02",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06056",
+      "curated": false,
+      "new": "DRB1*11:05",
+      "old": "DRB1*11sp01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06057",
+      "curated": false,
+      "new": "DRB1*11:06",
+      "old": "DRB1*11zs10",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06083",
+      "curated": false,
+      "new": "DRB1*12:01:02",
+      "old": "DRB1*12:04",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06060",
+      "curated": false,
+      "new": "DRB1*13:02",
+      "old": "DRB1*13be01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06073",
+      "curated": false,
+      "new": "DRB1*09:06",
+      "old": "DRB1*La02",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06074",
+      "curated": false,
+      "new": "DRB1*10:07",
+      "old": "DRB1*La03",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06075",
+      "curated": false,
+      "new": "DRB1*09:07",
+      "old": "DRB1*La04",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06076",
+      "curated": false,
+      "new": "DRB1*10:08",
+      "old": "DRB1*La05",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06077",
+      "curated": false,
+      "new": "DRB1*07:04",
+      "old": "DRB1*Lu02",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06060",
+      "curated": false,
+      "new": "DRB1*13:02",
+      "old": "DRB1*be01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06059",
+      "curated": false,
+      "new": "DRB1*14:01",
+      "old": "DRB1*cs01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06061",
+      "curated": false,
+      "new": "DRB1*09:05",
+      "old": "DRB1*du05",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06062",
+      "curated": false,
+      "new": "DRB1*10:06",
+      "old": "DRB1*er01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06063",
+      "curated": false,
+      "new": "DRB1*01:03",
+      "old": "DRB1*ha01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06064",
+      "curated": false,
+      "new": "DRB1*01:04",
+      "old": "DRB1*ha04",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06065",
+      "curated": false,
+      "new": "DRB1*03:02",
+      "old": "DRB1*ka04",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06066",
+      "curated": false,
+      "new": "DRB1*16:01",
+      "old": "DRB1*ka05",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06067",
+      "curated": false,
+      "new": "DRB1*16:02",
+      "old": "DRB1*ka09",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06068",
+      "curated": false,
+      "new": "DRB1*14:02",
+      "old": "DRB1*ka13",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06069",
+      "curated": false,
+      "new": "DRB1*15:01",
+      "old": "DRB1*ka14",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06071",
+      "curated": false,
+      "new": "DRB1*15:02N",
+      "old": "DRB1*kb03N",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06072",
+      "curated": false,
+      "new": "DRB1*15:03N",
+      "old": "DRB1*kb04N",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06078",
+      "curated": false,
+      "new": "DRB1*01:05",
+      "old": "DRB1*me02",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06079",
+      "curated": false,
+      "new": "DRB1*16:03",
+      "old": "DRB1*oj01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06080",
+      "curated": false,
+      "new": "DRB1*09:04",
+      "old": "DRB1*oj02",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06058",
+      "curated": false,
+      "new": "DRB1*13:01",
+      "old": "DRB1*ss08",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06054",
+      "curated": false,
+      "new": "DRB1*11:03",
+      "old": "DRB1*w11ac21",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06052",
+      "curated": false,
+      "new": "DRB1*11:01",
+      "old": "DRB1*w11an01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06055",
+      "curated": false,
+      "new": "DRB1*11:04",
+      "old": "DRB1*w11br02",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06056",
+      "curated": false,
+      "new": "DRB1*11:05",
+      "old": "DRB1*w11sp01",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06057",
+      "curated": false,
+      "new": "DRB1*11:06",
+      "old": "DRB1*w11zs10",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06081",
+      "curated": false,
+      "new": "DRB1*12:02",
+      "old": "DRB1*w12ka02",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06082",
+      "curated": false,
+      "new": "DRB1*12:03",
+      "old": "DRB1*w12ka05",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06083",
+      "curated": false,
+      "new": "DRB1*12:01:02",
+      "old": "DRB1*w12ka12",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06086",
+      "curated": false,
+      "new": "DRB2*03:01",
+      "old": "DRB2*01bL77",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06087",
+      "curated": false,
+      "new": "DRB2*05:01",
+      "old": "DRB2*01bL78",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06088",
+      "curated": false,
+      "new": "DRB2*06:01",
+      "old": "DRB2*01bL80",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06089",
+      "curated": false,
+      "new": "DRB2*07:01",
+      "old": "DRB2*01vz42",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06090",
+      "curated": false,
+      "new": "DRB2*04:01",
+      "old": "DRB2*bL75",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06091",
+      "curated": false,
+      "new": "DRB2*08:01",
+      "old": "DRB2*bL79",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06092",
+      "curated": false,
+      "new": "DRB2*09:01",
+      "old": "DRB2*vz44",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06094",
+      "curated": false,
+      "new": "DRB3*02:01",
+      "old": "DRB3*01bL82",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06095",
+      "curated": false,
+      "new": "DRB3*03:01",
+      "old": "DRB3*01bL83",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06096",
+      "curated": false,
+      "new": "DRB3*04:01",
+      "old": "DRB3*01bL84",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    },
+    {
+      "accession": "SLA06097",
+      "curated": false,
+      "new": "DRB3*05:01",
+      "old": "DRB3*01bL85",
+      "reason": "curated_precedence",
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "species": "SLA"
+    }
+  ],
+  "emitted_aliases": 5805,
+  "protected_current_names": 2805,
+  "sources": {
+    "IMGT-HLA-Allelelist-history-3.66.0.txt": {
+      "accepted": 2208,
+      "candidates": 53708,
+      "current_name_preserved": 2,
+      "superseded": 62,
+      "unchanged_or_unsupported": 51436
+    },
+    "IMGT-HLA-Deleted-alleles-3.66.0.txt": {
+      "accepted": 163,
+      "candidates": 268,
+      "superseded": 103,
+      "unchanged_or_unsupported": 2
+    },
+    "IPD-MHC-3.8.0.0.xml": {
+      "accepted": 2997,
+      "ambiguous": 2,
+      "candidates": 7288,
+      "current_name_preserved": 59,
+      "superseded": 239,
+      "unchanged_or_unsupported": 3991
+    },
+    "curated_allele_aliases.yaml": {
+      "accepted": 507,
+      "candidates": 517,
+      "current_name_preserved": 8,
+      "unchanged_or_unsupported": 2
+    }
+  },
+  "unresolved_deletions": {
+    "IMGT-HLA-Deleted-alleles-3.66.0.txt": [
+      {
+        "accession": "HLA05155",
+        "description": "Name never assigned",
+        "name": "A*02:100"
+      },
+      {
+        "accession": "HLA04145",
+        "description": "Sequence shown to be identical to corrected sequence of A*11:02:01:01 (November 2011)",
+        "name": "A*11:53"
+      },
+      {
+        "accession": "HLA00049",
+        "description": "Sequence shown to contain errors (March 1995)",
+        "name": "A*2401"
+      },
+      {
+        "accession": "HLA00131",
+        "description": "Sequence shown to contain errors (March 1995)",
+        "name": "B*0701"
+      },
+      {
+        "accession": "HLA32117",
+        "description": "Allele name deleted as shown to be partial of newly named B*07:436 (July 2021)",
+        "name": "B*07:02:06"
+      },
+      {
+        "accession": "HLA05156",
+        "description": "Name never assigned",
+        "name": "B*15:100"
+      },
+      {
+        "accession": "HLA44227",
+        "description": "Sequence shown to have differences to the extended B*35:32:01:01 and renamed to B*35:654 as a new protein (August 2025)",
+        "name": "B*35:32:03"
+      },
+      {
+        "accession": "HLA00985",
+        "description": "Name never assigned",
+        "name": "B*4203"
+      },
+      {
+        "accession": "HLA15390",
+        "description": "Name never assigned",
+        "name": "B*44:246N"
+      },
+      {
+        "accession": "HLA32115",
+        "description": "Name assigned in error",
+        "name": "B*44:525"
+      },
+      {
+        "accession": "HLA00388",
+        "description": "Name never assigned",
+        "name": "B*5803"
+      },
+      {
+        "accession": "HLA08905",
+        "description": "Name never assigned",
+        "name": "C*07:295"
+      },
+      {
+        "accession": "HLA00451",
+        "description": "Sequence shown to be in error and contain a sequencing artefact (November 1991)",
+        "name": "Cw*1101"
+      },
+      {
+        "accession": "HLA00460",
+        "description": "Sequence shown to be in error (July 2002)",
+        "name": "Cw*1301"
+      },
+      {
+        "accession": "HLA19135",
+        "description": "Sequence in error and shown to be F*01:01:01:01 (February 2026)",
+        "name": "F*01:06"
+      },
+      {
+        "accession": "HLA27931",
+        "description": "Sequence in error and shown to be the same as H*02:08:01:01 (February 2026)",
+        "name": "H*02:17"
+      },
+      {
+        "accession": "HLA46989",
+        "description": "Sequence shown to have differences to the extended DQA1*05:54:01Q and renamed to DQA1*05:149Q as a new protein (June 2026)",
+        "name": "DQA1*05:54:02Q"
+      },
+      {
+        "accession": "HLA31849",
+        "description": "Allele named deleted as shown to be partial of newly named DQB1*02:02:15 (July 2021)",
+        "name": "DQB1*02:01:10"
+      },
+      {
+        "accession": "HLA00963",
+        "description": "Name never assigned",
+        "name": "DPB1*0701"
+      },
+      {
+        "accession": "HLA00964",
+        "description": "Name never assigned",
+        "name": "DPB1*1201"
+      },
+      {
+        "accession": "HLA09114",
+        "description": "Name never assigned",
+        "name": "MICA*003"
+      }
+    ]
+  }
+}

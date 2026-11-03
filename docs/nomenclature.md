@@ -60,7 +60,9 @@ True
 Multi-letter annotations are also used in some non-human systems. In particular,
 `Ps` (pseudogene) and `Sp` (splice variant) appear as suffixes on allele fields,
 e.g. `Mamu-B*074:03Sp` or `Caja-B5*01:01Ps`, and are parsed into the
-`annotations` field as `Sp` or `Ps` respectively.
+`annotations` field as `Sp` or `Ps` respectively. BoLA uses `SV` for splice
+variants (for example, `BoLA-NC1*004:01SV`); `annotation_splice_variant`
+recognizes both `Sp` and `SV`.
 
 Note that `Ps` can also appear as part of a gene name (prefix or suffix) in
 non-human primates, such as `Caja-G2Ps*01`. In those cases `Ps` is treated as

@@ -47,13 +47,13 @@ def test_allele_alias_preserves_explicit_mutations(text, reference):
     [
         (
             "HLA-DRA*01:01/DRB1*0101 C30S mutant",
-            "HLA-DRA*01:01:01:01/DRB1*01:01:01:01 C30S mutant",
+            "HLA-DRA*01:01/DRB1*01:01:01:01 C30S mutant",
             (),
             (Mutation.parse("C30S"),),
         ),
         (
             "HLA-DRA*01:01 F54C mutant/DRB1*0101",
-            "HLA-DRA*01:01:01:01 F54C mutant/DRB1*01:01:01:01",
+            "HLA-DRA*01:01 F54C mutant/DRB1*01:01:01:01",
             (Mutation.parse("F54C"),),
             (),
         ),
@@ -77,9 +77,9 @@ def test_alias_transform_keeps_mutations_on_their_original_chains():
     result = parser.transform_parse_candidate(pair)
     assert result.alpha.mutations == alpha.mutations
     assert result.beta.mutations == beta.mutations
-    assert result.alpha.allele_fields == ("01", "01", "01", "01")
-    # Only the explicit DRA*01:01 key applies; the DRB1*0101 legacy key
-    # must not expand a modern DRB1*01:01 to four-field resolution.
+    assert result.alpha.allele_fields == ("01", "01")
+    # History must not expand either modern two-field name to an arbitrarily
+    # selected four-field descendant. Both mutations keep their chain.
     assert result.beta.allele_fields == ("01", "01")
     assert result.raw_string == pair.raw_string
     assert parser.transform_parse_candidate(result) == result

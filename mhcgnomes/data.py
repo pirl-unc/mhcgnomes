@@ -150,41 +150,15 @@ supertypes = load(
 single_field_alleles = load("single_field_alleles.yaml")
 
 
-def _compute_min_first_field_widths():
-    """
-    Compute the minimum first-field digit width per (species_prefix, gene_name)
-    from allele_aliases canonical targets.
+# Normalization is a compatibility policy independent of optional alias data.
+min_first_field_widths = {
+    (prefix, str(gene)): int(width)
+    for prefix, genes in first_allele_field_widths.items()
+    for gene, width in genes.items()
+}
 
-    For example, HLA-A canonical alleles have 2-digit first fields (A*01:01:01:01),
-    while MICA uses 3-digit first fields (MICA*001:01:01).
-    """
-    from collections import Counter
-
-    widths = {}
-    for species_prefix, aliases in allele_aliases.items():
-        if not hasattr(aliases, "items"):
-            continue
-        counters = {}
-        for _alias_key, canonical in aliases.items():
-            canonical = str(canonical)
-            if "*" not in canonical or ":" not in canonical:
-                continue
-            gene_name, allele_part = canonical.split("*", 1)
-            first_field = allele_part.split(":")[0]
-            digits = first_field.lstrip("wW")
-            if not digits.isdigit():
-                continue
-            key = (species_prefix, gene_name)
-            if key not in counters:
-                counters[key] = Counter()
-            counters[key][len(digits)] += 1
-        for key, counter in counters.items():
-            # Use the most common width as the canonical minimum
-            widths[key] = counter.most_common(1)[0][0]
-    for species_prefix, genes in first_allele_field_widths.items():
-        for gene_name, width in genes.items():
-            widths[(species_prefix, str(gene_name))] = int(width)
-    return widths
-
-
-min_first_field_widths = _compute_min_first_field_widths()
+# Sparse exact-current-name guards for alias lookup; not a registry catalog.
+current_allele_names = {
+    prefix: frozenset(normalize_allele_alias(name) for name in names)
+    for prefix, names in load("current_allele_names.yaml").items()
+}

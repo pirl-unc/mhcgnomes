@@ -13,10 +13,12 @@ Only names whose single field is numeric (optionally after IPD-MHC's "W"
 prefix, an allele not yet assigned to a locus) are written: a single field with
 letters (H2-K*b, Rano-A1*f) is never read as a group, so it needs no entry.
 
-Inputs are the checksum-pinned files of the "allele-aliases" download group,
-the same ones combine_allele_aliases.sh uses:
+The historical complete-name classifier deliberately retains HLA 3.42.0, so
+an attested one-field name does not change category when a later registry adds
+fields. This flag classifies naming, not current registry membership. The IPD
+input is shared with allele-alias generation:
 
-    python -m mhcgnomes data download --group allele-aliases
+    python -m mhcgnomes data download --group allele-aliases --group allele-classification
     python scripts/generate_single_field_alleles.py
 
 CI regenerates the file and fails if the committed copy differs.

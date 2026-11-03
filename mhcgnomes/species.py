@@ -19,6 +19,7 @@ from typing import Any, Union
 
 from .common import cache, normalize_allele_alias, normalize_string
 from .data import allele_aliases as raw_allele_aliases_dict
+from .data import current_allele_names
 from .data import evidenced_prefix_aliases as raw_evidenced_alias_dict
 from .data import gene_aliases as raw_gene_aliases_dict
 from .data import haplotypes as raw_haplotypes_dict
@@ -883,6 +884,11 @@ class Species(Result):
         visited = set()
         target = None
         while True:
+            name = f"{gene_name}*{allele_name}" if gene_name else allele_name
+            if normalize_allele_alias(name) in current_allele_names.get(
+                self.canonical_mhc_prefix, ()
+            ):
+                return target
             for candidate_gene in self._allele_gene_names(gene_name):
                 key = f"{candidate_gene}*{allele_name}" if candidate_gene else allele_name
                 value = self.allele_aliases.get(key)

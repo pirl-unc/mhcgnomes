@@ -48,6 +48,9 @@ annotation_descriptions = {
     # Same page: "Sp is used to indicate that the described allele is a splice
     # variant."
     "Sp": "splice variant",
+    # https://www.ebi.ac.uk/ipd/mhc/group/BoLA/nomenclature/ explicitly
+    # assigns SV to splice variants (e.g. BoLA-NC1*004:01SV).
+    "SV": "splice variant",
 }
 
 valid_functional_annotations = set(annotation_descriptions)
