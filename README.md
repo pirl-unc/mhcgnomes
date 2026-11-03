@@ -15,25 +15,22 @@ Documentation site: <https://pirl-unc.github.io/mhcgnomes/>
 MHCgnomes is a parsing library for multi-species MHC nomenclature which
 aims to correctly parse every name in [IEDB](http://www.iedb.org/), [IMGT/HLA](https://www.ebi.ac.uk/ipd/imgt/hla/), [IPD/MHC](https://www.ebi.ac.uk/ipd/mhc/), and the allele lists for both [NetMHCpan](https://services.healthtech.dtu.dk/service.php?NetMHCpan-4.1) and [NetMHCIIpan](https://services.healthtech.dtu.dk/service.php?NetMHCIIpan-4.0) predictors. This allows for standardization between immune databases and tools, which often use different naming conventions.
 
+## Install
+
+```bash
+pip install mhcgnomes
+```
+
 ## Usage example
 
 ```python
-
-In [1]: mhcgnomes.parse("HLA-A0201")
-Out[1]: Allele(
-    gene=Gene(
-        species=Species(name="Homo sapiens", mhc_prefix="HLA"),
-        name="A"),
-    allele_fields=("02", "01"),
-    annotations=(),
-    mutations=())
-
-In [2]: mhcgnomes.parse("HLA-A0201").to_string()
-Out[2]: 'HLA-A*02:01'
-
-In [3]: mhcgnomes.parse("HLA-A0201").compact_string()
-Out[3]: 'A0201'
-
+>>> import mhcgnomes
+>>> mhcgnomes.parse("HLA-A0201")
+Allele(gene=Gene(species=Species(name='Homo sapiens', mhc_prefix='HLA'), name='A', mutations=()), allele_fields=('02', '01'), annotations=(), mutations=())
+>>> mhcgnomes.parse("HLA-A0201").to_string()
+'HLA-A*02:01'
+>>> mhcgnomes.parse("HLA-A0201").compact_string()
+'A0201'
 ```
 
 ## External data CLI
@@ -496,8 +493,8 @@ That keeps both questions as plain ancestry, with no second predicate:
 True                              # humans are primates
 >>> Species.get("Homo sapiens").compatible_with("NHP")
 False                             # NHP-* cannot denote one
->>> parse("NHP-E*01:01", species="Homo sapiens", raise_on_error=False)
-None                              # so this is refused, not converted
+>>> parse("NHP-E*01:01", species="Homo sapiens", raise_on_error=False) is None
+True                              # so this is refused, not converted
 ```
 
 Because `NHP` is paraphyletic, any taxon added under `Primata sp.` has to sit
@@ -636,8 +633,8 @@ and *Chrysolophus pictus*, `LaniColl` from two shrikes, `LeucLeuc` from a dace
 and a crane. Since 3.43.0 none of them resolves on its own:
 
 ```python
->>> parse("ChryPict-UA*01", raise_on_error=False)
-None                       # 3.42.0 gave a painted turtle, even if you meant the pheasant
+>>> parse("ChryPict-UA*01", raise_on_error=False) is None
+True                       # 3.42.0 gave a painted turtle, even if you meant the pheasant
 >>> parse("ChryPict-UA*01", species="Chrysolophus pictus").species.name
 'Chrysolophus pictus'      # explicit species still resolves it
 ```
@@ -739,6 +736,17 @@ the full prefix conflict resolution policy ([source](docs/curation.md)).
 - [Nomenclature for factors of the SLA system, update 2008](https://www.ncbi.nlm.nih.gov/pubmed/19317739)
 
 ## Development
+
+```bash
+./develop.sh   # create .venv and install the package with dev and docs extras
+./format.sh    # ruff format
+./lint.sh      # ruff check and ruff format --check
+./test.sh      # pytest with coverage, worker count capped by free RAM and CPUs
+```
+
+Every pull request bumps `mhcgnomes/version.py`; see the
+[release process](https://pirl-unc.github.io/mhcgnomes/releasing/)
+([source](docs/releasing.md)) for how a merged version reaches PyPI.
 
 Raw IPD-IMGT/HLA and IPD-MHC snapshots are not committed or bundled in releases. See
 [External IMGT/IPD data](EXTERNAL_DATA.md) for checksum-pinned downloads, local/CI caches,

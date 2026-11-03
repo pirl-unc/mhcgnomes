@@ -21,10 +21,54 @@ data_dir = join(package_dir, "data")
 
 
 def get_path(yaml_filename):
+    """
+    Path of a file in the packaged ``mhcgnomes/data`` directory.
+
+    Parameters
+    ----------
+    yaml_filename : str
+        File name inside the data directory, e.g. "species.yaml".
+
+    Returns
+    -------
+    str
+        Absolute path to the file. Its existence is not checked.
+    """
     return join(data_dir, yaml_filename)
 
 
 def load(yaml_filename, normalize_first_level_keys=False, normalize_second_level_keys=False):
+    """
+    Load a packaged YAML data file, optionally with normalized keys.
+
+    Every runtime table in this module (species, aliases, haplotypes,
+    serotypes, ...) is read through this function once, at import time.
+
+    Parameters
+    ----------
+    yaml_filename : str
+        File name inside the data directory, e.g. "haplotypes.yaml".
+    normalize_first_level_keys : bool
+        Wrap the top-level mapping in a NormalizingDictionary, so lookups by
+        species prefix ignore case and punctuation.
+    normalize_second_level_keys : bool
+        Wrap each top-level value in a NormalizingDictionary, so lookups by
+        gene, allele, haplotype or serotype name do the same. Requires every
+        top-level value to be a mapping.
+
+    Returns
+    -------
+    object
+        The parsed YAML (usually a dict), with the requested levels converted
+        to NormalizingDictionary.
+
+    Raises
+    ------
+    OSError
+        If the file cannot be opened.
+    yaml.YAMLError
+        If the file is not valid YAML.
+    """
     path = get_path(yaml_filename)
     with open(path, encoding="utf-8") as f:
         result = yaml.safe_load(f)
