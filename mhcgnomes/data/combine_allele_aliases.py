@@ -19,7 +19,11 @@ import yaml
 
 @dataclass(frozen=True)
 class RegistryRecord:
-    """One accession's current name and distinct historical names, without species prefixes."""
+    """One accession's source name and distinct historical names, without species prefixes.
+
+    ``current`` is the source's latest name, not proof that the accession is active.
+    IPD XML can retain abandoned entries; use partition_ipd_records before curation.
+    """
 
     species: str
     accession: str
@@ -84,6 +88,35 @@ def read_ipd_xml(path):
     if not history_fields:
         raise ValueError(f"{path.name}: no nomenclature history fields; check the XML schema")
     return records
+
+
+def partition_ipd_records(records):
+    """Return (eligible records, annotated exclusions) for an iterable of IPD records.
+
+    Maintainer API: applies ipd_record_annotations.json only to matching source
+    filenames and accessions. An exact-name mismatch or unsupported annotation
+    status raises ValueError. Unannotated records remain eligible, even without
+    sequences; this inventory is not a complete registry-status classifier.
+    Exclusions retain source/accession/name, status evidence and historical names
+    for the generated audit. No replacement or alias is inferred.
+    """
+    annotations = json.loads(
+        Path(__file__).with_name("ipd_record_annotations.json").read_text(encoding="utf-8")
+    )
+    by_identity = {(row["source"], row["accession"]): row for row in annotations}
+    eligible, excluded = [], []
+    for record in records:
+        annotation = by_identity.get((record.source, record.accession))
+        if annotation is None:
+            eligible.append(record)
+            continue
+        name = f"{record.species}-{record.current}"
+        if annotation["name"] != name:
+            raise ValueError(f"IPD annotation name mismatch for {record.accession}: {name}")
+        if annotation["status"] != "abandoned":
+            raise ValueError(f"Unsupported IPD annotation status: {annotation['status']}")
+        excluded.append({**annotation, "historical_names": list(record.previous)})
+    return eligible, excluded
 
 
 def read_hla_history(path):
@@ -312,15 +345,21 @@ def main(args_list=None):
     parser.add_argument("--audit-output")
     parser.add_argument("--current-names-output")
     args = parser.parse_args(args_list)
-    records, candidates, coverage, unresolved = [], [], {}, {}
+    records, candidates, coverage, unresolved, excluded_records = [], [], {}, {}, []
     for paths, reader in [
         (args.xml_input_file, read_ipd_xml),
         (args.allele_history_input_file, read_hla_history),
     ]:
         for path in paths:
             rows = reader(path)
+            source_records = len(rows)
+            if reader is read_ipd_xml:
+                rows, excluded = partition_ipd_records(rows)
+                excluded_records.extend(excluded)
             records.extend(rows)
             coverage[Path(path).name] = {
+                "source_records": source_records,
+                "excluded_records": source_records - len(rows),
                 "current_records": len(rows),
                 "records_with_history": sum(bool(r.previous) for r in rows),
                 "historical_names": sum(len(r.previous) for r in rows),
@@ -339,6 +378,7 @@ def main(args_list=None):
         candidates.extend(read_curated_aliases(path))
     aliases, provenance, audit = resolve_aliases(records, candidates)
     audit["coverage"] = coverage
+    audit["excluded_records"] = excluded_records
     audit["unresolved_deletions"] = unresolved
     write_aliases(args.output, aliases, provenance)
     if args.current_names_output:

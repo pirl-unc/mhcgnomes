@@ -1,0 +1,13 @@
+[
+  {
+    "source": "IPD-MHC-3.8.0.0.xml",
+    "accession": "NHP10764",
+    "name": "Paha-DP1*06:01",
+    "status": "abandoned",
+    "status_release": "3.7.0.0",
+    "status_date": "2021-07",
+    "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/",
+    "replacement": null,
+    "note": "Listed under Abandoned. The report gives no replacement; the pinned XML retains a stub. No equivalence to NHP10772 / Paha-DPB1*06:01 is established."
+  }
+]

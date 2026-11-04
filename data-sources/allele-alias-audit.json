@@ -2,13 +2,17 @@
   "coverage": {
     "IMGT-HLA-Allelelist-history-3.66.0.txt": {
       "current_records": 47424,
+      "excluded_records": 0,
       "historical_names": 53708,
-      "records_with_history": 46652
+      "records_with_history": 46652,
+      "source_records": 47424
     },
     "IPD-MHC-3.8.0.0.xml": {
-      "current_records": 11756,
+      "current_records": 11755,
+      "excluded_records": 1,
       "historical_names": 7288,
-      "records_with_history": 5261
+      "records_with_history": 5261,
+      "source_records": 11756
     }
   },
   "decisions": [
@@ -4289,7 +4293,21 @@
     }
   ],
   "emitted_aliases": 5805,
-  "protected_current_names": 2805,
+  "excluded_records": [
+    {
+      "accession": "NHP10764",
+      "historical_names": [],
+      "name": "Paha-DP1*06:01",
+      "note": "Listed under Abandoned. The report gives no replacement; the pinned XML retains a stub. No equivalence to NHP10772 / Paha-DPB1*06:01 is established.",
+      "replacement": null,
+      "source": "IPD-MHC-3.8.0.0.xml",
+      "status": "abandoned",
+      "status_date": "2021-07",
+      "status_release": "3.7.0.0",
+      "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
+    }
+  ],
+  "protected_current_names": 2804,
   "sources": {
     "IMGT-HLA-Allelelist-history-3.66.0.txt": {
       "accepted": 2208,

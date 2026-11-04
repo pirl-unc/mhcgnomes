@@ -263,3 +263,15 @@ Use identifier boundaries when renaming a private helper. A substring rewrite of
 `testparse_renamed_allele...`, removing five tests from collection. The final diff
 and collection review caught it before the PR. Compare collected test counts and
 inspect renamed definitions, not just whether the remaining tests pass.
+
+## Check accession lifecycle before treating XML presence as current status
+
+NHP10764 (`Paha-DP1*06:01`) appeared in the pinned IPD-MHC XML and species
+summary, so I described it as an unresolved current designation. The official
+3.7.0.0 release report already listed it as abandoned in July 2021. The XML
+retained a stub, and the species summary repeated its gene spelling.
+
+Before proposing an ontology addition or alias for a suspicious registry entry,
+check its accession in release history, including abandoned/deleted sections.
+Presence in an export does not prove active status. Record the exact status and
+source; abandonment without a named replacement does not establish an alias.

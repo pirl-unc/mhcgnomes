@@ -129,15 +129,32 @@ alias cites its source filename and accession beside the data. The generated
 `current_allele_names.yaml` is a sparse precedence guard: it includes current names
 sharing an allele-field string with any alias key, because lookup also tries
 inherited species tables and alternate gene names. It is not a membership catalog.
-CI regenerates all three artifacts and audits every current name and emitted alias
-with `python scripts/validate_alias_sources.py`. The one existing unparseable source
-accession NHP10764 is reported and tracked in issue #243; new failures fail CI.
+CI regenerates all three artifacts and audits every eligible source name and emitted
+alias with `python scripts/validate_alias_sources.py`. Every eligible name must parse;
+there is no allowlist of unparseable names.
+
+`ipd_record_annotations.json` records explicitly established source statuses. IPD's
+[3.7.0.0 release report (2021-07)](https://www.ebi.ac.uk/ipd/mhc/version/v3700/)
+lists NHP10764 (`Paha-DP1*06:01`) under **Abandoned**, with no replacement stated.
+The pinned 3.8.0.0 XML retains its stub. Generation excludes that exact source,
+accession and name from alias candidates and current-name guards, retaining its
+status, citation and historical names in the audit's `excluded_records`. In
+particular, no alias to `Paha-DPB1*06:01` is asserted. A matching accession with a
+different name fails for review. Missing sequences alone never trigger exclusion.
+This annotation inventory is not a complete catalog of registry statuses; the
+coverage field `current_records` counts source records eligible after annotations,
+not independently verified active accessions. `source_records` and
+`excluded_records` make the annotation's effect explicit.
 
 The public maintainer API lives in `mhcgnomes/data/combine_allele_aliases.py`:
 `RegistryRecord` and `AliasCandidate` hold source identities/provenance;
 `read_ipd_xml`, `read_hla_history`, `read_hla_deletions`, and `read_curated_aliases`
 read the documented source formats; `resolve_aliases` returns aliases, provenance,
 and audit decisions. `protected_current_names` builds the sparse guards.
+`read_ipd_xml` preserves every XML record, including abandoned stubs;
+`partition_ipd_records(records)` returns eligible records and provenance-bearing
+exclusions using the bundled source annotations. Apply it before generating alias
+candidates, resolving precedence, building guards, or auditing runtime parsing.
 `write_aliases` and `write_current_name_guards` write deterministic YAML.
 `alias_key`, `strip_species`, and `meaningful_alias` implement the documented
 name-key and candidate policies. These helpers operate on paths, records and plain
