@@ -27,6 +27,12 @@ from .normalizing_set import NormalizingSet
 from .pair import Pair
 from .parse_outcome import parse_outcome_to_row
 from .parser import Parser
+from .registry_identity import (
+    RegistryIdentity,
+    get_registry_identities,
+    get_registry_identity,
+    registry_identities,
+)
 from .serotype import Serotype
 from .species import Species
 from .supertype import Supertype
@@ -47,14 +53,18 @@ __all__ = [
     "Pair",
     "ParseError",
     "Parser",
+    "RegistryIdentity",
     "Serotype",
     "Species",
     "Supertype",
     "cached_parser",
     "dataframe_from_parsed_objects",
     "dataframe_from_string_list",
+    "get_registry_identities",
+    "get_registry_identity",
     "infer_mhc_class",
     "parse",
     "parse_gene_class",
     "parse_outcome_to_row",
+    "registry_identities",
 ]

@@ -32,6 +32,12 @@ Direct tests and internal callers use the same public names.
 | `Parser.parse_explicit_species_allele_candidates(name)` | String to list of transformed `Allele` candidates | Narrow path for explicit species and at least two numeric fields. Returns `[]` outside that grammar, for non-strings, or in verbose mode; caller chooses whether to fall back. Applies this Parser's alias/transform settings. |
 | `Parser.parse_renamed_allele(species, source_gene, source_mhc_class, target_gene_name, target_allele_name, raw_string)` | `Species`, optional source `Gene`/class, optional target gene name, target allele string, optional raw input; returns `Allele`, `AlleleWithoutGene`, or `None` | Constructs a rename target, preserving source class for geneless targets. Unknown genes or unparseable targets return `None`. This does not apply or transfer mutations. See the full parameter docstring. |
 
+## Registry identities
+
+The public identity model, lookup/index APIs, and `Parser.parse_registry_allele`
+are documented with their coverage and error contracts in
+[Registry accession identities](registry-identities.md).
+
 ## Species naming and curation
 
 The following functions live in `mhcgnomes.species`. Scientific names and

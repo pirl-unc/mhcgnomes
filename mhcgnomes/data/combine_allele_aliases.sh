@@ -21,4 +21,5 @@ python3 "$data_dir/combine_allele_aliases.py" \
     --csv-input-file "$external_data_dir/IMGT-HLA-Deleted-alleles-3.66.0.txt" \
     --output "$data_dir/allele_aliases.yaml" \
     --current-names-output "$data_dir/current_allele_names.yaml" \
+    --registry-identities-output "$data_dir/registry_allele_identities.json" \
     --audit-output "$repo_root/data-sources/allele-alias-audit.json"

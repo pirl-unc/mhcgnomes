@@ -17,7 +17,12 @@ from combine_allele_aliases import (  # noqa: E402
     read_ipd_xml,
 )
 
-from mhcgnomes import AlleleWithoutGene, parse  # noqa: E402
+from mhcgnomes import (  # noqa: E402
+    AlleleWithoutGene,
+    get_registry_identities,
+    parse,
+    registry_identities,
+)
 from mhcgnomes.data import allele_aliases  # noqa: E402
 from mhcgnomes.errors import ParseError  # noqa: E402
 
@@ -87,6 +92,18 @@ def main():
         *read_hla_history(ROOT / ".external-data/IMGT-HLA-Allelelist-history-3.66.0.txt"),
     ]
     failures = audit_alias_sources(records)
+    identities = registry_identities()
+    if {r["accession"] for r in excluded} != {
+        r.accession for r in identities.values() if r.status == "abandoned"
+    }:
+        failures.append("Annotated exclusions and runtime identity inventory differ")
+    for identity in identities.values():
+        for name in (identity.accession, identity.identifier, *identity.names):
+            result = parse(name, use_allele_aliases=True, raise_on_error=False)
+            expected = get_registry_identities(name)
+            if result is None or result.registry_identities != expected:
+                failures.append(f"Registry identity mismatch: {name} -> {expected}")
+    print(f"Registry identities and recorded spellings checked: {len(identities)} records")
     for failure in failures:
         print(failure, file=sys.stderr)
     return int(bool(failures))
