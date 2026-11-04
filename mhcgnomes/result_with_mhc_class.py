@@ -11,7 +11,6 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from typing import Union
 
 from .mhc_class_helpers import is_class1, is_class2
 from .result_with_species import ResultWithSpecies
@@ -25,7 +24,7 @@ class ResultWithMhcClass(ResultWithSpecies):
     Useful for sharing helper methods that rely on the 'species' field.
     """
 
-    mhc_class: Union[str, None] = None
+    mhc_class: str | None = None
 
     def __init__(self, species, mhc_class, raw_string=None):
         ResultWithSpecies.__init__(self, species=species, raw_string=raw_string)

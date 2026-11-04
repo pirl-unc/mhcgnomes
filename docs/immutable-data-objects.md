@@ -54,8 +54,8 @@ Rationale:
 - `eq=False` and `repr=False` preserve the existing custom equality, hash, and
   pretty-print logic
 
-`slots=True` is intentionally not used because the package still supports
-Python 3.9 and dataclass slots are only standard from Python 3.10 onward.
+`slots=True` is not used yet. The package now requires Python 3.11, so
+dataclass slots are available; adopting them is a separate change.
 
 ### Serialization strategy
 

@@ -12,7 +12,6 @@
 
 from collections.abc import Sequence
 from dataclasses import dataclass, field
-from typing import Optional, Union
 
 from .gene import Gene
 from .result_with_mhc_class import ResultWithMhcClass
@@ -72,8 +71,8 @@ class Class2Locus(ResultWithMhcClass):
         species: Species,
         name: str,
         mhc_class: str = "II",
-        genes: Optional[Sequence[Gene]] = None,
-        raw_string: Union[str, None] = None,
+        genes: Sequence[Gene] | None = None,
+        raw_string: str | None = None,
     ):
         ResultWithMhcClass.__init__(
             self, species=species, mhc_class=mhc_class, raw_string=raw_string

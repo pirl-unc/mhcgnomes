@@ -15,7 +15,6 @@ from collections.abc import Iterable
 from dataclasses import dataclass, field
 from functools import cache
 from types import MappingProxyType
-from typing import Union
 
 from .allele_annotations import (
     _CELL_SURFACE_EXPRESSION_UNCERTAIN,
@@ -278,9 +277,9 @@ class Allele(ResultWithGene):
         cls,
         gene: Gene,
         allele_fields: Iterable[str],
-        annotations: Union[Iterable[str], None] = None,
-        mutations: Union[Iterable[Mutation], None] = None,
-        raw_string: Union[str, None] = None,
+        annotations: Iterable[str] | None = None,
+        mutations: Iterable[Mutation] | None = None,
+        raw_string: str | None = None,
         normalize_fields=True,
     ):
         """

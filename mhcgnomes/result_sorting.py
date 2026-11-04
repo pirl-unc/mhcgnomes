@@ -12,7 +12,6 @@
 
 import re
 from collections.abc import Iterable
-from typing import Optional
 
 from .allele import Allele
 from .allele_without_gene import AlleleWithoutGene
@@ -28,7 +27,7 @@ from .serotype import Serotype
 _ALLELE_LIKE_SEROTYPE_PATTERN = re.compile(r"^([ABC]\d{4,}|D[RPQO][AB]?\d{4,})$")
 
 
-def pick_best_result(candidates: Iterable[Result], raise_on_error=True) -> Optional[Result]:
+def pick_best_result(candidates: Iterable[Result], raise_on_error=True) -> Result | None:
     if len(candidates) == 0:
         if raise_on_error:
             raise ValueError("Expected at least one candidate ParseResult object")

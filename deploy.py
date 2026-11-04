@@ -39,7 +39,7 @@ import urllib.request
 from collections.abc import Sequence
 from dataclasses import dataclass, replace
 from pathlib import Path
-from typing import NoReturn, Optional
+from typing import NoReturn
 
 from release_utils import ReleaseError, parse_version_from_python_file, tag_for_version
 
@@ -72,7 +72,7 @@ class Config:
     remote: str
     dry_run: bool
     fetch: bool
-    env: Optional[dict[str, str]]
+    env: dict[str, str] | None
     # The interpreter that runs the build. Not necessarily the one that goes
     # with `env`: `env` always names the venv, while the build falls back to the
     # launching interpreter when the venv cannot build. See issue #101.
@@ -81,7 +81,7 @@ class Config:
     # `env` (venv PATH + VIRTUAL_ENV) when the venv is the build interpreter,
     # None otherwise -- passing the venv's environment to a different
     # interpreter is the same drift, pointed the other way.
-    build_env: Optional[dict[str, str]]
+    build_env: dict[str, str] | None
     # How long to wait for the pushed tag to appear on PyPI, and whether to
     # look at all. See await_pypi_publication and issue #83.
     pypi_project: str
@@ -103,7 +103,7 @@ def require_nonempty(label: str, value: str) -> None:
         die(f"{label} must not be empty")
 
 
-def require_cmd(cmd: str, *, env: Optional[dict[str, str]] = None) -> None:
+def require_cmd(cmd: str, *, env: dict[str, str] | None = None) -> None:
     require_nonempty("command", cmd)
     path = env.get("PATH") if env else None
     if shutil.which(cmd, path=path) is None:
@@ -113,10 +113,10 @@ def require_cmd(cmd: str, *, env: Optional[dict[str, str]] = None) -> None:
 def run_checked(
     cmd: Sequence[str],
     *,
-    cwd: Optional[Path] = None,
+    cwd: Path | None = None,
     capture_stdout: bool = False,
     capture_stderr: bool = False,
-    env: Optional[dict[str, str]] = None,
+    env: dict[str, str] | None = None,
 ) -> subprocess.CompletedProcess:
     """
     Run a command (read-only checks, queries). Always executes.
@@ -144,7 +144,7 @@ def run_checked(
 
 
 def run_effectful(
-    cmd: Sequence[str], *, cwd: Path, dry_run: bool, env: Optional[dict[str, str]] = None
+    cmd: Sequence[str], *, cwd: Path, dry_run: bool, env: dict[str, str] | None = None
 ) -> None:
     """
     Run a command with side-effects (build/tag/push/fetch).
@@ -407,7 +407,7 @@ PYPI_ABSENT = "absent"
 PYPI_UNKNOWN = "unknown"
 
 
-def pypi_released_versions(project: str, *, timeout: float = 10.0) -> Optional[set[str]]:
+def pypi_released_versions(project: str, *, timeout: float = 10.0) -> set[str] | None:
     """
     Every version PyPI has for this project, or None if it could not be asked.
 
@@ -501,7 +501,7 @@ def report_pypi_outcome(cfg: Config, version: str, tag: str, *, cwd: Path) -> in
     return 3
 
 
-def resolve_venv_bin(root: Path) -> Optional[Path]:
+def resolve_venv_bin(root: Path) -> Path | None:
     for name in (".venv", "venv"):
         candidate = root / name / "bin"
         if (candidate / "python").exists() or (candidate / "python3").exists():
@@ -509,7 +509,7 @@ def resolve_venv_bin(root: Path) -> Optional[Path]:
     return None
 
 
-def venv_python(venv_bin: Optional[Path]) -> Optional[Path]:
+def venv_python(venv_bin: Path | None) -> Path | None:
     """The interpreter inside the venv whose bin directory this is."""
     if venv_bin is None:
         return None
@@ -520,7 +520,7 @@ def venv_python(venv_bin: Optional[Path]) -> Optional[Path]:
     return None
 
 
-def interpreter_can_build(python: str, env: Optional[dict[str, str]] = None) -> tuple[bool, str]:
+def interpreter_can_build(python: str, env: dict[str, str] | None = None) -> tuple[bool, str]:
     """
     Can this interpreter run `python -m build --no-isolation`, and if not, why?
 
@@ -547,9 +547,7 @@ def interpreter_can_build(python: str, env: Optional[dict[str, str]] = None) -> 
     return False, (result.stderr or result.stdout or "").strip()
 
 
-def resolve_build_python(
-    venv_bin: Optional[Path], env: Optional[dict[str, str]]
-) -> tuple[str, str]:
+def resolve_build_python(venv_bin: Path | None, env: dict[str, str] | None) -> tuple[str, str]:
     """
     The interpreter that will run the build, and a phrase explaining the choice.
 
@@ -585,7 +583,7 @@ def resolve_build_python(
     )
 
 
-def build_run_env(venv_bin: Optional[Path]) -> dict[str, str]:
+def build_run_env(venv_bin: Path | None) -> dict[str, str]:
     env = os.environ.copy()
     if venv_bin is not None:
         env["PATH"] = f"{venv_bin}{os.pathsep}{env.get('PATH', '')}"

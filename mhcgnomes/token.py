@@ -11,7 +11,6 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from typing import Union
 
 from .token_canonical_sequences import (
     ALPHA_CHAIN_TOKEN_SEQ,
@@ -25,7 +24,7 @@ from .token_canonical_sequences import (
 @dataclass(eq=False, repr=False, frozen=True, init=False)
 class Token:
     seq: str = ""
-    raw_string: Union[str, None] = None
+    raw_string: str | None = None
 
     def __init__(self, seq, raw_string=None):
         if raw_string is None:

@@ -2,7 +2,6 @@ import argparse
 import json
 import sys
 from collections.abc import Sequence
-from typing import Optional
 
 from .allele import Allele
 from .allele_without_gene import AlleleWithoutGene
@@ -193,7 +192,7 @@ def _collect_names(positional_names: Sequence[str]) -> list[str]:
     return [line.strip() for line in sys.stdin if line.strip()]
 
 
-def main(argv: Optional[Sequence[str]] = None) -> int:
+def main(argv: Sequence[str] | None = None) -> int:
     argv = list(argv) if argv is not None else sys.argv[1:]
     if argv and argv[0] == "data":
         from .external_data import main as external_data_main

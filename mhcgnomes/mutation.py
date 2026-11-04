@@ -12,7 +12,6 @@
 
 import re
 from dataclasses import dataclass
-from typing import Union
 
 from .errors import ParseError
 from .result import Result
@@ -64,9 +63,7 @@ class Mutation(Result):
     aa_original: str = ""
     aa_mutant: str = ""
 
-    def __init__(
-        self, pos: int, aa_original: str, aa_mutant: str, raw_string: Union[str, None] = None
-    ):
+    def __init__(self, pos: int, aa_original: str, aa_mutant: str, raw_string: str | None = None):
         Result.__init__(self, raw_string=raw_string)
         self._set_field(self, "pos", pos)
         self._set_field(self, "aa_original", aa_original)

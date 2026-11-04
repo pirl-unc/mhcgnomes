@@ -234,7 +234,7 @@ class Species(Result):
     other_mhc_prefixes: Any = None
     context_only_mhc_prefixes: Any = None
     other_common_names: Any = None
-    prefix_provenance: Union[str, None] = None
+    prefix_provenance: str | None = None
 
     def __init__(
         self,
@@ -254,14 +254,14 @@ class Species(Result):
         heterodimers: Mapping[str, Mapping[str, str]],
         supertypes: Mapping[str, Mapping[str, Any]],
         parent_species: Union["Species", None] = None,
-        old_mhc_prefix: Union[str, None] = None,
+        old_mhc_prefix: str | None = None,
         other_mhc_prefixes: Iterable[str] = [],
         context_only_mhc_prefixes: Iterable[str] = [],
         other_common_names: Iterable[str] = [],
-        prefix_provenance: Union[str, None] = None,
-        raw_string: Union[str, None] = None,
-        gene_name_to_properties: Union[Mapping[str, Mapping[str, Any]], None] = None,
-        gene_family_name_to_gene_names: Union[Mapping[str, Iterable[str]], None] = None,
+        prefix_provenance: str | None = None,
+        raw_string: str | None = None,
+        gene_name_to_properties: Mapping[str, Mapping[str, Any]] | None = None,
+        gene_family_name_to_gene_names: Mapping[str, Iterable[str]] | None = None,
     ):
         Result.__init__(self, raw_string=raw_string)
 

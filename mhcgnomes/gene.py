@@ -12,7 +12,6 @@
 
 from collections.abc import Iterable
 from dataclasses import dataclass, field
-from typing import Union
 
 from .mutation import Mutation
 from .result_with_mhc_class import ResultWithMhcClass
@@ -68,7 +67,7 @@ class Gene(ResultWithMhcClass):
         species: Species,
         name: str,
         mutations: Iterable[Mutation] = (),
-        raw_string: Union[str, None] = None,
+        raw_string: str | None = None,
     ):
         ResultWithMhcClass.__init__(
             self,
@@ -104,9 +103,7 @@ class Gene(ResultWithMhcClass):
         return self
 
     @classmethod
-    def get(
-        cls, species_prefix: Union[str, Species], gene_name: str, mutations: Iterable[Mutation] = ()
-    ):
+    def get(cls, species_prefix: str | Species, gene_name: str, mutations: Iterable[Mutation] = ()):
         """
         Get or create a Gene from species prefix and gene name.
 

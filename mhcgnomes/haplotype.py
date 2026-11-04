@@ -12,7 +12,6 @@
 
 from collections.abc import Sequence
 from dataclasses import dataclass
-from typing import Union
 
 from .allele import Allele
 from .class2_locus import Class2Locus
@@ -79,9 +78,9 @@ class Haplotype(ResultWithMultipleAlleles):
     'mouse'
     """
 
-    class_restriction: Union[str, None] = None
-    locus_restriction: Union[Class2Locus, None] = None
-    parent_haplotypes: Union[tuple["Haplotype", ...], None] = None
+    class_restriction: str | None = None
+    locus_restriction: Class2Locus | None = None
+    parent_haplotypes: tuple["Haplotype", ...] | None = None
     # Loci this haplotype positively lacks, as against loci nobody typed. See
     # Parser.blank_locus_gene_name and issue #162. Deliberately not in
     # eq_field_names: a haplotype's identity is its species and name, which is
@@ -93,11 +92,11 @@ class Haplotype(ResultWithMultipleAlleles):
         species: Species,
         name: str,
         alleles: Sequence[Allele],
-        class_restriction: Union[str, None] = None,
-        locus_restriction: Union[Class2Locus, None] = None,
-        parent_haplotypes: Union[Sequence["Haplotype"], None] = None,
-        raw_string: Union[str, None] = None,
-        absent_genes: Union[Sequence["Gene"], None] = None,
+        class_restriction: str | None = None,
+        locus_restriction: Class2Locus | None = None,
+        parent_haplotypes: Sequence["Haplotype"] | None = None,
+        raw_string: str | None = None,
+        absent_genes: Sequence["Gene"] | None = None,
     ):
         ResultWithMultipleAlleles.__init__(
             self, species=species, name=name, alleles=alleles, raw_string=raw_string
