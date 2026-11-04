@@ -12,7 +12,7 @@
 
 from collections.abc import Sequence
 from dataclasses import dataclass, field
-from typing import Any, Union
+from typing import Any
 
 from .common import unique
 from .gene import Gene
@@ -31,7 +31,7 @@ class ResultWithMultipleAlleles(ResultWithSpecies):
         species: Species,
         name: str,
         alleles: Sequence[ResultWithSpecies],
-        raw_string: Union[str, None] = None,
+        raw_string: str | None = None,
     ):
         ResultWithSpecies.__init__(self, species=species, raw_string=raw_string)
         sorted_alleles = tuple(sorted(alleles))

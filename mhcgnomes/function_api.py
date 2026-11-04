@@ -11,7 +11,6 @@
 # limitations under the License.
 
 import re
-from typing import Optional, Union
 
 from .allele import Allele
 from .class2_locus import Class2Locus
@@ -291,7 +290,7 @@ _LENIENT_GENE_SUFFIX_PATTERNS = (
 )
 
 
-def _chain_for_species_gene(species: Species, gene_name: str, mhc_class: Optional[str]):
+def _chain_for_species_gene(species: Species, gene_name: str, mhc_class: str | None):
     if mhc_class is None or mhc_class == "other":
         return None
     if mhc_class in {"I", "Ia", "Ib", "Ic", "Id"}:
@@ -383,7 +382,7 @@ def _strip_gene_token(candidate_gene_string: str):
 def _extract_species_and_gene_string(
     raw_string: str,
     parser: Parser,
-    expected_species: Optional[Species],
+    expected_species: Species | None,
 ):
     explicit_species, remaining = parser.parse_species_from_prefix(raw_string)
     if explicit_species is not None:
@@ -519,9 +518,9 @@ def _build_gene_class_info_from_token(species: Species, gene_token: str, raw_str
 def parse_gene_class(
     raw_string: str,
     default_species=DEFAULT_SPECIES_PREFIX,
-    species: Union[str, None] = None,
+    species: str | None = None,
     raise_on_error: bool = True,
-) -> Optional[GeneClassInfo]:
+) -> GeneClassInfo | None:
     """
     Leniently infer the MHC class/chain for gene-like inputs.
 
@@ -629,8 +628,8 @@ def parse_gene_class(
 def infer_mhc_class(
     raw_string: str,
     default_species=DEFAULT_SPECIES_PREFIX,
-    species: Union[str, None] = None,
-) -> Optional[str]:
+    species: str | None = None,
+) -> str | None:
     """
     Convenience wrapper around :func:`parse_gene_class` returning only the
     inferred MHC class string.
@@ -677,7 +676,7 @@ def infer_mhc_class(
 def parse(
     raw_string: str,
     default_species=DEFAULT_SPECIES_PREFIX,
-    species: Union[str, None] = None,
+    species: str | None = None,
     use_allele_aliases: bool = USE_ALLELE_ALIASES,
     infer_class2_pairing: bool = INFER_CLASS2_PAIRING,
     collapse_singleton_haplotypes: bool = COLLAPSE_SINGLETON_HAPLOTYPES,
@@ -690,7 +689,7 @@ def parse(
     verbose: bool = False,
     raise_on_error: bool = True,
     require_explicit_species: bool = False,
-) -> Optional[Result]:
+) -> Result | None:
     """
     Parse MHC alleles into a structured representation.
 

@@ -12,7 +12,6 @@
 
 from collections.abc import Sequence
 from dataclasses import dataclass
-from typing import Union
 
 from .allele import Allele
 from .result_with_multiple_alleles import ResultWithMultipleAlleles
@@ -77,15 +76,15 @@ class Supertype(ResultWithMultipleAlleles):
     https://pmc.ncbi.nlm.nih.gov/articles/PMC2245908/
     """
 
-    representative: Union[Allele, None] = None
+    representative: Allele | None = None
 
     def __init__(
         self,
         species: Species,
         name: str,
         alleles: Sequence[Allele],
-        representative: Union[Allele, None] = None,
-        raw_string: Union[str, None] = None,
+        representative: Allele | None = None,
+        raw_string: str | None = None,
     ):
         ResultWithMultipleAlleles.__init__(
             self, species=species, name=name, alleles=alleles, raw_string=raw_string

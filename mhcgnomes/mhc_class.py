@@ -11,7 +11,6 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from typing import Union
 
 from .errors import ParseError
 from .gene import Gene
@@ -36,14 +35,14 @@ class MhcClass(ResultWithMhcClass):
     cases like MHCIIB (class II beta, unknown locus).
     """
 
-    chain: Union[str, None] = None
+    chain: str | None = None
 
     def __init__(
         self,
         species: Species,
         mhc_class: str,
-        chain: Union[str, None] = None,
-        raw_string: Union[str, None] = None,
+        chain: str | None = None,
+        raw_string: str | None = None,
     ):
         ResultWithMhcClass.__init__(
             self, species=species, mhc_class=mhc_class, raw_string=raw_string

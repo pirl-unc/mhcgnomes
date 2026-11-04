@@ -11,7 +11,6 @@
 # limitations under the License.
 
 import re
-from typing import Union
 
 from .allele import Allele
 from .gene import Gene
@@ -30,7 +29,7 @@ _standard_allele_regex = re.compile(_standard_allele_regex_str)
 
 
 def parse_standard_allele_format(
-    seq: str, raw_string: Union[str, None] = None, default_species: Union[str, Species, None] = None
+    seq: str, raw_string: str | None = None, default_species: str | Species | None = None
 ):
     """
     Parse alleles which are in a standard format, such as::

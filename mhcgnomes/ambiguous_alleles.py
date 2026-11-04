@@ -12,7 +12,6 @@
 
 from collections.abc import Sequence
 from dataclasses import dataclass
-from typing import Union
 
 from .result_with_multiple_alleles import ResultWithMultipleAlleles
 from .result_with_species import ResultWithSpecies
@@ -37,7 +36,7 @@ class AmbiguousAlleles(ResultWithMultipleAlleles):
         self,
         species: Species,
         alleles: Sequence[ResultWithSpecies],
-        raw_string: Union[str, None] = None,
+        raw_string: str | None = None,
     ):
         name = "/".join(_short_name(a) for a in alleles)
         ResultWithMultipleAlleles.__init__(

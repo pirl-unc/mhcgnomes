@@ -13,7 +13,6 @@
 import inspect
 import warnings
 from dataclasses import dataclass
-from typing import Union
 
 
 @dataclass(eq=False, repr=False, frozen=True, init=False)
@@ -22,7 +21,7 @@ class Result:
     Base class for all parsed objects in mhcgnomes.
     """
 
-    raw_string: Union[str, None] = None
+    raw_string: str | None = None
 
     def __init__(self, raw_string=None):
         object.__setattr__(self, "raw_string", raw_string)

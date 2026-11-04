@@ -11,7 +11,6 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-from typing import Union
 
 from .result_with_mhc_class import ResultWithMhcClass
 from .species import Species
@@ -30,8 +29,8 @@ class AlleleWithoutGene(ResultWithMhcClass):
         self,
         species: Species,
         name: str,
-        mhc_class: Union[str, None] = None,
-        raw_string: Union[str, None] = None,
+        mhc_class: str | None = None,
+        raw_string: str | None = None,
     ):
         ResultWithMhcClass.__init__(
             self, species=species, mhc_class=mhc_class, raw_string=raw_string

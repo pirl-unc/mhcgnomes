@@ -12,7 +12,7 @@
 
 from collections import OrderedDict
 from dataclasses import dataclass
-from typing import Any, Union
+from typing import Any
 
 from .allele import Allele
 from .allele_without_gene import AlleleWithoutGene
@@ -68,10 +68,10 @@ class Pair(ResultWithMhcClass):
 
     def __init__(
         self,
-        alpha: Union[Allele, AlleleWithoutGene, Gene],
-        beta: Union[Allele, AlleleWithoutGene, Gene],
+        alpha: Allele | AlleleWithoutGene | Gene,
+        beta: Allele | AlleleWithoutGene | Gene,
         mhc_class="II",
-        raw_string: Union[str, None] = None,
+        raw_string: str | None = None,
     ):
         ResultWithMhcClass.__init__(
             self, species=alpha.species, mhc_class=mhc_class, raw_string=raw_string

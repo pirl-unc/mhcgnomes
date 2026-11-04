@@ -15,7 +15,6 @@ import re
 import warnings
 from collections import defaultdict
 from collections.abc import Iterable, Mapping, Sequence
-from typing import Optional, Union
 
 from .allele import Allele
 from .allele_annotations import (
@@ -319,7 +318,7 @@ class Parser:
         self,
         name: str,
         result,
-        default_species: Union[Species, str, None] = DEFAULT_SPECIES_PREFIX,
+        default_species: Species | str | None = DEFAULT_SPECIES_PREFIX,
     ):
         """
         Returns "explicit", "inferred", "default", or None -- see
@@ -327,7 +326,7 @@ class Parser:
         """
         return classify_species_source(name, self._species_of(result), default_species)
 
-    def parse_species(self, name: str, default_species: Union[Species, str, None] = None):
+    def parse_species(self, name: str, default_species: Species | str | None = None):
         """
         Returns tuple with elements:
             - Species
@@ -343,7 +342,7 @@ class Parser:
         remaining_string = self.strip_extra_chars(remaining_string)
         return species, remaining_string
 
-    def _resolve_unparsed_allele_alias(self, name: str, default_species: Union[Species, str, None]):
+    def _resolve_unparsed_allele_alias(self, name: str, default_species: Species | str | None):
         """Resolve an exact alias whose source spelling cannot otherwise be parsed."""
         species, name_without_species = self.parse_species(name, default_species=default_species)
         if species is None:
@@ -430,7 +429,7 @@ class Parser:
                 alleles.append(allele)
         return (normalized_name, alleles, absent_genes)
 
-    def get_serotype(self, species: Union[Species, str], serotype_name: str):
+    def get_serotype(self, species: Species | str, serotype_name: str):
         """
         Getting around potential circular dependency between Parser and
         Serotype by not having a Serotype.get method and parsing a Serotype's
@@ -464,7 +463,7 @@ class Parser:
             species=species, name=normalized_name, alleles=alleles, raw_string=serotype_name
         )
 
-    def get_heterodimer(self, species: Union[Species, str], heterodimer_name: str):
+    def get_heterodimer(self, species: Species | str, heterodimer_name: str):
         """
         Look up a heterodimer shorthand name (e.g., DQ2.5) and return a Pair object.
 
@@ -506,7 +505,7 @@ class Parser:
         # Create and return a Pair object
         return Pair.get(alpha_allele, beta_allele, raw_string=heterodimer_name)
 
-    def get_supertype(self, species: Union[Species, str], supertype_name: str):
+    def get_supertype(self, species: Species | str, supertype_name: str):
         """
         Look up a supertype name (e.g., "A02", "B07") and return a Supertype object.
 
@@ -581,7 +580,7 @@ class Parser:
         )
 
     def parse_haplotype_with_class2_locus_from_any_string_split(
-        self, species: Union[Species, str], locus_and_haplotype: str
+        self, species: Species | str, locus_and_haplotype: str
     ):
         """
         Try parsing a string like "IAk" into the 'k' mouse haplotype restricted
@@ -608,7 +607,7 @@ class Parser:
                 return haplotype
         return None
 
-    def get_haplotype(self, species: Union[Species, str], haplotype_name: str):
+    def get_haplotype(self, species: Species | str, haplotype_name: str):
         """
         Getting around the potential circular dependency between Parser and
         Haplotype by not having a Haplotype.get function and only
@@ -664,7 +663,7 @@ class Parser:
     def parse_haplotype(
         self,
         haplotype_name: str,
-        default_species: Union[Species, str, None] = None,
+        default_species: Species | str | None = None,
         strict_default_species: bool = False,
     ):
         # first try determining the species purley based on the string given
@@ -723,10 +722,10 @@ class Parser:
     def parse_allele_from_allele_fields(
         self,
         gene: Gene,
-        allele_fields: Union[str, Sequence[str], None],
-        functional_annotations: Union[str, Sequence[str], None] = None,
-        raw_string: Union[str, None] = None,
-    ) -> Union[Gene, Allele, None]:
+        allele_fields: str | Sequence[str] | None,
+        functional_annotations: str | Sequence[str] | None = None,
+        raw_string: str | None = None,
+    ) -> Gene | Allele | None:
         if allele_fields is None:
             return None
 
@@ -807,7 +806,7 @@ class Parser:
             gene.species.get_allele_alias(gene_name=gene.name, allele_name=written_name) is not None
         )
 
-    def get_gene_or_locus(self, species: Union[Species, str], name: str):
+    def get_gene_or_locus(self, species: Species | str, name: str):
         fns = [Gene.get, Class2Locus.get]
         for fn in fns:
             result = fn(species, name)
@@ -815,7 +814,7 @@ class Parser:
                 return result
         return None
 
-    def parse_gene_candidates_from_prefixes(self, species: Union[Species, str], seq: str):
+    def parse_gene_candidates_from_prefixes(self, species: Species | str, seq: str):
         """
         Parse genes such as "A" or "DQB" and collect them with
         remaining string.
@@ -857,7 +856,7 @@ class Parser:
         return strip_whitespace_and_dashes(seq)
 
     def parse_gene_candidates(
-        self, species: Union[Species, str], str_after_species: str
+        self, species: Species | str, str_after_species: str
     ) -> Sequence[tuple[Gene, str]]:
         """
         Returns list of (Gene, remaining_string) pairs.
@@ -1014,7 +1013,7 @@ class Parser:
         gene: Gene,
         str_after_gene: str,
         preserve_caps: bool = False,
-        raw_string: Union[str, None] = None,
+        raw_string: str | None = None,
     ):
         if gene is None:
             return None
@@ -1274,8 +1273,8 @@ class Parser:
         return result
 
     def parse_and_apply_mutations(
-        self, result_without_mutation: Union[Gene, Allele, Pair], mutation_tokens: Sequence[Token]
-    ) -> Union[Gene, Allele, Pair, None]:
+        self, result_without_mutation: Gene | Allele | Pair, mutation_tokens: Sequence[Token]
+    ) -> Gene | Allele | Pair | None:
         """
         Parameters
         ----------
@@ -1426,12 +1425,12 @@ class Parser:
     def parse_renamed_allele(
         self,
         species: Species,
-        source_gene: Optional[Gene],
-        source_mhc_class: Optional[str],
-        target_gene_name: Optional[str],
+        source_gene: Gene | None,
+        source_mhc_class: str | None,
+        target_gene_name: str | None,
         target_allele_name: str,
-        raw_string: Optional[str],
-    ) -> Union[Allele, AlleleWithoutGene, None]:
+        raw_string: str | None,
+    ) -> Allele | AlleleWithoutGene | None:
         """
         Build the allele that an alias or known-allele entry renames to.
 
@@ -1530,9 +1529,9 @@ class Parser:
     def parse_gene_without_species(
         self,
         gene_name: str,
-        default_species: Union[Sequence, str, None] = None,
+        default_species: Sequence | str | None = None,
         strict_default_species: bool = False,
-        raw_gene_name: Union[str, None] = None,
+        raw_gene_name: str | None = None,
     ):
         """
         Parse the gene name without any associated species based on being
@@ -1612,9 +1611,9 @@ class Parser:
     def parse_allele_without_species(
         self,
         allele_name: str,
-        default_species: Union[str, Species, None] = None,
+        default_species: str | Species | None = None,
         strict_default_species: bool = False,
-        raw_allele_name: Union[str, None] = None,
+        raw_allele_name: str | None = None,
     ):
         """
         Parse the allele name without any associated species based on being
@@ -1679,7 +1678,7 @@ class Parser:
     def parse_single_token_to_multiple_candidates(
         self,
         token: Token,
-        default_species: Union[str, Species, None] = DEFAULT_SPECIES_PREFIX,
+        default_species: str | Species | None = DEFAULT_SPECIES_PREFIX,
         strict_default_species: bool = False,
     ):
         """
@@ -1901,7 +1900,7 @@ class Parser:
         self,
         class_token: Token,
         other_tokens: Sequence[Token],
-        default_species: Union[Species, str, None] = DEFAULT_SPECIES_PREFIX,
+        default_species: Species | str | None = DEFAULT_SPECIES_PREFIX,
         strict_default_species: bool = False,
     ):
         class1 = class_token.is_class1
@@ -1939,7 +1938,7 @@ class Parser:
         self,
         maybe_species_token: Token,
         other_tokens: Sequence[Token],
-        default_species: Union[Species, str, None] = DEFAULT_SPECIES_PREFIX,
+        default_species: Species | str | None = DEFAULT_SPECIES_PREFIX,
         strict_default_species: bool = False,
     ):
         """
@@ -1971,7 +1970,7 @@ class Parser:
         self,
         tokens_before: Sequence[Token],
         tokens_after: Sequence[Token],
-        default_species: Union[Species, str, None] = DEFAULT_SPECIES_PREFIX,
+        default_species: Species | str | None = DEFAULT_SPECIES_PREFIX,
         strict_default_species: bool = False,
     ):
         if len(tokens_before) == 0:
@@ -2095,7 +2094,7 @@ class Parser:
     def parse_tokens_to_multiple_candidates(
         self,
         tokens: Sequence[Token],
-        default_species: Union[Species, str, None] = DEFAULT_SPECIES_PREFIX,
+        default_species: Species | str | None = DEFAULT_SPECIES_PREFIX,
         strict_default_species: bool = False,
     ):
         if len(tokens) == 0:
@@ -2417,7 +2416,7 @@ class Parser:
             return None
 
     def parse_multiple_candidates(
-        self, name: str, default_species: Union[Species, str, None] = DEFAULT_SPECIES_PREFIX
+        self, name: str, default_species: Species | str | None = DEFAULT_SPECIES_PREFIX
     ):
         """
         Returns list of ParseResult objects which are candidate interpretations
@@ -2603,12 +2602,12 @@ class Parser:
         self,
         name: str,
         infer_class2_pairing: bool = INFER_CLASS2_PAIRING,
-        default_species: Union[Species, str, None] = DEFAULT_SPECIES_PREFIX,
-        preferred_result_types: Union[type, Iterable[type], None] = None,
-        required_result_types: Union[type, Iterable[type], None] = None,
+        default_species: Species | str | None = DEFAULT_SPECIES_PREFIX,
+        preferred_result_types: type | Iterable[type] | None = None,
+        required_result_types: type | Iterable[type] | None = None,
         only_class1: bool = False,
         only_class2: bool = False,
-        max_allele_fields: Optional[int] = None,
+        max_allele_fields: int | None = None,
         raise_on_error: bool = True,
         require_explicit_species: bool = False,
     ):
@@ -2665,12 +2664,12 @@ class Parser:
         self,
         name: str,
         infer_class2_pairing: bool = INFER_CLASS2_PAIRING,
-        default_species: Union[Species, str, None] = DEFAULT_SPECIES_PREFIX,
-        preferred_result_types: Union[type, Iterable[type], None] = None,
-        required_result_types: Union[type, Iterable[type], None] = None,
+        default_species: Species | str | None = DEFAULT_SPECIES_PREFIX,
+        preferred_result_types: type | Iterable[type] | None = None,
+        required_result_types: type | Iterable[type] | None = None,
         only_class1: bool = False,
         only_class2: bool = False,
-        max_allele_fields: Optional[int] = None,
+        max_allele_fields: int | None = None,
         raise_on_error: bool = True,
     ):
         """

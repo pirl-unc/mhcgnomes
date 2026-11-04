@@ -12,7 +12,6 @@
 
 from collections.abc import Sequence
 from dataclasses import dataclass
-from typing import Union
 
 from .allele import Allele
 from .result_with_multiple_alleles import ResultWithMultipleAlleles
@@ -66,7 +65,7 @@ class Serotype(ResultWithMultipleAlleles):
         species: Species,
         name: str,
         alleles: Sequence[Allele],
-        raw_string: Union[str, None] = None,
+        raw_string: str | None = None,
     ):
         ResultWithMultipleAlleles.__init__(
             self, species=species, name=name, alleles=alleles, raw_string=raw_string
