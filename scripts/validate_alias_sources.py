@@ -2,8 +2,8 @@
 """Audit current registry identities and every generated alias against the runtime parser.
 
 Run after combine_allele_aliases.sh. Inputs are the pinned allele-aliases download
-group. The single known unparseable source accession is reported explicitly;
-new failures or repaired exceptions fail the audit for review.
+group. Documented abandoned records are excluded and reported with provenance;
+every remaining source name must parse successfully with aliases off and on.
 """
 
 import sys
@@ -11,22 +11,23 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "mhcgnomes/data"))
-from combine_allele_aliases import read_hla_history, read_ipd_xml  # noqa: E402
+from combine_allele_aliases import (  # noqa: E402
+    partition_ipd_records,
+    read_hla_history,
+    read_ipd_xml,
+)
 
 from mhcgnomes import AlleleWithoutGene, parse  # noqa: E402
 from mhcgnomes.data import allele_aliases  # noqa: E402
 from mhcgnomes.errors import ParseError  # noqa: E402
 
-# NHP10764, organism Papio hamadryas. The source has no cross-reference.
-# Do not guess whether DP1 is a locus or typo: https://github.com/pirl-unc/mhcgnomes/issues/243
-EXPECTED_UNPARSEABLE = {"Paha-DP1*06:01"}
-
 
 def audit_alias_sources(records):
-    """Return failure messages for registry records and the installed alias index.
+    """Return failure messages for eligible registry records and the installed alias index.
 
-    Current names must parse identically with aliases off/on; both failures are
-    permitted only for EXPECTED_UNPARSEABLE. Every emitted allele alias must
+    Pass IPD records through partition_ipd_records first. All supplied names must
+    parse identically with aliases off/on; no parsing failures are allowed.
+    Every emitted allele alias must
     reach its declared target and reparse identically. Geneless curated targets
     are checked too. ParseError is reported; unexpected exceptions propagate.
     """
@@ -43,9 +44,9 @@ def audit_alias_sources(records):
             unparseable.add(name)
         elif outcomes[0] != outcomes[1]:
             failures.append(f"Current name changed: {name}: {outcomes}")
-    if unparseable != EXPECTED_UNPARSEABLE:
-        failures.append(f"Unparseable registry names changed: {sorted(unparseable)}")
-    print(f"Current records checked: {len(records)}; known unparseable: {sorted(unparseable)}")
+    if unparseable:
+        failures.append(f"Unparseable registry names: {sorted(unparseable)}")
+    print(f"Eligible records checked: {len(records)}; unparseable: {sorted(unparseable)}")
     checked = 0
     for prefix, table in allele_aliases.items():
         for old in table.keys():  # noqa: SIM118 -- keys() preserves original spellings
@@ -73,8 +74,16 @@ def audit_alias_sources(records):
 
 def main():
     """Read checkout-local pinned sources; print audit failures and return status 0/1."""
+    ipd_records, excluded = partition_ipd_records(
+        read_ipd_xml(ROOT / ".external-data/IPD-MHC-3.8.0.0.xml")
+    )
+    for record in excluded:
+        print(
+            f"Excluded {record['accession']} {record['name']}: {record['status']} "
+            f"in {record['status_release']} ({record['status_source']})"
+        )
     records = [
-        *read_ipd_xml(ROOT / ".external-data/IPD-MHC-3.8.0.0.xml"),
+        *ipd_records,
         *read_hla_history(ROOT / ".external-data/IMGT-HLA-Allelelist-history-3.66.0.txt"),
     ]
     failures = audit_alias_sources(records)
