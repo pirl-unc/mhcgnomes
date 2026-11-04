@@ -18,17 +18,16 @@ classifiers = [
     "Intended Audience :: Science/Research",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
     "Topic :: Scientific/Engineering :: Bio-Informatics",
 ]
-requires-python = ">=3.9"
+requires-python = ">=3.11"
 dependencies = [
     "PyYAML>=5.4",
-    "pandas",
-    "numpy",
+    "pandas>=3,<4",
 ]
 
 [project.optional-dependencies]
@@ -42,6 +41,9 @@ dev = [
     # tests/test_serotype_generation.py can check that the shipped serotype
     # table still matches its source, rather than skipping in CI (#156).
     "openpyxl",
+    # tests/test_missing_input.py checks numpy missing-value scalars and arrays.
+    # The package itself does not import numpy.
+    "numpy>=2,<3",
 ]
 docs = [
     "mkdocs>=1.6",

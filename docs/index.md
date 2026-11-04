@@ -22,7 +22,7 @@ It is designed to normalize the strings you actually encounter in the wild:
 pip install mhcgnomes
 ```
 
-Requires Python 3.9 or later. There are no MHC data downloads: the curated
+Requires Python 3.11 or later. There are no MHC data downloads: the curated
 species and gene ontology ships with the package.
 
 ## Quick start

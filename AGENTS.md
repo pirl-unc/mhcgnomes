@@ -42,7 +42,7 @@ Do not tell the user you are "done" or that changes are "complete" until all thr
 - Use ruff for formatting and linting
 - Configuration is in `pyproject.toml` under `[tool.ruff]`
 - Line length: 100 characters
-- Target Python version: 3.9+
+- Target Python version: 3.11+
 
 ---
 
