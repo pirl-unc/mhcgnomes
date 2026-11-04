@@ -254,6 +254,26 @@ class Allele(ResultWithGene):
     def name(self):
         return ":".join(self.allele_fields) + "".join(self.annotations)
 
+    @property
+    def registry_identities(self):
+        """Matching records; an unambiguous source input selects its own record.
+
+        Selection only applies while the complete unmutated name still matches.
+        Partial historical names do not qualify. Structural Allele equality is
+        unchanged; use registry_id for registry-record joins and deduplication.
+        """
+        from .registry_identity import get_registry_identities, get_registry_identity
+
+        if self.mutations:
+            return ()
+        name = f"{self.species.canonical_mhc_prefix}-{self.to_string(include_species=False)}"
+        candidates = get_registry_identities(name, include_aliases=False)
+        if isinstance(self.raw_string, str):
+            source = get_registry_identity(self.raw_string)
+            if source in candidates:
+                return (source,)
+        return candidates
+
     def restrict_allele_fields(self, num_fields, drop_annotations=False, drop_mutations=False):
         if num_fields >= self.num_allele_fields:
             return self
@@ -484,6 +504,10 @@ class Allele(ResultWithGene):
         d["is_mutant"] = self.is_mutant
         d["pseudogene_status"] = self.pseudogene_status
         d["is_pseudogene"] = self.is_pseudogene
+        if self.registry_identity is not None:
+            d.update(self.registry_identity.to_record())
+        elif self.registry_identities:
+            d["registry_id_candidates"] = self.registry_id_candidates
         return d
 
     def _check_annotation(self, annotation):

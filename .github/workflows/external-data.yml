@@ -55,7 +55,7 @@ jobs:
         run: ./mhcgnomes/data/combine_allele_aliases.sh
 
       - name: Verify generated aliases are current
-        run: git diff --exit-code -- mhcgnomes/data/allele_aliases.yaml mhcgnomes/data/current_allele_names.yaml data-sources/allele-alias-audit.json
+        run: git diff --exit-code -- mhcgnomes/data/allele_aliases.yaml mhcgnomes/data/current_allele_names.yaml mhcgnomes/data/registry_allele_identities.json data-sources/allele-alias-audit.json
 
       - name: Audit current identities and every historical alias
         run: python scripts/validate_alias_sources.py

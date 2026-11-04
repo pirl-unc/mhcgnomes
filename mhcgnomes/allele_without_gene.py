@@ -19,8 +19,10 @@ from .species import Species
 @dataclass(eq=False, repr=False, frozen=True, init=False)
 class AlleleWithoutGene(ResultWithMhcClass):
     """
-    Identifier for molecule whose gene is unknown and no proper allele numbering
-    is given for.
+    Written allele or molecule designation without an established ontology gene.
+
+    Includes unstructured names and source-backed registry designations whose
+    locus is not established in this ontology. Parsing does not validate a molecule.
     """
 
     name: str = ""
@@ -53,6 +55,33 @@ class AlleleWithoutGene(ResultWithMhcClass):
         Compact representation, e.g. just "T2C" instead of "BoLA-T2C"
         """
         return self.name
+
+    @property
+    def registry_identities(self):
+        """Identities for an exact designation without an established ontology gene."""
+        from .registry_identity import get_registry_identities
+
+        name = f"{self.species.canonical_mhc_prefix}-{self.name}"
+        return get_registry_identities(name, include_aliases=False)
+
+    def restrict_allele_fields(self, num_fields):
+        """Truncate written gene*field names; leave unstructured identifiers unchanged.
+
+        A truncated name no longer carries the full accession identity. This
+        operation does not establish the unknown gene or a registry allele.
+        """
+        locus, separator, fields = self.name.partition("*")
+        if not separator or len(fields.split(":")) <= num_fields:
+            return self
+        return self.copy(name=f"{locus}*{':'.join(fields.split(':')[:num_fields])}")
+
+    def to_record(self):
+        """Serialize the species, written designation, class and optional registry identity."""
+        record = self.species.to_record()
+        record.update(allele=self.to_string(), mhc_class=self.mhc_class)
+        if self.registry_identity is not None:
+            record.update(self.registry_identity.to_record())
+        return record
 
     @classmethod
     def get(cls, species, name, mhc_class=None, raw_string=None):

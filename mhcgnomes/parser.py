@@ -43,6 +43,7 @@ from .parsing_helpers import (
     split_digits_at_end,
     strip_whitespace_and_dashes,
 )
+from .registry_identity import get_registry_identity
 from .result import Result
 from .result_sorting import pick_best_result
 from .result_with_species import ResultWithSpecies
@@ -2598,6 +2599,43 @@ class Parser:
             return candidates
         return []
 
+    def parse_registry_allele(self, name):
+        """Return an Allele/AlleleWithoutGene for a bundled registry identity, or None.
+
+        Public parser building block: accepts a string accession, namespaced ID
+        or full species-prefixed recorded name. History requires this Parser's
+        use_allele_aliases option. Uses source spelling without heuristic padding;
+        an unknown ontology locus stays AlleleWithoutGene with the source class.
+        No species/class/type filters or pairing are applied here; use parse for
+        those policies. Non-strings raise TypeError; inconsistent data raises ValueError.
+        """
+        identity = get_registry_identity(name, include_aliases=self.use_allele_aliases)
+        if identity is None:
+            return None
+        species = Species.get(identity.species_name)
+        if species is None:
+            raise ValueError(f"Unknown registry species: {identity.species_name}")
+        written_name = identity.canonical_name.split("-", 1)[1]
+        locus, fields = written_name.split("*", 1)
+        gene = Gene.get(species, locus)
+        if gene is None:
+            return AlleleWithoutGene(species, written_name, identity.mhc_class, raw_string=name)
+        fields, prefix_annotations, suffix_annotations = parse_annotations_from_allele_fields(
+            fields.split(":")
+        )
+        # Preserve the existing canonical representation of IPD's leading W
+        # inside the first field (e.g. DRB*W001:05), not as a suffix annotation.
+        if "W" in prefix_annotations:
+            fields = ["W" + fields[0], *fields[1:]]
+            prefix_annotations = tuple(a for a in prefix_annotations if a != "W")
+        return Allele(
+            gene,
+            fields,
+            annotations=prefix_annotations + suffix_annotations,
+            raw_string=name,
+            normalize_fields=False,
+        )
+
     def parse(
         self,
         name: str,
@@ -2649,6 +2687,10 @@ class Parser:
         # provenance of the string it was parsed from.
         if result._species_source_inputs is None:
             Result._set_field(result, "_species_source_inputs", (name, default_species))
+        if get_registry_identity(name, include_aliases=self.use_allele_aliases) is not None:
+            # The accession record supplies an explicit species, even though a
+            # raw accession has no readable species prefix.
+            Result._set_field(result, "_species_source", "explicit")
 
         if require_explicit_species and result.species_source not in (None, "explicit"):
             species_source = result.species_source
@@ -2730,12 +2772,14 @@ class Parser:
         has_candidate_filters = bool(
             preferred_result_types or required_result_types or only_class1 or only_class2
         )
-        candidates = (
-            [] if has_candidate_filters else self.parse_explicit_species_allele_candidates(name)
-        )
-        if len(candidates) == 0:
+        registry_candidate = self.parse_registry_allele(name)
+        is_registry_accession = bool(re.fullmatch(r"(?:IPD-MHC:.*|NHP\d+)", name.strip(), re.I))
+        candidates = [registry_candidate] if registry_candidate is not None else []
+        if not candidates and not has_candidate_filters and not is_registry_accession:
+            candidates = self.parse_explicit_species_allele_candidates(name)
+        if not candidates and not is_registry_accession:
             candidates = self.parse_multiple_candidates(name, default_species=default_species)
-        if len(candidates) == 0 and self.use_allele_aliases:
+        if not candidates and self.use_allele_aliases and not is_registry_accession:
             resolved_alias = self._resolve_unparsed_allele_alias(name, default_species)
             if resolved_alias is not None:
                 alias_species, alias_name = resolved_alias
@@ -2754,7 +2798,7 @@ class Parser:
                     result = result.copy(raw_string=name)
                 return result
         explicit_species, _ = self.parse_species_from_prefix(name)
-        has_explicit_species_prefix = explicit_species is not None
+        has_explicit_species_prefix = explicit_species is not None or registry_candidate is not None
         default_species_object = Species.get(default_species)
         should_require_default_match = (
             default_species is not None

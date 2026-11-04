@@ -119,6 +119,64 @@ def partition_ipd_records(records):
     return eligible, excluded
 
 
+def registry_identity_rows(excluded, records=()):
+    """Build deterministic runtime identity rows from annotated IPD exclusions.
+
+    Maintainer API: accepts partition_ipd_records' exclusions with source-backed
+    species/class/locus metadata. Names and history come from the pinned XML;
+    status and metadata come from cited registry records. Missing metadata or
+    duplicate accessions raise KeyError/ValueError. Related records require their
+    matching source RegistryRecords in records; missing/mismatched names raise
+    ValueError. These related identities represent collisions, not replacements.
+    """
+    records = tuple(records)
+    rows = []
+    annotations = list(excluded)
+    by_accession = {(r.source, r.accession): r for r in records}
+    for exclusion in excluded:
+        for related in exclusion.get("related_records", []):
+            source = by_accession.get((related["source"], related["accession"]))
+            if source is None or f"{source.species}-{source.current}" != related["name"]:
+                raise ValueError(
+                    f"Related registry record missing/mismatched: {related['accession']}"
+                )
+            annotations.append({**related, "historical_names": list(source.previous)})
+    seen = set()
+    for record in sorted(annotations, key=lambda r: r["accession"]):
+        if record["accession"] in seen:
+            raise ValueError(f"Duplicate registry accession: {record['accession']}")
+        seen.add(record["accession"])
+        prefix = record["name"].split("-", 1)[0]
+        aliases = sorted(
+            {f"{prefix}-{name}" for name in record["historical_names"]} - {record["name"]}
+        )
+        rows.append(
+            {
+                "registry": "IPD-MHC",
+                "accession": record["accession"],
+                "canonical_name": record["name"],
+                "aliases": aliases,
+                "status": record["status"],
+                "species_name": record["species_name"],
+                "mhc_class": record["mhc_class"],
+                "locus": record["locus"],
+                "source_release": record["source"].removeprefix("IPD-MHC-").removesuffix(".xml"),
+                "status_source": record["status_source"],
+                "record_source": record["record_source"],
+            }
+        )
+    indexed_names = {
+        name.casefold() for row in rows for name in (row["canonical_name"], *row["aliases"])
+    }
+    for record in records:
+        if record.accession not in seen and any(
+            f"{record.species}-{name}".casefold() in indexed_names
+            for name in (record.current, *record.previous)
+        ):
+            raise ValueError(f"Unannotated registry name collision: {record.accession}")
+    return rows
+
+
 def read_hla_history(path):
     """Read HLA history CSV: accession, newest-release name, then historical names.
 
@@ -344,14 +402,26 @@ def main(args_list=None):
     parser.add_argument("--output", "-o", required=True)
     parser.add_argument("--audit-output")
     parser.add_argument("--current-names-output")
+    parser.add_argument("--registry-identities-output")
     args = parser.parse_args(args_list)
     records, candidates, coverage, unresolved, excluded_records = [], [], {}, {}, []
+    name_records = []
     for paths, reader in [
         (args.xml_input_file, read_ipd_xml),
         (args.allele_history_input_file, read_hla_history),
     ]:
         for path in paths:
             rows = reader(path)
+            # A retained abandoned record still owns its latest designation.
+            # Do not let another accession's history silently repurpose it.
+            name_records.extend(rows)
+            # Abandonment changes status, not ownership of documented names.
+            # Keep historical redirects usable with species context as before.
+            candidates.extend(
+                AliasCandidate(r.species, old, r.current, r.source, r.accession)
+                for r in rows
+                for old in r.previous
+            )
             source_records = len(rows)
             if reader is read_ipd_xml:
                 rows, excluded = partition_ipd_records(rows)
@@ -364,11 +434,6 @@ def main(args_list=None):
                 "records_with_history": sum(bool(r.previous) for r in rows),
                 "historical_names": sum(len(r.previous) for r in rows),
             }
-            candidates.extend(
-                AliasCandidate(r.species, old, r.current, r.source, r.accession)
-                for r in rows
-                for old in r.previous
-            )
     hla_current = {r.accession: r.current for r in records if r.species == "HLA"}
     for path in args.csv_input_file:
         rows, unassigned = read_hla_deletions(path, hla_current)
@@ -376,13 +441,21 @@ def main(args_list=None):
         unresolved[Path(path).name] = unassigned
     for path in args.yaml_input_file:
         candidates.extend(read_curated_aliases(path))
-    aliases, provenance, audit = resolve_aliases(records, candidates)
+    aliases, provenance, audit = resolve_aliases(name_records, candidates)
     audit["coverage"] = coverage
     audit["excluded_records"] = excluded_records
     audit["unresolved_deletions"] = unresolved
+    if args.registry_identities_output:
+        Path(args.registry_identities_output).write_text(
+            json.dumps(
+                registry_identity_rows(excluded_records, name_records), indent=2, sort_keys=True
+            )
+            + "\n",
+            encoding="utf-8",
+        )
     write_aliases(args.output, aliases, provenance)
     if args.current_names_output:
-        guards = protected_current_names(records, aliases)
+        guards = protected_current_names(name_records, aliases)
         write_current_name_guards(args.current_names_output, guards)
         audit["protected_current_names"] = sum(map(len, guards.values()))
     if args.audit_output:

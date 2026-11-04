@@ -275,3 +275,15 @@ Before proposing an ontology addition or alias for a suspicious registry entry,
 check its accession in release history, including abandoned/deleted sections.
 Presence in an export does not prove active status. Record the exact status and
 source; abandonment without a named replacement does not establish an alias.
+
+## Keep registry status separate from name resolution
+
+The user asked for abandoned records to remain addressable by accession and every
+documented name. Excluding a record from active-name curation must not erase its
+identity. Retain its own accession, attach only its documented aliases, and expose
+abandoned status separately. Do not infer a successor from a similar name, or
+treat a successful parse as proof of an active, valid molecule.
+
+Check the complete collision report, including its final rows. A source name may
+be retained on one accession and appear in another accession's history; preserving
+recorded-name precedence is different from asserting that the accessions are equal.

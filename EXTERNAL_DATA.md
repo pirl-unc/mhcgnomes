@@ -114,7 +114,7 @@ The deletion reader uses accession identity for suffix reversals and explicit
 rename/equality clauses for deleted accessions; it does not infer sequence identity
 from a later resubmission mentioned in prose.
 
-Exact current names win over all redirects. Curated evidence wins over automatic
+Exact latest recorded names, including retained abandoned records, win over all redirects. Curated evidence wins over automatic
 history. Conflicting automatic targets are excluded; targets differing only by
 additional colon-separated fields select the longest supported target for a
 renamed legacy key. A spelling that is only a shorter colon-delimited prefix of
@@ -129,22 +129,37 @@ alias cites its source filename and accession beside the data. The generated
 `current_allele_names.yaml` is a sparse precedence guard: it includes current names
 sharing an allele-field string with any alias key, because lookup also tries
 inherited species tables and alternate gene names. It is not a membership catalog.
-CI regenerates all three artifacts and audits every eligible source name and emitted
+CI regenerates the aliases, guards, identity catalog and audit, and checks every eligible source name and emitted
 alias with `python scripts/validate_alias_sources.py`. Every eligible name must parse;
 there is no allowlist of unparseable names.
 
-`ipd_record_annotations.json` records explicitly established source statuses. IPD's
-[3.7.0.0 release report (2021-07)](https://www.ebi.ac.uk/ipd/mhc/version/v3700/)
-lists NHP10764 (`Paha-DP1*06:01`) under **Abandoned**, with no replacement stated.
-The pinned 3.8.0.0 XML retains its stub. Generation excludes that exact source,
-accession and name from alias candidates and current-name guards, retaining its
-status, citation and historical names in the audit's `excluded_records`. In
-particular, no alias to `Paha-DPB1*06:01` is asserted. A matching accession with a
-different name fails for review. Missing sequences alone never trigger exclusion.
-This annotation inventory is not a complete catalog of registry statuses; the
-coverage field `current_records` counts source records eligible after annotations,
-not independently verified active accessions. `source_records` and
-`excluded_records` make the annotation's effect explicit.
+`ipd_record_annotations.json` records all 76 abandoned entries listed in the
+[3.7.0.0 release report (2021-07)](https://www.ebi.ac.uk/ipd/mhc/version/v3700/),
+with species/class/locus evidence from each cited live accession record (checked
+2026-11-04). The pinned 3.8.0.0 XML retains these entries and their complete history.
+A matching accession with a different name fails for review. Missing sequences
+alone never trigger exclusion. This is not a complete registry-status catalog:
+`current_records` counts source records eligible after annotations, not independently
+verified active accessions. `source_records` and `excluded_records` expose the split.
+
+Excluded status applies to the active-source audit, not to name ownership or
+parseability. The generator preserves every record's latest name in precedence
+checks and includes documented historical aliases even for abandoned records.
+`registry_allele_identities.json` additionally rolls each of the 76 accessions and
+all its recorded names into a stable `IPD-MHC:<accession>` identity. Two related
+public records are included so overlapping names expose their actual candidates. Complete history
+in this explicit inventory may include partial-looking old names; resolving those
+names still requires `use_allele_aliases=True` in `parse`. The general alias table's
+conservative partial-name rules remain unchanged.
+
+No replacement accession is inferred. In particular `Paha-DP1*06:01` keeps its own
+abandoned identity NHP10764 and is parsed without establishing an ontology gene or
+asserting a DPB1 replacement. `Mafa-B*051:06:03` retains NHP11987 despite also
+occurring in NHP04329's history. `Mafa-DQA1*01:16:01` has two latest-name records,
+public NHP04701 and abandoned NHP11988; name-only lookup retains both candidates.
+These unresolved equivalence questions are documented beside the annotations and
+tracked in #250. See [Registry identities](docs/registry-identities.md)
+for runtime API contracts and coverage.
 
 The public maintainer API lives in `mhcgnomes/data/combine_allele_aliases.py`:
 `RegistryRecord` and `AliasCandidate` hold source identities/provenance;
@@ -153,8 +168,14 @@ read the documented source formats; `resolve_aliases` returns aliases, provenanc
 and audit decisions. `protected_current_names` builds the sparse guards.
 `read_ipd_xml` preserves every XML record, including abandoned stubs;
 `partition_ipd_records(records)` returns eligible records and provenance-bearing
-exclusions using the bundled source annotations. Apply it before generating alias
-candidates, resolving precedence, building guards, or auditing runtime parsing.
+exclusions using the bundled source annotations. Apply it before auditing eligible
+records. Use the full source records for name precedence and historical alias
+candidates. `registry_identity_rows(excluded, records=())` returns deterministic JSON-ready
+identity rows from those exclusions and their source-backed metadata, retaining
+complete history. Missing metadata raises `KeyError`; duplicate accessions raise
+`ValueError`. Pass all source records when an exclusion cites related records;
+missing/mismatched related records or unannotated name collisions raise `ValueError`.
+No replacement is inferred.
 `write_aliases` and `write_current_name_guards` write deterministic YAML.
 `alias_key`, `strip_species`, and `meaningful_alias` implement the documented
 name-key and candidate policies. These helpers operate on paths, records and plain

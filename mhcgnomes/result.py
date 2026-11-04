@@ -78,6 +78,32 @@ class Result:
         """
         return self.species_source == "explicit"
 
+    @property
+    def registry_identities(self):
+        """Tuple of possible registry records for this exact unmodified result.
+
+        Only complete, unmodified names in the bundled inventory have an
+        identity. Unknown/partial results and molecular collections have none.
+        """
+        return ()
+
+    @property
+    def registry_identity(self):
+        """Unique registry identity, or None if unknown or ambiguous."""
+        identities = self.registry_identities
+        return identities[0] if len(identities) == 1 else None
+
+    @property
+    def registry_id_candidates(self):
+        """Possible namespaced accessions; a definitive result has exactly one."""
+        return tuple(identity.identifier for identity in self.registry_identities)
+
+    @property
+    def registry_id(self):
+        """Namespaced stable accession for registry_identity, or None."""
+        identity = self.registry_identity
+        return identity.identifier if identity is not None else None
+
     @classmethod
     def init_field_names(cls):
         """
