@@ -10,6 +10,10 @@ clean main, and public-PyPI smoke check. Do not stack an unreviewed PR or stop a
 merge. Never infer allele validity from a group flag or infer biological identity
 from a coincident name. Keep historical aliases opt-in and accession IDs direct.
 
+Latest request: finish #199's PR #258, then address the separate retained-haplotype
+bug #253. Its related output round-trip failure is now #260. Keep the rest of the
+series queued in the order above.
+
 ## PR contracts
 
 1. **#191 non-MHC gene names.** Verify Uty/Kdm6c and Klra22 in primary gene
@@ -64,7 +68,8 @@ from a coincident name. Keep historical aliases opt-in and accession IDs direct.
 - [x] #191: implement, review, test, PR, merge, publish, verify.
 - [x] #200: implement, review, test, PR, merge, publish, verify.
 - [x] #196: source review, implement, review, test, PR, merge, publish, verify.
-- [ ] #199: source review, implement, review, test, PR, merge, publish, verify.
+- [x] #199: source review, implement, review, test, PR, merge, publish, verify.
+- [ ] #253/#260: reproduce, implement, review, test, PR, merge, publish, verify.
 - [ ] #202/#205: source review, implement, review, test, PR, merge, publish, verify.
 - [ ] #189: implement, corpus comparison, review, test, PR, merge, publish, verify.
 - [ ] #185/#204: implement, review, test, PR, merge, publish, verify.
@@ -249,3 +254,67 @@ The condition was flattened without changing evaluation order or behavior.
 Re-reviewed that mechanical diff and reran format/lint/full tests with 0.17.4:
 17,887 passed. Durable local/CI/pre-commit alignment is tracked in #259 and
 will accompany the release-tooling fixes.
+
+PR #258 merged as 90825dc after all CI checks passed. Required format/lint/full
+tests passed again (17,887 tests). Published 3.70.1; workflow 42094118857 reproduced
+#83, so the validated artifacts were uploaded with Twine and deploy.sh confirmed
+public-PyPI availability. Fresh PyPI API/DataFrame/CLI alias and registry-identity
+smoke checks and pip check passed in /tmp/mhcgnomes-pypi-3.70.1.
+
+### #253/#260 implementation spec (3.70.2)
+
+- [x] Reproduce #253 on merged 3.70.1: H2-IAb and H-2-IAb lose b when collapse
+  is false, independently of alpha-chain inference. IAa and IEb share the cause.
+- [x] Trace candidate generation, transformation and ranking. Gene.get's class
+  prefix stripping produces AB beside the correctly restricted b haplotype.
+  Generic gene priority wins unless optional collapse first produces a Pair.
+- [x] File #260: Haplotype's H2-A-b output cannot reparse because the helper's
+  supposed exact-gene guard ignores punctuation and equates A-b with AB.
+- [x] Verify expected memberships against Jackson Laboratory's primary table:
+  https://www.informatics.jax.org/downloads/datasets/misc/H2Haplotypes/H2_haplotypes.html
+  Table 3 lists Ab/Aa as b/b for haplotype b, k/k for a, d/d for d; Eb is b in b.
+  Existing curation remains unchanged. #201's g7 content is outside this fix.
+- [x] Add regressions that fail before implementation: both prefixes, explicit
+  and default species paths, both collapse/inference/alias modes, adjacent IAa,
+  IEb, IAd and IEk forms, exact genes and descriptive chain aliases, retained
+  output round trips, direct Parser and function APIs, DataFrame and CLI default.
+- [x] In result ranking, prefer populated locus-restricted Haplotype candidates
+  over fallback Gene candidates, below exact written matches and allele/pair
+  priorities. Leave ordinary/empty haplotype ranking alone; honor explicit result
+  type filters. No species-name special case or global haplotype priority change.
+- [x] Make the exact-gene guard compare the original canonical spelling without
+  punctuation folding, preserving case-insensitive AA/AB/EA/EB gene lookup while
+  allowing the explicitly separated A-b form to produce a haplotype candidate.
+- [x] Review every final change and compare both collapse modes against 3.70.1.
+  Baseline /tmp/mhcgnomes-253-before.json covers 88,978 input strings per mode:
+  all bundled test allele text/CSV inventories, evaluation allele/name lists,
+  every species' declared/inherited gene spelling and mouse locus/haplotype forms.
+  Import-path assertion confirms the working tree, baseline commit 90825dc.
+- [x] Bump to 3.70.2; run ./format.sh, ./lint.sh, ./test.sh and focused checks.
+- [ ] Create focused PR linking #253/#260 and #83, wait for all CI, merge reviewed
+  head into main, deploy from clean main and verify fresh public-PyPI installation.
+
+### #253/#260 review
+
+Two narrowly placed changes: retain the priority of populated locus-restricted
+haplotypes over fallback genes, and make the gene guard case-insensitive without
+removing meaningful punctuation. Exact gene matches, allele/pair priorities,
+ordinary/empty haplotypes and explicit preferred/required type filters retain
+their policies. No ontology or allele membership changes. #201 remains open.
+
+38 regressions failed before the fix. All 110 new tests and 135 focused tests
+pass after it. Required format/lint/full suite pass: 17,997 passed, no skips.
+Reviewed prefixes, explicit/default species, Parser/function/DataFrame APIs,
+CLI default, class qualifiers, alias/collapse/inference modes, exact genes and
+chain descriptions, raw input, members, type filters and canonical round trips.
+An additional exhaustive check covers all 50 curated mouse A/E haplotype forms.
+
+Corpus comparison: 177,956 parse cases (88,978 names in each collapse mode).
+Eight semantic differences, all collapse=False IAa/IAb/IEa/IEb forms with both
+H2-/H-2- prefixes, now Haplotype instead of Gene. No semantic differences in the
+default mode for this corpus; targeted tests separately cover the previously
+broken canonical H2-A-b output and its siblings in both modes (#260).
+Eighteen Class2Locus repr differences were checked structurally and are only
+pre-existing set iteration order; species, class, member genes and raw input
+are identical. Baseline and after snapshots plus full diff remain under /tmp.
+No outstanding findings. PR/CI/merge/publication pending.

@@ -126,6 +126,12 @@ def sort_key(result: Result):
         is_allele,
         full_string_matches_raw_string,
         compact_string_matches_raw_string,
+        # A populated, locus-restricted haplotype retains a designation that
+        # a fallback gene match would discard (IAb -> AB, #253). Its priority
+        # must not depend on optional singleton collapse producing a Pair.
+        # Exact written matches above still win; ordinary/empty haplotypes
+        # keep their existing priority below genes and serotypes.
+        (is_haplotype and result.locus_restriction is not None and bool(result.alleles)),
         is_gene,
         raw_gene_name_matches_normalized,
         num_allele_fields,

@@ -589,11 +589,14 @@ class Parser:
         """
         # Don't split strings that are directly in the species' gene list
         # (e.g. "AA" should remain Gene("AA"), not locus "A" + haplotype "a").
-        # Use the gene_names set for exact (case-insensitive) matching,
-        # avoiding Gene.get which strips MHC class prefixes like "I" from "IAb".
+        # Compare the original spelling: gene_names membership alone also
+        # folds punctuation, conflating the printed haplotype "A-b" with the
+        # gene "AB" (#260). Avoid Gene.get, which strips "I" from "IAb".
         species_obj = Species.get(species)
-        if species_obj is not None and locus_and_haplotype in species_obj.gene_names:
-            return None
+        if species_obj is not None:
+            gene_name = species_obj.gene_names.get_original(locus_and_haplotype)
+            if gene_name is not None and gene_name.lower() == locus_and_haplotype.lower():
+                return None
         for locus_length in range(1, len(locus_and_haplotype)):
             locus_string = self.strip_extra_chars(locus_and_haplotype[:locus_length])
             locus = Class2Locus.get(species, locus_string)
