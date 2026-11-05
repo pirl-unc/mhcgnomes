@@ -71,5 +71,11 @@ jobs:
       - name: Fetch exhaustive validation inputs
         run: mhcgnomes data download --group validation
 
+      - name: Regenerate the HLA broad and split hierarchy
+        run: |
+          mhcgnomes data download --group serotype-hierarchy
+          python scripts/generate_serotype_hierarchy.py
+          git diff --exit-code -- mhcgnomes/data/serotype_splits.yaml
+
       - name: Validate every official IMGT/IPD allele name
         run: mhcgnomes-validate-data

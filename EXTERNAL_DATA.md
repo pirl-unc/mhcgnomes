@@ -191,3 +191,17 @@ entries. Alias generation uses the current HLA 3.66.0 source exclusively.
 Default padding widths are explicit compatibility settings in
 `first_allele_field_widths.yaml`. They no longer depend on historical alias
 frequencies, so refreshing this opt-in data cannot change default parsing.
+
+## Regenerating serotype relationships
+
+```bash
+mhcgnomes data download --group serotype-hierarchy
+python scripts/generate_serotype_hierarchy.py
+```
+
+The generator verifies the pinned IPD-IMGT/HLA 3.66.0 WMDA input hash and writes
+`mhcgnomes/data/serotype_splits.yaml`. Only the split-antigen column defines the
+broad/split graph; associated antigens are not allele assignments. CI regenerates
+this graph and checks for drift. The curated `serotypes.yaml` remains the direct
+assignment table; runtime expansion and its limits are documented in
+[the nomenclature guide](docs/nomenclature.md#broad-and-split-serotype-candidates).

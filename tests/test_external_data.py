@@ -52,7 +52,7 @@ def write_manifest(path: Path, sources):
 
 def test_shipped_manifest_is_valid_and_uses_official_providers():
     sources = external_data.load_manifest()
-    assert len(sources) == 8
+    assert len(sources) == 9
     assert {source.provider for source in sources} == {"IPD-IMGT/HLA", "IPD-MHC"}
     assert all("/ANHIG/" in source.url for source in sources)
 

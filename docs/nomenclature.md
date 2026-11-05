@@ -216,3 +216,42 @@ However, if databases such as [IPD-MHC](https://www.ebi.ac.uk/ipd/mhc/) or [IMGT
 - [ISAG/IUIS-VIC Comparative MHC Nomenclature
   Committee report, 2005](https://link.springer.com/content/pdf/10.1007%2Fs00251-005-0071-4.pdf)
 - [Nomenclature for factors of the SLA system, update 2008](https://www.ncbi.nlm.nih.gov/pubmed/19317739)
+
+## Broad and split serotype candidates
+
+A broad serological type retains its reported name while including candidate
+alleles assigned to its splits. For example, `parse("HLA-B12")` remains a
+`Serotype` named `B12`; its `.alleles` include the curated B12 assignments and
+members of B44 and B45, including HLA-B*44:02. This does not establish that B44,
+B45 or a particular allele was observed in the sample.
+
+`Species.get("HLA").serotypes` exposes the same expanded candidate-name lists,
+so reverse membership lookups find both B44 and B12 for B*4402. The new
+`Species.get("HLA").direct_serotypes` mapping preserves direct assignments:
+its B12 entry is still `["B*4415"]`. These immutable mappings normalize serotype
+label case and punctuation. Allele-name strings retain the source table's format;
+parsed `.alleles` follow the parser's normal formatting and optional alias policy.
+
+The hierarchy is generated from IPD-IMGT/HLA 3.66.0's pinned
+[WMDA relationship file](https://github.com/ANHIG/IMGTHLA/blob/b2055ea33ef464781b9e8ecab20b275b6704f878/wmda/rel_ser_ser.txt).
+Only its split-antigen column defines these relationships; associated antigens
+are a separate concept. The graph contains 57 relationships under 23 broad
+labels. Six cellular specificities (Dw6, Dw7, Dw11, Dw17, Dw18 and Dw19) have no
+allele assignments in this repository. Their relationships are preserved in the
+graph, but no candidate alleles or new parseable types are invented for them.
+The other 21 broads expand through all their descendants. Candidate lists remain
+bounded by this package's curated assignments, rather than an exhaustive registry
+or a validation of expression.
+
+To regenerate the graph:
+
+```bash
+mhcgnomes data download --group serotype-hierarchy
+python scripts/generate_serotype_hierarchy.py
+```
+
+The generator verifies the pinned SHA256 and rejects malformed or conflicting
+relationships. CI regenerates the graph and checks it against the committed copy.
+The public `mhcgnomes.serotype_hierarchy.serotype_descendants` and
+`expand_serotype_memberships` helpers expose the same graph validation and upward
+candidate expansion for canonical HLA labels; they do not change either input.
