@@ -20,6 +20,7 @@ from typing import Any, Union
 from .common import cache, normalize_allele_alias, normalize_string
 from .data import allele_aliases as raw_allele_aliases_dict
 from .data import current_allele_names
+from .data import direct_serotypes as raw_direct_serotypes_dict
 from .data import evidenced_prefix_aliases as raw_evidenced_alias_dict
 from .data import gene_aliases as raw_gene_aliases_dict
 from .data import haplotypes as raw_haplotypes_dict
@@ -209,6 +210,12 @@ def _freeze_nested_value(value):
 class Species(Result):
     """
     Representation of a parsed species prefix such as "HLA", "ELA"
+
+    ``serotypes`` maps serological labels to candidate allele-name lists, including
+    descendants in the pinned HLA broad/split hierarchy. ``direct_serotypes``
+    retains only the curated direct assignments before expansion. Both mappings
+    and their lists are immutable and normalize label case/punctuation. Candidate
+    membership does not establish a specific allele or complete biological typing.
     """
 
     name: str = ""
@@ -227,6 +234,7 @@ class Species(Result):
     known_alleles: Any = None
     haplotypes: Any = None
     serotypes: Any = None
+    direct_serotypes: Any = None
     heterodimers: Any = None
     supertypes: Any = None
     parent_species: Union["Species", None] = None
@@ -262,6 +270,7 @@ class Species(Result):
         raw_string: str | None = None,
         gene_name_to_properties: Mapping[str, Mapping[str, Any]] | None = None,
         gene_family_name_to_gene_names: Mapping[str, Iterable[str]] | None = None,
+        direct_serotypes: Mapping[str, Iterable[str]] | None = None,
     ):
         Result.__init__(self, raw_string=raw_string)
 
@@ -291,6 +300,9 @@ class Species(Result):
         known_alleles = known_alleles.map_values(_ensure_normalizing_set)
         haplotypes = _ensure_normalizing_dictionary(haplotypes)
         serotypes = _ensure_normalizing_dictionary(serotypes)
+        direct_serotypes = _ensure_normalizing_dictionary(
+            serotypes if direct_serotypes is None else direct_serotypes
+        )
         heterodimers = _ensure_normalizing_dictionary(heterodimers)
         supertypes = _ensure_normalizing_dictionary(supertypes)
 
@@ -345,6 +357,7 @@ class Species(Result):
         self._set_field(self, "known_alleles", _freeze_nested_value(known_alleles))
         self._set_field(self, "haplotypes", _freeze_nested_value(haplotypes))
         self._set_field(self, "serotypes", _freeze_nested_value(serotypes))
+        self._set_field(self, "direct_serotypes", _freeze_nested_value(direct_serotypes))
         self._set_field(self, "heterodimers", _freeze_nested_value(heterodimers))
         self._set_field(self, "supertypes", _freeze_nested_value(supertypes))
         self._set_field(self, "parent_species", parent_species)
@@ -1571,6 +1584,7 @@ def create_species_for_latin_name(latin_name):
     )
     haplotypes = combine_species_aliases(raw_haplotypes_dict, all_identifiers)
     serotypes = combine_species_aliases(raw_serotypes_dict, all_identifiers)
+    direct_serotypes = combine_species_aliases(raw_direct_serotypes_dict, all_identifiers)
     heterodimers = combine_species_aliases(raw_heterodimers_dict, all_identifiers)
     supertypes = combine_species_aliases(raw_supertypes_dict, all_identifiers)
     known_alleles = combine_species_aliases(
@@ -1594,6 +1608,7 @@ def create_species_for_latin_name(latin_name):
         known_alleles=known_alleles,
         haplotypes=haplotypes,
         serotypes=serotypes,
+        direct_serotypes=direct_serotypes,
         heterodimers=heterodimers,
         supertypes=supertypes,
         parent_species=parent_species,

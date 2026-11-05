@@ -16,6 +16,7 @@ import yaml
 
 from .common import normalize_allele_alias
 from .normalizing_dictionary import NormalizingDictionary
+from .serotype_hierarchy import expand_serotype_memberships
 
 package_dir = dirname(__file__)
 data_dir = join(package_dir, "data")
@@ -125,9 +126,19 @@ haplotypes = load(
     "haplotypes.yaml", normalize_first_level_keys=True, normalize_second_level_keys=True
 )
 
-# Dictionary mapping species to serotype name to list of alleles
-serotypes = load(
+# Keep curated direct assignments separate from broad-type candidates (#196).
+# The generated graph contains WMDA split relationships, not allele assignments.
+direct_serotypes = load(
     "serotypes.yaml", normalize_first_level_keys=True, normalize_second_level_keys=True
+)
+serotype_splits = load("serotype_splits.yaml", normalize_first_level_keys=True)
+serotypes = NormalizingDictionary.from_dict(
+    {
+        prefix: NormalizingDictionary.from_dict(
+            expand_serotype_memberships(assignments, serotype_splits.get(prefix, {}))
+        )
+        for prefix, assignments in direct_serotypes.items()
+    }
 )
 
 # Dictionary mapping species to heterodimer shorthand to alpha/beta allele pairs

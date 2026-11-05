@@ -62,7 +62,7 @@ from a coincident name. Keep historical aliases opt-in and accession IDs direct.
 ## Progress
 
 - [x] #191: implement, review, test, PR, merge, publish, verify.
-- [ ] #200: implement, review, test, PR, merge, publish, verify.
+- [x] #200: implement, review, test, PR, merge, publish, verify.
 - [ ] #196: source review, implement, review, test, PR, merge, publish, verify.
 - [ ] #199: source review, implement, review, test, PR, merge, publish, verify.
 - [ ] #202/#205: source review, implement, review, test, PR, merge, publish, verify.
@@ -107,4 +107,81 @@ singleton-collapse checks pass. Required format/lint/full suite pass: 17,817
 passed, 2 skipped; 83 focused tests pass. Original regressions failed before the
 runtime change. No outstanding findings in this fix. Pre-existing serotype class
 metadata gap filed separately as #254; no scientific behavior was inferred for it.
-PR/CI/merge/publication pending.
+PR #255 merged as 84546c5 after all CI checks passed. Published 3.69.2;
+workflow 42086386324 reproduced #83 and the exact validated artifacts were
+uploaded using Twine. Fresh PyPI API/DataFrame/CLI and registry smoke checks
+and pip check pass.
+
+
+### #196 implementation spec
+
+Source: https://hla.alleles.org/pages/wmda/wmda/ explicitly defines rel_ser_ser.txt
+columns: locus;antigen;split antigens;associated antigens. Only column 3 is the
+broad/split relation. Column 4 is associated antigen designations, NOT alleles.
+Official current broad/split table confirms B12 -> B44/B45.
+Pinned release 3.66.0 at b2055ea33ef464781b9e8ecab20b275b6704f878:
+https://raw.githubusercontent.com/ANHIG/IMGTHLA/b2055ea33ef464781b9e8ecab20b275b6704f878/wmda/rel_ser_ser.txt
+sha256 4c821ce7fc6900dc4c6d9be6cb6dd343224c66f7e8d4a9a405a23c1c9040bde4
+Local file: /tmp/mhcgnomes-rel-ser-ser-3.66.0.txt
+23 broads, 57 edges; runtime tables have 21 broads / 53 edges. Six cellular
+specificities Dw6/Dw7/Dw11/Dw17/Dw18/Dw19 have no allele assignments here. Preserve
+all 57 source relationships in the generated graph but do not invent candidates
+or add unsupported allele mappings. State this scope explicitly in docs/tests.
+
+Proposed minimal architecture (not yet implemented; reevaluate as needed):
+- Add pinned source to external_sources.json under group serotype-hierarchy,
+  default false; manifest test count 8 -> 9. Use verified .external-data source.
+- Public generator functions parse source strictly, reject bad rows, duplicates,
+  self/cycles/multiple parents, source-inconsistent prefixes. Emit deterministic
+  mhcgnomes/data/serotype_splits.yaml with cited source/version/hash comments.
+- Public runtime helper expands direct memberships through descendants. Validate
+  graph even disconnected nodes; leave direct map untouched, deduplicate/sort
+  expanded candidate lists. Runtime no network. Only return existing direct names
+  (all 21 supported broads already exist); missing cellular nodes remain in graph.
+- Keep serotypes.yaml and serotypes_generated.yaml as curated direct assignments,
+  unchanged. data.direct_serotypes loads old map; data.serotypes expanded map.
+  Expose Species.direct_serotypes as immutable normalized direct assignments,
+  alongside Species.serotypes as effective candidate lists. Add optional final
+  constructor argument for backward compatibility, pass from species loader with
+  same inheritance/identifier resolution. Species.copy resolves registry object
+  by name (no need to serialize every new field).
+- Existing Parser.get_serotype already reads Species.serotypes; original
+  Serotype.name/raw_string stay B12, .alleles contains B44/B45 members. Reverse
+  readers of Species.serotypes see consistent candidates. Direct assignments
+  accessible separately. No need to add Serotype dataclass provenance fields.
+- Runtime graph public API may be exposed as Species.serotype_splits if useful;
+  avoid unnecessary API surfaces beyond clear documented helper and direct map.
+- Tests: real B12 retains B*44:15 and includes B*44:02 + B45 members; all supported
+  source edges have subset membership through parse and raw maps; reverse B*44:02
+  returns B44 and B12; B15 relation excludes B70/B71/B72 (current tests claim
+  otherwise). Synthetic multi-level/cycle/conflict/order/duplicate tests; no
+  propagation between unrelated broads or from broad down to split; direct maps
+  unchanged and immutable. Test parse modes, singleton collapse, alias mode,
+  serialization, copied raw string and CLI/DataFrame original B12 label.
+- Existing tests/test_serotype_who_definitions.py claims broad/split candidate
+  disjointness scientifically; correct those claims, test direct assignments vs
+  expanded candidates instead, use official graph rather than old invented B15
+  relationships. Do not assert universal biological disjointness of direct data.
+- Add external CI source download + generation + git diff checks. Required
+  format/lint/full tests, generation verification, docs build, review/PR/CI/merge/
+  deploy/public PyPI smoke. Consider version 3.70.0 for additive public direct map.
+- Separate pre-existing class metadata defect is issue #254. Keep it explicitly
+  pending unless fixing it becomes necessary for this narrowly scoped change.
+
+### #196 review (3.70.0)
+
+Implemented the pinned WMDA graph (23 broads, 57 edges), upward candidate
+expansion and immutable Species.direct_serotypes. All 21 broads with curated
+assignments expand; B12 grows from 1 to 24 candidates including B*44:02 and
+B45 members. Six cellular labels remain graph-only without invented assignments.
+Original B12/type and hierarchy regressions fail before runtime integration.
+Reviewed source-column semantics, graph validation, every supported edge, reverse
+membership, alias/singleton modes, copy/serialization, immutable direct mappings,
+non-HLA preservation and CLI/DataFrame labels. Corrected the tests' unsupported
+broad/split disjointness and B15/B70 claims against the primary source.
+Required format/lint/full suite pass: 17,841 passed, no skips (installed the
+repository's declared openpyxl test extra locally). Focused checks: 101 pass.
+Pinned source regenerates byte-identically; tampered input fails before output
+is touched; strict docs build passes. Pre-existing serotype metadata (#254) and
+compact-member alias over-specification (#256) remain separately tracked.
+No outstanding review findings in this change. PR/CI/merge/publication pending.

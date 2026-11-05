@@ -17,7 +17,7 @@ Key concepts:
    subdivided into "split" serotypes as more specific antisera were developed.
    For example:
    - A9 (broad) was split into A23 and A24
-   - B15 (broad) was split into B62, B63, B70, B71, B72, B75, B76, B77
+   - B15 (broad) splits into B62, B63, B75, B76, B77; B70 splits into B71/B72
 
 3. WHO ASSIGNMENT RULES: The WHO dictionary assigns serotypes based on actual
    serological reactivity:
@@ -25,8 +25,10 @@ Key concepts:
      serotype (e.g., A23, A24)
    - Alleles that react with the broad antiserum but don't clearly fit any
      split get the BROAD serotype (e.g., A9)
-   - This means BROAD and SPLIT serotypes are DISJOINT sets - an allele
-     is assigned to one or the other, not both.
+   - Direct dictionary assignments are kept separately from candidate sets.
+     A broad typing includes candidates assigned to its splits; it does not
+     establish which split or allele was reported.
+   - Source: https://hla.alleles.org/pages/wmda/wmda/ (rel_ser_ser column 3).
 
 4. PUBLIC EPITOPES (Bw4/Bw6): These are supertypic specificities defined by
    amino acid motifs at positions 77-83 of the HLA-B heavy chain. They are
@@ -186,7 +188,8 @@ class TestBroadAndSplitSerotypes:
         "B5": ["B51", "B52"],
         "B12": ["B44", "B45"],
         "B14": ["B64", "B65"],
-        "B15": ["B62", "B63", "B70", "B71", "B72", "B75", "B76", "B77"],
+        "B15": ["B62", "B63", "B75", "B76", "B77"],
+        "B70": ["B71", "B72"],
         "B16": ["B38", "B39"],
         "B17": ["B57", "B58"],
         "B21": ["B49", "B50"],
@@ -199,27 +202,14 @@ class TestBroadAndSplitSerotypes:
         "DR6": ["DR13", "DR14"],
     }
 
-    def test_broad_and_split_serotypes_are_disjoint(self):
-        """
-        Broad and split serotypes should have disjoint allele sets per WHO rules.
-
-        The WHO dictionary assigns each allele to exactly one serotype based on
-        serological reactivity. An allele assigned to a split (e.g., A23) is NOT
-        also assigned to its broad (A9).
-        """
+    def test_broad_candidates_include_direct_assignments_and_split_candidates(self):
+        """Broad typing retains its direct assignments and inherits split candidates."""
         human = Species.get("HLA")
-
         for broad, splits in self.BROAD_SPLIT_RELATIONSHIPS.items():
-            broad_alleles = set(human.serotypes.get(broad, []))
-
+            broad_alleles = set(human.serotypes[broad])
+            assert set(human.direct_serotypes[broad]) <= broad_alleles
             for split in splits:
-                split_alleles = set(human.serotypes.get(split, []))
-                overlap = broad_alleles & split_alleles
-
-                assert not overlap, (
-                    f"WHO rule violation: {broad} and {split} share alleles {overlap}. "
-                    f"Broad and split serotypes should be disjoint per WHO assignments."
-                )
+                assert set(human.serotypes[split]) <= broad_alleles
 
     def test_broad_serotypes_contain_ambiguous_alleles(self):
         """
@@ -236,7 +226,7 @@ class TestBroadAndSplitSerotypes:
 
         for broad in broad_serotypes_with_alleles:
             if broad in human.serotypes:
-                alleles = human.serotypes[broad]
+                alleles = human.direct_serotypes[broad]
                 assert len(alleles) > 0, (
                     f"Broad serotype {broad} should have alleles that don't clearly "
                     f"fit any split per WHO assignments"

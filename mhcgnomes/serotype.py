@@ -30,6 +30,13 @@ class Serotype(ResultWithMultipleAlleles):
     Serotypes are commonly used in older literature and transplantation
     medicine before high-resolution molecular typing became available.
 
+    ``name`` preserves the reported type. For a broad type such as B12,
+    ``alleles`` includes candidates assigned to its splits (B44/B45), following
+    the pinned WMDA hierarchy. It does not mean a particular split was observed.
+    ``species.direct_serotypes[name]`` exposes the curated direct allele-name
+    assignments without hierarchy expansion. Candidate lists are not exhaustive
+    registry validation or evidence of expression.
+
     Parameters
     ----------
     species : Species

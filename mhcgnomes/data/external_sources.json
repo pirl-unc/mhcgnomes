@@ -104,6 +104,19 @@
         "allele-classification"
       ],
       "default": false
+    },
+    {
+      "id": "imgt-hla-serotype-relations-3.66.0",
+      "filename": "IMGT-HLA-serotype-relations-3.66.0.txt",
+      "provider": "IPD-IMGT/HLA",
+      "release": "3.66.0",
+      "url": "https://raw.githubusercontent.com/ANHIG/IMGTHLA/b2055ea33ef464781b9e8ecab20b275b6704f878/wmda/rel_ser_ser.txt",
+      "sha256": "4c821ce7fc6900dc4c6d9be6cb6dd343224c66f7e8d4a9a405a23c1c9040bde4",
+      "license_url": "https://github.com/ANHIG/IMGTHLA/blob/b2055ea33ef464781b9e8ecab20b275b6704f878/LICENCE.md",
+      "groups": [
+        "serotype-hierarchy"
+      ],
+      "default": false
     }
   ]
 }
