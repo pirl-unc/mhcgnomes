@@ -2420,6 +2420,8 @@ Gaga:
   "BF2*1301": "BF2*004:01:01"
   # IPD-MHC-3.8.0.0.xml CHICKEN08580
   "BF2*131": "BF2*021:01:01"
+  # curated_allele_aliases.yaml
+  "BF2*13:01": "BF2*004:01:01"
   # IPD-MHC-3.8.0.0.xml CHICKEN08575
   "BF2*1401": "BF2*014:01:01"
   # IPD-MHC-3.8.0.0.xml CHICKEN08576
@@ -2434,6 +2436,8 @@ Gaga:
   "BF2*1902": "BF2*015:02:01"
   # IPD-MHC-3.8.0.0.xml CHICKEN08580
   "BF2*2101": "BF2*021:01:01"
+  # curated_allele_aliases.yaml
+  "BF2*21:01": "BF2*021:01:01"
   # IPD-MHC-3.8.0.0.xml CHICKEN08581
   "BF2*2301": "BF2*002:02:01"
   # IPD-MHC-3.8.0.0.xml CHICKEN08582
