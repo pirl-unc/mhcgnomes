@@ -56,6 +56,14 @@ NON_MHC_REGION_GENE_NAMES = {
     "COL11A2": "COL11A2",  # HGNC:2187, collagen XI alpha 2, MHC class II region
     "DAXX": "DAXX",  # HGNC:2681, death domain associated protein
     "KDM5D": "KDM5D",  # HGNC:11115, lysine demethylase 5D
+    # UniProt P79457 (https://rest.uniprot.org/uniprotkb/P79457.json) lists
+    # Kdm6c as a Uty synonym and names its product histone demethylase UTY.
+    # Preserve the reported symbol here: this table classifies non-MHC names,
+    # not all gene identities or their canonical nomenclature.
+    "KDM6C": "KDM6C",
+    # MGI:2136939 (https://www.informatics.jax.org/marker/MGI:2136939):
+    # Klra22 / Ly49v is a killer cell lectin-like receptor, not an MHC chain.
+    "KLRA22": "KLRA22",
 }
 
 
@@ -73,4 +81,10 @@ def normalize_non_mhc_gene_name(gene_name):
 
 
 def is_non_mhc_gene_name(gene_name):
+    """Whether the complete normalized token is a curated non-MHC gene name.
+
+    Uses normalize_non_mhc_gene_name's case/punctuation rules. This predicate
+    has no species context; parsers must still preserve genes explicitly
+    declared in the requested species' ontology.
+    """
     return normalize_non_mhc_gene_name(gene_name) in NON_MHC_REGION_GENE_NAMES
