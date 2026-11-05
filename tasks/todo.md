@@ -243,3 +243,9 @@ Before: 10 focused regressions fail; after: all 46 focused tests pass. Source au
 passes 59,104 eligible current records, 5,807 alias keys/reparses and 78 registry
 identities. Required format/lint/full suite pass: 17,887 passed, no skips. Strict
 docs build passes. No outstanding review findings. PR/CI/merge/publication pending.
+
+CI installed Ruff 0.17.4, exposing SIM102 in an existing parser condition.
+The condition was flattened without changing evaluation order or behavior.
+Re-reviewed that mechanical diff and reran format/lint/full tests with 0.17.4:
+17,887 passed. Durable local/CI/pre-commit alignment is tracked in #259 and
+will accompany the release-tooling fixes.
