@@ -16,8 +16,8 @@ from mhcgnomes.non_mhc_genes import NON_MHC_REGION_GENE_NAMES, is_non_mhc_gene_n
 
 from .common import eq_, ok_
 
-# The five reported in #133, all HGNC-approved symbols for non-MHC proteins.
-REPORTED = ["Kdm5d", "Daxx", "Col11a2", "Atp6v1g2", "Arhgap45"]
+# #133 and #191: complete source-backed names for non-MHC proteins.
+REPORTED = ["Kdm5d", "Daxx", "Col11a2", "Atp6v1g2", "Arhgap45", "Kdm6c", "Klra22"]
 
 # The two that were split into a mouse locus plus an allele suffix, with what
 # they wrongly produced.
@@ -42,6 +42,32 @@ def test_non_mhc_gene_is_classified_rather_than_guessed(gene_name):
     assert info is not None, f"{gene_name!r} returned None instead of a non-MHC classification"
     ok_(info.non_mhc)
     eq_(info.mhc_class, "other")
+
+
+@pytest.mark.parametrize("name", ["Kdm6c", "Klra22"])
+@pytest.mark.parametrize("spelling", [str, str.lower, str.upper, lambda s: f" {s}; "])
+@pytest.mark.parametrize("prefixed", [False, True])
+def test_mouse_non_mhc_symbols_preserve_whole_name(name, spelling, prefixed):
+    from mhcgnomes import ParseError, Parser, infer_mhc_class
+
+    written = spelling(name)
+    raw = f"H2-{written}" if prefixed else written
+    for species_options in ({"species": "Mus musculus"}, {"default_species": "Mus musculus"}):
+        assert parse(raw, **species_options, raise_on_error=False) is None
+        with pytest.raises(ParseError):
+            parse(raw, **species_options)
+    parser = Parser()
+    assert parser.parse(raw, default_species="Mus musculus", raise_on_error=False) is None
+    info = parse_gene_class(raw, species="Mus musculus")
+    assert (info.gene_name, info.mhc_class, info.chain, info.non_mhc, info.source) == (
+        name.upper(),
+        "other",
+        None,
+        True,
+        "non_mhc_name",
+    )
+    assert info.raw_string == raw
+    assert infer_mhc_class(raw, species="Mus musculus") == "other"
 
 
 @pytest.mark.parametrize("gene_name", REPORTED)
