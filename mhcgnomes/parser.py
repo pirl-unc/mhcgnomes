@@ -1945,11 +1945,11 @@ class Parser:
                     mhc_class = MhcClass.get(unrestricted_result, mhc_class_string)
                     if mhc_class:
                         candidates.append(mhc_class)
-                elif unrestricted_result.has_mhc_class:
-                    if (class1 and unrestricted_result.is_class1) or (
-                        class2 and unrestricted_result.is_class2
-                    ):
-                        candidates.append(unrestricted_result)
+                elif unrestricted_result.has_mhc_class and (
+                    (class1 and unrestricted_result.is_class1)
+                    or (class2 and unrestricted_result.is_class2)
+                ):
+                    candidates.append(unrestricted_result)
         return unique(candidates)
 
     def parse_with_haplotype_token_to_multiple_candidates(

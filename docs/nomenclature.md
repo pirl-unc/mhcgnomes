@@ -255,3 +255,25 @@ relationships. CI regenerates the graph and checks it against the committed copy
 The public `mhcgnomes.serotype_hierarchy.serotype_descendants` and
 `expand_serotype_memberships` helpers expose the same graph validation and upward
 candidate expansion for canonical HLA labels; they do not change either input.
+
+## Historical chicken BF2 names
+
+The old BF2 names were based on haplotypes. They cannot be converted to current
+IPD-MHC names by padding the first field: BF2*1301 names the same sequence as
+current BF2*004:01:01. With `use_allele_aliases=True`, compact and re-punctuated
+historical forms resolve together:
+
+| Historical spellings | Alias target |
+|---|---|
+| `Gaga-BF2*1301`, `Gaga-BF2*13:01` | `Gaga-BF2*004:01:01` |
+| `Gaga-BF2*2101`, `Gaga-BF2*21:01` | `Gaga-BF2*021:01:01` |
+
+These identities follow AF013494 and AF013493 in
+[Sherman et al. 2008](https://pmc.ncbi.nlm.nih.gov/articles/PMC3339847/) and their
+IPD-MHC records CHICKEN08568 and CHICKEN08580. The compatibility mappings and
+citations live in `curated_allele_aliases.yaml`.
+
+Aliases remain opt-in. Default parsing retains `13:01` and `21:01`; modern
+partial names `004:01` and `021:01` retain their written resolution in either
+mode. These exact mappings add no general padding or renaming rule for other
+chicken alleles.

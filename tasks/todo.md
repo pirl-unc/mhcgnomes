@@ -63,7 +63,7 @@ from a coincident name. Keep historical aliases opt-in and accession IDs direct.
 
 - [x] #191: implement, review, test, PR, merge, publish, verify.
 - [x] #200: implement, review, test, PR, merge, publish, verify.
-- [ ] #196: source review, implement, review, test, PR, merge, publish, verify.
+- [x] #196: source review, implement, review, test, PR, merge, publish, verify.
 - [ ] #199: source review, implement, review, test, PR, merge, publish, verify.
 - [ ] #202/#205: source review, implement, review, test, PR, merge, publish, verify.
 - [ ] #189: implement, corpus comparison, review, test, PR, merge, publish, verify.
@@ -184,4 +184,68 @@ repository's declared openpyxl test extra locally). Focused checks: 101 pass.
 Pinned source regenerates byte-identically; tampered input fails before output
 is touched; strict docs build passes. Pre-existing serotype metadata (#254) and
 compact-member alias over-specification (#256) remain separately tracked.
-No outstanding review findings in this change. PR/CI/merge/publication pending.
+No outstanding review findings in this change. PR #257 merged as ab94cb9 after
+all CI checks passed; published 3.70.0. Workflow 42089359447 reproduced #83,
+so the exact validated artifacts were uploaded with Twine. Fresh PyPI hierarchy,
+CLI, qualifier and registry smoke checks and pip check passed.
+
+
+### #199 implementation spec
+
+Only missing re-punctuated compatibility forms need adding; compact old names
+already come from corrected IPD history parsing. Add two exact curated aliases:
+Gaga BF2*13:01 -> BF2*004:01:01; BF2*21:01 -> BF2*021:01:01.
+Retain default output (13:01, 21:01); use_allele_aliases=True resolves both compact
+and colon historical spellings identically to their existing full alias targets.
+Do not add a field-width rule or convert modern partial names 004:01/021:01 to
+arbitrary higher resolution. Do not extrapolate to other BF1/BF2/BLB names.
+
+Primary evidence read directly:
+Sherman et al. 2008, PMID 18612635 / PMC3339847, Materials & Methods line136:
+BF2*1301 accession AF013494; BF2*2101 accession AF013493.
+https://pmc.ncbi.nlm.nih.gov/articles/PMC3339847/
+Pinned IPD-MHC 3.8.0.0 XML in .external-data has:
+CHICKEN08568 name Gaga-BF2*004:01:01, crossref AF013494, nomenclature history
+Gaga-BF2*1301 (2016-10-17), Gaga-BF2*004:01 (2016-11-03).
+CHICKEN08580 name Gaga-BF2*021:01:01, crossref AF013493, nomenclature history
+Gaga-BF2*2101 (2016-09-05), Gaga-BF2*021:01 (2016-11-03).
+Source records XML around125997/126262 but avoid printing sequence fields; parse
+with ElementTree and report only name/accession/history/cross-references.
+Issue #199 gives IEDB's re-punctuated 13:01 and notes haplotype old names cannot be
+fixed by zero padding: B13's sequence is B4's. Cite these exact accession links
+beside curated mappings, clearly labeling colon forms as compatibility spellings.
+
+Use mhcgnomes/data/curated_allele_aliases.yaml (currently Caja first, no Gaga).
+Run PATH repo .venv ./mhcgnomes/data/combine_allele_aliases.sh to regenerate aliases
+and audit. Emitted aliases increase by 2. The conservative field-string precedence index
+also gains 50 current names sharing 13:01/21:01; all 50 parse identically to
+released 3.70.0. Registry identities are unchanged.
+Run scripts/validate_alias_sources.py and check complete source audit, including
+current name preservation and all historical alias round trips. Public helpers
+already exist; no new runtime heuristic needed.
+Tests: before fail colon variants with aliases True; compact and colon with/without
+Gaga prefix, explicit Gallus gallus species/default, modern full/partial names
+unchanged, unknown 013:01 stays unrenamed, unrelated BF1 unchanged; direct Species
+alias API and parser options; DataFrame and CLI. Keep raw input strings.
+Potential patch release 3.70.1. Update tasks results for #196 first on branch.
+Required format/lint/full tests, source regen/audit, review, PR/CI, merge/deploy,
+fresh PyPI install smoke. No registry-ID catalog expansion requested by #199.
+
+### #199 review (3.70.1)
+
+Added only two sourced compatibility aliases (BF2*13:01 and BF2*21:01) and
+regenerated the index/audit. Compact legacy forms already came from IPD history.
+Reviewed exact accession identity, default parsing, modern partial/full names,
+bare/prefixed/strict-species input, unrelated-name preservation and API/CLI/frame
+parity. The 50 added current-name guards are the existing conservative index's
+expected consequence; every added name parses identically to released 3.70.0.
+Before: 10 focused regressions fail; after: all 46 focused tests pass. Source audit
+passes 59,104 eligible current records, 5,807 alias keys/reparses and 78 registry
+identities. Required format/lint/full suite pass: 17,887 passed, no skips. Strict
+docs build passes. No outstanding review findings. PR/CI/merge/publication pending.
+
+CI installed Ruff 0.17.4, exposing SIM102 in an existing parser condition.
+The condition was flattened without changing evaluation order or behavior.
+Re-reviewed that mechanical diff and reran format/lint/full tests with 0.17.4:
+17,887 passed. Durable local/CI/pre-commit alignment is tracked in #259 and
+will accompany the release-tooling fixes.

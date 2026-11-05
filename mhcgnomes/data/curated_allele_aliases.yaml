@@ -9,6 +9,19 @@ Caja:
   # not a rule for other PS-shaped names.
   PS*02:01: PS2*01
 
+Gaga:
+  # Colon-form compatibility spellings of the old haplotype-based names (#199).
+  # Sherman et al. 2008, PMID 18612635, Materials and Methods:
+  # https://pmc.ncbi.nlm.nih.gov/articles/PMC3339847/
+  # BF2*1301 is AF013494; BF2*2101 is AF013493. IPD-MHC 3.8.0.0
+  # CHICKEN08568 / CHICKEN08580 cross-reference those accessions and name the
+  # full targets below. The compact old names already come from XML history.
+  # IEDB's BF2*13:01 spelling must retain that identity; padding to 013:01
+  # would invent a different allele. These two aliases do not change widths
+  # or extend the resolution of modern partial names 004:01 and 021:01.
+  BF2*13:01: BF2*004:01:01
+  BF2*21:01: BF2*021:01:01
+
 ####################################################
 #
 # Swine allele aliases manually scraped from:
