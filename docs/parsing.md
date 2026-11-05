@@ -104,6 +104,20 @@ HLA-DPB1*06:01/DPA1*01:03  -> Pair          d                   -> None
 This is more robust than filtering on the returned type yourself, since it also
 prevents a lower-ranked interpretation from being chosen in the first place.
 
+## Trailing class qualifiers
+
+An allele or allele pair followed by a class qualifier is not accepted as one
+entity: `parse("HLA-A*02:01 class I", raise_on_error=False)` returns `None`, as
+do the `MHC class I` and `HLA class I` variants. This avoids silently discarding
+a qualifier that can represent additional untyped material. The same rule applies
+to class II and allele groups. Without `raise_on_error=False`, it raises
+`ParseError`; DataFrame and CLI tolerant output retain the input as an error row.
+
+Leading descriptions such as `human class I HLA-A*02:01`, standalone classes such
+as `HLA class I`, and named haplotype restrictions such as `H2-b class I` remain
+supported. Parsing a name is not evidence of biological validity or complete
+sample typing.
+
 ## Was the species explicit, or guessed?
 
 Species inference is right most of the time and load-bearing when it is wrong.

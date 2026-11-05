@@ -1903,7 +1903,22 @@ class Parser:
         other_tokens: Sequence[Token],
         default_species: Species | str | None = DEFAULT_SPECIES_PREFIX,
         strict_default_species: bool = False,
+        allow_alleles_and_pairs: bool = True,
     ):
+        """Parse a class description or restrict a named collection to a class.
+
+        ``class_token`` must be a canonical class I/II Token; ``other_tokens``
+        name the species, collection or described entity. Species constraints
+        have the same meaning as in parse_tokens_to_multiple_candidates.
+        Returns unique matching candidates, or an empty list.
+
+        Set ``allow_alleles_and_pairs=False`` for a trailing class qualifier:
+        an allele (including a group or gene-less designation) or pair followed
+        by a class sentinel cannot be represented as one entity without losing
+        information (#200). Leading descriptions keep the default True. Named
+        haplotypes still support class restriction; other result types keep
+        their existing class-matching behavior.
+        """
         class1 = class_token.is_class1
         class2 = class_token.is_class2
         mhc_class_string = "I" if class1 else "II"
@@ -1920,6 +1935,8 @@ class Parser:
                 strict_default_species=strict_default_species,
             ):
                 t = type(unrestricted_result)
+                if not allow_alleles_and_pairs and t in (Allele, AlleleWithoutGene, Pair):
+                    continue
                 if t is Haplotype:
                     restricted = unrestricted_result.restrict_mhc_class(mhc_class_string)
                     if restricted:
@@ -2233,6 +2250,7 @@ class Parser:
                     other_tokens=tokens[:-1],
                     default_species=default_species,
                     strict_default_species=strict_default_species,
+                    allow_alleles_and_pairs=False,
                 )
             )
         elif tokens[0].is_class1_or_class2:

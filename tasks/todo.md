@@ -61,7 +61,7 @@ from a coincident name. Keep historical aliases opt-in and accession IDs direct.
 
 ## Progress
 
-- [ ] #191: implement, review, test, PR, merge, publish, verify.
+- [x] #191: implement, review, test, PR, merge, publish, verify.
 - [ ] #200: implement, review, test, PR, merge, publish, verify.
 - [ ] #196: source review, implement, review, test, PR, merge, publish, verify.
 - [ ] #199: source review, implement, review, test, PR, merge, publish, verify.
@@ -83,4 +83,28 @@ symbols; no Klra22 -> Klra1 equivalence is asserted. Reviewed strict/default spe
 prefix, case and punctuation paths, ontology ownership and genuine H2-K parses.
 Regression check before change: 22 failures; after change: 54 focused tests pass.
 Required format/lint/full suite pass: 17,734 passed, 2 skipped. No outstanding
-review findings. PR/CI/merge/publication pending.
+review findings. PR #252 merged as d1601a9 after all CI checks passed. Published
+3.69.1; workflow 42083774309 reproduced #83, so the validated wheel/sdist were
+uploaded with Twine. Clean PyPI install passed API/CLI/registry smoke and pip check.
+
+### #200 implementation contract
+
+The class-token helper gains an explicit, documented switch for accepting allele
+and pair results. Only suffix syntax disables them; class descriptions before the
+name retain their meaning. Class restriction of named haplotypes and serotypes,
+standalone class names, and gene descriptions remain supported. Test class I/II,
+alias mode, direct Parser APIs, strict/tolerant functions, DataFrame/CLI errors,
+and the helper itself. Do not reinterpret the compound as a fully typed molecule.
+
+### #200 review (3.69.2)
+
+Reviewed final diff: the suffix call alone disables Allele/AlleleWithoutGene/Pair
+results in the existing class-token helper. Leading descriptions, standalone
+classes, genes and named haplotype restrictions retain their paths. API/classifier,
+DataFrame/CLI tests cover class I/II, groups, pairs, gene-less alias targets,
+case/token variants and both alias modes. Additional explicit-species and
+singleton-collapse checks pass. Required format/lint/full suite pass: 17,817
+passed, 2 skipped; 83 focused tests pass. Original regressions failed before the
+runtime change. No outstanding findings in this fix. Pre-existing serotype class
+metadata gap filed separately as #254; no scientific behavior was inferred for it.
+PR/CI/merge/publication pending.
