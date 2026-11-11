@@ -32,6 +32,13 @@ HLA:
 ###########################################################################
 H2:
   B2: B2M
+  # Qa-1 is the product of H2-T23 and Qa-2 of H2-Q7 (both class Ib). Checked
+  # against UniProt (P06339/O98032 H2-T23, "Qa-1c"; P14429 H2-Q7, "QA-2
+  # antigen"; PMID 10369933) and against the NetMHCpan 4.1/4.2 MHC_pseudo.dat
+  # entries for H-2-Qa1 and H-2-Qa2, whose 34-residue pseudosequences match the
+  # peptide-binding positions of the mouse H2-T23 and H2-Q7 proteins exactly.
+  # H2-T23 is polymorphic (Qa-1a, b, c, d...), and NetMHCpan does not say which
+  # allele it uses, so these names stay gene-level; no allele is assumed (#190).
   # "Qa" alone maps to Qa1 (T23) as the most common interpretation
   Qa: T23
   Qa-1: T23

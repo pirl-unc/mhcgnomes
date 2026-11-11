@@ -69,3 +69,34 @@ class TestMouseQaGenes:
         assert result.gene.name == "T23"
         # Note: allele is "1b" not "b" - this is expected for wrong notation
         assert result.allele_fields == ("1b",)
+
+
+class TestNetmhcQaSpellings:
+    """NetMHCpan 4.0-4.2 list ``H-2-Qa1``/``H-2-Qa2`` (and ``H2-`` forms) as molecules (#190).
+
+    The predictor does not name the allele, and Qa-1 is polymorphic, so mhcgnomes
+    keeps these as class-Ib Gene results with the T23/Q7 identity rather than
+    inventing an allele. Callers needing one molecule must apply their own policy.
+    """
+
+    @pytest.mark.parametrize(
+        "name,gene",
+        [
+            ("H-2-Qa1", "T23"),
+            ("H2-Qa1", "T23"),
+            ("H-2-Qa2", "Q7"),
+            ("H2-Qa2", "Q7"),
+        ],
+    )
+    @pytest.mark.parametrize("use_allele_aliases", [False, True])
+    def test_gene_level_identity_and_class(self, name, gene, use_allele_aliases):
+        result = parse(name, use_allele_aliases=use_allele_aliases)
+        assert type(result) is Gene
+        assert result.name == gene
+        assert result.mhc_class == "Ib"
+        assert result.species.name == "Mus musculus"
+        assert result.to_string() == "H2-" + gene
+
+    @pytest.mark.parametrize("name", ["H-2-Qa1", "H2-Qa2"])
+    def test_not_reported_as_an_allele_group(self, name):
+        assert not hasattr(parse(name), "is_allele_group")
