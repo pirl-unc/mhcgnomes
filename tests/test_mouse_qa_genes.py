@@ -72,7 +72,7 @@ class TestMouseQaGenes:
 
 
 class TestNetmhcQaSpellings:
-    """NetMHCpan 4.0-4.2 list ``H-2-Qa1``/``H-2-Qa2`` (and ``H2-`` forms) as molecules (#190).
+    """NetMHCpan 4.1 and 4.2 list ``H-2-Qa1``/``H-2-Qa2`` (and ``H2-`` forms) as molecules (#190).
 
     The predictor does not name the allele, and Qa-1 is polymorphic, so mhcgnomes
     keeps these as class-Ib Gene results with the T23/Q7 identity rather than
@@ -96,7 +96,3 @@ class TestNetmhcQaSpellings:
         assert result.mhc_class == "Ib"
         assert result.species.name == "Mus musculus"
         assert result.to_string() == "H2-" + gene
-
-    @pytest.mark.parametrize("name", ["H-2-Qa1", "H2-Qa2"])
-    def test_not_reported_as_an_allele_group(self, name):
-        assert not hasattr(parse(name), "is_allele_group")

@@ -78,10 +78,10 @@ True
 
 ### Names that stay genes: `H-2-Qa1` and `H-2-Qa2`
 
-NetMHCpan 4.0-4.2 list `H-2-Qa1` and `H-2-Qa2` as predictable molecules.
+NetMHCpan 4.1 and 4.2 list `H-2-Qa1` and `H-2-Qa2` as predictable molecules.
 mhcgnomes parses them, and the `H2-` spellings, as class-Ib `Gene` results for
-`H2-T23` and `H2-Q7`: the pseudosequences NetMHCpan ships for them match those
-mouse proteins. It does not return an `Allele`, because Qa-1 is polymorphic
+`H2-T23` and `H2-Q7`: the pseudosequences NetMHCpan ships for them are consistent with
+those mouse proteins. It does not return an `Allele`, because Qa-1 is polymorphic
 (Qa-1a, b, c, d) and the predictor does not say which one it uses. A `Gene`
 has no `is_allele_group`; check `isinstance(result, Gene)` and read `name` and
 `mhc_class`. A caller that needs one molecule should treat these two gene
