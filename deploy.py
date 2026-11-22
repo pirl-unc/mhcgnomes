@@ -531,7 +531,7 @@ def interpreter_can_build(python: str, env: dict[str, str] | None = None) -> tup
     """
     try:
         result = subprocess.run(
-            [python, "-c", "import build, setuptools"],
+            [python, "-c", "import build.__main__, setuptools"],
             capture_output=True,
             text=True,
             env=env,

@@ -24,6 +24,11 @@ import pytest
 deploy = pytest.importorskip("deploy")
 
 
+@pytest.fixture(autouse=True)
+def _clear_deploy_python(monkeypatch):
+    monkeypatch.delenv("DEPLOY_PYTHON", raising=False)
+
+
 def _stub_interpreter(tmp_path, name=".venv", interpreter="python", can_build=False):
     """
     A venv whose interpreter is a stub shell script. `can_build=False` makes it
@@ -106,6 +111,16 @@ def test_probe_requires_setuptools_not_just_build(tmp_path):
     bin_dir.mkdir(parents=True)
     script = bin_dir / "python"
     script.write_text('#!/bin/sh\ncase "$2" in *setuptools*) exit 1 ;; esac\nexit 0\n')
+    script.chmod(0o755)
+    assert not deploy.interpreter_can_build(str(script))[0]
+
+
+def test_probe_requires_runnable_build_main(tmp_path):
+    """An empty `build` namespace package without `build.__main__` cannot run `python -m build`."""
+    bin_dir = tmp_path / "bin"
+    bin_dir.mkdir(parents=True)
+    script = bin_dir / "python"
+    script.write_text('#!/bin/sh\ncase "$2" in *build.__main__*) exit 1 ;; esac\nexit 0\n')
     script.chmod(0o755)
     assert not deploy.interpreter_can_build(str(script))[0]
 
