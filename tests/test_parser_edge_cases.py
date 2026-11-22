@@ -22,7 +22,7 @@ from mhcgnomes.tokenize import tokenize
 from .common import eq_
 
 # ============================================================================
-# get_serotype edge cases (lines 194-195)
+# get_serotype edge cases
 # ============================================================================
 
 
@@ -43,7 +43,7 @@ class TestGetSerotype:
 
 
 # ============================================================================
-# create_crossed_haplotype edge cases (lines 278-289)
+# create_crossed_haplotype edge cases
 # ============================================================================
 
 
@@ -92,7 +92,7 @@ class TestCreateCrossedHaplotype:
 
 
 # ============================================================================
-# parse_allele_from_allele_fields edge cases (lines 359-395)
+# parse_allele_from_allele_fields edge cases
 # ============================================================================
 
 
@@ -139,8 +139,9 @@ class TestParseAlleleFromAlleleFields:
         """parse_allele_with_gene with '-' in string properly handles it."""
         parser = Parser()
         gene = Gene.get("HLA", "A")
-        # Dash is used as separator, not rejected
-        parser.parse_allele_with_gene(gene, "02-01")
+        result = parser.parse_allele_with_gene(gene, "02-01")
+        assert isinstance(result, Allele)
+        assert result.to_string() == "HLA-A*02:01"
         # May or may not return None depending on parsing
 
     def test_human_allele_non_digit_field(self):
@@ -165,7 +166,7 @@ class TestParseAlleleFromAlleleFields:
 
 
 # ============================================================================
-# get_gene_or_locus edge cases (lines 402-408)
+# get_gene_or_locus edge cases
 # ============================================================================
 
 
@@ -194,7 +195,7 @@ class TestGetGeneOrLocus:
 
 
 # ============================================================================
-# parse_allele_with_gene edge cases (lines 559-593)
+# parse_allele_with_gene edge cases
 # ============================================================================
 
 
@@ -238,7 +239,7 @@ class TestParseAlleleWithGene:
 
 
 # ============================================================================
-# parse_class2_pair_from_alpha_and_beta_strings edge cases (lines 681-704)
+# parse_class2_pair_from_alpha_and_beta_strings edge cases
 # ============================================================================
 
 
@@ -285,7 +286,7 @@ class TestParseClass2PairFromStrings:
 
 
 # ============================================================================
-# parse_mutations edge cases (lines 729-749)
+# parse_mutations edge cases
 # ============================================================================
 
 
@@ -360,7 +361,7 @@ class TestParseMutations:
 
 
 # ============================================================================
-# apply_mutations edge cases (lines 769-810)
+# apply_mutations edge cases
 # ============================================================================
 
 
@@ -440,7 +441,7 @@ class TestApplyMutations:
 
 
 # ============================================================================
-# parse() filtering options (lines 1594-1638)
+# parse() filtering options
 # ============================================================================
 
 
@@ -517,7 +518,7 @@ class TestParseFilters:
 
 
 # ============================================================================
-# Token-based parsing edge cases (lines 1322-1400)
+# Token-based parsing edge cases
 # ============================================================================
 
 
@@ -569,14 +570,15 @@ class TestTokenParsing:
         assert type(result) is Gene
 
     def test_mouse_mhc_class_format(self):
-        """Parsing 'MOUSE MHC class I' format."""
-        # This tests lines 1389-1400
-        parse("mouse class I H2-Kb", raise_on_error=False)
+        """Parsing 'mouse class I H2-Kb' returns H2-K*b."""
+        result = parse("mouse class I H2-Kb", raise_on_error=False)
+        assert isinstance(result, Allele)
+        assert result.to_string() == "H2-K*b"
         # May or may not parse depending on data
 
 
 # ============================================================================
-# Slash-separated parsing edge cases (lines 1252-1294)
+# Slash-separated parsing edge cases
 # ============================================================================
 
 
@@ -584,30 +586,29 @@ class TestSlashParsing:
     """Tests for slash-separated parsing edge cases."""
 
     def test_slash_nothing_before(self):
-        """Parsing with nothing before slash."""
-        parse("/DRB1*01:01", raise_on_error=False)
-        # Should return the part after slash or None
+        """Parsing with nothing before slash returns None."""
+        assert parse("/DRB1*01:01", raise_on_error=False) is None
 
     def test_slash_nothing_after(self):
-        """Parsing with nothing after slash - tests the bug fix for Species without .species."""
-        # This test helped identify a bug where result_after could be a Species
-        # object which doesn't have .species attribute. Now fixed with hasattr check.
-        parse("DRA*01:01/", raise_on_error=False)
-        # Should return the part before slash or handle gracefully
+        """Parsing with nothing after slash returns None without raising."""
+        assert parse("DRA*01:01/", raise_on_error=False) is None
 
     def test_crossed_haplotype(self):
         """Parsing crossed haplotype format."""
         result = parse("H2-b/d", raise_on_error=False)
-        if result is not None:
-            assert type(result) is Haplotype
+        assert type(result) is Haplotype
+        assert result.name == "b/d"
 
     def test_crossed_haplotype_with_class(self):
         """Parsing crossed haplotype with class restriction."""
-        parse("H2-b/d class I", raise_on_error=False)
+        result = parse("H2-b/d class I", raise_on_error=False)
+        assert isinstance(result, Haplotype)
+        assert result.name == "b/d"
+        assert result.class_restriction == "I"
 
 
 # ============================================================================
-# Haplotype parsing edge cases (lines 1218-1242)
+# Haplotype parsing edge cases
 # ============================================================================
 
 
@@ -621,13 +622,15 @@ class TestHaplotypeParsing:
             assert type(result) is Species
 
     def test_haplotype_token_not_species(self):
-        """Parsing haplotype when second token is not species."""
-        # When second token isn't a species, should still try to parse
-        parse("haplotype k", raise_on_error=False)
+        """Parsing 'haplotype k' resolves to the mouse H2-k haplotype."""
+        result = parse("haplotype k", raise_on_error=False)
+        assert isinstance(result, Haplotype)
+        assert result.species.mhc_prefix == "H2"
+        assert result.name == "k"
 
 
 # ============================================================================
-# Verbose mode (lines 1089, 1094, 1118, 1137)
+# Verbose mode
 # ============================================================================
 
 
@@ -635,15 +638,18 @@ class TestVerboseMode:
     """Tests for verbose mode output."""
 
     def test_verbose_parse(self, capsys):
-        """Verbose mode produces output."""
+        """Verbose mode logs parsing output and still returns the parsed allele."""
         parser = Parser(verbose=True)
-        parser.parse("HLA-A*02:01")
-        capsys.readouterr()
+        result = parser.parse("HLA-A*02:01")
+        captured = capsys.readouterr()
+        assert isinstance(result, Allele)
+        assert result.to_string() == "HLA-A*02:01"
+        assert captured.out
         # Just verify it doesn't crash with verbose mode
 
 
 # ============================================================================
-# Transform edge cases (lines 888-963)
+# Transform edge cases
 # ============================================================================
 
 
@@ -657,10 +663,13 @@ class TestTransformParseCandidates:
         assert result is None
 
     def test_collapse_singleton_serotype(self):
-        """Serotype with single allele collapses when enabled."""
+        """Serotype with a single allele collapses to Allele when enabled."""
         parser = Parser(collapse_singleton_serotypes=True)
-        # Find a serotype that might have single allele
-        parser.parse("HLA-A2")
+        collapsed = parser.parse("HLA-Aw69")
+        assert isinstance(collapsed, Allele)
+        assert collapsed.to_string() == "HLA-A*69:01"
+        multi = parser.parse("HLA-A2")
+        assert isinstance(multi, Serotype)
         # Result type depends on the serotype data
 
     def test_use_allele_aliases(self):
@@ -672,7 +681,7 @@ class TestTransformParseCandidates:
 
 
 # ============================================================================
-# parse_allele_or_gene_candidates edge cases (lines 522-542)
+# parse_allele_or_gene_candidates edge cases
 # ============================================================================
 
 
@@ -688,7 +697,7 @@ class TestParseAlleleOrGeneCandidates:
 
 
 # ============================================================================
-# parse_haplotype_with_class2_locus edge cases (lines 213-241)
+# parse_haplotype_with_class2_locus edge cases
 # ============================================================================
 
 
@@ -699,12 +708,15 @@ class TestParseHaplotypeWithClass2Locus:
         """Parse mouse I-A locus with haplotype like 'IAk'."""
         parser = Parser()
         species = Species.get("H2")
-        parser.parse_haplotype_with_class2_locus_from_any_string_split(species, "IAk")
+        result = parser.parse_haplotype_with_class2_locus_from_any_string_split(species, "IAk")
+        assert isinstance(result, Haplotype)
+        assert result.name == "k"
+        assert result.locus_restriction == Class2Locus.get("H2", "A")
         # Should try to parse as locus + haplotype
 
 
 # ============================================================================
-# MhcClass from token (lines 1058-1061)
+# MhcClass from token
 # ============================================================================
 
 
@@ -727,7 +739,7 @@ class TestMhcClassFromToken:
 
 
 # ============================================================================
-# Species and class combined parsing (lines 1192-1212)
+# Species and class combined parsing
 # ============================================================================
 
 
@@ -752,7 +764,7 @@ class TestSpeciesClassParsing:
 
 
 # ============================================================================
-# Class2 pair with hyphen separator (lines 635-658)
+# Class2 pair with hyphen separator
 # ============================================================================
 
 
@@ -764,15 +776,15 @@ class TestClass2PairHyphenSep:
         parser = Parser()
         species = Species.get("HLA")
         result = parser.parse_class2_pair_with_hyphen_sep(species, "DRA*01:01-DRB1*01:01")
-        if result is not None:
-            assert type(result) is Pair
+        assert type(result) is Pair
+        assert result.alpha.to_string() == "HLA-DRA*01:01"
+        assert result.beta.to_string() == "HLA-DRB1*01:01"
 
     def test_class2_pair_hyphen_more_parts(self):
         """parse_class2_pair_with_hyphen_sep with >2 parts returns None."""
         parser = Parser()
         species = Species.get("HLA")
-        # More than 2 hyphen-separated parts
-        parser.parse_class2_pair_with_hyphen_sep(species, "DRA-01-01-DRB1-01-01")
+        assert parser.parse_class2_pair_with_hyphen_sep(species, "DRA-01-01-DRB1-01-01") is None
         # Should return None because it's not a simple 2-part split
 
 
@@ -819,26 +831,23 @@ class TestParseAndApplyMutations:
     """Tests for Parser.parse_and_apply_mutations edge cases."""
 
     def test_serotype_collapses_before_mutation(self):
-        """Serotype collapses before mutation is applied."""
+        """Multi-allele serotype does not collapse for mutations; singleton serotype does."""
         parser = Parser()
-        # This tests line 828-829 where Serotype/Haplotype collapse
-        serotype = parser.get_serotype("HLA", "A2")
-        if serotype is not None:
-            from mhcgnomes.token import Token
-
-            tokens = [Token("G86Y", "G86Y")]
-            parser.parse_and_apply_mutations(serotype, tokens)
-            # May return None or mutated allele
+        multi = parser.get_serotype("HLA", "A2")
+        assert multi is not None
+        assert parser.parse_and_apply_mutations(multi, [Token("G86Y", "G86Y")]) is None
+        singleton = parser.get_serotype("HLA", "Aw69")
+        assert singleton is not None
+        mutated = parser.parse_and_apply_mutations(singleton, [Token("G86Y", "G86Y")])
+        assert isinstance(mutated, Allele)
+        assert mutated.mutations == (Mutation.get(86, "G", "Y"),)
 
     def test_haplotype_collapses_before_mutation(self):
-        """Haplotype collapses before mutation is applied."""
+        """Multi-allele haplotype cannot accept a single-allele mutation."""
         parser = Parser()
         haplotype = parser.get_haplotype("H2", "b")
-        if haplotype is not None:
-            from mhcgnomes.token import Token
-
-            tokens = [Token("G86Y", "G86Y")]
-            parser.parse_and_apply_mutations(haplotype, tokens)
+        assert haplotype is not None
+        assert parser.parse_and_apply_mutations(haplotype, [Token("G86Y", "G86Y")]) is None
 
     def test_parse_and_apply_mutations_none_result(self):
         """parse_and_apply_mutations with None result returns None."""
@@ -910,14 +919,12 @@ class TestAlphaAndBetaTokenParsing:
 
     def test_alpha_token_with_pair(self):
         """Parsing 'pair alpha' extracts alpha from pair."""
-        # Test lines 1331-1332
         result = parse("HLA-DRA*01:01/DRB1*01:01 alpha", raise_on_error=False)
         if result is not None:
             assert result.is_class2_alpha
 
     def test_beta_token_with_pair(self):
         """Parsing 'pair beta' extracts beta from pair."""
-        # Test lines 1346-1347
         # The pair parsing with beta token may not work as expected
         # because the tokenization may not produce this exact format
         result = parse("DRB1*01:01 beta", raise_on_error=False)
@@ -926,7 +933,6 @@ class TestAlphaAndBetaTokenParsing:
 
     def test_alpha_token_with_class2_locus(self):
         """Parsing 'Class2Locus alpha' extracts alpha gene."""
-        # Test lines 1333-1336
         result = parse("HLA-DR alpha", raise_on_error=False)
         if result is not None:
             # Should be DRA gene
@@ -934,7 +940,6 @@ class TestAlphaAndBetaTokenParsing:
 
     def test_beta_token_with_class2_locus(self):
         """Parsing 'Class2Locus beta' extracts beta gene."""
-        # Test lines 1348-1351
         result = parse("HLA-DR beta", raise_on_error=False)
         if result is not None:
             # Should be DRB gene
@@ -946,7 +951,6 @@ class TestMutantTokenParsing:
 
     def test_mutant_token_with_invalid_base(self):
         """Parsing with mutant token but invalid base returns None."""
-        # Test lines 1358-1364
         result = parse("INVALID G86Y mutant", raise_on_error=False)
         assert result is None
 
@@ -958,7 +962,7 @@ class TestMutantTokenParsing:
 
 
 class TestSpeciesClassTokenParsing:
-    """Tests for species + class token parsing (lines 1391-1402)."""
+    """Tests for species + class token parsing."""
 
     def test_mouse_class_i_with_allele(self):
         """Parse 'mouse class I H2-Kb' format."""
@@ -1008,7 +1012,6 @@ class TestParseMultipleCandidatesSpeciesPrefix:
 
     def test_species_prefix_only(self):
         """Parsing just species name returns species candidates."""
-        # Test line 1496 - "Homo sapiens" may not match, try "human"
         parser = Parser()
         # Try parsing just "HLA" which should return species
         results = parser.parse_multiple_candidates("HLA")
@@ -1027,7 +1030,6 @@ class TestParseWithClassTokenNoOtherTokens:
 
     def test_class_token_only_with_species(self):
         """Parsing class token alone returns MhcClass."""
-        # Test lines 1193-1197
         parser = Parser()
         class_token = tokenize("class I").tokens[0]
         results = parser.parse_with_class_token_to_multiple_candidates(
@@ -1040,136 +1042,116 @@ class TestParseWithHaplotypeTokenNoOtherTokens:
     """Tests for parse_with_haplotype_token_to_multiple_candidates edge cases."""
 
     def test_haplotype_species_only(self):
-        """Parsing 'haplotype H2' with no other tokens returns species."""
-        # Test lines 1238-1240
+        """Parsing 'haplotype H2' with no other tokens returns [Species('H2')]."""
         parser = Parser()
         species_token = Token("h2", "H2")
-        # Pass tuple instead of list for other_tokens
-        parser.parse_with_haplotype_token_to_multiple_candidates(
+        results = parser.parse_with_haplotype_token_to_multiple_candidates(
             species_token, (), default_species=None
         )
-        # Should return [species] when no other tokens and species is valid
+        assert results == [Species.get("H2")]
 
 
 class TestSlashParsingMoreEdgeCases:
     """More edge cases for slash-separated parsing."""
 
-    def test_slash_with_haplotype_and_class(self):
-        """Parsing 'H2-b/d class I' works."""
-        # Test lines 1277-1282
-        parse("H2-b/d class I", raise_on_error=False)
-
     def test_allele_slash_allele_different_species(self):
-        """Parsing alleles from different species after slash."""
-        # This should fail because species don't match
-        parse("HLA-A*02:01/H2-Kb", raise_on_error=False)
-        # May return None or just one side
+        """Parsing alleles from different species separated by slash fails."""
+        assert parse("HLA-A*02:01/H2-Kb", raise_on_error=False) is None
 
 
 class TestTransformAlleleAliases:
-    """Tests for allele alias transformations (lines 931-963)."""
+    """Tests for allele alias transformations."""
 
     def test_transform_with_allele_aliases_enabled(self):
         """Transform with allele aliases enabled."""
         parser = Parser(use_allele_aliases=True)
-        # Parse something that might have an alias
         result = parser.parse("HLA-B*15:01")
-        assert result is not None
+        assert isinstance(result, Allele)
+        assert result.to_string() == "HLA-B*15:01"
 
     def test_transform_known_allele(self):
         """Transform checks known alleles."""
         parser = Parser()
-        # This should trigger the known_allele lookup path
         result = parser.parse("HLA-A*02:01")
-        assert result is not None
+        assert isinstance(result, Allele)
+        assert result.to_string() == "HLA-A*02:01"
 
 
 class TestTransformSerotypesAndHaplotypes:
-    """Tests for transforming serotypes and haplotypes (lines 893-904)."""
-
-    def test_collapse_singleton_serotype_transform(self):
-        """Test collapsing singleton serotype during transform."""
-        parser = Parser(collapse_singleton_serotypes=True)
-        # A serotype that collapses to single allele
-        parser.parse("HLA-A68", raise_on_error=False)
-        # Result depends on serotype data
-
-    def test_collapse_singleton_haplotype_transform(self):
-        """Test collapsing singleton haplotype during transform."""
-        parser = Parser(collapse_singleton_haplotypes=True)
-        parser.parse("H2-b", raise_on_error=False)
+    """Tests for transforming serotypes, haplotypes, and pairs."""
 
     def test_transform_pair_with_changed_components(self):
-        """Test transforming a pair where alpha or beta changes."""
-        # Lines 905-912 - need a pair where transform changes something
+        """Transforming a Class II pair preserves both chains."""
         parser = Parser(use_allele_aliases=True)
-        parser.parse("HLA-DRA*01:01/DRB1*01:01")
-        # The transform should handle pairs
+        result = parser.parse("HLA-DRA*01:01/DRB1*01:01")
+        assert isinstance(result, Pair)
+        assert result.alpha.to_string() == "HLA-DRA*01:01"
+        assert result.beta.to_string() == "HLA-DRB1*01:01"
 
 
 class TestSlashParsingWithAlleleGene:
-    """More tests for slash parsing with allele/gene combinations (lines 1284-1298)."""
+    """More tests for slash parsing with allele/gene combinations."""
 
     def test_allele_slash_allele_same_species(self):
         """Parsing alleles from same species forms pair."""
-        # Lines 1288-1298
         result = parse("HLA-DRA*01:01/HLA-DRB1*01:01", raise_on_error=False)
-        if result is not None:
-            assert type(result) is Pair
+        assert type(result) is Pair
 
     def test_gene_slash_gene(self):
-        """Parsing gene/gene combination."""
-        parse("HLA-DRA/DRB1", raise_on_error=False)
+        """Parsing gene/gene combination forms a Pair of Genes."""
+        result = parse("HLA-DRA/DRB1", raise_on_error=False)
+        assert type(result) is Pair
+        assert result.alpha == Gene.get("HLA", "DRA")
+        assert result.beta == Gene.get("HLA", "DRB1")
 
 
 class TestAlphaBetaTokenWithTypes:
     """Tests for alpha/beta token parsing returning specific types."""
 
     def test_parse_dr_locus_alpha_chain(self):
-        """Parse 'DR alpha' to get alpha chain gene."""
-        # Tests lines 1333-1336
-        parse("HLA-DR alpha chain", raise_on_error=False)
+        """Parse 'HLA-DR alpha chain' to get the DRA gene."""
+        result = parse("HLA-DR alpha chain", raise_on_error=False)
+        assert result == Gene.get("HLA", "DRA")
 
     def test_parse_dr_locus_beta_chain(self):
-        """Parse 'DR beta' to get beta chain gene."""
-        # Tests lines 1348-1351
-        parse("HLA-DR beta chain", raise_on_error=False)
+        """Parse 'HLA-DR beta chain' to get the DRB1 gene."""
+        result = parse("HLA-DR beta chain", raise_on_error=False)
+        assert result == Gene.get("HLA", "DRB1")
 
 
 class TestMutantTokenEdgeCases:
     """More edge cases for mutant token parsing."""
 
     def test_mutant_fails_no_mutation(self):
-        """Parsing with 'mutant' token but mutation parse fails."""
-        # Tests lines 1359, 1364
-        parse("HLA-A*02:01 NOTAMUTATION mutant", raise_on_error=False)
+        """Parsing with 'mutant' token when no valid mutation is present returns None."""
+        assert parse("HLA-A*02:01 NOTAMUTATION mutant", raise_on_error=False) is None
 
-    def test_parse_complex_mutation(self):
-        """Parse allele with complex mutation specification."""
-        parse("HLA-A*02:01 alpha E152A mutant", raise_on_error=False)
+    def test_parse_unrecognized_complex_mutation_returns_none(self):
+        """Unrecognized 'alpha E152A mutant' syntax returns None."""
+        assert parse("HLA-A*02:01 alpha E152A mutant", raise_on_error=False) is None
 
 
 class TestSpeciesMiddleClassToken:
-    """Tests for species + class token in middle position (lines 1386-1402)."""
+    """Tests for species + class token in middle position."""
 
     def test_species_class_allele_format(self):
         """Parse 'species class allele' three-token format."""
-        # Tests lines 1391-1402
         result = parse("H2 class I Kb", raise_on_error=False)
-        if result is not None:
-            assert result.is_class1
+        assert isinstance(result, Allele)
+        assert result.is_class1
 
     def test_species_class_ii_allele_format(self):
         """Parse 'species class II allele' format."""
-        parse("H2 class II IAb", raise_on_error=False)
+        result = parse("H2 class II IAb", raise_on_error=False)
+        assert isinstance(result, Pair)
+        assert result.is_class2
 
 
 class TestParseMultipleCandidatesSpeciesThenTokens:
-    """Tests for parsing when species prefix is found (lines 1491-1504)."""
+    """Tests for parsing when species prefix is found."""
 
     def test_species_then_class_token(self):
         """Parse species name followed by class token."""
-        # Tests lines 1499-1502
         parser = Parser()
         results = parser.parse_multiple_candidates("HLA class I")
         assert len(results) > 0
@@ -1217,25 +1199,22 @@ class TestAdversarialSpeciesStickiness:
 class TestHaplotypeSlashRestriction:
     """Tests for haplotype slash parsing with class restriction."""
 
-    def test_haplotype_slash_with_class_i(self):
-        """Parse 'H2-b/d class I' for class I restriction."""
-        # Tests lines 1277-1282
-        parse("H2-b/d class I", raise_on_error=False)
-
     def test_haplotype_slash_with_class_ii(self):
         """Parse 'H2-b/d class II' for class II restriction."""
-        parse("H2-b/d class II", raise_on_error=False)
+        result = parse("H2-b/d class II", raise_on_error=False)
+        assert isinstance(result, Haplotype)
+        assert result.name == "b/d"
+        assert result.class_restriction == "II"
 
 
 class TestGetHaplotypesForAnySpecies:
-    """Tests for get_haplotypes_for_any_species (line 346)."""
+    """Tests for get_haplotypes_for_any_species."""
 
     def test_get_haplotypes_for_any_species(self):
-        """Test finding haplotypes across all species."""
+        """Finding haplotype 'b' across species returns the mouse H2-b haplotype."""
         parser = Parser()
         results = parser.get_haplotypes_for_any_species("b")
-        # 'b' is a common haplotype name in mouse
-        assert len(results) >= 0  # May or may not find results
+        assert any(h.species == Species.get("H2") and h.name == "b" for h in results)
 
 
 class TestParseAlleleFromAlleleFieldsAnnotations:
@@ -1245,13 +1224,11 @@ class TestParseAlleleFromAlleleFieldsAnnotations:
         """Test allele fields with annotations already provided."""
         parser = Parser()
         gene = Gene.get("HLA", "A")
-        # Provide annotations directly to skip buggy annotation parsing path
         result = parser.parse_allele_from_allele_fields(
             gene, ["02", "01"], functional_annotations=["N"]
         )
-        if result is not None:
-            assert type(result) is Allele
-            eq_(result.annotations, ("N",))
+        assert type(result) is Allele
+        eq_(result.annotations, ("N",))
 
     def test_parse_annotated_allele_via_normal_path(self):
         """Test annotated allele via normal parse path."""

@@ -392,11 +392,3 @@ class TestIEDBOccurrencePatterns:
         assert isinstance(result, Pair), (
             f"{shorthand} ({count} occurrences in IEDB) should parse as Pair"
         )
-
-    def test_rare_iedb_variants_are_typos(self):
-        """DQ2.22 and DQ2.25 (1 occurrence each) are likely typos."""
-        # These appear only once in IEDB and don't follow standard naming
-        # DQ2.22 - might be typo for DQ2.2
-        # DQ2.25 - might be typo for DQ2.5 or DQ2.2/DQ2.5
-        # We don't need to support these
-        pass
