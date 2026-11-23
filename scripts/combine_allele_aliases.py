@@ -101,7 +101,12 @@ def partition_ipd_records(records):
     for the generated audit. No replacement or alias is inferred.
     """
     annotations = json.loads(
-        Path(__file__).with_name("ipd_record_annotations.json").read_text(encoding="utf-8")
+        (
+            Path(__file__).resolve().parents[1]
+            / "mhcgnomes"
+            / "data"
+            / "ipd_record_annotations.json"
+        ).read_text(encoding="utf-8")
     )
     by_identity = {(row["source"], row["accession"]): row for row in annotations}
     eligible, excluded = [], []

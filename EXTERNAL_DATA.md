@@ -72,7 +72,7 @@ Filesystem and HTTP(S) mirrors may expose each source by its manifest filename o
 Run:
 
 ```bash
-./mhcgnomes/data/combine_allele_aliases.sh
+./scripts/combine_allele_aliases.sh
 ```
 
 The script fetches missing inputs through the cache and combines:
@@ -161,7 +161,7 @@ These unresolved equivalence questions are documented beside the annotations and
 tracked in #250. See [Registry identities](docs/registry-identities.md)
 for runtime API contracts and coverage.
 
-The public maintainer API lives in `mhcgnomes/data/combine_allele_aliases.py`:
+The public maintainer API lives in `scripts/combine_allele_aliases.py`:
 `RegistryRecord` and `AliasCandidate` hold source identities/provenance;
 `read_ipd_xml`, `read_hla_history`, `read_hla_deletions`, and `read_curated_aliases`
 read the documented source formats; `resolve_aliases` returns aliases, provenance,

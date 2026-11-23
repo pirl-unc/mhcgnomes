@@ -22,7 +22,7 @@ from mhcgnomes import Species
 
 from .common import eq_, ok_
 
-DESIGNATIONS_PATH = Path(__file__).parent.parent / "mhcgnomes" / "data" / "ipd_designations.yaml"
+DESIGNATIONS_PATH = Path(__file__).parent.parent / "data-sources" / "ipd_designations.yaml"
 GROUPS = yaml.safe_load(DESIGNATIONS_PATH.read_text())
 
 ROWS = [

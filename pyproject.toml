@@ -61,11 +61,29 @@ mhcgnomes-validate-data = "mhcgnomes.validate_external_names:main"
 [tool.setuptools.dynamic]
 version = {attr = "mhcgnomes.version.__version__"}
 
-[tool.setuptools.packages.find]
-include = ["mhcgnomes*"]
+[tool.setuptools]
+packages = ["mhcgnomes"]
 
 [tool.setuptools.package-data]
-mhcgnomes = ["data/*.json", "data/*.yaml"]
+mhcgnomes = [
+    "data/allele_aliases.yaml",
+    "data/current_allele_names.yaml",
+    "data/evidenced_prefix_aliases.yaml",
+    "data/external_sources.json",
+    "data/first_allele_field_widths.yaml",
+    "data/gene_aliases.yaml",
+    "data/haplotypes.yaml",
+    "data/heterodimers.yaml",
+    "data/ipd_record_annotations.json",
+    "data/known_alleles.yaml",
+    "data/registry_allele_identities.json",
+    "data/serotype_splits.yaml",
+    "data/serotypes.yaml",
+    "data/single_field_alleles.yaml",
+    "data/species.yaml",
+    "data/supertypes.yaml",
+    "data/underrepresented_taxa_source_registry.yaml",
+]
 
 [tool.ruff]
 target-version = "py311"

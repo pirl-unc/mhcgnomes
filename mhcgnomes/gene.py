@@ -91,10 +91,6 @@ class Gene(ResultWithMhcClass):
         )
 
     @property
-    def raw_string_was_alias(self):
-        return self.raw_string in self.species.gene_aliases
-
-    @property
     def gene_name(self):
         return self.name
 

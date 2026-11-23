@@ -59,11 +59,7 @@ Roughly in reading order:
    the species tree and what its edges mean, prefix tiers and provenance.
 5. [Curation guide](curation.md): where new species, genes, aliases, and
    partial-source data should live.
-6. [Immutable data objects](immutable-data-objects.md): the `3.0.0`
-   object-model refactor and behavior compatibility notes.
-7. [Species identity proposal](species-latin-name-scoping.md): make scientific
-   name the canonical species key and treat prefixes/common names as aliases.
-8. [Release process](releasing.md): how a merged version bump reaches PyPI.
+6. [Release process](releasing.md): how a merged version bump reaches PyPI.
 
 ## Local docs commands
 

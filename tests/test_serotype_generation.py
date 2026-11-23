@@ -20,12 +20,13 @@ pd = pytest.importorskip("pandas")
 # skip is for a checkout that installed the package without it.
 pytest.importorskip("openpyxl")
 DATA = Path(__file__).parent.parent / "mhcgnomes" / "data"
+DATA_SOURCES = Path(__file__).parent.parent / "data-sources"
 sys.path.insert(0, str(Path(__file__).parent.parent / "scripts"))
 generator = pytest.importorskip("generate_serotypes_from_hla_dictionary")
 
 from .common import eq_, ok_  # noqa: E402
 
-DICTIONARY = DATA / "hla_dictionary.xlsx"
+DICTIONARY = DATA_SOURCES / "hla_dictionary.xlsx"
 
 # The dictionary was gitignored by a blanket `*.xlsx` rule until #156, so it
 # existed only on whichever machine last regenerated the table. It is tracked
@@ -47,7 +48,7 @@ def test_regenerating_reproduces_the_runtime_table():
     The property that keeps the two files from drifting. Runs the same
     transformation the script does and compares against what ships.
     """
-    generated = yaml.safe_load((DATA / "serotypes_generated.yaml").read_text())["HLA"]
+    generated = yaml.safe_load((DATA_SOURCES / "serotypes_generated.yaml").read_text())["HLA"]
     runtime = yaml.safe_load((DATA / "serotypes.yaml").read_text())["HLA"]
     eq_(sorted(generated), sorted(runtime))
     differing = sorted(k for k in generated if generated[k] != runtime[k])
