@@ -94,3 +94,41 @@ def test_gene_unassigned_alias_does_not_discard_unrepresentable_mutation():
     assert result == original
     assert result.is_mutant
     assert result.raw_string == text
+
+
+@pytest.mark.parametrize(
+    ("text", "expected_str", "expected_mutations"),
+    [
+        ("HLA-B*14:01(C67S)", "HLA-B*14:01 C67S mutant", (Mutation.get(67, "C", "S"),)),
+        ("HLA-B*14:01 (C67S)", "HLA-B*14:01 C67S mutant", (Mutation.get(67, "C", "S"),)),
+        ("HLA-B*14:02(C67S)", "HLA-B*14:02 C67S mutant", (Mutation.get(67, "C", "S"),)),
+        ("HLA-B*39:06(C67S)", "HLA-B*39:06 C67S mutant", (Mutation.get(67, "C", "S"),)),
+        (
+            "HLA-A*02:01(C67S,Y84A)",
+            "HLA-A*02:01 C67S Y84A mutant",
+            (Mutation.get(67, "C", "S"), Mutation.get(84, "Y", "A")),
+        ),
+        (
+            "HLA-A*02:01 (C67S, Y84A)",
+            "HLA-A*02:01 C67S Y84A mutant",
+            (Mutation.get(67, "C", "S"), Mutation.get(84, "Y", "A")),
+        ),
+        ("HLA-B*14:01(C67S) mutant", "HLA-B*14:01 C67S mutant", (Mutation.get(67, "C", "S"),)),
+    ],
+)
+def test_parenthesized_point_mutation_suffixes(text, expected_str, expected_mutations):
+    result = parse(text)
+    assert isinstance(result, Allele)
+    assert result.to_string() == expected_str
+    assert result.mutations == expected_mutations
+    assert result.raw_string == text
+
+
+def test_parenthesized_pair_mutation_and_serotype_non_collision():
+    pair = parse("HLA-DRA*01:02/DRB1*03:01 (Q74R)")
+    assert isinstance(pair, Pair)
+    assert pair.beta.mutations == (Mutation.get(74, "Q", "R"),)
+    # Broad/split serotype parentheses must not be rewritten as mutations
+    serotype = parse("HLA-B14(64)", raise_on_error=False)
+    assert serotype is not None
+    assert not getattr(serotype, "is_mutant", False)
