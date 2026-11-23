@@ -1835,22 +1835,6 @@ def find_matching_context_only_species_objects(name):
     return list(context_only_alias_to_species_objects.get(name, []))
 
 
-def create_species_sort_key(query_string):
-    """
-    If we get multiple Species matching a query then
-    use this key function to sort possible matches
-    and prefer ones that match the query best.
-    """
-
-    def sort_key(species):
-        same_prefix = species.prefix == query_string
-        similar_prefix = species.prefix.lower().strip() == query_string.lower().strip()
-        num_genes = species.num_genes
-        return (same_prefix, similar_prefix, num_genes)
-
-    return sort_key
-
-
 def _candidate_prefix_substrings(name):
     candidates = [name]
     if "-" in name or "." in name:

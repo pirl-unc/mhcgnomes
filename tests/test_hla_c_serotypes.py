@@ -30,6 +30,7 @@ from mhcgnomes import Serotype, parse
 from .common import eq_, ok_
 
 DATA = Path(__file__).parent.parent / "mhcgnomes" / "data"
+DATA_SOURCES = Path(__file__).parent.parent / "data-sources"
 RUNTIME_SEROTYPES = yaml.safe_load((DATA / "serotypes.yaml").read_text())["HLA"]
 
 # hla_nom.txt, the Cw block, minus the four-digit associated antigens. The
@@ -98,7 +99,7 @@ def test_the_shipped_dictionary_still_cannot_support_the_2026_specificities():
     """
     pd = pytest.importorskip("pandas")
     pytest.importorskip("openpyxl")
-    frame = pd.read_excel(DATA / "hla_dictionary.xlsx")
+    frame = pd.read_excel(DATA_SOURCES / "hla_dictionary.xlsx")
     c16 = frame[frame["HLA Allele"].astype(str).str.startswith("C*16")]
     ok_(len(c16) > 0, "the dictionary no longer carries C*16 rows at all")
     eq_(sorted(set(c16["WHO Assigned Type"].astype(str))), ["-"])

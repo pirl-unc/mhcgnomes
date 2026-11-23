@@ -26,45 +26,34 @@ as an allele -- and `Daxx` as `H2-D*axx`. Both look syntactically valid and get
 dispatched onward, so the failure is silent. See issue #133.
 """
 
-# Maps a normalized name to the canonical gene it stands for. Several entries
-# are historic aliases: RING4/PSF1/HAM1/ABCB2 all named TAP1 before the
-# transporter genes were renamed.
-NON_MHC_REGION_GENE_NAMES = {
-    "ABCB2": "TAP1",
-    "ABCB3": "TAP2",
-    "B2M": "B2M",
-    "CIITA": "CIITA",
-    "HAM1": "TAP1",
-    "HAM2": "TAP2",
-    "HM13": "HM13",
-    "PRR3": "PRR3",
-    "PSF1": "TAP1",
-    "PSF2": "TAP2",
-    "RING11": "TAP2",
-    "RING4": "TAP1",
-    "TAP-L": "TAP-L",
-    "TAPL": "TAP-L",
-    "TAP1": "TAP1",
-    "TAP2": "TAP2",
-    "TAPBP": "TAPBP",
-    # Reported in #133 from a UniProt MHC-region download. All five are
-    # HGNC-approved symbols for proteins that are not MHC molecules; three of
-    # them lie inside the MHC region, which is why they arrive in these files
-    # at all. Checked against https://rest.genenames.org/search/symbol/...
-    "ARHGAP45": "ARHGAP45",  # HGNC:17102, Rho GTPase activating protein 45
-    "ATP6V1G2": "ATP6V1G2",  # HGNC:862, V-ATPase subunit G2, MHC class III
-    "COL11A2": "COL11A2",  # HGNC:2187, collagen XI alpha 2, MHC class II region
-    "DAXX": "DAXX",  # HGNC:2681, death domain associated protein
-    "KDM5D": "KDM5D",  # HGNC:11115, lysine demethylase 5D
-    # UniProt P79457 (https://rest.uniprot.org/uniprotkb/P79457.json) lists
-    # Kdm6c as a Uty synonym and names its product histone demethylase UTY.
-    # Preserve the reported symbol here: this table classifies non-MHC names,
-    # not all gene identities or their canonical nomenclature.
-    "KDM6C": "KDM6C",
-    # MGI:2136939 (https://www.informatics.jax.org/marker/MGI:2136939):
-    # Klra22 / Ly49v is a killer cell lectin-like receptor, not an MHC chain.
-    "KLRA22": "KLRA22",
-}
+# Non-MHC gene symbols that no species ontology declares. Ontology-declared
+# MHC-region genes and their aliases (TAP1, TAP2, TAP-L, TAPBP, B2M, ABCB2,
+# ABCB3, HAM1, HAM2, PSF1, PSF2, RING4, RING11, TAPL) live in species.yaml and
+# gene_aliases.yaml and are resolved before this fallback is reached.
+NON_MHC_REGION_GENE_SYMBOLS = frozenset(
+    {
+        "CIITA",
+        "HM13",
+        "PRR3",
+        # Reported in #133 from a UniProt MHC-region download. All five are
+        # HGNC-approved symbols for proteins that are not MHC molecules; three of
+        # them lie inside the MHC region, which is why they arrive in these files
+        # at all. Checked against https://rest.genenames.org/search/symbol/...
+        "ARHGAP45",  # HGNC:17102, Rho GTPase activating protein 45
+        "ATP6V1G2",  # HGNC:862, V-ATPase subunit G2, MHC class III
+        "COL11A2",  # HGNC:2187, collagen XI alpha 2, MHC class II region
+        "DAXX",  # HGNC:2681, death domain associated protein
+        "KDM5D",  # HGNC:11115, lysine demethylase 5D
+        # UniProt P79457 (https://rest.uniprot.org/uniprotkb/P79457.json) lists
+        # Kdm6c as a Uty synonym and names its product histone demethylase UTY.
+        # Preserve the reported symbol here: this table classifies non-MHC names,
+        # not all gene identities or their canonical nomenclature.
+        "KDM6C",
+        # MGI:2136939 (https://www.informatics.jax.org/marker/MGI:2136939):
+        # Klra22 / Ly49v is a killer cell lectin-like receptor, not an MHC chain.
+        "KLRA22",
+    }
+)
 
 
 def normalize_non_mhc_gene_name(gene_name):
@@ -87,4 +76,4 @@ def is_non_mhc_gene_name(gene_name):
     has no species context; parsers must still preserve genes explicitly
     declared in the requested species' ontology.
     """
-    return normalize_non_mhc_gene_name(gene_name) in NON_MHC_REGION_GENE_NAMES
+    return normalize_non_mhc_gene_name(gene_name) in NON_MHC_REGION_GENE_SYMBOLS

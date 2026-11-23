@@ -52,7 +52,7 @@ jobs:
         run: python -m pip install -e .
 
       - name: Regenerate aliases from verified sources
-        run: ./mhcgnomes/data/combine_allele_aliases.sh
+        run: ./scripts/combine_allele_aliases.sh
 
       - name: Verify generated aliases are current
         run: git diff --exit-code -- mhcgnomes/data/allele_aliases.yaml mhcgnomes/data/current_allele_names.yaml mhcgnomes/data/registry_allele_identities.json data-sources/allele-alias-audit.json

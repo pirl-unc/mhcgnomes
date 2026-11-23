@@ -10,7 +10,7 @@ import pytest
 from mhcgnomes import Species, parse
 
 SPEC = importlib.util.spec_from_file_location(
-    "alias_generator", Path(__file__).parents[1] / "mhcgnomes/data/combine_allele_aliases.py"
+    "alias_generator", Path(__file__).parents[1] / "scripts/combine_allele_aliases.py"
 )
 generator = importlib.util.module_from_spec(SPEC)
 sys.modules[SPEC.name] = generator

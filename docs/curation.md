@@ -387,8 +387,7 @@ Every collision-resolution change should add both:
 
 These collisions have been resolved by assigning long (4+4) prefixes to the
 less-established species. See the
-[Species Identity Proposal](species-latin-name-scoping.md) for the design
-rationale.
+[species and gene ontology guide](species-ontology.md) for the prefix tier model.
 
 | 4-letter code | Species | Resolution | Literature reference |
 | --- | --- | --- | --- |
@@ -412,7 +411,7 @@ With 235+ species and growing, collisions are inevitable — sometimes even in
 the published literature (e.g., `Cyca` is used independently for carp, iguana,
 and blue tit by different research groups).
 
-The [species identity model](species-latin-name-scoping.md) now uses latin
+The [species identity model](species-ontology.md) uses latin
 names as canonical identity (see `Species.latin_name`,
 `Species.get_by_latin_name()`). Every binomial species is also parseable via
 its full concatenated latin name (e.g., `HomoSapiens-A*02:01`) and, where the
@@ -451,9 +450,6 @@ a prefix we did not generate is not thereby proven to be in use -- see the
 
 ### Current special cases
 
-- [`default_alleles.yaml`](https://github.com/pirl-unc/mhcgnomes/blob/main/mhcgnomes/data/default_alleles.yaml)
-  exists but is currently minimal and not part of the main runtime loading path
-  in [`data.py`](https://github.com/pirl-unc/mhcgnomes/blob/main/mhcgnomes/data.py).
 - Root-level transport and DM genes now live directly in
   [`species.yaml`](https://github.com/pirl-unc/mhcgnomes/blob/main/mhcgnomes/data/species.yaml)
   under `Gnathostomata sp.`. There is no separate runtime `common_genes.yaml`

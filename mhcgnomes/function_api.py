@@ -20,7 +20,7 @@ from .gene import Gene
 from .gene_class_info import GeneClassInfo
 from .input_validation import validate_mhc_input
 from .mhc_class import MhcClass
-from .non_mhc_genes import NON_MHC_REGION_GENE_NAMES, normalize_non_mhc_gene_name
+from .non_mhc_genes import NON_MHC_REGION_GENE_SYMBOLS, normalize_non_mhc_gene_name
 from .pair import Pair
 from .parser import (
     COLLAPSE_SINGLETON_HAPLOTYPES,
@@ -488,10 +488,10 @@ def _build_gene_class_info_from_token(species: Species, gene_token: str, raw_str
         return family_info
 
     normalized = normalize_non_mhc_gene_name(gene_token)
-    if normalized in NON_MHC_REGION_GENE_NAMES:
+    if normalized in NON_MHC_REGION_GENE_SYMBOLS:
         return GeneClassInfo(
             species=species,
-            gene_name=NON_MHC_REGION_GENE_NAMES[normalized],
+            gene_name=normalized,
             mhc_class="other",
             chain=None,
             non_mhc=True,

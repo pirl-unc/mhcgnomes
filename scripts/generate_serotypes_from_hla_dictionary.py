@@ -191,8 +191,10 @@ def generate_yaml(mappings: dict[str, list[str]], existing_yaml_path: Path) -> s
 
 def main():
     script_dir = Path(__file__).parent
-    data_dir = script_dir.parent / "mhcgnomes" / "data"
-    xlsx_path = data_dir / "hla_dictionary.xlsx"
+    repo_root = script_dir.parent
+    data_dir = repo_root / "mhcgnomes" / "data"
+    data_sources_dir = repo_root / "data-sources"
+    xlsx_path = data_sources_dir / "hla_dictionary.xlsx"
     yaml_path = data_dir / "serotypes.yaml"
 
     print(f"Loading HLA dictionary from {xlsx_path}")
@@ -211,7 +213,7 @@ def main():
     output = generate_yaml(mappings, yaml_path)
 
     # Write to a new file for review
-    output_path = data_dir / "serotypes_generated.yaml"
+    output_path = data_sources_dir / "serotypes_generated.yaml"
 
     # Custom YAML dump for better formatting
     with open(output_path, "w") as f:

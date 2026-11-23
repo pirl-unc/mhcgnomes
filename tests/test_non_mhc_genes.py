@@ -12,7 +12,7 @@ https://github.com/pirl-unc/mhcgnomes/issues/133
 import pytest
 
 from mhcgnomes import Species, parse, parse_gene_class
-from mhcgnomes.non_mhc_genes import NON_MHC_REGION_GENE_NAMES, is_non_mhc_gene_name
+from mhcgnomes.non_mhc_genes import NON_MHC_REGION_GENE_SYMBOLS, is_non_mhc_gene_name
 
 from .common import eq_, ok_
 
@@ -127,14 +127,16 @@ def test_real_mouse_and_human_names_are_unaffected(name, species):
     assert result is not None, f"{name!r} stopped parsing"
 
 
-def test_table_values_name_genes_that_exist():
+def test_table_entries_are_not_resolved_by_ontology():
     """
-    Each entry maps to the canonical gene it stands for. For the historic
-    aliases that is a different name (RING4 -> TAP1); for the #133 additions it
-    is the symbol itself, since no species declares them.
+    Every entry in NON_MHC_REGION_GENE_SYMBOLS must be outside the species
+    ontology; ontology-declared MHC-region genes (TAP1, TAP2, B2M, etc.) belong
+    in species.yaml / gene_aliases.yaml and would be dead rows here.
     """
     human = Species.get("HLA")
-    for alias, canonical in NON_MHC_REGION_GENE_NAMES.items():
-        if human.find_matching_gene_name(canonical) is not None:
-            continue
-        eq_(alias, canonical, f"{alias} maps to {canonical}, which no species declares")
+    for symbol in NON_MHC_REGION_GENE_SYMBOLS:
+        eq_(
+            human.find_matching_gene_name(symbol),
+            None,
+            f"{symbol} is already resolved by the ontology and should not be in NON_MHC_REGION_GENE_SYMBOLS",
+        )
