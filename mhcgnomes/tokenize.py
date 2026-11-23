@@ -10,6 +10,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import re
 from collections.abc import Mapping
 from dataclasses import dataclass, field
 from types import MappingProxyType
@@ -158,6 +159,31 @@ _INPUT_CHAR_TRANSLATION = str.maketrans(
 )
 
 
+# Trailing parenthesized point-mutation suffix without the word "mutant", e.g.:
+#   "HLA-B*14:01(C67S)", "HLA-B*14:01 (C67S)", "HLA-B*14:01(C67S, Y84A)".
+# Restricted to the 20 standard single-letter amino acids + positive integer
+# position + amino acid so serotype broad/split parentheses like "HLA-B14(64)"
+# or "HLA-A2(Aw68)" are never touched.
+_STANDARD_AA = "ACDEFGHIKLMNPQRSTVWY"
+_PAREN_MUTATIONS_RE = re.compile(
+    rf"\s*\(\s*([{_STANDARD_AA}]\d+[{_STANDARD_AA}]"
+    rf"(?:[\s,/]+[{_STANDARD_AA}]\d+[{_STANDARD_AA}])*)\s*\)"
+    r"(?:\s+(?:mutant|mutation|mutations))?\s*$",
+    re.IGNORECASE,
+)
+
+
+def _expand_parenthesized_mutations(trimmed_name: str) -> str:
+    match = _PAREN_MUTATIONS_RE.search(trimmed_name)
+    if match is None:
+        return trimmed_name
+    prefix = trimmed_name[: match.start()].strip()
+    if not prefix:
+        return trimmed_name
+    mutations = re.split(r"[\s,/]+", match.group(1).strip())
+    return f"{prefix} {' '.join(mutations)} mutant"
+
+
 def strip_whitespace_and_remove_quotes(name: str):
     return name.translate(_INPUT_CHAR_TRANSLATION).strip()
 
@@ -170,7 +196,8 @@ def _cached_tokenize(name):
     """
     name = str(name)
     trimmed_name = strip_whitespace_and_remove_quotes(name)
-    raw_string_parts, attributes = split_and_extract_attributes(trimmed_name)
+    tokenize_input = _expand_parenthesized_mutations(trimmed_name)
+    raw_string_parts, attributes = split_and_extract_attributes(tokenize_input)
     token_sequences = [normalize_token(p) for p in raw_string_parts]
     tokens = [
         Token(seq, raw_string) for (seq, raw_string) in zip(token_sequences, raw_string_parts)
