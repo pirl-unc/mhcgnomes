@@ -1,0 +1,2047 @@
+# Verified NCBI Taxonomy IDs and vertebrate clades for every entry in species.yaml.
+#
+# Source: NCBI Taxonomy dump (https://ftp.ncbi.nlm.nih.gov/pub/taxonomy/taxdump.tar.gz)
+# Issue: https://github.com/pirl-unc/mhcgnomes/issues/276
+#
+# Clades are derived deterministically from the verified NCBI Taxonomy lineage
+# (most specific rule first):
+#   human:            Homo sapiens (9606)
+#   nhp:              Primates (9443) excluding Homo sapiens and Primata sp.; plus NHP
+#   murine:           Murinae (39107)
+#   cetacean:         Cetacea (9721)
+#   ungulate:         non-cetacean Artiodactyla (91561) and Perissodactyla (9787)
+#   carnivore:        Carnivora (33554)
+#   bat:              Chiroptera (9397)
+#   marsupial:        Metatheria / Marsupialia (9263)
+#   monotreme:        Monotremata (9255)
+#   other_mammal:     remaining Mammalia (40674)
+#   bird:             Aves (8782)
+#   reptile:          Lepidosauria (8504), Testudines (8459), Crocodylia (1294634); plus Reptilia sp.
+#   amphibian:        Amphibia (8292)
+#   bony_fish:        Actinopterygii (7898)
+#   lobe_finned_fish: Coelacanthimorpha (118072), Dipnomorpha (7878)
+#   shark_ray:        Chondrichthyes (7777)
+#   jawless_fish:     Cyclostomata (1476529) / Myxini (117565)
+#   null:             multi-clade taxonomic nodes (Gnathostomata sp., Primata sp., Rodentia sp.)
+#
+# Entries with ncbi_taxid: null are paraphyletic groupings not represented as a single
+# NCBI taxon (NHP, Reptilia sp.).
+Gnathostomata sp.:
+  ncbi_taxid: 7776
+  clade: null
+Chondrichthyes sp.:
+  ncbi_taxid: 7777
+  clade: shark_ray
+Actinopterygii sp.:
+  ncbi_taxid: 7898
+  clade: bony_fish
+Amphibia sp.:
+  ncbi_taxid: 8292
+  clade: amphibian
+Xenopus sp.:
+  ncbi_taxid: 8353
+  clade: amphibian
+Caudata sp.:
+  ncbi_taxid: 8293
+  clade: amphibian
+Reptilia sp.:
+  ncbi_taxid: null
+  clade: reptile
+Aves sp.:
+  ncbi_taxid: 8782
+  clade: bird
+Tachyglossus aculeatus:
+  ncbi_taxid: 9261
+  clade: monotreme
+Marsupialia sp.:
+  ncbi_taxid: 9263
+  clade: marsupial
+Galliformes sp.:
+  ncbi_taxid: 8976
+  clade: bird
+Crocodylia sp.:
+  ncbi_taxid: 1294634
+  clade: reptile
+Homo sapiens:
+  ncbi_taxid: 9606
+  clade: human
+Mus sp.:
+  ncbi_taxid: 10088
+  clade: murine
+Mus musculus:
+  ncbi_taxid: 10090
+  clade: murine
+Mus caroli:
+  ncbi_taxid: 10089
+  clade: murine
+Mus spretus:
+  ncbi_taxid: 10096
+  clade: murine
+Mus macedonicus:
+  ncbi_taxid: 10100
+  clade: murine
+Mus minutoides:
+  ncbi_taxid: 10105
+  clade: murine
+Mus pahari:
+  ncbi_taxid: 10093
+  clade: murine
+Mus spicilegus:
+  ncbi_taxid: 10103
+  clade: murine
+Mus shortridgei:
+  ncbi_taxid: 210726
+  clade: murine
+Mus gratus:
+  ncbi_taxid: 60742
+  clade: murine
+Mus setulosus:
+  ncbi_taxid: 10102
+  clade: murine
+Mus terricolor:
+  ncbi_taxid: 254704
+  clade: murine
+Mus cookii:
+  ncbi_taxid: 10098
+  clade: murine
+Mus platythrix:
+  ncbi_taxid: 10101
+  clade: murine
+Mus cervicolor:
+  ncbi_taxid: 10097
+  clade: murine
+Mus abbotti:
+  ncbi_taxid: 10100
+  clade: murine
+Mus saxicola:
+  ncbi_taxid: 10094
+  clade: murine
+Rattus sp.:
+  ncbi_taxid: 10114
+  clade: murine
+Rattus norvegicus:
+  ncbi_taxid: 10116
+  clade: murine
+Rattus rattus:
+  ncbi_taxid: 10117
+  clade: murine
+Rattus fuscipes:
+  ncbi_taxid: 10119
+  clade: murine
+Rattus leucopus:
+  ncbi_taxid: 10115
+  clade: murine
+Rattus tanezumi:
+  ncbi_taxid: 35732
+  clade: murine
+Rattus tunneyi:
+  ncbi_taxid: 10121
+  clade: murine
+Rattus colletti:
+  ncbi_taxid: 71422
+  clade: murine
+Rattus villosissimus:
+  ncbi_taxid: 10122
+  clade: murine
+Canidae sp.:
+  ncbi_taxid: 9608
+  clade: carnivore
+Cuon alpinus:
+  ncbi_taxid: 68730
+  clade: carnivore
+Lycaon pictus:
+  ncbi_taxid: 9622
+  clade: carnivore
+Canis sp.:
+  ncbi_taxid: 9611
+  clade: carnivore
+Canis lupus baileyi:
+  ncbi_taxid: 143281
+  clade: carnivore
+Canis latrans:
+  ncbi_taxid: 9614
+  clade: carnivore
+Canis lupus:
+  ncbi_taxid: 9612
+  clade: carnivore
+Canis lupus familiaris:
+  ncbi_taxid: 9615
+  clade: carnivore
+Canis rufus:
+  ncbi_taxid: 45781
+  clade: carnivore
+Canis simensis:
+  ncbi_taxid: 32534
+  clade: carnivore
+Canis aureus:
+  ncbi_taxid: 68724
+  clade: carnivore
+Canis adustus:
+  ncbi_taxid: 3371110
+  clade: carnivore
+Canis mesomelas:
+  ncbi_taxid: 3371111
+  clade: carnivore
+Felis sp.:
+  ncbi_taxid: 9682
+  clade: carnivore
+Felis catus:
+  ncbi_taxid: 9685
+  clade: carnivore
+Ctenopharyngodon idella:
+  ncbi_taxid: 7959
+  clade: bony_fish
+Oncorhynchus mykiss:
+  ncbi_taxid: 8022
+  clade: bony_fish
+Salmo salar:
+  ncbi_taxid: 8030
+  clade: bony_fish
+Salmonidae sp.:
+  ncbi_taxid: 8015
+  clade: bony_fish
+Danio rerio:
+  ncbi_taxid: 7955
+  clade: bony_fish
+Oryzias latipes:
+  ncbi_taxid: 8090
+  clade: bony_fish
+Cyprinus carpio:
+  ncbi_taxid: 7962
+  clade: bony_fish
+Oreochromis niloticus:
+  ncbi_taxid: 8128
+  clade: bony_fish
+Sparus aurata:
+  ncbi_taxid: 8175
+  clade: bony_fish
+Lates calcarifer:
+  ncbi_taxid: 8187
+  clade: bony_fish
+Salarias fasciatus:
+  ncbi_taxid: 181472
+  clade: bony_fish
+Acipenser dabryanus:
+  ncbi_taxid: 62061
+  clade: bony_fish
+Scomber scombrus:
+  ncbi_taxid: 13677
+  clade: bony_fish
+Paralichthys olivaceus:
+  ncbi_taxid: 8255
+  clade: bony_fish
+Cynoglossus semilaevis:
+  ncbi_taxid: 244447
+  clade: bony_fish
+Dicentrarchus labrax:
+  ncbi_taxid: 13489
+  clade: bony_fish
+Epinephelus coioides:
+  ncbi_taxid: 94232
+  clade: bony_fish
+Salmo trutta:
+  ncbi_taxid: 8032
+  clade: bony_fish
+Salvelinus alpinus:
+  ncbi_taxid: 8036
+  clade: bony_fish
+Trachinotus ovatus:
+  ncbi_taxid: 173339
+  clade: bony_fish
+Gasterosteus aculeatus:
+  ncbi_taxid: 69293
+  clade: bony_fish
+Ictalurus punctatus:
+  ncbi_taxid: 7998
+  clade: bony_fish
+Hippocampus abdominalis:
+  ncbi_taxid: 109274
+  clade: bony_fish
+Carassius auratus:
+  ncbi_taxid: 7957
+  clade: bony_fish
+Clarias magur:
+  ncbi_taxid: 1594786
+  clade: bony_fish
+Clarias batrachus:
+  ncbi_taxid: 59899
+  clade: bony_fish
+Coregonus sp.:
+  ncbi_taxid: 27772
+  clade: bony_fish
+Coregonus clupeaformis:
+  ncbi_taxid: 59861
+  clade: bony_fish
+Tropheus sp.:
+  ncbi_taxid: 8145
+  clade: bony_fish
+Tropheus moorii:
+  ncbi_taxid: 8150
+  clade: bony_fish
+Kareius bicoloratus:
+  ncbi_taxid: 143345
+  clade: bony_fish
+Labeobarbus intermedius:
+  ncbi_taxid: 40831
+  clade: bony_fish
+Scophthalmus maximus:
+  ncbi_taxid: 52904
+  clade: bony_fish
+Monopterus albus:
+  ncbi_taxid: 43700
+  clade: bony_fish
+Astyanax mexicanus:
+  ncbi_taxid: 7994
+  clade: bony_fish
+Sinocyclocheilus grahami:
+  ncbi_taxid: 75366
+  clade: bony_fish
+Silurus asotus:
+  ncbi_taxid: 30991
+  clade: bony_fish
+Oryzias dancena:
+  ncbi_taxid: 291360
+  clade: bony_fish
+Oryzias luzonensis:
+  ncbi_taxid: 104659
+  clade: bony_fish
+Scatophagus argus:
+  ncbi_taxid: 75038
+  clade: bony_fish
+Rutilus rutilus:
+  ncbi_taxid: 48668
+  clade: bony_fish
+Parachondrostoma toxostoma:
+  ncbi_taxid: 77800
+  clade: bony_fish
+Abramis brama:
+  ncbi_taxid: 38527
+  clade: bony_fish
+Gobio gobio:
+  ncbi_taxid: 27704
+  clade: bony_fish
+Nothobranchius korthausae:
+  ncbi_taxid: 1143690
+  clade: bony_fish
+Nothobranchius kuhntae:
+  ncbi_taxid: 321403
+  clade: bony_fish
+Channa argus:
+  ncbi_taxid: 215402
+  clade: bony_fish
+Gadus morhua:
+  ncbi_taxid: 8049
+  clade: bony_fish
+Anabarilius grahami:
+  ncbi_taxid: 495550
+  clade: bony_fish
+Larimichthys crocea:
+  ncbi_taxid: 215358
+  clade: bony_fish
+Nibea mitsukurii:
+  ncbi_taxid: 215360
+  clade: bony_fish
+Nibea albiflora:
+  ncbi_taxid: 240163
+  clade: bony_fish
+Kryptolebias marmoratus:
+  ncbi_taxid: 37003
+  clade: bony_fish
+Nothobranchius furzeri:
+  ncbi_taxid: 105023
+  clade: bony_fish
+Nothobranchius rachovii:
+  ncbi_taxid: 451742
+  clade: bony_fish
+Nothobranchius kadleci:
+  ncbi_taxid: 1051664
+  clade: bony_fish
+Nothobranchius orthonotus:
+  ncbi_taxid: 451741
+  clade: bony_fish
+Nothobranchius pienaari:
+  ncbi_taxid: 704102
+  clade: bony_fish
+Iconisemion striatum:
+  ncbi_taxid: 60296
+  clade: bony_fish
+Hypophthalmichthys molitrix:
+  ncbi_taxid: 13095
+  clade: bony_fish
+Carassius langsdorfii:
+  ncbi_taxid: 138676
+  clade: bony_fish
+Hybognathus amarus:
+  ncbi_taxid: 264545
+  clade: bony_fish
+Megalobrama amblycephala:
+  ncbi_taxid: 75352
+  clade: bony_fish
+Esox lucius:
+  ncbi_taxid: 8010
+  clade: bony_fish
+Merluccius polli:
+  ncbi_taxid: 89951
+  clade: bony_fish
+Liparis tanakae:
+  ncbi_taxid: 230148
+  clade: bony_fish
+Triplophysa tibetana:
+  ncbi_taxid: 1572043
+  clade: bony_fish
+Aulonocara hansbaenschi:
+  ncbi_taxid: 27781
+  clade: bony_fish
+Odontobutis potamophilus:
+  ncbi_taxid: 3358257
+  clade: bony_fish
+Hippocampus erectus:
+  ncbi_taxid: 109281
+  clade: bony_fish
+Oncorhynchus nerka:
+  ncbi_taxid: 8023
+  clade: bony_fish
+Oncorhynchus tshawytscha:
+  ncbi_taxid: 74940
+  clade: bony_fish
+Oncorhynchus kisutch:
+  ncbi_taxid: 8019
+  clade: bony_fish
+Oncorhynchus gorbuscha:
+  ncbi_taxid: 8017
+  clade: bony_fish
+Oncorhynchus gilae:
+  ncbi_taxid: 64185
+  clade: bony_fish
+Salvelinus fontinalis:
+  ncbi_taxid: 8038
+  clade: bony_fish
+Salvelinus leucomaenis:
+  ncbi_taxid: 8034
+  clade: bony_fish
+Salvelinus malma:
+  ncbi_taxid: 8039
+  clade: bony_fish
+Polyodon spathula:
+  ncbi_taxid: 7913
+  clade: bony_fish
+Archoplites interruptus:
+  ncbi_taxid: 201701
+  clade: bony_fish
+Leiocassis longirostris:
+  ncbi_taxid: 175787
+  clade: bony_fish
+Miichthys miiuy:
+  ncbi_taxid: 240162
+  clade: bony_fish
+Amphilophus citrinellus:
+  ncbi_taxid: 61819
+  clade: bony_fish
+Poecilia reticulata:
+  ncbi_taxid: 8081
+  clade: bony_fish
+Clarias gariepinus:
+  ncbi_taxid: 13013
+  clade: bony_fish
+Clupea harengus:
+  ncbi_taxid: 7950
+  clade: bony_fish
+Epinephelus akaara:
+  ncbi_taxid: 215347
+  clade: bony_fish
+Labeobarbus acutirostris:
+  ncbi_taxid: 79013
+  clade: bony_fish
+Acipenser sinensis:
+  ncbi_taxid: 61970
+  clade: bony_fish
+Acipenser oxyrinchus:
+  ncbi_taxid: 36177
+  clade: bony_fish
+Xiphophorus sp.:
+  ncbi_taxid: 8082
+  clade: bony_fish
+Xiphophorus maculatus:
+  ncbi_taxid: 8083
+  clade: bony_fish
+Xiphophorus hellerii:
+  ncbi_taxid: 8084
+  clade: bony_fish
+Xiphophorus multilineatus:
+  ncbi_taxid: 32480
+  clade: bony_fish
+Xiphophorus pygmaeus:
+  ncbi_taxid: 32483
+  clade: bony_fish
+Cyprinidae sp.:
+  ncbi_taxid: 7953
+  clade: bony_fish
+Barbus barbus:
+  ncbi_taxid: 40830
+  clade: bony_fish
+Blicca bjoerkna:
+  ncbi_taxid: 58317
+  clade: bony_fish
+Carassius carassius:
+  ncbi_taxid: 217509
+  clade: bony_fish
+Carassius gibelio:
+  ncbi_taxid: 101364
+  clade: bony_fish
+Chondrostoma nasus:
+  ncbi_taxid: 52619
+  clade: bony_fish
+Ladigesocypris ghigii:
+  ncbi_taxid: 108514
+  clade: bony_fish
+Leuciscus leuciscus:
+  ncbi_taxid: 58325
+  clade: bony_fish
+Squalius cephalus:
+  ncbi_taxid: 8284
+  clade: bony_fish
+Tinca tinca:
+  ncbi_taxid: 27717
+  clade: bony_fish
+Pseudorhodeus tanago:
+  ncbi_taxid: 3363687
+  clade: bony_fish
+Rhodeus ocellatus:
+  ncbi_taxid: 75330
+  clade: bony_fish
+Sistrurus catenatus:
+  ncbi_taxid: 8756
+  clade: reptile
+Naja naja:
+  ncbi_taxid: 35670
+  clade: reptile
+Ophiophagus hannah:
+  ncbi_taxid: 8665
+  clade: reptile
+Crotalus adamanteus:
+  ncbi_taxid: 8729
+  clade: reptile
+Notechis scutatus:
+  ncbi_taxid: 8663
+  clade: reptile
+Pantherophis guttatus:
+  ncbi_taxid: 94885
+  clade: reptile
+Python bivittatus:
+  ncbi_taxid: 176946
+  clade: reptile
+Pseudonaja textilis:
+  ncbi_taxid: 8673
+  clade: reptile
+Laticauda laticaudata:
+  ncbi_taxid: 8630
+  clade: reptile
+Coronella austriaca:
+  ncbi_taxid: 201445
+  clade: reptile
+Amblyrhynchus cristatus:
+  ncbi_taxid: 51208
+  clade: reptile
+Eublepharis macularius:
+  ncbi_taxid: 481883
+  clade: reptile
+Gekko japonicus:
+  ncbi_taxid: 146911
+  clade: reptile
+Salvator merianae:
+  ncbi_taxid: 96440
+  clade: reptile
+Pogona vitticeps:
+  ncbi_taxid: 103695
+  clade: reptile
+Podarcis muralis:
+  ncbi_taxid: 64176
+  clade: reptile
+Podarcis lilfordi:
+  ncbi_taxid: 74358
+  clade: reptile
+Lacerta agilis:
+  ncbi_taxid: 80427
+  clade: reptile
+Iguana iguana:
+  ncbi_taxid: 8517
+  clade: reptile
+Ameiva ameiva:
+  ncbi_taxid: 8535
+  clade: reptile
+Tiliqua rugosa:
+  ncbi_taxid: 8527
+  clade: reptile
+Conolophus subcristatus:
+  ncbi_taxid: 31140
+  clade: reptile
+Crocodylus porosus:
+  ncbi_taxid: 8502
+  clade: reptile
+Crocodylus niloticus:
+  ncbi_taxid: 8501
+  clade: reptile
+Alligator mississippiensis:
+  ncbi_taxid: 8496
+  clade: reptile
+Alligator sinensis:
+  ncbi_taxid: 38654
+  clade: reptile
+Gavialis gangeticus:
+  ncbi_taxid: 94835
+  clade: reptile
+Crocodylus moreletii:
+  ncbi_taxid: 184237
+  clade: reptile
+Crocodylus mindorensis:
+  ncbi_taxid: 184236
+  clade: reptile
+Crocodylus siamensis:
+  ncbi_taxid: 68455
+  clade: reptile
+Tomistoma schlegelii:
+  ncbi_taxid: 184245
+  clade: reptile
+Mecistops cataphractus:
+  ncbi_taxid: 184780
+  clade: reptile
+Osteolaemus tetraspis:
+  ncbi_taxid: 184242
+  clade: reptile
+Caiman crocodilus:
+  ncbi_taxid: 8499
+  clade: reptile
+Caiman latirostris:
+  ncbi_taxid: 190476
+  clade: reptile
+Crocodylus acutus:
+  ncbi_taxid: 48399
+  clade: reptile
+Crocodylus palustris:
+  ncbi_taxid: 184238
+  clade: reptile
+Crocodylus rhombifer:
+  ncbi_taxid: 184239
+  clade: reptile
+Crocodylus johnstoni:
+  ncbi_taxid: 184234
+  clade: reptile
+Crocodylus intermedius:
+  ncbi_taxid: 184240
+  clade: reptile
+Testudines sp.:
+  ncbi_taxid: 8459
+  clade: reptile
+Caretta caretta:
+  ncbi_taxid: 8467
+  clade: reptile
+Chelonia mydas:
+  ncbi_taxid: 8469
+  clade: reptile
+Dermochelys coriacea:
+  ncbi_taxid: 27794
+  clade: reptile
+Lepidochelys kempii:
+  ncbi_taxid: 8472
+  clade: reptile
+Chelydra serpentina:
+  ncbi_taxid: 8475
+  clade: reptile
+Chrysemys picta:
+  ncbi_taxid: 8479
+  clade: reptile
+Pelodiscus sinensis:
+  ncbi_taxid: 13735
+  clade: reptile
+Terrapene triunguis:
+  ncbi_taxid: 2587831
+  clade: reptile
+Gopherus polyphemus:
+  ncbi_taxid: 38773
+  clade: reptile
+Chelonoidis abingdonii:
+  ncbi_taxid: 106734
+  clade: reptile
+Gopherus evgoodei:
+  ncbi_taxid: 1825980
+  clade: reptile
+Struthio camelus:
+  ncbi_taxid: 8801
+  clade: bird
+Dromaius novaehollandiae:
+  ncbi_taxid: 8790
+  clade: bird
+Rhea americana:
+  ncbi_taxid: 8797
+  clade: bird
+Rhea pennata:
+  ncbi_taxid: 8795
+  clade: bird
+Apteryx owenii:
+  ncbi_taxid: 8824
+  clade: bird
+Apteryx mantelli:
+  ncbi_taxid: 2696672
+  clade: bird
+Apteryx australis:
+  ncbi_taxid: 8822
+  clade: bird
+Casuarius casuarius:
+  ncbi_taxid: 8787
+  clade: bird
+Nothoprocta perdicaria:
+  ncbi_taxid: 30464
+  clade: bird
+Tinamus major:
+  ncbi_taxid: 30468
+  clade: bird
+Ginglymostoma cirratum:
+  ncbi_taxid: 7801
+  clade: shark_ray
+Heterodontus francisci:
+  ncbi_taxid: 7792
+  clade: shark_ray
+Squalus acanthias:
+  ncbi_taxid: 7797
+  clade: shark_ray
+Triakis scyllium:
+  ncbi_taxid: 30494
+  clade: shark_ray
+Chiloscyllium plagiosum:
+  ncbi_taxid: 36176
+  clade: shark_ray
+Ovis sp.:
+  ncbi_taxid: 9935
+  clade: ungulate
+Ovis aries:
+  ncbi_taxid: 9940
+  clade: ungulate
+Ovis canadensis:
+  ncbi_taxid: 37174
+  clade: ungulate
+Bos sp.:
+  ncbi_taxid: 9903
+  clade: ungulate
+Bos taurus:
+  ncbi_taxid: 9913
+  clade: ungulate
+Bos indicus:
+  ncbi_taxid: 9915
+  clade: ungulate
+Bos frontalis:
+  ncbi_taxid: 30520
+  clade: ungulate
+Bos grunniens:
+  ncbi_taxid: 30521
+  clade: ungulate
+Bubalus bubalis:
+  ncbi_taxid: 89462
+  clade: ungulate
+Cetacea sp.:
+  ncbi_taxid: 9721
+  clade: cetacean
+Balaenoptera musculus:
+  ncbi_taxid: 9771
+  clade: cetacean
+Balaenoptera acutorostrata:
+  ncbi_taxid: 9767
+  clade: cetacean
+Balaenoptera edeni:
+  ncbi_taxid: 9769
+  clade: cetacean
+Cephalorhynchus hectori:
+  ncbi_taxid: 37035
+  clade: cetacean
+Delphinus delphis:
+  ncbi_taxid: 9728
+  clade: cetacean
+Eubalaena australis:
+  ncbi_taxid: 160595
+  clade: cetacean
+Globicephala melas:
+  ncbi_taxid: 9731
+  clade: cetacean
+Grampus griseus:
+  ncbi_taxid: 83653
+  clade: cetacean
+Kogia breviceps:
+  ncbi_taxid: 27615
+  clade: cetacean
+Lagenorhynchus obscurus:
+  ncbi_taxid: 3371156
+  clade: cetacean
+Mesoplodon densirostris:
+  ncbi_taxid: 48708
+  clade: cetacean
+Mesoplodon europaeus:
+  ncbi_taxid: 27616
+  clade: cetacean
+Mesoplodon grayi:
+  ncbi_taxid: 74394
+  clade: cetacean
+Megaptera novaeangliae:
+  ncbi_taxid: 9773
+  clade: cetacean
+Steno bredanensis:
+  ncbi_taxid: 46167
+  clade: cetacean
+Stenella coeruleoalba:
+  ncbi_taxid: 9737
+  clade: cetacean
+Tursiops truncatus:
+  ncbi_taxid: 9739
+  clade: cetacean
+Hyperoodon ampullatus:
+  ncbi_taxid: 48744
+  clade: cetacean
+Ziphius cavirostris:
+  ncbi_taxid: 9760
+  clade: cetacean
+Balaenoptera musculus brevicauda:
+  ncbi_taxid: 3108004
+  clade: cetacean
+Balaenoptera ricei:
+  ncbi_taxid: 2746895
+  clade: cetacean
+Eschrichtius robustus:
+  ncbi_taxid: 9764
+  clade: cetacean
+Eubalaena glacialis:
+  ncbi_taxid: 27606
+  clade: cetacean
+Inia geoffrensis:
+  ncbi_taxid: 9725
+  clade: cetacean
+Kogia sima:
+  ncbi_taxid: 9752
+  clade: cetacean
+Lagenorhynchus albirostris:
+  ncbi_taxid: 27610
+  clade: cetacean
+Lipotes vexillifer:
+  ncbi_taxid: 118797
+  clade: cetacean
+Monodon monoceros:
+  ncbi_taxid: 40151
+  clade: cetacean
+Phocoena phocoena:
+  ncbi_taxid: 9742
+  clade: cetacean
+Phocoena sinus:
+  ncbi_taxid: 42100
+  clade: cetacean
+Caperea marginata:
+  ncbi_taxid: 27604
+  clade: cetacean
+Delphinapterus leucas:
+  ncbi_taxid: 9749
+  clade: cetacean
+Neophocaena asiaeorientalis:
+  ncbi_taxid: 189058
+  clade: cetacean
+Orcinus orca:
+  ncbi_taxid: 9733
+  clade: cetacean
+Physeter macrocephalus:
+  ncbi_taxid: 9755
+  clade: cetacean
+Capra sp.:
+  ncbi_taxid: 9922
+  clade: ungulate
+Capra hircus:
+  ncbi_taxid: 9925
+  clade: ungulate
+Equus sp.:
+  ncbi_taxid: 9789
+  clade: ungulate
+Equus caballus:
+  ncbi_taxid: 9796
+  clade: ungulate
+Equus burchelli:
+  ncbi_taxid: 89252
+  clade: ungulate
+Suidae sp.:
+  ncbi_taxid: 9821
+  clade: ungulate
+Phacochoerus africanus:
+  ncbi_taxid: 41426
+  clade: ungulate
+Sus sp.:
+  ncbi_taxid: 9822
+  clade: ungulate
+Sus domesticus:
+  ncbi_taxid: 9825
+  clade: ungulate
+Sus scrofa:
+  ncbi_taxid: 9823
+  clade: ungulate
+Rodentia sp.:
+  ncbi_taxid: 9989
+  clade: null
+Marmota marmota:
+  ncbi_taxid: 9993
+  clade: other_mammal
+Marmota monax:
+  ncbi_taxid: 9995
+  clade: other_mammal
+Sciurus vulgaris:
+  ncbi_taxid: 55149
+  clade: other_mammal
+Chinchilla lanigera:
+  ncbi_taxid: 34839
+  clade: other_mammal
+Ictidomys tridecemlineatus:
+  ncbi_taxid: 43179
+  clade: other_mammal
+Urocitellus parryii:
+  ncbi_taxid: 9999
+  clade: other_mammal
+Cavia porcellus:
+  ncbi_taxid: 10141
+  clade: other_mammal
+Phodopus roborovskii:
+  ncbi_taxid: 109678
+  clade: other_mammal
+Mesocricetus auratus:
+  ncbi_taxid: 10036
+  clade: other_mammal
+Cricetulus griseus:
+  ncbi_taxid: 10029
+  clade: other_mammal
+Microtus ochrogaster:
+  ncbi_taxid: 79684
+  clade: other_mammal
+Castor canadensis:
+  ncbi_taxid: 51338
+  clade: other_mammal
+Myodes glareolus:
+  ncbi_taxid: 447135
+  clade: other_mammal
+Ctenomys sp.:
+  ncbi_taxid: 33551
+  clade: other_mammal
+Ctenomys talarum:
+  ncbi_taxid: 55520
+  clade: other_mammal
+Ctenomys australis:
+  ncbi_taxid: 170736
+  clade: other_mammal
+Ctenomys torquatus:
+  ncbi_taxid: 88127
+  clade: other_mammal
+Ctenomys pearsoni:
+  ncbi_taxid: 88125
+  clade: other_mammal
+Ctenomys haigi:
+  ncbi_taxid: 61869
+  clade: other_mammal
+Ctenomys argentinus:
+  ncbi_taxid: 63766
+  clade: other_mammal
+Ctenomys frater:
+  ncbi_taxid: 61867
+  clade: other_mammal
+Ctenomys opimus:
+  ncbi_taxid: 61877
+  clade: other_mammal
+Ctenomys sociabilis:
+  ncbi_taxid: 43321
+  clade: other_mammal
+Ctenomys rionegrensis:
+  ncbi_taxid: 88126
+  clade: other_mammal
+Ctenomys mendocinus:
+  ncbi_taxid: 61874
+  clade: other_mammal
+Ctenomys maulinus:
+  ncbi_taxid: 108848
+  clade: other_mammal
+Ctenomys conoveri:
+  ncbi_taxid: 61866
+  clade: other_mammal
+Ctenomys porteousi:
+  ncbi_taxid: 33552
+  clade: other_mammal
+Ctenomys bonettoi:
+  ncbi_taxid: 112850
+  clade: other_mammal
+Ctenomys goodfellowi:
+  ncbi_taxid: 61868
+  clade: other_mammal
+Ctenomys boliviensis:
+  ncbi_taxid: 34838
+  clade: other_mammal
+Ctenomys steinbachi:
+  ncbi_taxid: 61878
+  clade: other_mammal
+Dipodomys ordii:
+  ncbi_taxid: 10020
+  clade: other_mammal
+Octodon degus:
+  ncbi_taxid: 10160
+  clade: other_mammal
+Heterocephalus glaber:
+  ncbi_taxid: 10181
+  clade: other_mammal
+Nannospalax galili:
+  ncbi_taxid: 1026970
+  clade: other_mammal
+Peromyscus maniculatus:
+  ncbi_taxid: 10042
+  clade: other_mammal
+Peromyscus leucopus:
+  ncbi_taxid: 10041
+  clade: other_mammal
+Jaculus jaculus:
+  ncbi_taxid: 51337
+  clade: other_mammal
+Sigmodon hispidus:
+  ncbi_taxid: 42415
+  clade: other_mammal
+Cricetulus barabensis:
+  ncbi_taxid: 329629
+  clade: other_mammal
+Cynomys gunnisoni:
+  ncbi_taxid: 45479
+  clade: other_mammal
+Delomys sublineatus:
+  ncbi_taxid: 89131
+  clade: other_mammal
+Meriones unguiculatus:
+  ncbi_taxid: 10047
+  clade: other_mammal
+Apodemus sylvaticus:
+  ncbi_taxid: 10129
+  clade: murine
+Apodemus flavicollis:
+  ncbi_taxid: 54292
+  clade: murine
+Microtus arvalis:
+  ncbi_taxid: 47230
+  clade: other_mammal
+Microtus agrestis:
+  ncbi_taxid: 29092
+  clade: other_mammal
+Fukomys damarensis:
+  ncbi_taxid: 885580
+  clade: other_mammal
+Arvicola amphibius:
+  ncbi_taxid: 1047088
+  clade: other_mammal
+Cricetus cricetus:
+  ncbi_taxid: 10034
+  clade: other_mammal
+Hypogeomys antimena:
+  ncbi_taxid: 89379
+  clade: other_mammal
+Mastomys natalensis:
+  ncbi_taxid: 10112
+  clade: murine
+Cynomys ludovicianus:
+  ncbi_taxid: 45480
+  clade: other_mammal
+Dipodomys spectabilis:
+  ncbi_taxid: 105255
+  clade: other_mammal
+Peromyscus californicus:
+  ncbi_taxid: 42520
+  clade: other_mammal
+Cryptomys hottentotus:
+  ncbi_taxid: 10175
+  clade: other_mammal
+Heliophobius argenteocinereus:
+  ncbi_taxid: 10179
+  clade: other_mammal
+Pteropus alecto:
+  ncbi_taxid: 9402
+  clade: bat
+Oryctolagus sp.:
+  ncbi_taxid: 9984
+  clade: other_mammal
+Oryctolagus cuniculus:
+  ncbi_taxid: 9986
+  clade: other_mammal
+Acrocephalus arundinaceus:
+  ncbi_taxid: 39621
+  clade: bird
+Acrocephalus schoenobaenus:
+  ncbi_taxid: 52609
+  clade: bird
+Geothlypis trichas:
+  ncbi_taxid: 135433
+  clade: bird
+Sterna hirundo:
+  ncbi_taxid: 108405
+  clade: bird
+Falco sp.:
+  ncbi_taxid: 8952
+  clade: bird
+Falco peregrinus:
+  ncbi_taxid: 8954
+  clade: bird
+Falco tinnunculus:
+  ncbi_taxid: 100819
+  clade: bird
+Falco cherrug:
+  ncbi_taxid: 345164
+  clade: bird
+Falco rusticolus:
+  ncbi_taxid: 120794
+  clade: bird
+Falco naumanni:
+  ncbi_taxid: 148594
+  clade: bird
+Falco columbarius:
+  ncbi_taxid: 8953
+  clade: bird
+Falco eleonorae:
+  ncbi_taxid: 495946
+  clade: bird
+Falco biarmicus:
+  ncbi_taxid: 345155
+  clade: bird
+Falco subbuteo:
+  ncbi_taxid: 344233
+  clade: bird
+Falco concolor:
+  ncbi_taxid: 495947
+  clade: bird
+Falco fasciinucha:
+  ncbi_taxid: 453957
+  clade: bird
+Falco femoralis:
+  ncbi_taxid: 56349
+  clade: bird
+Accipitriformes sp.:
+  ncbi_taxid: 2558200
+  clade: bird
+Aquila chrysaetos:
+  ncbi_taxid: 8962
+  clade: bird
+Buteo buteo:
+  ncbi_taxid: 30397
+  clade: bird
+Circus aeruginosus:
+  ncbi_taxid: 8964
+  clade: bird
+Gyps fulvus:
+  ncbi_taxid: 36247
+  clade: bird
+Aegypius monachus:
+  ncbi_taxid: 8959
+  clade: bird
+Gyps africanus:
+  ncbi_taxid: 43490
+  clade: bird
+Gyps coprotheres:
+  ncbi_taxid: 8966
+  clade: bird
+Gypaetus barbatus:
+  ncbi_taxid: 33610
+  clade: bird
+Neophron percnopterus:
+  ncbi_taxid: 33608
+  clade: bird
+Circaetus gallicus:
+  ncbi_taxid: 43465
+  clade: bird
+Milvus milvus:
+  ncbi_taxid: 43518
+  clade: bird
+Astur gentilis:
+  ncbi_taxid: 8957
+  clade: bird
+Hieraaetus pennatus:
+  ncbi_taxid: 70275
+  clade: bird
+Harpyhaliaetus coronatus:
+  ncbi_taxid: 321134
+  clade: bird
+Elanus caeruleus:
+  ncbi_taxid: 387830
+  clade: bird
+Gruiformes sp.:
+  ncbi_taxid: 9108
+  clade: bird
+Grus japonensis:
+  ncbi_taxid: 30415
+  clade: bird
+Antigone antigone:
+  ncbi_taxid: 2717063
+  clade: bird
+Antigone canadensis:
+  ncbi_taxid: 1977160
+  clade: bird
+Antigone vipio:
+  ncbi_taxid: 2717088
+  clade: bird
+Balearica regulorum:
+  ncbi_taxid: 925459
+  clade: bird
+Balearica pavonina:
+  ncbi_taxid: 30414
+  clade: bird
+Bugeranus carunculatus:
+  ncbi_taxid: 9118
+  clade: bird
+Anthropoides paradiseus:
+  ncbi_taxid: 1171711
+  clade: bird
+Anthropoides virgo:
+  ncbi_taxid: 9111
+  clade: bird
+Grus monacha:
+  ncbi_taxid: 40818
+  clade: bird
+Grus nigricollis:
+  ncbi_taxid: 40817
+  clade: bird
+Leucogeranus leucogeranus:
+  ncbi_taxid: 3150944
+  clade: bird
+Passer domesticus:
+  ncbi_taxid: 48849
+  clade: bird
+Cyanistes caeruleus:
+  ncbi_taxid: 156563
+  clade: bird
+Corvus cornix:
+  ncbi_taxid: 181096
+  clade: bird
+Turdus sp.:
+  ncbi_taxid: 9186
+  clade: bird
+Turdus merula:
+  ncbi_taxid: 9187
+  clade: bird
+Motacilla alba:
+  ncbi_taxid: 45807
+  clade: bird
+Lanius collurio:
+  ncbi_taxid: 56324
+  clade: bird
+Emberiza citrinella:
+  ncbi_taxid: 37595
+  clade: bird
+Rissa tridactyla:
+  ncbi_taxid: 75485
+  clade: bird
+Alca torda:
+  ncbi_taxid: 28689
+  clade: bird
+Uria aalge:
+  ncbi_taxid: 13746
+  clade: bird
+Fratercula arctica:
+  ncbi_taxid: 28701
+  clade: bird
+Brachyramphus marmoratus:
+  ncbi_taxid: 28694
+  clade: bird
+Phoebastria immutabilis:
+  ncbi_taxid: 54020
+  clade: bird
+Phoebastria nigripes:
+  ncbi_taxid: 54021
+  clade: bird
+Pachyptila belcheri:
+  ncbi_taxid: 631713
+  clade: bird
+Strigops habroptila:
+  ncbi_taxid: 2489341
+  clade: bird
+Acrocephalus scirpaceus:
+  ncbi_taxid: 48156
+  clade: bird
+Hippolais icterina:
+  ncbi_taxid: 68497
+  clade: bird
+Luscinia svecica:
+  ncbi_taxid: 52792
+  clade: bird
+Sylvia borin:
+  ncbi_taxid: 73324
+  clade: bird
+Phylloscopus collybita:
+  ncbi_taxid: 48150
+  clade: bird
+Phylloscopus trochilus:
+  ncbi_taxid: 9182
+  clade: bird
+Passer hispaniolensis:
+  ncbi_taxid: 56115
+  clade: bird
+Passer montanus:
+  ncbi_taxid: 9160
+  clade: bird
+Erithacus rubecula:
+  ncbi_taxid: 37610
+  clade: bird
+Eurillas virens:
+  ncbi_taxid: 1743266
+  clade: bird
+Melospiza melodia:
+  ncbi_taxid: 44397
+  clade: bird
+Alauda razae:
+  ncbi_taxid: 1364911
+  clade: bird
+Fringilla coelebs:
+  ncbi_taxid: 37598
+  clade: bird
+Emberiza jankowskii:
+  ncbi_taxid: 504299
+  clade: bird
+Bucanetes githagineus:
+  ncbi_taxid: 589648
+  clade: bird
+Chersophilus duponti:
+  ncbi_taxid: 452474
+  clade: bird
+Forpus passerinus:
+  ncbi_taxid: 69957
+  clade: bird
+Carduelis carduelis:
+  ncbi_taxid: 37600
+  clade: bird
+Anser indicus:
+  ncbi_taxid: 8846
+  clade: bird
+Calidris canutus:
+  ncbi_taxid: 227173
+  clade: bird
+Otis tarda:
+  ncbi_taxid: 73107
+  clade: bird
+Psophia crepitans:
+  ncbi_taxid: 54359
+  clade: bird
+Anarhynchus nivosus:
+  ncbi_taxid: 985688
+  clade: bird
+Ciconia boyciana:
+  ncbi_taxid: 52775
+  clade: bird
+Agelaius phoeniceus:
+  ncbi_taxid: 39638
+  clade: bird
+Oceanodroma leucorhoa:
+  ncbi_taxid: 52124
+  clade: bird
+Eudyptula minor:
+  ncbi_taxid: 37083
+  clade: bird
+Columba livia:
+  ncbi_taxid: 8932
+  clade: bird
+Ardeidae sp.:
+  ncbi_taxid: 8899
+  clade: bird
+Egretta garzetta:
+  ncbi_taxid: 188379
+  clade: bird
+Egretta sacra:
+  ncbi_taxid: 887049
+  clade: bird
+Ardea cinerea:
+  ncbi_taxid: 30390
+  clade: bird
+Ardea alba:
+  ncbi_taxid: 110620
+  clade: bird
+Ardeola bacchus:
+  ncbi_taxid: 188375
+  clade: bird
+Bubulcus ibis:
+  ncbi_taxid: 110668
+  clade: bird
+Gorsachius magnificus:
+  ncbi_taxid: 887050
+  clade: bird
+Ixobrychus cinnamomeus:
+  ncbi_taxid: 3905137
+  clade: bird
+Ixobrychus flavicollis:
+  ncbi_taxid: 592150
+  clade: bird
+Nycticorax nycticorax:
+  ncbi_taxid: 8901
+  clade: bird
+Halobaena caerulea:
+  ncbi_taxid: 79655
+  clade: bird
+Chroicocephalus scopulinus:
+  ncbi_taxid: 126716
+  clade: bird
+Pipra filicauda:
+  ncbi_taxid: 649802
+  clade: bird
+Spheniscus mendiculus:
+  ncbi_taxid: 156760
+  clade: bird
+Grus grus:
+  ncbi_taxid: 40816
+  clade: bird
+Limosa limosa:
+  ncbi_taxid: 161680
+  clade: bird
+Spinus spinus:
+  ncbi_taxid: 160760
+  clade: bird
+Spinus atratus:
+  ncbi_taxid: 160755
+  clade: bird
+Spinus pinus:
+  ncbi_taxid: 2201931
+  clade: bird
+Emberiza cioides:
+  ncbi_taxid: 260902
+  clade: bird
+Leucopsar rothschildi:
+  ncbi_taxid: 127929
+  clade: bird
+Menura novaehollandiae:
+  ncbi_taxid: 47692
+  clade: bird
+Rhodinocichla rosea:
+  ncbi_taxid: 58203
+  clade: bird
+Corvus corax:
+  ncbi_taxid: 56781
+  clade: bird
+Eudyptes filholi:
+  ncbi_taxid: 1419345
+  clade: bird
+Eudyptes sclateri:
+  ncbi_taxid: 92688
+  clade: bird
+Eudyptes chrysocome:
+  ncbi_taxid: 79626
+  clade: bird
+Lonchura striata:
+  ncbi_taxid: 40157
+  clade: bird
+Pandion haliaetus:
+  ncbi_taxid: 56262
+  clade: bird
+Haliaeetus albicilla:
+  ncbi_taxid: 8969
+  clade: bird
+Lanius collaris:
+  ncbi_taxid: 98117
+  clade: bird
+Lanius senator:
+  ncbi_taxid: 187436
+  clade: bird
+Turdus naumanni:
+  ncbi_taxid: 34940
+  clade: bird
+Turdus eunomus:
+  ncbi_taxid: 1562130
+  clade: bird
+Turdus ruficollis:
+  ncbi_taxid: 411525
+  clade: bird
+Turdus atrogularis:
+  ncbi_taxid: 589926
+  clade: bird
+Manacus sp.:
+  ncbi_taxid: 196036
+  clade: bird
+Lagopus scotica:
+  ncbi_taxid: 359986
+  clade: bird
+Meleagris gallopavo:
+  ncbi_taxid: 9103
+  clade: bird
+Pavo cristatus:
+  ncbi_taxid: 9049
+  clade: bird
+Phasianus colchicus:
+  ncbi_taxid: 9054
+  clade: bird
+Tympanuchus cupido:
+  ncbi_taxid: 9004
+  clade: bird
+Gallus gallus:
+  ncbi_taxid: 9031
+  clade: bird
+Chrysolophus pictus:
+  ncbi_taxid: 9089
+  clade: bird
+Coturnix japonica:
+  ncbi_taxid: 93934
+  clade: bird
+Lophura nycthemera:
+  ncbi_taxid: 9046
+  clade: bird
+Tragopan temminckii:
+  ncbi_taxid: 9071
+  clade: bird
+Tragopan caboti:
+  ncbi_taxid: 30407
+  clade: bird
+Numida meleagris:
+  ncbi_taxid: 8996
+  clade: bird
+Perdix perdix:
+  ncbi_taxid: 9052
+  clade: bird
+Crossoptilon auritum:
+  ncbi_taxid: 9096
+  clade: bird
+Crossoptilon crossoptilon:
+  ncbi_taxid: 30408
+  clade: bird
+Syrmaticus ellioti:
+  ncbi_taxid: 9063
+  clade: bird
+Syrmaticus reevesii:
+  ncbi_taxid: 9066
+  clade: bird
+Chrysolophus amherstiae:
+  ncbi_taxid: 9088
+  clade: bird
+Centrocercus urophasianus:
+  ncbi_taxid: 9002
+  clade: bird
+Lyrurus tetrix:
+  ncbi_taxid: 1233216
+  clade: bird
+Tympanuchus pallidicinctus:
+  ncbi_taxid: 109042
+  clade: bird
+Tympanuchus phasianellus:
+  ncbi_taxid: 83287
+  clade: bird
+Gallinula chloropus:
+  ncbi_taxid: 9123
+  clade: bird
+Gallinula comeri:
+  ncbi_taxid: 471235
+  clade: bird
+Gallus lafayettii:
+  ncbi_taxid: 9032
+  clade: bird
+Fulica atra:
+  ncbi_taxid: 9121
+  clade: bird
+Spheniscus humboldti:
+  ncbi_taxid: 9240
+  clade: bird
+Spheniscus magellanicus:
+  ncbi_taxid: 37081
+  clade: bird
+Anas platyrhynchos:
+  ncbi_taxid: 8839
+  clade: bird
+Egretta eulophotes:
+  ncbi_taxid: 458089
+  clade: bird
+Nipponia nippon:
+  ncbi_taxid: 128390
+  clade: bird
+Strigidae sp.:
+  ncbi_taxid: 30459
+  clade: bird
+Aegolius funereus:
+  ncbi_taxid: 103375
+  clade: bird
+Asio flammeus:
+  ncbi_taxid: 56267
+  clade: bird
+Asio otus:
+  ncbi_taxid: 111810
+  clade: bird
+Athene noctua:
+  ncbi_taxid: 126797
+  clade: bird
+Bubo africanus:
+  ncbi_taxid: 126801
+  clade: bird
+Bubo bubo:
+  ncbi_taxid: 30461
+  clade: bird
+Bubo blakistoni:
+  ncbi_taxid: 1564486
+  clade: bird
+Bubo scandiacus:
+  ncbi_taxid: 371907
+  clade: bird
+Glaucidium passerinum:
+  ncbi_taxid: 121724
+  clade: bird
+Otus elegans:
+  ncbi_taxid: 245683
+  clade: bird
+Otus scops:
+  ncbi_taxid: 126827
+  clade: bird
+Strix aluco:
+  ncbi_taxid: 111821
+  clade: bird
+Strix nebulosa:
+  ncbi_taxid: 126836
+  clade: bird
+Strix occidentalis caurina:
+  ncbi_taxid: 311401
+  clade: bird
+Strix uralensis:
+  ncbi_taxid: 36305
+  clade: bird
+Surnia ulula:
+  ncbi_taxid: 69940
+  clade: bird
+Tyto alba:
+  ncbi_taxid: 56313
+  clade: bird
+Primata sp.:
+  ncbi_taxid: 9443
+  clade: null
+NHP:
+  ncbi_taxid: null
+  clade: nhp
+Alouatta pigra:
+  ncbi_taxid: 182253
+  clade: nhp
+Aotus sp.:
+  ncbi_taxid: 9504
+  clade: nhp
+Aotus azarai:
+  ncbi_taxid: 30591
+  clade: nhp
+Aotus lemurinus:
+  ncbi_taxid: 43147
+  clade: nhp
+Aotus nancymaae:
+  ncbi_taxid: 37293
+  clade: nhp
+Aotus nigriceps:
+  ncbi_taxid: 57175
+  clade: nhp
+Aotus trivirgatus:
+  ncbi_taxid: 9505
+  clade: nhp
+Aotus vociferans:
+  ncbi_taxid: 57176
+  clade: nhp
+Ateles belzebuth:
+  ncbi_taxid: 9507
+  clade: nhp
+Ateles fusciceps:
+  ncbi_taxid: 9508
+  clade: nhp
+Callithrix sp.:
+  ncbi_taxid: 9481
+  clade: nhp
+Callithrix jacchus:
+  ncbi_taxid: 9483
+  clade: nhp
+Callicebus moloch:
+  ncbi_taxid: 9523
+  clade: nhp
+Callithrix pygmaea:
+  ncbi_taxid: 9493
+  clade: nhp
+Cebus apella:
+  ncbi_taxid: 9515
+  clade: nhp
+Cebus albifrons:
+  ncbi_taxid: 9514
+  clade: nhp
+Cebus capucinus:
+  ncbi_taxid: 9516
+  clade: nhp
+Cebus imitator:
+  ncbi_taxid: 2715852
+  clade: nhp
+Cebus kaapori:
+  ncbi_taxid: 37294
+  clade: nhp
+Cebus olivaceus:
+  ncbi_taxid: 37295
+  clade: nhp
+Sapajus cay:
+  ncbi_taxid: 649471
+  clade: nhp
+Sapajus libidinosus:
+  ncbi_taxid: 1126382
+  clade: nhp
+Sapajus apella macrocephalus:
+  ncbi_taxid: 1547595
+  clade: nhp
+Sapajus nigritus:
+  ncbi_taxid: 867366
+  clade: nhp
+Sapajus xanthosternos:
+  ncbi_taxid: 174599
+  clade: nhp
+Cercocebus atys:
+  ncbi_taxid: 9531
+  clade: nhp
+Cercopithecus mitis:
+  ncbi_taxid: 36225
+  clade: nhp
+Cercopithecus neglectus:
+  ncbi_taxid: 36227
+  clade: nhp
+Chlorocebus aethiops:
+  ncbi_taxid: 9534
+  clade: nhp
+Chlorocebus pygerythrus:
+  ncbi_taxid: 60710
+  clade: nhp
+Chlorocebus sabaeus:
+  ncbi_taxid: 60711
+  clade: nhp
+Colobus guereza:
+  ncbi_taxid: 33548
+  clade: nhp
+Gorilla sp.:
+  ncbi_taxid: 9592
+  clade: nhp
+Gorilla beringei:
+  ncbi_taxid: 499232
+  clade: nhp
+Gorilla gorilla:
+  ncbi_taxid: 9593
+  clade: nhp
+Hylobates lar:
+  ncbi_taxid: 9580
+  clade: nhp
+Hylobates moloch:
+  ncbi_taxid: 81572
+  clade: nhp
+Leontopithecus rosalia:
+  ncbi_taxid: 30588
+  clade: nhp
+Lophocebus aterrimus:
+  ncbi_taxid: 75566
+  clade: nhp
+Macaca arctoides:
+  ncbi_taxid: 9540
+  clade: nhp
+Macaca assamensis:
+  ncbi_taxid: 9551
+  clade: nhp
+Macaca fascicularis:
+  ncbi_taxid: 9541
+  clade: nhp
+Macaca fuscata:
+  ncbi_taxid: 9542
+  clade: nhp
+Mandrillus leucophaeus:
+  ncbi_taxid: 9568
+  clade: nhp
+Macaca leonina:
+  ncbi_taxid: 90387
+  clade: nhp
+Macaca sp.:
+  ncbi_taxid: 9539
+  clade: nhp
+Macaca mulatta:
+  ncbi_taxid: 9544
+  clade: nhp
+Macaca nemestrina:
+  ncbi_taxid: 9545
+  clade: nhp
+Macaca silenus:
+  ncbi_taxid: 54601
+  clade: nhp
+Mandrillus sphinx:
+  ncbi_taxid: 9561
+  clade: nhp
+Macaca thibetana:
+  ncbi_taxid: 54602
+  clade: nhp
+Papio anubis:
+  ncbi_taxid: 9555
+  clade: nhp
+Papio cynocephalus:
+  ncbi_taxid: 9556
+  clade: nhp
+Papio hamadryas:
+  ncbi_taxid: 9557
+  clade: nhp
+Papio papio:
+  ncbi_taxid: 100937
+  clade: nhp
+Pan sp.:
+  ncbi_taxid: 9596
+  clade: nhp
+Pan troglodytes:
+  ncbi_taxid: 9598
+  clade: nhp
+Pan paniscus:
+  ncbi_taxid: 9597
+  clade: nhp
+Papio ursinus:
+  ncbi_taxid: 36229
+  clade: nhp
+Pithecia pithecia:
+  ncbi_taxid: 43777
+  clade: nhp
+Pongo sp.:
+  ncbi_taxid: 9599
+  clade: nhp
+Pongo abelii:
+  ncbi_taxid: 9601
+  clade: nhp
+Pongo pygmaeus:
+  ncbi_taxid: 9600
+  clade: nhp
+Rhinopithecus roxellana:
+  ncbi_taxid: 61622
+  clade: nhp
+Saguinus fuscicollis:
+  ncbi_taxid: 9487
+  clade: nhp
+Saguinus geoffroyi:
+  ncbi_taxid: 43778
+  clade: nhp
+Saguinus labiatus:
+  ncbi_taxid: 78454
+  clade: nhp
+Saguinus mystax:
+  ncbi_taxid: 9488
+  clade: nhp
+Saguinus oedipus:
+  ncbi_taxid: 9490
+  clade: nhp
+Saimiri sciureus:
+  ncbi_taxid: 9521
+  clade: nhp
+Semnopithecus entellus:
+  ncbi_taxid: 88029
+  clade: nhp
+Theropithecus gelada:
+  ncbi_taxid: 9565
+  clade: nhp
+Rhinopithecus strykeri:
+  ncbi_taxid: 1194336
+  clade: nhp
+Ailuropoda melanoleuca:
+  ncbi_taxid: 9646
+  clade: carnivore
+Neomonachus schauinslandi:
+  ncbi_taxid: 29088
+  clade: carnivore
+Odocoileus hemionus:
+  ncbi_taxid: 9872
+  clade: ungulate
+Loxodonta africana:
+  ncbi_taxid: 9785
+  clade: other_mammal
+Chiroptera sp.:
+  ncbi_taxid: 9397
+  clade: bat
+Xenopus laevis:
+  ncbi_taxid: 8355
+  clade: amphibian
+Xenopus tropicalis:
+  ncbi_taxid: 8364
+  clade: amphibian
+Zhangixalus omeimontis:
+  ncbi_taxid: 462328
+  clade: amphibian
+Lithobates catesbeianus:
+  ncbi_taxid: 8400
+  clade: amphibian
+Lithobates clamitans:
+  ncbi_taxid: 145282
+  clade: amphibian
+Rhinella marina:
+  ncbi_taxid: 8386
+  clade: amphibian
+Geotrypetes seraphini:
+  ncbi_taxid: 260995
+  clade: amphibian
+Microcaecilia unicolor:
+  ncbi_taxid: 1415580
+  clade: amphibian
+Pelobates cultripes:
+  ncbi_taxid: 61616
+  clade: amphibian
+Ambystoma mexicanum:
+  ncbi_taxid: 8296
+  clade: amphibian
+Ambystoma tigrinum:
+  ncbi_taxid: 8305
+  clade: amphibian
+Andrias davidianus:
+  ncbi_taxid: 141262
+  clade: amphibian
+Lissotriton vulgaris:
+  ncbi_taxid: 8324
+  clade: amphibian
+Espadarana prosoblepon:
+  ncbi_taxid: 231021
+  clade: amphibian
+Rana japonica:
+  ncbi_taxid: 8402
+  clade: amphibian
+Rana ornativentris:
+  ncbi_taxid: 79016
+  clade: amphibian
+Rana tagoi:
+  ncbi_taxid: 113384
+  clade: amphibian
+Odorrana margaretae:
+  ncbi_taxid: 121156
+  clade: amphibian
+Odorrana tormota:
+  ncbi_taxid: 448114
+  clade: amphibian
+Lithobates chiricahuensis:
+  ncbi_taxid: 152345
+  clade: amphibian
+Lithobates yavapaiensis:
+  ncbi_taxid: 152347
+  clade: amphibian
+Pelophylax nigromaculatus:
+  ncbi_taxid: 8409
+  clade: amphibian
+Nanorana parkeri:
+  ncbi_taxid: 125878
+  clade: amphibian
+Agalychnis callidryas:
+  ncbi_taxid: 197464
+  clade: amphibian
+Smilisca phaeota:
+  ncbi_taxid: 44372
+  clade: amphibian
+Polypedates megacephalus:
+  ncbi_taxid: 68449
+  clade: amphibian
+Zhangixalus chenfui:
+  ncbi_taxid: 3136582
+  clade: amphibian
+Leiopelma hochstetteri:
+  ncbi_taxid: 51644
+  clade: amphibian
+Leptobrachium leishanense:
+  ncbi_taxid: 445787
+  clade: amphibian
+Litoria verreauxii:
+  ncbi_taxid: 3681175
+  clade: amphibian
+Bufo bufo:
+  ncbi_taxid: 8384
+  clade: amphibian
+Bufo gargarizans:
+  ncbi_taxid: 30331
+  clade: amphibian
+Epidalea calamita:
+  ncbi_taxid: 30326
+  clade: amphibian
+Ichthyosaura alpestris:
+  ncbi_taxid: 54263
+  clade: amphibian
+Triturus cristatus:
+  ncbi_taxid: 8323
+  clade: amphibian
+Sphenodon punctatus:
+  ncbi_taxid: 8508
+  clade: reptile
+Cyclura carinata:
+  ncbi_taxid: 118677
+  clade: reptile
+Anolis carolinensis:
+  ncbi_taxid: 28377
+  clade: reptile
+Anolis sagrei:
+  ncbi_taxid: 38937
+  clade: reptile
+Cyclura cornuta:
+  ncbi_taxid: 57098
+  clade: reptile
+Cyclura rileyi:
+  ncbi_taxid: 118684
+  clade: reptile
+Ctenosaura clarki:
+  ncbi_taxid: 552731
+  clade: reptile
+Cachryx defensor:
+  ncbi_taxid: 552730
+  clade: reptile
+Ctenophorus decresii:
+  ncbi_taxid: 71023
+  clade: reptile
+Egernia stokesii:
+  ncbi_taxid: 78585
+  clade: reptile
+Sphaerodactylus townsendi:
+  ncbi_taxid: 933632
+  clade: reptile
+Tiliqua adelaidensis:
+  ncbi_taxid: 220768
+  clade: reptile
+Monodelphis domestica:
+  ncbi_taxid: 13616
+  clade: marsupial
+Sarcophilus harrisii:
+  ncbi_taxid: 9305
+  clade: marsupial
+Phascolarctos cinereus:
+  ncbi_taxid: 38626
+  clade: marsupial
+Ornithorhynchus anatinus:
+  ncbi_taxid: 9258
+  clade: monotreme
+Notamacropus sp.:
+  ncbi_taxid: 1960649
+  clade: marsupial
+Notamacropus eugenii:
+  ncbi_taxid: 9315
+  clade: marsupial
+Notamacropus rufogriseus:
+  ncbi_taxid: 1960652
+  clade: marsupial
+Trichosurus vulpecula:
+  ncbi_taxid: 9337
+  clade: marsupial
+Vombatus ursinus:
+  ncbi_taxid: 29139
+  clade: marsupial
+Rhinolophus ferrumequinum:
+  ncbi_taxid: 59479
+  clade: bat
+Myotis lucifugus:
+  ncbi_taxid: 59463
+  clade: bat
+Hipposideros armiger:
+  ncbi_taxid: 186990
+  clade: bat
+Myotis brandtii:
+  ncbi_taxid: 109478
+  clade: bat
+Rhinolophus macrotis:
+  ncbi_taxid: 196889
+  clade: bat
+Desmodus rotundus:
+  ncbi_taxid: 9430
+  clade: bat
+Noctilio leporinus:
+  ncbi_taxid: 94963
+  clade: bat
+Noctilio albiventris:
+  ncbi_taxid: 94962
+  clade: bat
+Carollia perspicillata:
+  ncbi_taxid: 40233
+  clade: bat
+Phyllostomus discolor:
+  ncbi_taxid: 89673
+  clade: bat
+Molossus molossus:
+  ncbi_taxid: 27622
+  clade: bat
+Saccopteryx bilineata:
+  ncbi_taxid: 59482
+  clade: bat
+Myotis vivesi:
+  ncbi_taxid: 233766
+  clade: bat
+Pteropus vampyrus:
+  ncbi_taxid: 132908
+  clade: bat

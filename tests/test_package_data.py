@@ -22,6 +22,7 @@ RUNTIME_DATA_FILES = {
     "serotypes.yaml",
     "single_field_alleles.yaml",
     "species.yaml",
+    "species_taxonomy.yaml",
     "supertypes.yaml",
     "underrepresented_taxa_source_registry.yaml",
 }

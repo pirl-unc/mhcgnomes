@@ -131,6 +131,8 @@ def load_current_allele_names():
 LAZY_DATA_LOADERS = {
     # dictionary mapping scientific name -> info dictionary
     "species": lambda: load("species.yaml"),
+    # dictionary mapping scientific name -> {ncbi_taxid, clade} (#276)
+    "species_taxonomy": lambda: load("species_taxonomy.yaml"),
     # species -> [{alias, status, evidence}], attested prefix spellings imported
     # from the mhcseqs registry. See issue #136.
     "evidenced_prefix_aliases": lambda: load("evidenced_prefix_aliases.yaml"),

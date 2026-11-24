@@ -288,3 +288,30 @@ subject to replacement if a community convention emerges.
 
 See the [curation guide](curation.md) for the full prefix conflict resolution
 policy.
+
+## Verified NCBI Taxonomy IDs and vertebrate clades
+
+Every entry in `species.yaml` carries verified taxonomic metadata from
+`mhcgnomes/data/species_taxonomy.yaml` (sourced from NCBI Taxonomy):
+
+- `Species.ncbi_taxid`: `int | None` — verified NCBI Taxonomy ID (`None` for
+  paraphyletic groupings that do not correspond to a single NCBI taxon,
+  specifically `NHP` and `Reptilia sp.`).
+- `Species.clade`: `str | None` — verified vertebrate clade derived
+  deterministically from the NCBI Taxonomy lineage (`human`, `nhp`, `murine`,
+  `cetacean`, `ungulate`, `carnivore`, `bat`, `marsupial`, `monotreme`,
+  `other_mammal`, `bird`, `reptile`, `amphibian`, `bony_fish`,
+  `lobe_finned_fish`, `shark_ray`, `jawless_fish`, or `None` for multi-clade
+  higher nodes such as `Gnathostomata sp.`, `Primata sp.`, and `Rodentia sp.`).
+- `Species.get_by_ncbi_taxid(taxid)`: O(1) lookup by integer or numeric-string
+  NCBI Taxonomy ID.
+
+```python
+>>> sp = Species.get_by_ncbi_taxid(9606)
+>>> sp.name, sp.ncbi_taxid, sp.clade
+('Homo sapiens', 9606, 'human')
+>>> Species.get("Polyodon spathula").clade
+'bony_fish'
+>>> Species.get("Triturus cristatus").clade
+'amphibian'
+```
