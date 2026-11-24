@@ -235,10 +235,11 @@ sibling derives too:
 *Chrysolophus pictus* keeps `Chpi` throughout and gains `ChryPict` as a
 context-only prefix, since it derives that form as well.
 
-**Subspecies mint no generated alias.** A trinomial entry such as *Canis lupus
-baileyi* deliberately does not claim `CanisLupus`, which belongs to its parent
-binomial, and no third-token variant is generated. Subspecies are reached by
-their curated prefix (`Caba`) or by latin name.
+**Subspecies mint only their full trinomial CamelCase alias.** A trinomial entry
+such as *Canis lupus baileyi* emits `CanisLupusBaileyi` (and *Canis lupus
+familiaris* emits `CanisLupusFamiliaris`) and deliberately does not claim
+`CanisLupus` or `CaniLupu`, which belong to its parent binomial. Subspecies are
+reached by their curated prefix (`Caba`), full CamelCase alias, or latin name.
 
 A 5+5 form (`HomoSapie`) existed up to 3.41.0 as a leftover of the pre-v3.12
 scheme, and was removed in 3.42.0: no bundled corpus name, and no species token

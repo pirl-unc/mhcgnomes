@@ -1042,7 +1042,20 @@ Canis lupus:
   name:
     - Gray Wolf
     - Wolf
+Canis lupus familiaris:
+  parent: Canis lupus
+  # NCBI Taxonomy 9615 (https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=9615):
+  # Canis lupus familiaris (synonym Canis familiaris, common name dog), subspecies
+  # of Canis lupus (NCBI 9612). IPD-MHC curates domestic dog alleles under the DLA
+  # group (https://www.ebi.ac.uk/ipd/mhc/group/DLA/species) rather than a separate
+  # domestic-dog 4-letter prefix, so we use the generated CamelCase prefix.
+  prefix: CanisLupusFamiliaris
+  other prefixes:
+    - CanisFamiliaris
+  name:
     - Dog
+    - Domestic dog
+    - Canis familiaris
 Canis rufus:
   parent: Canis sp.
   # prefix source: designated -- listed with this code in the IPD-MHC
