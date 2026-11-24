@@ -152,7 +152,7 @@ def test_mhciib_with_species_strict():
 
 
 def test_mhciib_with_unknown_species_errors():
-    assert parse("MHCIIB", species="Ciconia ciconia", raise_on_error=False) is None
+    assert parse("MHCIIB", species="Nonexistus fictionalus", raise_on_error=False) is None
 
 
 # --- Things that should NOT parse as MHC region labels ---

@@ -12,13 +12,13 @@ from .common import eq_
 
 def test_species_strict_unknown_species_returns_none():
     """species= with unknown species should return None (raise_on_error=False)."""
-    assert parse("MHCIIB", species="Ciconia ciconia", raise_on_error=False) is None
+    assert parse("MHCIIB", species="Nonexistus fictionalus", raise_on_error=False) is None
 
 
 def test_species_strict_unknown_species_raises():
     """species= with unknown species should raise ParseError."""
     try:
-        parse("MHCIIB", species="Ciconia ciconia", raise_on_error=True)
+        parse("MHCIIB", species="Nonexistus fictionalus", raise_on_error=True)
         assert False, "Should have raised ParseError"
     except ParseError:
         pass
@@ -26,7 +26,7 @@ def test_species_strict_unknown_species_raises():
 
 def test_species_strict_unknown_species_does_not_return_wrong_species():
     """MHCIIB + species=unknown must NOT return Tyto alba."""
-    result = parse("MHCIIB", species="Alcedo atthis", raise_on_error=False)
+    result = parse("MHCIIB", species="Fictus specius", raise_on_error=False)
     assert result is None
 
 

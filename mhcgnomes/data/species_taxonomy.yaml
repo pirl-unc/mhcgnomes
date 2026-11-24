@@ -2045,3 +2045,201 @@ Myotis vivesi:
 Pteropus vampyrus:
   ncbi_taxid: 132908
   clade: bat
+Octodon sp.:
+  ncbi_taxid: 169034
+  clade: other_mammal
+Spermophilus dauricus:
+  ncbi_taxid: 99837
+  clade: other_mammal
+Apodemus speciosus:
+  ncbi_taxid: 105296
+  clade: murine
+Apodemus agrarius:
+  ncbi_taxid: 39030
+  clade: murine
+Neotoma lepida:
+  ncbi_taxid: 56216
+  clade: other_mammal
+Sciurus carolinensis:
+  ncbi_taxid: 30640
+  clade: other_mammal
+Sciurus aberti:
+  ncbi_taxid: 10007
+  clade: other_mammal
+Peromyscus eremicus:
+  ncbi_taxid: 42410
+  clade: other_mammal
+Peromyscus pectoralis:
+  ncbi_taxid: 97213
+  clade: other_mammal
+Peromyscus attwateri:
+  ncbi_taxid: 97206
+  clade: other_mammal
+Tokudaia muenninki:
+  ncbi_taxid: 742503
+  clade: murine
+Tokudaia osimensis:
+  ncbi_taxid: 73109
+  clade: murine
+Diplothrix legata:
+  ncbi_taxid: 106283
+  clade: murine
+Hybomys univittatus:
+  ncbi_taxid: 71162
+  clade: murine
+Nannospalax ehrenbergi:
+  ncbi_taxid: 30637
+  clade: other_mammal
+Isoodon macrourus:
+  ncbi_taxid: 37698
+  clade: marsupial
+Carpodacus erythrinus:
+  ncbi_taxid: 175930
+  clade: bird
+Parus monticolus:
+  ncbi_taxid: 156542
+  clade: bird
+Aphelocoma coerulescens:
+  ncbi_taxid: 39617
+  clade: bird
+Alcedo atthis:
+  ncbi_taxid: 36245
+  clade: bird
+Calidris pugnax:
+  ncbi_taxid: 198806
+  clade: bird
+Hydrobates castro:
+  ncbi_taxid: 126871
+  clade: bird
+Oceanodroma monteiroi:
+  ncbi_taxid: 1200804
+  clade: bird
+Pagophila eburnea:
+  ncbi_taxid: 126721
+  clade: bird
+Ciconia ciconia:
+  ncbi_taxid: 8928
+  clade: bird
+Procellaria aequinoctialis:
+  ncbi_taxid: 53665
+  clade: bird
+Tauraco hartlaubi:
+  ncbi_taxid: 56304
+  clade: bird
+Bulweria bulwerii:
+  ncbi_taxid: 52120
+  clade: bird
+Calonectris diomedea:
+  ncbi_taxid: 52122
+  clade: bird
+Pachyptila desolata:
+  ncbi_taxid: 79635
+  clade: bird
+Pagodroma nivea:
+  ncbi_taxid: 52126
+  clade: bird
+Acrocephalus sechellensis:
+  ncbi_taxid: 68481
+  clade: bird
+Tachymarptis melba:
+  ncbi_taxid: 670359
+  clade: bird
+Dendrocopos major:
+  ncbi_taxid: 183177
+  clade: bird
+Diomedea exulans:
+  ncbi_taxid: 46550
+  clade: bird
+Haemorhous mexicanus:
+  ncbi_taxid: 30427
+  clade: bird
+Anser anser:
+  ncbi_taxid: 8843
+  clade: bird
+Rallus aquaticus:
+  ncbi_taxid: 54496
+  clade: bird
+Jynx torquilla:
+  ncbi_taxid: 189526
+  clade: bird
+Philetairus socius:
+  ncbi_taxid: 247666
+  clade: bird
+Crithagra citrinelloides:
+  ncbi_taxid: 2546078
+  clade: bird
+Crithagra citrinipectus:
+  ncbi_taxid: 3149685
+  clade: bird
+Crithagra dorsostriata:
+  ncbi_taxid: 163845
+  clade: bird
+Crithagra flaviventris:
+  ncbi_taxid: 163847
+  clade: bird
+Crithagra mozambica:
+  ncbi_taxid: 1892170
+  clade: bird
+Serinus citrinella:
+  ncbi_taxid: 632108
+  clade: bird
+Serinus atrogularis:
+  ncbi_taxid: 3149682
+  clade: bird
+Serinus thibetanus:
+  ncbi_taxid: 163846
+  clade: bird
+Serinus striolatus:
+  ncbi_taxid: 3149701
+  clade: bird
+Serinus gularis:
+  ncbi_taxid: 3149689
+  clade: bird
+Spinus psaltria:
+  ncbi_taxid: 54559
+  clade: bird
+Spinus dominicensis:
+  ncbi_taxid: 175929
+  clade: bird
+Spinus atriceps:
+  ncbi_taxid: 175928
+  clade: bird
+Spinus lawrencei:
+  ncbi_taxid: 285242
+  clade: bird
+Nerodia sipedon:
+  ncbi_taxid: 8592
+  clade: reptile
+Crocodylus novaeguineae:
+  ncbi_taxid: 8503
+  clade: reptile
+Perca fluviatilis:
+  ncbi_taxid: 8168
+  clade: bony_fish
+Sander vitreus:
+  ncbi_taxid: 283036
+  clade: bony_fish
+Knipowitschia caucasica:
+  ncbi_taxid: 637954
+  clade: bony_fish
+Acipenser baerii:
+  ncbi_taxid: 27689
+  clade: bony_fish
+Plecoglossus altivelis:
+  ncbi_taxid: 61084
+  clade: bony_fish
+Osmerus mordax:
+  ncbi_taxid: 8014
+  clade: bony_fish
+Lutjanus peru:
+  ncbi_taxid: 290247
+  clade: bony_fish
+Bagarius yarrelli:
+  ncbi_taxid: 175774
+  clade: bony_fish
+Anoplopoma fimbria:
+  ncbi_taxid: 229290
+  clade: bony_fish
+Takifugu rubripes:
+  ncbi_taxid: 31033
+  clade: bony_fish
