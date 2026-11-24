@@ -126,6 +126,17 @@ class Haplotype(ResultWithMultipleAlleles):
     def haplotype_name(self):
         return self.name
 
+    @property
+    def mhc_class(self):
+        if self.class_restriction is not None:
+            return self.class_restriction
+        member_class = super().mhc_class
+        if member_class is not None:
+            return member_class
+        if self.locus_restriction is not None:
+            return self.locus_restriction.mhc_class
+        return None
+
     def restrict_mhc_class(self, class_restriction, raise_on_error=True):
         if class_restriction is None:
             return self

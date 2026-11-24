@@ -13,11 +13,14 @@
 import re
 
 from .allele import Allele
+from .allele_without_gene import AlleleWithoutGene
+from .ambiguous_alleles import AmbiguousAlleles
 from .class2_locus import Class2Locus
 from .common import cache
 from .errors import ParseError
 from .gene import Gene
 from .gene_class_info import GeneClassInfo
+from .haplotype import Haplotype
 from .input_validation import validate_mhc_input
 from .mhc_class import MhcClass
 from .non_mhc_genes import NON_MHC_REGION_GENE_SYMBOLS, normalize_non_mhc_gene_name
@@ -32,12 +35,15 @@ from .parser import (
     Parser,
 )
 from .result import Result
+from .result_with_multiple_alleles import ResultWithMultipleAlleles
+from .serotype import Serotype
 from .species import (
     Species,
     infer_species_from_context_only_prefix,
     prefix_is_derived_for,
     unambiguous_prefix_for,
 )
+from .supertype import Supertype
 
 
 @cache
@@ -361,6 +367,46 @@ def _build_gene_class_info_from_parsed(parsed: Result, raw_string: str):
             raw_string=raw_string,
         )
 
+    if isinstance(parsed, AlleleWithoutGene) and parsed.has_mhc_class:
+        return GeneClassInfo(
+            species=parsed.species,
+            gene_name=None,
+            mhc_class=parsed.mhc_class,
+            chain="alpha" if parsed.is_class1 else None,
+            non_mhc=parsed.mhc_class == "other",
+            source="parsed_allele",
+            raw_string=raw_string,
+        )
+
+    if isinstance(parsed, ResultWithMultipleAlleles) and parsed.has_mhc_class:
+        if isinstance(parsed, Serotype):
+            source = "parsed_serotype"
+        elif isinstance(parsed, Supertype):
+            source = "parsed_supertype"
+        elif isinstance(parsed, Haplotype):
+            source = "parsed_haplotype"
+        elif isinstance(parsed, AmbiguousAlleles):
+            source = "parsed_ambiguous_alleles"
+        else:
+            source = "parsed_collection"
+        if parsed.is_class2_alpha:
+            chain = "alpha"
+        elif parsed.is_class2_beta:
+            chain = "beta"
+        elif parsed.is_class1 and parsed.alleles:
+            chain = "alpha"
+        else:
+            chain = None
+        return GeneClassInfo(
+            species=parsed.species,
+            gene_name=parsed.gene_name,
+            mhc_class=parsed.mhc_class,
+            chain=chain,
+            non_mhc=parsed.mhc_class == "other",
+            source=source,
+            raw_string=raw_string,
+        )
+
     return None
 
 
@@ -587,9 +633,13 @@ def parse_gene_class(
         species=species,
         raise_on_error=False,
     )
-    info = _build_gene_class_info_from_parsed(parsed, raw_string)
-    if info is not None:
-        return info
+    if parsed is not None:
+        info = _build_gene_class_info_from_parsed(parsed, raw_string)
+        if info is not None:
+            return info
+        if raise_on_error:
+            raise ParseError(f"Could not infer MHC class from '{raw_string}'")
+        return None
 
     parser = cached_parser()
     inferred_species, candidate_gene_string, error_message = _extract_species_and_gene_string(

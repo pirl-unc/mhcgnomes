@@ -43,6 +43,45 @@ def is_class2(mhc_class):
     return mhc_class in class2_restrictions
 
 
+def common_mhc_class(results):
+    """
+    Return the shared MHC class string across a non-empty collection of results,
+    or None if the collection is empty, contains a member without an MHC class,
+    or mixes incompatible classes.
+
+    Parameters
+    ----------
+    results : iterable of Result
+        Collection of parsed result objects (e.g. alleles in a serotype,
+        haplotype, supertype, or ambiguous allele set).
+
+    Returns
+    -------
+    str or None
+        The shared class string when all members agree (e.g. "Ia", "IIa", "I",
+        "other"), "I" when members span multiple class I subtypes (e.g. "Ia"
+        and "Ib"), "II" when members span multiple class II subtypes (e.g.
+        "IIa" and "IIb"), or None when empty, incomplete, or mixed.
+    """
+    classes = set()
+    has_member = False
+    for result in results:
+        has_member = True
+        mhc_class = getattr(result, "mhc_class", None)
+        if mhc_class is None:
+            return None
+        classes.add(mhc_class)
+    if not has_member:
+        return None
+    if len(classes) == 1:
+        return next(iter(classes))
+    if classes <= class1_restrictions:
+        return "I"
+    if classes <= class2_restrictions:
+        return "II"
+    return None
+
+
 def is_valid_restriction(original_class=None, new_class=None):
     if original_class is None:
         return True

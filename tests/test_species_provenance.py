@@ -32,11 +32,13 @@ EXPLICIT = [
 INFERRED = [
     "BLB2*02",  # species comes from the gene name
     "BF2*02:01",
-    "B12 class I",
+    "BF19 class I",  # chicken haplotype inferred without explicit species
+    "B12 class II",  # chicken B12 haplotype (HLA-B12 is class I)
 ]
 
 DEFAULTED = [
     "A*02:01",  # no species anywhere, falls back to default_species
+    "B12 class I",  # matches default HLA-B12 class I serotype (#254)
     "MHC class II",
     "class II",
     "TAP1",

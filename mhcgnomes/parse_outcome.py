@@ -65,7 +65,7 @@ def parse_outcome_to_row(raw_input, outcome):
         compact=outcome.compact_string(),
         species=_stringify(getattr(outcome, "species_prefix", "")),
         gene_name=_stringify(getattr(outcome, "gene_name", "")),
-        mhc_class=record.get("mhc_class", getattr(outcome, "mhc_class", "")),
+        mhc_class=_stringify(record.get("mhc_class", getattr(outcome, "mhc_class", ""))),
         properties="; ".join(f"{k}={_stringify(v)}" for k, v in record.items()),
         error="",
     )

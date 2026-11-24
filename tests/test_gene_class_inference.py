@@ -158,9 +158,20 @@ def test_gene_class_info_string_and_record_helpers():
 
 
 def test_parse_gene_class_requires_species_context_for_heuristics():
-    assert infer_mhc_class("DR-1") is None
+    assert infer_mhc_class("DRB1-4") is None
     with pytest.raises(ParseError):
-        parse_gene_class("DR-1")
+        parse_gene_class("DRB1-4")
+
+    assert infer_mhc_class("DR-1", default_species=None) is None
+    with pytest.raises(ParseError):
+        parse_gene_class("DR-1", default_species=None)
+
+    # Under default_species="HLA", "DR-1" strictly parses as the HLA-DR1 serotype
+    # rather than running the non-human DR-1 alpha heuristic.
+    strict_dr1 = parse_gene_class("DR-1")
+    eq_(strict_dr1.source, "parsed_serotype")
+    eq_(strict_dr1.mhc_class, "IIa")
+    eq_(strict_dr1.chain, "beta")
 
 
 def test_parse_remains_conservative_for_gap_report_suffixes():

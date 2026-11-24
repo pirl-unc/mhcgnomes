@@ -32,7 +32,7 @@ class ResultWithMhcClass(ResultWithSpecies):
 
     @property
     def has_mhc_class(self):
-        return True
+        return self.mhc_class is not None
 
     @property
     def is_class1(self):
