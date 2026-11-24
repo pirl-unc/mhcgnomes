@@ -10,22 +10,34 @@ Usage:
 """
 
 import csv
-import os
+import json
 import re
 import subprocess
 import sys
 import time
-import urllib.request
 import urllib.error
+import urllib.parse
+import urllib.request
+import xml.etree.ElementTree as ET
 from pathlib import Path
 
 try:
-    from Bio import Entrez
+    import biotite.database.entrez as entrez
 except ImportError:
-    print("Requires biopython: pip install biopython", file=sys.stderr)
+    print("Requires biotite: pip install biotite", file=sys.stderr)
     sys.exit(1)
 
-Entrez.email = "mhcgnomes-paper@example.com"
+EUTILS_BASE = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils"
+
+
+class RawEntrezQuery(entrez.Query):
+    """Wrap a raw NCBI Entrez query string for biotite.database.entrez.search."""
+
+    def __init__(self, term):
+        self.term = term
+
+    def __str__(self):
+        return self.term
 
 ROOT = Path(__file__).resolve().parent.parent.parent
 RAW_DIR = ROOT / "paper" / "raw"
@@ -71,12 +83,7 @@ QUERIES = {
 
 def search_pubmed(query, max_results=15):
     try:
-        handle = Entrez.esearch(
-            db="pmc", term=query, retmax=max_results, sort="relevance"
-        )
-        result = Entrez.read(handle)
-        handle.close()
-        return result["IdList"]
+        return entrez.search(RawEntrezQuery(query), "pmc", number=max_results)
     except Exception as e:
         print(f"  Search failed: {e}", file=sys.stderr)
         return []
@@ -88,40 +95,79 @@ def fetch_paper_metadata(pmc_ids):
         return []
     papers = []
     try:
-        handle = Entrez.esummary(db="pmc", id=",".join(pmc_ids))
-        records = Entrez.read(handle)
-        handle.close()
-        for rec in records:
-            papers.append({
-                "pmid": str(rec.get("Id", "")),
-                "first_author": str(rec.get("AuthorList", [""])[0]) if rec.get("AuthorList") else "",
-                "year": str(rec.get("PubDate", ""))[:4],
-                "title": str(rec.get("Title", "")),
-                "journal": str(rec.get("FullJournalName", rec.get("Source", ""))),
-                "doi": str(rec.get("DOI", "")),
-            })
+        params = {
+            "db": "pmc",
+            "id": ",".join(str(pmc_id) for pmc_id in pmc_ids),
+            "retmode": "json",
+        }
+        api_key = entrez.get_api_key()
+        if api_key:
+            params["api_key"] = api_key
+        req = urllib.request.Request(
+            f"{EUTILS_BASE}/esummary.fcgi?{urllib.parse.urlencode(params)}",
+            headers={"User-Agent": "mhcgnomes-paper/1.0"},
+        )
+        with urllib.request.urlopen(req, timeout=20) as resp:
+            payload = json.loads(resp.read().decode("utf-8"))
+        result = payload.get("result", {})
+        for pmc_id in result.get("uids", pmc_ids):
+            rec = result.get(str(pmc_id), {})
+            authors = rec.get("authors", [])
+            first_author = authors[0].get("name", "") if authors else ""
+            doi = ""
+            for aid in rec.get("articleids", []):
+                if aid.get("idtype") == "doi":
+                    doi = str(aid.get("value", ""))
+                    break
+            papers.append(
+                {
+                    "pmid": str(rec.get("uid", pmc_id)),
+                    "first_author": str(first_author),
+                    "year": str(rec.get("pubdate", ""))[:4],
+                    "title": str(rec.get("title", "")),
+                    "journal": str(rec.get("fulljournalname", rec.get("source", ""))),
+                    "doi": doi,
+                }
+            )
     except Exception as e:
         print(f"  Metadata fetch failed: {e}", file=sys.stderr)
         # Fall back to just using IDs
         for pmc_id in pmc_ids:
-            papers.append({
-                "pmid": pmc_id, "first_author": "", "year": "",
-                "title": "", "journal": "", "doi": "",
-            })
+            papers.append(
+                {
+                    "pmid": pmc_id,
+                    "first_author": "",
+                    "year": "",
+                    "title": "",
+                    "journal": "",
+                    "doi": "",
+                }
+            )
     return papers
 
 
 def pmid_to_pmc(pmid):
     try:
-        handle = Entrez.elink(dbfrom="pubmed", db="pmc", id=pmid)
-        result = Entrez.read(handle)
-        handle.close()
-        for linkset in result:
-            for db_link in linkset.get("LinkSetDb", []):
-                if db_link.get("DbTo") == "pmc":
-                    links = db_link.get("Link", [])
-                    if links:
-                        return links[0]["Id"]
+        params = {
+            "dbfrom": "pubmed",
+            "db": "pmc",
+            "id": str(pmid),
+            "retmode": "xml",
+        }
+        api_key = entrez.get_api_key()
+        if api_key:
+            params["api_key"] = api_key
+        req = urllib.request.Request(
+            f"{EUTILS_BASE}/elink.fcgi?{urllib.parse.urlencode(params)}",
+            headers={"User-Agent": "mhcgnomes-paper/1.0"},
+        )
+        with urllib.request.urlopen(req, timeout=15) as resp:
+            root = ET.fromstring(resp.read())
+        for db_link in root.findall(".//LinkSetDb"):
+            if db_link.findtext("DbTo") == "pmc":
+                link_id = db_link.findtext("./Link/Id")
+                if link_id:
+                    return link_id.strip()
     except Exception:
         pass
     return None

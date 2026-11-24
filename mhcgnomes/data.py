@@ -11,8 +11,7 @@
 # limitations under the License.
 
 from os.path import dirname, join
-
-import yaml
+from typing import Any
 
 from .common import normalize_allele_alias
 from .normalizing_dictionary import NormalizingDictionary
@@ -43,8 +42,8 @@ def load(yaml_filename, normalize_first_level_keys=False, normalize_second_level
     """
     Load a packaged YAML data file, optionally with normalized keys.
 
-    Every runtime table in this module (species, aliases, haplotypes,
-    serotypes, ...) is read through this function once, at import time.
+    Runtime tables in this module (species, aliases, haplotypes, serotypes, ...)
+    are loaded lazily on first attribute access and cached in module globals.
 
     Parameters
     ----------
@@ -71,6 +70,8 @@ def load(yaml_filename, normalize_first_level_keys=False, normalize_second_level
     yaml.YAMLError
         If the file is not valid YAML.
     """
+    import yaml
+
     path = get_path(yaml_filename)
     with open(path, encoding="utf-8") as f:
         result = yaml.safe_load(f)
@@ -85,91 +86,119 @@ def load(yaml_filename, normalize_first_level_keys=False, normalize_second_level
     return result
 
 
-# dictionary mapping scientific name -> info dictionary
-species = load("species.yaml")
+def load_allele_aliases():
+    """Load old/retired/provisional allele alias tables normalized per species."""
+    return NormalizingDictionary.from_dict(
+        {
+            prefix: NormalizingDictionary.from_dict(aliases, normalize_fn=normalize_allele_alias)
+            for prefix, aliases in load("allele_aliases.yaml").items()
+        }
+    )
 
-# species -> [{alias, status, evidence}], attested prefix spellings imported
-# from the mhcseqs registry. Kept out of species.yaml because provenance here
-# is per (species, alias) rather than per species. See issue #136.
-evidenced_prefix_aliases = load("evidenced_prefix_aliases.yaml")
 
-# Curation holding area: source signal not yet stable enough for runtime. Read
-# so the evidenced-alias import cannot override a deliberate holdback (#136).
-underrepresented_taxa_source_registry = load("underrepresented_taxa_source_registry.yaml")
+def load_serotypes():
+    """Expand curated direct serotype assignments with WMDA broad/split relationships."""
+    direct = __getattr__("direct_serotypes")
+    splits = __getattr__("serotype_splits")
+    return NormalizingDictionary.from_dict(
+        {
+            prefix: NormalizingDictionary.from_dict(
+                expand_serotype_memberships(assignments, splits.get(prefix, {}))
+            )
+            for prefix, assignments in direct.items()
+        }
+    )
 
-# Dictionary mapping each species prefix to a dictionary from old gene
-# names to new ones
-gene_aliases = load(
-    "gene_aliases.yaml", normalize_first_level_keys=True, normalize_second_level_keys=True
-)
 
-# Dictionary mapping each species prefix to a dictionary from
-# old/retired/provisional allele names to standard new names
-allele_aliases = NormalizingDictionary.from_dict(
-    {
-        prefix: NormalizingDictionary.from_dict(aliases, normalize_fn=normalize_allele_alias)
-        for prefix, aliases in load("allele_aliases.yaml").items()
+def load_min_first_field_widths():
+    """Build minimum first-field padding width map from first_allele_field_widths.yaml."""
+    widths = __getattr__("first_allele_field_widths")
+    return {
+        (prefix, str(gene)): int(width)
+        for prefix, genes in widths.items()
+        for gene, width in genes.items()
     }
-)
 
-# Curated minimum width of the first allele field, keyed by species and gene.
-# These entries override widths inferred from canonical allele-alias targets.
-first_allele_field_widths = load("first_allele_field_widths.yaml")
 
-# Dictionary mapping species -> gene -> list of known allele names
-known_alleles = load(
-    "known_alleles.yaml", normalize_first_level_keys=True, normalize_second_level_keys=True
-)
-
-# Dictionary mapping species to haplotype name to list of alleles
-haplotypes = load(
-    "haplotypes.yaml", normalize_first_level_keys=True, normalize_second_level_keys=True
-)
-
-# Keep curated direct assignments separate from broad-type candidates (#196).
-# The generated graph contains WMDA split relationships, not allele assignments.
-direct_serotypes = load(
-    "serotypes.yaml", normalize_first_level_keys=True, normalize_second_level_keys=True
-)
-serotype_splits = load("serotype_splits.yaml", normalize_first_level_keys=True)
-serotypes = NormalizingDictionary.from_dict(
-    {
-        prefix: NormalizingDictionary.from_dict(
-            expand_serotype_memberships(assignments, serotype_splits.get(prefix, {}))
-        )
-        for prefix, assignments in direct_serotypes.items()
+def load_current_allele_names():
+    """Load sparse exact-current-name guards for alias lookup."""
+    return {
+        prefix: frozenset(normalize_allele_alias(name) for name in names)
+        for prefix, names in load("current_allele_names.yaml").items()
     }
-)
-
-# Dictionary mapping species to heterodimer shorthand to alpha/beta allele pairs
-# e.g., HLA -> DQ2.5 -> {alpha: DQA1*05:01, beta: DQB1*02:01}
-heterodimers = load(
-    "heterodimers.yaml", normalize_first_level_keys=True, normalize_second_level_keys=True
-)
-
-# Dictionary mapping species to supertype name to supertype info
-# e.g., HLA -> A02 -> {representative: A*02:01, alleles: [A*02:01, A*02:02, ...]}
-# Supertypes are functional groupings based on peptide-binding specificity
-# (Sidney et al. 2008, https://pmc.ncbi.nlm.nih.gov/articles/PMC2245908/)
-supertypes = load(
-    "supertypes.yaml", normalize_first_level_keys=True, normalize_second_level_keys=True
-)
-
-# Complete allele names whose only field is numeric (HLA-MICA*001, Papa-B*03),
-# generated from the pinned IMGT/HLA and IPD-MHC releases by
-# scripts/generate_single_field_alleles.py. Read by Allele.is_allele_group.
-single_field_alleles = load("single_field_alleles.yaml")
 
 
-# Normalization is a compatibility policy independent of optional alias data.
-min_first_field_widths = {
-    (prefix, str(gene)): int(width)
-    for prefix, genes in first_allele_field_widths.items()
-    for gene, width in genes.items()
+LAZY_DATA_LOADERS = {
+    # dictionary mapping scientific name -> info dictionary
+    "species": lambda: load("species.yaml"),
+    # species -> [{alias, status, evidence}], attested prefix spellings imported
+    # from the mhcseqs registry. See issue #136.
+    "evidenced_prefix_aliases": lambda: load("evidenced_prefix_aliases.yaml"),
+    # Curation holding area: source signal not yet stable enough for runtime (#136).
+    "underrepresented_taxa_source_registry": lambda: load(
+        "underrepresented_taxa_source_registry.yaml"
+    ),
+    # Dictionary mapping each species prefix to old gene names -> new gene names
+    "gene_aliases": lambda: load(
+        "gene_aliases.yaml",
+        normalize_first_level_keys=True,
+        normalize_second_level_keys=True,
+    ),
+    # Dictionary mapping each species prefix to old/retired allele names -> standard names
+    "allele_aliases": load_allele_aliases,
+    # Curated minimum width of the first allele field, keyed by species and gene
+    "first_allele_field_widths": lambda: load("first_allele_field_widths.yaml"),
+    # Dictionary mapping species -> gene -> list of known allele names
+    "known_alleles": lambda: load(
+        "known_alleles.yaml",
+        normalize_first_level_keys=True,
+        normalize_second_level_keys=True,
+    ),
+    # Dictionary mapping species to haplotype name to list of alleles
+    "haplotypes": lambda: load(
+        "haplotypes.yaml",
+        normalize_first_level_keys=True,
+        normalize_second_level_keys=True,
+    ),
+    # Curated direct serotype assignments (#196)
+    "direct_serotypes": lambda: load(
+        "serotypes.yaml",
+        normalize_first_level_keys=True,
+        normalize_second_level_keys=True,
+    ),
+    # Generated WMDA broad/split relationship graph
+    "serotype_splits": lambda: load("serotype_splits.yaml", normalize_first_level_keys=True),
+    # Expanded serotype memberships
+    "serotypes": load_serotypes,
+    # Dictionary mapping species to heterodimer shorthand to alpha/beta allele pairs
+    "heterodimers": lambda: load(
+        "heterodimers.yaml",
+        normalize_first_level_keys=True,
+        normalize_second_level_keys=True,
+    ),
+    # Dictionary mapping species to supertype name to supertype info
+    "supertypes": lambda: load(
+        "supertypes.yaml",
+        normalize_first_level_keys=True,
+        normalize_second_level_keys=True,
+    ),
+    # Complete allele names whose only field is numeric
+    "single_field_alleles": lambda: load("single_field_alleles.yaml"),
+    # Flattened (species_prefix, gene) -> minimum first field width map
+    "min_first_field_widths": load_min_first_field_widths,
+    # Sparse exact-current-name guards for alias lookup
+    "current_allele_names": load_current_allele_names,
 }
 
-# Sparse exact-current-name guards for alias lookup; not a registry catalog.
-current_allele_names = {
-    prefix: frozenset(normalize_allele_alias(name) for name in names)
-    for prefix, names in load("current_allele_names.yaml").items()
-}
+
+def __getattr__(name: str) -> Any:
+    loader = LAZY_DATA_LOADERS.get(name)
+    if loader is None:
+        raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
+    value = loader()
+    globals()[name] = value
+    return value
+
+
+def __dir__() -> list[str]:
+    return sorted(set(globals()) | set(LAZY_DATA_LOADERS))

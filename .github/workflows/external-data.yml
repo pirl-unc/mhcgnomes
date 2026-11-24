@@ -78,4 +78,4 @@ jobs:
           git diff --exit-code -- mhcgnomes/data/serotype_splits.yaml
 
       - name: Validate every official IMGT/IPD allele name
-        run: mhcgnomes-validate-data
+        run: mhcgnomes data validate

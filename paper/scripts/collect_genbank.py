@@ -15,23 +15,28 @@ import argparse
 import csv
 import sys
 import time
-from io import StringIO
 
 try:
-    from Bio import Entrez, SeqIO
+    import biotite.database.entrez as entrez
+    import biotite.sequence.io.genbank as genbank
 except ImportError:
-    print("Requires biopython: pip install biopython", file=sys.stderr)
+    print("Requires biotite: pip install biotite", file=sys.stderr)
     sys.exit(1)
 
-Entrez.email = "mhcgnomes-paper@example.com"
+
+class RawEntrezQuery(entrez.Query):
+    """Wrap a raw NCBI Entrez query string for biotite.database.entrez.search."""
+
+    def __init__(self, term):
+        self.term = term
+
+    def __str__(self):
+        return self.term
 
 
 def search_genbank(query, max_results=500):
     """Search GenBank and return accession IDs."""
-    handle = Entrez.esearch(db="nucleotide", term=query, retmax=max_results)
-    result = Entrez.read(handle)
-    handle.close()
-    return result["IdList"]
+    return entrez.search(RawEntrezQuery(query), "nuccore", number=max_results)
 
 
 def fetch_records(ids, batch_size=20):
@@ -39,27 +44,34 @@ def fetch_records(ids, batch_size=20):
     records = []
     for i in range(0, len(ids), batch_size):
         batch = ids[i : i + batch_size]
-        handle = Entrez.efetch(db="nucleotide", id=batch, rettype="gb", retmode="text")
-        text = handle.read()
-        handle.close()
-        for record in SeqIO.parse(StringIO(text), "genbank"):
+        handle = entrez.fetch_single_file(
+            batch, None, "nuccore", ret_type="gb", ret_mode="text"
+        )
+        for record in genbank.MultiFile.read(handle):
             records.append(record)
         time.sleep(0.5)  # be polite to NCBI
     return records
+
+
+def extract_organism(record):
+    """Extract the organism name from a biotite GenBankFile record."""
+    for feature in genbank.get_annotation(record):
+        if feature.key == "source" and "organism" in feature.qual:
+            return feature.qual["organism"]
+    return genbank.get_source(record) or ""
 
 
 def extract_mhc_names(records):
     """Extract MHC allele/gene names from GenBank records."""
     rows = []
     for record in records:
-        organism = record.annotations.get("organism", "")
-        accession = record.id
+        organism = extract_organism(record)
+        accession = genbank.get_accession(record)
 
-        for feature in record.features:
-            allele = feature.qualifiers.get("allele", [None])[0]
-            gene = feature.qualifiers.get("gene", [None])[0]
-            product = feature.qualifiers.get("product", [None])[0]
-            note = feature.qualifiers.get("note", [None])[0]
+        for feature in genbank.get_annotation(record):
+            allele = feature.qual.get("allele")
+            gene = feature.qual.get("gene")
+            product = feature.qual.get("product")
 
             # Collect any MHC-related name
             for name_source, name in [

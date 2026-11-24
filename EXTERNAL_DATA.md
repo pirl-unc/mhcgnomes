@@ -96,8 +96,7 @@ name through the parser without generating or committing a transformed copy of t
 mhcgnomes data validate
 ```
 
-`mhcgnomes-validate-data` is the same command under its original name and accepts the same
-arguments: optional FASTA paths (default `.external-data/hla_prot.fasta` and
+It accepts optional FASTA paths (default `.external-data/hla_prot.fasta` and
 `.external-data/MHC_prot.fasta`) and `--max-failures`.
 
 The normal test suite stays fully offline and contains a small explicit, accession-backed inventory

@@ -127,22 +127,14 @@ def write_one_allele_fasta(path):
     path.write_text(">HLA:HLA00001 A*01:01:01:01 365 bp\nAAAA\n", encoding="utf-8")
 
 
-def test_data_validate_matches_standalone_validate_command(tmp_path):
+def test_data_validate_parses_fasta_records(tmp_path):
     fasta = tmp_path / "hla_prot.fasta"
     write_one_allele_fasta(fasta)
 
-    nested = run_cli("data", "validate", str(fasta))
-    standalone = subprocess.run(
-        [sys.executable, "-m", "mhcgnomes.validate_external_names", str(fasta)],
-        capture_output=True,
-        text=True,
-        check=False,
-    )
+    result = run_cli("data", "validate", str(fasta))
 
-    assert nested.returncode == 0
-    assert standalone.returncode == 0
-    assert nested.stdout == standalone.stdout
-    assert "parsed 1 unique allele names from 1 FASTA records" in nested.stdout
+    assert result.returncode == 0
+    assert "parsed 1 unique allele names from 1 FASTA records" in result.stdout
 
 
 def test_data_validate_reports_missing_file(tmp_path):
@@ -152,12 +144,12 @@ def test_data_validate_reports_missing_file(tmp_path):
     assert "mhcgnomes data download --group validation" in result.stderr
 
 
-def test_data_validate_help_names_standalone_alias():
+def test_data_validate_help_lists_options_without_removed_alias():
     result = run_cli("data", "validate", "--help")
 
     assert result.returncode == 0
     assert "--max-failures" in result.stdout
-    assert "mhcgnomes-validate-data" in result.stdout
+    assert "mhcgnomes-validate-data" not in result.stdout
 
 
 def test_cli_table_output_for_valid_allele():

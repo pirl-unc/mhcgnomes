@@ -74,6 +74,10 @@ output, `--strict` exits non-zero on the first parse error, and
 [command-line guide](https://pirl-unc.github.io/mhcgnomes/cli/) shows the full
 output of each.
 
+For shell tab completion across every OpenVax command-line tool, run
+`activate-global-python-argcomplete` once, or enable just `mhcgnomes` in your
+shell profile with `eval "$(register-python-argcomplete mhcgnomes)"`.
+
 ## Documentation
 
 Full documentation: [pirl-unc.github.io/mhcgnomes](https://pirl-unc.github.io/mhcgnomes/).

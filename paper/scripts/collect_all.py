@@ -13,22 +13,17 @@ Usage:
 """
 
 import csv
-import os
 import re
 import subprocess
 import sys
 import time
-import urllib.request
 import urllib.error
+import urllib.parse
+import urllib.request
+import xml.etree.ElementTree as ET
 from pathlib import Path
 
-try:
-    from Bio import Entrez
-except ImportError:
-    print("Requires biopython: pip install biopython", file=sys.stderr)
-    sys.exit(1)
-
-Entrez.email = "mhcgnomes-paper@example.com"
+EUTILS_BASE = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils"
 
 ROOT = Path(__file__).resolve().parent.parent.parent
 CANDIDATES = ROOT / "paper" / "validation" / "candidate_papers.tsv"
@@ -38,17 +33,27 @@ SCRAPE_SCRIPT = ROOT / "paper" / "scripts" / "scrape_paper.py"
 
 
 def pmid_to_pmc(pmid):
-    """Convert PMID to PMCID via Entrez."""
+    """Convert PMID to PMCID via NCBI E-utilities elink."""
     try:
-        handle = Entrez.elink(dbfrom="pubmed", db="pmc", id=pmid)
-        result = Entrez.read(handle)
-        handle.close()
-        for linkset in result:
-            for db_link in linkset.get("LinkSetDb", []):
-                if db_link.get("DbTo") == "pmc":
-                    links = db_link.get("Link", [])
-                    if links:
-                        return links[0]["Id"]
+        query = urllib.parse.urlencode(
+            {
+                "dbfrom": "pubmed",
+                "db": "pmc",
+                "id": str(pmid),
+                "retmode": "xml",
+            }
+        )
+        req = urllib.request.Request(
+            f"{EUTILS_BASE}/elink.fcgi?{query}",
+            headers={"User-Agent": "mhcgnomes-paper/1.0"},
+        )
+        with urllib.request.urlopen(req, timeout=15) as resp:
+            root = ET.fromstring(resp.read())
+        for db_link in root.findall(".//LinkSetDb"):
+            if db_link.findtext("DbTo") == "pmc":
+                link_id = db_link.findtext("./Link/Id")
+                if link_id:
+                    return link_id.strip()
     except Exception:
         pass
     return None

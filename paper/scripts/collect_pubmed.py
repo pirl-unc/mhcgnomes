@@ -13,14 +13,23 @@ import argparse
 import csv
 import sys
 import time
+import xml.etree.ElementTree as ET
 
 try:
-    from Bio import Entrez
+    import biotite.database.entrez as entrez
 except ImportError:
-    print("Requires biopython: pip install biopython", file=sys.stderr)
+    print("Requires biotite: pip install biotite", file=sys.stderr)
     sys.exit(1)
 
-Entrez.email = "mhcgnomes-paper@example.com"
+
+class RawEntrezQuery(entrez.Query):
+    """Wrap a raw NCBI Entrez query string for biotite.database.entrez.search."""
+
+    def __init__(self, term):
+        self.term = term
+
+    def __str__(self):
+        return self.term
 
 # One query per taxonomic stratum, targeting papers with supplementary
 # allele data published 2015-2025
@@ -82,15 +91,61 @@ STRATA = {
 def search_pubmed(query, max_results=20):
     """Search PubMed and return PMIDs."""
     try:
-        handle = Entrez.esearch(
-            db="pubmed", term=query, retmax=max_results, sort="relevance"
-        )
-        result = Entrez.read(handle)
-        handle.close()
-        return result["IdList"]
+        return entrez.search(RawEntrezQuery(query), "pubmed", number=max_results)
     except Exception as e:
         print(f"  Search failed: {e}", file=sys.stderr)
         return []
+
+
+def parse_pubmed_xml(xml_text):
+    """Parse PubMed efetch XML into a list of paper metadata dictionaries."""
+    root = ET.fromstring(xml_text)
+    papers = []
+    for article in root.findall(".//PubmedArticle"):
+        pmid = article.findtext("./MedlineCitation/PMID", default="").strip()
+        title_elem = article.find("./MedlineCitation/Article/ArticleTitle")
+        title = "".join(title_elem.itertext()).strip() if title_elem is not None else ""
+
+        pub_date = article.find("./MedlineCitation/Article/Journal/JournalIssue/PubDate")
+        year = ""
+        if pub_date is not None:
+            year = (
+                pub_date.findtext("Year")
+                or pub_date.findtext("MedlineDate")
+                or ""
+            ).strip()
+
+        journal_name = article.findtext(
+            "./MedlineCitation/Article/Journal/Title", default=""
+        ).strip()
+
+        doi = ""
+        for eid in article.findall("./MedlineCitation/Article/ELocationID"):
+            if eid.attrib.get("EIdType") == "doi" and eid.text:
+                doi = eid.text.strip()
+        if not doi:
+            for aid in article.findall("./PubmedData/ArticleIdList/ArticleId"):
+                if aid.attrib.get("IdType") == "doi" and aid.text:
+                    doi = aid.text.strip()
+
+        first_author = ""
+        author = article.find("./MedlineCitation/Article/AuthorList/Author")
+        if author is not None:
+            last = author.findtext("LastName", default="").strip()
+            init = author.findtext("Initials", default="").strip()
+            first_author = f"{last} {init}".strip() if last else ""
+
+        papers.append(
+            {
+                "pmid": pmid,
+                "first_author": first_author,
+                "year": year,
+                "title": title,
+                "journal": journal_name,
+                "doi": doi,
+            }
+        )
+    return papers
 
 
 def fetch_paper_metadata(pmids):
@@ -98,61 +153,13 @@ def fetch_paper_metadata(pmids):
     if not pmids:
         return []
     try:
-        handle = Entrez.efetch(
-            db="pubmed", id=pmids, rettype="xml", retmode="xml"
+        handle = entrez.fetch_single_file(
+            pmids, None, "pubmed", ret_type="xml", ret_mode="xml"
         )
-        records = Entrez.read(handle)
-        handle.close()
+        return parse_pubmed_xml(handle.getvalue())
     except Exception as e:
         print(f"  Fetch failed: {e}", file=sys.stderr)
         return []
-
-    papers = []
-    for article in records.get("PubmedArticle", []):
-        medline = article.get("MedlineCitation", {})
-        art = medline.get("Article", {})
-
-        pmid = str(medline.get("PMID", ""))
-        title = art.get("ArticleTitle", "")
-
-        # Extract year
-        journal = art.get("Journal", {})
-        ji = journal.get("JournalIssue", {})
-        pd = ji.get("PubDate", {})
-        year = pd.get("Year", pd.get("MedlineDate", ""))
-
-        journal_name = journal.get("Title", "")
-
-        # Extract DOI
-        doi = ""
-        for eid in art.get("EIdList", []):
-            if hasattr(eid, "attributes") and eid.attributes.get("EIdType") == "doi":
-                doi = str(eid)
-        if not doi:
-            article_ids = article.get("PubmedData", {}).get("ArticleIdList", [])
-            for aid in article_ids:
-                if hasattr(aid, "attributes") and aid.attributes.get("IdType") == "doi":
-                    doi = str(aid)
-
-        # First author
-        author_list = art.get("AuthorList", [])
-        first_author = ""
-        if author_list:
-            a = author_list[0]
-            last = a.get("LastName", "")
-            init = a.get("Initials", "")
-            first_author = f"{last} {init}" if last else ""
-
-        papers.append({
-            "pmid": pmid,
-            "first_author": first_author,
-            "year": year,
-            "title": title,
-            "journal": journal_name,
-            "doi": doi,
-        })
-
-    return papers
 
 
 def main():

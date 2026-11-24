@@ -1,3 +1,4 @@
+# PYTHON_ARGCOMPLETE_OK
 """Retrieve pinned IMGT/IPD inputs through verified, reusable cache layers."""
 
 from __future__ import annotations
@@ -18,6 +19,9 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
+import argcomplete
+
+from .cli_help import HelpArgumentParser, style_status, style_table_header
 from .validate_external_names import DESCRIPTION as VALIDATE_DESCRIPTION
 from .validate_external_names import add_validation_arguments, run_validation
 
@@ -333,10 +337,35 @@ def materialize_sources(
     return tuple(paths)
 
 
-def _add_download_arguments(parser: argparse.ArgumentParser) -> None:
+def complete_source_groups(prefix: str, **kwargs: Any) -> list[str]:
+    """Return registered manifest group names matching ``prefix`` without network access."""
+    try:
+        sources = load_manifest()
+    except ExternalDataError:
+        return []
+    groups = sorted({group for source in sources for group in source.groups})
+    return [group for group in groups if group.startswith(prefix)]
+
+
+def complete_source_ids(prefix: str, **kwargs: Any) -> list[str]:
+    """Return registered manifest source IDs matching ``prefix`` without network access."""
+    try:
+        sources = load_manifest()
+    except ExternalDataError:
+        return []
+    return [source.id for source in sources if source.id.startswith(prefix)]
+
+
+def add_download_arguments(parser: argparse.ArgumentParser) -> None:
     """Attach source-selection and retrieval options to the download command."""
-    parser.add_argument("source_ids", nargs="*", help="Source IDs (defaults to maintained inputs)")
-    parser.add_argument("--group", action="append", default=[], help="Select a purpose group")
+    source_ids_arg = parser.add_argument(
+        "source_ids", nargs="*", help="Source IDs (defaults to maintained inputs)"
+    )
+    source_ids_arg.completer = complete_source_ids  # type: ignore[attr-defined]
+    group_arg = parser.add_argument(
+        "--group", action="append", default=[], help="Select a purpose group"
+    )
+    group_arg.completer = complete_source_groups  # type: ignore[attr-defined]
     parser.add_argument("--all", action="store_true", help="Download every registered source")
     parser.add_argument("--manifest", type=Path, default=MANIFEST_PATH)
     parser.add_argument("--cache-dir", type=Path, default=default_cache_dir())
@@ -350,18 +379,16 @@ def _add_download_arguments(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--offline", action="store_true", help="Forbid all network access")
 
 
-def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(
-        prog="mhcgnomes data",
-        description="List, download, or validate checksum-pinned IMGT/IPD inputs.",
-    )
+def attach_data_subparsers(parser: argparse.ArgumentParser) -> None:
+    """Attach ``list``, ``download``, and ``validate`` subcommands to ``parser``."""
     subparsers = parser.add_subparsers(dest="data_command")
     list_parser = subparsers.add_parser(
         "list",
         help="List registered sources (default)",
         description="Browse registered source files and verified local copies.",
     )
-    list_parser.add_argument("--group", help="Show one purpose group")
+    list_group_arg = list_parser.add_argument("--group", help="Show one purpose group")
+    list_group_arg.completer = complete_source_groups  # type: ignore[attr-defined]
     list_parser.add_argument("--destination", type=Path, default=Path(".external-data"))
     list_parser.add_argument("--cache-dir", type=Path, default=default_cache_dir())
     download_parser = subparsers.add_parser(
@@ -369,16 +396,25 @@ def build_parser() -> argparse.ArgumentParser:
         help="Download and cache verified sources",
         description="Download checksum-pinned inputs through local and CI-friendly caches.",
     )
-    _add_download_arguments(download_parser)
+    add_download_arguments(download_parser)
     validate_parser = subparsers.add_parser(
         "validate",
         help="Parse every allele name in downloaded validation FASTA files",
         description=(
-            f"{VALIDATE_DESCRIPTION} Same as the mhcgnomes-validate-data command. "
+            f"{VALIDATE_DESCRIPTION} "
             "Fetch the files first with 'mhcgnomes data download --group validation'."
         ),
     )
     add_validation_arguments(validate_parser)
+
+
+def build_parser() -> argparse.ArgumentParser:
+    """Build the argument parser for ``mhcgnomes data``."""
+    parser = HelpArgumentParser(
+        prog="mhcgnomes data",
+        description="List, download, or validate checksum-pinned IMGT/IPD inputs.",
+    )
+    attach_data_subparsers(parser)
     return parser
 
 
@@ -410,14 +446,24 @@ def print_sources(
             rows.append((source.id, status, source.filename, "yes" if source.default else "no"))
         headers = ("SOURCE", "STATUS", "FILE", "DEFAULT")
         widths = [max(len(headers[i]), *(len(row[i]) for row in rows)) for i in range(4)]
-        print("  ".join(header.ljust(widths[i]) for i, header in enumerate(headers)))
+        header_line = "  ".join(header.ljust(widths[i]) for i, header in enumerate(headers))
+        print(style_table_header(header_line, sys.stdout))
         for row in rows:
-            print("  ".join(value.ljust(widths[i]) for i, value in enumerate(row)).rstrip())
+            cells = [value.ljust(widths[i]) for i, value in enumerate(row)]
+            status = row[1]
+            cells[1] = style_status(
+                cells[1],
+                sys.stdout,
+                dim=(status == "missing"),
+                warning=(status == "invalid"),
+            )
+            print("  ".join(cells).rstrip())
     print("\nStatus checks SHA-256; 'cached' means the destination copy is absent or invalid.")
 
 
 def main(argv: Sequence[str] | None = None) -> int:
     parser = build_parser()
+    argcomplete.autocomplete(parser)
     args = parser.parse_args(list(argv) if argv is not None else None)
     try:
         if args.data_command in {None, "list"}:

@@ -27,6 +27,7 @@ classifiers = [
 requires-python = ">=3.11"
 dependencies = [
     "PyYAML>=5.4",
+    "argcomplete>=3",
     "pandas>=3,<4",
 ]
 
@@ -34,7 +35,9 @@ dependencies = [
 dev = [
     "pytest",
     "pytest-cov",
-    "ruff",
+    # Keep pinned in lockstep with .pre-commit-config.yaml so local ./lint.sh,
+    # CI, and pre-commit run the same Ruff ruleset (#259).
+    "ruff==0.16.10",
     "pre-commit",
     "coveralls",
     # pandas reads the IPD-IMGT/HLA Dictionary through openpyxl. Needed so
@@ -56,7 +59,6 @@ Documentation = "https://pirl-unc.github.io/mhcgnomes/"
 
 [project.scripts]
 mhcgnomes = "mhcgnomes.cli:main"
-mhcgnomes-validate-data = "mhcgnomes.validate_external_names:main"
 
 [tool.setuptools.dynamic]
 version = {attr = "mhcgnomes.version.__version__"}

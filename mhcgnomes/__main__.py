@@ -1,3 +1,4 @@
+# PYTHON_ARGCOMPLETE_OK
 from .cli import main
 
 if __name__ == "__main__":

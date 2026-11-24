@@ -7,8 +7,9 @@ repos:
       - id: check-yaml
       - id: check-added-large-files
 
+  # Keep rev pinned in lockstep with pyproject.toml [project.optional-dependencies].dev (#259).
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.4.4
+    rev: v0.16.10
     hooks:
       - id: ruff
         args: [--fix]

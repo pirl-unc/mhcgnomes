@@ -25,6 +25,9 @@ paper/
 
 ## Quick start
 
+The NCBI Entrez / GenBank collection scripts (`collect_pubmed.py`,
+`collect_genbank.py`, and `collect_all_v2.py`) use `biotite` (`pip install biotite`).
+
 ```bash
 # 1. Find candidate papers (already done — see validation/candidate_papers.tsv)
 python paper/scripts/collect_pubmed.py
