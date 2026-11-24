@@ -991,7 +991,7 @@ class Species(Result):
 
     @property
     def is_dog(self):
-        return self.prefix in {"DLA", "Calu"}
+        return self.name == "Canis lupus familiaris" or self.prefix == "DLA"
 
     @property
     def is_cat(self):

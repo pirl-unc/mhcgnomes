@@ -350,9 +350,14 @@ def test_parenthetical_scientific_name_falls_back_to_exact_subspecies_when_prese
 
 
 def test_unmodeled_trinomial_falls_back_to_base_binomial():
-    species = Species.get("Canis lupus familiaris")
-    assert species is not None
-    eq_(species, Species.get("Canis lupus"))
+    for query in (
+        "Mus musculus domesticus",
+        "mus musculus domesticus",
+        "mus_musculus_domesticus",
+    ):
+        species = Species.get(query)
+        assert species is not None, f"Species.get({query!r}) returned None"
+        eq_(species, Species.get("Mus musculus"))
 
 
 def test_sourced_short_2_2_prefix_alias_resolves_species():

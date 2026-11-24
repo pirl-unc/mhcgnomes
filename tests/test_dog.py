@@ -12,7 +12,70 @@ def test_parse_Calu_as_dog_species():
 
 
 def test_parse_dog_as_species():
-    eq_(parse("dog"), Species.get("Calu"))
+    eq_(parse("dog"), Species.get("Canis lupus familiaris"))
+    eq_(parse("wolf"), Species.get("Calu"))
+    assert Species.get("dog") != Species.get("wolf")
+    assert Species.get("dog") != Species.get("DLA")
+
+
+def test_domestic_dog_scientific_and_common_identity_202():
+    dog = Species.get("Canis lupus familiaris")
+    wolf = Species.get("Canis lupus")
+    canis_sp = Species.get("Canis sp.")
+
+    assert dog is not None
+    assert wolf is not None
+    assert canis_sp is not None
+    assert dog != wolf
+    assert dog != canis_sp
+    assert wolf != canis_sp
+
+    for alias in (
+        "dog",
+        "Dog",
+        "domestic dog",
+        "Canis lupus familiaris",
+        "canis lupus familiaris",
+        "CANIS LUPUS FAMILIARIS",
+        "canis_lupus_familiaris",
+        "Canis_lupus_familiaris",
+        "Canis familiaris",
+        "canis familiaris",
+        "canis_familiaris",
+        "CanisLupusFamiliaris",
+        "CanisFamiliaris",
+    ):
+        eq_(Species.get(alias), dog, f"Species.get({alias!r}) did not resolve to domestic dog")
+
+    for wolf_alias in ("wolf", "gray wolf", "Canis lupus", "canis_lupus", "Calu"):
+        eq_(Species.get(wolf_alias), wolf, f"Species.get({wolf_alias!r}) did not resolve to wolf")
+
+    for genus_alias in ("canine", "DLA", "Canis sp.", "CanisSp"):
+        eq_(
+            Species.get(genus_alias),
+            canis_sp,
+            f"Species.get({genus_alias!r}) did not resolve to Canis sp.",
+        )
+
+    assert dog.is_dog
+    assert canis_sp.is_dog
+    assert not wolf.is_dog
+
+    assert dog.is_child_of(wolf)
+    assert dog.is_descendant_of(canis_sp)
+    assert dog.compatible_with(wolf)
+    assert dog.compatible_with(canis_sp)
+
+    # DLA allele parsing stays compatible with domestic dog and wolf species constraints
+    eq_(parse("DLA-88*001:01").species, canis_sp)
+    eq_(parse("DLA-88*001:01", species="Canis lupus familiaris").species, dog)
+    eq_(parse("DLA-DRB1*001:01", species="dog").species, dog)
+    eq_(parse("DLA-DRB1*001:01", species="Canis lupus").species, wolf)
+    eq_(parse("CanisFamiliaris-DRB1*001:01").species, dog)
+
+    # Misspellings stay unresolved
+    assert Species.get("canis lupis") is None
+    assert Species.get("canis lupis familiaris") is None
 
 
 def test_parse_dog_class2_allele_dla_dqa1_001_01():
