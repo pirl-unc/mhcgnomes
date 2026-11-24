@@ -3354,8 +3354,13 @@ Dipodomys ordii:
   parent: Rodentia sp.
   prefix: DipoOrdi
   name: Ord's kangaroo rat
-Octodon degus:
+Octodon sp.:
   parent: Rodentia sp.
+  # NCBI Taxonomy 169034 (Octodon sp.); added for mhcseqs vertebrate coverage (#277)
+  prefix: Octodon
+  name: Degu
+Octodon degus:
+  parent: Octodon sp.
   prefix: OctoDegu
   name: Common degu
 Heterocephalus glaber:
@@ -6601,3 +6606,284 @@ Pteropus vampyrus:
   parent: Chiroptera sp.
   prefix: PterVamp
   name: Large flying fox
+
+##########################################################
+# Additional vertebrate species from mhcseqs UniProt corpus (#277)
+# Verified against NCBI Taxonomy (taxdump.tar.gz).
+##########################################################
+Spermophilus dauricus:
+  parent: Rodentia sp.
+  prefix: SperDaur
+  name: Daurian ground squirrel
+Apodemus speciosus:
+  parent: Rodentia sp.
+  prefix: ApodSpec
+  name: Large Japanese field mouse
+Apodemus agrarius:
+  parent: Rodentia sp.
+  prefix: ApodAgra
+  name:
+    - Striped field mouse
+    - Eurasian field mouse
+Neotoma lepida:
+  parent: Rodentia sp.
+  prefix: NeotLepi
+  name: Desert woodrat
+Sciurus carolinensis:
+  parent: Rodentia sp.
+  prefix: SciuCaro
+  name: Eastern gray squirrel
+Sciurus aberti:
+  parent: Rodentia sp.
+  prefix: SciuAber
+  name: "Abert's squirrel"
+Peromyscus eremicus:
+  parent: Rodentia sp.
+  prefix: PeroErem
+  name: Cactus mouse
+Peromyscus pectoralis:
+  parent: Rodentia sp.
+  prefix: PeroPect
+  name: White-ankled mouse
+Peromyscus attwateri:
+  parent: Rodentia sp.
+  prefix: PeroAttw
+  name: Texas deermouse
+Tokudaia muenninki:
+  parent: Rodentia sp.
+  prefix: TokuMuen
+  name: Okinawa spiny rat
+Tokudaia osimensis:
+  parent: Rodentia sp.
+  prefix: TokuOsim
+  name: Amami spiny rat
+Diplothrix legata:
+  parent: Rodentia sp.
+  prefix: DiplLega
+  name: Ryukyu long-tailed giant rat
+Hybomys univittatus:
+  parent: Rodentia sp.
+  prefix: HyboUniv
+  name: "Peter's striped mouse"
+Nannospalax ehrenbergi:
+  parent: Rodentia sp.
+  prefix: NannEhre
+  other prefixes:
+    - SpalaxEhrenbergi
+  name:
+    - "Ehrenberg's mole-rat"
+    - Spalax ehrenbergi
+Isoodon macrourus:
+  parent: Marsupialia sp.
+  prefix: IsooMacr
+  name: Northern brown bandicoot
+Carpodacus erythrinus:
+  parent: Aves sp.
+  prefix: CarpEryt
+  name: Common rosefinch
+Parus monticolus:
+  parent: Aves sp.
+  prefix: ParuMont
+  name: Green-backed tit
+Aphelocoma coerulescens:
+  parent: Aves sp.
+  prefix: ApheCoer
+  name: Florida scrub-jay
+Alcedo atthis:
+  parent: Aves sp.
+  prefix: AlceAtth
+  name: Common kingfisher
+Calidris pugnax:
+  parent: Aves sp.
+  prefix: CaliPugn
+  name: Ruff
+Hydrobates castro:
+  parent: Aves sp.
+  prefix: HydrCast
+  other prefixes:
+    - OceanodromaCastro
+  name:
+    - Band-rumped storm-petrel
+    - Oceanodroma castro
+Oceanodroma monteiroi:
+  parent: Aves sp.
+  prefix: OceaMont
+  name: "Monteiro's storm-petrel"
+Pagophila eburnea:
+  parent: Aves sp.
+  prefix: PagoEbur
+  name: Ivory gull
+Ciconia ciconia:
+  parent: Aves sp.
+  prefix: CicoCico
+  name: White stork
+Procellaria aequinoctialis:
+  parent: Aves sp.
+  prefix: ProcAequ
+  name: White-chinned petrel
+Tauraco hartlaubi:
+  parent: Aves sp.
+  prefix: TaurHart
+  name: "Hartlaub's turaco"
+Bulweria bulwerii:
+  parent: Aves sp.
+  prefix: BulwBulw
+  name: "Bulwer's petrel"
+Calonectris diomedea:
+  parent: Aves sp.
+  prefix: CaloDiom
+  name: "Scopoli's shearwater"
+Pachyptila desolata:
+  parent: Aves sp.
+  prefix: PachDeso
+  name: Antarctic prion
+Pagodroma nivea:
+  parent: Aves sp.
+  prefix: PagoNive
+  name: Snow petrel
+Acrocephalus sechellensis:
+  parent: Aves sp.
+  prefix: AcroSech
+  name: Seychelles warbler
+Tachymarptis melba:
+  parent: Aves sp.
+  prefix: TachMelb
+  name: Alpine swift
+Dendrocopos major:
+  parent: Aves sp.
+  prefix: DendMajo
+  name: Great spotted woodpecker
+Diomedea exulans:
+  parent: Aves sp.
+  prefix: DiomExul
+  name: Wandering albatross
+Haemorhous mexicanus:
+  parent: Aves sp.
+  prefix: HaemMexi
+  name: House finch
+Anser anser:
+  parent: Aves sp.
+  prefix: AnseAnse
+  name: Greylag goose
+Rallus aquaticus:
+  parent: Gruiformes sp.
+  prefix: RallAqua
+  name: Water rail
+Jynx torquilla:
+  parent: Aves sp.
+  prefix: JynxTorq
+  name: Eurasian wryneck
+Philetairus socius:
+  parent: Aves sp.
+  prefix: PhilSoci
+  name: Sociable weaver
+Crithagra citrinelloides:
+  parent: Aves sp.
+  # 4+4 CritCitr collides across Crithagra citrinelloides and C. citrinipectus.
+  prefix: CrithagraCitrinelloides
+  name: African citril
+Crithagra citrinipectus:
+  parent: Aves sp.
+  # 4+4 CritCitr collides across Crithagra citrinelloides and C. citrinipectus.
+  prefix: CrithagraCitrinipectus
+  name: Lemon-breasted canary
+Crithagra dorsostriata:
+  parent: Aves sp.
+  prefix: CritDors
+  name: White-bellied canary
+Crithagra flaviventris:
+  parent: Aves sp.
+  prefix: CritFlav
+  name: Yellow canary
+Crithagra mozambica:
+  parent: Aves sp.
+  prefix: CritMoza
+  name: Yellow-fronted canary
+Serinus citrinella:
+  parent: Aves sp.
+  prefix: SeriCitr
+  name: Citril finch
+Serinus atrogularis:
+  parent: Aves sp.
+  prefix: SeriAtro
+  name: Black-throated canary
+Serinus thibetanus:
+  parent: Aves sp.
+  prefix: SeriThib
+  name: Tibetan serin
+Serinus striolatus:
+  parent: Aves sp.
+  prefix: SeriStri
+  name: Streaky seedeater
+Serinus gularis:
+  parent: Aves sp.
+  prefix: SeriGula
+  name: Streaky-headed seedeater
+Spinus psaltria:
+  parent: Aves sp.
+  prefix: SpinPsal
+  name: Lesser goldfinch
+Spinus dominicensis:
+  parent: Aves sp.
+  prefix: SpinDomi
+  name: Antillean siskin
+Spinus atriceps:
+  parent: Aves sp.
+  prefix: SpinAtri
+  name: Black-capped siskin
+Spinus lawrencei:
+  parent: Aves sp.
+  prefix: SpinLawr
+  name: "Lawrence's goldfinch"
+Nerodia sipedon:
+  parent: Reptilia sp.
+  prefix: NeroSipe
+  name: Common watersnake
+Crocodylus novaeguineae:
+  parent: Crocodylia sp.
+  prefix: CrocNova
+  name: New Guinea crocodile
+Perca fluviatilis:
+  parent: Actinopterygii sp.
+  prefix: PercFluv
+  name: European perch
+Sander vitreus:
+  parent: Actinopterygii sp.
+  prefix: SandVitr
+  name: Walleye
+Knipowitschia caucasica:
+  parent: Actinopterygii sp.
+  prefix: KnipCauc
+  name: Caucasian dwarf goby
+Acipenser baerii:
+  parent: Actinopterygii sp.
+  prefix: AcipBaer
+  name: Siberian sturgeon
+Plecoglossus altivelis:
+  parent: Actinopterygii sp.
+  prefix: PlecAlti
+  name: Ayu sweetfish
+Osmerus mordax:
+  parent: Actinopterygii sp.
+  prefix: OsmeMord
+  name: Rainbow smelt
+Lutjanus peru:
+  parent: Actinopterygii sp.
+  prefix: LutjPeru
+  name: Pacific red snapper
+Bagarius yarrelli:
+  parent: Actinopterygii sp.
+  prefix: BagaYarr
+  name: Goonch
+Anoplopoma fimbria:
+  parent: Actinopterygii sp.
+  prefix: AnopFimb
+  name: Sablefish
+Takifugu rubripes:
+  parent: Actinopterygii sp.
+  prefix: TakiRubr
+  other prefixes:
+    - FuguRubripes
+  name:
+    - Tiger puffer
+    - Fugu rubripes
