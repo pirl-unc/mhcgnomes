@@ -1,10 +1,10 @@
 import argparse
 
+from mhcgnomes import validate_external_names
 from mhcgnomes.validate_external_names import (
     DEFAULT_FASTA_PATHS,
     add_validation_arguments,
     fasta_names,
-    main,
     run_validation,
     validate_fasta,
 )
@@ -62,11 +62,16 @@ def test_validate_fasta_rejects_file_without_headers(tmp_path):
     assert result.failures == ("no FASTA headers found",)
 
 
-def test_cli_reports_missing_source(tmp_path, capsys):
+def test_run_validation_reports_missing_source(tmp_path, capsys):
     missing = tmp_path / "missing.fasta"
 
-    assert main([str(missing)]) == 1
+    assert run_validation([missing], max_failures=20) == 1
     assert "mhcgnomes data download --group validation" in capsys.readouterr().err
+
+
+def test_standalone_validate_entrypoint_removed():
+    assert not hasattr(validate_external_names, "main")
+    assert not hasattr(validate_external_names, "build_parser")
 
 
 def test_add_validation_arguments_defaults_to_validation_group_files():

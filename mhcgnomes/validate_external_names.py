@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """Validate every allele name in cached official IMGT/IPD protein FASTA files."""
 
 from __future__ import annotations
@@ -8,8 +7,6 @@ import sys
 from collections.abc import Iterable, Sequence
 from dataclasses import dataclass
 from pathlib import Path
-
-from mhcgnomes import Allele, parse
 
 DEFAULT_FASTA_PATHS = (
     Path(".external-data/hla_prot.fasta"),
@@ -37,6 +34,9 @@ def fasta_names(lines: Iterable[str]) -> Iterable[tuple[int, str]]:
 
 
 def validate_fasta(path: Path) -> ValidationResult:
+    from .allele import Allele
+    from .function_api import parse
+
     failures = []
     names = set()
     record_count = 0
@@ -64,10 +64,7 @@ DESCRIPTION = "Parse every allele name in cached official IMGT/IPD protein FASTA
 
 def add_validation_arguments(parser: argparse.ArgumentParser) -> None:
     """
-    Attach the FASTA paths and failure-limit options to a parser.
-
-    Shared by the standalone ``mhcgnomes-validate-data`` command and by
-    ``mhcgnomes data validate`` so both accept the same arguments.
+    Attach the FASTA paths and failure-limit options to ``mhcgnomes data validate``.
 
     Parameters
     ----------
@@ -95,20 +92,6 @@ def add_validation_arguments(parser: argparse.ArgumentParser) -> None:
         default=20,
         help="Print at most this many failing names per file (default: 20)",
     )
-
-
-def build_parser() -> argparse.ArgumentParser:
-    """
-    Build the argument parser for the standalone ``mhcgnomes-validate-data`` command.
-
-    Returns
-    -------
-    argparse.ArgumentParser
-        Parser accepting the arguments described in add_validation_arguments.
-    """
-    parser = argparse.ArgumentParser(description=DESCRIPTION)
-    add_validation_arguments(parser)
-    return parser
 
 
 def run_validation(paths: Sequence[Path], max_failures: int) -> int:
@@ -159,25 +142,3 @@ def run_validation(paths: Sequence[Path], max_failures: int) -> int:
             for failure in result.failures[:max_failures]:
                 print(f"  {failure}", file=sys.stderr)
     return 1 if failed else 0
-
-
-def main(argv: Sequence[str] | None = None) -> int:
-    """
-    Run ``mhcgnomes-validate-data``; same as ``mhcgnomes data validate``.
-
-    Parameters
-    ----------
-    argv : sequence of str or None
-        Command-line arguments without the program name; None reads sys.argv.
-
-    Returns
-    -------
-    int
-        Exit code from run_validation.
-    """
-    args = build_parser().parse_args(list(argv) if argv is not None else None)
-    return run_validation(args.paths, args.max_failures)
-
-
-if __name__ == "__main__":
-    raise SystemExit(main())

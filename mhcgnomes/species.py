@@ -15,7 +15,7 @@ from collections import OrderedDict, defaultdict
 from collections.abc import Iterable, Mapping
 from dataclasses import dataclass
 from types import MappingProxyType
-from typing import Any, Union
+from typing import Any
 
 from .common import cache, normalize_allele_alias, normalize_string
 from .data import allele_aliases as raw_allele_aliases_dict
@@ -237,7 +237,7 @@ class Species(Result):
     direct_serotypes: Any = None
     heterodimers: Any = None
     supertypes: Any = None
-    parent_species: Union["Species", None] = None
+    parent_species: "Species | None" = None
     old_mhc_prefix: str = ""
     other_mhc_prefixes: Any = None
     context_only_mhc_prefixes: Any = None
@@ -261,7 +261,7 @@ class Species(Result):
         serotypes: Mapping[str, Iterable[str]],
         heterodimers: Mapping[str, Mapping[str, str]],
         supertypes: Mapping[str, Mapping[str, Any]],
-        parent_species: Union["Species", None] = None,
+        parent_species: "Species | None" = None,
         old_mhc_prefix: str | None = None,
         other_mhc_prefixes: Iterable[str] = [],
         context_only_mhc_prefixes: Iterable[str] = [],

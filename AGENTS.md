@@ -41,6 +41,7 @@ Do not tell the user you are "done" or that changes are "complete" until all thr
 
 - Use ruff for formatting and linting
 - Configuration is in `pyproject.toml` under `[tool.ruff]`
+- Ruff version is pinned identically in `pyproject.toml` (`[project.optional-dependencies].dev`) and `.pre-commit-config.yaml` so local `./lint.sh`, CI, and pre-commit agree (#259); for intentional upgrades, bump both pins in the same PR and re-run `./format.sh && ./lint.sh`
 - Line length: 100 characters
 - Target Python version: 3.11+
 

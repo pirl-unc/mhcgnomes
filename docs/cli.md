@@ -120,5 +120,10 @@ mhcgnomes data validate
 [External IMGT/IPD data](https://github.com/pirl-unc/mhcgnomes/blob/main/EXTERNAL_DATA.md)
 for checksums, local/CI caches, optional mirrors, offline use, and alias
 regeneration. `mhcgnomes data validate` parses every allele name in the
-downloaded validation FASTA files; it is the same command as
-`mhcgnomes-validate-data`.
+downloaded validation FASTA files.
+
+## Tab completion
+
+For shell tab completion across every OpenVax command-line tool, run
+`activate-global-python-argcomplete` once, or enable just `mhcgnomes` in your
+shell profile with `eval "$(register-python-argcomplete mhcgnomes)"`.
