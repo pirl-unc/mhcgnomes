@@ -689,6 +689,8 @@ Mus musculus:
       - M10-3
       - M10-4
       - M10-5
+      # Loconto et al., Cell 2003;112:607 (PMID 12526802); MGI:2447875 H2-M10.6 (#280)
+      - M10-6
       - M10-PS1
       - M10-PS2
       - M10-PS3
@@ -836,6 +838,10 @@ Rattus sp.:
       - A
     Ib:
       - E2
+      # Kasahara et al., PNAS 2002;99:13687 (PMID 12357031); Watanabe et al.,
+      # Immunogenetics 2004;56:292 (PMID 15162429); UniProt Q60I18 / A0A0G2K7V7 (#280)
+      - Mill1
+      - Mill2
     Id:
       - Hfe
       - Mr1
@@ -882,6 +888,8 @@ Rattus sp.:
       - M2
       - M3
       - M3-1
+      # Hurt et al., Genome Res 2004;14:631 (PMID 15150082); UniProt A0ABK0L929 (#280)
+      - M4
       - M5
       - M6
       - M6-1
@@ -1246,6 +1254,14 @@ Danio rerio:
     - Brre
   name: Zebrafish
   genes:
+    # ZFIN L-lineage (LLA, LFA; Dijkstra et al. 2013; UniProt A0A0G2KIH5,
+    # PMID 24631581) and Z-lineage (ZDA, ZEA; Dirscherl & Yoder 2014,
+    # PMID 24287892, UniProt U6BMG4 / A8E7F2) class I loci (#280).
+    I:
+      - LLA
+      - LFA
+      - ZDA
+      - ZEA
     Ia:
       - UEA
       - UGA
@@ -1761,7 +1777,18 @@ Triplophysa tibetana:
 Aulonocara hansbaenschi:
   parent: Actinopterygii sp.
   prefix: AuloHans
+  # Malaga-Trillo et al., Immunogenetics 1998 (PMID 10380700); UniProt O98044
+  # (MHC-Auha-DAA2), O98045 (MHC-Auha-DAA1), Q9MX97 (MHC-Auha-DCA) (#280).
+  other prefixes:
+    - Auha
   name: Red shoulder peacock cichlid
+  genes:
+    IIa:
+      DA:
+        - DAA2
+  gene properties:
+    DAA2:
+      context only: true
 Odontobutis potamophilus:
   parent: Actinopterygii sp.
   prefix: OdonPota
@@ -3374,12 +3401,26 @@ Nannospalax galili:
   parent: Rodentia sp.
   prefix: NannGali
   name: Upper Galilee blind mole-rat
-Peromyscus maniculatus:
+Peromyscus sp.:
   parent: Rodentia sp.
+  # NCBI Taxonomy 10040 (Peromyscus). Deer mice use mouse-style MHC class II
+  # A/E locus symbols (Aa, Ab, Ea, Eb; Richman et al. 2001 / UniProt, #280).
+  prefix: Peromyscus
+  name: Peromyscus
+  genes:
+    IIa:
+      A:
+        - AA
+        - AB
+      E:
+        - EA
+        - EB
+Peromyscus maniculatus:
+  parent: Peromyscus sp.
   prefix: PeroMani
   name: Deer mouse
 Peromyscus leucopus:
-  parent: Rodentia sp.
+  parent: Peromyscus sp.
   prefix: PeroLeuc
   name: White-footed mouse
 Jaculus jaculus:
@@ -3453,7 +3494,7 @@ Dipodomys spectabilis:
   prefix: DipoSpec
   name: Banner-tailed kangaroo rat
 Peromyscus californicus:
-  parent: Rodentia sp.
+  parent: Peromyscus sp.
   prefix: PeroCali
   name: California mouse
 Cryptomys hottentotus:
@@ -4617,6 +4658,9 @@ Spheniscus humboldti:
     - Sphu
   name: Humboldt penguin
   genes:
+    # Kikkawa et al. / UniProt A0A1C9ZWV0 (MhcSphu_CLSI, PMID 27654451; #280)
+    I:
+      - CLSI
     IIa:
       DR:
         - DRB1
@@ -6144,12 +6188,15 @@ Lithobates catesbeianus:
   name:
     - American bullfrog
     - Aquarana catesbeiana
+    - Rana catesbeiana
   other prefixes:
     - Lica
     # Old genus: Rana catesbeiana → Lithobates catesbeianus
     - Raca
-    # Synonym genus: Aquarana catesbeiana
+    - RanaCatesbeiana
+    # Synonym genus: Aquarana catesbeiana (UniProt I6PNC5; #280)
     - AquaCate
+    - AquaranaCatesbeiana
 Lithobates clamitans:
   parent: Amphibia sp.
   prefix: LithClam
@@ -6247,11 +6294,26 @@ Odorrana tormota:
 Lithobates chiricahuensis:
   parent: Amphibia sp.
   prefix: LithChir
-  name: Chiricahua leopard frog
+  # Former genus Rana chiricahuensis; RachDRB in UniProt/mhcseqs (#280)
+  other prefixes:
+    - Rach
+  name:
+    - Chiricahua leopard frog
+    - Rana chiricahuensis
+  genes:
+    IIa:
+      DR:
+        - DRB
 Lithobates yavapaiensis:
   parent: Amphibia sp.
   prefix: LithYava
-  name: Lowland leopard frog
+  # Former genus Rana yavapaiensis; Savage & Zamudio, PNAS 2011;108:16705
+  # (PMID 21949385), UniProt G5DDZ5 (Raya-beta1) (#280)
+  other prefixes:
+    - Raya
+  name:
+    - Lowland leopard frog
+    - Rana yavapaiensis
 Pelophylax nigromaculatus:
   # MHC class II B locus confirmed in:
   # Liu et al. 2017, Ecology & Evolution, doi:10.1002/ece3.3408
@@ -6283,7 +6345,13 @@ Polypedates megacephalus:
 Zhangixalus chenfui:
   parent: Amphibia sp.
   prefix: ZhanChen
-  name: Chenfui whipping frog
+  # Former genus Polypedates chenfui; UniProt A0A1W5YMS6 (PochUA) (#280)
+  other prefixes:
+    - Poch
+    - PolypedatesChenfui
+  name:
+    - Chenfui whipping frog
+    - Polypedates chenfui
 Leiopelma hochstetteri:
   parent: Amphibia sp.
   prefix: LeioHoch
@@ -6429,12 +6497,31 @@ Monodelphis domestica:
       - UB
       - UC
       - UG
+      # Baker et al., BMC Genomics 2009;10:47 (PMID 19191910); UniProt C6ZIV2
+      # (Modo-UI), C6ZIV4 (Modo-UJ) (#280)
+      - UI
+      - UJ
       - UK
       - UM
+      # Papenfuss et al., Immunogenetics 2015;67:253 (PMID 25747238): marsupial
+      # UT1-UT17 class I family (UniProt A0A0D4CCI9 Modo-UT2, etc.) (#280)
+      - UT1
+      - UT2
       - UT3
+      - UT4
       - UT5
+      - UT6
       - UT7
       - UT8
+      - UT9
+      - UT10
+      - UT11
+      - UT12
+      - UT13
+      - UT14
+      - UT15
+      - UT16
+      - UT17
 Sarcophilus harrisii:
   parent: Marsupialia sp.
   # prefix source: designated -- Saha is literature-attested, not currently
@@ -6494,6 +6581,15 @@ Notamacropus eugenii:
     - Noeu
     # Old genus: Macropus eugenii → Notamacropus eugenii
     - Maeu
+  genes:
+    # Siddle et al., Immunogenetics 2006 (PMID 16568263, UniProt Q1A5Z7 Maeu-1,
+    # B3SNZ5 Maeu-2) and Siddle et al., BMC Genomics 2009 (PMID 19602235,
+    # UniProt C7SHM6 Maeu-UO) (#280)
+    I:
+      - "1"
+      - "2"
+      - "3"
+      - UO
 Notamacropus rufogriseus:
   parent: Notamacropus sp.
   prefix: NotaRufo
@@ -6638,15 +6734,15 @@ Sciurus aberti:
   prefix: SciuAber
   name: "Abert's squirrel"
 Peromyscus eremicus:
-  parent: Rodentia sp.
+  parent: Peromyscus sp.
   prefix: PeroErem
   name: Cactus mouse
 Peromyscus pectoralis:
-  parent: Rodentia sp.
+  parent: Peromyscus sp.
   prefix: PeroPect
   name: White-ankled mouse
 Peromyscus attwateri:
-  parent: Rodentia sp.
+  parent: Peromyscus sp.
   prefix: PeroAttw
   name: Texas deermouse
 Tokudaia muenninki:

@@ -302,7 +302,46 @@ class Parser:
         species, original_prefix = species_and_original_prefix
         original_prefix_length = len(original_prefix)
         remaining_string = name[original_prefix_length:]
+        remaining_string = self._strip_redundant_inner_species_prefix(species, remaining_string)
         return species, remaining_string
+
+    @staticmethod
+    def _strip_redundant_inner_species_prefix(species: Species, remaining_string: str) -> str:
+        """
+        Strip a redundant inner prefix belonging to the already-identified
+        species, e.g. ``OryziasLatipes-orla-uba`` (remaining ``-orla-uba`` ->
+        ``-uba``) or ``LabeobarbusIntermedius-MhcBain-DAB3-A02`` (remaining
+        ``-MhcBain-DAB3-A02`` -> ``-DAB3-A02``).
+
+        Never strips a prefix belonging to a different species and never strips
+        a token that matches a declared gene, locus, or haplotype of ``species``.
+        """
+        if not remaining_string or remaining_string[0] not in "-_.":
+            return remaining_string
+        after_sep = remaining_string[1:]
+        if "-" not in after_sep:
+            return remaining_string
+        if species.find_matching_gene_name(after_sep) is not None:
+            return remaining_string
+        inner_token, rest = after_sep.split("-", 1)
+        if not inner_token or not rest:
+            return remaining_string
+        if (
+            species.find_matching_gene_name(inner_token) is not None
+            or species.find_matching_class2_locus_name(inner_token) is not None
+            or inner_token in species.haplotypes
+        ):
+            return remaining_string
+
+        candidate_inner = inner_token
+        if len(candidate_inner) > 3 and candidate_inner[:3].lower() == "mhc":
+            candidate_inner = candidate_inner[3:]
+        own_prefixes = {
+            p.lower() for p in (*species.all_mhc_prefixes, *species.context_only_mhc_prefixes)
+        }
+        if candidate_inner.lower() in own_prefixes:
+            return "-" + rest
+        return remaining_string
 
     @staticmethod
     def _species_of(result):
