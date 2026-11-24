@@ -418,6 +418,32 @@ class Species(Result):
     def parent(self):
         return self.parent_species
 
+    @property
+    def children(self):
+        """Direct child Species whose ``parent_species`` is this species, in ontology order."""
+        return _species_children_map.get(self.name, ())
+
+    @property
+    def ancestors(self):
+        """Ancestor Species from immediate parent up to the root, in order."""
+        result = []
+        current = self.parent_species
+        while current is not None:
+            result.append(current)
+            current = current.parent_species
+        return tuple(result)
+
+    @property
+    def descendants(self):
+        """All descendant Species below this species, in ontology order."""
+        result = []
+        stack = list(reversed(self.children))
+        while stack:
+            child = stack.pop()
+            result.append(child)
+            stack.extend(reversed(child.children))
+        return tuple(result)
+
     # TODO: If taxonomy-aware operations keep expanding, promote these lineage
     # helpers into a fuller Taxon API instead of growing Species ad hoc.
     def is_parent_of(self, other):
@@ -611,13 +637,25 @@ class Species(Result):
             normalized_query = species_name.replace("_", " ")
             species_objects = cls.get_multiple(normalized_query)
 
+        # Normalize trailing "sp" without a period ("Rattus sp" -> "Rattus sp."),
+        # which appears in UniProt/NCBI organism labels.
+        if len(species_objects) == 0 and re.fullmatch(
+            r"[A-Za-z]+\s+sp", normalized_query.strip(), re.IGNORECASE
+        ):
+            species_objects = cls.get_multiple(normalized_query.strip() + ".")
+
         # Fall back from decorated scientific names to the longest valid
         # scientific-name prefix already present in the ontology.
         if len(species_objects) == 0:
             for candidate_name in _decorated_scientific_name_candidates(normalized_query):
-                species_objects = cls.get_multiple(candidate_name)
-                if len(species_objects) > 0:
+                exact_latin = cls.get_by_latin_name(candidate_name)
+                if exact_latin is not None:
+                    species_objects = (exact_latin,)
                     break
+            if len(species_objects) == 0 and "(" in normalized_query:
+                before_paren = normalized_query.split("(", 1)[0].strip()
+                if len(before_paren.split()) >= 2:
+                    species_objects = cls.get_multiple(before_paren)
 
         if len(species_objects) == 0:
             return None
@@ -965,7 +1003,7 @@ class Species(Result):
 
     @property
     def is_cow(self):
-        return self.prefix == "BoLA"
+        return self.prefix in {"BoLA", "Bota"}
 
     @property
     def is_horse(self):
@@ -1027,15 +1065,23 @@ def make_long_prefix(latin_name):
 
 def _make_full_scientific_prefix(latin_name):
     """
-    Generate a collision-resistant scientific-name alias from the canonical
-    binomial portion of the modeled scientific name. Examples:
+    Generate a collision-resistant CamelCase scientific-name alias from the
+    modeled scientific name:
         "Oryzias latipes" -> "OryziasLatipes"
-        "Canis lupus baileyi" -> "CanisLupus"
+        "Sus sp." -> "SusSp"
+        "Canis lupus baileyi" -> "CanisLupusBaileyi"
     """
-    parts = _scientific_name_parts(latin_name)
-    if len(parts) < 2:
+    parts = latin_name.split()
+    if len(parts) == 2 and parts[1].lower() == "sp.":
+        genus = re.sub(r"[^A-Za-z]+", "", parts[0])
+        if not genus:
+            return None
+        return genus[:1].upper() + genus[1:] + "Sp"
+
+    scientific_parts = _scientific_name_parts(latin_name)
+    if len(scientific_parts) < 2:
         return None
-    return "".join(part.capitalize() for part in parts[:2])
+    return "".join(part.capitalize() for part in scientific_parts)
 
 
 def _make_generated_alias_counts(generator):
@@ -1073,9 +1119,15 @@ def generated_long_prefix_count(prefix):
 
 def auto_generated_prefixes_for_latin_name(latin_name):
     """
-    The concatenated scientific name comes first: it is the default, and the
-    only form that never collides. The 4+4 truncation follows as a shorthand,
-    and only where it is globally unique.
+    Generate collision-free CamelCase aliases from a modeled scientific name:
+    1. Concatenated full scientific name for binomials ("Homo sapiens" ->
+       "HomoSapiens"), genus/taxon "sp." nodes ("Sus sp." -> "SusSp"), and
+       trinomials ("Canis lupus baileyi" -> "CanisLupusBaileyi").
+    2. A 4+4 shorthand ("HomoSapi") for binomials only, and only where it is
+       globally unique in the bundled ontology.
+
+    Trinomials never emit a 2-word binomial or 4+4 shorthand, so a subspecies
+    cannot claim or veto its parent binomial's aliases.
 
     The 5+5 form ("HomoSapie") was removed in 3.42.0. It was a leftover of the
     pre-v3.12 scheme that 4cd6045 replaced, its own docstring described it as
@@ -1084,13 +1136,9 @@ def auto_generated_prefixes_for_latin_name(latin_name):
     """
     results = []
 
-    # The concatenated scientific name is the default generated alias: it is
-    # the only form with no collisions anywhere in the ontology. Added only for
-    # modeled binomials -- trinomial/subspecies entries mint no generated alias
-    # and are reached by their curated prefix or latin name.
     scientific_parts = _scientific_name_parts(latin_name)
     full_prefix = _make_full_scientific_prefix(latin_name)
-    if full_prefix and len(scientific_parts) == 2:
+    if full_prefix:
         results.append(full_prefix)
 
     # The 4+4 truncation is kept because it is the curated prefix of 466
@@ -1098,9 +1146,8 @@ def auto_generated_prefixes_for_latin_name(latin_name):
     # default: 4+4 collides (ChryPict is derivable from both a painted turtle
     # and a golden pheasant) and the ties have been broken with off-book forms.
     #
-    # Guarded on binomials for the same reason as the concatenated form: a
-    # trinomial's 4+4 is built from its parent's genus and species, so
-    # "Strix occidentalis caurina" would otherwise claim "StriOcci".
+    # Guarded on binomials so a trinomial's 4+4 does not claim its parent's
+    # shorthand (e.g. "Strix occidentalis caurina" must not claim "StriOcci").
     long_prefix = make_long_prefix(latin_name)
     if long_prefix and len(scientific_parts) == 2 and generated_long_prefix_count(long_prefix) == 1:
         results.append(long_prefix)
@@ -1117,8 +1164,8 @@ def auto_generated_prefixes_for_latin_name(latin_name):
 def _decorated_scientific_name_candidates(name):
     """
     Extract decreasing scientific-name prefixes from decorated scientific names
-    such as "Cyprinus carpio 'xingguonensis'", "Canis lupus familiaris", or
-    "Strix occidentalis caurina (northern spotted owl)".
+    such as "Cyprinus carpio 'xingguonensis'", "Canis lupus familiaris",
+    "canis lupus familiaris", or "Strix occidentalis caurina (northern spotted owl)".
 
     Returns a list ordered from the longest scientific prefix to the shortest
     valid fallback. Exact full-name matches are omitted because callers try
@@ -1129,12 +1176,12 @@ def _decorated_scientific_name_candidates(name):
         return []
 
     genus = parts[0]
-    if not re.fullmatch(r"[A-Z][a-z]+", genus):
+    if not re.fullmatch(r"[A-Za-z]+", genus):
         return []
 
     scientific_parts = [genus]
     for part in parts[1:]:
-        if re.fullmatch(r"(?:[a-z][a-z-]*|sp\.)", part):
+        if re.fullmatch(r"(?:[A-Za-z][A-Za-z-]*|sp\.?)", part, re.IGNORECASE):
             scientific_parts.append(part)
         else:
             break
@@ -1143,10 +1190,17 @@ def _decorated_scientific_name_candidates(name):
         return []
 
     candidates = []
+    seen = set()
+    name_lower = name.strip().lower()
     for length in range(len(scientific_parts), 1, -1):
-        candidate = " ".join(scientific_parts[:length])
-        if candidate != name:
+        prefix_parts = list(scientific_parts[:length])
+        if prefix_parts[-1].lower() == "sp":
+            prefix_parts[-1] = "sp."
+        candidate = " ".join(prefix_parts)
+        candidate_lower = candidate.lower()
+        if candidate_lower != name_lower and candidate_lower not in seen:
             candidates.append(candidate)
+            seen.add(candidate_lower)
     return candidates
 
 
@@ -1386,12 +1440,10 @@ def create_species_for_latin_name(latin_name):
         if alias and alias != prefix and alias not in context_only_mhc_prefixes:
             context_only_mhc_prefixes = [*list(context_only_mhc_prefixes), alias]
 
-    # Auto-generate parseable aliases from the latin name, for binomials only:
-    # 1. The full concatenated scientific name, which is the default and is
-    #    collision-free across the ontology.
-    # 2. A 4+4 shorthand, only when it is globally unique.
-    # Trinomial entries mint neither, so a subspecies never claims a name
-    # derived from its parent binomial.
+    # Auto-generate parseable CamelCase aliases from the latin name:
+    # 1. Concatenated full scientific name for binomials ("HomoSapiens"),
+    #    genus/taxon "sp." nodes ("SusSp"), and trinomials ("CanisLupusBaileyi").
+    # 2. A 4+4 shorthand for binomials only, when globally unique.
     for alias in auto_generated_prefixes_for_latin_name(latin_name):
         if alias and alias != prefix and alias not in other_mhc_prefixes:
             other_mhc_prefixes = [*list(other_mhc_prefixes), alias]
@@ -1734,6 +1786,18 @@ def create_species_lookup_dictionaries():
     context_only_alias_to_species_objects,
     gene_name_to_species_objects,
 ) = create_species_lookup_dictionaries()
+
+
+def _build_species_children_map():
+    children_by_parent = defaultdict(list)
+    for latin_name in raw_species_dict:
+        sp = latin_name_to_species_object[latin_name]
+        if sp.parent_species is not None:
+            children_by_parent[sp.parent_species.name].append(sp)
+    return {parent: tuple(children) for parent, children in children_by_parent.items()}
+
+
+_species_children_map = _build_species_children_map()
 
 
 # How many leading tokens may be a species name. The longest common name in the
