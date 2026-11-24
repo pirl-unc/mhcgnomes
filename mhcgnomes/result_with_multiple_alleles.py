@@ -16,6 +16,7 @@ from typing import Any
 
 from .common import unique
 from .gene import Gene
+from .mhc_class_helpers import common_mhc_class, is_class1, is_class2
 from .result_with_species import ResultWithSpecies
 from .species import Species
 
@@ -103,20 +104,28 @@ class ResultWithMultipleAlleles(ResultWithSpecies):
         return len(self.alleles) > 0
 
     @property
+    def mhc_class(self):
+        return common_mhc_class(self.alleles)
+
+    @property
+    def has_mhc_class(self):
+        return self.mhc_class is not None
+
+    @property
     def is_class1(self):
-        return all(allele.is_class1 for allele in self.alleles)
+        return is_class1(self.mhc_class)
 
     @property
     def is_class2(self):
-        return all(allele.is_class2 for allele in self.alleles)
+        return is_class2(self.mhc_class)
 
     @property
     def is_class2_alpha(self):
-        return all(allele.is_class2_alpha for allele in self.alleles)
+        return bool(self.alleles) and all(allele.is_class2_alpha for allele in self.alleles)
 
     @property
     def is_class2_beta(self):
-        return all(allele.is_class2_beta for allele in self.alleles)
+        return bool(self.alleles) and all(allele.is_class2_beta for allele in self.alleles)
 
     @property
     def annotation_null(self):

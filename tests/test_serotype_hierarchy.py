@@ -25,11 +25,7 @@ def test_b12_includes_b44_b45_and_preserves_the_reported_type():
         assert result.name == "B12"
         assert result.raw_string == "HLA-B12"
         members = {allele.to_string() for allele in result.alleles}
-        expected = {
-            parse(name, use_allele_aliases=aliases).to_string()
-            for name in ("HLA-B*4402", "HLA-B*4415", "HLA-B*4501")
-        }
-        assert expected <= members
+        assert {"HLA-B*44:02", "HLA-B*44:15", "HLA-B*45:01"} <= members
         for split in ("B44", "B45"):
             assert set(parse("HLA-" + split, use_allele_aliases=aliases).alleles) <= set(
                 result.alleles

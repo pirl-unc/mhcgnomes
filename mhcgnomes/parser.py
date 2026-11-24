@@ -365,7 +365,11 @@ class Parser:
         return species, current_name
 
     def find_matching_name_and_parse_alleles(
-        self, query_name: str, name_to_alleles_dict: Mapping[str, Sequence[str]], species: Species
+        self,
+        query_name: str,
+        name_to_alleles_dict: Mapping[str, Sequence[str]],
+        species: Species,
+        use_allele_aliases: bool | None = None,
     ):
         """
         Resolve a named haplotype/serotype entry for a known Species.
@@ -377,7 +381,18 @@ class Parser:
         if no entry matches. Blank/null members populate absent genes. Invalid
         members emit UserWarning and are omitted; other parser errors propagate.
         Intended for curated composite definitions, not arbitrary input parsing.
+
+        When ``use_allele_aliases`` is None (default), member strings follow
+        ``self.use_allele_aliases`` so deliberate historical members in curated
+        composites can resolve in alias mode. Pass ``use_allele_aliases=False``
+        when the curated table stores internally generated compact current
+        partial names (e.g. HLA serotype assignments like ``B*4402`` for
+        ``B*44:02``) that must be normalized without pre-normalization
+        historical alias lookup (#256).
         """
+        resolve_allele_aliases = (
+            self.use_allele_aliases if use_allele_aliases is None else use_allele_aliases
+        )
         gene_aliases_dict = species.gene_aliases
 
         candidate_names = [query_name]
@@ -416,7 +431,9 @@ class Parser:
                 continue
 
             candidates = self.parse_allele_or_gene_candidates(
-                species, str_after_species=allele_name
+                species,
+                str_after_species=allele_name,
+                use_allele_aliases=resolve_allele_aliases,
             )
 
             allele = pick_best_result(candidates, raise_on_error=False)
@@ -443,8 +460,17 @@ class Parser:
         if species is None:
             return None
 
+        # HLA serotype assignments in serotypes.yaml are generated as compact
+        # two-field current partial names (e.g. "B*4402" for B*44:02, "B*15112"
+        # for B*15:112) rather than pre-2010 historical aliases (#256).
+        # Non-HLA serotypes may retain deliberate historical members such as
+        # BoLA-A11's N*01801 -> 2*018:01.
+        resolve_member_aliases = False if species.is_human else self.use_allele_aliases
         name_and_alleles = self.find_matching_name_and_parse_alleles(
-            query_name=serotype_name, name_to_alleles_dict=species.serotypes, species=species
+            query_name=serotype_name,
+            name_to_alleles_dict=species.serotypes,
+            species=species,
+            use_allele_aliases=resolve_member_aliases,
         )
 
         if name_and_alleles is None:
@@ -729,6 +755,7 @@ class Parser:
         allele_fields: str | Sequence[str] | None,
         functional_annotations: str | Sequence[str] | None = None,
         raw_string: str | None = None,
+        use_allele_aliases: bool | None = None,
     ) -> Gene | Allele | None:
         if allele_fields is None:
             return None
@@ -772,10 +799,17 @@ class Parser:
             allele_fields,
             annotations=functional_annotations,
             raw_string=raw_string,
-            normalize_fields=not self._is_allele_alias_as_written(gene, allele_fields),
+            normalize_fields=not self._is_allele_alias_as_written(
+                gene, allele_fields, use_allele_aliases=use_allele_aliases
+            ),
         )
 
-    def _is_allele_alias_as_written(self, gene: Gene, allele_fields: Sequence[str]) -> bool:
+    def _is_allele_alias_as_written(
+        self,
+        gene: Gene,
+        allele_fields: Sequence[str],
+        use_allele_aliases: bool | None = None,
+    ) -> bool:
         """
         Whether alias resolution is on and these fields, as written, are an
         allele-alias key of the gene's species.
@@ -796,14 +830,20 @@ class Parser:
         allele_fields : sequence of str
             Allele fields as split from the input, before zero-padding and
             without annotations.
+        use_allele_aliases : bool or None, optional
+            Override ``self.use_allele_aliases`` when checking whether to
+            preserve written fields for alias resolution.
 
         Returns
         -------
         bool
-            False whenever use_allele_aliases is off, so default parsing is
+            False whenever alias resolution is off, so default parsing is
             unchanged.
         """
-        if not self.use_allele_aliases or gene.species is None:
+        resolve_aliases = (
+            self.use_allele_aliases if use_allele_aliases is None else use_allele_aliases
+        )
+        if not resolve_aliases or gene.species is None:
             return False
         written_name = ":".join(allele_fields)
         return (
@@ -949,7 +989,13 @@ class Parser:
                 i += 1
         return parts_with_merged_gene_names
 
-    def parse_allele_or_gene_candidates(self, species, str_after_species, raw_string=None):
+    def parse_allele_or_gene_candidates(
+        self,
+        species,
+        str_after_species,
+        raw_string=None,
+        use_allele_aliases: bool | None = None,
+    ):
         # try to heuristically split_token_sequences apart the gene name and any allele information
         # when the requires separators are missing
         # Examples which will parse correctly here:
@@ -995,7 +1041,12 @@ class Parser:
             ):
                 continue
 
-            allele = self.parse_allele_with_gene(gene, allele_name, raw_string=raw_string)
+            allele = self.parse_allele_with_gene(
+                gene,
+                allele_name,
+                raw_string=raw_string,
+                use_allele_aliases=use_allele_aliases,
+            )
             if allele:
                 candidate_results.append(allele)
         return candidate_results
@@ -1018,6 +1069,7 @@ class Parser:
         str_after_gene: str,
         preserve_caps: bool = False,
         raw_string: str | None = None,
+        use_allele_aliases: bool | None = None,
     ):
         if gene is None:
             return None
@@ -1034,12 +1086,15 @@ class Parser:
         str_after_gene = self.strip_extra_chars(str_after_gene)
 
         species = gene.species
+        resolve_aliases = (
+            self.use_allele_aliases if use_allele_aliases is None else use_allele_aliases
+        )
 
         # Preserve legacy digit strings before splitting them into modern fields:
         # A*02172 is an alias, whereas A*02:172 is a different current allele.
         # Transformation stays in transform_parse_candidate, after composite
         # interpretation and mutation attachment have retained their context.
-        if self.use_allele_aliases and species.get_allele_alias(gene.name, str_after_gene):
+        if resolve_aliases and species.get_allele_alias(gene.name, str_after_gene):
             return Allele.get_with_gene(
                 gene, str_after_gene, raw_string=raw_string, normalize_fields=False
             )
@@ -1108,6 +1163,7 @@ class Parser:
                 allele_fields=allele_fields,
                 functional_annotations=functional_annotations,
                 raw_string=raw_string,
+                use_allele_aliases=resolve_aliases,
             )
         else:
             return None
