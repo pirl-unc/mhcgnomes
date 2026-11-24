@@ -212,19 +212,31 @@ def test_colliding_4_4_forms_are_never_auto_generated():
     assert binomial_long_prefix("Canis lupus baileyi") is None
 
 
-def test_trinomials_mint_no_generated_alias_at_all():
+def test_trinomials_mint_only_full_trinomial_camelcase_alias():
     """
-    Neither the concatenated form nor the 4+4 shorthand, since both are built
-    from the parent binomial's first two words. Before 3.42.0 the 4+4 branch
-    had no arity guard, so "Strix occidentalis caurina" claimed "StriOcci".
+    Trinomials mint their own full three-word CamelCase alias (#274) and never
+    claim their parent binomial's 2-word concatenated form or 4+4 shorthand.
+    Before 3.42.0 the 4+4 branch had no arity guard, so "Strix occidentalis
+    caurina" claimed "StriOcci".
     """
-    for subspecies, shorthand, concatenated in [
-        ("Strix occidentalis caurina", "StriOcci", "StrixOccidentalis"),
-        ("Sapajus apella macrocephalus", "SapaApel", "SapajusApella"),
-        ("Canis lupus baileyi", "CanisLupusBaileyi", "CanisLupusBaileyi"),
+    for subspecies, shorthand, parent_concat, full_trinomial in [
+        ("Strix occidentalis caurina", "StriOcci", "StrixOccidentalis", "StrixOccidentalisCaurina"),
+        ("Sapajus apella macrocephalus", "SapaApel", "SapajusApella", "SapajusApellaMacrocephalus"),
+        ("Canis lupus baileyi", None, None, "CanisLupusBaileyi"),
+        (
+            "Balaenoptera musculus brevicauda",
+            None,
+            None,
+            "BalaenopteraMusculusBrevicauda",
+        ),
     ]:
-        assert Species.get(shorthand) is None, f"{shorthand!r} resolves"
-        assert Species.get(concatenated) is None, f"{concatenated!r} resolves"
+        if shorthand is not None:
+            assert Species.get(shorthand) is None, f"{shorthand!r} resolves"
+        if parent_concat is not None:
+            assert Species.get(parent_concat) is None, f"{parent_concat!r} resolves"
+        sp = Species.get(full_trinomial)
+        assert sp is not None, f"{full_trinomial!r} failed to resolve"
+        eq_(sp.name, subspecies)
         assert Species.get_by_latin_name(subspecies) is not None
 
 
@@ -269,11 +281,13 @@ def test_explicit_short_prefixes_beat_generated_collision_aliases():
         assert species.name in owners
 
 
-def test_trinomial_entries_do_not_get_full_concatenated_aliases():
+def test_trinomial_entries_get_full_trinomial_alias_not_parent_binomial():
     wolf = Species.get("CanisLupus")
     assert wolf is not None
     eq_(wolf.name, "Canis lupus")
-    assert Species.get("CanisLupusBaileyi") is None
+    baileyi = Species.get("CanisLupusBaileyi")
+    assert baileyi is not None
+    eq_(baileyi.name, "Canis lupus baileyi")
 
 
 def test_full_prefix_works_for_allele_parsing():
@@ -718,25 +732,19 @@ def test_unestablished_provenance_stays_none():
         "Pavo cristatus",
         "Xenopus tropicalis",
         #
-        # The four group-node abbreviations. These were the last entries never
-        # swept, because the GenBank pass skipped "<Genus> sp." rows -- a group
-        # node has no organism of its own to search under. Searching under the
-        # genus instead finds nothing for any of them, in nuccore or protein:
+        # The three remaining group-node abbreviations (Mus sp. -> MusSp is now
+        # accurately reported as "generated" because <Taxon> sp. entries emit
+        # <Taxon>Sp CamelCase aliases; its prefix inheritance is unchanged).
+        # Searching under each genus finds nothing for any of them in nuccore or
+        # protein:
         #
         #   Coregonus + Cosp   0      Manacus + Mana   0
-        #   Tropheus  + Trsp   0      Mus     + MusSp  0 as a prefix
+        #   Tropheus  + Trsp   0
         #
-        # MusSp does return 18 records, all of them Mus spretus microsatellites
-        # named MUSSP-16, MUSSP-17, MUSSP-18 -- a coincidental string, not a
-        # prefix, the same false positive shape as Xetr's taste receptors.
-        #
-        # So all four are labels this project minted. They stay None rather
-        # than being reclassified: the predicate that would call them
-        # "group label" also gates prefix inheritance, and 18 species inherit
-        # these as old_mhc_prefix. See the comment on #131.
+        # All three stay None rather than being reclassified: the predicate that
+        # would call them "group label" also gates prefix inheritance. See #131.
         "Coregonus sp.",
         "Manacus sp.",
-        "Mus sp.",
         "Tropheus sp.",
         "Aotus sp.",
         "Callithrix sp.",
