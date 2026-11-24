@@ -28,6 +28,7 @@ from .data import heterodimers as raw_heterodimers_dict
 from .data import known_alleles as raw_known_alleles_dict
 from .data import serotypes as raw_serotypes_dict
 from .data import species as raw_species_dict
+from .data import species_taxonomy as raw_species_taxonomy_dict
 from .data import supertypes as raw_supertypes_dict
 from .data import underrepresented_taxa_source_registry as raw_holdback_registry
 from .mhc_class_helpers import class1_restrictions, class2_restrictions
@@ -243,6 +244,8 @@ class Species(Result):
     context_only_mhc_prefixes: Any = None
     other_common_names: Any = None
     prefix_provenance: str | None = None
+    ncbi_taxid: int | None = None
+    clade: str | None = None
 
     def __init__(
         self,
@@ -271,6 +274,8 @@ class Species(Result):
         gene_name_to_properties: Mapping[str, Mapping[str, Any]] | None = None,
         gene_family_name_to_gene_names: Mapping[str, Iterable[str]] | None = None,
         direct_serotypes: Mapping[str, Iterable[str]] | None = None,
+        ncbi_taxid: int | None = None,
+        clade: str | None = None,
     ):
         Result.__init__(self, raw_string=raw_string)
 
@@ -361,6 +366,8 @@ class Species(Result):
         self._set_field(self, "heterodimers", _freeze_nested_value(heterodimers))
         self._set_field(self, "supertypes", _freeze_nested_value(supertypes))
         self._set_field(self, "parent_species", parent_species)
+        self._set_field(self, "ncbi_taxid", ncbi_taxid)
+        self._set_field(self, "clade", clade)
 
     def __hash__(self):
         return hash(self.name)
@@ -700,6 +707,30 @@ class Species(Result):
         This is the canonical identity lookup and is never ambiguous.
         """
         return latin_name_to_species_object.get(latin_name)
+
+    @classmethod
+    def get_by_ncbi_taxid(cls, taxid):
+        """
+        Look up a species by its verified NCBI Taxonomy ID (int or numeric str).
+
+        Returns the canonical Species for that taxon, or None if not present or
+        invalid. Booleans are rejected.
+        """
+        if isinstance(taxid, bool) or taxid is None:
+            return None
+        if isinstance(taxid, str):
+            stripped = taxid.strip()
+            if not stripped.isdigit():
+                return None
+            taxid = int(stripped)
+        elif not isinstance(taxid, int):
+            return None
+        if taxid <= 0:
+            return None
+        matches = ncbi_taxid_to_species_objects.get(taxid)
+        if not matches:
+            return None
+        return matches[0]
 
     def to_record(self):
         return OrderedDict(
@@ -1264,6 +1295,29 @@ def _is_group_entry(latin_name):
 # to be in published use. See issue #128 and the Caau case in AGENTS.md.
 PREFIX_PROVENANCE_VALUES = frozenset({"designated", "generated", "group label"})
 
+# Verified vertebrate clade vocabulary derived from NCBI Taxonomy lineages (#276).
+VERTEBRATE_CLADES = frozenset(
+    {
+        "human",
+        "nhp",
+        "murine",
+        "cetacean",
+        "ungulate",
+        "carnivore",
+        "bat",
+        "marsupial",
+        "monotreme",
+        "other_mammal",
+        "bird",
+        "reptile",
+        "amphibian",
+        "bony_fish",
+        "lobe_finned_fish",
+        "shark_ray",
+        "jawless_fish",
+    }
+)
+
 
 def _is_inheritable_umbrella(prefix, latin_name):
     """
@@ -1643,6 +1697,25 @@ def create_species_for_latin_name(latin_name):
         raw_known_alleles_dict, all_identifiers, value_class=NormalizingSet
     )
 
+    taxonomy_info = raw_species_taxonomy_dict.get(latin_name, {})
+    if taxonomy_info is None:
+        taxonomy_info = {}
+    if not isinstance(taxonomy_info, dict):
+        raise ValueError(f"Malformed taxonomy entry for '{latin_name}'")
+    ncbi_taxid = taxonomy_info.get("ncbi_taxid")
+    if ncbi_taxid is not None and (
+        isinstance(ncbi_taxid, bool) or not isinstance(ncbi_taxid, int) or ncbi_taxid <= 0
+    ):
+        raise ValueError(
+            f"'ncbi_taxid' for '{latin_name}' must be a positive int or None, got {ncbi_taxid!r}"
+        )
+    clade = taxonomy_info.get("clade")
+    if clade is not None and (not isinstance(clade, str) or clade not in VERTEBRATE_CLADES):
+        raise ValueError(
+            f"'clade' for '{latin_name}' is {clade!r}, expected None or one of "
+            f"{sorted(VERTEBRATE_CLADES)}"
+        )
+
     return Species(
         name=latin_name,
         common_name=shortest_common_name,
@@ -1669,6 +1742,8 @@ def create_species_for_latin_name(latin_name):
         other_common_names=[name for name in common_names if name != shortest_common_name],
         prefix_provenance=prefix_provenance,
         raw_string=latin_name,
+        ncbi_taxid=ncbi_taxid,
+        clade=clade,
     )
 
 
@@ -1798,6 +1873,18 @@ def _build_species_children_map():
 
 
 _species_children_map = _build_species_children_map()
+
+
+def _build_ncbi_taxid_map():
+    by_taxid = defaultdict(list)
+    for latin_name in raw_species_dict:
+        sp = latin_name_to_species_object[latin_name]
+        if sp.ncbi_taxid is not None:
+            by_taxid[sp.ncbi_taxid].append(sp)
+    return {taxid: tuple(species_list) for taxid, species_list in by_taxid.items()}
+
+
+ncbi_taxid_to_species_objects = _build_ncbi_taxid_map()
 
 
 # How many leading tokens may be a species name. The longest common name in the

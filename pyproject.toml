@@ -83,6 +83,7 @@ mhcgnomes = [
     "data/serotypes.yaml",
     "data/single_field_alleles.yaml",
     "data/species.yaml",
+    "data/species_taxonomy.yaml",
     "data/supertypes.yaml",
     "data/underrepresented_taxa_source_registry.yaml",
 ]
