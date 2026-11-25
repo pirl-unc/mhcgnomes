@@ -1055,12 +1055,16 @@ class Species(Result):
 
 
 def guess_class2_chain_type(gene_name):
-    # For now we're guessing based on the name, e.g.
-    # DRB1 is a beta chain and DRA is an alpha chain
-    trimmed_gene_name = gene_name
-    if trimmed_gene_name.endswith("like"):
+    """Infer ``'alpha'`` or ``'beta'`` for a Class II gene name.
+
+    Strips trailing ``'like'``, digits, and ``'-'``/``'_'`` separators before
+    checking whether the locus stem ends with ``'A'`` (so hyphenated alpha genes
+    like ``DAA-1``, ``DAA-2``, or ``DQA2-like`` resolve to ``'alpha'``, #286).
+    """
+    trimmed_gene_name = gene_name.strip()
+    if trimmed_gene_name.lower().endswith("like"):
         trimmed_gene_name = trimmed_gene_name[:-4]
-    while trimmed_gene_name and trimmed_gene_name[-1].isdigit():
+    while trimmed_gene_name and (trimmed_gene_name[-1].isdigit() or trimmed_gene_name[-1] in "-_"):
         trimmed_gene_name = trimmed_gene_name[:-1]
     if not trimmed_gene_name:
         return "beta"

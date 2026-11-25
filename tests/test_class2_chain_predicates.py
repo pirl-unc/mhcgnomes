@@ -130,3 +130,22 @@ def test_the_real_ontology_gives_every_class2_gene_a_chain_type():
         and gene_name not in species.class2_gene_name_to_chain_type
     ]
     eq_(missing, [], f"class II genes with no curated chain type: {missing[:5]}")
+
+
+def test_hyphenated_class2_alpha_genes_report_alpha_chain():
+    """Hyphenated/underscored alpha genes like DAA-1 and DAA-2 are alpha (#286)."""
+    from mhcgnomes import parse_gene_class
+    from mhcgnomes.species import guess_class2_chain_type
+
+    for gene_name in ["DAA-1", "DAA-2", "DAA_1", "DQA2-like", "DRA-1"]:
+        eq_(guess_class2_chain_type(gene_name), "alpha")
+    for gene_name in ["DMB-0", "DMB-1", "DAB-1", "DQB2-like", "DRB1-4"]:
+        eq_(guess_class2_chain_type(gene_name), "beta")
+
+    for raw in ["SphenodonPunctatus-DAA-1", "SphenodonPunctatus-DAA-2"]:
+        parsed = parse(raw, species="Sphenodon punctatus")
+        assert parsed.is_class2_alpha
+        assert not parsed.is_class2_beta
+        info = parse_gene_class(raw, species="Sphenodon punctatus")
+        eq_(info.mhc_class, "IIa")
+        eq_(info.chain, "alpha")
