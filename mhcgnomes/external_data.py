@@ -58,12 +58,14 @@ def default_cache_dir() -> Path:
 
 
 def _validate_filename(filename: str, source_id: str) -> None:
+    """Reject absolute or path-traversing filenames in the external-data manifest."""
     path = Path(filename)
     if path.is_absolute() or len(path.parts) != 1 or filename in {"", ".", ".."}:
         raise ExternalDataError(f"Source {source_id!r} has unsafe filename {filename!r}")
 
 
 def _parse_source(raw: dict[str, Any]) -> Source:
+    """Validate and deserialize one manifest entry into a :class:`Source`."""
     if not isinstance(raw, dict):
         raise ExternalDataError("Manifest source entries must be JSON objects")
     required = {
@@ -151,6 +153,7 @@ def is_verified(path: Path, expected_sha256: str) -> bool:
 
 
 def _atomic_copy(source_path: Path, destination: Path) -> None:
+    """Copy ``source_path`` to ``destination`` atomically via a sibling temp file."""
     destination.parent.mkdir(parents=True, exist_ok=True)
     descriptor, temporary_name = tempfile.mkstemp(
         prefix=f".{destination.name}.", suffix=".tmp", dir=destination.parent
@@ -220,10 +223,12 @@ def download_to_cache(url: str, source: Source, cache_path: Path, retries: int =
 
 
 def _mirror_url(mirror: str, filename: str) -> str:
+    """Build a URL for ``filename`` under a base HTTP(S) mirror URL."""
     return f"{mirror.rstrip('/')}/{urllib.parse.quote(filename)}"
 
 
 def _try_local_mirror(mirror: Path, source: Source, cache_path: Path) -> bool:
+    """Copy a checksum-verified source from a local mirror directory into the cache."""
     for candidate in (mirror / source.filename, mirror / source.sha256):
         if is_verified(candidate, source.sha256):
             _atomic_copy(candidate, cache_path)
@@ -232,6 +237,7 @@ def _try_local_mirror(mirror: Path, source: Source, cache_path: Path) -> bool:
 
 
 def _is_network_mirror(mirror: str) -> bool:
+    """Return True if ``mirror`` is an HTTP or HTTPS URL."""
     return urllib.parse.urlparse(mirror).scheme in {"http", "https"}
 
 

@@ -1092,6 +1092,7 @@ class Parser:
         return candidate_results
 
     def _compact_gene_suffix_can_be_allele(self, gene: Gene, allele_name: str) -> bool:
+        """Return True if a compact (unseparated) suffix after ``gene`` is a valid allele shape."""
         allele_name = self.strip_extra_chars(allele_name)
         if not allele_name:
             return False

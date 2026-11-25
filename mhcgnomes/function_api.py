@@ -96,7 +96,7 @@ def cached_parser(
     )
 
 
-def _reparse_result_for_species(
+def reparse_result_for_species(
     parser: Parser,
     result: Result,
     expected_species: Species,
@@ -107,6 +107,36 @@ def _reparse_result_for_species(
     only_class2: bool,
     max_allele_fields,
 ):
+    """Reparse an ancestor-taxon result under a requested descendant species.
+
+    Parameters
+    ----------
+    parser : Parser
+        Configured parser instance.
+    result : Result
+        Previously parsed non-Species result attached to an ancestor taxon.
+    expected_species : Species
+        Target descendant species to reparse under.
+    infer_class2_pairing : bool
+        Whether to infer canonical Class II alpha pairing.
+    required_result_types : Sequence[type]
+        Allowed result classes.
+    preferred_result_types : Sequence[type]
+        Preferred result classes.
+    only_class1 : bool
+        Restrict results to MHC Class I.
+    only_class2 : bool
+        Restrict results to MHC Class II.
+    max_allele_fields : int or None
+        Maximum allele fields to retain.
+
+    Returns
+    -------
+    Result or None
+        Reparsed result bound to ``expected_species`` with original
+        ``raw_string`` and ``species_source`` preserved, or ``None`` if the
+        conversion does not yield the same result type for ``expected_species``.
+    """
     if type(result) is Species or not hasattr(result, "species"):
         return None
 
@@ -132,7 +162,7 @@ def _reparse_result_for_species(
     return copied
 
 
-def _reparse_with_context_only_prefix(
+def reparse_with_context_only_prefix(
     parser: Parser,
     raw_string: str,
     expected_species: Species,
@@ -143,6 +173,19 @@ def _reparse_with_context_only_prefix(
     only_class2: bool,
     max_allele_fields,
 ):
+    """Reparse an input whose leading prefix is context-only for ``expected_species``.
+
+    Rewrites a contested or context-only species prefix (for example ``Orla-UBA``
+    with ``expected_species=Species.get("Oryzias latipes")``) to the species'
+    canonical prefix and parses it while preserving ``raw_string`` and
+    ``species_source="explicit"``.
+
+    Returns
+    -------
+    Result or None
+        Reparsed result, or ``None`` if ``raw_string`` does not start with a
+        context-only prefix attested for ``expected_species``.
+    """
     inferred = infer_species_from_context_only_prefix(raw_string)
     if inferred is None:
         return None
@@ -168,7 +211,7 @@ def _reparse_with_context_only_prefix(
     return copied
 
 
-def _reparse_context_only_gene(
+def reparse_context_only_gene(
     parser: Parser,
     raw_string: str,
     expected_species: Species,
@@ -187,7 +230,7 @@ def _reparse_context_only_gene(
     Species.gene_is_context_only). But `species=` is the strict form: the
     caller has named the species, so there is nothing left to guess, and the
     string is retried as the parser would have needed to see it -- "N" under
-    Homo sapiens as "HLA-N". Mirrors _reparse_with_context_only_prefix, which
+    Homo sapiens as "HLA-N". Mirrors reparse_with_context_only_prefix, which
     does the same for a contested species prefix. See issue #113.
     """
     gene_token = raw_string.split("*")[0].strip()
@@ -215,6 +258,7 @@ def _reparse_context_only_gene(
 
 
 def _format_species_options(species_objects, max_items=4):
+    """Format up to ``max_items`` species Latin names for diagnostic messages."""
     names = [sp.name for sp in species_objects]
     shown = names[:max_items]
     if len(names) > max_items:
@@ -223,6 +267,7 @@ def _format_species_options(species_objects, max_items=4):
 
 
 def _format_canonical_prefix_options(species_objects, max_items=4):
+    """Format unambiguous prefix suggestions for each candidate species."""
     # unambiguous_prefix_for, not sp.prefix: "Chpi" is Chrysolophus pictus's
     # canonical prefix and is derivable by Klein's 2+2 rule from Chrysemys
     # picta too, so recommending it as the way out of a collision just moves
@@ -234,6 +279,7 @@ def _format_canonical_prefix_options(species_objects, max_items=4):
 
 
 def _context_only_prefix_error_message(raw_string: str):
+    """Build an explanatory error message when ``raw_string`` uses a contested prefix."""
     inferred = infer_species_from_context_only_prefix(raw_string)
     if inferred is None:
         return None
@@ -303,7 +349,24 @@ _LENIENT_GENE_SUFFIX_PATTERNS = (
 )
 
 
-def _chain_for_species_gene(species: Species, gene_name: str, mhc_class: str | None):
+def chain_for_species_gene(species: Species, gene_name: str, mhc_class: str | None):
+    """Return the MHC chain (``'alpha'``, ``'beta'``, or ``None``) for a gene.
+
+    Parameters
+    ----------
+    species : Species
+        Species owning ``gene_name``.
+    gene_name : str
+        Canonical gene name within ``species``.
+    mhc_class : str or None
+        MHC class string (e.g. ``"Ia"``, ``"IIa"``, ``"other"``).
+
+    Returns
+    -------
+    str or None
+        ``"alpha"`` for Class I genes, the ontology alpha/beta chain type for
+        Class II genes, or ``None`` for non-MHC/unknown classes.
+    """
     if mhc_class is None or mhc_class == "other":
         return None
     if mhc_class in {"I", "Ia", "Ib", "Ic", "Id"}:
@@ -311,7 +374,23 @@ def _chain_for_species_gene(species: Species, gene_name: str, mhc_class: str | N
     return species.class2_gene_name_to_chain_type.get(gene_name)
 
 
-def _build_gene_class_info_from_parsed(parsed: Result, raw_string: str):
+def build_gene_class_info_from_parsed(parsed: Result, raw_string: str):
+    """Build a :class:`GeneClassInfo` summary from an already-parsed :class:`Result`.
+
+    Parameters
+    ----------
+    parsed : Result or None
+        Result returned by :func:`parse`.
+    raw_string : str
+        Original input string to attach to the returned :class:`GeneClassInfo`.
+
+    Returns
+    -------
+    GeneClassInfo or None
+        Structured species/gene/class/chain metadata, or ``None`` if ``parsed``
+        carries no MHC class information (such as a bare :class:`Species` or
+        unrestricted :class:`Haplotype`).
+    """
     if parsed is None:
         return None
 
@@ -322,7 +401,7 @@ def _build_gene_class_info_from_parsed(parsed: Result, raw_string: str):
             species=parsed.species,
             gene_name=gene_name,
             mhc_class=mhc_class,
-            chain=_chain_for_species_gene(parsed.species, gene_name, mhc_class),
+            chain=chain_for_species_gene(parsed.species, gene_name, mhc_class),
             non_mhc=mhc_class == "other",
             source="parsed_allele",
             raw_string=raw_string,
@@ -335,7 +414,7 @@ def _build_gene_class_info_from_parsed(parsed: Result, raw_string: str):
             species=parsed.species,
             gene_name=gene_name,
             mhc_class=mhc_class,
-            chain=_chain_for_species_gene(parsed.species, gene_name, mhc_class),
+            chain=chain_for_species_gene(parsed.species, gene_name, mhc_class),
             non_mhc=mhc_class == "other",
             source="parsed_gene",
             raw_string=raw_string,
@@ -418,6 +497,7 @@ def _build_gene_class_info_from_parsed(parsed: Result, raw_string: str):
 
 
 def _strip_gene_token(candidate_gene_string: str):
+    """Extract a single leading gene token before ``/``, ``*``, or ``#``."""
     candidate_gene_string = candidate_gene_string.strip()
     if not candidate_gene_string:
         return None
@@ -432,11 +512,23 @@ def _strip_gene_token(candidate_gene_string: str):
     return candidate_gene_string
 
 
-def _extract_species_and_gene_string(
+def extract_species_and_gene_string(
     raw_string: str,
     parser: Parser,
     expected_species: Species | None,
 ):
+    """Split ``raw_string`` into ``(species, remaining_gene_string, error_message)``.
+
+    Resolves an explicit or context-only species prefix against ``expected_species``
+    when provided, returning a descriptive error message if the prefix conflicts
+    with ``expected_species`` or is globally ambiguous.
+
+    Returns
+    -------
+    tuple[Species | None, str | None, str | None]
+        ``(species, gene_string, error_message)`` where ``error_message`` is
+        ``None`` on success.
+    """
     explicit_species, remaining = parser.parse_species_from_prefix(raw_string)
     if explicit_species is not None:
         if expected_species is not None and explicit_species != expected_species:
@@ -474,6 +566,7 @@ def _extract_species_and_gene_string(
 
 
 def _infer_gene_rule(gene_token: str):
+    """Match ``gene_token`` against curated lenient MHC suffix rules."""
     normalized = normalize_non_mhc_gene_name(gene_token)
     if normalized in _LENIENT_GENE_SUFFIX_RULES:
         mhc_class, chain = _LENIENT_GENE_SUFFIX_RULES[normalized]
@@ -484,7 +577,12 @@ def _infer_gene_rule(gene_token: str):
     return None
 
 
-def _build_gene_class_info_from_family(species: Species, gene_token: str, raw_string: str):
+def build_gene_class_info_from_family(species: Species, gene_token: str, raw_string: str):
+    """Build a :class:`GeneClassInfo` for an ontology-backed gene family name.
+
+    Returns a :class:`GeneClassInfo` with ``source="ontology_family"`` when all
+    members of the matched family share a single MHC class, or ``None`` otherwise.
+    """
     family_name = species.find_matching_gene_family_name(gene_token)
     if family_name is None:
         return None
@@ -496,7 +594,7 @@ def _build_gene_class_info_from_family(species: Species, gene_token: str, raw_st
     mhc_class = member_classes.pop()
 
     member_chains = {
-        _chain_for_species_gene(species, member_name, mhc_class) for member_name in member_names
+        chain_for_species_gene(species, member_name, mhc_class) for member_name in member_names
     }
     chain = member_chains.pop() if len(member_chains) == 1 else None
     return GeneClassInfo(
@@ -510,7 +608,19 @@ def _build_gene_class_info_from_family(species: Species, gene_token: str, raw_st
     )
 
 
-def _build_gene_class_info_from_token(species: Species, gene_token: str, raw_string: str):
+def build_gene_class_info_from_token(species: Species, gene_token: str, raw_string: str):
+    """Classify a single species-scoped gene token into :class:`GeneClassInfo`.
+
+    Checks canonical ontology genes, Class II loci, ontology gene families,
+    known non-MHC region helper symbols, and curated lenient MHC suffix rules
+    in priority order.
+
+    Returns
+    -------
+    GeneClassInfo or None
+        Inferred metadata with ``source`` indicating the matching step, or
+        ``None`` when no rule matches.
+    """
     canonical_gene_name = species.find_matching_gene_name(gene_token)
     if canonical_gene_name is not None:
         mhc_class = species.get_mhc_class_of_gene(canonical_gene_name)
@@ -518,7 +628,7 @@ def _build_gene_class_info_from_token(species: Species, gene_token: str, raw_str
             species=species,
             gene_name=canonical_gene_name,
             mhc_class=mhc_class,
-            chain=_chain_for_species_gene(species, canonical_gene_name, mhc_class),
+            chain=chain_for_species_gene(species, canonical_gene_name, mhc_class),
             non_mhc=mhc_class == "other",
             source="canonical_gene",
             raw_string=raw_string,
@@ -536,7 +646,7 @@ def _build_gene_class_info_from_token(species: Species, gene_token: str, raw_str
             raw_string=raw_string,
         )
 
-    family_info = _build_gene_class_info_from_family(species, gene_token, raw_string)
+    family_info = build_gene_class_info_from_family(species, gene_token, raw_string)
     if family_info is not None:
         return family_info
 
@@ -644,7 +754,7 @@ def parse_gene_class(
         raise_on_error=False,
     )
     if parsed is not None:
-        info = _build_gene_class_info_from_parsed(parsed, raw_string)
+        info = build_gene_class_info_from_parsed(parsed, raw_string)
         if info is not None:
             return info
         if raise_on_error:
@@ -652,7 +762,7 @@ def parse_gene_class(
         return None
 
     parser = cached_parser()
-    inferred_species, candidate_gene_string, error_message = _extract_species_and_gene_string(
+    inferred_species, candidate_gene_string, error_message = extract_species_and_gene_string(
         raw_string=raw_string,
         parser=parser,
         expected_species=expected_species,
@@ -676,7 +786,7 @@ def parse_gene_class(
             raise ParseError(f"Could not infer MHC class from '{raw_string}'")
         return None
 
-    info = _build_gene_class_info_from_token(inferred_species, gene_token, raw_string)
+    info = build_gene_class_info_from_token(inferred_species, gene_token, raw_string)
     if info is not None:
         return info
 
@@ -887,7 +997,7 @@ def parse(
         result = None
 
     if species is not None and expected_species is not None:
-        rescued = _reparse_with_context_only_prefix(
+        rescued = reparse_with_context_only_prefix(
             parser=parser,
             raw_string=raw_string,
             expected_species=expected_species,
@@ -908,7 +1018,7 @@ def parse(
         if not require_explicit_species and (
             result is None or getattr(result, "species", None) != expected_species
         ):
-            rescued = _reparse_context_only_gene(
+            rescued = reparse_context_only_gene(
                 parser=parser,
                 raw_string=raw_string,
                 expected_species=expected_species,
@@ -960,7 +1070,7 @@ def parse(
                 if result_species == expected:
                     matches_expected = True
                 elif result_species.is_ancestor_of(expected):
-                    converted = _reparse_result_for_species(
+                    converted = reparse_result_for_species(
                         parser=parser,
                         result=result,
                         expected_species=expected,

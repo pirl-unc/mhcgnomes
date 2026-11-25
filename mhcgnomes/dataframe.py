@@ -56,6 +56,7 @@ def dataframe_from_string_list(names, raise_on_error=True, **parse_kwargs):
 
 
 def _dataframe_from_rows(rows):
+    """Build a :class:`pandas.DataFrame` with ``OUTCOME_COLUMNS`` first and object ``input`` dtype."""
     import pandas as pd
 
     columns = list(OUTCOME_COLUMNS)

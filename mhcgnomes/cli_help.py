@@ -76,10 +76,11 @@ class HelpFormatter(argparse.RawDescriptionHelpFormatter):
         super().__init__(prog, max_help_position=32, width=width)
 
     def _split_lines(self, text, width):
-        # RST literals are useful in generated docs but noisy in terminal help.
+        """Strip RST backticks before wrapping option help text."""
         return super()._split_lines(text.replace("``", ""), width)
 
     def _format_action(self, action):
+        """Add a blank line after each formatted CLI option block."""
         text = super()._format_action(action)
         return text + "\n" if text else text
 

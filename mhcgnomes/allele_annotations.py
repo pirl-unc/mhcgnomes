@@ -64,6 +64,7 @@ _LOW_CELL_SURFACE_EXPRESSION = frozenset({"L"})
 
 
 def _has_two_digit_prefix(seq, annot_len):
+    """Return True if at least two digits immediately precede a trailing annotation."""
     if len(seq) < annot_len + 2:
         return False
     return seq[-annot_len - 1].isdigit() and seq[-annot_len - 2].isdigit()

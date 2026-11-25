@@ -124,6 +124,7 @@ EVIDENCED_GLOBAL_ALIASES, EVIDENCED_CONTEXT_ONLY_ALIASES = _partition_evidenced_
 
 class FrozenList(list):
     def _immutable(self, *args, **kwargs):
+        """Raise ``TypeError`` on any mutating list operation."""
         raise TypeError("FrozenList is immutable")
 
     append = _immutable
@@ -145,6 +146,7 @@ class FrozenList(list):
 
 class FrozenSet(set):
     def _immutable(self, *args, **kwargs):
+        """Raise ``TypeError`` on any mutating set operation."""
         raise TypeError("FrozenSet is immutable")
 
     add = _immutable
@@ -172,6 +174,7 @@ class FrozenSet(set):
 
 
 def _ensure_normalizing_set(values):
+    """Return a mutable copy of ``values`` as a :class:`NormalizingSet`."""
     if values is None:
         return NormalizingSet()
     if isinstance(values, NormalizingSet):
@@ -180,6 +183,7 @@ def _ensure_normalizing_set(values):
 
 
 def _ensure_normalizing_dictionary(values, default_value_fn=None):
+    """Return a mutable copy of ``values`` as a :class:`NormalizingDictionary`."""
     if values is None:
         return NormalizingDictionary(default_value_fn=default_value_fn)
     if isinstance(values, NormalizingDictionary):
@@ -191,6 +195,7 @@ def _ensure_normalizing_dictionary(values, default_value_fn=None):
 
 
 def _freeze_nested_value(value):
+    """Recursively freeze dicts, sets, lists, and normalizing containers for immutability."""
     if isinstance(value, NormalizingDictionary):
         frozen_dict = value.copy()
         for key, subvalue in list(frozen_dict.items()):
@@ -1068,6 +1073,7 @@ def guess_class2_chain_type(gene_name):
 
 
 def _scientific_name_parts(latin_name):
+    """Split a binomial/trinomial scientific name into words, excluding ``<Taxon> sp.`` entries."""
     parts = latin_name.split()
     if len(parts) < 2:
         return []
@@ -1116,6 +1122,7 @@ def _make_full_scientific_prefix(latin_name):
 
 
 def _make_generated_alias_counts(generator):
+    """Count how many ontology entries generate each derived prefix via ``generator``."""
     counts = defaultdict(int)
     for latin_name in raw_species_dict:
         alias = generator(latin_name)
@@ -1864,6 +1871,7 @@ def create_species_lookup_dictionaries():
 
 
 def _build_species_children_map():
+    """Index direct ontology child :class:`Species` objects by parent Latin name."""
     children_by_parent = defaultdict(list)
     for latin_name in raw_species_dict:
         sp = latin_name_to_species_object[latin_name]
@@ -1876,6 +1884,7 @@ _species_children_map = _build_species_children_map()
 
 
 def _build_ncbi_taxid_map():
+    """Index ontology :class:`Species` objects by verified NCBI Taxonomy ID."""
     by_taxid = defaultdict(list)
     for latin_name in raw_species_dict:
         sp = latin_name_to_species_object[latin_name]
@@ -1987,6 +1996,7 @@ def find_matching_context_only_species_objects(name):
 
 
 def _candidate_prefix_substrings(name):
+    """Return candidate leading prefix substrings split on ``-`` and ``.``."""
     candidates = [name]
     if "-" in name or "." in name:
         parts_split_by_separator = re.split(r"[-.]", name)
@@ -2001,6 +2011,7 @@ def _candidate_prefix_substrings(name):
 
 
 def _sort_species_by_ontology_order(species_objects):
+    """Sort :class:`Species` objects deterministically by their declaration order in ``species.yaml``."""
     return sorted(species_objects, key=lambda sp: _RAW_SPECIES_ORDER.get(sp.name, float("inf")))
 
 

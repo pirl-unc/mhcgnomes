@@ -175,6 +175,7 @@ _PAREN_MUTATIONS_RE = re.compile(
 
 
 def _expand_parenthesized_mutations(trimmed_name: str) -> str:
+    """Rewrite trailing parenthesized point mutations (e.g. ``HLA-A*02:01 (A245V)``) to mutant syntax."""
     match = _PAREN_MUTATIONS_RE.search(trimmed_name)
     if match is None:
         return trimmed_name

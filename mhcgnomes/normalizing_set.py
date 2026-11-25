@@ -38,6 +38,7 @@ class NormalizingSet:
         return self._frozen
 
     def _check_mutable(self):
+        """Raise ``TypeError`` if this set has been frozen."""
         if self._frozen:
             raise TypeError("NormalizingSet is frozen")
 

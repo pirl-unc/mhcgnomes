@@ -69,6 +69,7 @@ class AmbiguousAlleles(ResultWithMultipleAlleles):
 
 
 def _short_name(allele):
+    """Return a species-stripped short name for one member of an :class:`AmbiguousAlleles`."""
     if hasattr(allele, "compact_string"):
         return allele.compact_string(include_species=False)
     return getattr(allele, "name", str(allele))
