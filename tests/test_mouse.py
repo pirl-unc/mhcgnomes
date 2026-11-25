@@ -243,3 +243,38 @@ def test_bare_mouse_ia_ie_chain_and_lowercase_haplotype_preserved():
 
     # Strict species mismatch is rejected
     assert parse("I-Ab", species="Homo sapiens", raise_on_error=False) is None
+
+
+@pytest.mark.parametrize(
+    "raw, expected_str, expected_haplotype_str",
+    [
+        ("H-2/IAb", "H2-AA*b/AB*b", "H2-A-b"),
+        ("H2/IAb", "H2-AA*b/AB*b", "H2-A-b"),
+        ("H-2/IAd", "H2-AA*d/AB*d", "H2-A-d"),
+        ("H-2/IAk", "H2-AA*k/AB*k", "H2-A-k"),
+        ("H-2/IAq", "H2-AA*q/AB*q", "H2-A-q"),
+        ("H-2/IAs", "H2-AA*s/AB*s", "H2-A-s"),
+        ("H-2/IAu", "H2-AA*u/AB*u", "H2-A-u"),
+        ("H-2/IEd", "H2-EA*d/EB*d", "H2-E-d"),
+        ("H-2/IEk", "H2-EA*k/EB*k", "H2-E-k"),
+    ],
+)
+def test_species_slash_separator_h2_class2(raw, expected_str, expected_haplotype_str):
+    """Slash directly after an explicit species prefix parses (#295)."""
+    result = parse(raw)
+    assert type(result) is Pair
+    eq_(result.to_string(), expected_str)
+    eq_(result.species_source, "explicit")
+    assert parse(raw, require_explicit_species=True) == result
+
+    retained = parse(raw, collapse_singleton_haplotypes=False)
+    assert type(retained) is Haplotype
+    eq_(retained.to_string(), expected_haplotype_str)
+
+
+@pytest.mark.parametrize(
+    "invalid",
+    ["/H-2-IAb", "/HLA-A*02:01", "H-2/", "H-2//IAb", "H-2/HLA-A*02:01"],
+)
+def test_malformed_species_slash_inputs_stay_rejected(invalid):
+    assert parse(invalid, raise_on_error=False) is None
