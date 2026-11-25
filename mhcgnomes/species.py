@@ -1473,7 +1473,16 @@ def create_species_for_latin_name(latin_name):
 
     old_mhc_prefix = species_info.get("old prefix")
     if not old_mhc_prefix and parent_species:
-        parent_prefix = parent_species.prefix
+        # Subspecies parented under a binomial (e.g. Canis lupus familiaris ->
+        # Canis lupus -> Canis sp.) should inherit the ancestral umbrella group
+        # prefix ("DLA"), not the parent binomial's species code ("Calu"). When
+        # the binomial has no umbrella above it (e.g. Bubo bubo), its own
+        # old_mhc_prefix equals its prefix and still propagates cleanly.
+        parent_prefix = (
+            parent_species.old_mhc_prefix
+            if not parent_species.is_group and parent_species.old_mhc_prefix
+            else parent_species.prefix
+        )
         if _is_inheritable_umbrella(parent_prefix, parent_species.name):
             old_mhc_prefix = parent_prefix
 
