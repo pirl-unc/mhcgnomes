@@ -142,3 +142,54 @@ def test_infer_class2_alpha_chain_leaves_gene_unchanged():
     result = parse("HLA-DRB1")
     assert type(result) is Gene
     assert infer_class2_alpha_chain(result) is result
+
+
+@pytest.mark.parametrize(
+    "reversed_str,canonical_str",
+    [
+        ("HLA-DQB1*02:01/DQA1*05:01", "HLA-DQA1*05:01/DQB1*02:01"),
+        ("HLA-DQB1*02:01-DQA1*05:01", "HLA-DQA1*05:01/DQB1*02:01"),
+        ("HLA-DRB1*01:01/DRA*01:01", "HLA-DRA*01:01/DRB1*01:01"),
+        ("HLA-DPB1*04:01/DPA1*01:03", "HLA-DPA1*01:03/DPB1*04:01"),
+        ("H2-Ab*b/Aa*b", "H2-AA*b/AB*b"),
+        ("H2-Eb*k/Ea*k", "H2-EA*k/EB*k"),
+    ],
+)
+def test_reversed_class2_pairs_canonicalize_to_alpha_then_beta(reversed_str, canonical_str):
+    """Beta-before-alpha strings must place alpha in .alpha and beta in .beta (#299)."""
+    result = parse(reversed_str)
+    assert type(result) is Pair
+    assert result.alpha.is_class2_alpha
+    assert result.beta.is_class2_beta
+    eq_(result.to_string(), canonical_str)
+    eq_(result, parse(canonical_str))
+
+
+def test_class1_b2m_pairs_still_parse_in_both_orders():
+    p1 = parse("HLA-A*02:01/B2M")
+    p2 = parse("HLA-B2M/A*02:01")
+    assert type(p1) is Pair
+    eq_(p1.to_string(), "HLA-A*02:01/B2M")
+    eq_(p2, p1)
+    eq_(parse("H-2-Kb/B2M").to_string(), "H2-K*b/B2M")
+
+
+@pytest.mark.parametrize(
+    "invalid_pair",
+    [
+        "HLA-A*02:01/A*02:02",
+        "HLA-A*02:01/B*07:02",
+        "HLA-A*02:01-B*07:02",
+        "H2-Kb/H2-Db",
+        "HLA-DRB1*01:01/DRB1*04:01",
+        "HLA-DQA1*01:01/DQA1*05:01",
+        "HLA-DQB1*02:01/DQB1*03:01",
+        "HLA-DQA1*05:01/DRB1*03:01",
+        "HLA-DRA*01:01/DQB1*02:01",
+        "HLA-A*02:01/DRB1*01:01",
+    ],
+)
+def test_biologically_impossible_pairs_do_not_parse_as_pair(invalid_pair):
+    """Non-heterodimer slash/hyphen combinations must not become Pair objects (#299)."""
+    result = parse(invalid_pair, raise_on_error=False)
+    assert not isinstance(result, Pair), f"{invalid_pair} parsed as Pair: {result}"
