@@ -14,6 +14,7 @@ from collections import OrderedDict
 from dataclasses import dataclass
 from typing import Any
 
+from .accessioned_allele import AccessionedAllele
 from .allele import Allele
 from .allele_without_gene import AlleleWithoutGene
 from .gene import Gene
@@ -69,8 +70,8 @@ class Pair(ResultWithMhcClass):
 
     def __init__(
         self,
-        alpha: Allele | AlleleWithoutGene | Gene,
-        beta: Allele | AlleleWithoutGene | Gene,
+        alpha: Allele | AccessionedAllele | AlleleWithoutGene | Gene,
+        beta: Allele | AccessionedAllele | AlleleWithoutGene | Gene,
         mhc_class="II",
         raw_string: str | None = None,
     ):
@@ -94,9 +95,9 @@ class Pair(ResultWithMhcClass):
             return None
         if beta is None:
             return None
-        if not isinstance(alpha, (Allele, Gene, AlleleWithoutGene)):
+        if not isinstance(alpha, (Allele, AccessionedAllele, Gene, AlleleWithoutGene)):
             return None
-        if not isinstance(beta, (Allele, Gene, AlleleWithoutGene)):
+        if not isinstance(beta, (Allele, AccessionedAllele, Gene, AlleleWithoutGene)):
             return None
         non_other = [chain for chain in (alpha, beta) if chain.mhc_class != "other"]
         if non_other:
@@ -183,6 +184,14 @@ class Pair(ResultWithMhcClass):
         return self.alpha.annotation_aberrant_expression or self.beta.annotation_aberrant_expression
 
     @property
+    def annotation_g_group(self):
+        return self.alpha.annotation_g_group or self.beta.annotation_g_group
+
+    @property
+    def annotation_p_group(self):
+        return self.alpha.annotation_p_group or self.beta.annotation_p_group
+
+    @property
     def annotation_group(self):
         return self.alpha.annotation_group or self.beta.annotation_group
 
@@ -247,7 +256,10 @@ def infer_class2_alpha_chain(beta):
     if isinstance(beta, Pair):
         return beta
 
-    if not isinstance(beta, Allele):
+    if not isinstance(beta, (Allele, AccessionedAllele)):
+        return beta
+
+    if getattr(beta, "gene", None) is None:
         return beta
 
     if not beta.is_class2:
