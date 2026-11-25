@@ -45,15 +45,41 @@ def sort_results(results: Iterable[Result]) -> list[Result]:
     return sorted(results, key=sort_key, reverse=True)
 
 
+def _matches_exact_class2_locus_alias(result: Class2Locus) -> bool:
+    """Return True when raw_string ends with an exact-case curated Class II locus alias."""
+    raw = result.raw_string
+    if not raw:
+        return False
+    gene_aliases = result.species.gene_aliases
+    for alias_key, target in gene_aliases.items():
+        if target != result.name:
+            continue
+        orig_alias = gene_aliases.original_key(alias_key)
+        # NormalizingDictionary collapses hyphenated and unhyphenated keys
+        # (e.g. "I-A" overwrites "IA" in gene_aliases.yaml), so check both the
+        # stored spelling and its hyphen-stripped uppercase/exact-case form.
+        variants = (orig_alias, orig_alias.replace("-", "")) if "-" in orig_alias else (orig_alias,)
+        for variant in variants:
+            if raw == variant or raw.endswith(f"-{variant}") or raw.endswith(f" {variant}"):
+                return True
+    return False
+
+
 def sort_key(result: Result):
     lower_raw_string = result.raw_string.lower() if result.raw_string else ""
-    full_string_matches_raw_string = result.to_string().lower() == lower_raw_string
+    t = type(result)
+    is_class2_locus = t is Class2Locus
+    exact_class2_locus_alias = is_class2_locus and _matches_exact_class2_locus_alias(result)
+    full_string_matches_raw_string = (
+        result.to_string().lower() == lower_raw_string or exact_class2_locus_alias
+    )
     compact_string_matches_raw_string = result.compact_string().lower() == lower_raw_string
     if hasattr(result, "name"):
-        name_matches_raw_string = lower_raw_string == result.name.lower()
+        name_matches_raw_string = (
+            lower_raw_string == result.name.lower() or exact_class2_locus_alias
+        )
     else:
         name_matches_raw_string = False
-    t = type(result)
     is_class2_pair = t is Pair
     alpha_is_allele = is_class2_pair and type(result.alpha) is Allele
     alpha_is_valid = is_class2_pair and type(result.alpha) in {Allele, AlleleWithoutGene, Gene}
@@ -63,7 +89,6 @@ def sort_key(result: Result):
     is_allele_without_gene = t is AlleleWithoutGene
     is_serotype = t is Serotype
     is_haplotype = t is Haplotype
-    is_class2_locus = t is Class2Locus
     is_gene = t is Gene
 
     # Penalize serotypes that look like alleles (e.g., B3901, A2403)
@@ -137,6 +162,10 @@ def sort_key(result: Result):
         num_allele_fields,
         original_gene_seq_length,
         is_serotype,
+        # An exact-case curated Class II locus alias (e.g. H2-I-A / H2-IA ->
+        # Class2Locus 'A') outranks a case-folded haplotype collision (H2-ia),
+        # while lowercase H2-ia still resolves to Haplotype('ia').
+        exact_class2_locus_alias,
         # Haplotypes with defined alleles (e.g. H2-a with 9 alleles) outrank
         # Class II loci, but Class II loci outrank empty haplotypes
         # (e.g. RT1-B as Class2Locus beats RT1-b as Haplotype with 0 alleles)

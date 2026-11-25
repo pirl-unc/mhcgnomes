@@ -151,11 +151,19 @@ _INPUT_CHAR_TRANSLATION = str.maketrans(
     {
         '"': "",
         "'": "",
-        # Fold en-dash (U+2013) and em-dash (U+2014) to ASCII hyphen so
-        # paper names using those characters in sub-allele suffixes parse
-        # identically to the ASCII-hyphen form.
-        "\u2013": "-",
-        "\u2014": "-",
+        # Strip typographic curly quotes just like ASCII quotes.
+        "\u2018": "",
+        "\u2019": "",
+        "\u201c": "",
+        "\u201d": "",
+        # Fold Unicode hyphens/dashes/minus sign to ASCII hyphen so paper and
+        # table names using those characters parse identically to ASCII hyphens.
+        "\u2010": "-",  # HYPHEN
+        "\u2011": "-",  # NON-BREAKING HYPHEN
+        "\u2012": "-",  # FIGURE DASH
+        "\u2013": "-",  # EN DASH
+        "\u2014": "-",  # EM DASH
+        "\u2212": "-",  # MINUS SIGN
     }
 )
 

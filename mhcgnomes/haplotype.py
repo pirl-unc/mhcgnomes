@@ -170,6 +170,11 @@ class Haplotype(ResultWithMultipleAlleles):
     def restrict_class2_locus(self, class2_locus: Class2Locus, raise_on_error=True):
         if class2_locus is None:
             return self
+        if not isinstance(class2_locus, Class2Locus):
+            if raise_on_error:
+                raise TypeError(f"Expected Class2Locus or None, got {type(class2_locus).__name__}")
+            else:
+                return None
         if self.locus_restriction == class2_locus:
             return self
         if self.locus_restriction is not None:
@@ -229,7 +234,7 @@ class Haplotype(ResultWithMultipleAlleles):
 
         alpha = alpha_alleles[0]
         beta = beta_alleles[0]
-        return Pair(alpha, beta)
+        return Pair.get(alpha=alpha, beta=beta, raw_string=self.raw_string)
 
     def to_string(self, include_species=True, use_old_species_prefix=False):
         if self.locus_restriction:
