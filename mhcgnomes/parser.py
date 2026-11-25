@@ -16,6 +16,11 @@ import warnings
 from collections import defaultdict
 from collections.abc import Iterable, Mapping, Sequence
 
+from .accessioned_allele import (
+    UNIPROT_ACCESSION_RE,
+    AccessionedAllele,
+    normalize_accession,
+)
 from .allele import Allele
 from .allele_annotations import (
     parse_annotations_from_allele_fields,
@@ -81,9 +86,42 @@ _PUBLISHED_SAHA_SLASH_AMBIGUITIES = frozenset({("49", "82"), ("74", "88")})
 # https://www.uniprot.org/help/accession_numbers). Strictly uppercase so
 # mixed-case compact mouse names (H2Kbm1, H2Ddm1, H2Ldm1, H2IAg7) and
 # separated names (H2-L*r16, HLA-P*01:01) are unaffected (#306).
-_BARE_UNIPROT_ACCESSION_RE = re.compile(
-    r"^(?:[OPQ][0-9][A-Z0-9]{3}[0-9]|[A-NR-Z][0-9](?:[A-Z][A-Z0-9]{2}[0-9]){1,2})(?:-\d+)?$"
+_BARE_UNIPROT_ACCESSION_RE = UNIPROT_ACCESSION_RE
+
+# Explicit accession-backed MHC identifier syntax (#309):
+#   Species-Gene*<db>:<acc> [class I|II]
+#   Species*<db>:<acc> [class I|II]
+_ACCESSIONED_ALLELE_MARKER_RE = re.compile(
+    r"\*(uniprot|genbank|refseq|ena|embl|ddbj|pdb):([^\s*]+)",
+    re.IGNORECASE,
 )
+_BARE_NAMESPACED_ACCESSION_RE = re.compile(
+    r"^(?:uniprot|genbank|refseq|ena|embl|ddbj|pdb):",
+    re.IGNORECASE,
+)
+_ACCESSION_TRAILING_CLASS_RE = re.compile(
+    r"^(?:(?:mhc[\s_-]*)?class[\s_-]*(I{1,2}|1|2)|mhc[\s_-]*(I{1,2}|1|2))$",
+    re.IGNORECASE,
+)
+_ACCESSION_LEADING_CLASS_RE = re.compile(
+    r"^(?:(?:mhc[\s_-]*)?class[\s_-]*(I{1,2}|1|2)|mhc[\s_-]*(I{1,2}|1|2))\s+(.+)$",
+    re.IGNORECASE,
+)
+
+
+def _normalize_accession_class_qualifier(token: str) -> str:
+    """Normalize a Roman or Arabic class I/II qualifier token to ``'I'`` or ``'II'``."""
+    return "I" if token.upper() in ("I", "1") else "II"
+
+
+def _strip_leading_accession_class_qualifier(text: str) -> tuple[str | None, str]:
+    """Strip an optional leading ``class I`` / ``MHC-II`` qualifier from ``text``."""
+    stripped = text.strip()
+    match = _ACCESSION_LEADING_CLASS_RE.match(stripped)
+    if match is None:
+        return None, stripped
+    raw_cls = match.group(1) or match.group(2)
+    return _normalize_accession_class_qualifier(raw_cls), match.group(3).strip()
 
 
 def _is_bare_uniprot_accession(name: str) -> bool:
@@ -2864,6 +2902,100 @@ class Parser:
             normalize_fields=False,
         )
 
+    def _parse_accessioned_allele_candidates(
+        self,
+        name: str,
+        default_species: Species | str | None = DEFAULT_SPECIES_PREFIX,
+    ) -> tuple[list[AccessionedAllele], bool, bool]:
+        """Parse explicit accession-backed MHC identifiers (#309).
+
+        Returns ``(candidates, matched_accession_syntax, has_explicit_species)``.
+        When ``matched_accession_syntax`` is True, callers must not fall back to
+        numeric allele parsing even when ``candidates`` is empty.
+        """
+        stripped = name.strip()
+        if _BARE_NAMESPACED_ACCESSION_RE.match(stripped):
+            return [], True, False
+
+        matches = list(_ACCESSIONED_ALLELE_MARKER_RE.finditer(stripped))
+        if not matches:
+            return [], False, False
+        if len(matches) != 1:
+            return [], True, False
+
+        match = matches[0]
+        raw_before = stripped[: match.start()].strip()
+        raw_source = match.group(1)
+        raw_accession = match.group(2)
+        raw_after = stripped[match.end() :].strip()
+
+        normalized = normalize_accession(raw_source, raw_accession)
+        if normalized is None:
+            return [], True, False
+        source, accession = normalized
+
+        trailing_class = None
+        if raw_after:
+            trailing_match = _ACCESSION_TRAILING_CLASS_RE.fullmatch(raw_after)
+            if trailing_match is None:
+                return [], True, False
+            raw_cls = trailing_match.group(1) or trailing_match.group(2)
+            trailing_class = _normalize_accession_class_qualifier(raw_cls)
+
+        leading_class, before = _strip_leading_accession_class_qualifier(raw_before)
+        if (
+            leading_class is not None
+            and trailing_class is not None
+            and leading_class != trailing_class
+        ):
+            return [], True, False
+        class_qualifier = leading_class or trailing_class
+
+        if not before or "*" in before:
+            return [], True, False
+
+        # Case 1: gene-less "Species*<db>:<acc> [class I|II]"
+        species_obj = Species.get(before)
+        if species_obj is not None:
+            candidate = AccessionedAllele.get(
+                species=species_obj,
+                accession_source=source,
+                accession=accession,
+                gene=None,
+                mhc_class=class_qualifier,
+                raw_string=name,
+            )
+            return ([candidate] if candidate is not None else []), True, True
+
+        # Case 2: gene-bearing "Species-Gene*<db>:<acc>" or "Gene*<db>:<acc>"
+        gene_candidates = [
+            c
+            for c in self.parse_multiple_candidates(before, default_species=default_species)
+            if type(c) is Gene and not c.is_mutant
+        ]
+        if not gene_candidates:
+            return [], True, False
+
+        explicit_species_before, _ = self.parse_species_from_prefix(before)
+        named_species = species_named_in(before)
+        results = []
+        for gene in gene_candidates:
+            candidate = AccessionedAllele.get(
+                species=gene.species,
+                accession_source=source,
+                accession=accession,
+                gene=gene,
+                mhc_class=class_qualifier,
+                raw_string=name,
+            )
+            if candidate is not None:
+                results.append(candidate)
+
+        has_explicit_species = explicit_species_before is not None or any(
+            r.species in named_species for r in results
+        )
+        return unique(results), True, has_explicit_species
+
     def parse(
         self,
         name: str,
@@ -2919,6 +3051,10 @@ class Parser:
             # The accession record supplies an explicit species, even though a
             # raw accession has no readable species prefix.
             Result._set_field(result, "_species_source", "explicit")
+        elif type(result) is AccessionedAllele and "*" in name:
+            _, stripped_before = _strip_leading_accession_class_qualifier(name.split("*", 1)[0])
+            if result.species in species_named_in(stripped_before):
+                Result._set_field(result, "_species_source", "explicit")
 
         if require_explicit_species and result.species_source not in (None, "explicit"):
             species_source = result.species_source
@@ -3005,33 +3141,43 @@ class Parser:
         has_candidate_filters = bool(
             preferred_result_types or required_result_types or only_class1 or only_class2
         )
-        registry_candidate = self.parse_registry_allele(name)
+        accessioned_candidates, is_accessioned_syntax, accessioned_explicit_species = (
+            self._parse_accessioned_allele_candidates(name, default_species=default_species)
+        )
+        registry_candidate = None if is_accessioned_syntax else self.parse_registry_allele(name)
         is_registry_accession = bool(re.fullmatch(r"(?:IPD-MHC:.*|NHP\d+)", name.strip(), re.I))
-        candidates = [registry_candidate] if registry_candidate is not None else []
-        if not candidates and not has_candidate_filters and not is_registry_accession:
-            candidates = self.parse_explicit_species_allele_candidates(name)
-        if not candidates and not is_registry_accession:
-            candidates = self.parse_multiple_candidates(name, default_species=default_species)
-        if not candidates and self.use_allele_aliases and not is_registry_accession:
-            resolved_alias = self._resolve_unparsed_allele_alias(name, default_species)
-            if resolved_alias is not None:
-                alias_species, alias_name = resolved_alias
-                result = self._parse_cached(
-                    name=alias_name,
-                    infer_class2_pairing=infer_class2_pairing,
-                    default_species=alias_species,
-                    preferred_result_types=preferred_result_types,
-                    required_result_types=required_result_types,
-                    only_class1=only_class1,
-                    only_class2=only_class2,
-                    max_allele_fields=max_allele_fields,
-                    raise_on_error=raise_on_error,
-                )
-                if result is not None and result.raw_string != name:
-                    result = result.copy(raw_string=name)
-                return result
+        if is_accessioned_syntax:
+            candidates = accessioned_candidates
+        else:
+            candidates = [registry_candidate] if registry_candidate is not None else []
+            if not candidates and not has_candidate_filters and not is_registry_accession:
+                candidates = self.parse_explicit_species_allele_candidates(name)
+            if not candidates and not is_registry_accession:
+                candidates = self.parse_multiple_candidates(name, default_species=default_species)
+            if not candidates and self.use_allele_aliases and not is_registry_accession:
+                resolved_alias = self._resolve_unparsed_allele_alias(name, default_species)
+                if resolved_alias is not None:
+                    alias_species, alias_name = resolved_alias
+                    result = self._parse_cached(
+                        name=alias_name,
+                        infer_class2_pairing=infer_class2_pairing,
+                        default_species=alias_species,
+                        preferred_result_types=preferred_result_types,
+                        required_result_types=required_result_types,
+                        only_class1=only_class1,
+                        only_class2=only_class2,
+                        max_allele_fields=max_allele_fields,
+                        raise_on_error=raise_on_error,
+                    )
+                    if result is not None and result.raw_string != name:
+                        result = result.copy(raw_string=name)
+                    return result
         explicit_species, _ = self.parse_species_from_prefix(name)
-        has_explicit_species_prefix = explicit_species is not None or registry_candidate is not None
+        has_explicit_species_prefix = (
+            explicit_species is not None
+            or registry_candidate is not None
+            or accessioned_explicit_species
+        )
         default_species_object = Species.get(default_species)
         should_require_default_match = (
             default_species is not None

@@ -2012,8 +2012,12 @@ def find_matching_context_only_species_objects(name):
 
 
 def _candidate_prefix_substrings(name):
-    """Return candidate leading prefix substrings split on ``-`` and ``.``."""
+    """Return candidate leading prefix substrings split on ``*``, ``-``, and ``.``."""
     candidates = [name]
+    if "*" in name:
+        before_star = name.split("*", 1)[0].strip()
+        if before_star and before_star not in candidates:
+            candidates.append(before_star)
     if "-" in name or "." in name:
         parts_split_by_separator = re.split(r"[-.]", name)
         first = parts_split_by_separator[0]

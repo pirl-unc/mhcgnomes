@@ -2,7 +2,17 @@ from collections import OrderedDict
 
 import pytest
 
-from mhcgnomes import Allele, Gene, Haplotype, MhcClass, Pair, Serotype, Supertype, parse
+from mhcgnomes import (
+    AccessionedAllele,
+    Allele,
+    Gene,
+    Haplotype,
+    MhcClass,
+    Pair,
+    Serotype,
+    Supertype,
+    parse,
+)
 
 ANNOTATION_FLAGS = (
     "annotation_null",
@@ -185,6 +195,49 @@ GOLDEN_PARSE_CASES = [
         ),
         "expected_annotations": _expected_annotation_values(),
     },
+    {
+        "id": "accessioned_allele_with_gene",
+        "raw": "AnasPlatyrhynchos-UAA*uniprot:Q6I7L2",
+        "expected_type": AccessionedAllele,
+        "expected_to_string": "AnasPlatyrhynchos-UAA*uniprot:Q6I7L2",
+        "expected_compact": "UAA*uniprot:Q6I7L2",
+        "expected_record": OrderedDict(
+            [
+                ("species_prefix", "AnasPlatyrhynchos"),
+                ("species_latin_name", "Anas platyrhynchos"),
+                ("gene", "AnasPlatyrhynchos-UAA"),
+                ("mhc_class", "Ia"),
+                ("mutations", ""),
+                ("is_mutant", False),
+                ("pseudogene_status", None),
+                ("is_pseudogene", False),
+                ("allele", "AnasPlatyrhynchos-UAA*uniprot:Q6I7L2"),
+                ("accession_source", "uniprot"),
+                ("accession", "Q6I7L2"),
+            ]
+        ),
+        "expected_annotations": _expected_annotation_values(),
+    },
+    {
+        "id": "accessioned_allele_without_gene",
+        "raw": "SarcophilusHarrisii*uniprot:G3V1L5 class I",
+        "expected_type": AccessionedAllele,
+        "expected_to_string": "Saha*uniprot:G3V1L5 class I",
+        "expected_compact": "uniprot:G3V1L5 class I",
+        "expected_record": OrderedDict(
+            [
+                ("species_prefix", "Saha"),
+                ("species_latin_name", "Sarcophilus harrisii"),
+                ("mhc_class", "I"),
+                ("pseudogene_status", None),
+                ("is_pseudogene", False),
+                ("allele", "Saha*uniprot:G3V1L5 class I"),
+                ("accession_source", "uniprot"),
+                ("accession", "G3V1L5"),
+            ]
+        ),
+        "expected_annotations": _expected_annotation_values(),
+    },
 ]
 
 
@@ -265,6 +318,16 @@ COPY_CHANGE_CASES = [
         "HLA class II beta",
         lambda result: result.copy(chain="alpha"),
         id="mhc_class_chain",
+    ),
+    pytest.param(
+        "AnasPlatyrhynchos-UAA*uniprot:Q6I7L2",
+        lambda result: result.copy(accession="P04439"),
+        id="accessioned_allele_with_gene",
+    ),
+    pytest.param(
+        "SarcophilusHarrisii*uniprot:G3V1L5 class I",
+        lambda result: result.copy(mhc_class="II"),
+        id="accessioned_allele_without_gene",
     ),
 ]
 

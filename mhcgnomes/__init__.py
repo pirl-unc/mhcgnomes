@@ -18,6 +18,7 @@ from typing import TYPE_CHECKING, Any
 from .version import __version__
 
 if TYPE_CHECKING:
+    from .accessioned_allele import AccessionedAllele
     from .allele import Allele
     from .allele_without_gene import AlleleWithoutGene
     from .ambiguous_alleles import AmbiguousAlleles
@@ -47,6 +48,7 @@ if TYPE_CHECKING:
 
 
 LAZY_EXPORTS: dict[str, tuple[str, str]] = {
+    "AccessionedAllele": (".accessioned_allele", "AccessionedAllele"),
     "Allele": (".allele", "Allele"),
     "AlleleWithoutGene": (".allele_without_gene", "AlleleWithoutGene"),
     "AmbiguousAlleles": (".ambiguous_alleles", "AmbiguousAlleles"),
@@ -79,6 +81,7 @@ LAZY_EXPORTS: dict[str, tuple[str, str]] = {
 
 LAZY_SUBMODULES: frozenset[str] = frozenset(
     {
+        "accessioned_allele",
         "allele",
         "allele_annotations",
         "allele_without_gene",
@@ -129,6 +132,7 @@ LAZY_SUBMODULES: frozenset[str] = frozenset(
 )
 
 __all__ = [
+    "AccessionedAllele",
     "Allele",
     "AlleleWithoutGene",
     "AmbiguousAlleles",

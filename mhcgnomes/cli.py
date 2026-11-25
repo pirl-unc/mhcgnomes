@@ -28,6 +28,7 @@ COLUMN_NAMES = (
 )
 
 RESULT_TYPE_NAMES = (
+    "AccessionedAllele",
     "Allele",
     "AlleleWithoutGene",
     "AmbiguousAlleles",
@@ -44,6 +45,7 @@ RESULT_TYPE_NAMES = (
 
 def load_result_types() -> dict[str, type]:
     """Import and return the mapping from public result class names to classes."""
+    from .accessioned_allele import AccessionedAllele
     from .allele import Allele
     from .allele_without_gene import AlleleWithoutGene
     from .ambiguous_alleles import AmbiguousAlleles
@@ -59,6 +61,7 @@ def load_result_types() -> dict[str, type]:
     return {
         cls.__name__: cls
         for cls in (
+            AccessionedAllele,
             Allele,
             AlleleWithoutGene,
             AmbiguousAlleles,
