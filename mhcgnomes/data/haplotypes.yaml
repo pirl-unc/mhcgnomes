@@ -439,9 +439,18 @@ H2:
     - T18*d
     - Qa1*b
   g7:
+    # NOD mouse haplotype (#201):
+    # - H2-Ea carries a promoter/exon-1 deletion and is not expressed (Ea: null;
+    #   Hattori et al., Science 1986;231:733, PMID 3003909).
+    # - H2-Eb1 carries a distinct functional Eb*g7 allele that pairs with
+    #   transgenic Ea to form I-Eg7 with a unique p4 anchor motif (Lund et al.,
+    #   J Autoimmun 1990;3:289, PMID 1975742; Gregori et al., J Immunol
+    #   1999;162:6630, PMID 10352280).
     - K*d
     - Ab*g7
     - Aa*d
+    - Eb*g7
+    # Ea: null
     - D*b
     - Qa2*a
     - T18*b

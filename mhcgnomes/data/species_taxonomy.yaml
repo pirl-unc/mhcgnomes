@@ -986,6 +986,9 @@ Heterocephalus glaber:
 Nannospalax galili:
   ncbi_taxid: 1026970
   clade: other_mammal
+Peromyscus sp.:
+  ncbi_taxid: 10040
+  clade: other_mammal
 Peromyscus maniculatus:
   ncbi_taxid: 10042
   clade: other_mammal

@@ -59,6 +59,14 @@ H2:
   CRW2: M5
   Hmt: M3
   Thy19.4: M2
+  # MGI official dot notation for vomeronasal H2-M10 sub-loci (Loconto et al.,
+  # Cell 2003;112:607, PMID 12526802; #280).
+  M10.1: M10-1
+  M10.2: M10-2
+  M10.3: M10-3
+  M10.4: M10-4
+  M10.5: M10-5
+  M10.6: M10-6
   D1: D
   K1: K
   # Class II sub-classes
@@ -179,6 +187,10 @@ Coja:
 Zhom:
   # Old-genus Rhacophorus prefix preserved in external gene name
   Rhom-beta1: DAB
+LithYava:
+  # Savage & Zamudio, PNAS 2011;108:16705 (PMID 21949385), UniProt G5DDZ5
+  # (Raya-beta1 class II beta locus; matches Zhom Rhom-beta1 -> DAB, #280)
+  beta1: DAB
 Xetr:
   hla-drb1: DRB1
 Paol:
