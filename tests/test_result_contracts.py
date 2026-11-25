@@ -21,6 +21,8 @@ ANNOTATION_FLAGS = (
     "annotation_questionable",
     "annotation_low_expression",
     "annotation_aberrant_expression",
+    "annotation_g_group",
+    "annotation_p_group",
     "annotation_group",
     "annotation_pseudogene",
     "annotation_splice_variant",
