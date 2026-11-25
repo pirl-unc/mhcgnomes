@@ -278,3 +278,36 @@ def test_species_slash_separator_h2_class2(raw, expected_str, expected_haplotype
 )
 def test_malformed_species_slash_inputs_stay_rejected(invalid):
     assert parse(invalid, raise_on_error=False) is None
+
+
+@pytest.mark.parametrize(
+    "raw, expected_gene, expected_field",
+    [
+        ("Qa-1b", "T23", "b"),
+        ("Qa-1^b", "T23", "b"),
+        ("Qa1b", "T23", "b"),
+        ("Qa-1*b", "T23", "b"),
+        ("Qa-1a", "T23", "a"),
+        ("Qa-1^a", "T23", "a"),
+        ("Qa-1d", "T23", "d"),
+        ("Qa-2a", "Q7", "a"),
+        ("Qa-2^a", "Q7", "a"),
+        ("Qa2b", "Q7", "b"),
+        ("T23b", "T23", "b"),
+        ("T23^b", "T23", "b"),
+    ],
+)
+def test_bare_mouse_qa1_and_qa2_alleles(raw, expected_gene, expected_field):
+    """Bare mouse Qa-1/Qa-2 alleles resolve consistently with H2-prefixed forms (#318)."""
+    result = parse(raw)
+    assert type(result) is Allele
+    eq_(result, Allele.get("H2", expected_gene, expected_field))
+    eq_(result.species_source, "inferred")
+    assert parse(raw, require_explicit_species=True, raise_on_error=False) is None
+    assert parse(raw, species="Homo sapiens", raise_on_error=False) is None
+
+
+def test_bare_mouse_qa_genes_and_b2m_unaffected():
+    eq_(parse("Qa-1"), Gene.get("H2", "T23"))
+    eq_(parse("Qa-2"), Gene.get("H2", "Q7"))
+    eq_(parse("B2M"), Gene.get("HLA", "B2M"))
