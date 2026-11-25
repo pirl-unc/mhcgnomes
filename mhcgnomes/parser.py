@@ -2033,6 +2033,12 @@ class Parser:
         )
 
         if standard_result:
+            if (
+                strict_default_species
+                and default_species is not None
+                and standard_result.species != Species.get(default_species)
+            ):
+                return []
             if self.verbose:
                 print("""=== Standard format result """)
                 print(standard_result)
@@ -2868,6 +2874,12 @@ class Parser:
 
         results = []
         if found_species_prefix:
+            # Allow a single "/" separator directly between an explicit species
+            # prefix and its molecule/haplotype (e.g. "H-2/IAb".."H-2/IEk" in
+            # CapHLA; #295), while keeping leading ("/HLA-A*02:01"), trailing
+            # ("H-2/"), and doubled ("H-2//IAb") slashes rejected.
+            if len(tokens) >= 2 and tokens[0].seq == "/" and tokens[1].seq != "/":
+                tokens = tokens[1:]
             # if anything at the start of the token sequence matched a species
             # name then just go with those species possibilities and throw away
             # the default one we're using
