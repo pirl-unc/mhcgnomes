@@ -92,6 +92,10 @@ class TestHeterodimersBasicParsing:
             # Source: J Immunol 1994 PMID:7512598
             ("DQ3.1", "DQA1*03:01", "DQB1*03:01"),
             ("HLA-DQ3.1", "DQA1*03:01", "DQB1*03:01"),
+            # DQ8.1 - classic cis-encoded DQ8 heterodimer (#302)
+            # Source: PMC3482388, PMID:33043613
+            ("DQ8.1", "DQA1*03:01", "DQB1*03:02"),
+            ("HLA-DQ8.1", "DQA1*03:01", "DQB1*03:02"),
             # DQ8.5 - trans-encoded DQ8 variant (2 in IEDB)
             # Source: Structure 2016 PMID:27568928, PDB 5KSA/5KSB
             ("DQ8.5", "DQA1*05:01", "DQB1*03:02"),
@@ -127,6 +131,7 @@ class TestHeterodimersStringOutput:
             ("DQ2.3", "HLA-DQA1*03:01/DQB1*02:01"),
             ("DQ7.5", "HLA-DQA1*05:05/DQB1*03:01"),
             ("DQ3.1", "HLA-DQA1*03:01/DQB1*03:01"),
+            ("DQ8.1", "HLA-DQA1*03:01/DQB1*03:02"),
             ("DQ8.5", "HLA-DQA1*05:01/DQB1*03:02"),
         ],
     )
@@ -194,6 +199,7 @@ class TestHeterodimersEquivalence:
             ("DQ2.3", "DQA1*03:01/DQB1*02:01"),
             ("DQ7.5", "DQA1*05:05/DQB1*03:01"),
             ("DQ3.1", "DQA1*03:01/DQB1*03:01"),
+            ("DQ8.1", "DQA1*03:01/DQB1*03:02"),
             ("DQ8.5", "DQA1*05:01/DQB1*03:02"),
         ],
     )

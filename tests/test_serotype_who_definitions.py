@@ -368,11 +368,30 @@ class TestWorkshopSerotypes:
             assert cw in human.serotypes, f"Expected {cw} serotype"
 
     def test_dpw_serotypes_exist(self):
-        """DP workshop serotypes should exist (preserved for compatibility)."""
+        """DP workshop serotypes and modern DP1-DP6 aliases should exist (#302)."""
         human = Species.get("HLA")
-        dpw_serotypes = ["DPw1", "DPw2", "DPw3", "DPw4", "DPw5", "DPw6"]
-        for dpw in dpw_serotypes:
+        for num in range(1, 7):
+            dpw = f"DPw{num}"
+            dp = f"DP{num}"
             assert dpw in human.serotypes, f"Expected {dpw} serotype"
+            assert dp in human.serotypes, f"Expected {dp} serotype"
+            assert set(human.serotypes[dp]) == set(human.serotypes[dpw])
+            parsed = parse(f"HLA-{dp}")
+            assert parsed is not None
+            assert parsed.name == dp
+
+    def test_drw52_and_drw53_workshop_aliases_match_dr52_dr53(self):
+        """Historical DRw52/DRw53 workshop names match DR52/DR53 alleles (#302)."""
+        human = Species.get("HLA")
+        for workshop, modern in [("DRw52", "DR52"), ("DRw53", "DR53")]:
+            assert workshop in human.serotypes
+            assert set(human.serotypes[workshop]) == set(human.serotypes[modern])
+            parsed = parse(f"HLA-{workshop}")
+            assert parsed is not None
+            assert parsed.name == workshop
+            assert {a.to_string() for a in parsed.alleles} == {
+                a.to_string() for a in parse(f"HLA-{modern}").alleles
+            }
 
 
 class TestSerotypeToAlleleMapping:

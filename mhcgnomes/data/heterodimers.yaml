@@ -26,6 +26,10 @@
 # DQ3.1 (DQA1*03:01/DQB1*03:01):
 #   - Sidney J, et al. J Immunol 1994. PMID:7512598
 #
+# DQ8.1 (DQA1*03:01/DQB1*03:02):
+#   - Megiorni F, Pizzuti A. J Biomed Sci 2012;19:88. PMID:23050549, PMC3482388
+#   - Axelsson S, et al. 2020. PMID:33043613
+#
 # DQ8.5 (DQA1*05:01/DQB1*03:02):
 #   - Petersen J, et al. Structure 2016. PMID:27568928
 #
@@ -60,6 +64,10 @@ HLA:
     beta: DQB1*03:01
 
   # DQ8 variants (DQ8 is split of DQ3, beta = DQB1*03:02)
+  # Classic cis-encoded DQ8 heterodimer (DQA1*03:01/DQB1*03:02; #302)
+  DQ8.1:
+    alpha: DQA1*03:01
+    beta: DQB1*03:02
   DQ8.5:
     alpha: DQA1*05:01
     beta: DQB1*03:02
