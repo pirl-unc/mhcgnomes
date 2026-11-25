@@ -17,7 +17,7 @@ from dataclasses import dataclass
 from types import MappingProxyType
 from typing import Any
 
-from .common import cache, normalize_allele_alias, normalize_string
+from .common import cache, normalize_allele_alias, normalize_haplotype_name, normalize_string
 from .data import allele_aliases as raw_allele_aliases_dict
 from .data import current_allele_names
 from .data import direct_serotypes as raw_direct_serotypes_dict
@@ -308,7 +308,9 @@ class Species(Result):
             known_alleles, default_value_fn=NormalizingSet
         )
         known_alleles = known_alleles.map_values(_ensure_normalizing_set)
-        haplotypes = _ensure_normalizing_dictionary(haplotypes)
+        haplotypes = NormalizingDictionary(
+            *(haplotypes or {}).items(), normalize_fn=normalize_haplotype_name
+        )
         serotypes = _ensure_normalizing_dictionary(serotypes)
         direct_serotypes = _ensure_normalizing_dictionary(
             serotypes if direct_serotypes is None else direct_serotypes
@@ -1707,7 +1709,9 @@ def create_species_for_latin_name(latin_name):
     allele_aliases = combine_species_aliases(
         raw_allele_aliases_dict, all_identifiers, normalize_fn=normalize_allele_alias
     )
-    haplotypes = combine_species_aliases(raw_haplotypes_dict, all_identifiers)
+    haplotypes = combine_species_aliases(
+        raw_haplotypes_dict, all_identifiers, normalize_fn=normalize_haplotype_name
+    )
     serotypes = combine_species_aliases(raw_serotypes_dict, all_identifiers)
     direct_serotypes = combine_species_aliases(raw_direct_serotypes_dict, all_identifiers)
     heterodimers = combine_species_aliases(raw_heterodimers_dict, all_identifiers)
