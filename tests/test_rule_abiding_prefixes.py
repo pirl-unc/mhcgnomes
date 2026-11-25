@@ -35,10 +35,13 @@ RESPELLED = [
 def test_the_new_prefix_is_the_one_the_emitter_would_make(
     latin_name, new_prefix, old_prefix, gene_name
 ):
+    from mhcgnomes.prefix_display_policy import CURATED, prefix_display_policy
     from mhcgnomes.species import auto_generated_prefixes_for_latin_name
 
     species = Species.get_by_latin_name(latin_name)
-    eq_(species.prefix, new_prefix)
+    eq_(species.canonical_mhc_prefix, new_prefix)
+    with prefix_display_policy(CURATED):
+        eq_(species.prefix, new_prefix)
     ok_(
         new_prefix in auto_generated_prefixes_for_latin_name(latin_name),
         f"{new_prefix} is not a form the generator produces for {latin_name}",
@@ -63,8 +66,14 @@ def test_provenance_is_now_generated_rather_than_unknown(
 def test_the_old_spelling_still_parses_and_normalizes(
     latin_name, new_prefix, old_prefix, gene_name
 ):
-    eq_(parse(f"{old_prefix}-{gene_name}").to_string(), f"{new_prefix}-{gene_name}")
-    eq_(parse(f"{new_prefix}-{gene_name}").to_string(), f"{new_prefix}-{gene_name}")
+    from mhcgnomes.prefix_display_policy import CURATED, prefix_display_policy
+
+    full_binomial = "".join(w.capitalize() for w in latin_name.split())
+    eq_(parse(f"{old_prefix}-{gene_name}").to_string(), f"{full_binomial}-{gene_name}")
+    eq_(parse(f"{new_prefix}-{gene_name}").to_string(), f"{full_binomial}-{gene_name}")
+    with prefix_display_policy(CURATED):
+        eq_(parse(f"{old_prefix}-{gene_name}").to_string(), f"{new_prefix}-{gene_name}")
+        eq_(parse(f"{new_prefix}-{gene_name}").to_string(), f"{new_prefix}-{gene_name}")
     eq_(Species.get(old_prefix).name, latin_name)
 
 
@@ -78,12 +87,17 @@ def test_the_old_spelling_is_recorded_as_an_alias(latin_name, new_prefix, old_pr
 
 
 def test_the_siblings_that_set_the_pattern_are_unchanged():
+    from mhcgnomes.prefix_display_policy import CURATED, prefix_display_policy
+
     for prefix, latin_name in [
         ("EudyFilh", "Eudyptes filholi"),
         ("EudyScla", "Eudyptes sclateri"),
         ("CricGris", "Cricetulus griseus"),
     ]:
-        eq_(Species.get_by_latin_name(latin_name).prefix, prefix)
+        sp = Species.get_by_latin_name(latin_name)
+        eq_(sp.canonical_mhc_prefix, prefix)
+        with prefix_display_policy(CURATED):
+            eq_(sp.prefix, prefix)
 
 
 def test_the_macaroni_penguin_collision_is_still_only_hypothetical():

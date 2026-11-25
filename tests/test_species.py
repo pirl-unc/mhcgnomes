@@ -44,7 +44,7 @@ def test_known_allele_SLA_3_ydy01():
         ("H2-K*bm8", "Mus musculus", "K", "bm8", "H2-K*bm8"),
         ("H2-D*bm13", "Mus musculus", "D", "bm13", "H2-D*bm13"),
         ("H2-K*wm7", "Mus musculus", "K", "wm7", "H2-K*wm7"),
-        ("Anpl-UAA*SD", "Anas platyrhynchos", "UAA", "sd", "AnasPlat-UAA*sd"),
+        ("Anpl-UAA*SD", "Anas platyrhynchos", "UAA", "sd", "AnasPlatyrhynchos-UAA*sd"),
     ],
 )
 def test_published_non_roster_alleles_are_known(

@@ -85,7 +85,7 @@ def test_promoted_function_api_reparse_helpers():
         max_allele_fields=None,
     )
     assert rescued_prefix is not None
-    eq_(rescued_prefix.to_string(), "OryzLati-UBA")
+    eq_(rescued_prefix.to_string(), "OryziasLatipes-UBA")
     eq_(rescued_prefix.species_source, "explicit")
 
     human = Species.get("Homo sapiens")

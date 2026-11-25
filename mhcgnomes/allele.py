@@ -140,7 +140,7 @@ class Allele(ResultWithGene):
     @staticmethod
     def _get_min_first_field_width(gene):
         """Return the minimum digit width for the first allele field of this gene."""
-        key = (gene.species.prefix, gene.name)
+        key = (gene.species.canonical_mhc_prefix, gene.name)
         return _MIN_FIRST_FIELD_WIDTHS.get(key, _DEFAULT_FIRST_FIELD_WIDTH)
 
     @staticmethod

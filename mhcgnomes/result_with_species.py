@@ -39,7 +39,8 @@ class ResultWithSpecies(Result):
     def species_prefix(self):
         # Every to_string in the package reads this one property, which is why
         # the display policy lives here rather than as a parameter on ten
-        # signatures. The default is unchanged. See prefix_display_policy, #129.
+        # signatures. Defaults to ATTESTED; CURATED opts into compact 4+4 output.
+        # See prefix_display_policy, #129, #188.
         return display_prefix_for(self.species)
 
     @property

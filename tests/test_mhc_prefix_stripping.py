@@ -252,7 +252,8 @@ def test_mhc_strip_round_trip_allele_to_string():
     """Parsed MhcAcar-UA*01:01 should produce a valid Allele with Acar species."""
     result = parse("MhcAcar-UA*01:01", raise_on_error=True)
     assert isinstance(result, Allele)
-    eq_(result.species.prefix, "AcroArun")
+    eq_(result.species.prefix, "AcrocephalusArundinaceus")
+    eq_(result.species.canonical_mhc_prefix, "AcroArun")
     eq_(result.gene.name, "UA")
 
 
