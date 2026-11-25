@@ -17,6 +17,7 @@ from typing import Any
 from .allele import Allele
 from .allele_without_gene import AlleleWithoutGene
 from .gene import Gene
+from .mhc_class_helpers import common_mhc_class
 from .result_with_mhc_class import ResultWithMhcClass
 
 
@@ -97,14 +98,11 @@ class Pair(ResultWithMhcClass):
             return None
         if not isinstance(beta, (Allele, Gene, AlleleWithoutGene)):
             return None
-        if alpha.mhc_class == "other" and beta.mhc_class != "other":
-            mhc_class = beta.mhc_class
-        elif (
-            beta.mhc_class == "other" and alpha.mhc_class != "other"
-        ) or alpha.mhc_class == beta.mhc_class:
-            mhc_class = alpha.mhc_class
+        non_other = [chain for chain in (alpha, beta) if chain.mhc_class != "other"]
+        if non_other:
+            mhc_class = common_mhc_class(non_other) or "II"
         else:
-            mhc_class = "II"
+            mhc_class = "other"
 
         return cls(alpha=alpha, beta=beta, mhc_class=mhc_class, raw_string=raw_string)
 

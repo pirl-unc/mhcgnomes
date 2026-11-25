@@ -6,6 +6,7 @@ from mhcgnomes import (
     Allele,
     AlleleWithoutGene,
     AmbiguousAlleles,
+    Class2Locus,
     Haplotype,
     Pair,
     ParseError,
@@ -88,8 +89,12 @@ def test_haplotype_restrictions_preserve_parent_haplotypes():
     assert isinstance(class1, Haplotype)
     eq_(class1.parent_haplotypes, crossed.parent_haplotypes)
 
-    locus_restricted = crossed.restrict_class2_locus(parse("H2-IA", raise_on_error=True))
+    ia_locus = parse("H2-IA", raise_on_error=True)
+    assert isinstance(ia_locus, Class2Locus)
+    eq_(ia_locus.name, "A")
+    locus_restricted = crossed.restrict_class2_locus(ia_locus)
     eq_(locus_restricted.parent_haplotypes, crossed.parent_haplotypes)
+    eq_(locus_restricted.locus_restriction, ia_locus)
 
 
 def test_require_explicit_species_not_bypassed_by_context_only_gene():
@@ -140,3 +145,78 @@ def test_unknown_species_and_mutually_exclusive_default_species_contracts():
             default_species="H2",
             raise_on_error=False,
         )
+
+
+def test_haplotype_get_class2_pair_preserves_mhc_class_and_raw_string():
+    for raw in ("H2-IAb", "H2-IAd", "H2-IAk", "H2-IAg7", "H2-IEk", "H2-IEd"):
+        pair = parse(raw, raise_on_error=True)
+        assert isinstance(pair, Pair)
+        eq_(pair.mhc_class, "IIa")
+        eq_(pair.raw_string, raw)
+
+    hap = parse("H2-IAb", collapse_singleton_haplotypes=False, raise_on_error=True)
+    assert isinstance(hap, Haplotype)
+    collapsed = hap.get_class2_pair()
+    assert isinstance(collapsed, Pair)
+    eq_(collapsed.mhc_class, "IIa")
+    eq_(collapsed.raw_string, hap.raw_string)
+
+
+def test_restrict_class2_locus_rejects_non_class2_locus():
+    hap = parse("H2-b", raise_on_error=True)
+    other_hap = parse("H2-ia", raise_on_error=True)
+    assert isinstance(hap, Haplotype)
+    assert isinstance(other_hap, Haplotype)
+
+    with pytest.raises(TypeError, match="Expected Class2Locus"):
+        hap.restrict_class2_locus(other_hap, raise_on_error=True)
+    assert hap.restrict_class2_locus(other_hap, raise_on_error=False) is None
+
+
+def test_pair_get_computes_common_mhc_class_for_heterogeneous_chains():
+    ia = parse("HLA-A*02:01", raise_on_error=True)
+    ib = parse("HLA-E*01:01", raise_on_error=True)
+    iia = parse("HLA-DRA*01:01", raise_on_error=True)
+    iib = parse("HLA-DMB*01:01", raise_on_error=True)
+    b2m = parse("HLA-B2M", raise_on_error=True)
+
+    eq_(Pair.get(ia, b2m).mhc_class, "Ia")
+    eq_(Pair.get(b2m, ib).mhc_class, "Ib")
+    eq_(Pair.get(ia, ib).mhc_class, "I")
+    eq_(Pair.get(iia, iib).mhc_class, "II")
+
+
+def test_h2_ia_locus_alias_vs_lowercase_ia_haplotype():
+    for raw in ("H2-IA", "H2-I-A", "H-2-IA", "H-2-I-A"):
+        result = parse(raw, raise_on_error=True)
+        assert isinstance(result, Class2Locus), f"{raw!r} parsed as {result!r}"
+        eq_(result.name, "A")
+        eq_(result.to_string(), "H2-A")
+
+    for raw in ("IA", "I-A"):
+        result = parse(raw, species="H2", raise_on_error=True)
+        assert isinstance(result, Class2Locus), f"{raw!r} parsed as {result!r}"
+        eq_(result.name, "A")
+
+    # Lowercase H2-ia and explicit "haplotype" stay Haplotype('ia').
+    for raw in ("H2-ia", "H2-ia haplotype", "H2-IA haplotype"):
+        result = parse(raw, raise_on_error=True)
+        assert isinstance(result, Haplotype), f"{raw!r} parsed as {result!r}"
+        eq_(result.name, "ia")
+
+
+@pytest.mark.parametrize(
+    "raw,expected",
+    [
+        ("HLA\u2010A*02:01", "HLA-A*02:01"),  # HYPHEN
+        ("HLA\u2011A*02:01", "HLA-A*02:01"),  # NON-BREAKING HYPHEN
+        ("HLA\u2012A*02:01", "HLA-A*02:01"),  # FIGURE DASH
+        ("HLA\u2212A*02:01", "HLA-A*02:01"),  # MINUS SIGN
+        ("H\u20112\u2011Kb", "H2-K*b"),
+        ("\u201cHLA-A*02:01\u201d", "HLA-A*02:01"),  # curly double quotes
+        ("\u2018HLA-A*02:01\u2019", "HLA-A*02:01"),  # curly single quotes
+    ],
+)
+def test_unicode_hyphens_and_curly_quotes_parse(raw, expected):
+    result = parse(raw, raise_on_error=True)
+    eq_(result.to_string(), expected)
