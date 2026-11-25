@@ -57,9 +57,15 @@ def test_species_to_record_includes_latin_name():
     record = species.to_record()
     assert "species_latin_name" in record
     eq_(record["species_latin_name"], "Homo sapiens")
-    # Backwards compatibility
-    assert "species_name" in record
-    eq_(record["species_name"], "Homo sapiens")
+    assert "species_name" not in record
+
+
+def test_removed_redundant_species_aliases_do_not_exist():
+    species = Species.get_by_latin_name("Homo sapiens")
+    assert not hasattr(species, "scientific_species_name")
+    allele = parse("HLA-A*02:01")
+    assert not hasattr(allele, "species_common_name")
+    eq_(allele.common_species_name, "human")
 
 
 # ---------------------------------------------------------------------------

@@ -38,6 +38,8 @@ def test_cli_parses_bundled_data_under_ascii_locale():
     assert rows[0]["normalized"] == "HLA-A*02:01"
     assert rows[0]["compact"] == "A0201"
     assert rows[0]["species"] == "HLA"
-    assert rows[0]["gene"] == "A"
+    assert rows[0]["gene_name"] == "A"
+    assert "gene" not in rows[0]
     assert rows[0]["mhc_class"] == "Ia"
-    assert "species_name=Homo sapiens" in rows[0]["properties"]
+    assert "species_latin_name=Homo sapiens" in rows[0]["properties"]
+    assert "species_name=" not in rows[0]["properties"]

@@ -20,8 +20,8 @@ Direct tests and internal callers use the same public names.
   outcome types raise `TypeError`; serialization errors propagate except for
   `NotImplementedError` from the optional record schema.
 - `mhcgnomes.cli.outcome_to_cli_row(raw_input, outcome)` projects that row into
-  the CLI's existing eight string columns, using `gene_name` for its `gene`
-  display. It has the same outcome/error contract.
+  the CLI's eight string columns (`COLUMN_NAMES`, including `gene_name`). It has
+  the same outcome/error contract.
 
 ## Parser building blocks
 

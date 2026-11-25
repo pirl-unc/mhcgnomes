@@ -583,10 +583,6 @@ class Species(Result):
         return self.own_gene_names.get_original(gene_name) == gene_name
 
     @property
-    def scientific_species_name(self):
-        return self.name
-
-    @property
     def latin_name(self):
         return self.name
 
@@ -741,7 +737,6 @@ class Species(Result):
         return OrderedDict(
             [
                 ("species_prefix", self.prefix),
-                ("species_name", self.name),
                 ("species_latin_name", self.latin_name),
             ]
         )

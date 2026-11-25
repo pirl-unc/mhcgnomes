@@ -13,10 +13,10 @@ python -m mhcgnomes "HLA-A*02:01" "DQ2.5"
 ```
 
 ```
-input       | type   | normalized                | compact             | species | gene      | mhc_class | properties                                                                                                                                                                                                      
-------------+--------+---------------------------+---------------------+---------+-----------+-----------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-HLA-A*02:01 | Allele | HLA-A*02:01               | A0201               | HLA     | A         | Ia        | species_prefix=HLA; species_name=Homo sapiens; species_latin_name=Homo sapiens; gene=HLA-A; mhc_class=Ia; mutations=; is_mutant=False; pseudogene_status=; is_pseudogene=False; allele=HLA-A*02:01; annotations=
-DQ2.5       | Pair   | HLA-DQA1*05:01/DQB1*02:01 | DQA1*0501-DQB1*0201 | HLA     | DQA1/DQB1 | IIa       | gene=DQA1/DQB1; mhc_class=IIa; is_mutant=False; allele=HLA-DQA1*05:01/DQB1*02:01                                                                                                                                
+input       | type   | normalized                | compact             | species | gene_name | mhc_class | properties                                                                                                                                                                           
+------------+--------+---------------------------+---------------------+---------+-----------+-----------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+HLA-A*02:01 | Allele | HLA-A*02:01               | A0201               | HLA     | A         | Ia        | species_prefix=HLA; species_latin_name=Homo sapiens; gene=HLA-A; mhc_class=Ia; mutations=; is_mutant=False; pseudogene_status=; is_pseudogene=False; allele=HLA-A*02:01; annotations=
+DQ2.5       | Pair   | HLA-DQA1*05:01/DQB1*02:01 | DQA1*0501-DQB1*0201 | HLA     | DQA1/DQB1 | IIa       | gene=DQA1/DQB1; mhc_class=IIa; is_mutant=False; allele=HLA-DQA1*05:01/DQB1*02:01                                                                                                     
 ```
 
 The columns are the input string, the parsed result type, the normalized and
@@ -40,9 +40,9 @@ mhcgnomes --format json "HLA-A*02:01" "not a real allele"
     "normalized": "HLA-A*02:01",
     "compact": "A0201",
     "species": "HLA",
-    "gene": "A",
+    "gene_name": "A",
     "mhc_class": "Ia",
-    "properties": "species_prefix=HLA; species_name=Homo sapiens; species_latin_name=Homo sapiens; gene=HLA-A; mhc_class=Ia; mutations=; is_mutant=False; pseudogene_status=; is_pseudogene=False; allele=HLA-A*02:01; annotations="
+    "properties": "species_prefix=HLA; species_latin_name=Homo sapiens; gene=HLA-A; mhc_class=Ia; mutations=; is_mutant=False; pseudogene_status=; is_pseudogene=False; allele=HLA-A*02:01; annotations="
   },
   {
     "input": "not a real allele",
@@ -50,7 +50,7 @@ mhcgnomes --format json "HLA-A*02:01" "not a real allele"
     "normalized": "",
     "compact": "",
     "species": "",
-    "gene": "",
+    "gene_name": "",
     "mhc_class": "",
     "properties": "Could not parse 'not a real allele'"
   }
@@ -98,8 +98,8 @@ mhcgnomes --require-explicit-species --result-types Allele,Pair --class II --str
 
 Parse failures become error rows by default; `--strict` returns status 1.
 Invalid options return status 2 before any input is parsed. `mhcgnomes --help`
-lists supported options. The CLI keeps its short `gene` display; the shared
-Python row also exposes `gene_name` and any full legacy `gene` record field.
+lists supported options. The CLI uses the same short `gene_name` column as
+`parse_outcome_to_row`, while full `gene` identifiers remain in `properties`.
 
 ## External data
 

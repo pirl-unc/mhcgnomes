@@ -43,10 +43,6 @@ class ResultWithSpecies(Result):
         return display_prefix_for(self.species)
 
     @property
-    def species_common_name(self):
-        return self.species.common_species_name
-
-    @property
     def common_species_name(self):
         return self.species.common_species_name
 
