@@ -35,7 +35,6 @@ GOLDEN_PARSE_CASES = [
         "expected_record": OrderedDict(
             [
                 ("species_prefix", "HLA"),
-                ("species_name", "Homo sapiens"),
                 ("species_latin_name", "Homo sapiens"),
                 ("gene", "HLA-A"),
                 ("mhc_class", "Ia"),
@@ -56,7 +55,6 @@ GOLDEN_PARSE_CASES = [
         "expected_record": OrderedDict(
             [
                 ("species_prefix", "HLA"),
-                ("species_name", "Homo sapiens"),
                 ("species_latin_name", "Homo sapiens"),
                 ("gene", "HLA-A"),
                 ("mhc_class", "Ia"),
@@ -95,7 +93,6 @@ GOLDEN_PARSE_CASES = [
         "expected_record": OrderedDict(
             [
                 ("species_prefix", "HLA"),
-                ("species_name", "Homo sapiens"),
                 ("species_latin_name", "Homo sapiens"),
                 ("gene", "HLA-A"),
                 ("mhc_class", "Ia"),
@@ -118,7 +115,6 @@ GOLDEN_PARSE_CASES = [
         "expected_record": OrderedDict(
             [
                 ("species_prefix", "Saoe"),
-                ("species_name", "Saguinus oedipus"),
                 ("species_latin_name", "Saguinus oedipus"),
                 ("gene", "Saoe-G"),
                 ("mhc_class", "Ib"),
@@ -141,7 +137,6 @@ GOLDEN_PARSE_CASES = [
         "expected_record": OrderedDict(
             [
                 ("species_prefix", "HLA"),
-                ("species_name", "Homo sapiens"),
                 ("species_latin_name", "Homo sapiens"),
                 ("serotype", "HLA-A2"),
             ]
@@ -166,7 +161,6 @@ GOLDEN_PARSE_CASES = [
         "expected_record": OrderedDict(
             [
                 ("species_prefix", "HLA"),
-                ("species_name", "Homo sapiens"),
                 ("species_latin_name", "Homo sapiens"),
                 ("supertype", "A02"),
                 ("supertype_string", "HLA A02 supertype"),
@@ -184,7 +178,6 @@ GOLDEN_PARSE_CASES = [
         "expected_record": OrderedDict(
             [
                 ("species_prefix", "HLA"),
-                ("species_name", "Homo sapiens"),
                 ("species_latin_name", "Homo sapiens"),
                 ("mhc_class", "II"),
                 ("chain", "beta"),

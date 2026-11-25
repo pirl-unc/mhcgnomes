@@ -175,7 +175,7 @@ def test_cli_tsv_output_multiple_inputs():
         "normalized",
         "compact",
         "species",
-        "gene",
+        "gene_name",
         "mhc_class",
         "properties",
     ]

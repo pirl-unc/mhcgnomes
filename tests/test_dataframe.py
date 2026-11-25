@@ -97,7 +97,10 @@ def test_public_outcome_api_shared_with_cli():
     assert row["error"] == ""
     cli = outcome_to_cli_row("original input", result)
     assert cli["normalized"] == row["normalized"]
-    assert cli["gene"] == row["gene_name"]
+    assert cli["gene_name"] == row["gene_name"]
+    assert "gene" not in cli
+    assert "species_latin_name=Homo sapiens" in cli["properties"]
+    assert "species_name=" not in cli["properties"]
     assert (
         parse_outcome_to_row("bad", ParseError("specific failure"))["error"] == "specific failure"
     )

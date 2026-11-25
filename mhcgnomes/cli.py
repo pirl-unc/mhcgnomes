@@ -22,7 +22,7 @@ COLUMN_NAMES = (
     "normalized",
     "compact",
     "species",
-    "gene",
+    "gene_name",
     "mhc_class",
     "properties",
 )
@@ -75,17 +75,17 @@ def load_result_types() -> dict[str, type]:
 
 
 def outcome_to_cli_row(raw_input, outcome):
-    """Project a public parse-outcome row into the CLI's legacy string columns.
+    """Project a public parse-outcome row into the CLI's string columns.
 
-    Accepts the same outcomes as parse_outcome_to_row. CLI 'gene' is the short
-    gene_name; the DataFrame's legacy 'gene' column remains a full identifier.
-    Record fields are presented in properties. Missing scalar display values
-    become empty strings. Unsupported outcomes/serialization errors propagate.
+    Accepts the same outcomes as parse_outcome_to_row. Uses the shared
+    ``gene_name`` column directly (short gene name), leaving full ``gene``
+    identifiers in ``properties`` / ``to_record()``. Missing scalar display
+    values become empty strings. Unsupported outcomes/serialization errors
+    propagate.
     """
     from .parse_outcome import parse_outcome_to_row
 
     row = parse_outcome_to_row(raw_input, outcome)
-    row["gene"] = row["gene_name"]
     return {column: "" if row.get(column) is None else str(row[column]) for column in COLUMN_NAMES}
 
 
