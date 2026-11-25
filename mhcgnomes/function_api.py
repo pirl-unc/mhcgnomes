@@ -126,7 +126,10 @@ def _reparse_result_for_species(
         return None
     if not hasattr(reparsed, "species") or reparsed.species != expected_species:
         return None
-    return reparsed.copy(raw_string=result.raw_string)
+    copied = reparsed.copy(raw_string=result.raw_string)
+    if result.species_source is not None:
+        Result._set_field(copied, "_species_source", result.species_source)
+    return copied
 
 
 def _reparse_with_context_only_prefix(
@@ -160,7 +163,9 @@ def _reparse_with_context_only_prefix(
     )
     if reparsed is None:
         return None
-    return reparsed.copy(raw_string=raw_string)
+    copied = reparsed.copy(raw_string=raw_string)
+    Result._set_field(copied, "_species_source", "explicit")
+    return copied
 
 
 def _reparse_context_only_gene(
@@ -204,7 +209,9 @@ def _reparse_context_only_gene(
     )
     if reparsed is None:
         return None
-    return reparsed.copy(raw_string=raw_string)
+    copied = reparsed.copy(raw_string=raw_string)
+    Result._set_field(copied, "_species_source", "default")
+    return copied
 
 
 def _format_species_options(species_objects, max_items=4):
@@ -621,6 +628,9 @@ def parse_gene_class(
     if not validate_mhc_input(raw_string, raise_on_error=raise_on_error):
         return None
 
+    if species is not None and default_species != DEFAULT_SPECIES_PREFIX:
+        raise ValueError("Cannot specify both 'species' and 'default_species'")
+
     expected_species = Species.get(species) if species is not None else None
     if species is not None and expected_species is None:
         if raise_on_error:
@@ -852,6 +862,10 @@ def parse(
         raise ValueError("Cannot specify both 'species' and 'default_species'")
 
     expected_species = Species.get(species) if species is not None else None
+    if species is not None and expected_species is None:
+        if raise_on_error:
+            raise ParseError(f"Unknown species '{species}' passed to species= parameter")
+        return None
     effective_default = species if species is not None else default_species
 
     parser_error = None
@@ -889,8 +903,11 @@ def parse(
             parser_error = None
         # Also when something else claimed the string: bare "N" parses as the
         # rat haplotype, so a caller who asked for Homo sapiens gets a species
-        # mismatch rather than nothing at all.
-        if result is None or getattr(result, "species", None) != expected_species:
+        # mismatch rather than nothing at all. Skip when require_explicit_species
+        # is True because a bare context-only gene carries no species prefix.
+        if not require_explicit_species and (
+            result is None or getattr(result, "species", None) != expected_species
+        ):
             rescued = _reparse_context_only_gene(
                 parser=parser,
                 raw_string=raw_string,

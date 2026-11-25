@@ -156,6 +156,7 @@ class Haplotype(ResultWithMultipleAlleles):
             alleles=restricted_alleles,
             class_restriction=class_restriction,
             locus_restriction=self.locus_restriction,
+            parent_haplotypes=self.parent_haplotypes,
             raw_string=self.raw_string,
             # Restricted by the same rule as the alleles beside them --
             # restrict_alleles, not is_valid_restriction, which answers a
@@ -187,6 +188,7 @@ class Haplotype(ResultWithMultipleAlleles):
             alleles=restricted_alleles,
             class_restriction=self.class_restriction,
             locus_restriction=class2_locus,
+            parent_haplotypes=self.parent_haplotypes,
             raw_string=self.raw_string,
             # Same rule as the alleles beside them: keep only the loci this
             # restriction is about.
@@ -255,5 +257,7 @@ class Haplotype(ResultWithMultipleAlleles):
         # previous public behavior aside from the documented immutability changes.
         return super().to_record()
 
-    def compact_string(self, include_species=False):
-        return self.to_string(include_species=include_species)
+    def compact_string(self, include_species=False, use_old_species_prefix=False):
+        return self.to_string(
+            include_species=include_species, use_old_species_prefix=use_old_species_prefix
+        )

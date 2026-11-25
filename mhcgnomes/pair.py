@@ -128,6 +128,12 @@ class Pair(ResultWithMhcClass):
     def gene_name(self):
         return f"{self.alpha.gene_name}/{self.beta.gene_name}"
 
+    @property
+    def is_mutant(self):
+        return bool(
+            getattr(self.alpha, "is_mutant", False) or getattr(self.beta, "is_mutant", False)
+        )
+
     def to_record(self):
         # return a dictionary that has the same elements as Gene.to_dict()
         # along with "allele"
@@ -135,7 +141,7 @@ class Pair(ResultWithMhcClass):
             [
                 ("gene", self.gene_name),
                 ("mhc_class", self.mhc_class),
-                ("is_mutant", False),
+                ("is_mutant", self.is_mutant),
                 ("allele", self.to_string()),
             ]
         )

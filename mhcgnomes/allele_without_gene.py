@@ -64,11 +64,13 @@ class AlleleWithoutGene(ResultWithMhcClass):
         name = f"{self.species.canonical_mhc_prefix}-{self.name}"
         return get_registry_identities(name, include_aliases=False)
 
-    def restrict_allele_fields(self, num_fields):
+    def restrict_allele_fields(self, num_fields, drop_annotations=False, drop_mutations=False):
         """Truncate written gene*field names; leave unstructured identifiers unchanged.
 
         A truncated name no longer carries the full accession identity. This
         operation does not establish the unknown gene or a registry allele.
+        ``drop_annotations`` and ``drop_mutations`` are accepted for interface
+        parity with :meth:`Allele.restrict_allele_fields`.
         """
         locus, separator, fields = self.name.partition("*")
         if not separator or len(fields.split(":")) <= num_fields:

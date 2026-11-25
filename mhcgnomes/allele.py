@@ -275,14 +275,20 @@ class Allele(ResultWithGene):
         return candidates
 
     def restrict_allele_fields(self, num_fields, drop_annotations=False, drop_mutations=False):
-        if num_fields >= self.num_allele_fields:
+        new_fields = self.allele_fields[:num_fields]
+        new_annotations = () if drop_annotations else self.annotations
+        new_mutations = () if drop_mutations else self.mutations
+        if (
+            new_fields == self.allele_fields
+            and new_annotations == self.annotations
+            and new_mutations == self.mutations
+        ):
             return self
-        else:
-            return self.copy(
-                allele_fields=self.allele_fields[:num_fields],
-                annotations=() if drop_annotations else self.annotations,
-                mutations=() if drop_mutations else self.mutations,
-            )
+        return self.copy(
+            allele_fields=new_fields,
+            annotations=new_annotations,
+            mutations=new_mutations,
+        )
 
     @classmethod
     def split_allele_fields(cls, allele_fields):
