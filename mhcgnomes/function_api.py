@@ -12,6 +12,7 @@
 
 import re
 
+from .accessioned_allele import AccessionedAllele
 from .allele import Allele
 from .allele_without_gene import AlleleWithoutGene
 from .ambiguous_alleles import AmbiguousAlleles
@@ -141,8 +142,9 @@ def reparse_result_for_species(
         return None
 
     speciesless_string = result.to_string(include_species=False)
+    sep = "*" if type(result) is AccessionedAllele and result.gene is None else "-"
     reparsed = parser.parse(
-        f"{expected_species.prefix}-{speciesless_string}",
+        f"{expected_species.prefix}{sep}{speciesless_string}",
         default_species=expected_species,
         infer_class2_pairing=infer_class2_pairing,
         raise_on_error=False,
@@ -452,6 +454,31 @@ def build_gene_class_info_from_parsed(parsed: Result, raw_string: str):
             source="parsed_class",
             raw_string=raw_string,
         )
+
+    if isinstance(parsed, AccessionedAllele):
+        if parsed.gene is not None:
+            gene_name = parsed.gene.name
+            mhc_class = parsed.mhc_class
+            return GeneClassInfo(
+                species=parsed.species,
+                gene_name=gene_name,
+                mhc_class=mhc_class,
+                chain=chain_for_species_gene(parsed.species, gene_name, mhc_class),
+                non_mhc=mhc_class == "other",
+                source="parsed_allele",
+                raw_string=raw_string,
+            )
+        if parsed.has_mhc_class:
+            return GeneClassInfo(
+                species=parsed.species,
+                gene_name=None,
+                mhc_class=parsed.mhc_class,
+                chain="alpha" if parsed.is_class1 else None,
+                non_mhc=parsed.mhc_class == "other",
+                source="parsed_allele",
+                raw_string=raw_string,
+            )
+        return None
 
     if isinstance(parsed, AlleleWithoutGene) and parsed.has_mhc_class:
         return GeneClassInfo(

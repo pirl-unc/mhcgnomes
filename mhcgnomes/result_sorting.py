@@ -13,6 +13,7 @@
 import re
 from collections.abc import Iterable
 
+from .accessioned_allele import AccessionedAllele
 from .allele import Allele
 from .allele_without_gene import AlleleWithoutGene
 from .class2_locus import Class2Locus
@@ -86,6 +87,7 @@ def sort_key(result: Result):
     beta_is_allele = is_class2_pair and type(result.beta) is Allele
     beta_is_valid = is_class2_pair and type(result.beta) in {Allele, AlleleWithoutGene, Gene}
     is_allele = t is Allele
+    is_accessioned_allele = t is AccessionedAllele
     is_allele_without_gene = t is AlleleWithoutGene
     is_serotype = t is Serotype
     is_haplotype = t is Haplotype
@@ -149,6 +151,7 @@ def sort_key(result: Result):
         (is_class2_pair and alpha_is_allele and beta_is_allele),
         (is_class2_pair and alpha_is_valid and beta_is_valid),
         is_allele,
+        is_accessioned_allele,
         full_string_matches_raw_string,
         compact_string_matches_raw_string,
         # A populated, locus-restricted haplotype retains a designation that
