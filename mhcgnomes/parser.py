@@ -1187,11 +1187,15 @@ class Parser:
         )
 
         allow_three_digits_in_first_field = not allow_three_digits_in_second_field
-        allele_fields = split_allele_fields(
-            str_after_gene=str_after_gene,
-            allow_three_digits_in_first_field=allow_three_digits_in_first_field,
-            allow_three_digits_in_second_field=allow_three_digits_in_second_field,
-        )
+        if prefix_annotations and str_after_gene.isdigit() and len(str_after_gene) == 1:
+            # Single-digit IPD-MHC W-prefix group (e.g. Mane-DRB*W1, Mamu-DRB*W2; #297)
+            allele_fields = [str_after_gene]
+        else:
+            allele_fields = split_allele_fields(
+                str_after_gene=str_after_gene,
+                allow_three_digits_in_first_field=allow_three_digits_in_first_field,
+                allow_three_digits_in_second_field=allow_three_digits_in_second_field,
+            )
 
         if allele_fields:
             # for now we only expect a "W" prefix annotation, IPD-MHC's mark
