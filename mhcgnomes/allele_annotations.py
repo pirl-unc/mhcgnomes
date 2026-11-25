@@ -80,16 +80,17 @@ def check_for_workshop_prefix(seq):
     (HLA-Cw, Bw4) and never an allele field. It is IPD-MHC's: "W or w is used
     to indicate when an allele cannot be defined to a locus/gene yet"
     (https://www.ebi.ac.uk/ipd/mhc/group/NHP/nomenclature/), as in
-    Mamu-DRB*W003:07.
+    Mamu-DRB*W003:07 or Mane-DRB*W1:03 (#297).
     """
-    if len(seq) <= 2:
+    if len(seq) < 2 or seq[0].lower() != "w" or not seq[1].isdigit():
         return seq, []
 
-    # an allele not yet assigned to a locus starts with W
-    if seq[0].lower() == "w" and seq[1].isdigit() and seq[2].isdigit():
+    # Recognize W followed by one or more digits ending the first field
+    # (e.g. "W1", "W1:03", "W20:01", "W003:07", "W201"), without matching
+    # alphanumeric provisional names like "w1a".
+    if len(seq) == 2 or seq[2].isdigit() or seq[2] in ":_":
         return seq[1:], ["W"]
-    else:
-        return seq, []
+    return seq, []
 
 
 def peel_suffix_annotations(seq):
