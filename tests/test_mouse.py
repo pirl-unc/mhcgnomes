@@ -158,3 +158,88 @@ def test_mouse_MHC_class_I_I_E_beta_fails():
     """I-E is class II, so 'mouse MHC class I I-E beta' is contradictory."""
     with pytest.raises(ParseError):
         parse("mouse MHC class I I-E beta")
+
+
+# ---- Bare mouse I-A / I-E nomenclature (#300) ----
+
+
+@pytest.mark.parametrize(
+    "raw, expected_type, expected_str, expected_haplotype_str",
+    [
+        ("I-Ab", Pair, "H2-AA*b/AB*b", "H2-A-b"),
+        ("I-A^b", Pair, "H2-AA*b/AB*b", "H2-A-b"),
+        ("IAb", Pair, "H2-AA*b/AB*b", "H2-A-b"),
+        ("I-Ad", Pair, "H2-AA*d/AB*d", "H2-A-d"),
+        ("I-A^d", Pair, "H2-AA*d/AB*d", "H2-A-d"),
+        ("IAd", Pair, "H2-AA*d/AB*d", "H2-A-d"),
+        ("I-Ak", Pair, "H2-AA*k/AB*k", "H2-A-k"),
+        ("I-A^k", Pair, "H2-AA*k/AB*k", "H2-A-k"),
+        ("IAk", Pair, "H2-AA*k/AB*k", "H2-A-k"),
+        ("I-Ag7", Pair, "H2-AA*d/AB*g7", "H2-A-g7"),
+        ("I-A^g7", Pair, "H2-AA*d/AB*g7", "H2-A-g7"),
+        ("IAg7", Pair, "H2-AA*d/AB*g7", "H2-A-g7"),
+        ("I-As", Pair, "H2-AA*s/AB*s", "H2-A-s"),
+        ("I-Aq", Pair, "H2-AA*q/AB*q", "H2-A-q"),
+        ("I-Au", Pair, "H2-AA*u/AB*u", "H2-A-u"),
+        ("I-Af", Pair, "H2-AA*f/AB*f", "H2-A-f"),
+        ("I-Eb", Allele, "H2-EB*b", "H2-E-b"),
+        ("IEb", Allele, "H2-EB*b", "H2-E-b"),
+        ("I-Ed", Pair, "H2-EA*d/EB*d", "H2-E-d"),
+        ("I-E^d", Pair, "H2-EA*d/EB*d", "H2-E-d"),
+        ("IEd", Pair, "H2-EA*d/EB*d", "H2-E-d"),
+        ("I-Ek", Pair, "H2-EA*k/EB*k", "H2-E-k"),
+        ("I-E^k", Pair, "H2-EA*k/EB*k", "H2-E-k"),
+        ("IEk", Pair, "H2-EA*k/EB*k", "H2-E-k"),
+    ],
+)
+def test_bare_mouse_ia_ie_haplotype_molecules(
+    raw, expected_type, expected_str, expected_haplotype_str
+):
+    collapsed = parse(raw)
+    assert type(collapsed) is expected_type
+    eq_(collapsed.to_string(), expected_str)
+    eq_(collapsed.species_prefix, "H2")
+    eq_(collapsed.species_source, "inferred")
+    assert parse(raw, require_explicit_species=True, raise_on_error=False) is None
+
+    retained = parse(raw, collapse_singleton_haplotypes=False)
+    assert type(retained) is Haplotype
+    eq_(retained.to_string(), expected_haplotype_str)
+
+
+@pytest.mark.parametrize(
+    "raw, expected_locus",
+    [
+        ("I-A", "A"),
+        ("IA", "A"),
+        ("I-E", "E"),
+        ("IE", "E"),
+    ],
+)
+def test_bare_mouse_ia_ie_class2_loci(raw, expected_locus):
+    result = parse(raw)
+    assert type(result) is Class2Locus
+    eq_(result.species_prefix, "H2")
+    eq_(result.name, expected_locus)
+
+
+def test_bare_mouse_ia_ie_chain_and_lowercase_haplotype_preserved():
+    eq_(parse("I-A alpha"), Gene.get("H2", "AA"))
+    eq_(parse("I-A beta"), Gene.get("H2", "AB"))
+    eq_(parse("I-E alpha"), Gene.get("H2", "EA"))
+    eq_(parse("I-E beta"), Gene.get("H2", "EB"))
+    eq_(parse("I-Ab alpha"), Allele.get("H2", "AA", "b"))
+    eq_(parse("I-Ab beta"), Allele.get("H2", "AB", "b"))
+    eq_(parse("I-Ag7 beta"), Allele.get("H2", "AB", "g7"))
+    eq_(parse("I-Ek alpha"), Allele.get("H2", "EA", "k"))
+    eq_(parse("I-Ek beta"), Allele.get("H2", "EB", "k"))
+    eq_(parse("I-Eb2"), Gene.get("H2", "EB2"))
+    eq_(parse("I-Ab", required_result_types=Gene), Gene.get("H2", "AB"))
+
+    # Lowercase "ia" remains Haplotype('ia'), not Class2Locus('A')
+    ia_hap = parse("ia")
+    assert type(ia_hap) is Haplotype
+    eq_(ia_hap.name, "ia")
+
+    # Strict species mismatch is rejected
+    assert parse("I-Ab", species="Homo sapiens", raise_on_error=False) is None
