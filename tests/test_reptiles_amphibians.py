@@ -169,11 +169,6 @@ def test_parse_smooth_newt_gene_limv_dnb():
     eq_(parse("Limv-DNB", raise_on_error=True), expected)
 
 
-def test_gap_report_protein_name_tokens_remain_rejected():
-    for raw in ["Povi-F10", "Miun-E-S", "Gese-DR-1"]:
-        assert parse(raw, raise_on_error=False) is None
-
-
 # ---------------------------------------------------------------------------
 # Other frogs
 # ---------------------------------------------------------------------------

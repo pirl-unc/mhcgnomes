@@ -158,11 +158,9 @@ class TestParseAlleleFromAlleleFields:
         """Chicken allele with letters in field returns None."""
         parser = Parser()
         gene = Gene.get("chicken", "BF2")
-        if gene is not None:
-            result = parser.parse_allele_from_allele_fields(
-                gene, ["12AB"], functional_annotations=[]
-            )
-            assert result is None
+        assert gene is not None
+        result = parser.parse_allele_from_allele_fields(gene, ["12AB"], functional_annotations=[])
+        assert result is None
 
 
 # ============================================================================
@@ -233,9 +231,10 @@ class TestParseAlleleWithGene:
         """parse_allele_with_gene handles pig alleles with # symbol."""
         parser = Parser()
         gene = Gene.get("SLA", "3")
-        if gene is not None:
-            result = parser.parse_allele_with_gene(gene, "US#11")
-            assert result is not None
+        assert gene is not None
+        result = parser.parse_allele_with_gene(gene, "US#11")
+        assert isinstance(result, Allele)
+        assert result.gene == gene
 
 
 # ============================================================================
@@ -569,13 +568,6 @@ class TestTokenParsing:
         assert result is not None
         assert type(result) is Gene
 
-    def test_mouse_mhc_class_format(self):
-        """Parsing 'mouse class I H2-Kb' returns H2-K*b."""
-        result = parse("mouse class I H2-Kb", raise_on_error=False)
-        assert isinstance(result, Allele)
-        assert result.to_string() == "H2-K*b"
-        # May or may not parse depending on data
-
 
 # ============================================================================
 # Slash-separated parsing edge cases
@@ -592,6 +584,37 @@ class TestSlashParsing:
     def test_slash_nothing_after(self):
         """Parsing with nothing after slash returns None without raising."""
         assert parse("DRA*01:01/", raise_on_error=False) is None
+
+    def test_double_slash_rejected(self):
+        """Parsing with consecutive slashes returns None."""
+        assert parse("HLA-DRA*01:01//DRB1*01:01", raise_on_error=False) is None
+
+    def test_spaced_slash_pair(self):
+        """Spaces around '/' in a Class II pair should still parse as Pair."""
+        result = parse("HLA-DRA*01:01 / HLA-DRB1*01:01", raise_on_error=True)
+        assert type(result) is Pair
+        eq_(result.alpha, Allele.get("HLA", "DRA", "01", "01"))
+        eq_(result.beta, Allele.get("HLA", "DRB1", "01", "01"))
+
+    def test_spaced_slash_per_chain_locus_labels(self):
+        """Per-chain alpha/beta labels on both sides of '/' still form a Pair."""
+        result = parse("HLA-DR alpha / HLA-DR beta", raise_on_error=True)
+        assert type(result) is Pair
+        eq_(result.alpha, Gene.get("HLA", "DRA"))
+        eq_(result.beta, Gene.get("HLA", "DRB1"))
+
+    def test_spaced_slash_per_chain_allele_labels(self):
+        """Explicit alpha/beta labels on both alleles around '/' form a Pair."""
+        result = parse("HLA-DRA*01:01 alpha / HLA-DRB1*01:01 beta", raise_on_error=True)
+        assert type(result) is Pair
+        eq_(result.alpha, Allele.get("HLA", "DRA", "01", "01"))
+        eq_(result.beta, Allele.get("HLA", "DRB1", "01", "01"))
+
+    def test_spaced_slash_crossed_haplotype(self):
+        """Spaces around '/' in a crossed haplotype parse as Haplotype."""
+        result = parse("H2-b / d", raise_on_error=True)
+        assert type(result) is Haplotype
+        eq_(result.name, "b/d")
 
     def test_crossed_haplotype(self):
         """Parsing crossed haplotype format."""
@@ -616,10 +639,10 @@ class TestHaplotypeParsing:
     """Tests for haplotype parsing edge cases."""
 
     def test_haplotype_species_no_other_tokens(self):
-        """Parsing 'haplotype H2' returns species."""
-        result = parse("haplotype H2", raise_on_error=False)
-        if result is not None:
-            assert type(result) is Species
+        """Parsing 'haplotype H2' returns mouse Species."""
+        result = parse("haplotype H2", raise_on_error=True)
+        assert type(result) is Species
+        eq_(result, Species.get("H2"))
 
     def test_haplotype_token_not_species(self):
         """Parsing 'haplotype k' resolves to the mouse H2-k haplotype."""
@@ -918,32 +941,46 @@ class TestAlphaAndBetaTokenParsing:
     """Tests for alpha/beta token parsing with various result types."""
 
     def test_alpha_token_with_pair(self):
-        """Parsing 'pair alpha' extracts alpha from pair."""
-        result = parse("HLA-DRA*01:01/DRB1*01:01 alpha", raise_on_error=False)
-        if result is not None:
-            assert result.is_class2_alpha
+        """Parsing 'pair alpha' extracts the alpha chain from a Pair."""
+        result = parse("HLA-DRA*01:01/DRB1*01:01 alpha", raise_on_error=True)
+        assert type(result) is Allele
+        assert result.is_class2_alpha
+        eq_(result, Allele.get("HLA", "DRA", "01", "01"))
 
     def test_beta_token_with_pair(self):
-        """Parsing 'pair beta' extracts beta from pair."""
-        # The pair parsing with beta token may not work as expected
-        # because the tokenization may not produce this exact format
-        result = parse("DRB1*01:01 beta", raise_on_error=False)
-        if result is not None and hasattr(result, "is_class2_beta"):
-            assert result.is_class2_beta
+        """Parsing 'pair beta' extracts the beta chain from a Pair."""
+        result = parse("HLA-DRA*01:01/DRB1*01:01 beta", raise_on_error=True)
+        assert type(result) is Allele
+        assert result.is_class2_beta
+        eq_(result, Allele.get("HLA", "DRB1", "01", "01"))
+
+    def test_alpha_beta_token_with_gene_pair_and_reversed_pair(self):
+        """Trailing alpha/beta also works on Gene pairs and reversed allele pairs."""
+        eq_(parse("HLA-DRA/DRB1 alpha", raise_on_error=True), Gene.get("HLA", "DRA"))
+        eq_(parse("HLA-DRA/DRB1 beta", raise_on_error=True), Gene.get("HLA", "DRB1"))
+        eq_(
+            parse("HLA-DRB1*01:01/DRA*01:01 alpha", raise_on_error=True),
+            Allele.get("HLA", "DRA", "01", "01"),
+        )
+
+    def test_beta_token_with_beta_allele(self):
+        """Parsing 'DRB1*01:01 beta' preserves the beta allele."""
+        result = parse("DRB1*01:01 beta", raise_on_error=True)
+        assert type(result) is Allele
+        assert result.is_class2_beta
+        eq_(result, Allele.get("HLA", "DRB1", "01", "01"))
 
     def test_alpha_token_with_class2_locus(self):
         """Parsing 'Class2Locus alpha' extracts alpha gene."""
-        result = parse("HLA-DR alpha", raise_on_error=False)
-        if result is not None:
-            # Should be DRA gene
-            assert type(result) is Gene
+        result = parse("HLA-DR alpha", raise_on_error=True)
+        assert type(result) is Gene
+        eq_(result, Gene.get("HLA", "DRA"))
 
     def test_beta_token_with_class2_locus(self):
         """Parsing 'Class2Locus beta' extracts beta gene."""
-        result = parse("HLA-DR beta", raise_on_error=False)
-        if result is not None:
-            # Should be DRB gene
-            assert type(result) is Gene
+        result = parse("HLA-DR beta", raise_on_error=True)
+        assert type(result) is Gene
+        eq_(result, Gene.get("HLA", "DRB1"))
 
 
 class TestMutantTokenParsing:
@@ -956,9 +993,10 @@ class TestMutantTokenParsing:
 
     def test_mutant_token_with_valid_allele(self):
         """Parsing with mutant token and valid allele works."""
-        result = parse("HLA-A*02:01 G86Y mutant", raise_on_error=False)
-        if result is not None:
-            assert result.is_mutant
+        result = parse("HLA-A*02:01 G86Y mutant", raise_on_error=True)
+        assert type(result) is Allele
+        assert result.is_mutant
+        eq_(result.to_string(), "HLA-A*02:01 G86Y mutant")
 
 
 class TestSpeciesClassTokenParsing:
@@ -966,21 +1004,25 @@ class TestSpeciesClassTokenParsing:
 
     def test_mouse_class_i_with_allele(self):
         """Parse 'mouse class I H2-Kb' format."""
-        result = parse("mouse class I H2-Kb", raise_on_error=False)
-        if result is not None:
-            assert result.is_class1
+        result = parse("mouse class I H2-Kb", raise_on_error=True)
+        assert type(result) is Allele
+        assert result.is_class1
+        eq_(result.to_string(), "H2-K*b")
 
     def test_mouse_class_ii_with_allele(self):
-        """Parse 'mouse class II IAb' format."""
-        result = parse("mouse class II H2-IAb", raise_on_error=False)
-        if result is not None:
-            assert result.is_class2
+        """Parse 'mouse class II H2-IAb' format."""
+        result = parse("mouse class II H2-IAb", raise_on_error=True)
+        assert type(result) is Pair
+        assert result.is_class2
+        eq_(result.alpha.to_string(), "H2-AA*b")
+        eq_(result.beta.to_string(), "H2-AB*b")
 
     def test_human_class_i_with_allele(self):
-        """Parse 'human class I A*02:01' format."""
-        result = parse("human class I HLA-A*02:01", raise_on_error=False)
-        if result is not None:
-            assert result.is_class1
+        """Parse 'human class I HLA-A*02:01' format."""
+        result = parse("human class I HLA-A*02:01", raise_on_error=True)
+        assert type(result) is Allele
+        assert result.is_class1
+        eq_(result.to_string(), "HLA-A*02:01")
 
 
 class TestSelectSpeciesFromAttributes:

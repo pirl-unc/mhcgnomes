@@ -2082,6 +2082,22 @@ class Parser:
             tokens=other_tokens, default_species=species, strict_default_species=True
         )
 
+    @staticmethod
+    def _select_pair_chain(pair: Pair, chain: str):
+        """Return the requested Class II chain ('alpha' or 'beta') from a Pair,
+        respecting chain identity even if the Pair was written beta-first."""
+        if chain == "alpha":
+            if pair.alpha.is_class2_alpha:
+                return pair.alpha
+            if pair.beta.is_class2_alpha:
+                return pair.beta
+            return pair.alpha
+        if pair.beta.is_class2_beta:
+            return pair.beta
+        if pair.alpha.is_class2_beta:
+            return pair.alpha
+        return pair.beta
+
     def parse_tokens_around_slash(
         self,
         tokens_before: Sequence[Token],
@@ -2089,18 +2105,8 @@ class Parser:
         default_species: Species | str | None = DEFAULT_SPECIES_PREFIX,
         strict_default_species: bool = False,
     ):
-        if len(tokens_before) == 0:
-            return self.parse_tokens_to_multiple_candidates(
-                tokens=tokens_after,
-                default_species=default_species,
-                strict_default_species=strict_default_species,
-            )
-        elif len(tokens_after) == 0:
-            return self.parse_tokens_to_multiple_candidates(
-                tokens=tokens_before,
-                default_species=default_species,
-                strict_default_species=strict_default_species,
-            )
+        if len(tokens_before) == 0 or len(tokens_after) == 0:
+            return []
         candidates = []
         for result_before in self.parse_tokens_to_multiple_candidates(
             tokens=tokens_before,
@@ -2247,6 +2253,25 @@ class Parser:
                             candidates.append(mutated)
                 if candidates:
                     return self.transform_parse_candidates(candidates)
+            if tokens[-1].is_alpha_or_beta and (
+                slash_index == 0 or not tokens[slash_index - 1].is_alpha_or_beta
+            ):
+                # A trailing alpha/beta selector after a completed slash pair
+                # (e.g. "HLA-DRA*01:01/DRB1*01:01 alpha" or "... beta") selects
+                # that chain from the pair rather than binding only to the
+                # post-slash token. Leave per-chain labels like
+                # "HLA-DR alpha / HLA-DR beta" on the normal slash-pair path.
+                pair_chain_candidates = []
+                for pair in self.parse_tokens_to_multiple_candidates(
+                    tokens=tokens[:-1],
+                    default_species=default_species,
+                    strict_default_species=strict_default_species,
+                ):
+                    if type(pair) is Pair:
+                        chain = "alpha" if tokens[-1].is_alpha else "beta"
+                        pair_chain_candidates.append(self._select_pair_chain(pair, chain))
+                if pair_chain_candidates:
+                    return self.transform_parse_candidates(pair_chain_candidates)
             return self.parse_tokens_around_slash(
                 tokens_before=tokens[:slash_index],
                 tokens_after=tokens[slash_index + 1 :],
@@ -2267,7 +2292,7 @@ class Parser:
                     if candidate.is_class1 or candidate.is_class2_alpha:
                         candidates.append(candidate)
                 elif type(candidate) is Pair:
-                    candidates.append(candidate.alpha)
+                    candidates.append(self._select_pair_chain(candidate, "alpha"))
                 elif type(candidate) is Class2Locus:
                     alpha_gene = self.resolve_class2_locus_chain_gene(candidate, chain="alpha")
                     if alpha_gene is not None:
@@ -2300,7 +2325,7 @@ class Parser:
                     if candidate.is_class2_beta:
                         candidates.append(candidate)
                 elif type(candidate) is Pair:
-                    candidates.append(candidate.beta)
+                    candidates.append(self._select_pair_chain(candidate, "beta"))
                 elif type(candidate) is Class2Locus:
                     beta_gene = self.resolve_class2_locus_chain_gene(candidate, chain="beta")
                     if beta_gene is not None:

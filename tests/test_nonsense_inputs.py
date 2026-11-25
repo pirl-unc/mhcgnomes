@@ -309,33 +309,6 @@ class TestSpreadsheetNomenclature:
         assert result.name == expected_name
 
 
-class TestDQDRHeterodimers:
-    """
-    Tests for HLA-DQ heterodimer dot nomenclature.
-
-    For comprehensive heterodimer tests, see tests/test_heterodimers.py.
-
-    This class only contains basic sanity checks to document that:
-    1. DQ2 (without dot) parses as Serotype
-    2. DQ2.5 (with dot) should parse as Pair (heterodimer) - currently xfail
-    """
-
-    def test_dq2_without_dot_is_serotype(self):
-        """DQ2 without dot notation parses as Serotype."""
-        from mhcgnomes.serotype import Serotype
-
-        result = parse("DQ2")
-        assert isinstance(result, Serotype)
-        assert result.name == "DQ2"
-
-    def test_dq2_5_with_dot_is_pair(self):
-        """DQ2.5 with dot notation should parse as Pair (heterodimer)."""
-        from mhcgnomes.pair import Pair
-
-        result = parse("DQ2.5")
-        assert isinstance(result, Pair)
-
-
 class TestNonHLAGenes:
     """Tests confirming that non-HLA/MHC genes are rejected."""
 

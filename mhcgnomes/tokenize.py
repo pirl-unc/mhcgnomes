@@ -113,7 +113,8 @@ def split_token_sequences(s, token_seps="/"):
             for i, sub_part in enumerate(part.split(sep)):
                 if i > 0:
                     new_results.append(sep)
-                new_results.append(sub_part)
+                if sub_part:
+                    new_results.append(sub_part)
         results = new_results
 
     return results
