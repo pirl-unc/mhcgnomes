@@ -286,6 +286,18 @@ def _names_context_only_gene(result):
     return gene.species.gene_is_context_only(gene.name)
 
 
+@cache
+def _species_with_class2_locus_aliases() -> tuple[Species, ...]:
+    """Return all ontology species that define at least one Class II locus alias."""
+    from .species import latin_name_to_species_object
+
+    return tuple(
+        species
+        for species in latin_name_to_species_object.values()
+        if any(target in species.class2_loci for target in species.gene_aliases.values())
+    )
+
+
 def _parse_mhc_region_label(seq):
     """
     Parse MHC region labels like MHCIIB, mhc2a, MHC-IA, mhc1.
@@ -1747,6 +1759,80 @@ class Parser:
 
         return results
 
+    def parse_class2_locus_without_species(
+        self,
+        locus_name: str,
+        default_species: Species | str | None = None,
+        strict_default_species: bool = False,
+    ):
+        """Parse a curated Class II locus alias without a species prefix (#300).
+
+        Matches curated Class II locus aliases (such as mouse ``I-A``/``IA`` and
+        ``I-E``/``IE``) without matching bare single-letter locus names like
+        ``A`` or ``E``.
+        """
+        if strict_default_species and default_species is not None:
+            species_obj = Species.get(default_species)
+            candidate_species = (species_obj,) if species_obj is not None else ()
+        else:
+            candidate_species = _species_with_class2_locus_aliases()
+
+        matches = []
+        for species in candidate_species:
+            if locus_name in species.gene_aliases:
+                target = species.gene_aliases[locus_name]
+                if target in species.class2_loci:
+                    locus = Class2Locus.get(species, target)
+                    if locus is not None:
+                        matches.append(locus)
+        return matches
+
+    def parse_haplotype_with_class2_locus_without_species(
+        self,
+        locus_and_haplotype: str,
+        default_species: Species | str | None = None,
+        strict_default_species: bool = False,
+    ):
+        """Parse a locus-restricted haplotype written with a curated Class II locus alias (#300).
+
+        Handles bare mouse Class II nomenclature such as ``I-Ab``, ``I-A^b``,
+        ``I-Ad``, ``I-Ak``, ``I-Ag7``, ``I-A^g7``, ``I-Ek``, ``I-E^k``, ``IAb``,
+        and ``IEk`` consistently with their ``H2-`` prefixed forms.
+        """
+        if strict_default_species and default_species is not None:
+            species_obj = Species.get(default_species)
+            candidate_species = (species_obj,) if species_obj is not None else ()
+        else:
+            candidate_species = _species_with_class2_locus_aliases()
+
+        matches = []
+        for species in candidate_species:
+            if not species.haplotypes:
+                continue
+            for locus_length in range(2, len(locus_and_haplotype)):
+                locus_string = self.strip_extra_chars(locus_and_haplotype[:locus_length])
+                if not locus_string or locus_string not in species.gene_aliases:
+                    continue
+                target_locus = species.gene_aliases[locus_string]
+                if target_locus not in species.class2_loci:
+                    continue
+                locus = Class2Locus.get(species, target_locus)
+                if locus is None:
+                    continue
+                haplotype_string = self.strip_extra_chars(locus_and_haplotype[locus_length:])
+                if not haplotype_string:
+                    continue
+                haplotype = self.get_haplotype(species, haplotype_string)
+                if haplotype is None:
+                    continue
+                restricted = haplotype.restrict_class2_locus(
+                    class2_locus=locus, raise_on_error=False
+                )
+                if restricted is not None:
+                    matches.append(restricted)
+                    break
+        return matches
+
     def parse_gene_without_species(
         self,
         gene_name: str,
@@ -2011,6 +2097,8 @@ class Parser:
         # for it. See _spelling_as_written and issue #160.
         fns_without_species = [
             (self.parse_haplotype, {}),
+            (self.parse_class2_locus_without_species, {}),
+            (self.parse_haplotype_with_class2_locus_without_species, {}),
             (self.parse_gene_without_species, {"raw_gene_name": raw_string}),
             (self.parse_allele_without_species, {"raw_allele_name": raw_string}),
         ]
@@ -2415,6 +2503,12 @@ class Parser:
                         candidates.append(candidate)
                 elif type(candidate) is Pair:
                     candidates.append(self._select_pair_chain(candidate, "alpha"))
+                elif type(candidate) is Haplotype and candidate.locus_restriction is not None:
+                    collapsed = candidate.collapse_if_possible()
+                    if type(collapsed) is Pair:
+                        candidates.append(self._select_pair_chain(collapsed, "alpha"))
+                    elif isinstance(collapsed, Allele) and collapsed.is_class2_alpha:
+                        candidates.append(collapsed)
                 elif type(candidate) is Class2Locus:
                     alpha_gene = self.resolve_class2_locus_chain_gene(candidate, chain="alpha")
                     if alpha_gene is not None:
@@ -2448,6 +2542,12 @@ class Parser:
                         candidates.append(candidate)
                 elif type(candidate) is Pair:
                     candidates.append(self._select_pair_chain(candidate, "beta"))
+                elif type(candidate) is Haplotype and candidate.locus_restriction is not None:
+                    collapsed = candidate.collapse_if_possible()
+                    if type(collapsed) is Pair:
+                        candidates.append(self._select_pair_chain(collapsed, "beta"))
+                    elif isinstance(collapsed, Allele) and collapsed.is_class2_beta:
+                        candidates.append(collapsed)
                 elif type(candidate) is Class2Locus:
                     beta_gene = self.resolve_class2_locus_chain_gene(candidate, chain="beta")
                     if beta_gene is not None:
