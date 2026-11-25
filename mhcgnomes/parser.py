@@ -725,7 +725,8 @@ class Parser:
         return Haplotype(
             species=first_haplotype_object.species,
             name=name,
-            alleles=first_haplotype_object.alleles + second_haplotype_object.alleles,
+            alleles=unique(first_haplotype_object.alleles + second_haplotype_object.alleles),
+            parent_haplotypes=(first_haplotype_object, second_haplotype_object),
             raw_string=raw_string,
         )
 

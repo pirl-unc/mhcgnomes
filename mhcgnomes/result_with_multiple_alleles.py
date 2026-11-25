@@ -170,8 +170,10 @@ class ResultWithMultipleAlleles(ResultWithSpecies):
         return any(allele.annotation_splice_variant for allele in self.alleles)
 
     def restrict_allele_fields(self, num_fields, drop_annotations=False, drop_mutations=False):
-        alleles = [
-            allele.restrict_allele_fields(num_fields, drop_annotations, drop_mutations)
-            for allele in self.alleles
-        ]
+        alleles = unique(
+            [
+                allele.restrict_allele_fields(num_fields, drop_annotations, drop_mutations)
+                for allele in self.alleles
+            ]
+        )
         return self.copy(alleles=alleles)

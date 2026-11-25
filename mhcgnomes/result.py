@@ -260,7 +260,13 @@ class Result:
         """
         field_dict = self.to_dict()
         field_dict.update(kwargs)
-        return self.__class__.from_dict(field_dict)
+        copied = self.__class__.from_dict(field_dict)
+        if "raw_string" not in kwargs or kwargs["raw_string"] == self.raw_string:
+            if self._species_source is not None:
+                Result._set_field(copied, "_species_source", self._species_source)
+            elif self._species_source_inputs is not None:
+                Result._set_field(copied, "_species_source_inputs", self._species_source_inputs)
+        return copied
 
     def __lt__(self, other):
         self_key = (self.__class__.__name__, *self.to_tuple())
