@@ -16,14 +16,16 @@ from mhcgnomes import Pair, parse
         ("HLA-DRB1*01:01/DRA*01:01 alpha C30S beta G86Y mutant", ["C30S"], ["G86Y"]),
         ("HLA-DRA*01:01 F54C mutant/DRB1*01:01 alpha C30S mutant", ["C30S", "F54C"], []),
         ("HLA-DRA*01:01 F54C mutant/DRB1*01:01 G86Y mutant", ["F54C"], ["G86Y"]),
-        # Preserve the legacy unqualified pair-level beta default; selecting
-        # alpha must be explicit even when its name is written last.
-        ("HLA-DRB1*01:01/DRA*01:01 C30S mutant", [], ["C30S"]),
+        # When written beta/alpha, the mutation directly after DRA*01:01 binds
+        # to DRA*01:01, and canonicalization places DRA*01:01 in result.alpha (#299).
+        ("HLA-DRB1*01:01/DRA*01:01 C30S mutant", ["C30S"], []),
     ],
 )
 def test_pair_mutation_selectors_preserve_both_chains(text, alpha, beta, aliases):
     result = parse(text, use_allele_aliases=aliases)
     assert isinstance(result, Pair)
+    assert result.alpha.is_class2_alpha
+    assert result.beta.is_class2_beta
     assert sorted(m.to_string() for m in result.alpha.mutations) == alpha
     assert sorted(m.to_string() for m in result.beta.mutations) == beta
     roundtrip = parse(result.to_string(), use_allele_aliases=aliases)

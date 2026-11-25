@@ -77,6 +77,68 @@ _MHC_REGION_RE = re.compile(
 _PUBLISHED_SAHA_SLASH_AMBIGUITIES = frozenset({("49", "82"), ("74", "88")})
 
 
+def _is_b2m_chain(result: Result) -> bool:
+    """Return True if ``result`` is a beta-2-microglobulin (B2M) gene or allele."""
+    gene_name = getattr(result, "gene_name", None)
+    return bool(gene_name and gene_name.upper().startswith("B2M"))
+
+
+def _class2_loci_for_chain(result: Result) -> set[str]:
+    """Return the set of normalized Class II locus names containing ``result``'s gene."""
+    species = getattr(result, "species", None)
+    gene_name = getattr(result, "gene_name", None)
+    if species is None or not gene_name:
+        return set()
+    return {
+        locus
+        for locus, gene_names in species.class2_locus_to_gene_names.items()
+        if gene_name in gene_names
+    }
+
+
+def _build_heterodimer_pair(first: Result, second: Result) -> Pair | None:
+    """
+    Validate and canonicalize two parsed chains into a biological heterodimer Pair.
+
+    Accepts:
+      * Class I heavy chain + B2M (in either order; canonicalized to heavy/B2M).
+      * Same-locus Class II alpha + beta chains (in either order; canonicalized
+        to alpha/beta so ``pair.alpha`` is always the alpha chain and
+        ``pair.beta`` is always the beta chain; #299).
+
+    Rejects biologically invalid combinations such as Class I / Class I,
+    alpha / alpha, beta / beta, Class I / Class II, and cross-locus Class II
+    pairs (e.g. DQA1/DRB1).
+    """
+    if first is None or second is None:
+        return None
+    if type(first) not in (Allele, Gene) or type(second) not in (Allele, Gene):
+        return None
+    if first.species != second.species:
+        return None
+
+    # Class I heavy chain + B2M heterodimer
+    if first.is_class1 and _is_b2m_chain(second):
+        return Pair.get(first, second)
+    if _is_b2m_chain(first) and second.is_class1:
+        return Pair.get(second, first)
+
+    # Class II alpha + beta heterodimer (canonicalized to alpha/beta)
+    if first.is_class2_alpha and second.is_class2_beta:
+        alpha_chain, beta_chain = first, second
+    elif first.is_class2_beta and second.is_class2_alpha:
+        alpha_chain, beta_chain = second, first
+    else:
+        return None
+
+    alpha_loci = _class2_loci_for_chain(alpha_chain)
+    beta_loci = _class2_loci_for_chain(beta_chain)
+    if alpha_loci and beta_loci and not (alpha_loci & beta_loci):
+        return None
+
+    return Pair.get(alpha_chain, beta_chain)
+
+
 def _is_saha_i_placeholder_allele(result):
     """Is this Caldwell's ``SahaI*NN`` parser placeholder, not a biological locus?"""
     return (
@@ -1267,7 +1329,7 @@ class Parser:
             return None
         if alpha_result.species != beta_result.species:
             return None
-        return Pair.get(alpha_result, beta_result)
+        return _build_heterodimer_pair(alpha_result, beta_result)
 
     def parse_mutations(self, species, mutation_strings):
         """
@@ -2166,7 +2228,7 @@ class Parser:
                         # chain of a molecular pair, so an unattested numeric
                         # slash must not fall through to Pair.get().
                         continue
-                    class2_pair = Pair.get(result_before, result_after)
+                    class2_pair = _build_heterodimer_pair(result_before, result_after)
                     if class2_pair:
                         candidates.append(class2_pair)
             elif type(result_before) is AlleleWithoutGene:
