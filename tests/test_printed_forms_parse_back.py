@@ -22,7 +22,7 @@ https://github.com/pirl-unc/mhcgnomes/issues/177
 
 import pytest
 
-from mhcgnomes import parse
+from mhcgnomes import Gene, parse
 from mhcgnomes.species import latin_name_to_species_object
 
 from .common import eq_, ok_
@@ -86,3 +86,18 @@ def test_the_species_that_already_worked_are_untouched():
     eq_(parse("human-CD1a").to_string(), "human-CD1a")
     eq_(parse("rhesus monkey-CD1a").to_string(), "rhesus monkey-CD1a")
     eq_(parse("HLA-A*02:01").to_string(), "HLA-A*02:01")
+
+
+def test_every_class_id_gene_round_trips_to_same_species_and_gene():
+    """Class Id genes print with common_species_name and must round-trip to the same species (#316)."""
+    mismatches = []
+    for species in latin_name_to_species_object.values():
+        for gene_name in species.gene_names:
+            if species.get_mhc_class_of_gene(gene_name) != "Id":
+                continue
+            gene = Gene.get(species, gene_name)
+            printed = gene.to_string()
+            reparsed = parse(printed, raise_on_error=False)
+            if reparsed != gene:
+                mismatches.append((species.name, gene_name, printed, reparsed))
+    eq_(mismatches, [])
