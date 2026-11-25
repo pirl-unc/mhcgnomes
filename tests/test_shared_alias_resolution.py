@@ -25,8 +25,9 @@ from .common import eq_, ok_
 
 # (alias, the ancestor that should win)
 SHARED_WITH_DESCENDANTS = [
-    ("tropheus cichlid", "Tropheus sp."),
-    ("swordtail", "Xiphophorus sp."),
+    ("BoLA", "Bos sp."),
+    ("RT1", "Rattus sp."),
+    ("SLA", "Sus sp."),
     ("MusSp", "Mus sp."),
 ]
 

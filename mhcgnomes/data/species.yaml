@@ -1507,7 +1507,9 @@ Tropheus sp.:
 Tropheus moorii:
   parent: Tropheus sp.
   prefix: TropMoor
-  name: Tropheus cichlid
+  # FishBase primary common name (https://www.fishbase.se/summary/Tropheus-moorii.html),
+  # disambiguated from parent Tropheus sp. ("Tropheus cichlid"; #316).
+  name: Blunthead cichlid
 Kareius bicoloratus:
   parent: Actinopterygii sp.
   prefix: KareBico
@@ -1908,7 +1910,9 @@ Xiphophorus hellerii:
 Xiphophorus multilineatus:
   parent: Xiphophorus sp.
   prefix: XiphMult
-  name: Swordtail
+  # FishBase primary common name (https://www.fishbase.se/summary/Xiphophorus-multilineatus.html),
+  # disambiguated from parent Xiphophorus sp. ("Swordtail"; #316).
+  name: Striped swordtail
 Xiphophorus pygmaeus:
   parent: Xiphophorus sp.
   prefix: XiphPygm
