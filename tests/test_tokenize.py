@@ -74,6 +74,11 @@ def test_split_token_sequences():
     eq_(split_token_sequences(s), ["Class", "II", "DRA0101", "/", "DRB0101"])
 
 
+def test_split_token_sequences_spaced_slash():
+    s = "HLA-DRA*01:01 / HLA-DRB1*01:01"
+    eq_(split_token_sequences(s), ["HLA-DRA*01:01", "/", "HLA-DRB1*01:01"])
+
+
 def test_tokenize_BoLA_DRA_DRB31501():
     s = "BoLA-DRA-DRB31501"
     eq_(tokenize(s).tokens, (s.lower(),))

@@ -6,11 +6,6 @@ from .common import eq_, raises
 
 
 @raises(ParseError)
-def test_parse_extra_text_after_allele():
-    parse("HLA-A*02:01 zipper")
-
-
-@raises(ParseError)
 def test_bad_input_parse_extra_text_after_allele():
     parse("HLA-A*02:01 zipper")
 

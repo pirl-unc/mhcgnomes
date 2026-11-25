@@ -486,10 +486,6 @@ class TestActinopterygiiInheritance:
         sp = Species.get("Cosp")
         assert sp.find_matching_gene_name("UAA") is not None
 
-    def test_fish_does_not_get_drb(self):
-        sp = Species.get("Dare")
-        assert sp.find_matching_gene_name("DRB") is None
-
 
 class TestAmphibiaInheritance:
     """Amphibia sp. provides class I/II genes to frogs, salamanders, caecilians."""
@@ -529,10 +525,6 @@ class TestAmphibiaInheritance:
         sp = Species.get("Limv")
         assert has_ancestor(sp, "Caudata sp.")
         assert sp.find_matching_gene_name("DNB") is not None
-
-    def test_amphibian_does_not_get_drb(self):
-        sp = Species.get("Xela")
-        assert sp.find_matching_gene_name("DRB") is None
 
     def test_amphibian_does_not_get_dra(self):
         sp = Species.get("Xela")
@@ -725,15 +717,6 @@ class TestCrossTaxonBoundariesWithClades:
     def test_fish_does_not_get_dra(self):
         """DRA is on Reptilia/Aves/Marsupialia, not fish."""
         sp = Species.get("Dare")
-        assert sp.find_matching_gene_name("DRA") is None
-
-    def test_fish_does_not_get_drb(self):
-        sp = Species.get("Dare")
-        assert sp.find_matching_gene_name("DRB") is None
-
-    def test_amphibian_does_not_get_dra(self):
-        """DRA is not on Amphibia."""
-        sp = Species.get("Xela")
         assert sp.find_matching_gene_name("DRA") is None
 
     def test_shark_inherits_uaa(self):

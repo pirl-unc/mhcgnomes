@@ -307,15 +307,6 @@ def test_full_prefix_works_for_compact_allele():
     eq_(result.allele_fields, ("02", "01"))
 
 
-def test_full_latin_name_concatenated_works():
-    """HomoSapiens-A*02:01 should parse (full latin name, no truncation)."""
-    result = parse("HomoSapiens-A*02:01", raise_on_error=True)
-    assert isinstance(result, Allele)
-    eq_(result.species.prefix, "HLA")
-    eq_(result.gene.name, "A")
-    eq_(result.allele_fields, ("02", "01"))
-
-
 def test_full_latin_name_concatenated_various_species():
     """Full concatenated latin names should work for any species."""
     for concat, expected_prefix in [

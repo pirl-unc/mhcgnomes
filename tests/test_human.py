@@ -180,7 +180,7 @@ def test_parse_human_class2_alpha_beta_DPA1_01_05_DPB1_100_01_full_syntax_hyphen
     expected = Pair.get(
         Allele.get("HLA", "DPA1", "01", "05"), Allele.get("HLA", "DPB1", "100", "01")
     )
-    s = "HLA-DPA1*01:05/DPB1*100:01"
+    s = "HLA-DPA1*01:05-DPB1*100:01"
     eq_(parse(s, infer_class2_pairing=True), expected)
 
 

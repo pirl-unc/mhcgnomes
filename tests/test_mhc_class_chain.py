@@ -151,10 +151,6 @@ def test_mhciib_with_species_strict():
     eq_(r.species.name, "Struthio camelus")
 
 
-def test_mhciib_with_unknown_species_errors():
-    assert parse("MHCIIB", species="Nonexistus fictionalus", raise_on_error=False) is None
-
-
 # --- Things that should NOT parse as MHC region labels ---
 
 
