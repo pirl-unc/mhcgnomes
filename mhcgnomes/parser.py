@@ -166,7 +166,13 @@ def _build_heterodimer_pair(first: Result, second: Result) -> Pair | None:
     """
     if first is None or second is None:
         return None
-    if type(first) not in (Allele, Gene) or type(second) not in (Allele, Gene):
+    if type(first) not in (Allele, AccessionedAllele, Gene) or type(second) not in (
+        Allele,
+        AccessionedAllele,
+        Gene,
+    ):
+        return None
+    if getattr(first, "gene", None) is None or getattr(second, "gene", None) is None:
         return None
     if first.species != second.species:
         return None
@@ -3041,6 +3047,9 @@ class Parser:
         if _BARE_NAMESPACED_ACCESSION_RE.match(stripped):
             return [], True, False
 
+        if "/" in stripped and _ACCESSIONED_ALLELE_MARKER_RE.search(stripped):
+            return self._parse_accessioned_pair_candidates(stripped, name, default_species)
+
         matches = list(_ACCESSIONED_ALLELE_MARKER_RE.finditer(stripped))
         if not matches:
             return [], False, False
@@ -3119,6 +3128,47 @@ class Parser:
             r.species in named_species for r in results
         )
         return unique(results), True, has_explicit_species
+
+    def _parse_accessioned_pair_candidates(
+        self,
+        stripped: str,
+        raw_name: str,
+        default_species: Species | str | None = DEFAULT_SPECIES_PREFIX,
+    ) -> tuple[list[Pair], bool, bool]:
+        """Parse a slash-separated heterodimer Pair containing at least one AccessionedAllele (#317)."""
+        if stripped.count("/") != 1:
+            return [], True, False
+        left_str, right_str = (part.strip() for part in stripped.split("/", 1))
+        if not left_str or not right_str:
+            return [], True, False
+
+        left_result = self._parse_cached(
+            left_str,
+            infer_class2_pairing=False,
+            default_species=default_species,
+            raise_on_error=False,
+        )
+        if left_result is None or not hasattr(left_result, "species"):
+            return [], True, False
+
+        right_result = self._parse_cached(
+            right_str,
+            infer_class2_pairing=False,
+            default_species=left_result.species,
+            raise_on_error=False,
+        )
+        if right_result is None:
+            return [], True, False
+
+        pair = _build_heterodimer_pair(left_result, right_result)
+        if pair is None:
+            return [], True, False
+
+        pair = pair.copy(raw_string=raw_name)
+        left_before = left_str.split("*", 1)[0]
+        _, left_before_clean = _strip_leading_accession_class_qualifier(left_before)
+        has_explicit_species = pair.species in species_named_in(left_before_clean)
+        return [pair], True, has_explicit_species
 
     def parse(
         self,

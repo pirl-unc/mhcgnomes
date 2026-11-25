@@ -361,3 +361,107 @@ def test_parse_gene_class_and_dataframe_integration():
     assert list(df["accession_source"]) == ["uniprot", "uniprot"]
     assert list(df["accession"]) == ["Q6I7L2", "G3V1L5"]
     assert "AccessionedAllele" in mhcgnomes.__all__
+
+
+@pytest.mark.parametrize(
+    "raw, expected_str, expected_class, expected_alpha_gene, expected_beta_gene",
+    [
+        (
+            "HLA-DRA*uniprot:P01903/HLA-DRB1*uniprot:P01911",
+            "HLA-DRA*uniprot:P01903/DRB1*uniprot:P01911",
+            "IIa",
+            "DRA",
+            "DRB1",
+        ),
+        (
+            "HLA-DRA*uniprot:P01903/DRB1*uniprot:P01911",
+            "HLA-DRA*uniprot:P01903/DRB1*uniprot:P01911",
+            "IIa",
+            "DRA",
+            "DRB1",
+        ),
+        # Reversed beta/alpha canonicalizes to alpha/beta
+        (
+            "HLA-DRB1*uniprot:P01911/HLA-DRA*uniprot:P01903",
+            "HLA-DRA*uniprot:P01903/DRB1*uniprot:P01911",
+            "IIa",
+            "DRA",
+            "DRB1",
+        ),
+        # Mixed AccessionedAllele + Allele / Gene
+        (
+            "HLA-DRA*uniprot:P01903/DRB1*01:01",
+            "HLA-DRA*uniprot:P01903/DRB1*01:01",
+            "IIa",
+            "DRA",
+            "DRB1",
+        ),
+        (
+            "HLA-DRA*01:01/DRB1*uniprot:P01911",
+            "HLA-DRA*01:01/DRB1*uniprot:P01911",
+            "IIa",
+            "DRA",
+            "DRB1",
+        ),
+        (
+            "BoLA-DQA*uniprot:Q6I7L2/DQB*uniprot:Q6I7L3",
+            "BoLA-DQA*uniprot:Q6I7L2/DQB*uniprot:Q6I7L3",
+            "IIa",
+            "DQA",
+            "DQB",
+        ),
+        # Class I heavy chain + B2M (both orders)
+        (
+            "HLA-A*uniprot:P04439/B2M",
+            "HLA-A*uniprot:P04439/B2M",
+            "Ia",
+            "A",
+            "B2M",
+        ),
+        (
+            "HLA-B2M/HLA-A*uniprot:P04439",
+            "HLA-A*uniprot:P04439/B2M",
+            "Ia",
+            "A",
+            "B2M",
+        ),
+    ],
+)
+def test_accessioned_allele_heterodimer_pairs(
+    raw, expected_str, expected_class, expected_alpha_gene, expected_beta_gene
+):
+    pair = parse(raw)
+    assert type(pair) is mhcgnomes.Pair
+    assert pair.to_string() == expected_str
+    assert pair.mhc_class == expected_class
+    assert pair.alpha.gene_name == expected_alpha_gene
+    assert pair.beta.gene_name == expected_beta_gene
+    assert pair.species_source == "explicit"
+    assert parse(pair.to_string()) == pair
+
+    info = parse_gene_class(raw)
+    assert info.source == "parsed_pair"
+    assert info.mhc_class == expected_class
+
+
+def test_accessioned_allele_infer_class2_pairing():
+    pair = parse("HLA-DRB1*uniprot:P01911", infer_class2_pairing=True)
+    assert type(pair) is mhcgnomes.Pair
+    assert pair.to_string() == "HLA-DRA*01:01/DRB1*uniprot:P01911"
+
+
+@pytest.mark.parametrize(
+    "bad_pair",
+    [
+        "HLA-A*uniprot:P04439/HLA-B*uniprot:P01889",
+        "HLA-DRA*uniprot:P01903/HLA-DRA*uniprot:P01903",
+        "HLA-DRB1*uniprot:P01911/HLA-DRB1*uniprot:P04229",
+        "HLA-DQA1*uniprot:P01909/HLA-DRB1*uniprot:P01911",
+        "HLA-DRA*uniprot:P01903/H2-AB*uniprot:P14483",
+        "SarcophilusHarrisii*uniprot:G3V1L5 class I/Saha-B2M",
+        "HLA-DRA*uniprot:P01903/",
+        "/HLA-DRB1*uniprot:P01911",
+    ],
+)
+def test_invalid_accessioned_pairs_rejected(bad_pair):
+    assert parse(bad_pair, raise_on_error=False) is None

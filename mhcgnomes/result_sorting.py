@@ -83,9 +83,19 @@ def sort_key(result: Result):
         name_matches_raw_string = False
     is_class2_pair = t is Pair
     alpha_is_allele = is_class2_pair and type(result.alpha) is Allele
-    alpha_is_valid = is_class2_pair and type(result.alpha) in {Allele, AlleleWithoutGene, Gene}
+    alpha_is_valid = is_class2_pair and type(result.alpha) in {
+        Allele,
+        AccessionedAllele,
+        AlleleWithoutGene,
+        Gene,
+    }
     beta_is_allele = is_class2_pair and type(result.beta) is Allele
-    beta_is_valid = is_class2_pair and type(result.beta) in {Allele, AlleleWithoutGene, Gene}
+    beta_is_valid = is_class2_pair and type(result.beta) in {
+        Allele,
+        AccessionedAllele,
+        AlleleWithoutGene,
+        Gene,
+    }
     is_allele = t is Allele
     is_accessioned_allele = t is AccessionedAllele
     is_allele_without_gene = t is AlleleWithoutGene
