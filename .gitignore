@@ -146,3 +146,11 @@ dmypy.json
 .idea/
 .vscode/
 blog-post/
+
+# Generated and downloaded evaluation notebook artifacts (#222)
+evaluation/*.fasta
+evaluation/class1-iedb-alleles.txt
+evaluation/class1-iedb-mhc-individual-entries.txt
+evaluation/class1-iedb-tcell-individual-entries.txt
+evaluation/iedb-alleles.txt
+evaluation/reference-mhc-names.txt
