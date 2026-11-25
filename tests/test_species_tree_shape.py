@@ -293,3 +293,57 @@ def test_the_pygmy_marmoset_is_not_a_callithrix():
     marmoset = Species.get_by_latin_name("Callithrix pygmaea")
     ok_(not marmoset.is_descendant_of(Species.get_by_latin_name("Callithrix sp.")))
     eq_(marmoset.old_mhc_prefix, "Cepy")
+
+
+# ---------------------------------------------------------------------------
+# 6. Subspecies placement, umbrella old_mhc_prefix, and gene-class consistency
+# ---------------------------------------------------------------------------
+
+
+def test_trinomial_subspecies_sit_under_their_binomial_when_present():
+    """Every trinomial whose binomial exists in the ontology must sit beneath it."""
+    misplaced = []
+    for species in ALL_SPECIES:
+        parts = species.name.split()
+        if len(parts) == 3 and parts[1] != "sp.":
+            binomial_name = f"{parts[0]} {parts[1]}"
+            binomial = latin_name_to_species_object.get(binomial_name)
+            if binomial is not None and species.parent is not binomial:
+                misplaced.append((species.name, species.parent.name if species.parent else None))
+    eq_(misplaced, [])
+
+
+def test_subspecies_inherit_umbrella_old_prefix_not_binomial_prefix():
+    """Subspecies under a binomial should inherit the group umbrella prefix (DLA/CELA)."""
+    for latin_name, expected_parent, expected_old in [
+        ("Canis lupus familiaris", "Canis lupus", "DLA"),
+        ("Canis lupus baileyi", "Canis lupus", "DLA"),
+        ("Balaenoptera musculus brevicauda", "Balaenoptera musculus", "CELA"),
+    ]:
+        sp = Species.get_by_latin_name(latin_name)
+        eq_(sp.parent.name, expected_parent)
+        eq_(sp.old_mhc_prefix, expected_old)
+        ok_(expected_old in sp.all_mhc_prefixes)
+
+    # Ancestor-to-descendant species= resolution works from blue whale to pygmy blue whale
+    parsed = parse(
+        "Bamu-DRB1*01:01", species="Balaenoptera musculus brevicauda", raise_on_error=True
+    )
+    eq_(parsed.species.name, "Balaenoptera musculus brevicauda")
+
+
+def test_child_genes_agree_with_parent_mhc_class():
+    """No child species should reclassify an inherited gene into a conflicting MHC class."""
+    conflicts = []
+    for species in ALL_SPECIES:
+        if species.parent is None:
+            continue
+        for gene_name in species.own_gene_names:
+            own_class = species.get_mhc_class_of_gene(gene_name)
+            parent_class = species.parent.get_mhc_class_of_gene(gene_name)
+            if parent_class is not None and own_class != parent_class:
+                conflicts.append(
+                    (species.name, gene_name, own_class, species.parent.name, parent_class)
+                )
+    eq_(conflicts, [])
+    eq_(parse("Malo-B*01:01", raise_on_error=True).mhc_class, "Ia")

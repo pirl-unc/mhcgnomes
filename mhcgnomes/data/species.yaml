@@ -1028,7 +1028,9 @@ Canis sp.:
         - DRA
         - DRB1
 Canis lupus baileyi:
-  parent: Canis sp.
+  # NCBI Taxonomy 460958 (https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=460958):
+  # subspecies of Canis lupus (NCBI 9612).
+  parent: Canis lupus
   # prefix source: designated -- listed with this code in the IPD-MHC
   # DLA group: https://www.ebi.ac.uk/ipd/mhc/group/DLA/species
   prefix source: designated
@@ -2863,7 +2865,9 @@ Ziphius cavirostris:
 #
 ############################
 Balaenoptera musculus brevicauda:
-  parent: Cetacea sp.
+  # NCBI Taxonomy 112604 (https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=112604):
+  # subspecies of Balaenoptera musculus (NCBI 9771).
+  parent: Balaenoptera musculus
   # prefix source: designated -- listed with this code in the IPD-MHC
   # CeLA group: https://www.ebi.ac.uk/ipd/mhc/group/CeLA/species
   prefix source: designated
@@ -5521,10 +5525,12 @@ Macaca leonina:
       - A1
       - A2
       - A3
+      # Classical MHC class Ia B locus, matching parent Macaca sp. and IPD-MHC
+      # NHP group curation (https://www.ebi.ac.uk/ipd/mhc/group/NHP/species).
+      - B
     I:
       # unclear if class Ia or Ib
       - I
-      - B
     IIa:
       DP:
         - DPA1

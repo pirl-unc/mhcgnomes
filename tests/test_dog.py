@@ -65,10 +65,20 @@ def test_domestic_dog_scientific_and_common_identity_202():
     assert dog.is_descendant_of(canis_sp)
     assert dog.compatible_with(wolf)
     assert dog.compatible_with(canis_sp)
+    eq_(dog.old_mhc_prefix, "DLA")
+
+    baileyi = Species.get("Canis lupus baileyi")
+    assert baileyi is not None
+    assert baileyi.is_child_of(wolf)
+    assert baileyi.is_descendant_of(canis_sp)
+    assert not baileyi.is_dog
+    eq_(baileyi.old_mhc_prefix, "DLA")
 
     # DLA allele parsing stays compatible with domestic dog and wolf species constraints
     eq_(parse("DLA-88*001:01").species, canis_sp)
-    eq_(parse("DLA-88*001:01", species="Canis lupus familiaris").species, dog)
+    dog_allele = parse("DLA-88*001:01", species="Canis lupus familiaris")
+    eq_(dog_allele.species, dog)
+    eq_(dog_allele.to_string(use_old_species_prefix=True), "DLA-88*001:01")
     eq_(parse("DLA-DRB1*001:01", species="dog").species, dog)
     eq_(parse("DLA-DRB1*001:01", species="Canis lupus").species, wolf)
     eq_(parse("CanisFamiliaris-DRB1*001:01").species, dog)
