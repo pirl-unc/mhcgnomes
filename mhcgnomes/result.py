@@ -28,6 +28,7 @@ class Result:
 
     @staticmethod
     def _set_field(instance, field_name, field_value):
+        """Set an attribute on a frozen :class:`Result` instance during construction."""
         object.__setattr__(instance, field_name, field_value)
 
     # Where the species on this result came from. Parser.parse records the
@@ -169,6 +170,7 @@ class Result:
         return cls.eq_field_names()
 
     def _field_name_value_pairs(self, names):
+        """Return ``(field_name, field_value)`` pairs for the requested attributes."""
         results = []
         for field_name in names:
             field_value = getattr(self, field_name)
@@ -176,6 +178,7 @@ class Result:
         return results
 
     def _field_name_string_pairs(self, names):
+        """Return ``(field_name, formatted_value)`` pairs for ``__str__`` and ``__repr__``."""
         results = []
         for k, v in self._field_name_value_pairs(names):
             if isinstance(v, str):

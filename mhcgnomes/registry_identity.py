@@ -111,6 +111,7 @@ def registry_identities():
 
 @cache
 def _registry_index(include_aliases):
+    """Return the cached casefolded lookup index for bundled registry identities."""
     return build_registry_index(registry_identities().values(), include_aliases=include_aliases)
 
 

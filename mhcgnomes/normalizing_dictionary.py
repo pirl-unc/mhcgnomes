@@ -51,6 +51,7 @@ class NormalizingDictionary:
         return self._frozen
 
     def _check_mutable(self):
+        """Raise ``TypeError`` if this dictionary has been frozen."""
         if self._frozen:
             raise TypeError("NormalizingDictionary is frozen")
 

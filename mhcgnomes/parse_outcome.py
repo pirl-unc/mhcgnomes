@@ -17,6 +17,7 @@ OUTCOME_COLUMNS = (
 
 
 def _stringify(value):
+    """Render a scalar, sequence, set, or mapping record field as a compact string."""
     if value is None:
         return ""
     if isinstance(value, (set, frozenset)):
