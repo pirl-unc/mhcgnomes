@@ -233,8 +233,8 @@ def main():
             else:
                 print(f"  Already have {filename}", file=sys.stderr)
 
-            # Skip non-scrapeable files
-            if dest.suffix.lower() in (".zip", ".tar", ".gz", ".pdf", ".docx", ".doc"):
+            # Skip non-scrapeable files (.docx IS supported by scrape_paper.py)
+            if dest.suffix.lower() in (".zip", ".tar", ".gz", ".pdf", ".doc"):
                 print(f"  Skipping {dest.suffix} file", file=sys.stderr)
                 continue
 
@@ -258,6 +258,16 @@ def main():
 
         time.sleep(0.5)  # be polite
 
+    # Deduplicate exact (raw_string, expected_species, source) rows within a
+    # paper while retaining identical strings observed across different papers.
+    seen_rows = set()
+    deduped_rows = []
+    for row in all_validation_rows:
+        key = (row.get("raw_string", ""), row.get("expected_species", ""), row.get("source", ""))
+        if key not in seen_rows:
+            seen_rows.add(key)
+            deduped_rows.append(row)
+
     # Write consolidated validation file
     consolidated = VAL_DIR / "all_papers.tsv"
     with open(consolidated, "w") as f:
@@ -267,7 +277,7 @@ def main():
             delimiter="\t",
         )
         writer.writeheader()
-        writer.writerows(all_validation_rows)
+        writer.writerows(deduped_rows)
 
     print(f"\n{'='*60}", file=sys.stderr)
     print(f"Results:", file=sys.stderr)

@@ -24,13 +24,22 @@ from pathlib import Path
 try:
     import biotite.database.entrez as entrez
 except ImportError:
-    print("Requires biotite: pip install biotite", file=sys.stderr)
-    sys.exit(1)
+    entrez = None
 
 EUTILS_BASE = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils"
 
 
-class RawEntrezQuery(entrez.Query):
+def _require_entrez():
+    if entrez is None:
+        print("Requires biotite: pip install biotite", file=sys.stderr)
+        sys.exit(1)
+    return entrez
+
+
+_EntrezQueryBase = entrez.Query if entrez is not None else object
+
+
+class RawEntrezQuery(_EntrezQueryBase):
     """Wrap a raw NCBI Entrez query string for biotite.database.entrez.search."""
 
     def __init__(self, term):
@@ -83,7 +92,7 @@ QUERIES = {
 
 def search_pubmed(query, max_results=15):
     try:
-        return entrez.search(RawEntrezQuery(query), "pmc", number=max_results)
+        return _require_entrez().search(RawEntrezQuery(query), "pmc", number=max_results)
     except Exception as e:
         print(f"  Search failed: {e}", file=sys.stderr)
         return []
@@ -100,7 +109,7 @@ def fetch_paper_metadata(pmc_ids):
             "id": ",".join(str(pmc_id) for pmc_id in pmc_ids),
             "retmode": "json",
         }
-        api_key = entrez.get_api_key()
+        api_key = _require_entrez().get_api_key()
         if api_key:
             params["api_key"] = api_key
         req = urllib.request.Request(
@@ -154,7 +163,7 @@ def pmid_to_pmc(pmid):
             "id": str(pmid),
             "retmode": "xml",
         }
-        api_key = entrez.get_api_key()
+        api_key = _require_entrez().get_api_key()
         if api_key:
             params["api_key"] = api_key
         req = urllib.request.Request(
@@ -262,6 +271,63 @@ def scrape_file(filepath, species, source, output):
     return 0
 
 
+def normalize_pmc_source(source_or_id):
+    """Return a canonical ``PMC:<digits>`` source identifier without double-prefixing.
+
+    Already-formatted non-PMC sources (e.g. ``PMID:12345``, ``doi:...``) are
+    preserved verbatim.
+    """
+    value = str(source_or_id).strip()
+    if not value:
+        return ""
+    if ":" in value:
+        prefix, _, rest = value.partition(":")
+        if prefix.upper() == "PMC":
+            rest = re.sub(r"^PMC:?", "", rest.strip(), flags=re.IGNORECASE)
+            return f"PMC:{rest}"
+        return value
+    if value.upper().startswith("PMC"):
+        return f"PMC:{value[3:]}"
+    return f"PMC:{value}"
+
+
+def deduplicate_rows(rows):
+    """Remove exact duplicate ``(raw_string, expected_species, source)`` rows
+    while preserving order and retaining identical strings from distinct papers.
+    """
+    seen = set()
+    result = []
+    for row in rows:
+        key = (
+            row.get("raw_string", ""),
+            row.get("expected_species", ""),
+            row.get("source", ""),
+        )
+        if key not in seen:
+            seen.add(key)
+            result.append(row)
+    return result
+
+
+def merge_paper_tsvs(paper_tsvs, merged_tsv):
+    """Merge per-file TSVs for one paper into ``merged_tsv`` without duplicate rows."""
+    rows = []
+    for tsv in paper_tsvs:
+        with open(tsv) as tf:
+            reader = csv.DictReader(tf, delimiter="\t")
+            rows.extend(reader)
+    deduped = deduplicate_rows(rows)
+    with open(merged_tsv, "w") as f:
+        writer = csv.DictWriter(
+            f,
+            fieldnames=["raw_string", "expected_species", "source"],
+            delimiter="\t",
+        )
+        writer.writeheader()
+        writer.writerows(deduped)
+    return deduped
+
+
 def generate_review_file(scrape_tsv, review_path, pmid, title):
     """Create a review TSV with parsed/unparsed status for manual audit."""
     try:
@@ -269,28 +335,45 @@ def generate_review_file(scrape_tsv, review_path, pmid, title):
     except ImportError:
         return
 
+    fallback_source = normalize_pmc_source(pmid)
     rows = []
     with open(scrape_tsv) as f:
         reader = csv.DictReader(f, delimiter="\t")
-        for row in reader:
+        for row in deduplicate_rows(reader):
             raw = row["raw_string"]
             result = mhc_parse(raw, raise_on_error=False)
-            rows.append({
-                "raw_string": raw,
-                "parsed": "yes" if result else "no",
-                "parsed_as": str(result) if result else "",
-                "result_type": type(result).__name__ if result else "",
-                "species": result.species.name if result and hasattr(result, "species") and result.species else "",
-                "correct": "",  # for manual review
-                "notes": "",    # for manual review
-                "source": f"PMC:{pmid}",
-            })
+            row_source = row.get("source", "").strip()
+            source = normalize_pmc_source(row_source) if row_source else fallback_source
+            rows.append(
+                {
+                    "raw_string": raw,
+                    "parsed": "yes" if result else "no",
+                    "parsed_as": str(result) if result else "",
+                    "result_type": type(result).__name__ if result else "",
+                    "species": (
+                        result.species.name
+                        if result and hasattr(result, "species") and result.species
+                        else ""
+                    ),
+                    "correct": "",  # for manual review
+                    "notes": "",  # for manual review
+                    "source": source,
+                }
+            )
 
     with open(review_path, "w") as f:
         writer = csv.DictWriter(
             f,
-            fieldnames=["raw_string", "parsed", "parsed_as", "result_type",
-                         "species", "correct", "notes", "source"],
+            fieldnames=[
+                "raw_string",
+                "parsed",
+                "parsed_as",
+                "result_type",
+                "species",
+                "correct",
+                "notes",
+                "source",
+            ],
             delimiter="\t",
         )
         writer.writeheader()
@@ -366,42 +449,30 @@ def main():
 
         for dest in extracted:
             out_tsv = VAL_DIR / f"{safe_id}_{dest.stem}.tsv"
-            n = scrape_file(dest, "", f"PMC:{pmid}", out_tsv)
+            n = scrape_file(dest, "", normalize_pmc_source(pmid), out_tsv)
             if n > 0:
                 print(f"  {n} strings from {dest.name}", file=sys.stderr)
                 paper_strings += n
                 paper_tsvs.append(out_tsv)
-                with open(out_tsv) as f:
-                    reader = csv.DictReader(f, delimiter="\t")
-                    for row in reader:
-                        consolidated_rows.append(row)
 
         if paper_strings > 0:
             papers_with_data += 1
-            total_strings += paper_strings
 
-            # Generate review file for this paper
-            # Merge all TSVs for this paper into one review file
+            # Merge all TSVs for this paper into one deduplicated file and review file
             review_path = REVIEW_DIR / f"{safe_id}_review.tsv"
             merged_tsv = VAL_DIR / f"{safe_id}_merged.tsv"
-            with open(merged_tsv, "w") as f:
-                writer = csv.DictWriter(
-                    f, fieldnames=["raw_string", "expected_species", "source"],
-                    delimiter="\t",
-                )
-                writer.writeheader()
-                for tsv in paper_tsvs:
-                    with open(tsv) as tf:
-                        reader = csv.DictReader(tf, delimiter="\t")
-                        writer.writerows(reader)
+            merged_rows = merge_paper_tsvs(paper_tsvs, merged_tsv)
+            consolidated_rows.extend(merged_rows)
+            total_strings += len(merged_rows)
 
-            generate_review_file(merged_tsv, review_path, f"PMC{pmid}", paper["title"])
+            generate_review_file(merged_tsv, review_path, normalize_pmc_source(pmid), paper["title"])
             review_lines = sum(1 for _ in open(review_path)) - 1
             print(f"  Review file: {review_path} ({review_lines} entries)", file=sys.stderr)
 
         time.sleep(0.5)
 
-    # Write consolidated file
+    # Write consolidated file (deduplicated per paper, preserved across papers)
+    consolidated_rows = deduplicate_rows(consolidated_rows)
     consolidated = VAL_DIR / "all_papers_v2.tsv"
     with open(consolidated, "w") as f:
         writer = csv.DictWriter(
