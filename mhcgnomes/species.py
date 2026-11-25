@@ -674,11 +674,12 @@ class Species(Result):
         for sp in species_objects:
             if sp.name == species_name:
                 return sp
-        # 2. Exact primary prefix match (only one species should own a prefix)
+        # 2. Exact primary prefix match (policy-invariant across curated/attested)
+        query_norm = species_name.lower().strip()
         prefix_matches = [
             sp
             for sp in species_objects
-            if sp.prefix.lower().strip() == species_name.lower().strip()
+            if query_norm in {sp.canonical_mhc_prefix.lower().strip(), sp.prefix.lower().strip()}
         ]
         if len(prefix_matches) == 1:
             return prefix_matches[0]
@@ -755,8 +756,11 @@ class Species(Result):
         Returns all MHC prefixes used for this species
         """
         prefixes = set(self.other_mhc_prefixes)
+        if self.canonical_mhc_prefix and self.canonical_mhc_prefix != self.prefix:
+            prefixes.add(self.canonical_mhc_prefix)
         if self.old_mhc_prefix and self.old_mhc_prefix != self.prefix:
             prefixes.add(self.old_mhc_prefix)
+        prefixes.discard(self.prefix)
         return [self.prefix, *sorted(prefixes)]
 
     @property
@@ -1481,7 +1485,7 @@ def create_species_for_latin_name(latin_name):
         parent_prefix = (
             parent_species.old_mhc_prefix
             if not parent_species.is_group and parent_species.old_mhc_prefix
-            else parent_species.prefix
+            else parent_species.canonical_mhc_prefix
         )
         if _is_inheritable_umbrella(parent_prefix, parent_species.name):
             old_mhc_prefix = parent_prefix
@@ -2111,10 +2115,12 @@ def infer_species_from_prefix(name, _allow_mhc_strip=True):
                 # Multiple species match this prefix. Try disambiguation:
                 # 1. If exactly one species owns this as its primary prefix,
                 #    use it (covers parent/child cases like SLA, BoLA, RT1).
+                orig_norm = original_prefix.lower().strip()
                 prefix_owners = [
                     sp
                     for sp in species_objects
-                    if sp.prefix.lower().strip() == original_prefix.lower().strip()
+                    if orig_norm
+                    in {sp.canonical_mhc_prefix.lower().strip(), sp.prefix.lower().strip()}
                 ]
                 if len(prefix_owners) == 1:
                     return prefix_owners[0], original_prefix

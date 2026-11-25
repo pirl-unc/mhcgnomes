@@ -378,6 +378,8 @@ def test_sourced_short_2_2_prefix_alias_resolves_species():
 
 
 def test_sourced_short_2_2_prefix_alias_parses_genes():
+    from mhcgnomes.prefix_display_policy import CURATED, prefix_display_policy
+
     for raw, expected_prefix, expected_gene in [
         ("Abbr-DAB1", "AbraBram", "DAB1"),
         ("Crin-DB05", "CrocInte", "DB05"),
@@ -391,7 +393,9 @@ def test_sourced_short_2_2_prefix_alias_parses_genes():
     ]:
         result = parse(raw, raise_on_error=True)
         assert isinstance(result, Gene)
-        eq_(result.species.prefix, expected_prefix)
+        eq_(result.species.canonical_mhc_prefix, expected_prefix)
+        with prefix_display_policy(CURATED):
+            eq_(result.species.prefix, expected_prefix)
         eq_(result.name, expected_gene)
 
 
@@ -428,7 +432,8 @@ def test_ambiguous_or_unsourced_short_prefixes_are_not_added():
 def test_context_only_prefixes_stay_out_of_global_species_lookup():
     assert Species.get("Moal") is None
     assert Species.get("Motacilla alba") is not None
-    eq_(Species.get("Motacilla alba").prefix, "MotaAlba")
+    eq_(Species.get("Motacilla alba").prefix, "MotacillaAlba")
+    eq_(Species.get("Motacilla alba").canonical_mhc_prefix, "MotaAlba")
 
 
 def test_context_only_hymo_failure_is_informative():
@@ -650,7 +655,7 @@ def test_generated_prefixes_are_reported_as_generated():
         ("Chrysemys picta", "ChrysemysPicta"),
     ]:
         species = Species.get_by_latin_name(latin_name)
-        eq_(species.prefix, prefix)
+        eq_(species.canonical_mhc_prefix, prefix)
         eq_(species.prefix_provenance, "generated")
 
 

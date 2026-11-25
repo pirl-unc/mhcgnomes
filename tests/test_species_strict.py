@@ -81,35 +81,39 @@ def test_species_strict_child_result_not_cast_up_to_parent():
 
 
 def test_species_strict_context_only_hymo_rescues_silver_carp():
+    from mhcgnomes.prefix_display_policy import CURATED, prefix_display_policy
+
     result = parse("Hymo-DAB", species="Hypophthalmichthys molitrix", raise_on_error=True)
     assert isinstance(result, Gene)
     eq_(result.species.name, "Hypophthalmichthys molitrix")
-    eq_(result.to_string(), "HypoMoli-DAB")
+    eq_(result.to_string(), "HypophthalmichthysMolitrix-DAB")
+    with prefix_display_policy(CURATED):
+        eq_(result.to_string(), "HypoMoli-DAB")
 
 
 def test_species_strict_context_only_orla_rescues_medaka():
     result = parse("ORLA-UAA", species="Oryzias latipes", raise_on_error=True)
     assert isinstance(result, Gene)
     eq_(result.species.name, "Oryzias latipes")
-    eq_(result.to_string(), "OryzLati-UAA")
+    eq_(result.to_string(), "OryziasLatipes-UAA")
 
 
 def test_species_strict_context_only_orla_rescues_killifish():
     result = parse("Orla-UAA", species="Iconisemion striatum", raise_on_error=True)
     assert isinstance(result, Gene)
     eq_(result.species.name, "Iconisemion striatum")
-    eq_(result.to_string(), "IconStri-UAA")
+    eq_(result.to_string(), "IconisemionStriatum-UAA")
 
 
 def test_species_strict_context_only_moal_rescues_swamp_eel():
     result = parse("Moal-DAB", species="Monopterus albus", raise_on_error=True)
     assert isinstance(result, Gene)
     eq_(result.species.name, "Monopterus albus")
-    eq_(result.to_string(), "MonoAlbu-DAB")
+    eq_(result.to_string(), "MonopterusAlbus-DAB")
 
 
 def test_species_strict_context_only_moal_rescues_white_wagtail():
     result = parse("Moal-DAB4", species="Motacilla alba", raise_on_error=True)
     assert isinstance(result, Gene)
     eq_(result.species.name, "Motacilla alba")
-    eq_(result.to_string(), "MotaAlba-DAB4")
+    eq_(result.to_string(), "MotacillaAlba-DAB4")

@@ -13,46 +13,44 @@
 """
 Which prefix normalized output uses.
 
-Issue #129 asks for a display policy: print a short prefix only where an
-external database or the literature attests it, and otherwise the concatenated
-binomial, so that ``CyanistesCaeruleus-DAB1`` cannot be mistaken for
-established nomenclature the way ``CyanCaer-DAB1`` can. It proposes shipping
-that "as an explicit formatting policy first, then become the default in a
-documented minor release".
+Issue #129 and #188: print a short prefix only where an external database or
+the literature attests it, and otherwise the concatenated full binomial, so
+that ``CyanistesCaeruleus-DAB1`` cannot be mistaken for established
+nomenclature the way ``CyanCaer-DAB1`` can.
 
-This is the first half. The default is unchanged, so nothing anyone parses
-today prints differently; asking for ATTESTED opts in.
+``ATTESTED`` is the default policy. Callers that explicitly want the compact
+curated/4+4 display prefix (e.g. ``HypoMoli-DAB``) can opt into ``CURATED``
+via ``prefix_display_policy(CURATED)`` or ``set_prefix_display_policy(CURATED)``.
 
 The question the policy asks is ``Species.prefix_provenance``, which #131 spent
 its length populating: "designated" means a source is cited beside the entry in
 species.yaml, and every other value means the prefix is one this package
-minted. So the policy is not a fresh judgement -- it reads a curated one.
+minted or could not establish externally.
 
     >>> parse("CyanCaer-DAB1").to_string()
-    'CyanCaer-DAB1'
-    >>> with prefix_display_policy(ATTESTED):
-    ...     parse("CyanCaer-DAB1").to_string()
     'CyanistesCaeruleus-DAB1'
-    >>> with prefix_display_policy(ATTESTED):
-    ...     parse("HLA-A*02:01").to_string()   # designated, so unchanged
+    >>> with prefix_display_policy(CURATED):
+    ...     parse("CyanCaer-DAB1").to_string()
+    'CyanCaer-DAB1'
+    >>> parse("HLA-A*02:01").to_string()   # designated, so unchanged
     'HLA-A*02:01'
 
 Both spellings keep parsing under either policy. The compatibility change #129
-describes is display only.
+and #188 describe is display only.
 """
 
 from contextlib import contextmanager
 from threading import local
 
-# Print the prefix curated in species.yaml, whatever its provenance. What
-# mhcgnomes has always done, and still the default.
+# Print the prefix curated in species.yaml, whatever its provenance (explicit
+# compact 4+4 / curated display mode, #188).
 CURATED = "curated"
 
 # Print a short prefix only where prefix_provenance says a source attests it,
-# and the concatenated binomial otherwise.
+# and the concatenated binomial otherwise. Default policy (#129, #188).
 ATTESTED = "attested"
 
-POLICIES = (CURATED, ATTESTED)
+POLICIES = (ATTESTED, CURATED)
 
 # Thread-local rather than a plain module global: a policy set in one thread
 # must not change what another thread is midway through formatting.
@@ -60,8 +58,8 @@ _state = local()
 
 
 def get_prefix_display_policy() -> str:
-    """The policy in force on this thread."""
-    return getattr(_state, "policy", CURATED)
+    """The policy in force on this thread (defaults to ``ATTESTED``)."""
+    return getattr(_state, "policy", ATTESTED)
 
 
 def set_prefix_display_policy(policy: str) -> None:

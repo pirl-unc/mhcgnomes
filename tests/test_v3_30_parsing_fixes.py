@@ -97,7 +97,8 @@ def test_nibea_albiflora_species():
 def test_nibea_mitsukurii_full_name():
     species = Species.get("Nibea mitsukurii")
     assert species is not None
-    eq_(species.prefix, "NibeMits")
+    eq_(species.prefix, "NibeaMitsukurii")
+    eq_(species.canonical_mhc_prefix, "NibeMits")
 
 
 # ---------------------------------------------------------------------------

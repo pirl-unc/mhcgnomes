@@ -145,7 +145,7 @@ def test_parse_gene_class_marks_known_non_ontology_helper_gene_as_non_mhc():
 
 def test_gene_class_info_string_and_record_helpers():
     heuristic = parse_gene_class("F10", species="Pogona vitticeps")
-    eq_(heuristic.to_string(), "PogoVitt-F10")
+    eq_(heuristic.to_string(), "PogonaVitticeps-F10")
     eq_(heuristic.compact_string(), "F10")
     eq_(heuristic.to_record()["gene_name"], "F10")
     eq_(heuristic.to_record()["mhc_class"], "I")

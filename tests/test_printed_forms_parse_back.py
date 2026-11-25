@@ -62,7 +62,7 @@ def test_a_printed_cd1_form_parses_back(prefix, gene_name):
         # and the same name written without the hyphen
         ("long haired rat class I", "long-haired rat class I"),
         # four words with a hyphen and an apostrophe
-        ("kemp's ridley sea turtle-B2M", "LepiKemp-B2M"),
+        ("kemp's ridley sea turtle-B2M", "LepidochelysKempii-B2M"),
     ],
 )
 def test_hyphenated_common_names_are_reachable(text, expected):
@@ -79,7 +79,7 @@ def test_a_hyphenated_gene_name_is_not_split_into_two_words():
     eq_(hyphens_as_spaces("DMB-1"), None)
     eq_(hyphens_as_spaces("long-haired rat"), "long haired rat")
     eq_(hyphens_as_spaces("rhesus monkey"), None)
-    eq_(parse("DMB-1").to_string(), "SpheMend-DMB-1")
+    eq_(parse("DMB-1").to_string(), "SpheniscusMendiculus-DMB-1")
 
 
 def test_the_species_that_already_worked_are_untouched():

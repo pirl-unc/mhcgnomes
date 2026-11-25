@@ -78,10 +78,14 @@ ADDED_SPECIES = [
 
 @pytest.mark.parametrize("latin_name,prefix,taxid,clade", ADDED_SPECIES)
 def test_added_species_resolve_with_verified_taxonomy(latin_name, prefix, taxid, clade):
+    from mhcgnomes.prefix_display_policy import CURATED, prefix_display_policy
+
     sp = Species.get(latin_name)
     assert sp is not None, f"Species.get({latin_name!r}) returned None"
     eq_(sp.name, latin_name)
-    eq_(sp.prefix, prefix)
+    eq_(sp.canonical_mhc_prefix, prefix)
+    with prefix_display_policy(CURATED):
+        eq_(sp.prefix, prefix)
     eq_(sp.ncbi_taxid, taxid)
     eq_(sp.clade, clade)
     eq_(Species.get_by_ncbi_taxid(taxid), sp)

@@ -166,26 +166,27 @@ Provenance is not part of a result's identity: two alleles that differ only in
 how their species was determined still compare equal and hash the same. It is
 also computed only when asked, so it costs nothing if you never look.
 
-## Printing only the prefixes a source attests
+## Prefix display policy (`ATTESTED` default, `CURATED` compact mode)
 
 `HLA-A*02:01` and `CyanCaer-DAB1` look alike, but only the first is published
 nomenclature — the second was minted here so the blue tit would have a unique
-prefix. `prefix_provenance` tells them apart, and an opt-in display policy acts
-on it:
+compact prefix. `prefix_provenance` tells them apart, and by default
+(`ATTESTED`) mhcgnomes prints short prefixes only where a source attests them
+and prints the concatenated full binomial otherwise. Callers that want the
+compact curated/4+4 output form can opt into `CURATED`:
 
 ```python
->>> from mhcgnomes.prefix_display_policy import prefix_display_policy, ATTESTED
+>>> from mhcgnomes.prefix_display_policy import prefix_display_policy, CURATED
 >>> parse("CyanCaer-DAB1").to_string()
-'CyanCaer-DAB1'
->>> with prefix_display_policy(ATTESTED):
-...     parse("CyanCaer-DAB1").to_string()
 'CyanistesCaeruleus-DAB1'
->>> with prefix_display_policy(ATTESTED):
-...     parse("HLA-A*02:01").to_string()   # designated, so untouched
+>>> with prefix_display_policy(CURATED):
+...     parse("CyanCaer-DAB1").to_string()
+'CyanCaer-DAB1'
+>>> parse("HLA-A*02:01").to_string()   # designated, so unchanged under either policy
 'HLA-A*02:01'
 ```
 
-The default is unchanged, both spellings parse under either policy, and group
+Both 2+2/4+4 and full-binomial spellings parse under either policy, and group
 labels such as `SLA` and `BoLA` keep their labels. `set_prefix_display_policy`
 is the process-wide form; the policy is thread-local.
 

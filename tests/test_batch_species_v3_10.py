@@ -81,9 +81,13 @@ def test_batch_species_parse_by_prefix(prefix, latin):
 
 @pytest.mark.parametrize("prefix,latin", BATCH_SPECIES)
 def test_batch_species_parse_by_latin_name(prefix, latin):
+    from mhcgnomes.prefix_display_policy import CURATED, prefix_display_policy
+
     sp = Species.get(latin)
     assert sp is not None, f"Species.get({latin!r}) returned None"
-    eq_(sp.prefix, prefix)
+    eq_(sp.canonical_mhc_prefix, prefix)
+    with prefix_display_policy(CURATED):
+        eq_(sp.prefix, prefix)
 
 
 @pytest.mark.parametrize("prefix,latin", BATCH_SPECIES)

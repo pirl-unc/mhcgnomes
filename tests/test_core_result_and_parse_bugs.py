@@ -116,7 +116,7 @@ def test_require_explicit_species_not_bypassed_by_context_only_gene():
     rescued_prefix = parse(
         "Orla-UBA", species="Oryzias latipes", require_explicit_species=True, raise_on_error=True
     )
-    eq_(rescued_prefix.to_string(), "OryzLati-UBA")
+    eq_(rescued_prefix.to_string(), "OryziasLatipes-UBA")
     eq_(rescued_prefix.species_source, "explicit")
 
 

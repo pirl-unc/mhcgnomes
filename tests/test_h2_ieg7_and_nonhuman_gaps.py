@@ -44,16 +44,16 @@ def test_h2_ieg7_parses_as_eb_g7_allele_matching_ea_null_h2_ieb():
 @pytest.mark.parametrize(
     "raw,expected_type,expected_species,expected_string",
     [
-        ("OryziasLatipes-orla-uba", Gene, "Oryzias latipes", "OryzLati-UBA"),
-        ("OryziasLatipes-orla-uaa", Gene, "Oryzias latipes", "OryzLati-UAA"),
+        ("OryziasLatipes-orla-uba", Gene, "Oryzias latipes", "OryziasLatipes-UBA"),
+        ("OryziasLatipes-orla-uaa", Gene, "Oryzias latipes", "OryziasLatipes-UAA"),
         (
             "LabeobarbusIntermedius-MhcBain-DAB3-A02",
             Allele,
             "Labeobarbus intermedius",
-            "LabeInte-DAB3*a02",
+            "LabeobarbusIntermedius-DAB3*a02",
         ),
-        ("AquaranaCatesbeiana-UA", Gene, "Lithobates catesbeianus", "LithCate-UA"),
-        ("RanaCatesbeiana-UA", Gene, "Lithobates catesbeianus", "LithCate-UA"),
+        ("AquaranaCatesbeiana-UA", Gene, "Lithobates catesbeianus", "LithobatesCatesbeianus-UA"),
+        ("RanaCatesbeiana-UA", Gene, "Lithobates catesbeianus", "LithobatesCatesbeianus-UA"),
     ],
 )
 def test_double_prefixed_and_synonym_teleost_amphibian_genes(
