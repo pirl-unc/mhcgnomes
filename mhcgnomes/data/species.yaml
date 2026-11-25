@@ -2591,8 +2591,14 @@ Bos sp.:
       - MR1
     IIa:
       DQ:
+        # IPD-MHC BoLA (https://www.ebi.ac.uk/ipd/mhc/group/BoLA/species)
+        # registers BoLA-DQA (77 alleles) and BoLA-DQB (92 alleles) as the
+        # primary cattle DQ designations alongside DQA1; DQA2/DQB1/DQB2 remain
+        # declared for published locus-numbered names (#298).
+        - DQA
         - DQA1
         - DQA2
+        - DQB
         - DQB1
         - DQB2
       DR:

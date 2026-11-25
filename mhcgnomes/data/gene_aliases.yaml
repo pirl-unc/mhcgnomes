@@ -95,8 +95,9 @@ H2:
   I-EB: EB
   I-EB2: EB2
 BoLA:
-  DQA: DQA1
-  DQB: DQB1
+  # IPD-MHC BoLA registers BoLA-DQA and BoLA-DQB as distinct primary loci
+  # (77 and 92 alleles respectively), so they must not be aliased to DQA1/DQB1
+  # (#298). DRB3 remains the single expressed cattle DRB locus.
   DRB: DRB3
 Aoni:
   DRB: DRB1

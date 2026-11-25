@@ -80,3 +80,34 @@ def test_parse_cattle_novel_gene_alleles(allele_name, species_prefix, gene_name,
         assert allele.is_class2_beta
     else:
         assert allele.is_class1
+
+
+@pytest.mark.parametrize(
+    "raw,expected",
+    [
+        ("BoLA-DQA", "BoLA-DQA"),
+        ("BoLA-DQB", "BoLA-DQB"),
+        ("BoLA-DQA*013:02", "BoLA-DQA*013:02"),
+        ("BoLA-DQA*014:01", "BoLA-DQA*014:01"),
+        ("BoLA-DQB*013:01", "BoLA-DQB*013:01"),
+        ("BoLA-DQB*013:02", "BoLA-DQB*013:02"),
+        ("BoLA-DQA1*001:01", "BoLA-DQA1*001:01"),
+        ("BoLA-DQB1*001:01", "BoLA-DQB1*001:01"),
+        ("Bogr-DQB*001:01", "Bogr-DQB*001:01"),
+        ("Bofr-DQB*001:01", "Bofr-DQB*001:01"),
+    ],
+)
+def test_bola_dqa_and_dqb_are_not_renamed_to_dqa1_dqb1(raw, expected):
+    """IPD-MHC BoLA officially registers BoLA-DQA and BoLA-DQB (#298)."""
+    result = parse(raw, use_allele_aliases=False)
+    eq_(result.to_string(), expected)
+    eq_(parse(result.to_string(), use_allele_aliases=False), result)
+
+
+def test_bola_dqa_and_dqb_chain_types():
+    dqa = Gene.get("BoLA", "DQA")
+    dqb = Gene.get("BoLA", "DQB")
+    assert dqa.is_class2_alpha
+    assert not dqa.is_class2_beta
+    assert dqb.is_class2_beta
+    assert not dqb.is_class2_alpha

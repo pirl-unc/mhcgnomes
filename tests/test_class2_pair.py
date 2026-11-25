@@ -107,7 +107,8 @@ def test_infer_class2_alpha_chain_leaves_class1_unchanged():
         ("Mamu-DRB*w2:01", "DRA"),
         # DQ locus
         ("Patr-DQB1*02:01", "DQA1"),
-        ("BoLA-DQB1*02:01", "DQA1"),
+        ("BoLA-DQB*013:01", "DQA"),
+        ("BoLA-DQB1*02:01", "DQA"),
         # Mouse H2 A and E loci
         ("H2-Ab*b", "AA"),
         ("H2-Eb*b", "EA"),
