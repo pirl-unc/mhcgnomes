@@ -35,6 +35,7 @@ def test_package_data_directory_contains_only_runtime_files():
 
 def test_pyproject_package_data_matches_runtime_files():
     pyproject = tomllib.loads((REPO_ROOT / "pyproject.toml").read_text(encoding="utf-8"))
-    declared = set(pyproject["tool"]["setuptools"]["package-data"]["mhcgnomes"])
-    expected = {f"data/{name}" for name in RUNTIME_DATA_FILES}
-    assert declared == expected
+    packages = pyproject["tool"]["setuptools"]["packages"]
+    assert "mhcgnomes.data" in packages
+    declared = set(pyproject["tool"]["setuptools"]["package-data"]["mhcgnomes.data"])
+    assert declared == RUNTIME_DATA_FILES

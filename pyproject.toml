@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=61.0", "wheel"]
+requires = ["setuptools>=77.0.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -7,7 +7,8 @@ name = "mhcgnomes"
 dynamic = ["version"]
 description = "Python library for parsing MHC nomenclature in the wild"
 readme = "README.md"
-license = {file = "LICENSE"}
+license = "Apache-2.0"
+license-files = ["LICENSE"]
 authors = [
     {name = "Alex Rubinsteyn", email = "alex.rubinsteyn@unc.edu"}
 ]
@@ -64,28 +65,28 @@ mhcgnomes = "mhcgnomes.cli:main"
 version = {attr = "mhcgnomes.version.__version__"}
 
 [tool.setuptools]
-packages = ["mhcgnomes"]
+packages = ["mhcgnomes", "mhcgnomes.data"]
 
 [tool.setuptools.package-data]
-mhcgnomes = [
-    "data/allele_aliases.yaml",
-    "data/current_allele_names.yaml",
-    "data/evidenced_prefix_aliases.yaml",
-    "data/external_sources.json",
-    "data/first_allele_field_widths.yaml",
-    "data/gene_aliases.yaml",
-    "data/haplotypes.yaml",
-    "data/heterodimers.yaml",
-    "data/ipd_record_annotations.json",
-    "data/known_alleles.yaml",
-    "data/registry_allele_identities.json",
-    "data/serotype_splits.yaml",
-    "data/serotypes.yaml",
-    "data/single_field_alleles.yaml",
-    "data/species.yaml",
-    "data/species_taxonomy.yaml",
-    "data/supertypes.yaml",
-    "data/underrepresented_taxa_source_registry.yaml",
+"mhcgnomes.data" = [
+    "allele_aliases.yaml",
+    "current_allele_names.yaml",
+    "evidenced_prefix_aliases.yaml",
+    "external_sources.json",
+    "first_allele_field_widths.yaml",
+    "gene_aliases.yaml",
+    "haplotypes.yaml",
+    "heterodimers.yaml",
+    "ipd_record_annotations.json",
+    "known_alleles.yaml",
+    "registry_allele_identities.json",
+    "serotype_splits.yaml",
+    "serotypes.yaml",
+    "single_field_alleles.yaml",
+    "species.yaml",
+    "species_taxonomy.yaml",
+    "supertypes.yaml",
+    "underrepresented_taxa_source_registry.yaml",
 ]
 
 [tool.ruff]
