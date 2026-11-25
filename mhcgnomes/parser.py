@@ -109,6 +109,11 @@ _ACCESSION_LEADING_CLASS_RE = re.compile(
 )
 
 
+# Compact bare mouse nonclassical gene/alias + letter allele (e.g. "qa-1b",
+# "qa1b", "qa-2a", "t23b"; #318). Restricted to mouse-unique MHC genes.
+_MOUSE_DIGIT_LETTER_ALLELE_RE = re.compile(r"^([a-z]+-?\d+)([a-z][a-z0-9]*)$")
+
+
 def _normalize_accession_class_qualifier(token: str) -> str:
     """Normalize a Roman or Arabic class I/II qualifier token to ``'I'`` or ``'II'``."""
     return "I" if token.upper() in ("I", "1") else "II"
@@ -1949,8 +1954,13 @@ class Parser:
         """
         if not allele_name:
             return None
+        sep = None
         if allele_name.count("*") == 1:
+            sep = "*"
             gene_name, allele_string = allele_name.split("*")
+        elif allele_name.count("^") == 1:
+            sep = "^"
+            gene_name, allele_string = allele_name.split("^")
         else:
             gene_name, allele_string = split_digits_at_end(allele_name)
 
@@ -1959,8 +1969,8 @@ class Parser:
             # the gene lookup as "Ia1" and not just "ia1". See issue #160.
             raw_gene_name = None
             if raw_allele_name and _spelling_as_written(allele_name, raw_allele_name):
-                if raw_allele_name.count("*") == 1:
-                    raw_gene_name = raw_allele_name.split("*")[0]
+                if sep is not None and raw_allele_name.count(sep) == 1:
+                    raw_gene_name = raw_allele_name.split(sep)[0]
                 else:
                     raw_gene_name = split_digits_at_end(raw_allele_name)[0]
             gene = self.parse_gene_without_species(
@@ -1973,6 +1983,28 @@ class Parser:
                 return self.parse_allele_or_gene_candidates(
                     species=gene.species, str_after_species=allele_name, raw_string=allele_name
                 )
+
+        # Bare compact mouse nonclassical allele forms whose gene/alias ends in
+        # a digit and whose allele designation begins with a letter, such as
+        # "Qa-1b", "Qa1b", "Qa-1a", "Qa-2a" (#318). Guard against splitting real
+        # gene names like "B2M" or "CD1a" or non-MHC helper genes.
+        if sep is None and not allele_string:
+            match = _MOUSE_DIGIT_LETTER_ALLELE_RE.fullmatch(allele_name)
+            if match is not None and not Species.get_species_with_gene_name(allele_name):
+                prefix = match.group(1)
+                if strict_default_species and default_species is not None:
+                    sp = Species.get(default_species)
+                    candidate_species = [sp] if sp is not None else []
+                else:
+                    candidate_species = Species.get_species_with_gene_name(prefix)
+                if len(candidate_species) == 1 and candidate_species[0].is_mouse:
+                    gene = Gene.get(candidate_species[0], prefix)
+                    if gene is not None and gene.mhc_class != "other":
+                        return self.parse_allele_or_gene_candidates(
+                            species=gene.species,
+                            str_after_species=allele_name,
+                            raw_string=allele_name,
+                        )
         return None
 
     def parse_class_marker_after_species(self, species, str_after_species):
