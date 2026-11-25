@@ -83,11 +83,17 @@ def test_hp_2_0_has_no_class3_allele():
 
 
 def test_undesignated_haplotype_spellings_do_not_resolve():
-    # Only the high-resolution class I series is curated. The class II series
-    # (Hp-0.03) and the low-resolution one (Lr-4.0) are defined by allele
-    # *groups* such as SLA-1*15XX, which this file has no way to express.
-    for name in ["Hp-4.0", "Hp-1.1", "Hp-0.03", "Lr-4.0", "SLA-1.1"]:
+    # High-resolution class II (Hp-0.03), bare class I Hp-4.0 (curated is
+    # Hp-4b.0), and combined spellings without a curated entry stay None.
+    for name in ["Hp-4.0", "Hp-1.1", "Hp-0.03", "SLA-1.1"]:
         eq_(parse(name, raise_on_error=False), None)
+
+
+def test_zero_padded_hp_spellings_resolve_to_canonical_names():
+    eq_(parse("Hp-01a.0").to_string(), "SLA-Hp-1a.0")
+    eq_(parse("Hp-02.0").to_string(), "SLA-Hp-2.0")
+    eq_(parse("Hp-04b.0").to_string(), "SLA-Hp-4b.0")
+    eq_(parse("SLA-Hp-06.0").to_string(), "SLA-Hp-6.0")
 
 
 # ---------------------------------------------------------------------------

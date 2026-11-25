@@ -13,7 +13,7 @@
 from os.path import dirname, join
 from typing import Any
 
-from .common import normalize_allele_alias
+from .common import normalize_allele_alias, normalize_haplotype_name
 from .normalizing_dictionary import NormalizingDictionary
 from .serotype_hierarchy import expand_serotype_memberships
 
@@ -96,6 +96,16 @@ def load_allele_aliases():
     )
 
 
+def load_haplotypes():
+    """Load curated haplotype tables normalized per species."""
+    return NormalizingDictionary.from_dict(
+        {
+            prefix: NormalizingDictionary.from_dict(entries, normalize_fn=normalize_haplotype_name)
+            for prefix, entries in load("haplotypes.yaml").items()
+        }
+    )
+
+
 def load_serotypes():
     """Expand curated direct serotype assignments with WMDA broad/split relationships."""
     direct = __getattr__("direct_serotypes")
@@ -157,11 +167,7 @@ LAZY_DATA_LOADERS = {
         normalize_second_level_keys=True,
     ),
     # Dictionary mapping species to haplotype name to list of alleles
-    "haplotypes": lambda: load(
-        "haplotypes.yaml",
-        normalize_first_level_keys=True,
-        normalize_second_level_keys=True,
-    ),
+    "haplotypes": load_haplotypes,
     # Curated direct serotype assignments (#196)
     "direct_serotypes": lambda: load(
         "serotypes.yaml",

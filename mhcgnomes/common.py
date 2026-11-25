@@ -10,6 +10,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import re
 from collections.abc import Iterable
 from functools import wraps
 
@@ -93,6 +94,39 @@ def normalize_allele_alias(name):
     https://raw.githubusercontent.com/ANHIG/IMGTHLA/3660/Allelelist.txt
     """
     return ":".join(normalize_string(part) for part in str(name).split(":"))
+
+
+_SLA_HAPLOTYPE_RE = re.compile(r"^(HP|LR)([0-9]+)([A-Z]*)\.([0-9]+)([A-Z]*)$")
+
+
+def _strip_single_leading_zero(digits: str) -> str:
+    """Strip a single leading zero from two-digit numbers ``01``..``09`` only."""
+    if len(digits) == 2 and digits[0] == "0" and digits[1] != "0":
+        return digits[1]
+    return digits
+
+
+def normalize_haplotype_name(name):
+    """
+    Normalize a haplotype name for lookup.
+
+    In addition to standard case- and punctuation-folding via
+    :func:`normalize_string`, treats zero-padded and unpadded single-digit
+    numbers in ISAG/IUIS-VIC swine haplotypes (``Lr-`` / ``Hp-``) as
+    equivalent, since published SLA tables use both spellings interchangeably
+    (e.g. ``Lr-4.0`` and ``Lr-04.0``, ``Lr-0.1`` and ``Lr-0.01``,
+    ``Hp-2.0`` and ``Hp-02.0``, ``Hp-4b.0`` and ``Hp-04b.0``; #162).
+    """
+    normalized = normalize_string(name)
+    if normalized is None:
+        return None
+    match = _SLA_HAPLOTYPE_RE.match(normalized)
+    if match is not None:
+        prefix, c1_digits, c1_suffix, c2_digits, c2_suffix = match.groups()
+        c1_digits = _strip_single_leading_zero(c1_digits)
+        c2_digits = _strip_single_leading_zero(c2_digits)
+        return f"{prefix}{c1_digits}{c1_suffix}.{c2_digits}{c2_suffix}"
+    return normalized
 
 
 def normalize_string(name):

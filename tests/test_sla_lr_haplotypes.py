@@ -5,19 +5,18 @@ The other half of the ISAG/IUIS-VIC scheme. Lr- types are defined by PCR-SSP
 allele *groups* rather than by sequenced alleles, so a member is a one-field
 allele: "1*04" is SLA-1*04XX, any allele in group 04.
 
-Source: Tables 1 and 2 of Hammer et al., "Comparative analysis of swine
-leukocyte antigen gene diversity in European farmed pigs", Animal Genetics
-2021;52:523, read from the Europe PMC full-text XML of PMC8362188 -- the PMC
-HTML carries only per-line counts, and the supplementary PDF only primer
-layouts and frequency figures.
-
-Two distinctions the tables draw, and this file has to keep:
-
-  * "Blank" is an absent locus; "Blank" with footnote 5 is an *untyped* one.
-    Recording the second as absent would assert something the study explicitly
-    did not measure, so those rows are left out.
-  * "04XX (04:04)" is footnote 1's medium/high-resolution refinement of the
-    group to its left. The group is what a low-resolution haplotype asserts.
+Sources (read verbatim from Europe PMC full-text XML and supplementary files):
+  * Hammer et al., Animal Genetics 2021;52:523 (PMID 34028065, PMC8362188),
+    Tables 1 & 2 and Table S2b.
+  * Hammer et al., Front Immunol 2024;15:1360022 (PMID 38469309, PMC10925748),
+    Abstract, Tables 1-3, and Supplementary Tables 3 & 4 (DataSheet_1.docx).
+  * de León et al., Vaccines 2020;8:E513 (PMID 32911818, PMC7563261),
+    Table 5 & Discussion.
+  * Techakriengkrai et al., Front Vet Sci 2021;8:637682 (PMID 33996967,
+    PMC8121083), Tables 2-4.
+  * Choi et al., Asian-Australas J Anim Sci 2016;29:169 (PMID 26950861,
+    PMC4811781), Table 1; Ando et al., Cells 2019;8:E783 (PMID 31357541,
+    PMC6721486), Table 1.
 
 https://github.com/pirl-unc/mhcgnomes/issues/162
 """
@@ -31,12 +30,15 @@ from .common import eq_, ok_
 CLASS_I = [
     "01.0",
     "02.0",
+    "03.0",
     "04.0",
     "05.0",
     "06.0",
     "07.0",
     "08.0",
+    "10.0",
     "11.0",
+    "17.0",
     "18.0",
     "21.0",
     "22.0",
@@ -73,24 +75,33 @@ CLASS_I = [
 CLASS_II = [
     "0.01",
     "0.02",
+    "0.03",
     "0.04",
     "0.05",
     "0.06",
     "0.07",
+    "0.08",
     "0.09",
     "0.10",
+    "0.11",
     "0.12",
     "0.13",
     "0.14",
+    "0.15",
+    "0.19",
     "0.20",
+    "0.21",
     "0.22",
     "0.23",
     "0.24",
+    "0.25",
     "0.26",
+    "0.27",
     "0.30",
     "0.32",
     "0.33",
     "0.35",
+    "0.36",
 ]
 
 # Rows deliberately not curated, and why. Kept as data so that adding one has
@@ -100,15 +111,23 @@ DELIBERATELY_ABSENT = {
     "16.0 mod": "ambiguity unresolved, one heterozygous animal",
     "31.0/63.0": "composite name",
     "0.08b": "alphabetical suffix distinguishing near-identical haplotypes",
+    "0.15a": "alphabetical suffix distinguishing near-identical haplotypes",
+    "0.15b": "alphabetical suffix distinguishing near-identical haplotypes",
+    "0.19a": "alphabetical suffix distinguishing near-identical haplotypes",
+    "0.19b": "alphabetical suffix distinguishing near-identical haplotypes",
     "24.0": "SLA-1 untyped, not blank",
     "33.0": "SLA-1 untyped, not blank",
+    "0.17": "DQA listed as 'Blank or Null' in PMC10925748",
     "0.29": "DRB1 untyped, not blank",
-    "38.0": "'+' notation not defined by the source",
-    "45.0": "'+' at two loci, notation not defined",
-    "0.21": "'+' at DQA, notation not defined",
-    "52.0": "'/' means alternatives at one locus",
-    "53.0": "'/' at SLA-2",
-    "0.11": "'/' at DRB1",
+    "38.0": "class I '+' notation not defined by the source",
+    "45.0": "class I '+' at two loci, notation not defined",
+    "52.0": "cross-group '/' alternatives at SLA-2",
+    "53.0": "cross-group '/' alternatives at SLA-2",
+    "50.0": "only in PMC8121083 whose class I primer panel omits SLA-1*03/*15 and duplicated SLA-1",
+    "81.0": "only in PMC8121083; identical to its truncated Lr-35.0 row",
+    "0.16": "only in PMC6721486 which did not type DQA",
+    "0.18": "only in PMC6721486 which did not type DQA",
+    "0.37": "only in PMC6721486 which did not type DQA",
 }
 
 
@@ -156,17 +175,79 @@ def test_the_rows_left_out_stay_out(name):
     eq_(parse(f"Lr-{name}", raise_on_error=False), None)
 
 
-def test_the_plus_rows_are_out_because_the_notation_is_undefined():
+def test_the_class1_plus_rows_are_out_because_the_notation_is_undefined():
     """
-    Not because "+" is hard to represent -- two members at one locus is
-    already how Lr-02.0 records "02XX,07XX". Table 1 never explains "+", and
-    Table 2's footnote 3 describes one instance as "Positive with both
-    DQA*04XX primer sets", which is an assay result rather than a definition.
-    Guessing between "a second allele", "a duplicated locus" and "an
-    unresolved call" is the kind of thing AGENTS.md exists to stop.
+    Class I "+" rows (Lr-38.0, Lr-45.0) remain excluded because no checked
+    primary source defines "+" at SLA-1 or SLA-2. By contrast, class II
+    DQA "04XX+05XX" (Lr-0.21, Lr-0.25, Lr-0.27) is confirmed as allele group
+    DQA*04 in PMC10925748 Abstract, PMC7563261 Table 5 & Discussion,
+    PMC4811781 Table 1 ("04XX+w05XX"), and PMC8362188 Table 2 fn 3 / Table S2b.
     """
-    for name in ["38.0", "45.0", "0.21", "0.25", "0.27"]:
+    for name in ["38.0", "45.0"]:
         eq_(parse(f"Lr-{name}", raise_on_error=False), None)
+
+
+def test_resolved_dqa_04_and_same_group_slash_class2_haplotypes():
+    expected = {
+        "Lr-0.03": ["SLA-DQA*01", "SLA-DQB1*03", "SLA-DRB1*03"],
+        "Lr-0.08": ["SLA-DQA*02", "SLA-DQB1*02", "SLA-DRB1*08"],
+        "Lr-0.11": ["SLA-DQA*03", "SLA-DQB1*04", "SLA-DRB1*09"],
+        "Lr-0.15": ["SLA-DQA*02", "SLA-DQB1*02", "SLA-DRB1*04"],
+        "Lr-0.19": ["SLA-DQA*03", "SLA-DQB1*07", "SLA-DRB1*04"],
+        "Lr-0.21": ["SLA-DQA*04", "SLA-DQB1*05", "SLA-DRB1*01"],
+        "Lr-0.25": ["SLA-DQA*04", "SLA-DQB1*09", "SLA-DRB1*13"],
+        "Lr-0.27": ["SLA-DQA*04", "SLA-DQB1*09", "SLA-DRB1*09"],
+        "Lr-0.36": ["SLA-DQA*04", "SLA-DQB1*10", "SLA-DRB1*01"],
+    }
+    for name, alleles in expected.items():
+        result = parse(name, required_result_types=[Haplotype])
+        eq_(sorted(a.to_string() for a in result.alleles), alleles)
+
+
+def test_gottingen_minipig_class1_haplotypes_from_pmc10925748():
+    """Lr-03.0 (SLA-1 Null), Lr-10.0, and Lr-17.0 from PMC10925748 Supp Table 3."""
+    lr03 = parse("Lr-03.0", required_result_types=[Haplotype])
+    eq_(sorted(a.to_string() for a in lr03.alleles), ["SLA-2*03", "SLA-3*03"])
+    eq_([g.to_string() for g in lr03.absent_genes], ["SLA-1"])
+
+    lr10 = parse("Lr-10.0", required_result_types=[Haplotype])
+    eq_(sorted(a.to_string() for a in lr10.alleles), ["SLA-1*05", "SLA-2*03", "SLA-3*08"])
+
+    lr17 = parse("Lr-17.0", required_result_types=[Haplotype])
+    eq_(sorted(a.to_string() for a in lr17.alleles), ["SLA-1*08", "SLA-2*06", "SLA-3*03"])
+
+
+@pytest.mark.parametrize(
+    "unpadded,canonical",
+    [
+        ("Lr-1.0", "SLA-Lr-01.0"),
+        ("Lr-3.0", "SLA-Lr-03.0"),
+        ("Lr-4.0", "SLA-Lr-04.0"),
+        ("SLA-Lr-4.0", "SLA-Lr-04.0"),
+        ("Lr-0.1", "SLA-Lr-0.01"),
+        ("SLA-Lr-0.1", "SLA-Lr-0.01"),
+        ("Lr-0.3", "SLA-Lr-0.03"),
+        ("Lr-0.8", "SLA-Lr-0.08"),
+    ],
+)
+def test_unpadded_and_padded_lr_spellings_resolve_identically(unpadded, canonical):
+    """Published SLA papers mix Lr-4.0 / Lr-04.0 and Lr-0.1 / Lr-0.01."""
+    result = parse(unpadded, required_result_types=[Haplotype])
+    eq_(result.to_string(), canonical)
+    eq_(result, parse(canonical, required_result_types=[Haplotype]))
+
+
+def test_unpadded_lr_works_with_sus_scrofa_and_class_restriction():
+    result = parse("Lr-4.0", default_species="Sus scrofa")
+    eq_(result.to_string(), "Susc-Lr-04.0")
+    eq_(result, parse("Lr-04.0", default_species="Sus scrofa"))
+    restricted = parse("Lr-4.0 class I")
+    eq_(restricted.to_string(), "SLA-Lr-04.0 class I")
+
+
+@pytest.mark.parametrize("bad", ["Lr-00.01", "Lr-004.0", "Lr-0.010", "Lr-0.8b"])
+def test_malformed_zero_padding_does_not_resolve(bad):
+    eq_(parse(bad, raise_on_error=False), None)
 
 
 def test_multiple_alleles_at_one_locus_are_both_listed():

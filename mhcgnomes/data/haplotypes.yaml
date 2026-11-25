@@ -96,43 +96,64 @@ SLA:
   # PCR-SSP allele *groups* rather than by sequenced alleles, so a member here
   # is a one-field allele -- "1*04" is SLA-1*04XX, any allele in group 04.
   #
-  # Source: Table 1 (class I) and Table 2 (class II) of Hammer et al.,
-  # "Comparative analysis of swine leukocyte antigen gene diversity in
-  # European farmed pigs", Animal Genetics 2021;52:523, read from the
-  # Europe PMC full-text XML of PMC8362188. The paper states its criteria and
-  # nomenclature "were based on those proposed by the SLA Nomenclature
-  # Committee (Ho et al. 2009b and reviewed in Hammer et al. 2020)".
+  # Sources (read verbatim from Europe PMC full-text XML and supplementary files):
+  #   * Hammer et al., "Comparative analysis of swine leukocyte antigen gene
+  #     diversity in European farmed pigs", Animal Genetics 2021;52:523
+  #     (PMID 34028065, PMC8362188), Tables 1 & 2 and Table S2b.
+  #   * Hammer et al., "Comparative analysis of swine leukocyte antigen gene
+  #     diversity in Göttingen Minipigs", Front Immunol 2024;15:1360022
+  #     (PMID 38469309, PMC10925748), Abstract, Tables 1-3, and Supplementary
+  #     Tables 3 & 4 (DataSheet_1.docx).
+  #   * de León et al. (senior author S.E. Hammer), "Association of Porcine
+  #     Swine Leukocyte Antigen (SLA) Haplotypes with B- and T-Cell Immune
+  #     Response to Foot-and-Mouth Disease Virus (FMDV) Peptides", Vaccines
+  #     2020;8:E513 (PMID 32911818, PMC7563261), Table 5 & Discussion.
+  #   * Techakriengkrai et al., "Diversity of the Swine Leukocyte Antigen Class
+  #     I and II in Commercial Pig Populations", Front Vet Sci 2021;8:637682
+  #     (PMID 33996967, PMC8121083), Tables 2-4 (used for class II, where the
+  #     primer panel is complete and agrees 20/20 with PMC8362188, and as
+  #     corroboration for Lr-17.0; class I rows unique to PMC8121083 are NOT
+  #     imported because Table 1 footnote * notes its class I primer panel
+  #     cannot detect SLA-1*03/*15, SLA-2*16, or SLA-3*02 and Table 2 drops the
+  #     second SLA-1 allele on duplicated haplotypes Lr-2.0, 27.0, 28.0, 35.0).
+  #   * Choi et al., Asian-Australas J Anim Sci 2016;29:169 (PMID 26950861,
+  #     PMC4811781), Table 1; Ando et al., Cells 2019;8:E783 (PMID 31357541,
+  #     PMC6721486), Table 1 (corroboration for Lr-0.11; Lr-0.16, 0.18, 0.37
+  #     are omitted because PMC6721486 did not type DQA).
   #
-  # Two things the tables say that a naive import would get wrong:
+  # Several distinctions the primary tables draw that this curation preserves:
   #
-  #   * "Blank" and "Blank(5)" are different. Footnote 5 of Table 1 reads
-  #     "Untyped SLA class I locus", so Lr-24.0 and Lr-33.0 do not assert an
-  #     absent SLA-1 -- they assert nothing about it, and are left out rather
-  #     than recorded as blank. Plain "Blank" is the positive finding and is
-  #     written "<gene>*Blank" (#162).
-  #   * A parenthetical such as "04XX (04:04)" is footnote 1's "medium- or
-  #     high-resolution specificity" refining the group to its left. The group
-  #     is what the low-resolution haplotype asserts, so that is what is
-  #     recorded.
+  #   * "Blank" / "Null" vs untyped "Blank": in PMC8362188 Table 1, footnote 5
+  #     marks Lr-24.0 and Lr-33.0 SLA-1 as "Untyped SLA class I locus" (and fn 4
+  #     of Table 2 marks Lr-0.29 DRB1 as untyped), so those stay out; plain
+  #     "Blank" in PMC8362188 and explicit "Null" in PMC10925748 (Lr-03.0 SLA-1,
+  #     tabulated separately from Blank in Table 3) are recorded as "<gene>*Blank"
+  #     (#162). Lr-0.17 ("Blank or Null" for DQA in PMC10925748) stays out.
+  #   * Parenthetical refinements such as "04XX (04:04)" or same-group slashes
+  #     such as "09XX/09:06" (Lr-0.11, Lr-0.27) both assert the allele group
+  #     (04, 09); that group is what the low-resolution haplotype records.
+  #   * DQA "04XX+05XX" (Lr-0.21, Lr-0.25, Lr-0.27): PMC8362188 Table 2 fn 3
+  #     ("Positive with both DQA*04XX primer sets in lanes D12 and C12", Table
+  #     S2b), PMC4811781 Table 1 ("04XX+w05XX" weak cross-band), PMC10925748
+  #     Abstract ("Lr-0.21 (DRB1*01XX-DQB1*05XX-DQA*04XX)"), and PMC7563261
+  #     Table 5 & Discussion (explicitly naming DQA*04XX for both Lr-0.21 and
+  #     Lr-0.27) establish that the allele group at DQA is DQA*04.
+  #   * Alphabetical suffixes (0.08b, 0.15a/b, 0.19a/b): PMC8362188 Table 2 fn 2
+  #     explains these distinguish closely related haplotypes with *identical*
+  #     low-resolution group specificities. The base low-resolution haplotypes
+  #     Lr-0.08, Lr-0.15, and Lr-0.19 (also tabulated without suffixes in
+  #     PMC8121083 Table 4) are curated; the sub-lettered names remain out.
   #
-  # Nineteen rows are deliberately absent, each for a stated reason:
+  # Rows deliberately absent, each for a stated reason:
   #
   #   composite or unconfirmed name   01.0/04.0, 16.0 mod, 31.0/63.0,
-  #                                   0.08b, 0.15a, 0.15b, 0.19a, 0.19b
-  #   untyped locus (Blank + fn)      24.0, 33.0, 0.29
-  #   "+" -- meaning not established  38.0, 45.0, 0.21, 0.25, 0.27
-  #   "/" -- alternatives at a locus  52.0, 53.0, 0.11
-  #
-  # On "+": Table 1 does not explain it at all, and Table 2's footnote 3 says
-  # only "Positive with both DQA*04XX primer sets in lanes D12 and C12" of one
-  # instance -- which describes an assay result rather than defining the
-  # notation. Whether "12XX + 11:04" means a second allele at the locus, a
-  # duplicated locus, or an unresolved call is not something these tables say,
-  # so those five rows stay out until it can be read somewhere that does.
-  #
-  # "/" is safe by comparison: a slash between two specificities at one locus
-  # reads as alternatives, and that is a member this format cannot express --
-  # a disjunction. It is the remaining half of #162.
+  #                                   0.08b, 0.15a, 0.15b, 0.19a, 0.19b,
+  #                                   GMP-1.0/2.0/3.0, YDLR-2.0, Pie-0.1
+  #   untyped or ambiguous Blank/Null 24.0, 33.0, 0.17, 0.29
+  #   class I "+" -- not defined      38.0, 45.0
+  #   cross-group "/" disjunction     52.0, 53.0
+  #   incomplete primer set / no DQA  50.0, 63.0, 70.0, 76.0, 80.0, 81.0, 82.0,
+  #                                   0.16, 0.18, 0.37
   ##########################################################################
   # ---- low-resolution class I haplotypes ----
   Lr-01.0:
@@ -144,6 +165,12 @@ SLA:
     - 1*07
     - 3*04
     - 2*02
+  # Hammer et al. 2024 (PMC10925748, PMID 38469309) Table 1 & Supp Table 3:
+  # SLA-1 Null (distinct from Blank in Table 3), SLA-3 03XX, SLA-2 03XX.
+  Lr-03.0:
+    - 1*Blank
+    - 3*03
+    - 2*03
   Lr-04.0:
     - 1*04
     - 3*04
@@ -165,11 +192,23 @@ SLA:
     - 1*04
     - 3*03
     - 2*07
+  # Hammer et al. 2024 (PMC10925748, PMID 38469309) Table 1 & Supp Table 3:
+  # SLA-1 05XX, SLA-3 08XX, SLA-2 03XX.
+  Lr-10.0:
+    - 1*05
+    - 3*08
+    - 2*03
   Lr-11.0:
     - 1*01
     - 1*09
     - 3*07
     - 2*05
+  # Hammer et al. 2024 (PMC10925748) Table 1 & Supp Table 3; corroborated by
+  # Techakriengkrai et al. 2021 (PMC8121083) Table 2 and high-res Hp-17.0.
+  Lr-17.0:
+    - 1*08
+    - 3*03
+    - 2*06
   Lr-18.0:
     - 1*04
     - 3*03
@@ -307,6 +346,12 @@ SLA:
     - DRB1*02
     - DQB1*02
     - DQA*02
+  # Hammer et al. 2024 (PMC10925748, PMID 38469309) Abstract, Table 2 & Supp Table 4:
+  # DRB1*03XX(03:02), DQB1*03XX(03:01), DQA*01XX.
+  Lr-0.03:
+    - DRB1*03
+    - DQB1*03
+    - DQA*01
   Lr-0.04:
     - DRB1*02
     - DQB1*04
@@ -323,6 +368,12 @@ SLA:
     - DRB1*06
     - DQB1*06
     - DQA*01
+  # Techakriengkrai et al. 2021 (PMC8121083) Table 4 (as Lr-0.8) and Hammer et
+  # al. 2021 (PMC8362188) Table 2 (0.08b, fn 2: same Lr group specificities).
+  Lr-0.08:
+    - DRB1*08
+    - DQB1*02
+    - DQA*02
   Lr-0.09:
     - DRB1*02
     - DQB1*04
@@ -330,6 +381,13 @@ SLA:
   Lr-0.10:
     - DRB1*04
     - DQB1*08
+    - DQA*03
+  # Hammer et al. 2021 (PMC8362188) Table 2 (DRB1 09XX/09:06, both group 09),
+  # Techakriengkrai et al. 2021 (PMC8121083) Table 4, and Ando et al. 2019
+  # (PMC6721486) Table 1.
+  Lr-0.11:
+    - DRB1*09
+    - DQB1*04
     - DQA*03
   Lr-0.12:
     - DRB1*06
@@ -343,10 +401,30 @@ SLA:
     - DRB1*09
     - DQB1*08
     - DQA*03
+  # Techakriengkrai et al. 2021 (PMC8121083) Table 4; Hammer et al. 2021
+  # (PMC8362188) Table 2 (0.15a & 0.15b share these Lr groups, fn 2); de León
+  # et al. 2020 (PMC7563261) Table 5.
+  Lr-0.15:
+    - DRB1*04
+    - DQB1*02
+    - DQA*02
+  # Techakriengkrai et al. 2021 (PMC8121083) Table 4; Hammer et al. 2021
+  # (PMC8362188) Table 2 (0.19a & 0.19b share these Lr groups, fn 2).
+  Lr-0.19:
+    - DRB1*04
+    - DQB1*07
+    - DQA*03
   Lr-0.20:
     - DRB1*06
     - DQB1*03
     - DQA*01
+  # Hammer et al. 2024 (PMC10925748) Abstract ("DRB1*01XX-DQB1*05XX-DQA*04XX")
+  # & Supp Table 4; de León et al. 2020 (PMC7563261) Table 5 & Discussion;
+  # Hammer et al. 2021 (PMC8362188) Table 2 fn 3 & Table S2b.
+  Lr-0.21:
+    - DRB1*01
+    - DQB1*05
+    - DQA*04
   Lr-0.22:
     - DRB1*06
     - DQB1*02
@@ -359,10 +437,24 @@ SLA:
     - DRB1*07
     - DQB1*02
     - DQA*02
+  # Hammer et al. 2021 (PMC8362188) Table 2 fn 3 & Table S2b; Choi et al. 2016
+  # (PMC4811781) Table 1 (DQA 04XX+w05XX); Techakriengkrai et al. 2021
+  # (PMC8121083) Table 4.
+  Lr-0.25:
+    - DRB1*13
+    - DQB1*09
+    - DQA*04
   Lr-0.26:
     - DRB1*11
     - DQB1*04
     - DQA*02
+  # de León et al. 2020 (PMC7563261) Table 5 & Discussion (explicitly DRB1*09XX,
+  # DQB1*09XX, DQA*04XX); Hammer et al. 2021 (PMC8362188) Table 2 fn 3;
+  # Techakriengkrai et al. 2021 (PMC8121083) Table 4.
+  Lr-0.27:
+    - DRB1*09
+    - DQB1*09
+    - DQA*04
   Lr-0.30:
     - DRB1*11
     - DQB1*05
@@ -379,6 +471,12 @@ SLA:
     - DRB1*01
     - DQB1*04
     - DQA*02
+  # Techakriengkrai et al. 2021 (PMC8121083) Table 4: DRB1*01:XX, DQB1*10:XX,
+  # DQA*04:XX.
+  Lr-0.36:
+    - DRB1*01
+    - DQB1*10
+    - DQA*04
 
 #########################################
 # Mouse MHC haplotypes copied from:
