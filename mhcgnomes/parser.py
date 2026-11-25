@@ -77,6 +77,22 @@ _MHC_REGION_RE = re.compile(
 _PUBLISHED_SAHA_SLASH_AMBIGUITIES = frozenset({("49", "82"), ("74", "88")})
 
 
+# Official UniProt primary accession format (optionally with -N isoform suffix;
+# https://www.uniprot.org/help/accession_numbers). Strictly uppercase so
+# mixed-case compact mouse names (H2Kbm1, H2Ddm1, H2Ldm1, H2IAg7) and
+# separated names (H2-L*r16, HLA-P*01:01) are unaffected (#306).
+_BARE_UNIPROT_ACCESSION_RE = re.compile(
+    r"^(?:[OPQ][0-9][A-Z0-9]{3}[0-9]|[A-NR-Z][0-9](?:[A-Z][A-Z0-9]{2}[0-9]){1,2})(?:-\d+)?$"
+)
+
+
+def _is_bare_uniprot_accession(name: str) -> bool:
+    """Return True if ``name`` is a bare uppercase UniProt accession (#306)."""
+    if not isinstance(name, str):
+        return False
+    return bool(_BARE_UNIPROT_ACCESSION_RE.fullmatch(name.strip()))
+
+
 def _is_b2m_chain(result: Result) -> bool:
     """Return True if ``result`` is a beta-2-microglobulin (B2M) gene or allele."""
     gene_name = getattr(result, "gene_name", None)
@@ -2632,6 +2648,9 @@ class Parser:
         Returns list of ParseResult objects which are candidate interpretations
         of the given string.
         """
+        if _is_bare_uniprot_accession(name):
+            return []
+
         tokenization_result = tokenize(name)
         trimmed_string = tokenization_result.trimmed_string
         if len(trimmed_string) == 0:
@@ -2786,7 +2805,7 @@ class Parser:
         returns no candidates for unprefixed, non-allele, or complex inputs so
         callers can fall back to the general parser.
         """
-        if self.verbose or not isinstance(name, str):
+        if self.verbose or not isinstance(name, str) or _is_bare_uniprot_accession(name):
             return []
 
         species, name_without_species = self.parse_species_from_prefix(name)
@@ -2978,6 +2997,11 @@ class Parser:
             - Supertype
             - Class2Locus
         """
+        if _is_bare_uniprot_accession(name):
+            if raise_on_error:
+                raise ParseError(f"Could not parse '{name}'")
+            return None
+
         has_candidate_filters = bool(
             preferred_result_types or required_result_types or only_class1 or only_class2
         )
