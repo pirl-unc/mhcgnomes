@@ -97,7 +97,39 @@ def test_annotation_group():
     assert not allele.annotation_questionable
     assert not allele.annotation_low_expression
     assert allele.annotation_group
+    assert allele.annotation_g_group
+    assert not allele.annotation_p_group
     assert not allele.annotation_splice_variant
+
+
+def test_annotation_p_group_and_field_restriction():
+    g_allele = parse("HLA-A*02:01:01G")
+    assert g_allele.annotation_group
+    assert g_allele.annotation_g_group
+    assert not g_allele.annotation_p_group
+    # 3-field restriction preserves G; <3 fields drops G (#301)
+    eq_(g_allele.restrict_allele_fields(3).to_string(), "HLA-A*02:01:01G")
+    g_2field = g_allele.restrict_allele_fields(2)
+    eq_(g_2field.to_string(), "HLA-A*02:01")
+    assert not g_2field.annotation_group
+    assert not g_2field.annotation_g_group
+    eq_(g_allele.restrict_allele_fields(1).to_string(), "HLA-A*02")
+
+    p_allele = parse("HLA-A*02:01P")
+    assert p_allele.annotation_group
+    assert p_allele.annotation_p_group
+    assert not p_allele.annotation_g_group
+    # 2-field restriction preserves P; <2 fields drops P (#301)
+    eq_(p_allele.restrict_allele_fields(2).to_string(), "HLA-A*02:01P")
+    p_1field = p_allele.restrict_allele_fields(1)
+    eq_(p_1field.to_string(), "HLA-A*02")
+    assert not p_1field.annotation_group
+    assert not p_1field.annotation_p_group
+
+    # Expression suffixes such as N are preserved unless drop_annotations=True
+    n_allele = parse("HLA-A*02:01:01:02N")
+    eq_(n_allele.restrict_allele_fields(2).to_string(), "HLA-A*02:01N")
+    eq_(n_allele.restrict_allele_fields(2, drop_annotations=True).to_string(), "HLA-A*02:01")
 
 
 def test_annotation_splice_variant():

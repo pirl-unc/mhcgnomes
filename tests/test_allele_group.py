@@ -26,8 +26,16 @@ from mhcgnomes.data import single_field_alleles
         ("Mamu-A1*001", True),
         ("DLA-88*001", True),
         ("Mamu-DRB*W003", True),
-        # Low-resolution SLA types name every allele in the group.
+        # Low-resolution XX allele group codes (WMDA/NMDP and IPD-MHC; #301).
         ("SLA-1*15XX", True),
+        ("SLA-1*04:XX", True),
+        ("BoLA-1*019:XX", True),
+        ("HLA-A*02:XX", True),
+        ("HLA-DRB1*04:XX", True),
+        ("HLA-B*07:XX", True),
+        ("HLA-DPB1*105:XX", True),
+        ("HLA-A*02XX", True),
+        ("HLA-A*02:xx", True),
         # Provisional single-allele names are not groups.
         ("SLA-1*es11", False),
         # Complete registry alleles with one numeric field.
@@ -47,6 +55,35 @@ def test_is_allele_group(name, expected):
     allele = parse(name)
     assert type(allele) is Allele
     assert allele.is_allele_group is expected
+
+
+@pytest.mark.parametrize(
+    "raw, expected_str, expected_fields",
+    [
+        ("HLA-A*02:XX", "HLA-A*02:XX", ("02", "XX")),
+        ("HLA-A*02:xx", "HLA-A*02:XX", ("02", "XX")),
+        ("HLA-A*02XX", "HLA-A*02:XX", ("02", "XX")),
+        ("HLA-A*2:XX", "HLA-A*02:XX", ("02", "XX")),
+        ("A*02:XX", "HLA-A*02:XX", ("02", "XX")),
+        ("HLA-DRB1*04:XX", "HLA-DRB1*04:XX", ("04", "XX")),
+        ("HLA-DPB1*105:XX", "HLA-DPB1*105:XX", ("105", "XX")),
+        ("SLA-1*04:XX", "SLA-1*04:XX", ("04", "XX")),
+        ("BoLA-1*019:XX", "BoLA-1*019:XX", ("019", "XX")),
+    ],
+)
+def test_xx_low_resolution_typing_normalizes_and_round_trips(raw, expected_str, expected_fields):
+    allele = parse(raw)
+    assert type(allele) is Allele
+    assert allele.allele_fields == expected_fields
+    assert allele.to_string() == expected_str
+    assert allele.is_allele_group is True
+    assert parse(expected_str) == allele
+    assert allele.restrict_allele_fields(1).allele_fields == (expected_fields[0],)
+
+
+@pytest.mark.parametrize("invalid", ["HLA-A*XX", "HLA-A*XX:01", "HLA-A*02:01:XX", "HLA-A*02:XXG"])
+def test_invalid_human_xx_codes_rejected(invalid):
+    assert parse(invalid, raise_on_error=False) is None
 
 
 @pytest.mark.parametrize(

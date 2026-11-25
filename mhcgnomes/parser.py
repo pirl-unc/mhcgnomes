@@ -949,7 +949,7 @@ class Parser:
             # Still need to allow parsing of alleles like MICA*067
             return None
 
-        for allele_field in allele_fields:
+        for i, allele_field in enumerate(allele_fields):
             # as far as I can tell, "*" and "-" never occur as part of an allele
             # name except as a sep after the gene
             if "*" in allele_field:
@@ -957,7 +957,19 @@ class Parser:
             if "-" in allele_field:
                 return None
             if gene.is_human and not allele_field.isdigit():
-                return None
+                # WMDA/NMDP XX low-resolution allele typing (e.g. HLA-A*02:XX,
+                # HLA-DRB1*04:XX; Nunes et al. 2011, Tissue Antigens 78:255,
+                # PMID 21929572; #301): valid only as the 2nd field after a
+                # numeric 1st-field allele group, without G/P/expression suffix.
+                is_valid_xx = (
+                    allele_field.lower() == "xx"
+                    and i == 1
+                    and len(allele_fields) == 2
+                    and allele_fields[0].isdigit()
+                    and not functional_annotations
+                )
+                if not is_valid_xx:
+                    return None
             # chicken alleles look like "*19" or "*9.5" but shouldn't contain
             # letters
             if gene.is_chicken and not all((c.isdigit() or c == ".") for c in allele_field):

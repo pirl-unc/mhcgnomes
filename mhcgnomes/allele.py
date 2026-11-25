@@ -159,7 +159,13 @@ class Allele(ResultWithGene):
         min_first_width = Allele._get_min_first_field_width(gene)
         result = []
         for i, field_val in enumerate(allele_fields):
-            if not field_val or not field_val.isdigit():
+            if not field_val:
+                result.append(field_val)
+            elif field_val.lower() == "xx":
+                # WMDA/NMDP XX low-resolution allele group code (Nunes et al.
+                # 2011, Tissue Antigens 78:255, PMID 21929572; #301).
+                result.append("XX")
+            elif not field_val.isdigit():
                 result.append(field_val)
             elif i == 0:
                 result.append(field_val.zfill(min_first_width))
@@ -276,7 +282,22 @@ class Allele(ResultWithGene):
 
     def restrict_allele_fields(self, num_fields, drop_annotations=False, drop_mutations=False):
         new_fields = self.allele_fields[:num_fields]
-        new_annotations = () if drop_annotations else self.annotations
+        if drop_annotations:
+            new_annotations = ()
+        elif len(new_fields) < len(self.allele_fields):
+            # Per IMGT/HLA nomenclature (https://hla.alleles.org/pages/p&g_groups/),
+            # G groups require 3 fields (peptide-binding exons) and P groups
+            # require 2 fields (peptide-binding protein domain). Truncating
+            # below the required field count invalidates those group suffixes (#301).
+            new_annotations = tuple(
+                annot
+                for annot in self.annotations
+                if not (
+                    (annot == "G" and len(new_fields) < 3) or (annot == "P" and len(new_fields) < 2)
+                )
+            )
+        else:
+            new_annotations = self.annotations
         new_mutations = () if drop_mutations else self.mutations
         if (
             new_fields == self.allele_fields
@@ -547,10 +568,22 @@ class Allele(ResultWithGene):
         return self._check_annotation("A")
 
     @property
-    def annotation_group(self):
+    def annotation_g_group(self):
         # G group: alleles with identical nucleotide sequence across the
-        # exons encoding the peptide-binding domain
+        # exons encoding the peptide-binding domain (IMGT/HLA).
         return self._check_annotation("G")
+
+    @property
+    def annotation_p_group(self):
+        # P group: alleles with identical protein sequence across the
+        # peptide-binding domain (IMGT/HLA).
+        return self._check_annotation("P")
+
+    @property
+    def annotation_group(self):
+        # G or P group: alleles sharing identical peptide-binding domain
+        # nucleotide (G) or protein (P) sequence (IMGT/HLA; #301).
+        return self.annotation_g_group or self.annotation_p_group
 
     @property
     def annotation_descriptions(self):

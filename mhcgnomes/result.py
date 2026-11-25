@@ -317,9 +317,21 @@ class Result:
         return False
 
     @property
+    def annotation_g_group(self):
+        # G group: alleles with identical nucleotide sequence across the
+        # exons encoding the peptide-binding domain (IMGT/HLA).
+        return False
+
+    @property
+    def annotation_p_group(self):
+        # P group: alleles with identical protein sequence across the
+        # peptide-binding domain (IMGT/HLA).
+        return False
+
+    @property
     def annotation_group(self):
-        # designates a group of genomic sequence alleles
-        # with identical peptide binding region
+        # designates a G or P group of alleles with identical peptide-binding
+        # domain sequence (nucleotide for G, protein for P).
         return False
 
     @property

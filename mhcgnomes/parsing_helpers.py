@@ -126,6 +126,10 @@ def split_allele_fields(
         part = parts[0]
         if len(part) in {2, 3}:
             return [part]
+        # Compact WMDA/NMDP XX low-resolution allele group code such as
+        # "02XX" or "105XX" -> ["02", "XX"] / ["105", "XX"] (#301).
+        if len(part) in {4, 5} and part[-2:].lower() == "xx" and part[:-2].isdigit():
+            return [part[:-2], "XX"]
 
     for part in parts:
         if failed:
