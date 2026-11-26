@@ -66,11 +66,23 @@ def _matches_exact_class2_locus_alias(result: Class2Locus) -> bool:
     return False
 
 
+def _matches_exact_class2_locus_name(result: Class2Locus) -> bool:
+    """Return True when raw_string ends with the exact-case canonical Class II locus name."""
+    raw = result.raw_string
+    if not raw:
+        return False
+    name = result.name
+    return raw == name or (
+        len(raw) > len(name) and raw.endswith(name) and raw[-len(name) - 1] in "- ._"
+    )
+
+
 def sort_key(result: Result):
     lower_raw_string = result.raw_string.lower() if result.raw_string else ""
     t = type(result)
     is_class2_locus = t is Class2Locus
     exact_class2_locus_alias = is_class2_locus and _matches_exact_class2_locus_alias(result)
+    exact_class2_locus_name = is_class2_locus and _matches_exact_class2_locus_name(result)
     full_string_matches_raw_string = (
         result.to_string().lower() == lower_raw_string or exact_class2_locus_alias
     )
@@ -175,10 +187,11 @@ def sort_key(result: Result):
         num_allele_fields,
         original_gene_seq_length,
         is_serotype,
-        # An exact-case curated Class II locus alias (e.g. H2-I-A / H2-IA ->
-        # Class2Locus 'A') outranks a case-folded haplotype collision (H2-ia),
-        # while lowercase H2-ia still resolves to Haplotype('ia').
-        exact_class2_locus_alias,
+        # An exact-case curated Class II locus name or alias (e.g. RT1-B, RT1-D,
+        # H2-A, H2-I-A / H2-IA) outranks a case-folded haplotype collision
+        # (RT1-b, RT1-d, H2-a, H2-ia), while lowercase RT1-b / H2-a / H2-ia
+        # still resolve to the populated Haplotype (#303).
+        (exact_class2_locus_alias or exact_class2_locus_name),
         # Haplotypes with defined alleles (e.g. H2-a with 9 alleles) outrank
         # Class II loci, but Class II loci outrank empty haplotypes
         # (e.g. RT1-B as Class2Locus beats RT1-b as Haplotype with 0 alleles)

@@ -837,35 +837,242 @@ Gaga:
   BF19: []
   BF21: []
 RT1:
-  k: []
-  b: []
-  c: []
-  h: []
-  q: []
-  n: []
-  o: []
-  av1: []
+  # Rat (Rattus norvegicus) RT1 haplotypes.
+  #
+  # Sources (read verbatim from primary papers & GenBank records):
+  # - Class II (RT1-Ba, RT1-Bb, RT1-Da, RT1-Db1) for a, b, c, d, k, l, n, u:
+  #   PMID 15517241 (Immunogenetics 2004;56:587-594), GenBank AY626180-AY626219
+  #   (strains ACI [a], BUF [b], PVG [c], BDIX [d], SHR [k], LEW/F344 [l],
+  #   BN [n], WF/BB [u]). Note: GenBank uses /gene="RT1-Db" for RT1-Db1.
+  # - Class II & haplotype mapping for av1 (DA: A=a, B=a, D=a), f (DA.1F),
+  #   h (DA.1H), u (DA.1U):
+  #   Tuncel et al. 2014 (PLoS Genet 10:e1004151, PMID 24586191, PMC3930506),
+  #   Table 1 & GenBank KC222932-KC222951.
+  # - Class Ia (RT1-A1/A2/A3):
+  #   Joly et al. 1996 (J Immunol 157:1551, PMID 8759738: single A1 in a, l, u;
+  #   two loci A1c/A2c in c, GenBank X90370-X90371, X82106);
+  #   Walter & Günther 2000 (Immunogenetics 51:829, PMID 10970097) & Hurt et al.
+  #   2004 (Genome Res 14:631, PMID 15060004, PMC383307: three loci A1n/A2n/A3n
+  #   in BN RT1^n, GenBank X90375, X90376, AJ277139);
+  #   Joly et al. 2003 (J Immunol 171:1857, PMID 12817008: three loci A1o/A2o/A3o
+  #   in RT1^o, GenBank X90372-X90373);
+  #   UniProt Q31257 (RT1.A1(f)).
+  a:
+    - A1*a
+    - Ba*a
+    - Bb*a
+    - Da*a
+    - Db1*a
+  av1:
+    # Strain DA (PMC3930506 Table 1: A=a, B=a, D=a, CEM=a).
+    - A1*a
+    - Ba*a
+    - Bb*a
+    - Da*a
+    - Db1*a
+  b:
+    # Strain BUF/CrCrlBR (PMID 15517241, GenBank AY626181/191/201/211).
+    - Ba*b
+    - Bb*b
+    - Da*b
+    - Db1*b
+  c:
+    # Strain PVG/OlaHsd (PMID 8759738 A1c/A2c; PMID 15517241 AY626182/192/202/212).
+    - A1*c
+    - A2*c
+    - Ba*c
+    - Bb*c
+    - Da*c
+    - Db1*c
+  d:
+    # Strain BDIX/CrCrlBR (PMID 15517241 AY626183/193/203/213).
+    - Ba*d
+    - Bb*d
+    - Da*d
+    - Db1*d
+  f:
+    # Strain DA.1F (PMC3930506 Table 1, GenBank KC222933/38/43/48; UniProt Q31257).
+    - A1*f
+    - Ba*f
+    - Bb*f
+    - Da*f
+    - Db1*f
+  # Serological haplotypes without verified sequenced allele tables here:
   g: []
-  l: []
-  u: []
+  h:
+    # Strain DA.1H (PMC3930506 Table 1, GenBank KC222935/40/45/50).
+    - Ba*h
+    - Bb*h
+    - Da*h
+    - Db1*h
+  # Note: RT1^i (strain DA.1I) is intentionally omitted here because single-letter
+  # "i" would shadow the "RT1-I" MHC class I shorthand (#104 / test_class_shorthand.py).
+  k:
+    # Strain SHR/NCrlBR (PMID 15517241, GenBank AY626184/194/204/214).
+    - Ba*k
+    - Bb*k
+    - Da*k
+    - Db1*k
+  l:
+    # Strains LEW/CrlBR & F344/CrCrlBR (PMID 8759738; PMID 15517241 AY626185-6/195-6/205-6/215-6).
+    - A1*l
+    - Ba*l
+    - Bb*l
+    - Da*l
+    - Db1*l
+  n:
+    # Strain BN (PMID 10970097 & PMID 15060004 A1n/A2n/A3n; PMID 15517241 AY626187/197/207/217).
+    - A1*n
+    - A2*n
+    - A3*n
+    - Ba*n
+    - Bb*n
+    - Da*n
+    - Db1*n
+  o:
+    # RT1^o class Ia (PMID 12817008, GenBank X90372-X90373); class II uncurated.
+    - A1*o
+    - A2*o
+    - A3*o
+  q: []
+  u:
+    # Strains WF/BB/DA.1U (PMID 8759738 X82106; PMID 15517241 AY626188-9/198-9/208-9/218-9).
+    - A1*u
+    - Ba*u
+    - Bb*u
+    - Da*u
+    - Db1*u
+  # Legacy IEDB OCR spellings of RT1l / RT1lv1 retained for compatibility.
   RT11: []
-  A: []
   RT11v1: []
 ELA:
-  # Horse haplotypes
+  # Horse (Equus caballus) ELA haplotypes.
   #
-  # Source:
-  # - https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3289534/
-  A1: []
-  A2: []
-  A3: []
-  A4: []
-  A5: []
-  A6: []
-  A7: []
+  # Sources (read verbatim from PMC full text & tables):
+  # - Microsatellite haplotype definitions:
+  #   Tseng et al. 2010 (PMC3289534).
+  # - Class I (Eqca-1..7, 16, N) alleles across ELA haplotypes:
+  #   Tallmadge et al. 2010, "Analysis of MHC class I genes across horse MHC
+  #   haplotypes", Immunogenetics 62:159-172 (PMID 20099063, PMC2872545), Table 1
+  #   (plus Tallmadge et al. 2005 cited therein for Eqca-3*001:01 & Eqca-4*001:01
+  #   expressed in ELA-A3).
+  # - Class II (DRA, DRB1-3, DQA1-3, DQB1-3) alleles for A2, A3, A5, A9, A10:
+  #   Miller et al. 2017, "Polymorphism at expressed DQ and DR loci in five
+  #   common equine MHC haplotypes", Immunogenetics 69:145-156 (PMID 27889800,
+  #   PMC5316504), Table 2.
+  A1:
+    # Tallmadge et al. 2010 Table 1 (Arabian horses #3824, #3823).
+    - 2*002:02
+    - N*003:02
+    - N*006:01
+  A2:
+    # Tallmadge et al. 2010 Table 1 & Miller et al. 2017 Table 2 (TB #0834/#3475).
+    - 2*002:01
+    - 5*001:01
+    - 7*001:01
+    - 16*001:01
+    - N*001:01
+    - DRA*001:01
+    - DRB1*002:01
+    - DRB2*003:01
+    - DRB3*001:01:00:01
+    - DQA1*002:01
+    - DQB1*002:01
+    - DQB2*002:01
+    - DQB3*002:01
+  A3:
+    # Tallmadge et al. 2010 Table 1 (plus 3*001:01 & 4*001:01 per Tallmadge 2005)
+    # & Miller et al. 2017 Table 2 (reference ELA-A3a donor Twilight #3729; note
+    # sub-haplotype ELA-A3c carries DRB2*002:01 instead of DRB2*001:01).
+    - 1*001:01
+    - 2*001:01
+    - 3*001:01
+    - 4*001:01
+    - 5*001:01
+    - 6*001:01
+    - 7*002:01
+    - DRA*001:01
+    - DRB1*001:01
+    - DRB2*001:01
+    - DRB3*001:01
+    - DQA1*001:01
+    - DQA2*001:01
+    - DQA3*001:01
+    - DQB1*001:01
+    - DQB2*001:01
+    - DQB3*001:01
+  A4:
+    # Tallmadge et al. 2010 Table 1 (Arabian horse #3824).
+    - 1*004:01
+    - 2*003:01
+    - N*008:01
+  A5:
+    # Tallmadge et al. 2010 Table 1 & Miller et al. 2017 Table 2 (SB #1406).
+    - 2*003:02
+    - 6*001:01
+    - 7*001:01
+    - 16*002:01
+    - N*002:01
+    - DRA*001:02
+    - DRB1*003:01
+    - DRB2*001:01
+    - DRB3*001:01
+    - DQA1*002:02
+    - DQA2*001:01
+    - DQB1*003:01
+    - DQB2*003:01
+    - DQB3*003:01
+  A6:
+    # Tallmadge et al. 2010 Table 1 (SB #0197, Pony #2470).
+    - 1*005:01
+    - 16*004:01
+    - N*009:01
+  A7:
+    # Tallmadge et al. 2010 Table 1 (Pony #3832, #2470, TB #2590).
+    - 1*006:01
+    - 2*004:01
+    - 16*005:01
+    - N*010:01
+  # Microsatellite-defined haplotypes without sequenced allele tables in
+  # Tallmadge et al. 2010 / Miller et al. 2017:
   A8: []
-  A9: []
-  A10: []
+  A9:
+    # Tallmadge et al. 2010 Table 1 & Miller et al. 2017 Table 2 (TB #1536/#3903).
+    - 1*002:01
+    - 2*001:02
+    - 5*001:01
+    - 6*002:01
+    - 7*001:01
+    - 16*003:01
+    - N*003:01
+    - N*007:01
+    - DRA*001:03
+    - DRB1*004:01
+    - DRB2*004:01
+    - DRB3*001:01
+    - DQA1*003:01
+    - DQA2*002:01
+    - DQB1*004:01
+    - DQB2*004:01
+  A10:
+    # Tallmadge et al. 2010 Table 1 & Miller et al. 2017 Table 2 (SB #2446/#0197).
+    - 1*003:01
+    - 2*003:03
+    - 6*001:01
+    - N*004:01
+    - N*005:01
+    - DRA*001:04
+    - DRB1*005:01
+    - DRB2*001:02
+    - DRB3*002:01
+    - DQA1*004:01
+    - DQA2*002:02
+    - DQB1*005:01
+    - DQB2*005:01
   A15: []
   A19: []
-  W11: []
+  W11:
+    # Tallmadge et al. 2010 Table 1 (Arabian horse #3823).
+    - 1*007:01
+    - 2*003:04
+    - 16*006:01

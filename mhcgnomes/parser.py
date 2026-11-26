@@ -801,6 +801,14 @@ class Parser:
             gene_name = species_obj.gene_names.get_original(locus_and_haplotype)
             if gene_name is not None and gene_name.lower() == locus_and_haplotype.lower():
                 return None
+            alias_target = species_obj.gene_aliases.get(locus_and_haplotype)
+            if (
+                alias_target is not None
+                and alias_target in species_obj.gene_names
+                and species_obj.gene_aliases.original_key(locus_and_haplotype).lower()
+                == locus_and_haplotype.lower()
+            ):
+                return None
         for locus_length in range(1, len(locus_and_haplotype)):
             locus_string = self.strip_extra_chars(locus_and_haplotype[:locus_length])
             locus = Class2Locus.get(species, locus_string)
@@ -1225,12 +1233,21 @@ class Parser:
                 candidate_results.append(gene)
                 continue
 
-            if (
-                "*" not in str_after_species
-                and not any(sep in str_after_species for sep in self.gene_seps)
-                and not self._compact_gene_suffix_can_be_allele(gene, allele_name)
-            ):
-                continue
+            if "*" not in str_after_species:
+                # Do not split a compact/hyphenated Class II locus prefix via a
+                # legacy gene alias (e.g. RT1 alias B -> Bb colliding with
+                # Class2Locus "B"): "RT1-Bl" is the RT1-B haplotype l (matching
+                # "RT1-Dl") and "RT1-B1l" is invalid rather than RT1-Bb*1l (#303).
+                if (
+                    gene.raw_string
+                    and gene.raw_string.lower() != gene.name.lower()
+                    and Class2Locus.get(species, gene.raw_string) is not None
+                ):
+                    continue
+                if not any(
+                    sep in str_after_species for sep in self.gene_seps
+                ) and not self._compact_gene_suffix_can_be_allele(gene, allele_name):
+                    continue
 
             allele = self.parse_allele_with_gene(
                 gene,
