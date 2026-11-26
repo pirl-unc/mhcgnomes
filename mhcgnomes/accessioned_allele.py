@@ -19,9 +19,9 @@ from .result_with_mhc_class import ResultWithMhcClass
 from .species import Species
 
 # Supported external sequence/structure database namespaces for explicit
-# accession-backed MHC identifiers (#309), e.g.:
+# accession-backed MHC identifiers (#309, #326), e.g.:
 #   AnasPlatyrhynchos-UAA*uniprot:Q6I7L2
-#   SarcophilusHarrisii*uniprot:G3V1L5 class I
+#   SarcophilusHarrisii-uniprot:G3V1L5
 VALID_ACCESSION_SOURCES = frozenset(
     {
         "uniprot",
@@ -104,7 +104,7 @@ class AccessionedAllele(ResultWithMhcClass):
 
     Represents explicit database-backed identifiers such as:
       - ``AnasPlatyrhynchos-UAA*uniprot:Q6I7L2`` (with a curated ontology gene)
-      - ``SarcophilusHarrisii*uniprot:G3V1L5 class I`` (gene-less, optional class)
+      - ``SarcophilusHarrisii-uniprot:G3V1L5`` (gene-less, analogous to ``AlleleWithoutGene``)
 
     Unlike :class:`Allele`, the identifier is backed by an external sequence or
     structure accession rather than numeric nomenclature fields, so
@@ -179,7 +179,14 @@ class AccessionedAllele(ResultWithMhcClass):
         return False
 
     def to_string(self, include_species=True, use_old_species_prefix=False) -> str:
-        """Render canonical accession-backed identifier that round-trips through ``parse``."""
+        """Render canonical whitespace-free accession-backed identifier (#309, #326).
+
+        With a curated gene, renders ``<Species>-<Gene>*<source>:<accession>``
+        (analogous to ``HLA-A*02:01``). Without a gene, renders
+        ``<Species>-<source>:<accession>`` (analogous to ``AlleleWithoutGene``
+        such as ``BoLA-T2C``); ``mhc_class`` remains structured metadata on the
+        result and ``to_record()`` rather than an embedded space-separated suffix.
+        """
         if self.gene is not None:
             gene_str = self.gene.to_string(
                 include_species=include_species,
@@ -192,12 +199,8 @@ class AccessionedAllele(ResultWithMhcClass):
             use_old_species_prefix=use_old_species_prefix,
         )
         if species_str:
-            base = f"{species_str}*{self.accession_source}:{self.accession}"
-        else:
-            base = f"{self.accession_source}:{self.accession}"
-        if self.mhc_class is not None:
-            return f"{base} class {self.mhc_class}"
-        return base
+            return f"{species_str}-{self.accession_source}:{self.accession}"
+        return f"{self.accession_source}:{self.accession}"
 
     def compact_string(self, include_species=False, use_old_species_prefix=False) -> str:
         """Compact representation omitting the species prefix by default."""
