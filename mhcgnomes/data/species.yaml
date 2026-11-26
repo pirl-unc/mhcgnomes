@@ -3048,11 +3048,17 @@ Equus sp.:
       - "2"
       - "3"
       - "4"
-      - "6"
-      - "7"
       - "16"
       - "17"
       - "18"
+    Ib:
+      # Tallmadge et al. 2010 (Immunogenetics 62:159-172, PMID 20099063,
+      # PMC2872545) establish equine MHC class I loci 5 (ECMHCA1, monomorphic
+      # Eqca-5*00101), 6 (ECMHCC1, bi-allelic), and 7 (ECMHCE1, bi-allelic) as
+      # non-classical MHC class Ib loci (#303).
+      - "5"
+      - "6"
+      - "7"
     IIa:
       DQ:
         - DQA
