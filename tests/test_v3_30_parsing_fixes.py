@@ -37,20 +37,20 @@ def test_h2_aa_species_is_mouse():
 
 
 # ---------------------------------------------------------------------------
-# H2-AB1 / H2-Ab1: should parse as Gene (was hard parse error)
+# H2-AB1 / H2-Ab1: should parse as Gene AB (via AB1 -> AB alias, #323)
 # ---------------------------------------------------------------------------
 
 
 def test_h2_ab1_parses_as_gene():
     result = parse("H2-AB1")
     eq_(type(result), Gene)
-    eq_(result.name, "AB1")
+    eq_(result.name, "AB")
 
 
 def test_h2_ab1_lowercase_parses_as_gene():
     result = parse("H2-Ab1")
     eq_(type(result), Gene)
-    eq_(result.name, "AB1")
+    eq_(result.name, "AB")
 
 
 # ---------------------------------------------------------------------------

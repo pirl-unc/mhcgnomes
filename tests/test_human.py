@@ -314,3 +314,30 @@ def test_parse_hla_dqb2_01_01_01_01():
     eq_(allele.gene.name, "DQB2")
     eq_(allele.allele_fields, ("01", "01", "01", "01"))
     assert allele.is_class2_beta
+
+
+def test_parse_hla_dpa_alias_to_dpa1():
+    gene = parse("HLA-DPA", raise_on_error=True)
+    eq_(gene.gene_name, "DPA1")
+    eq_(gene.mhc_class, "IIa")
+
+    allele = parse("HLA-DPA*01:03", raise_on_error=True)
+    eq_(type(allele), Allele)
+    eq_(allele.to_string(), "HLA-DPA1*01:03")
+
+    pair = parse("HLA-DPA*01:03/DPB*04:01", raise_on_error=True)
+    eq_(type(pair), Pair)
+    eq_(pair.to_string(), "HLA-DPA1*01:03/DPB1*04:01")
+
+
+def test_parse_whitespace_around_star_separator():
+    for raw, expected in [
+        ("HLA-Cw* 16:01", "HLA-C*16:01"),
+        ("HLA-A* 02:01", "HLA-A*02:01"),
+        ("HLA-A * 02:01", "HLA-A*02:01"),
+        ("HLA-A *02:01", "HLA-A*02:01"),
+        ("H2-K* b", "H2-K*b"),
+    ]:
+        result = parse(raw, raise_on_error=True)
+        eq_(type(result), Allele)
+        eq_(result.to_string(), expected)

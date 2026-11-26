@@ -134,6 +134,16 @@ def sort_key(result: Result):
         else:
             raw_gene_name_matches_normalized = False
         original_gene_seq_length = len(result.gene.raw_string)
+    elif is_class2_pair and alpha_is_valid and beta_is_valid:
+        chain_genes = [
+            c.gene if hasattr(c, "gene") and c.gene is not None else c
+            for c in (result.alpha, result.beta)
+            if (hasattr(c, "gene") and c.gene is not None) or type(c) is Gene
+        ]
+        raw_gene_name_matches_normalized = bool(chain_genes) and all(
+            bool(g.raw_string and g.raw_string.lower() == g.name.lower()) for g in chain_genes
+        )
+        original_gene_seq_length = sum(len(g.raw_string) for g in chain_genes if g.raw_string)
     elif is_gene:
         raw_gene_name_matches_normalized = lower_raw_string == result.name.lower()
         original_gene_seq_length = len(result.raw_string)

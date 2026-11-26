@@ -307,6 +307,16 @@ def test_bare_mouse_qa1_and_qa2_alleles(raw, expected_gene, expected_field):
     assert parse(raw, species="Homo sapiens", raise_on_error=False) is None
 
 
+def test_mouse_h2_ab1_aliases_to_ab():
+    """H2-Ab1 (MGI:95896) aliases to canonical H2-AB, matching H2-Eb1 -> H2-EB (#323)."""
+    eq_(parse("H2-Ab1*b"), Allele.get("H2", "AB", "b"))
+    eq_(parse("H2-AB1*b"), Allele.get("H2", "AB", "b"))
+    eq_(parse("H2-Ab1*g7"), Allele.get("H2", "AB", "g7"))
+    eq_(parse("H2-AA*b/AB1*b"), parse("I-Ab"))
+    eq_(parse("H2-Aa*d/Ab1*g7"), parse("I-Ag7"))
+    eq_(parse("H2-Eb1*k"), Allele.get("H2", "EB", "k"))
+
+
 def test_bare_mouse_qa_genes_and_b2m_unaffected():
     eq_(parse("Qa-1"), Gene.get("H2", "T23"))
     eq_(parse("Qa-2"), Gene.get("H2", "Q7"))

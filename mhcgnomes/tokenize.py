@@ -194,6 +194,16 @@ def _expand_parenthesized_mutations(trimmed_name: str) -> str:
     return f"{prefix} {' '.join(mutations)} mutant"
 
 
+_STAR_WHITESPACE_RE = re.compile(r"(?<=[A-Za-z0-9])(?:\s+\*\s*|\s*\*\s+)(?=[0-9A-Za-z])")
+
+
+def _normalize_star_whitespace(trimmed_name: str) -> str:
+    """Collapse stray whitespace adjacent to an allele ``*`` separator (e.g. ``HLA-Cw* 16:01``)."""
+    if "*" not in trimmed_name:
+        return trimmed_name
+    return _STAR_WHITESPACE_RE.sub("*", trimmed_name)
+
+
 def strip_whitespace_and_remove_quotes(name: str):
     return name.translate(_INPUT_CHAR_TRANSLATION).strip()
 
@@ -206,7 +216,7 @@ def _cached_tokenize(name):
     """
     name = str(name)
     trimmed_name = strip_whitespace_and_remove_quotes(name)
-    tokenize_input = _expand_parenthesized_mutations(trimmed_name)
+    tokenize_input = _expand_parenthesized_mutations(_normalize_star_whitespace(trimmed_name))
     raw_string_parts, attributes = split_and_extract_attributes(tokenize_input)
     token_sequences = [normalize_token(p) for p in raw_string_parts]
     tokens = [
