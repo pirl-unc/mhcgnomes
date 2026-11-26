@@ -246,7 +246,6 @@ SPELLING_TO_SPECIES = [
     ("Ia2", "Paralichthys olivaceus"),
     ("IA1", "Chrysolophus pictus"),
     ("IA2", "Chrysolophus pictus"),
-    ("AB1", "Mus musculus"),
     ("Ab1", "Phodopus roborovskii"),
     ("DAA-1", "Reptilia sp."),
     ("DAA2", "Nipponia nippon"),
@@ -268,14 +267,7 @@ def test_gene_name_spelling_picks_the_species_that_uses_it(spelling, expected):
     eq_(parse(spelling).species.name, expected)
 
 
-@pytest.mark.parametrize(
-    "spelling,expected",
-    # "AB1*01:01" is left out: a bare mouse gene with numeric allele fields
-    # does not parse at all, with or without this change, because mouse
-    # alleles are haplotype letters ("AB1*b" works). That is a separate
-    # question from which species a spelling names.
-    [(s, e) for s, e in SPELLING_TO_SPECIES if e != "Mus musculus"],
-)
+@pytest.mark.parametrize("spelling,expected", SPELLING_TO_SPECIES)
 def test_gene_name_spelling_also_decides_for_an_allele(spelling, expected):
     eq_(parse(f"{spelling}*01:01").species.name, expected)
 

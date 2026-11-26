@@ -19,6 +19,10 @@ HLA:
   # unclear if there are any other DRA genes besides DRA1
   DRA1: DRA
   DRB: DRB1
+  # IMGT/HLA (https://hla.alleles.org/genes/index.html): HLA-DPA1 is the single
+  # expressed classical DP alpha gene (DPA2 and DPA3 are pseudogenes), matching
+  # DPB -> DPB1, DQA -> DQA1, DQB -> DQB1 (#323).
+  DPA: DPA1
   DPB: DPB1
   DQA: DQA1
   DQB: DQB1
@@ -90,6 +94,9 @@ H2:
   IEB2: EB2
   I-AA: AA
   I-AB: AB
+  # MGI:95896 / NCBI GeneID 14961: H2-Ab1 is the single classical mouse I-A
+  # beta gene (historically H2-Ab / I-A beta), matching EB1 -> EB below (#323).
+  AB1: AB
   I-EA: EA
   EB1: EB
   I-EB: EB
