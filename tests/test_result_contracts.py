@@ -222,10 +222,10 @@ GOLDEN_PARSE_CASES = [
     },
     {
         "id": "accessioned_allele_without_gene",
-        "raw": "SarcophilusHarrisii*uniprot:G3V1L5 class I",
+        "raw": "SarcophilusHarrisii-uniprot:G3V1L5 class I",
         "expected_type": AccessionedAllele,
-        "expected_to_string": "Saha*uniprot:G3V1L5 class I",
-        "expected_compact": "uniprot:G3V1L5 class I",
+        "expected_to_string": "Saha-uniprot:G3V1L5",
+        "expected_compact": "uniprot:G3V1L5",
         "expected_record": OrderedDict(
             [
                 ("species_prefix", "Saha"),
@@ -233,7 +233,7 @@ GOLDEN_PARSE_CASES = [
                 ("mhc_class", "I"),
                 ("pseudogene_status", None),
                 ("is_pseudogene", False),
-                ("allele", "Saha*uniprot:G3V1L5 class I"),
+                ("allele", "Saha-uniprot:G3V1L5"),
                 ("accession_source", "uniprot"),
                 ("accession", "G3V1L5"),
             ]

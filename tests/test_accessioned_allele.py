@@ -170,13 +170,71 @@ def test_parse_gene_bearing_accessioned_alleles(
 @pytest.mark.parametrize(
     "raw, expected_species, expected_source, expected_acc, expected_class, expected_str",
     [
+        # Canonical whitespace-free gene-less form (#326): Species-<source>:<acc>
+        (
+            "HLA-uniprot:P04439",
+            "Homo sapiens",
+            "uniprot",
+            "P04439",
+            None,
+            "HLA-uniprot:P04439",
+        ),
+        (
+            "HLA-uniprot:P04439-2",
+            "Homo sapiens",
+            "uniprot",
+            "P04439-2",
+            None,
+            "HLA-uniprot:P04439-2",
+        ),
+        (
+            "SarcophilusHarrisii-uniprot:G3V1L5",
+            "Sarcophilus harrisii",
+            "uniprot",
+            "G3V1L5",
+            None,
+            "Saha-uniprot:G3V1L5",
+        ),
+        (
+            "CricetulusGriseus-uniprot:A0A061HWC8",
+            "Cricetulus griseus",
+            "uniprot",
+            "A0A061HWC8",
+            None,
+            "CricetulusGriseus-uniprot:A0A061HWC8",
+        ),
+        (
+            "H-2-uniprot:P01898",
+            "Mus musculus",
+            "uniprot",
+            "P01898",
+            None,
+            "H2-uniprot:P01898",
+        ),
+        (
+            "SarcophilusHarrisii-uniprot:G3V1L5 class I",
+            "Sarcophilus harrisii",
+            "uniprot",
+            "G3V1L5",
+            "I",
+            "Saha-uniprot:G3V1L5",
+        ),
+        (
+            "Sarcophilus harrisii-uniprot:G3V1L5 MHC class II",
+            "Sarcophilus harrisii",
+            "uniprot",
+            "G3V1L5",
+            "II",
+            "Saha-uniprot:G3V1L5",
+        ),
+        # Backward-compatible legacy '*' gene-less forms (#309)
         (
             "SarcophilusHarrisii*uniprot:G3V1L5 class I",
             "Sarcophilus harrisii",
             "uniprot",
             "G3V1L5",
             "I",
-            "Saha*uniprot:G3V1L5 class I",
+            "Saha-uniprot:G3V1L5",
         ),
         (
             "CricetulusGriseus*uniprot:A0A061HWC8 class I",
@@ -184,7 +242,7 @@ def test_parse_gene_bearing_accessioned_alleles(
             "uniprot",
             "A0A061HWC8",
             "I",
-            "CricetulusGriseus*uniprot:A0A061HWC8 class I",
+            "CricetulusGriseus-uniprot:A0A061HWC8",
         ),
         (
             "SarcophilusHarrisii*uniprot:G3V1L5",
@@ -192,7 +250,7 @@ def test_parse_gene_bearing_accessioned_alleles(
             "uniprot",
             "G3V1L5",
             None,
-            "Saha*uniprot:G3V1L5",
+            "Saha-uniprot:G3V1L5",
         ),
         (
             "Sarcophilus harrisii*uniprot:G3V1L5 MHC class II",
@@ -200,7 +258,7 @@ def test_parse_gene_bearing_accessioned_alleles(
             "uniprot",
             "G3V1L5",
             "II",
-            "Saha*uniprot:G3V1L5 class II",
+            "Saha-uniprot:G3V1L5",
         ),
         (
             "class I SarcophilusHarrisii*uniprot:G3V1L5",
@@ -208,7 +266,7 @@ def test_parse_gene_bearing_accessioned_alleles(
             "uniprot",
             "G3V1L5",
             "I",
-            "Saha*uniprot:G3V1L5 class I",
+            "Saha-uniprot:G3V1L5",
         ),
         (
             "H-2*uniprot:P01898 class I",
@@ -216,7 +274,7 @@ def test_parse_gene_bearing_accessioned_alleles(
             "uniprot",
             "P01898",
             "I",
-            "H2*uniprot:P01898 class I",
+            "H2-uniprot:P01898",
         ),
         (
             "Saha*ena:GQ411457 class I",
@@ -224,7 +282,7 @@ def test_parse_gene_bearing_accessioned_alleles(
             "ena",
             "GQ411457",
             "I",
-            "Saha*ena:GQ411457 class I",
+            "Saha-ena:GQ411457",
         ),
     ],
 )
@@ -249,10 +307,21 @@ def test_parse_geneless_accessioned_alleles(
     assert result.is_pseudogene is False
     assert result.pseudogene_status is None
     assert result.to_string() == expected_str
+    assert " " not in result.to_string()
+    assert result.compact_string() == f"{expected_source}:{expected_acc}"
+    assert result.to_record()["allele"] == expected_str
+    assert result.to_record()["mhc_class"] == expected_class
     assert result.species_source == "explicit"
     assert result.species_from_input is True
-    # Round-trip
-    assert parse(result.to_string()) == result
+    # Canonical string round-trips cleanly (mhc_class is metadata, not encoded in the identifier)
+    reparsed = parse(result.to_string())
+    assert type(reparsed) is AccessionedAllele
+    assert reparsed.species == result.species
+    assert reparsed.gene is None
+    assert reparsed.accession_source == result.accession_source
+    assert reparsed.accession == result.accession
+    if expected_class is None:
+        assert reparsed == result
 
 
 def test_pseudogene_and_nonclassical_metadata_preserved():
@@ -285,7 +354,7 @@ def test_class_filters_and_species_policies():
         parse("SarcophilusHarrisii*uniprot:G3V1L5", only_class1=True, raise_on_error=False) is None
     )
 
-    # Context-only species prefix rescued with species=
+    # Context-only species prefix rescued with species= (both gene-bearing and gene-less)
     medaka = parse("Orla-UBA*uniprot:H2LR16", species="Oryzias latipes")
     assert type(medaka) is AccessionedAllele
     assert medaka.species == Species.get("Oryzias latipes")
@@ -293,17 +362,31 @@ def test_class_filters_and_species_policies():
     assert medaka.accession == "H2LR16"
     assert medaka.species_source == "explicit"
 
+    medaka_geneless = parse("Orla-uniprot:H2LR16", species="Oryzias latipes")
+    assert type(medaka_geneless) is AccessionedAllele
+    assert medaka_geneless.species == Species.get("Oryzias latipes")
+    assert medaka_geneless.gene is None
+    assert medaka_geneless.accession == "H2LR16"
+    assert medaka_geneless.species_source == "explicit"
+
     # Bare gene with default species respects require_explicit_species
     bare_gene = parse("A*uniprot:P04439")
     assert type(bare_gene) is AccessionedAllele
     assert bare_gene.species_source == "default"
     assert parse("A*uniprot:P04439", require_explicit_species=True, raise_on_error=False) is None
 
-    # Ancestor-to-descendant species conversion for gene-less accession
-    cow = parse("Bos sp.*uniprot:Q6I7L2 class I", species="Bos taurus")
+    # Ancestor-to-descendant species conversion for gene-less accession preserves mhc_class
+    cow = parse("Bos sp.-uniprot:Q6I7L2 class I", species="Bos taurus")
     assert type(cow) is AccessionedAllele
     assert cow.species == Species.get("Bos taurus")
     assert cow.mhc_class == "I"
+    assert cow.to_string() == "Bota-uniprot:Q6I7L2"
+
+    cow_legacy = parse("Bos sp.*uniprot:Q6I7L2 class I", species="Bos taurus", only_class1=True)
+    assert type(cow_legacy) is AccessionedAllele
+    assert cow_legacy.species == Species.get("Bos taurus")
+    assert cow_legacy.mhc_class == "I"
+    assert cow_legacy.to_string() == "Bota-uniprot:Q6I7L2"
 
 
 @pytest.mark.parametrize(
@@ -314,6 +397,8 @@ def test_class_filters_and_species_policies():
         "refseq:NP_001234.1",
         "pdb:1HSA",
         "*uniprot:Q6I7L2",
+        "-uniprot:Q6I7L2",
+        "HLA--uniprot:P04439",
         "class I *uniprot:Q6I7L2",
         "HLA-A*uniprot:NOT_VALID",
         "HLA-A*uniprot:12345",
@@ -325,9 +410,13 @@ def test_class_filters_and_species_policies():
         "class I SarcophilusHarrisii*uniprot:G3V1L5 class II",
         "HLA-A*uniprot:P04439 bogus",
         "HLA-A*uniprot:P04439*uniprot:Q6I7L2",
+        "HLA-uniprot:P04439-uniprot:Q6I7L2",
         "AnasPlatyrhynchos-FAKEGENE*uniprot:Q6I7L2",
+        "AnasPlatyrhynchos-FAKEGENE-uniprot:Q6I7L2",
         "NotASpecies*uniprot:Q6I7L2 class I",
+        "NotASpecies-uniprot:Q6I7L2",
         "HLA-DR*uniprot:P01903",
+        "HLA-DR-uniprot:P01903",
     ],
 )
 def test_invalid_accessioned_identifiers_are_rejected(bad_input):

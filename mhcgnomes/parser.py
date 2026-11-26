@@ -88,11 +88,12 @@ _PUBLISHED_SAHA_SLASH_AMBIGUITIES = frozenset({("49", "82"), ("74", "88")})
 # separated names (H2-L*r16, HLA-P*01:01) are unaffected (#306).
 _BARE_UNIPROT_ACCESSION_RE = UNIPROT_ACCESSION_RE
 
-# Explicit accession-backed MHC identifier syntax (#309):
+# Explicit accession-backed MHC identifier syntax (#309, #326):
 #   Species-Gene*<db>:<acc> [class I|II]
-#   Species*<db>:<acc> [class I|II]
+#   Species-<db>:<acc> [class I|II]   (canonical gene-less form)
+#   Species*<db>:<acc> [class I|II]   (legacy gene-less alias)
 _ACCESSIONED_ALLELE_MARKER_RE = re.compile(
-    r"\*(uniprot|genbank|refseq|ena|embl|ddbj|pdb):([^\s*]+)",
+    r"[-*](uniprot|genbank|refseq|ena|embl|ddbj|pdb):([^\s*/]+)",
     re.IGNORECASE,
 )
 _BARE_NAMESPACED_ACCESSION_RE = re.compile(
@@ -3133,10 +3134,10 @@ class Parser:
             return [], True, False
         class_qualifier = leading_class or trailing_class
 
-        if not before or "*" in before:
+        if not before or "*" in before or before.endswith("-"):
             return [], True, False
 
-        # Case 1: gene-less "Species*<db>:<acc> [class I|II]"
+        # Case 1: gene-less "Species-<db>:<acc> [class I|II]" (or legacy "Species*<db>:<acc>")
         species_obj = Species.get(before)
         if species_obj is not None:
             candidate = AccessionedAllele.get(
@@ -3214,7 +3215,8 @@ class Parser:
             return [], True, False
 
         pair = pair.copy(raw_string=raw_name)
-        left_before = left_str.split("*", 1)[0]
+        left_marker = _ACCESSIONED_ALLELE_MARKER_RE.search(left_str)
+        left_before = left_str[: left_marker.start()] if left_marker else left_str.split("*", 1)[0]
         _, left_before_clean = _strip_leading_accession_class_qualifier(left_before)
         has_explicit_species = pair.species in species_named_in(left_before_clean)
         return [pair], True, has_explicit_species
@@ -3274,10 +3276,14 @@ class Parser:
             # The accession record supplies an explicit species, even though a
             # raw accession has no readable species prefix.
             Result._set_field(result, "_species_source", "explicit")
-        elif type(result) is AccessionedAllele and "*" in name:
-            _, stripped_before = _strip_leading_accession_class_qualifier(name.split("*", 1)[0])
-            if result.species in species_named_in(stripped_before):
-                Result._set_field(result, "_species_source", "explicit")
+        elif type(result) is AccessionedAllele:
+            marker_match = _ACCESSIONED_ALLELE_MARKER_RE.search(name)
+            if marker_match is not None:
+                _, stripped_before = _strip_leading_accession_class_qualifier(
+                    name[: marker_match.start()]
+                )
+                if result.species in species_named_in(stripped_before):
+                    Result._set_field(result, "_species_source", "explicit")
 
         if require_explicit_species and result.species_source not in (None, "explicit"):
             species_source = result.species_source
