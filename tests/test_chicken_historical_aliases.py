@@ -38,9 +38,45 @@ def test_modern_partial_and_complete_names_keep_their_written_resolution(name, a
     assert parse(raw, use_allele_aliases=aliases).to_string() == raw
 
 
-@pytest.mark.parametrize("raw", ["Gaga-BF2*013:01", "Gaga-BF2*21:02", "Gaga-BF1*13:01"])
-def test_the_two_exact_aliases_do_not_generalize_to_other_names(raw):
+@pytest.mark.parametrize(
+    "raw",
+    ["Gaga-BF2*013:01", "Gaga-BF2*21:02", "Gaga-BF1*12:01", "Gaga-BF1*25:01"],
+)
+def test_unattested_and_ambiguous_names_do_not_redirect(raw):
+    # 3-digit 013:01, unattested 21:02/25:01, and ambiguous BF1*12:01
+    # (BF1*1201 appears in both CHICKEN08561 and CHICKEN08574) stay untouched.
     assert parse(raw, use_allele_aliases=True).to_string() == raw
+
+
+@pytest.mark.parametrize(
+    "old_compact, old_colon, current",
+    [
+        ("BF2*0201", "BF2*02:01", "Gaga-BF2*002:01:01"),
+        ("BF2*0401", "BF2*04:01", "Gaga-BF2*004:01:01"),
+        ("BF2*0801", "BF2*08:01", "Gaga-BF2*005:02:01"),
+        ("BF2*1101", "BF2*11:01", "Gaga-BF2*005:02:01"),
+        ("BF2*1202", "BF2*12:02", "Gaga-BF1*012:01:01"),
+        ("BF2*1301", "BF2*13:01", "Gaga-BF2*004:01:01"),
+        ("BF2*1501", "BF2*15:01", "Gaga-BF2*015:01:01"),
+        ("BF2*1901", "BF2*19:01", "Gaga-BF2*015:02:01"),
+        ("BF2*2101", "BF2*21:01", "Gaga-BF2*021:01:01"),
+        ("BF2*2301", "BF2*23:01", "Gaga-BF2*002:02:01"),
+        ("BF1*0201", "BF1*02:01", "Gaga-BF1*002:01:01"),
+        ("BF1*1301", "BF1*13:01", "Gaga-BF1*004:01:01"),
+        ("BF1*1901", "BF1*19:01", "Gaga-BF1*012:02:01"),
+        ("BF1*2101", "BF1*21:01", "Gaga-BF1*004:02:01"),
+    ],
+)
+def test_compact_and_colon_chicken_bf_aliases_deduplicate_to_same_ipd_allele(
+    old_compact, old_colon, current
+):
+    assert parse(old_compact, use_allele_aliases=True).to_string() == current
+    assert parse(old_colon, use_allele_aliases=True).to_string() == current
+    assert parse(f"Gaga-{old_colon}", use_allele_aliases=True).to_string() == current
+    # Default parsing (use_allele_aliases=False) preserves the written 2-digit fields
+    default_colon = parse(old_colon, use_allele_aliases=False).to_string()
+    assert default_colon == f"Gaga-{old_colon}"
+    assert parse(default_colon, use_allele_aliases=True).to_string() == current
 
 
 def test_public_species_alias_lookup_uses_the_same_exact_targets():
