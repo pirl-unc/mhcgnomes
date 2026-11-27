@@ -1076,3 +1076,49 @@ ELA:
     - 1*007:01
     - 2*003:04
     - 16*006:01
+
+################################################################################
+# Cattle (BoLA) MHC class I haplotypes (#325)
+#
+# Bovine MHC-I haplotypes carry variable classical class I gene content (1-4
+# expressed loci per haplotype). Note: BoLA-A11 and BoLA-A18 are retained in
+# serotypes.yaml for backwards compatibility with existing serotype resolution.
+#
+# Primary sources:
+# - Nielsen et al. 2018, "Improved Prediction of Bovine Leucocyte Antigens
+#   (BoLA) Presented Ligands by Use of Mass-Spectrometry-Determined Ligand and
+#   in Vitro Binding Data", J Proteome Res 17:559-567 (PMID 29115832,
+#   PMC5759033; PRIDE PXD008151): A10, A14, A18.
+# - Connelley et al. 2022, "Immunopeptidomic Analysis of BoLA-I and BoLA-DR
+#   Presented Peptides from Theileria parva Infected Cells", Vaccines 10:1907
+#   (PMID 36423003, PMC9699068): A10, A12, A14, A15, A18, A19, A20.
+################################################################################
+BoLA:
+  # Cell line 1011TP (PMID 29115832, PMID 36423003).
+  A10:
+    - 2*012:01
+    - 3*002:01
+  # Cell line 2123TP A12/A15 heterozygote (PMID 36423003).
+  A12:
+    - 1*019:01
+    - 2*008:01
+  # Cell line 2229TP (PMID 29115832 lists 1*023:01, 2*025:01, 4*024:01;
+  # PMID 36423003 additionally lists 6*040:01).
+  A14:
+    - 1*023:01
+    - 2*025:01
+    - 4*024:01
+    - 6*040:01
+  # Cell line 2408TP (PMID 36423003).
+  A15:
+    - 1*009:01
+    - 2*025:01
+    - 4*024:01
+  # Cell line 2824TP (PMID 36423003).
+  A19:
+    - 2*016:01
+    - 6*014:02
+  # Cell line 5350TP (PMID 36423003).
+  A20:
+    - 2*026:01
+    - 3*027:01
