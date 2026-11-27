@@ -14,14 +14,15 @@ import re
 from dataclasses import dataclass
 
 from .gene import Gene
-from .mhc_class_helpers import is_class1, is_class2
+from .mhc_class_helpers import is_class1, is_class2, valid_class_restrictions
 from .result_with_mhc_class import ResultWithMhcClass
 from .species import Species
 
 # Supported external sequence/structure database namespaces for explicit
-# accession-backed MHC identifiers (#309, #326), e.g.:
+# accession-backed MHC identifiers (#309, #326, #332), e.g.:
 #   AnasPlatyrhynchos-UAA*uniprot:Q6I7L2
-#   SarcophilusHarrisii-uniprot:G3V1L5
+#   Saha-classI*uniprot:G3V1L5
+#   Saha-uniprot:G3V1L5
 VALID_ACCESSION_SOURCES = frozenset(
     {
         "uniprot",
@@ -104,7 +105,8 @@ class AccessionedAllele(ResultWithMhcClass):
 
     Represents explicit database-backed identifiers such as:
       - ``AnasPlatyrhynchos-UAA*uniprot:Q6I7L2`` (with a curated ontology gene)
-      - ``SarcophilusHarrisii-uniprot:G3V1L5`` (gene-less, analogous to ``AlleleWithoutGene``)
+      - ``Saha-classI*uniprot:G3V1L5`` (gene-less with known MHC class)
+      - ``Saha-uniprot:G3V1L5`` (gene-less without known MHC class)
 
     Unlike :class:`Allele`, the identifier is backed by an external sequence or
     structure accession rather than numeric nomenclature fields, so
@@ -179,13 +181,15 @@ class AccessionedAllele(ResultWithMhcClass):
         return False
 
     def to_string(self, include_species=True, use_old_species_prefix=False) -> str:
-        """Render canonical whitespace-free accession-backed identifier (#309, #326).
+        """Render canonical whitespace-free, lossless accession-backed identifier (#309, #326, #332).
 
-        With a curated gene, renders ``<Species>-<Gene>*<source>:<accession>``
-        (analogous to ``HLA-A*02:01``). Without a gene, renders
-        ``<Species>-<source>:<accession>`` (analogous to ``AlleleWithoutGene``
-        such as ``BoLA-T2C``); ``mhc_class`` remains structured metadata on the
-        result and ``to_record()`` rather than an embedded space-separated suffix.
+        - With a curated gene: ``<Species>-<Gene>*<source>:<accession>``
+          (analogous to ``HLA-A*02:01``).
+        - Without a gene, with known MHC class (``I``, ``Ia``..``Id``, ``II``,
+          ``IIa``, ``IIb``): ``<Species>-class<mhc_class>*<source>:<accession>``
+          (e.g. ``Saha-classI*uniprot:G3V1L5``, ``Saha-classII*uniprot:G3V1L5``).
+        - Without a gene and without a known MHC class:
+          ``<Species>-<source>:<accession>`` (e.g. ``Saha-uniprot:G3V1L5``).
         """
         if self.gene is not None:
             gene_str = self.gene.to_string(
@@ -198,6 +202,9 @@ class AccessionedAllele(ResultWithMhcClass):
             include_species=include_species,
             use_old_species_prefix=use_old_species_prefix,
         )
+        if self.mhc_class in valid_class_restrictions:
+            class_slot = f"class{self.mhc_class}*{self.accession_source}:{self.accession}"
+            return f"{species_str}-{class_slot}" if species_str else class_slot
         if species_str:
             return f"{species_str}-{self.accession_source}:{self.accession}"
         return f"{self.accession_source}:{self.accession}"

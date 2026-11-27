@@ -217,7 +217,7 @@ def test_parse_gene_bearing_accessioned_alleles(
             "uniprot",
             "G3V1L5",
             "I",
-            "Saha-uniprot:G3V1L5",
+            "Saha-classI*uniprot:G3V1L5",
         ),
         (
             "Sarcophilus harrisii-uniprot:G3V1L5 MHC class II",
@@ -225,7 +225,72 @@ def test_parse_gene_bearing_accessioned_alleles(
             "uniprot",
             "G3V1L5",
             "II",
-            "Saha-uniprot:G3V1L5",
+            "Saha-classII*uniprot:G3V1L5",
+        ),
+        # Canonical whitespace-free gene-less class-slot forms (#332)
+        (
+            "Saha-classI*uniprot:G3V1L5",
+            "Sarcophilus harrisii",
+            "uniprot",
+            "G3V1L5",
+            "I",
+            "Saha-classI*uniprot:G3V1L5",
+        ),
+        (
+            "Saha-classI-uniprot:G3V1L5",
+            "Sarcophilus harrisii",
+            "uniprot",
+            "G3V1L5",
+            "I",
+            "Saha-classI*uniprot:G3V1L5",
+        ),
+        (
+            "Saha-classII*uniprot:G3V1L5",
+            "Sarcophilus harrisii",
+            "uniprot",
+            "G3V1L5",
+            "II",
+            "Saha-classII*uniprot:G3V1L5",
+        ),
+        (
+            "Saha-classII-uniprot:G3V1L5",
+            "Sarcophilus harrisii",
+            "uniprot",
+            "G3V1L5",
+            "II",
+            "Saha-classII*uniprot:G3V1L5",
+        ),
+        (
+            "Saha-class1*uniprot:G3V1L5",
+            "Sarcophilus harrisii",
+            "uniprot",
+            "G3V1L5",
+            "I",
+            "Saha-classI*uniprot:G3V1L5",
+        ),
+        (
+            "Saha-classIa*uniprot:G3V1L5",
+            "Sarcophilus harrisii",
+            "uniprot",
+            "G3V1L5",
+            "Ia",
+            "Saha-classIa*uniprot:G3V1L5",
+        ),
+        (
+            "H-2-classI*uniprot:P01898",
+            "Mus musculus",
+            "uniprot",
+            "P01898",
+            "I",
+            "H2-classI*uniprot:P01898",
+        ),
+        (
+            "Bos sp.-classI*uniprot:Q6I7L2",
+            "Bos sp.",
+            "uniprot",
+            "Q6I7L2",
+            "I",
+            "BoLA-classI*uniprot:Q6I7L2",
         ),
         # Backward-compatible legacy '*' gene-less forms (#309)
         (
@@ -234,7 +299,7 @@ def test_parse_gene_bearing_accessioned_alleles(
             "uniprot",
             "G3V1L5",
             "I",
-            "Saha-uniprot:G3V1L5",
+            "Saha-classI*uniprot:G3V1L5",
         ),
         (
             "CricetulusGriseus*uniprot:A0A061HWC8 class I",
@@ -242,7 +307,7 @@ def test_parse_gene_bearing_accessioned_alleles(
             "uniprot",
             "A0A061HWC8",
             "I",
-            "CricetulusGriseus-uniprot:A0A061HWC8",
+            "CricetulusGriseus-classI*uniprot:A0A061HWC8",
         ),
         (
             "SarcophilusHarrisii*uniprot:G3V1L5",
@@ -258,7 +323,7 @@ def test_parse_gene_bearing_accessioned_alleles(
             "uniprot",
             "G3V1L5",
             "II",
-            "Saha-uniprot:G3V1L5",
+            "Saha-classII*uniprot:G3V1L5",
         ),
         (
             "class I SarcophilusHarrisii*uniprot:G3V1L5",
@@ -266,7 +331,7 @@ def test_parse_gene_bearing_accessioned_alleles(
             "uniprot",
             "G3V1L5",
             "I",
-            "Saha-uniprot:G3V1L5",
+            "Saha-classI*uniprot:G3V1L5",
         ),
         (
             "H-2*uniprot:P01898 class I",
@@ -274,7 +339,7 @@ def test_parse_gene_bearing_accessioned_alleles(
             "uniprot",
             "P01898",
             "I",
-            "H2-uniprot:P01898",
+            "H2-classI*uniprot:P01898",
         ),
         (
             "Saha*ena:GQ411457 class I",
@@ -282,7 +347,7 @@ def test_parse_gene_bearing_accessioned_alleles(
             "ena",
             "GQ411457",
             "I",
-            "Saha-ena:GQ411457",
+            "Saha-classI*ena:GQ411457",
         ),
     ],
 )
@@ -302,26 +367,31 @@ def test_parse_geneless_accessioned_alleles(
     assert result.accession_source == expected_source
     assert result.accession == expected_acc
     assert result.mhc_class == expected_class
-    assert result.is_class1 is (expected_class == "I")
-    assert result.is_class2 is (expected_class == "II")
+    assert result.is_class1 is (expected_class in {"I", "Ia", "Ib", "Ic", "Id"})
+    assert result.is_class2 is (expected_class in {"II", "IIa", "IIb"})
     assert result.is_pseudogene is False
     assert result.pseudogene_status is None
     assert result.to_string() == expected_str
     assert " " not in result.to_string()
-    assert result.compact_string() == f"{expected_source}:{expected_acc}"
+    expected_compact = (
+        f"class{expected_class}*{expected_source}:{expected_acc}"
+        if expected_class is not None
+        else f"{expected_source}:{expected_acc}"
+    )
+    assert result.compact_string() == expected_compact
     assert result.to_record()["allele"] == expected_str
     assert result.to_record()["mhc_class"] == expected_class
     assert result.species_source == "explicit"
     assert result.species_from_input is True
-    # Canonical string round-trips cleanly (mhc_class is metadata, not encoded in the identifier)
+    # Canonical string round-trips losslessly, preserving mhc_class (#332)
     reparsed = parse(result.to_string())
-    assert type(reparsed) is AccessionedAllele
-    assert reparsed.species == result.species
-    assert reparsed.gene is None
-    assert reparsed.accession_source == result.accession_source
-    assert reparsed.accession == result.accession
-    if expected_class is None:
-        assert reparsed == result
+    assert reparsed == result
+    if result.is_class1:
+        assert parse(result.to_string(), only_class1=True) == result
+        assert parse(result.to_string(), only_class2=True, raise_on_error=False) is None
+    elif result.is_class2:
+        assert parse(result.to_string(), only_class2=True) == result
+        assert parse(result.to_string(), only_class1=True, raise_on_error=False) is None
 
 
 def test_pseudogene_and_nonclassical_metadata_preserved():
@@ -369,6 +439,21 @@ def test_class_filters_and_species_policies():
     assert medaka_geneless.accession == "H2LR16"
     assert medaka_geneless.species_source == "explicit"
 
+    medaka_class1 = parse("Orla-classI*uniprot:H2LR16", species="Oryzias latipes", only_class1=True)
+    assert type(medaka_class1) is AccessionedAllele
+    assert medaka_class1.species == Species.get("Oryzias latipes")
+    assert medaka_class1.gene is None
+    assert medaka_class1.mhc_class == "I"
+    assert medaka_class1.to_string() == "OryziasLatipes-classI*uniprot:H2LR16"
+    assert medaka_class1.species_source == "explicit"
+
+    # Curated gene "I" (e.g. Saha-I, Mamu-I) does not collide with classI slot (#332)
+    saha_gene_i = parse("Saha-I*uniprot:G3V1L5")
+    assert type(saha_gene_i) is AccessionedAllele
+    assert saha_gene_i.gene == Gene.get("Saha", "I")
+    assert saha_gene_i.to_string() == "Saha-I*uniprot:G3V1L5"
+    assert saha_gene_i != parse("Saha-classI*uniprot:G3V1L5")
+
     # Bare gene with default species respects require_explicit_species
     bare_gene = parse("A*uniprot:P04439")
     assert type(bare_gene) is AccessionedAllele
@@ -380,13 +465,13 @@ def test_class_filters_and_species_policies():
     assert type(cow) is AccessionedAllele
     assert cow.species == Species.get("Bos taurus")
     assert cow.mhc_class == "I"
-    assert cow.to_string() == "Bota-uniprot:Q6I7L2"
+    assert cow.to_string() == "Bota-classI*uniprot:Q6I7L2"
 
     cow_legacy = parse("Bos sp.*uniprot:Q6I7L2 class I", species="Bos taurus", only_class1=True)
     assert type(cow_legacy) is AccessionedAllele
     assert cow_legacy.species == Species.get("Bos taurus")
     assert cow_legacy.mhc_class == "I"
-    assert cow_legacy.to_string() == "Bota-uniprot:Q6I7L2"
+    assert cow_legacy.to_string() == "Bota-classI*uniprot:Q6I7L2"
 
 
 @pytest.mark.parametrize(
@@ -400,6 +485,12 @@ def test_class_filters_and_species_policies():
         "-uniprot:Q6I7L2",
         "HLA--uniprot:P04439",
         "class I *uniprot:Q6I7L2",
+        "classI*uniprot:Q6I7L2",
+        "classII*uniprot:Q6I7L2",
+        "NotASpecies-classI*uniprot:Q6I7L2",
+        "Saha-classI*uniprot:G3V1L5 class II",
+        "class II Saha-classI*uniprot:G3V1L5",
+        "Saha-classIa*uniprot:G3V1L5 class Ib",
         "HLA-A*uniprot:NOT_VALID",
         "HLA-A*uniprot:12345",
         "HLA-A*refseq:Q6I7L2",
