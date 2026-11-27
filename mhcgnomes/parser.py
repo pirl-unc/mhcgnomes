@@ -101,9 +101,10 @@ _PUBLISHED_SAHA_SLASH_AMBIGUITIES = frozenset({("49", "82"), ("74", "88")})
 # separated names (H2-L*r16, HLA-P*01:01) are unaffected (#306).
 _BARE_UNIPROT_ACCESSION_RE = UNIPROT_ACCESSION_RE
 
-# Explicit accession-backed MHC identifier syntax (#309, #326):
+# Explicit accession-backed MHC identifier syntax (#309, #326, #332):
 #   Species-Gene*<db>:<acc> [class I|II]
-#   Species-<db>:<acc> [class I|II]   (canonical gene-less form)
+#   Species-classI*<db>:<acc>         (canonical gene-less form with known class)
+#   Species-<db>:<acc> [class I|II]   (canonical gene-less form when class is None)
 #   Species*<db>:<acc> [class I|II]   (legacy gene-less alias)
 _ACCESSIONED_ALLELE_MARKER_RE = re.compile(
     r"[-*](uniprot|genbank|refseq|ena|embl|ddbj|pdb):([^\s*/]+)",
@@ -113,12 +114,16 @@ _BARE_NAMESPACED_ACCESSION_RE = re.compile(
     r"^(?:uniprot|genbank|refseq|ena|embl|ddbj|pdb):",
     re.IGNORECASE,
 )
+_ACCESSION_CLASS_SLOT_RE = re.compile(
+    r"^(.+?)[-_\s]+class[-_\s]*(II[ab]?|I[a-d]?|[12])$",
+    re.IGNORECASE,
+)
 _ACCESSION_TRAILING_CLASS_RE = re.compile(
-    r"^(?:(?:mhc[\s_-]*)?class[\s_-]*(I{1,2}|1|2)|mhc[\s_-]*(I{1,2}|1|2))$",
+    r"^(?:(?:mhc[\s_-]*)?class[\s_-]*(II[ab]?|I[a-d]?|[12])|mhc[\s_-]*(II[ab]?|I[a-d]?|[12]))$",
     re.IGNORECASE,
 )
 _ACCESSION_LEADING_CLASS_RE = re.compile(
-    r"^(?:(?:mhc[\s_-]*)?class[\s_-]*(I{1,2}|1|2)|mhc[\s_-]*(I{1,2}|1|2))\s+(.+)$",
+    r"^(?:(?:mhc[\s_-]*)?class[\s_-]*(II[ab]?|I[a-d]?|[12])|mhc[\s_-]*(II[ab]?|I[a-d]?|[12]))\s+(.+)$",
     re.IGNORECASE,
 )
 
@@ -129,8 +134,44 @@ _MOUSE_DIGIT_LETTER_ALLELE_RE = re.compile(r"^([a-z]+-?\d+)([a-z][a-z0-9]*)$")
 
 
 def _normalize_accession_class_qualifier(token: str) -> str:
-    """Normalize a Roman or Arabic class I/II qualifier token to ``'I'`` or ``'II'``."""
-    return "I" if token.upper() in ("I", "1") else "II"
+    """Normalize a Roman or Arabic class I/II token (e.g. ``'I'``, ``'Ia'``, ``'II'``)."""
+    stripped = token.strip()
+    upper = stripped.upper()
+    if upper == "1":
+        return "I"
+    if upper == "2":
+        return "II"
+    if upper.startswith("II"):
+        return "II" + stripped[2:].lower()
+    return "I" + stripped[1:].lower()
+
+
+def _merge_accession_class_qualifiers(
+    first: str | None, second: str | None
+) -> tuple[bool, str | None]:
+    """Merge two optional MHC class qualifiers, returning ``(compatible, merged)``."""
+    if first is None:
+        return True, second
+    if second is None or first == second:
+        return True, first
+    if first == "I" and second in {"Ia", "Ib", "Ic", "Id"}:
+        return True, second
+    if second == "I" and first in {"Ia", "Ib", "Ic", "Id"}:
+        return True, first
+    if first == "II" and second in {"IIa", "IIb"}:
+        return True, second
+    if second == "II" and first in {"IIa", "IIb"}:
+        return True, first
+    return False, None
+
+
+def _strip_accession_class_slot(text: str) -> tuple[str | None, str]:
+    """Strip a trailing compact class slot (e.g. ``'Saha-classI'`` -> ``('I', 'Saha')``)."""
+    stripped = text.strip()
+    match = _ACCESSION_CLASS_SLOT_RE.fullmatch(stripped)
+    if match is None:
+        return None, stripped
+    return _normalize_accession_class_qualifier(match.group(2)), match.group(1).strip()
 
 
 def _strip_leading_accession_class_qualifier(text: str) -> tuple[str | None, str]:
@@ -3145,18 +3186,37 @@ class Parser:
             trailing_class = _normalize_accession_class_qualifier(raw_cls)
 
         leading_class, before = _strip_leading_accession_class_qualifier(raw_before)
-        if (
-            leading_class is not None
-            and trailing_class is not None
-            and leading_class != trailing_class
-        ):
+        compatible, class_qualifier = _merge_accession_class_qualifiers(
+            leading_class, trailing_class
+        )
+        if not compatible:
             return [], True, False
-        class_qualifier = leading_class or trailing_class
 
         if not before or "*" in before or before.endswith("-"):
             return [], True, False
 
-        # Case 1: gene-less "Species-<db>:<acc> [class I|II]" (or legacy "Species*<db>:<acc>")
+        # Case 1a: gene-less with compact class slot "Species-classI*<db>:<acc>" (#332)
+        slot_class, slot_species_str = _strip_accession_class_slot(before)
+        if slot_class is not None:
+            slot_compatible, merged_class = _merge_accession_class_qualifiers(
+                class_qualifier, slot_class
+            )
+            if not slot_compatible:
+                return [], True, False
+            species_obj = Species.get(slot_species_str)
+            if species_obj is None:
+                return [], True, False
+            candidate = AccessionedAllele.get(
+                species=species_obj,
+                accession_source=source,
+                accession=accession,
+                gene=None,
+                mhc_class=merged_class,
+                raw_string=name,
+            )
+            return ([candidate] if candidate is not None else []), True, True
+
+        # Case 1b: gene-less "Species-<db>:<acc> [class I|II]" (or legacy "Species*<db>:<acc>")
         species_obj = Species.get(before)
         if species_obj is not None:
             candidate = AccessionedAllele.get(
@@ -3301,7 +3361,11 @@ class Parser:
                 _, stripped_before = _strip_leading_accession_class_qualifier(
                     name[: marker_match.start()]
                 )
-                if result.species in species_named_in(stripped_before):
+                _, clean_before = _strip_accession_class_slot(stripped_before)
+                if (
+                    result.species in species_named_in(clean_before)
+                    or Species.get(clean_before) == result.species
+                ):
                     Result._set_field(result, "_species_source", "explicit")
 
         if require_explicit_species and result.species_source not in (None, "explicit"):

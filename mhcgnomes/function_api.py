@@ -143,8 +143,6 @@ def reparse_result_for_species(
 
     speciesless_string = result.to_string(include_species=False)
     reparse_input = f"{expected_species.prefix}-{speciesless_string}"
-    if type(result) is AccessionedAllele and result.gene is None and result.mhc_class is not None:
-        reparse_input = f"{reparse_input} class {result.mhc_class}"
     reparsed = parser.parse(
         reparse_input,
         default_species=expected_species,
