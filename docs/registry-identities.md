@@ -1,9 +1,10 @@
 # Registry accession identities
 
 An accession identifies a registry record even when its designation changes or the
-record is abandoned. mhcgnomes 3.69 adds an explicit identity index for the **76
-IPD-MHC records abandoned in release 3.7.0.0**, retained in the pinned 3.8.0.0 XML.
-Two related public accessions are included to represent overlapping names.
+record is abandoned. mhcgnomes maintains an explicit identity index for all **364
+abandoned IPD-MHC records** retained in the pinned `IPD-MHC-3.8.0.0.xml` snapshot
+(spanning release reports `0.1.0.0` through `3.15.0.0`), plus **58 related public
+accessions** needed to represent overlapping names (422 total identities).
 This is a curated inventory, not complete coverage of IPD-MHC, IMGT/HLA, or GenBank.
 
 ```python
@@ -100,26 +101,36 @@ apply species/class/type filters, pairing or truncation: use `parse` for those.
 
 ## Sources and collisions
 
-The [IPD-MHC 3.7.0.0 report](https://www.ebi.ac.uk/ipd/mhc/version/v3700/) supplies
-abandoned status. The pinned XML supplies complete nomenclature history. All 76
-live accession records were checked on 2026-11-04 and agreed on names, history and
-abandoned status. Citations live beside each annotation in
-`mhcgnomes/data/ipd_record_annotations.json`; generation produces
-`registry_allele_identities.json`, and CI verifies regeneration and every spelling.
+Official IPD-MHC version release reports (`0.1.0.0` through `3.15.0.0`) supply
+abandoned status and any verbatim abandonment comments. The pinned 3.8.0.0 XML
+supplies complete nomenclature history. All 364 abandoned accession records and 58
+related public records were checked against the live IPD-MHC API (76 from `3.7.0.0`
+on 2026-11-04; remaining 288 abandoned and colliding public records on 2026-11-26).
+Citations live beside each annotation in `mhcgnomes/data/ipd_record_annotations.json`;
+generation produces `registry_allele_identities.json`, and CI verifies regeneration
+and every spelling.
 
-One designation also occurs in a different accession's history:
-`Mafa-B*051:06:03` is retained on abandoned `NHP11987`, and is a previous name of
-public `NHP04329` (`Mafa-B*051:26`). Latest recorded names retain precedence over
-historical redirects, so it resolves to `NHP11987`. The source does not explicitly
-state accession equivalence; the records are not merged. Evidence and follow-up
-are recorded in [#250](https://github.com/pirl-unc/mhcgnomes/issues/250).
+Many abandoned tombstone records retain a designation that also occurs in a public
+accession's history (for example `Mafa-B*051:06:03` on abandoned `NHP11987` and in
+the history of public `NHP04329` / `Mafa-B*051:26`). Latest recorded names retain
+precedence over historical redirects, so name-only lookup resolves to the retained
+record (`NHP11987`). The source does not explicitly state accession equivalence; the
+records are not merged. Evidence and follow-up for `NHP11987`/`NHP11988` are recorded
+in [#250](https://github.com/pirl-unc/mhcgnomes/issues/250).
 
-A second designation is the latest name on **two** records:
-`Mafa-DQA1*01:16:01` belongs to public `NHP04701` and abandoned `NHP11988`.
-Name-only parsing returns an `Allele` with both `registry_id_candidates` and
-`registry_id=None`; it cannot determine which record was intended. Both accession
-IDs parse definitively. The documented historical `Mafa-DQA1*01:16` resolves to
-`NHP04701` with aliases enabled. This collision is also tracked in #250.
+Two designations are the latest name on **two** records in the pinned 3.8.0.0 XML:
+`Mafa-DQA1*01:16:01` (public `NHP04701` and abandoned `NHP11988`) and
+`DLA-DRB1*097:01` (public `DLA07966` and abandoned `DLA08202`, with public `DLA04910`
+retaining `DLA-DRB1*09701`). Name-only parsing returns an `Allele` with both
+`registry_id_candidates` and `registry_id=None`; it cannot determine which record was
+intended. Both accession IDs parse definitively. The documented historical
+`Mafa-DQA1*01:16` resolves to `NHP04701` with aliases enabled. Two SLA historical
+spellings (`SLA-DMA*0104`, `SLA-6*0102`) are shared across public and abandoned
+records with distinct canonical names; `get_registry_identities()` exposes both
+candidates while `parse(..., use_allele_aliases=True)` preserves the documented
+`allele_aliases.yaml` redirects (`SLA-DMA*03:01` / `SLA-6*02:01`). Historical
+registry aliases never override terminal targets established in `allele_aliases.yaml`
+(e.g., curated `Mamu-A*11 -> Mamu-A1*011:01`).
 
 ```python
 shared = parse("Mafa-DQA1*01:16:01")

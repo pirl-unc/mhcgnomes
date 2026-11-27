@@ -136,16 +136,30 @@ def registry_identity_rows(excluded, records=()):
     """
     records = tuple(records)
     rows = []
-    annotations = list(excluded)
+    annotations = []
+    seen_excluded = set()
+    for exclusion in excluded:
+        acc = exclusion["accession"]
+        if acc in seen_excluded:
+            raise ValueError(f"Duplicate registry accession: {acc}")
+        seen_excluded.add(acc)
+        annotations.append(exclusion)
     by_accession = {(r.source, r.accession): r for r in records}
+    related_by_accession = {}
     for exclusion in excluded:
         for related in exclusion.get("related_records", []):
-            source = by_accession.get((related["source"], related["accession"]))
+            acc = related["accession"]
+            source = by_accession.get((related["source"], acc))
             if source is None or f"{source.species}-{source.current}" != related["name"]:
-                raise ValueError(
-                    f"Related registry record missing/mismatched: {related['accession']}"
-                )
-            annotations.append({**related, "historical_names": list(source.previous)})
+                raise ValueError(f"Related registry record missing/mismatched: {acc}")
+            if acc in seen_excluded:
+                raise ValueError(f"Duplicate registry accession: {acc}")
+            entry = {**related, "historical_names": list(source.previous)}
+            existing = related_by_accession.get(acc)
+            if existing is not None and existing != entry:
+                raise ValueError(f"Duplicate registry accession: {acc}")
+            related_by_accession[acc] = entry
+    annotations.extend(related_by_accession.values())
     seen = set()
     for record in sorted(annotations, key=lambda r: r["accession"]):
         if record["accession"] in seen:
