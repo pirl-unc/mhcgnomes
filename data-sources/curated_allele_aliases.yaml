@@ -10,17 +10,55 @@ Caja:
   PS*02:01: PS2*01
 
 Gaga:
-  # Colon-form compatibility spellings of the old haplotype-based names (#199).
-  # Sherman et al. 2008, PMID 18612635, Materials and Methods:
-  # https://pmc.ncbi.nlm.nih.gov/articles/PMC3339847/
-  # BF2*1301 is AF013494; BF2*2101 is AF013493. IPD-MHC 3.8.0.0
-  # CHICKEN08568 / CHICKEN08580 cross-reference those accessions and name the
-  # full targets below. The compact old names already come from XML history.
-  # IEDB's BF2*13:01 spelling must retain that identity; padding to 013:01
-  # would invent a different allele. These two aliases do not change widths
-  # or extend the resolution of modern partial names 004:01 and 021:01.
-  BF2*13:01: BF2*004:01:01
-  BF2*21:01: BF2*021:01:01
+  # Colon-form compatibility spellings of the old 4-digit haplotype-based chicken
+  # BF1/BF2 names (#199, #330). IPD-MHC 3.8.0.0 records the compact 4-digit forms
+  # (e.g. BF2*0201, BF2*1301, BF2*1901, BF2*2101) in nomenclature history, and
+  # Sherman et al. 2008 (PMID 18612635, PMC3339847) / IEDB / PDB commonly write
+  # them with a colon (BF2*13:01, BF2*21:01, BF2*15:01, BF2*02:01).
+  #
+  # Several 2-digit names were renumbered when IPD-MHC standardized 3-digit first
+  # fields (e.g. BF2*13:01 -> BF2*004:01:01 [CHICKEN08568], BF2*19:01 ->
+  # BF2*015:02:01 [CHICKEN08579], BF2*08:01/11:01 -> BF2*005:02:01 [CHICKEN08571],
+  # BF2*23:01 -> BF2*002:02:01 [CHICKEN08581], BF2*12:02 -> BF1*012:01:01
+  # [CHICKEN08561]), so blind 3-digit zero-padding in first_allele_field_widths.yaml
+  # would invent wrong alleles. Explicit opt-in aliases preserve exact accession
+  # identity without changing default widths or extending modern 3-digit partials.
+  # BF1*12:01 is intentionally omitted because BF1*1201 is ambiguous between
+  # CHICKEN08561 (BF1*012:01:01) and CHICKEN08574 (BF2*012:01:01).
+  BF1*02:01: BF1*002:01:01  # IPD-MHC 3.8.0.0 CHICKEN08554 (BF1*0201)
+  BF1*04:01: BF1*004:01:01  # IPD-MHC 3.8.0.0 CHICKEN08555 (BF1*0401)
+  BF1*05:01: BF1*005:01:01  # IPD-MHC 3.8.0.0 CHICKEN08556 (BF1*0501)
+  BF1*06:01: BF1*006:01:01  # IPD-MHC 3.8.0.0 CHICKEN08557 (BF1*0601)
+  BF1*08:01: BF1*005:02:01  # IPD-MHC 3.8.0.0 CHICKEN08558 (BF1*0801)
+  BF1*09:01: BF1*009:01:01  # IPD-MHC 3.8.0.0 CHICKEN08559 (BF1*0901)
+  BF1*11:01: BF1*005:02:01  # IPD-MHC 3.8.0.0 CHICKEN08558 (BF1*1101)
+  BF1*13:01: BF1*004:01:01  # IPD-MHC 3.8.0.0 CHICKEN08555 (BF1*1301)
+  BF1*15:01: BF1*004:02:01  # IPD-MHC 3.8.0.0 CHICKEN08562 (BF1*1501)
+  BF1*17:01: BF1*017:01:01  # IPD-MHC 3.8.0.0 CHICKEN08563 (BF1*1701)
+  BF1*19:01: BF1*012:02:01  # IPD-MHC 3.8.0.0 CHICKEN08564 (BF1*1901)
+  BF1*19:02: BF1*012:02:01  # IPD-MHC 3.8.0.0 CHICKEN08564 (BF1*1902)
+  BF1*21:01: BF1*004:02:01  # IPD-MHC 3.8.0.0 CHICKEN08562 (BF1*2101)
+  BF1*23:01: BF1*023:01:01  # IPD-MHC 3.8.0.0 CHICKEN08565 (BF1*2301)
+  BF1*24:01: BF1*004:03:01  # IPD-MHC 3.8.0.0 CHICKEN08566 (BF1*2401)
+  BF2*02:01: BF2*002:01:01  # IPD-MHC 3.8.0.0 CHICKEN08567 (BF2*0201)
+  BF2*04:01: BF2*004:01:01  # IPD-MHC 3.8.0.0 CHICKEN08568 (BF2*0401)
+  BF2*05:01: BF2*005:01:01  # IPD-MHC 3.8.0.0 CHICKEN08569 (BF2*0501)
+  BF2*06:01: BF2*006:01:01  # IPD-MHC 3.8.0.0 CHICKEN08570 (BF2*0601)
+  BF2*08:01: BF2*005:02:01  # IPD-MHC 3.8.0.0 CHICKEN08571 (BF2*0801)
+  BF2*09:01: BF2*009:01:01  # IPD-MHC 3.8.0.0 CHICKEN08572 (BF2*0901)
+  BF2*11:01: BF2*005:02:01  # IPD-MHC 3.8.0.0 CHICKEN08571 (BF2*1101)
+  BF2*12:01: BF2*012:01:01  # IPD-MHC 3.8.0.0 CHICKEN08574 (BF2*1201)
+  BF2*12:02: BF1*012:01:01  # IPD-MHC 3.8.0.0 CHICKEN08561 (BF2*1202)
+  BF2*13:01: BF2*004:01:01  # IPD-MHC 3.8.0.0 CHICKEN08568 (BF2*1301; AF013494)
+  BF2*14:01: BF2*014:01:01  # IPD-MHC 3.8.0.0 CHICKEN08575 (BF2*1401)
+  BF2*15:01: BF2*015:01:01  # IPD-MHC 3.8.0.0 CHICKEN08576 (BF2*1501)
+  BF2*17:01: BF2*017:01:01  # IPD-MHC 3.8.0.0 CHICKEN08577 (BF2*1701)
+  BF2*18:01: BF2*018:01:01  # IPD-MHC 3.8.0.0 CHICKEN08578 (BF2*1801)
+  BF2*19:01: BF2*015:02:01  # IPD-MHC 3.8.0.0 CHICKEN08579 (BF2*1901)
+  BF2*19:02: BF2*015:02:01  # IPD-MHC 3.8.0.0 CHICKEN08579 (BF2*1902)
+  BF2*21:01: BF2*021:01:01  # IPD-MHC 3.8.0.0 CHICKEN08580 (BF2*2101; AF013493)
+  BF2*23:01: BF2*002:02:01  # IPD-MHC 3.8.0.0 CHICKEN08581 (BF2*2301)
+  BF2*24:01: BF2*024:01:01  # IPD-MHC 3.8.0.0 CHICKEN08582 (BF2*2401)
 
 ####################################################
 #

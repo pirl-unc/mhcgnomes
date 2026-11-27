@@ -2362,60 +2362,108 @@ Gaga:
   "BF*H8b": "BF1*023:01:01"
   # IPD-MHC-3.8.0.0.xml CHICKEN08554
   "BF1*0201": "BF1*002:01:01"
+  # curated_allele_aliases.yaml
+  "BF1*02:01": "BF1*002:01:01"
   # IPD-MHC-3.8.0.0.xml CHICKEN08555
   "BF1*0401": "BF1*004:01:01"
+  # curated_allele_aliases.yaml
+  "BF1*04:01": "BF1*004:01:01"
   # IPD-MHC-3.8.0.0.xml CHICKEN08556
   "BF1*0501": "BF1*005:01:01"
+  # curated_allele_aliases.yaml
+  "BF1*05:01": "BF1*005:01:01"
   # IPD-MHC-3.8.0.0.xml CHICKEN08557
   "BF1*0601": "BF1*006:01:01"
+  # curated_allele_aliases.yaml
+  "BF1*06:01": "BF1*006:01:01"
   # IPD-MHC-3.8.0.0.xml CHICKEN08558
   "BF1*0801": "BF1*005:02:01"
+  # curated_allele_aliases.yaml
+  "BF1*08:01": "BF1*005:02:01"
   # IPD-MHC-3.8.0.0.xml CHICKEN08559
   "BF1*0901": "BF1*009:01:01"
+  # curated_allele_aliases.yaml
+  "BF1*09:01": "BF1*009:01:01"
   # IPD-MHC-3.8.0.0.xml CHICKEN08558
   "BF1*1101": "BF1*005:02:01"
+  # curated_allele_aliases.yaml
+  "BF1*11:01": "BF1*005:02:01"
   # IPD-MHC-3.8.0.0.xml CHICKEN08555
   "BF1*1301": "BF1*004:01:01"
   # IPD-MHC-3.8.0.0.xml CHICKEN08562
   "BF1*131": "BF1*004:02:01"
+  # curated_allele_aliases.yaml
+  "BF1*13:01": "BF1*004:01:01"
   # IPD-MHC-3.8.0.0.xml CHICKEN08562
   "BF1*1501": "BF1*004:02:01"
+  # curated_allele_aliases.yaml
+  "BF1*15:01": "BF1*004:02:01"
   # IPD-MHC-3.8.0.0.xml CHICKEN08563
   "BF1*1701": "BF1*017:01:01"
+  # curated_allele_aliases.yaml
+  "BF1*17:01": "BF1*017:01:01"
   # IPD-MHC-3.8.0.0.xml CHICKEN08564
   "BF1*1901": "BF1*012:02:01"
   # IPD-MHC-3.8.0.0.xml CHICKEN08564
   "BF1*1902": "BF1*012:02:01"
+  # curated_allele_aliases.yaml
+  "BF1*19:01": "BF1*012:02:01"
+  # curated_allele_aliases.yaml
+  "BF1*19:02": "BF1*012:02:01"
   # IPD-MHC-3.8.0.0.xml CHICKEN08562
   "BF1*21": "BF1*004:02:01"
   # IPD-MHC-3.8.0.0.xml CHICKEN08562
   "BF1*2101": "BF1*004:02:01"
+  # curated_allele_aliases.yaml
+  "BF1*21:01": "BF1*004:02:01"
   # IPD-MHC-3.8.0.0.xml CHICKEN08565
   "BF1*2301": "BF1*023:01:01"
+  # curated_allele_aliases.yaml
+  "BF1*23:01": "BF1*023:01:01"
   # IPD-MHC-3.8.0.0.xml CHICKEN08566
   "BF1*2401": "BF1*004:03:01"
+  # curated_allele_aliases.yaml
+  "BF1*24:01": "BF1*004:03:01"
   # IPD-MHC-3.8.0.0.xml CHICKEN08555
   "BF1*JF2": "BF1*004:01:01"
   # IPD-MHC-3.8.0.0.xml CHICKEN08562
   "BF1*W1": "BF1*004:02:01"
   # IPD-MHC-3.8.0.0.xml CHICKEN08567
   "BF2*0201": "BF2*002:01:01"
+  # curated_allele_aliases.yaml
+  "BF2*02:01": "BF2*002:01:01"
   # IPD-MHC-3.8.0.0.xml CHICKEN08568
   "BF2*0401": "BF2*004:01:01"
+  # curated_allele_aliases.yaml
+  "BF2*04:01": "BF2*004:01:01"
   # IPD-MHC-3.8.0.0.xml CHICKEN08569
   "BF2*0501": "BF2*005:01:01"
+  # curated_allele_aliases.yaml
+  "BF2*05:01": "BF2*005:01:01"
   # IPD-MHC-3.8.0.0.xml CHICKEN08570
   "BF2*0601": "BF2*006:01:01"
+  # curated_allele_aliases.yaml
+  "BF2*06:01": "BF2*006:01:01"
   # IPD-MHC-3.8.0.0.xml CHICKEN08571
   "BF2*0801": "BF2*005:02:01"
+  # curated_allele_aliases.yaml
+  "BF2*08:01": "BF2*005:02:01"
   # IPD-MHC-3.8.0.0.xml CHICKEN08572
   "BF2*0901": "BF2*009:01:01"
+  # curated_allele_aliases.yaml
+  "BF2*09:01": "BF2*009:01:01"
   # IPD-MHC-3.8.0.0.xml CHICKEN08571
   "BF2*1101": "BF2*005:02:01"
+  # curated_allele_aliases.yaml
+  "BF2*11:01": "BF2*005:02:01"
   # IPD-MHC-3.8.0.0.xml CHICKEN08574
   "BF2*1201": "BF2*012:01:01"
   # IPD-MHC-3.8.0.0.xml CHICKEN08561
   "BF2*1202": "BF1*012:01:01"
+  # curated_allele_aliases.yaml
+  "BF2*12:01": "BF2*012:01:01"
+  # curated_allele_aliases.yaml
+  "BF2*12:02": "BF1*012:01:01"
   # IPD-MHC-3.8.0.0.xml CHICKEN08568
   "BF2*1301": "BF2*004:01:01"
   # IPD-MHC-3.8.0.0.xml CHICKEN08580
@@ -2424,24 +2472,40 @@ Gaga:
   "BF2*13:01": "BF2*004:01:01"
   # IPD-MHC-3.8.0.0.xml CHICKEN08575
   "BF2*1401": "BF2*014:01:01"
+  # curated_allele_aliases.yaml
+  "BF2*14:01": "BF2*014:01:01"
   # IPD-MHC-3.8.0.0.xml CHICKEN08576
   "BF2*1501": "BF2*015:01:01"
+  # curated_allele_aliases.yaml
+  "BF2*15:01": "BF2*015:01:01"
   # IPD-MHC-3.8.0.0.xml CHICKEN08577
   "BF2*1701": "BF2*017:01:01"
+  # curated_allele_aliases.yaml
+  "BF2*17:01": "BF2*017:01:01"
   # IPD-MHC-3.8.0.0.xml CHICKEN08578
   "BF2*1801": "BF2*018:01:01"
+  # curated_allele_aliases.yaml
+  "BF2*18:01": "BF2*018:01:01"
   # IPD-MHC-3.8.0.0.xml CHICKEN08579
   "BF2*1901": "BF2*015:02:01"
   # IPD-MHC-3.8.0.0.xml CHICKEN08579
   "BF2*1902": "BF2*015:02:01"
+  # curated_allele_aliases.yaml
+  "BF2*19:01": "BF2*015:02:01"
+  # curated_allele_aliases.yaml
+  "BF2*19:02": "BF2*015:02:01"
   # IPD-MHC-3.8.0.0.xml CHICKEN08580
   "BF2*2101": "BF2*021:01:01"
   # curated_allele_aliases.yaml
   "BF2*21:01": "BF2*021:01:01"
   # IPD-MHC-3.8.0.0.xml CHICKEN08581
   "BF2*2301": "BF2*002:02:01"
+  # curated_allele_aliases.yaml
+  "BF2*23:01": "BF2*002:02:01"
   # IPD-MHC-3.8.0.0.xml CHICKEN08582
   "BF2*2401": "BF2*024:01:01"
+  # curated_allele_aliases.yaml
+  "BF2*24:01": "BF2*024:01:01"
   # IPD-MHC-3.8.0.0.xml CHICKEN08580
   "BF2*W1": "BF2*021:01:01"
 Gogo:
