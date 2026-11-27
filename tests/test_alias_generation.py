@@ -104,13 +104,13 @@ def test_source_coverage_is_recorded():
     )
     assert audit["coverage"]["IPD-MHC-3.8.0.0.xml"] == {
         "source_records": 11756,
-        "excluded_records": 76,
-        "current_records": 11680,
-        "records_with_history": 5241,
-        "historical_names": 7262,
+        "excluded_records": 364,
+        "current_records": 11392,
+        "records_with_history": 5203,
+        "historical_names": 7222,
     }
     assert audit["sources"]["IPD-MHC-3.8.0.0.xml"]["accepted"] > 2900
-    assert len(audit["excluded_records"]) == 76
+    assert len(audit["excluded_records"]) == 364
     excluded = next(r for r in audit["excluded_records"] if r["accession"] == "NHP10764")
     assert excluded["accession"] == "NHP10764"
     assert excluded["name"] == "Paha-DP1*06:01"
@@ -296,3 +296,23 @@ def test_identity_generation_requires_related_records_and_complete_collision_inv
     extra = RegistryRecord("Mafa", "NHP99999", "DQA1*01:16:01", (), abandoned.source)
     with pytest.raises(ValueError, match="Unannotated registry name collision: NHP99999"):
         generator.registry_identity_rows(excluded, [abandoned, public, extra])
+
+
+def test_identity_generation_deduplicates_identical_shared_related_records():
+    ab1 = RegistryRecord("Mamu", "NHP10798", "F*01:04", (), "IPD-MHC-3.8.0.0.xml")
+    ab2 = RegistryRecord("Mamu", "NHP10799", "F*01:04:01", (), "IPD-MHC-3.8.0.0.xml")
+    pub = RegistryRecord("Mamu", "NHP00585", "F*02:04:01", ("F*01:04", "F*01:04:01"), ab1.source)
+    _, excluded = generator.partition_ipd_records([ab1, ab2])
+    rows = generator.registry_identity_rows(excluded, [ab1, ab2, pub])
+    assert [r["accession"] for r in rows] == ["NHP00585", "NHP10798", "NHP10799"]
+    conflicting = [
+        excluded[0],
+        {
+            **excluded[1],
+            "related_records": [
+                {**excluded[1]["related_records"][0], "locus": "DIFFERENT"},
+            ],
+        },
+    ]
+    with pytest.raises(ValueError, match="Duplicate registry accession: NHP00585"):
+        generator.registry_identity_rows(conflicting, [ab1, ab2, pub])

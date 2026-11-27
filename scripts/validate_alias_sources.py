@@ -97,11 +97,34 @@ def main():
         r.accession for r in identities.values() if r.status == "abandoned"
     }:
         failures.append("Annotated exclusions and runtime identity inventory differ")
+    alias_targets = {
+        f"{prefix}-{target}".casefold()
+        for prefix, table in allele_aliases.items()
+        for target in table.values()
+    }
     for identity in identities.values():
         for name in (identity.accession, identity.identifier, *identity.names):
             result = parse(name, use_allele_aliases=True, raise_on_error=False)
             expected = get_registry_identities(name)
-            if result is None or result.registry_identities != expected:
+            if result is None:
+                failures.append(f"Registry identity failed to parse: {name} -> {expected}")
+                continue
+            distinct_canonicals = {r.canonical_name for r in expected}
+            if len(distinct_canonicals) > 1:
+                # A historical spelling shared by records with distinct canonical
+                # names (e.g. SLA-DMA*0104) resolves via allele_aliases to one
+                # candidate rather than claiming both canonical names at once.
+                if result.registry_identity not in expected:
+                    failures.append(f"Registry identity mismatch: {name} -> {expected}")
+            elif (
+                name not in (identity.accession, identity.identifier, identity.canonical_name)
+                and name.strip().casefold() in alias_targets
+            ):
+                # Terminal allele_aliases targets (e.g. curated Mamu-A*11 -> A1*011:01)
+                # stay fixed points of parse(..., use_allele_aliases=True).
+                if result.to_string().casefold() != name.strip().casefold():
+                    failures.append(f"Protected alias target drifted: {name} -> {result}")
+            elif result.registry_identities != expected:
                 failures.append(f"Registry identity mismatch: {name} -> {expected}")
     print(f"Registry identities and recorded spellings checked: {len(identities)} records")
     for failure in failures:

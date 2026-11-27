@@ -97,10 +97,11 @@ def build_registry_index(identities, include_aliases=True):
 def registry_identities():
     """Return the cached read-only mapping of namespaced IDs to curated identities.
 
-    Coverage is the 76 IPD-MHC accessions abandoned in release 3.7.0.0 plus two
-    related public accessions needed to represent name collisions. This is not
-    the complete IPD registry. Invalid bundled data raises ValueError;
-    file/JSON errors propagate.
+    Coverage is all 364 abandoned IPD-MHC accessions retained in the pinned
+    3.8.0.0 XML (releases 0.1.0.0 through 3.15.0.0) plus 58 related public
+    accessions needed to represent name collisions. This is not the complete
+    IPD registry. Invalid bundled data raises ValueError; file/JSON errors
+    propagate.
     """
     with open(get_path("registry_allele_identities.json"), encoding="utf-8") as stream:
         rows = json.load(stream)

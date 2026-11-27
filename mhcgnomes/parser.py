@@ -66,6 +66,19 @@ from .supertype import Supertype
 from .token import Token
 from .tokenize import tokenize
 
+
+@cache
+def _allele_alias_targets():
+    """Return casefolded species-prefixed terminal targets from allele_aliases.yaml."""
+    from .data import allele_aliases
+
+    return frozenset(
+        f"{species}-{target}".casefold()
+        for species, table in allele_aliases.items()
+        for target in table.values()
+    )
+
+
 # Regex for MHC region labels like MHCIIB, mhc2a, MHC-IA, mhc1, etc.
 _MHC_REGION_RE = re.compile(
     r"^mhc[-_]?(I{1,3}|1|2)(a|b)?$",
@@ -3050,12 +3063,18 @@ class Parser:
 
         Public parser building block: accepts a string accession, namespaced ID
         or full species-prefixed recorded name. History requires this Parser's
-        use_allele_aliases option. Uses source spelling without heuristic padding;
-        an unknown ontology locus stays AlleleWithoutGene with the source class.
-        No species/class/type filters or pairing are applied here; use parse for
-        those policies. Non-strings raise TypeError; inconsistent data raises ValueError.
+        use_allele_aliases option, and historical registry aliases do not
+        override terminal targets established in allele_aliases. Uses source
+        spelling without heuristic padding; an unknown ontology locus stays
+        AlleleWithoutGene with the source class. No species/class/type filters
+        or pairing are applied here; use parse for those policies. Non-strings
+        raise TypeError; inconsistent data raises ValueError.
         """
-        identity = get_registry_identity(name, include_aliases=self.use_allele_aliases)
+        identity = get_registry_identity(name, include_aliases=False)
+        if identity is None and self.use_allele_aliases:
+            candidate = get_registry_identity(name, include_aliases=True)
+            if candidate is not None and name.strip().casefold() not in _allele_alias_targets():
+                identity = candidate
         if identity is None:
             return None
         species = Species.get(identity.species_name)
@@ -3374,7 +3393,9 @@ class Parser:
             self._parse_accessioned_allele_candidates(name, default_species=default_species)
         )
         registry_candidate = None if is_accessioned_syntax else self.parse_registry_allele(name)
-        is_registry_accession = bool(re.fullmatch(r"(?:IPD-MHC:.*|NHP\d+)", name.strip(), re.I))
+        is_registry_accession = bool(
+            re.fullmatch(r"(?:IPD-MHC:.*|NHP\d+|(?:DLA|OLA|SLA)\d{5,})", name.strip(), re.I)
+        )
         if is_accessioned_syntax:
             candidates = accessioned_candidates
         else:
