@@ -6671,6 +6671,13 @@ Myotis lucifugus:
   other prefixes:
     - Mylu
   name: Little brown bat
+  genes:
+    Ia:
+      # PMID 38755285 (PMC11099071, Wang et al., Commun Biol 2024) characterized
+      # crystal structures and peptide-binding motifs of classical bat MHC-I
+      # alleles Mylu-B*67:01 and Mylu-B*57:01 with beta-2-microglobulin (PRIDE
+      # PXD047090, PXD047017).
+      - B
 Hipposideros armiger:
   parent: Chiroptera sp.
   prefix: HippArmi
