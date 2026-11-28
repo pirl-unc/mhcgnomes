@@ -1298,9 +1298,15 @@ class Parser:
             gene_name, allele_name = known_allele
             assert gene_name is None
             if "*" not in allele_name:
+                mhc_class = species.get_known_allele_mhc_class(
+                    gene_name=None, allele_name=allele_name
+                )
                 candidate_results.append(
                     AlleleWithoutGene.get(
-                        species=species, name=allele_name, raw_string=str_after_species
+                        species=species,
+                        name=allele_name,
+                        mhc_class=mhc_class,
+                        raw_string=str_after_species,
                     )
                 )
 
@@ -1822,10 +1828,15 @@ class Parser:
         if target_gene_name is None:
             if "*" in target_allele_name:
                 return None
+            mhc_class = source_mhc_class
+            if mhc_class is None:
+                mhc_class = species.get_known_allele_mhc_class(
+                    gene_name=None, allele_name=target_allele_name
+                )
             return AlleleWithoutGene.get(
                 species,
                 target_allele_name,
-                mhc_class=source_mhc_class,
+                mhc_class=mhc_class,
                 raw_string=raw_string,
             )
         if source_gene is not None and target_gene_name == source_gene.name:

@@ -31,7 +31,11 @@ from .data import species as raw_species_dict
 from .data import species_taxonomy as raw_species_taxonomy_dict
 from .data import supertypes as raw_supertypes_dict
 from .data import underrepresented_taxa_source_registry as raw_holdback_registry
-from .mhc_class_helpers import class1_restrictions, class2_restrictions
+from .mhc_class_helpers import (
+    class1_restrictions,
+    class2_restrictions,
+    valid_class_restrictions,
+)
 from .normalizing_dictionary import NormalizingDictionary
 from .normalizing_set import NormalizingSet
 from .result import Result
@@ -238,6 +242,7 @@ class Species(Result):
     reverse_gene_aliases: Any = None
     allele_aliases: Any = None
     known_alleles: Any = None
+    known_allele_mhc_classes: Any = None
     haplotypes: Any = None
     serotypes: Any = None
     direct_serotypes: Any = None
@@ -278,6 +283,7 @@ class Species(Result):
         raw_string: str | None = None,
         gene_name_to_properties: Mapping[str, Mapping[str, Any]] | None = None,
         gene_family_name_to_gene_names: Mapping[str, Iterable[str]] | None = None,
+        known_allele_mhc_classes: Mapping[str | None, Mapping[str, str]] | None = None,
         direct_serotypes: Mapping[str, Iterable[str]] | None = None,
         ncbi_taxid: int | None = None,
         clade: str | None = None,
@@ -308,6 +314,12 @@ class Species(Result):
             known_alleles, default_value_fn=NormalizingSet
         )
         known_alleles = known_alleles.map_values(_ensure_normalizing_set)
+        known_allele_mhc_classes = _ensure_normalizing_dictionary(
+            known_allele_mhc_classes, default_value_fn=NormalizingDictionary
+        )
+        known_allele_mhc_classes = known_allele_mhc_classes.map_values(
+            _ensure_normalizing_dictionary
+        )
         haplotypes = NormalizingDictionary(
             *(haplotypes or {}).items(), normalize_fn=normalize_haplotype_name
         )
@@ -367,6 +379,9 @@ class Species(Result):
 
         self._set_field(self, "allele_aliases", _freeze_nested_value(allele_aliases))
         self._set_field(self, "known_alleles", _freeze_nested_value(known_alleles))
+        self._set_field(
+            self, "known_allele_mhc_classes", _freeze_nested_value(known_allele_mhc_classes)
+        )
         self._set_field(self, "haplotypes", _freeze_nested_value(haplotypes))
         self._set_field(self, "serotypes", _freeze_nested_value(serotypes))
         self._set_field(self, "direct_serotypes", _freeze_nested_value(direct_serotypes))
@@ -958,6 +973,14 @@ class Species(Result):
                     if new_name in self.known_alleles.get(gene_name2, []):
                         known_allele_name = self.allele_aliases.original_key(key)
                         return (gene_name, known_allele_name)
+        return None
+
+    def get_known_allele_mhc_class(self, gene_name, allele_name):
+        """Return curated MHC class metadata for a known allele, or ``None``."""
+        for candidate_gene in self._allele_gene_names(gene_name):
+            classes = self.known_allele_mhc_classes.get(candidate_gene)
+            if classes and allele_name in classes:
+                return classes[allele_name]
         return None
 
     @cache
@@ -1716,8 +1739,8 @@ def create_species_for_latin_name(latin_name):
     direct_serotypes = combine_species_aliases(raw_direct_serotypes_dict, all_identifiers)
     heterodimers = combine_species_aliases(raw_heterodimers_dict, all_identifiers)
     supertypes = combine_species_aliases(raw_supertypes_dict, all_identifiers)
-    known_alleles = combine_species_aliases(
-        raw_known_alleles_dict, all_identifiers, value_class=NormalizingSet
+    known_alleles, known_allele_mhc_classes = _combine_known_alleles(
+        raw_known_alleles_dict, all_identifiers
     )
 
     taxonomy_info = raw_species_taxonomy_dict.get(latin_name, {})
@@ -1754,6 +1777,7 @@ def create_species_for_latin_name(latin_name):
         gene_aliases=gene_aliases,
         allele_aliases=allele_aliases,
         known_alleles=known_alleles,
+        known_allele_mhc_classes=known_allele_mhc_classes,
         haplotypes=haplotypes,
         serotypes=serotypes,
         direct_serotypes=direct_serotypes,
@@ -1768,6 +1792,52 @@ def create_species_for_latin_name(latin_name):
         ncbi_taxid=ncbi_taxid,
         clade=clade,
     )
+
+
+def _combine_known_alleles(species_dict, species_names):
+    """Merge known allele names and optional per-allele MHC classes across lineage.
+
+    Entries under each gene key may be either an iterable of allele names
+    (leaving ``mhc_class`` unset) or a mapping of ``allele_name -> mhc_class``
+    (where ``None`` leaves ``mhc_class`` unset).
+    """
+    known_alleles = NormalizingDictionary(default_value_fn=NormalizingSet)
+    known_allele_mhc_classes = NormalizingDictionary(default_value_fn=NormalizingDictionary)
+    allowed_classes = valid_class_restrictions | {"other"}
+    for species_name in species_names:
+        value_for_species = species_dict.get(species_name)
+        if not value_for_species:
+            continue
+        if type(value_for_species) not in (dict, NormalizingDictionary):
+            raise TypeError(f"Expected sub-dictionaries but got {type(value_for_species)}")
+        for gene_key, entries in value_for_species.items():
+            allele_set = (
+                known_alleles[gene_key].copy() if gene_key in known_alleles else NormalizingSet()
+            )
+            class_map = (
+                known_allele_mhc_classes[gene_key].copy()
+                if gene_key in known_allele_mhc_classes
+                else NormalizingDictionary()
+            )
+            if isinstance(entries, Mapping):
+                for allele_name, mhc_class in entries.items():
+                    allele_set.add(allele_name)
+                    if mhc_class is None:
+                        if allele_name in class_map:
+                            del class_map[allele_name]
+                    elif mhc_class in allowed_classes:
+                        class_map[allele_name] = mhc_class
+                    else:
+                        raise ValueError(
+                            f"Invalid mhc_class {mhc_class!r} for known allele "
+                            f"{allele_name!r} of '{species_name}'"
+                        )
+            else:
+                allele_set.update(entries)
+            known_alleles[gene_key] = allele_set
+            if class_map:
+                known_allele_mhc_classes[gene_key] = class_map
+    return known_alleles, known_allele_mhc_classes
 
 
 def combine_species_aliases(

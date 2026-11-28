@@ -2026,11 +2026,17 @@ BoLA:
   "T2a": "2*012:01"
   # curated_allele_aliases.yaml
   "T2b": "6*041:01"
+  # curated_allele_aliases.yaml
+  "T2c": "1*100:01"
 Bogr:
   # IPD-MHC-3.17.0.0.xml BOLA09194
   "DQA1*0101": "DQA1*001:01"
+  # curated_allele_aliases.yaml
+  "DQA1*01:01": "DQA1*001:01"
   # IPD-MHC-3.17.0.0.xml BOLA09195
   "DQA2*0101": "DQA2*001:01"
+  # curated_allele_aliases.yaml
+  "DQA2*01:01": "DQA2*001:01"
 Bubu:
   # IPD-MHC-3.17.0.0.xml BOLA03223
   "DQA*0101": "DQA*001:01"
@@ -2052,6 +2058,26 @@ Bubu:
   "DQA*0109": "DQA*001:09"
   # IPD-MHC-3.17.0.0.xml BOLA09752
   "DQA*0110": "DQA*001:10"
+  # curated_allele_aliases.yaml
+  "DQA*01:01": "DQA*001:01"
+  # curated_allele_aliases.yaml
+  "DQA*01:02": "DQA*001:02"
+  # curated_allele_aliases.yaml
+  "DQA*01:03": "DQA*001:03"
+  # curated_allele_aliases.yaml
+  "DQA*01:04": "DQA*001:04"
+  # curated_allele_aliases.yaml
+  "DQA*01:05": "DQA*001:05"
+  # curated_allele_aliases.yaml
+  "DQA*01:06": "DQA*001:06"
+  # curated_allele_aliases.yaml
+  "DQA*01:07": "DQA*001:07"
+  # curated_allele_aliases.yaml
+  "DQA*01:08": "DQA*001:08"
+  # curated_allele_aliases.yaml
+  "DQA*01:09": "DQA*001:09"
+  # curated_allele_aliases.yaml
+  "DQA*01:10": "DQA*001:10"
   # IPD-MHC-3.17.0.0.xml BOLA07788
   "DQA*0201": "DQA*002:01"
   # IPD-MHC-3.17.0.0.xml BOLA09731
@@ -2062,8 +2088,20 @@ Bubu:
   "DQA*0204": "DQA*002:04"
   # IPD-MHC-3.17.0.0.xml BOLA09753
   "DQA*0205": "DQA*002:05"
+  # curated_allele_aliases.yaml
+  "DQA*02:01": "DQA*002:01"
+  # curated_allele_aliases.yaml
+  "DQA*02:02": "DQA*002:02"
+  # curated_allele_aliases.yaml
+  "DQA*02:03": "DQA*002:03"
+  # curated_allele_aliases.yaml
+  "DQA*02:04": "DQA*002:04"
+  # curated_allele_aliases.yaml
+  "DQA*02:05": "DQA*002:05"
   # IPD-MHC-3.17.0.0.xml BOLA03224
   "DQA*2001": "DQA*020:01"
+  # curated_allele_aliases.yaml
+  "DQA*20:01": "DQA*020:01"
   # IPD-MHC-3.17.0.0.xml BOLA07789
   "DQA*2101": "DQA*021:01"
   # IPD-MHC-3.17.0.0.xml BOLA09734
@@ -2074,30 +2112,64 @@ Bubu:
   "DQA*2104": "DQA*021:04"
   # IPD-MHC-3.17.0.0.xml BOLA09750
   "DQA*2105": "DQA*021:05"
+  # curated_allele_aliases.yaml
+  "DQA*21:01": "DQA*021:01"
+  # curated_allele_aliases.yaml
+  "DQA*21:02": "DQA*021:02"
+  # curated_allele_aliases.yaml
+  "DQA*21:03": "DQA*021:03"
+  # curated_allele_aliases.yaml
+  "DQA*21:04": "DQA*021:04"
+  # curated_allele_aliases.yaml
+  "DQA*21:05": "DQA*021:05"
   # IPD-MHC-3.17.0.0.xml BOLA07790
   "DQA*2201": "DQA*022:01"
   # IPD-MHC-3.17.0.0.xml BOLA09747
   "DQA*2202": "DQA*022:02"
   # IPD-MHC-3.17.0.0.xml BOLA09754
   "DQA*2203": "DQA*022:03"
+  # curated_allele_aliases.yaml
+  "DQA*22:01": "DQA*022:01"
+  # curated_allele_aliases.yaml
+  "DQA*22:02": "DQA*022:02"
+  # curated_allele_aliases.yaml
+  "DQA*22:03": "DQA*022:03"
   # IPD-MHC-3.17.0.0.xml BOLA07792
   "DQA*2301": "DQA*023:01"
+  # curated_allele_aliases.yaml
+  "DQA*23:01": "DQA*023:01"
   # IPD-MHC-3.17.0.0.xml BOLA07793
   "DQA*2401": "DQA*024:01"
   # IPD-MHC-3.17.0.0.xml BOLA09742
   "DQA*2402": "DQA*024:02"
   # IPD-MHC-3.17.0.0.xml BOLA09743
   "DQA*2403": "DQA*024:03"
+  # curated_allele_aliases.yaml
+  "DQA*24:01": "DQA*024:01"
+  # curated_allele_aliases.yaml
+  "DQA*24:02": "DQA*024:02"
+  # curated_allele_aliases.yaml
+  "DQA*24:03": "DQA*024:03"
   # IPD-MHC-3.17.0.0.xml BOLA09738
   "DQA*2501": "DQA*025:01"
+  # curated_allele_aliases.yaml
+  "DQA*25:01": "DQA*025:01"
   # IPD-MHC-3.17.0.0.xml BOLA09739
   "DQA*2601": "DQA*026:01"
+  # curated_allele_aliases.yaml
+  "DQA*26:01": "DQA*026:01"
   # IPD-MHC-3.17.0.0.xml BOLA09740
   "DQA*2701": "DQA*027:01"
+  # curated_allele_aliases.yaml
+  "DQA*27:01": "DQA*027:01"
   # IPD-MHC-3.17.0.0.xml BOLA09744
   "DQA*2801": "DQA*028:01"
+  # curated_allele_aliases.yaml
+  "DQA*28:01": "DQA*028:01"
   # IPD-MHC-3.17.0.0.xml BOLA09751
   "DQA*2901": "DQA*029:01"
+  # curated_allele_aliases.yaml
+  "DQA*29:01": "DQA*029:01"
   # IPD-MHC-3.17.0.0.xml BOLA07787
   "DQB*0101": "DQB*001:01"
 Caja:
@@ -9067,6 +9139,10 @@ Mamu:
   # curated_allele_aliases.yaml
   "A*0103": "A1*001:03"
   # curated_allele_aliases.yaml
+  "A*01:02": "A1*001:02"
+  # curated_allele_aliases.yaml
+  "A*01:03": "A1*001:03"
+  # curated_allele_aliases.yaml
   "A*02": "A1*002:01"
   # curated_allele_aliases.yaml
   "A*03": "A1*003:01"
@@ -9089,6 +9165,8 @@ Mamu:
   # curated_allele_aliases.yaml
   "A*0602": "A1*006:02"
   # curated_allele_aliases.yaml
+  "A*06:02": "A1*006:02"
+  # curated_allele_aliases.yaml
   "A*07": "A1*007:01"
   # curated_allele_aliases.yaml
   "A*0701": "A1*007:01"
@@ -9096,6 +9174,12 @@ Mamu:
   "A*0702": "A1*007:02"
   # curated_allele_aliases.yaml
   "A*0703": "A1*007:03"
+  # curated_allele_aliases.yaml
+  "A*07:01": "A1*007:01"
+  # curated_allele_aliases.yaml
+  "A*07:02": "A1*007:02"
+  # curated_allele_aliases.yaml
+  "A*07:03": "A1*007:03"
   # curated_allele_aliases.yaml
   "A*08": "A1*008:01:01"
   # curated_allele_aliases.yaml
@@ -9109,13 +9193,19 @@ Mamu:
   # curated_allele_aliases.yaml
   "A*1602": "A1*016:01"
   # curated_allele_aliases.yaml
+  "A*16:02": "A1*016:01"
+  # curated_allele_aliases.yaml
   "A*19": "A1*019:01"
   # curated_allele_aliases.yaml
   "A*21": "A1*003:06"
   # curated_allele_aliases.yaml
   "A*2102": "A1*003:07"
   # curated_allele_aliases.yaml
+  "A*21:02": "A1*003:07"
+  # curated_allele_aliases.yaml
   "A*2201": "A1*022:01"
+  # curated_allele_aliases.yaml
+  "A*22:01": "A1*022:01"
   # curated_allele_aliases.yaml
   "A*23": "A1*023:01"
   # IPD-MHC-3.17.0.0.xml NHP01883
@@ -9126,6 +9216,8 @@ Mamu:
   "A*26": "A1*026:01"
   # curated_allele_aliases.yaml
   "A*2601": "A1*026:01"
+  # curated_allele_aliases.yaml
+  "A*26:01": "A1*026:01"
   # curated_allele_aliases.yaml
   "A*27": "A1*011:04"
   # curated_allele_aliases.yaml

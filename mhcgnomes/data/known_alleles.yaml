@@ -51,17 +51,27 @@ SLA:
     - YDL
 BoLA:
   ~:
-    - HD6
-    - JSP.1
-    - D18.4
-    - AW10
-    - T2a
-    - T2b
-    - T2c
-    - T5
-    - T7
-    - gb1.7
-    - amani.1
+    # Classical BoLA class I (Ia) alleles with IPD-MHC locus assignments
+    # (PMC4225172; IPD-MHC 3.17.0.0 BOLA03180, BOLA03169, BOLA03193, BOLA03166,
+    # BOLA02982, BOLA03222, BOLA10192) (#339).
+    HD6: Ia
+    JSP.1: Ia
+    D18.4: Ia
+    AW10: Ia
+    T2a: Ia
+    T2b: Ia
+    # ENA EU189194 ("Bos taurus x Bos indicus MHC class I antigen (BoLA-T2c)
+    # mRNA, complete cds", Graham et al., Infect Immun 2008;76(2):685-694,
+    # PMID 18070892); IPD-MHC 3.17.0.0 BOLA10192 (BoLA-1*100:01).
+    T2c: Ia
+    # ENA EU189195 (BoLA-T5) and EU189196 (BoLA-T7): MHC class I antigen mRNAs
+    # from Graham et al. 2008 (PMID 18070892), without IPD-MHC locus numbers.
+    T5: I
+    T7: I
+    # Legacy NetMHCpan names without a verified primary GenBank/IPD-MHC record;
+    # keep mhc_class unset until sourced.
+    gb1.7: ~
+    amani.1: ~
 Saha:
   # Parsing components for Caldwell et al.'s compound labels "SahaI*49/82"
   # and "SahaI*74/88" (2018, PMCID PMC6092122). The corresponding historical

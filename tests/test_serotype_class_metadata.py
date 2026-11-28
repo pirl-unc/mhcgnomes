@@ -282,11 +282,22 @@ def test_class_metadata_agrees_across_properties_filters_inference_dataframe_and
 
 
 def test_allele_without_gene_none_class_has_mhc_class_false():
-    allele = AlleleWithoutGene.get("BoLA", "T2C", mhc_class=None)
+    allele = AlleleWithoutGene.get("BoLA", "gb1.7", mhc_class=None)
     assert allele.mhc_class is None
     assert allele.has_mhc_class is False
     assert allele.is_class1 is False
     assert allele.is_class2 is False
-    assert Parser().parse("BoLA-T2C", only_class1=True, raise_on_error=False) is None
+    assert Parser().parse("BoLA-gb1.7", only_class1=True, raise_on_error=False) is None
+    assert Parser().parse("BoLA-gb1.7", only_class2=True, raise_on_error=False) is None
+    assert infer_mhc_class("BoLA-gb1.7") is None
+
+    # BoLA-T2C has curated class Ia metadata (ENA EU189194 / IPD-MHC BOLA10192).
+    t2c = parse("BoLA-T2C")
+    assert isinstance(t2c, AlleleWithoutGene)
+    assert t2c.mhc_class == "Ia"
+    assert t2c.has_mhc_class is True
+    assert t2c.is_class1 is True
+    assert t2c.is_class2 is False
+    assert Parser().parse("BoLA-T2C", only_class1=True) == t2c
     assert Parser().parse("BoLA-T2C", only_class2=True, raise_on_error=False) is None
-    assert infer_mhc_class("BoLA-T2C") is None
+    assert infer_mhc_class("BoLA-T2C") == "Ia"
