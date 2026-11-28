@@ -52,7 +52,7 @@ def write_manifest(path: Path, sources):
 
 def test_shipped_manifest_is_valid_and_uses_official_providers():
     sources = external_data.load_manifest()
-    assert len(sources) == 9
+    assert len(sources) == 10
     assert {source.provider for source in sources} == {"IPD-IMGT/HLA", "IPD-MHC"}
     assert all("/ANHIG/" in source.url for source in sources)
 
@@ -69,7 +69,7 @@ def test_data_command_lists_sources_by_default_without_downloading(arguments, mo
 
     output = capsys.readouterr().out
     assert "imgt-hla-allele-history-3.66.0" in output
-    assert "ipd-mhc-3.8.0.0-protein" in output
+    assert "ipd-mhc-3.17.0.0-protein" in output
     assert "SOURCE" in output
     assert "STATUS" in output
     assert "allele-aliases" in output

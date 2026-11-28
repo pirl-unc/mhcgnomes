@@ -2,8 +2,8 @@ import pytest
 
 from mhcgnomes import Allele, parse
 
-# One accession-backed representative for every species prefix in the official IPD-MHC 3.8.0.0
-# protein release. These explicit cases preserve broad cross-species coverage without deriving
+# One accession-backed representative for every species prefix in the official IPD-MHC 3.17.0.0
+# release. These explicit cases preserve broad cross-species coverage without deriving
 # biological behavior from name regexes. Source commit and checksum are pinned in
 # mhcgnomes/data/external_sources.json.
 IPD_PREFIX_EXAMPLES = (
@@ -16,6 +16,9 @@ IPD_PREFIX_EXAMPLES = (
     ("Aovo", "IPD-MHC:NHP01546", "Aovo-DRB1*03:01"),
     ("Atbe", "IPD-MHC:NHP00075", "Atbe-B*01"),
     ("Atfu", "IPD-MHC:NHP00083", "Atfu-E*03:01"),
+    ("Baac", "IPD-MHC:CELA00017", "Baac-DRB1*001:01"),
+    ("Baed", "IPD-MHC:CELA00027", "Baed-DQA*001:01"),
+    ("Bamu", "IPD-MHC:CELA00001", "Bamu-DQA*001:01:01"),
     ("BoLA", "IPD-MHC:BoLA02982", "BoLA-2*012:01"),
     ("Bofr", "IPD-MHC:BoLA09755", "Bofr-DQB*043:01"),
     ("Bogr", "IPD-MHC:BoLA09194", "Bogr-DQA1*001:01"),
@@ -26,6 +29,7 @@ IPD_PREFIX_EXAMPLES = (
     ("Capy", "IPD-MHC:NHP00153", "Capy-DRB1*03:01"),
     ("Ceap", "IPD-MHC:NHP00137", "Ceap-DRB*W013:01"),
     ("Ceat", "IPD-MHC:NHP06535", "Ceat-A1*01:01"),
+    ("Cehe", "IPD-MHC:CELA00020", "Cehe-DRA*001:01:01"),
     ("Cemi", "IPD-MHC:NHP00143", "Cemi-DQA1*01:01"),
     ("Cene", "IPD-MHC:NHP00151", "Cene-DQA1*26:01"),
     ("Chae", "IPD-MHC:NHP00155", "Chae-DQA1*01:01"),
@@ -33,12 +37,18 @@ IPD_PREFIX_EXAMPLES = (
     ("Chsa", "IPD-MHC:NHP04182", "Chsa-A*04:01"),
     ("Cogu", "IPD-MHC:NHP00178", "Cogu-DQA1*25:01"),
     ("DLA", "IPD-MHC:DLA04814", "DLA-DQA1*012:01:2"),
+    ("Dede", "IPD-MHC:CELA00032", "Dede-DQA*001:01"),
     ("Eqca", "IPD-MHC:ELA04917", "Eqca-DQA1*001:01"),
+    ("Euau", "IPD-MHC:CELA00034", "Euau-DQA*001:01"),
     ("Gaga", "IPD-MHC:CHICKEN08554", "Gaga-BF1*002:01:01"),
+    ("Glme", "IPD-MHC:CELA00024", "Glme-DRA*001:01:01"),
     ("Gobe", "IPD-MHC:NHP09050", "Gobe-OKO*01:01"),
     ("Gogo", "IPD-MHC:NHP00179", "Gogo-A*01:01:01"),
+    ("Grgr", "IPD-MHC:CELA00037", "Grgr-DQA*001:01"),
     ("Hyla", "IPD-MHC:NHP00241", "Hyla-A*01"),
     ("Hymo", "IPD-MHC:NHP05528", "Hymo-DRB*W094:01"),
+    ("Kobr", "IPD-MHC:CELA00039", "Kobr-DQA*001:01"),
+    ("Laob", "IPD-MHC:CELA00042", "Laob-DQA*001:01"),
     ("Lero", "IPD-MHC:NHP00254", "Lero-G*03:01"),
     ("Loat", "IPD-MHC:NHP00256", "Loat-DQA1*01:01"),
     ("Maar", "IPD-MHC:NHP00257", "Maar-DPA1*02:01"),
@@ -52,6 +62,10 @@ IPD_PREFIX_EXAMPLES = (
     ("Masi", "IPD-MHC:NHP00634", "Masi-DRB1*03:01"),
     ("Masp", "IPD-MHC:NHP01348", "Masp-DRB1*03:01"),
     ("Math", "IPD-MHC:NHP04436", "Math-DPB1*15:01"),
+    ("Mede", "IPD-MHC:CELA00044", "Mede-DQA*001:01"),
+    ("Meeu", "IPD-MHC:CELA00133", "Meeu-DRA*001:01"),
+    ("Megr", "IPD-MHC:CELA00112", "Megr-DQA*001:01"),
+    ("Meno", "IPD-MHC:CELA00087", "Meno-DQB*001:01"),
     ("Onmy", "IPD-MHC:FISH08119", "Onmy-DAA*01:01"),
     ("Ovar", "IPD-MHC:OLA02424", "Ovar-DRB1*03:02"),
     ("Ovca", "IPD-MHC:OLA08844", "Ovca-DRA*01:01:01"),
@@ -75,15 +89,19 @@ IPD_PREFIX_EXAMPLES = (
     ("Sasa", "IPD-MHC:FISH08192", "Sasa-DAA*01:01"),
     ("Sasc", "IPD-MHC:NHP01052", "Sasc-DPA1*05:01"),
     ("Seen", "IPD-MHC:NHP02068", "Seen-DPB1*01"),
+    ("Stbr", "IPD-MHC:CELA00101", "Stbr-DQB*001:01"),
+    ("Stco", "IPD-MHC:CELA00104", "Stco-DQB*001:01"),
     ("Thge", "IPD-MHC:NHP02069", "Thge-DQA1*01:01"),
+    ("Tutr", "IPD-MHC:CELA00002", "Tutr-DQA*001:01"),
+    ("Zica", "IPD-MHC:CELA00105", "Zica-DQB*001:01"),
 )
 
 
 def test_ipd_prefix_inventory_is_explicit_and_cross_species():
     prefixes = [prefix for prefix, _accession, _raw_string in IPD_PREFIX_EXAMPLES]
-    assert len(prefixes) == 69
+    assert len(prefixes) == 87
     assert len(set(prefixes)) == len(prefixes)
-    assert {"DLA", "Gaga", "Onmy", "SLA", "Mamu"}.issubset(prefixes)
+    assert {"DLA", "Gaga", "Onmy", "SLA", "Mamu", "Tutr", "Bamu"}.issubset(prefixes)
 
 
 @pytest.mark.parametrize("prefix, accession, raw_string", IPD_PREFIX_EXAMPLES)

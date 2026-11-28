@@ -48,7 +48,7 @@ from .parsing_helpers import (
     split_digits_at_end,
     strip_whitespace_and_dashes,
 )
-from .registry_identity import get_registry_identity
+from .registry_identity import get_registry_identities, get_registry_identity
 from .result import Result
 from .result_sorting import pick_best_result
 from .result_with_species import ResultWithSpecies
@@ -68,15 +68,16 @@ from .tokenize import tokenize
 
 
 @cache
-def _allele_alias_targets():
-    """Return casefolded species-prefixed terminal targets from allele_aliases.yaml."""
+def _allele_alias_names():
+    """Return casefolded species-prefixed keys and targets from allele_aliases.yaml."""
     from .data import allele_aliases
 
-    return frozenset(
-        f"{species}-{target}".casefold()
-        for species, table in allele_aliases.items()
-        for target in table.values()
-    )
+    names = set()
+    for species, table in allele_aliases.items():
+        for old in table.keys():  # noqa: SIM118 -- keys() preserves original spellings
+            names.add(f"{species}-{old}".casefold())
+            names.add(f"{species}-{table[old]}".casefold())
+    return frozenset(names)
 
 
 # Regex for MHC region labels like MHCIIB, mhc2a, MHC-IA, mhc1, etc.
@@ -3133,10 +3134,22 @@ class Parser:
         or pairing are applied here; use parse for those policies. Non-strings
         raise TypeError; inconsistent data raises ValueError.
         """
-        identity = get_registry_identity(name, include_aliases=False)
-        if identity is None and self.use_allele_aliases:
+        exact = get_registry_identities(name, include_aliases=False)
+        identity = None
+        if len(exact) == 1:
+            identity = exact[0]
+        elif (
+            len(exact) > 1
+            and len({(r.canonical_name, r.species_name, r.mhc_class) for r in exact}) == 1
+        ):
+            # Shared exact canonical name across multiple accessions (e.g.
+            # DLA-DRB1*09701 on DLA08202 & DLA08399, Mafa-DQA1*01:16:01 on
+            # NHP04701 & NHP11988): preserve exact source spelling so all
+            # candidates remain attached on Allele.registry_identities.
+            identity = exact[0]
+        elif not exact and self.use_allele_aliases:
             candidate = get_registry_identity(name, include_aliases=True)
-            if candidate is not None and name.strip().casefold() not in _allele_alias_targets():
+            if candidate is not None and name.strip().casefold() not in _allele_alias_names():
                 identity = candidate
         if identity is None:
             return None
@@ -3481,7 +3494,7 @@ class Parser:
         )
         registry_candidate = None if is_accessioned_syntax else self.parse_registry_allele(name)
         is_registry_accession = bool(
-            re.fullmatch(r"(?:IPD-MHC:.*|NHP\d+|(?:DLA|OLA|SLA)\d{5,})", name.strip(), re.I)
+            re.fullmatch(r"(?:IPD-MHC:.*|NHP\d+|(?:BOLA|DLA|OLA|SLA)\d{5,})", name.strip(), re.I)
         )
         if is_accessioned_syntax:
             candidates = accessioned_candidates

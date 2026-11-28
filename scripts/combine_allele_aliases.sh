@@ -16,7 +16,7 @@ python3 -m mhcgnomes data download \
     --destination "$external_data_dir"
 
 python3 "$script_dir/combine_allele_aliases.py" \
-    --xml-input-file "$external_data_dir/IPD-MHC-3.8.0.0.xml" \
+    --xml-input-file "$external_data_dir/IPD-MHC-3.17.0.0.xml" \
     --yaml-input-file "$data_sources_dir/curated_allele_aliases.yaml" \
     --allele-history-input-file \
         "$external_data_dir/IMGT-HLA-Allelelist-history-3.66.0.txt" \

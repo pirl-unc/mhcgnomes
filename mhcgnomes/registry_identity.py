@@ -97,8 +97,8 @@ def build_registry_index(identities, include_aliases=True):
 def registry_identities():
     """Return the cached read-only mapping of namespaced IDs to curated identities.
 
-    Coverage is all 364 abandoned IPD-MHC accessions retained in the pinned
-    3.8.0.0 XML (releases 0.1.0.0 through 3.15.0.0) plus 58 related public
+    Coverage is all 419 abandoned IPD-MHC accessions retained in the pinned
+    3.17.0.0 XML (releases 0.1.0.0 through 3.17.0.0) plus 84 related public
     accessions needed to represent name collisions. This is not the complete
     IPD registry. Invalid bundled data raises ValueError; file/JSON errors
     propagate.
