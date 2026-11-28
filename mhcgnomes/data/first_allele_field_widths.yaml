@@ -2,17 +2,36 @@
 # Previously inferred from alias-target frequencies; refreshing historical aliases
 # must not change default parsing (#244). The default for every other gene is 2.
 # These preserve existing behavior; changes require nomenclature evidence.
-# DLA-88 authority: https://www.ebi.ac.uk/ipd/mhc/group/DLA/
+#
+# IPD-MHC 3.8.0.0 authorities for 3-digit first fields (#100, #335):
+# - BoLA: https://www.ebi.ac.uk/ipd/mhc/group/BoLA/ (1/2/3/4/6/DQA/DQB/NC1: 100% 3-digit, 0 renumberings;
+#   DRB3 remains at compatibility width 2).
+# - DLA: https://www.ebi.ac.uk/ipd/mhc/group/DLA/ (12/88/DQA1/DQB1/DRB1: 100% 3-digit, 0 renumberings).
+# - NHP (Mamu/Mafa/Mane): https://www.ebi.ac.uk/ipd/mhc/group/NHP/ (A1/B: 100% 3-digit, 0 renumberings).
 BoLA:
   "1": 3
   "2": 3
   "3": 3
+  "4": 3
   "6": 3
+  "DQA": 3
+  "DQB": 3
+  "NC1": 3
 DLA:
+  "12": 3
   "88": 3
+  "DQA1": 3
+  "DQB1": 3
+  "DRB1": 3
 HLA:
   "MICA": 3
   "MICB": 3
+Mafa:
+  "A1": 3
+  "B": 3
 Mamu:
+  "A1": 3
+  "B": 3
+Mane:
   "A1": 3
   "B": 3
