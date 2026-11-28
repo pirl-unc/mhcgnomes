@@ -34,6 +34,16 @@ SPELLINGS = [
 def test_every_recorded_name_and_accession_has_source_backed_candidates(identity, name):
     result = parse(name, use_allele_aliases=True, require_explicit_species=True)
     candidates = get_registry_identities(name)
+    if name in identity.aliases and all(r.canonical_name == name for r in candidates):
+        # Canonical-name ownership (priority 1) shadows another accession's
+        # historical alias (priority 0), e.g. Mafa-K*01:02 belongs canonically
+        # to NHP12393 while also appearing in NHP11275's history.
+        assert candidates
+        assert result.to_string() == name
+        assert result.registry_identities == candidates
+        assert result.species_source == "explicit"
+        assert result.raw_string == name
+        return
     assert identity in candidates
     distinct_canonicals = {r.canonical_name for r in candidates}
     if len(distinct_canonicals) > 1:
@@ -141,9 +151,9 @@ def test_retained_record_name_wins_over_another_accessions_history():
 def test_registry_lookup_and_public_index_contract():
     identity = get_registry_identity("  ipd-mhc:nhp00355  ")
     assert identity is get_registry_identity("mamu-ag*01:01")
-    assert len(registry_identities()) == 422
-    assert sum(r.status == "abandoned" for r in IDENTITIES) == 364
-    assert len(set(IDENTITIES)) == 422
+    assert len(registry_identities()) == 503
+    assert sum(r.status == "abandoned" for r in IDENTITIES) == 419
+    assert len(set(IDENTITIES)) == 503
     assert identity == replace(identity, status="changed metadata")
     assert hash(identity) == hash(replace(identity, status="changed metadata"))
     assert identity != identity.identifier
@@ -180,6 +190,7 @@ def test_registry_lookup_and_public_index_contract():
     "name",
     [
         "NHP99999999",
+        "BOLA99999999",
         "DLA99999999",
         "OLA99999999",
         "SLA99999999",
@@ -230,11 +241,11 @@ def test_dataframe_and_cli_cover_every_spelling_and_keep_status():
     rows = json.loads(completed.stdout)
     assert [row["input"] for row in rows] == names
     assert [row["normalized"] for row in rows] == frame["normalized"].tolist()
-    for row, (identity, name) in zip(rows, SPELLINGS):
+    for row, (_, name) in zip(rows, SPELLINGS):
         candidates = get_registry_identities(name)
         distinct_canonicals = {r.canonical_name for r in candidates}
         if len(candidates) == 1:
-            assert f"registry_id={identity.identifier}" in row["properties"]
+            assert f"registry_id={candidates[0].identifier}" in row["properties"]
             assert "registry_status=abandoned" in row["properties"]
         elif len(distinct_canonicals) > 1:
             resolved = parse(name, use_allele_aliases=True).registry_identity
@@ -272,17 +283,23 @@ def test_shared_latest_name_retains_both_accessions_without_claiming_equivalence
 
 
 def test_dla_shared_latest_name_and_transitive_no_colon_collision():
-    # DLA-DRB1*097:01 belongs to public DLA07966 and abandoned DLA08202;
-    # DLA-DRB1*09701 is the latest XML name of public DLA04910 (and history of DLA07966).
-    candidates = get_registry_identities("DLA-DRB1*097:01")
-    assert tuple(r.accession for r in candidates) == ("DLA07966", "DLA08202")
-    assert tuple(r.status for r in candidates) == ("public", "abandoned")
+    # In IPD-MHC 3.17.0.0:
+    # - DLA-DRB1*097:01 belongs to public DLA04910 and public DLA07966
+    # - DLA-DRB1*09701 belongs to abandoned DLA08202 and abandoned DLA08399
+    pub_candidates = get_registry_identities("DLA-DRB1*097:01")
+    assert tuple(r.accession for r in pub_candidates) == ("DLA04910", "DLA07966")
+    assert tuple(r.status for r in pub_candidates) == ("public", "public")
     assert parse("DLA-DRB1*097:01").registry_id is None
-    assert parse("DLA-DRB1*097:01").registry_identities == candidates
-    assert parse("DLA07966").registry_id == "IPD-MHC:DLA07966"
-    assert parse("DLA08202").registry_id == "IPD-MHC:DLA08202"
-    assert parse("DLA04910").registry_id == "IPD-MHC:DLA04910"
-    assert parse("DLA-DRB1*09701").registry_id == "IPD-MHC:DLA04910"
+    assert parse("DLA-DRB1*097:01").registry_identities == pub_candidates
+    ab_candidates = get_registry_identities("DLA-DRB1*09701")
+    assert tuple(r.accession for r in ab_candidates) == ("DLA08202", "DLA08399")
+    assert tuple(r.status for r in ab_candidates) == ("abandoned", "abandoned")
+    parsed_nocolon = parse("DLA-DRB1*09701")
+    assert parsed_nocolon.to_string() == "DLA-DRB1*09701"
+    assert parsed_nocolon.registry_id is None
+    assert parsed_nocolon.registry_identities == ab_candidates
+    for acc in ("DLA04910", "DLA07966", "DLA08202", "DLA08399"):
+        assert parse(acc).registry_id == f"IPD-MHC:{acc}"
 
 
 def test_sla_shared_historical_aliases_preserve_documented_alias_resolution():
@@ -298,11 +315,14 @@ def test_sla_shared_historical_aliases_preserve_documented_alias_resolution():
         assert resolved.registry_id == f"IPD-MHC:{pub_acc}"
 
 
-def test_curated_alias_target_is_not_overridden_by_related_public_history():
-    # NHP01884 (Mamu-A1*011:01:01:01) lists Mamu-A1*011:01 in its history, but
-    # curated Mamu-A*11 -> A1*011:01 keeps Mamu-A1*011:01 as a fixed point.
+def test_curated_alias_target_and_keys_are_not_overridden_by_related_public_history():
+    # NHP01884 (Mamu-A1*011:01:01:01) lists Mamu-A1*011:01, Mamu-A*08, and Mamu-A*26
+    # in its IPD-MHC history, but curated Mamu-A*11 -> A1*011:01, Mamu-A*08 -> A1*008:01:01,
+    # and Mamu-A*26 -> A1*026:01 (de Groot et al. 2012) keep precedence.
     assert get_registry_identity("Mamu-A1*011:01").accession == "NHP01884"
     assert parse("Mamu-A*11", use_allele_aliases=True).to_string() == "Mamu-A1*011:01"
     assert parse("Mamu-A1*011:01", use_allele_aliases=True).to_string() == "Mamu-A1*011:01"
+    assert parse("Mamu-A*08", use_allele_aliases=True).to_string() == "Mamu-A1*008:01:01"
+    assert parse("Mamu-A*26", use_allele_aliases=True).to_string() == "Mamu-A1*026:01"
     assert parse("NHP01884").to_string() == "Mamu-A1*011:01:01:01"
     assert parse("Mamu-A1*011:04", use_allele_aliases=True).registry_id == "IPD-MHC:NHP10808"

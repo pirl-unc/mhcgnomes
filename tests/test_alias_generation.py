@@ -102,15 +102,15 @@ def test_source_coverage_is_recorded():
     audit = json.loads(
         (Path(__file__).parents[1] / "data-sources/allele-alias-audit.json").read_text()
     )
-    assert audit["coverage"]["IPD-MHC-3.8.0.0.xml"] == {
-        "source_records": 11756,
-        "excluded_records": 364,
-        "current_records": 11392,
-        "records_with_history": 5203,
-        "historical_names": 7222,
+    assert audit["coverage"]["IPD-MHC-3.17.0.0.xml"] == {
+        "source_records": 12833,
+        "excluded_records": 419,
+        "current_records": 12414,
+        "records_with_history": 5353,
+        "historical_names": 7675,
     }
-    assert audit["sources"]["IPD-MHC-3.8.0.0.xml"]["accepted"] > 2900
-    assert len(audit["excluded_records"]) == 364
+    assert audit["sources"]["IPD-MHC-3.17.0.0.xml"]["accepted"] > 3100
+    assert len(audit["excluded_records"]) == 419
     excluded = next(r for r in audit["excluded_records"] if r["accession"] == "NHP10764")
     assert excluded["accession"] == "NHP10764"
     assert excluded["name"] == "Paha-DP1*06:01"
@@ -121,7 +121,7 @@ def test_source_coverage_is_recorded():
 
 
 def test_abandoned_ipd_record_is_retained_in_audit_and_identity_catalog(tmp_path):
-    source = tmp_path / "IPD-MHC-3.8.0.0.xml"
+    source = tmp_path / "IPD-MHC-3.17.0.0.xml"
     source.write_text("""<database><entries>
       <entry id="NHP01884"><name>Mamu-A1*011:01:01:01</name><additional_fields>
         <field name="nomenclature">A*06:01</field>
@@ -170,7 +170,7 @@ def test_abandoned_ipd_record_is_retained_in_audit_and_identity_catalog(tmp_path
 def test_ipd_annotation_requires_matching_source_accession_and_name():
     name = "DP1*06:01"
     other_source = RegistryRecord("Paha", "NHP10764", name, (), "another-release.xml")
-    other_accession = RegistryRecord("Paha", "NHP99999", name, (), "IPD-MHC-3.8.0.0.xml")
+    other_accession = RegistryRecord("Paha", "NHP99999", name, (), "IPD-MHC-3.17.0.0.xml")
     assert generator.partition_ipd_records([other_source, other_accession]) == (
         [other_source, other_accession],
         [],
@@ -178,7 +178,7 @@ def test_ipd_annotation_requires_matching_source_accession_and_name():
     for species, changed_name in [("Paha", "DPB1*06:01"), ("Mamu", name)]:
         with pytest.raises(ValueError, match="annotation name mismatch for NHP10764"):
             generator.partition_ipd_records(
-                [RegistryRecord(species, "NHP10764", changed_name, (), "IPD-MHC-3.8.0.0.xml")]
+                [RegistryRecord(species, "NHP10764", changed_name, (), "IPD-MHC-3.17.0.0.xml")]
             )
 
 
@@ -207,8 +207,8 @@ def test_source_audit_has_no_unparseable_name_allowance(monkeypatch):
 
 def test_identity_generation_retains_all_history_and_rejects_duplicate_accessions():
     records = [
-        RegistryRecord("Mamu", "NHP00355", "AG*01:01", ("AG*01",), "IPD-MHC-3.8.0.0.xml"),
-        RegistryRecord("Paha", "NHP10764", "DP1*06:01", (), "IPD-MHC-3.8.0.0.xml"),
+        RegistryRecord("Mamu", "NHP00355", "AG*01:01", ("AG*01",), "IPD-MHC-3.17.0.0.xml"),
+        RegistryRecord("Paha", "NHP10764", "DP1*06:01", (), "IPD-MHC-3.17.0.0.xml"),
     ]
     _, excluded = generator.partition_ipd_records(records)
     rows = generator.registry_identity_rows(excluded)
@@ -216,7 +216,7 @@ def test_identity_generation_retains_all_history_and_rejects_duplicate_accession
     assert rows[0]["canonical_name"] == "Mamu-AG*01:01"
     assert rows[0]["aliases"] == ["Mamu-AG*01"]
     assert rows[0]["status"] == "abandoned"
-    assert rows[0]["source_release"] == "3.8.0.0"
+    assert rows[0]["source_release"] == "3.17.0.0"
     with pytest.raises(ValueError, match="Duplicate registry accession"):
         generator.registry_identity_rows([*excluded, excluded[0]])
 
@@ -284,7 +284,7 @@ def test_history_does_not_invent_resolution_or_change_default_padding():
 
 
 def test_identity_generation_requires_related_records_and_complete_collision_inventory():
-    abandoned = RegistryRecord("Mafa", "NHP11988", "DQA1*01:16:01", (), "IPD-MHC-3.8.0.0.xml")
+    abandoned = RegistryRecord("Mafa", "NHP11988", "DQA1*01:16:01", (), "IPD-MHC-3.17.0.0.xml")
     public = RegistryRecord("Mafa", "NHP04701", "DQA1*01:16:01", ("DQA1*01:16",), abandoned.source)
     _, excluded = generator.partition_ipd_records([abandoned])
     with pytest.raises(ValueError, match="Related registry record missing/mismatched"):
@@ -299,9 +299,9 @@ def test_identity_generation_requires_related_records_and_complete_collision_inv
 
 
 def test_identity_generation_deduplicates_identical_shared_related_records():
-    ab1 = RegistryRecord("Mamu", "NHP10798", "F*01:04", (), "IPD-MHC-3.8.0.0.xml")
-    ab2 = RegistryRecord("Mamu", "NHP10799", "F*01:04:01", (), "IPD-MHC-3.8.0.0.xml")
-    pub = RegistryRecord("Mamu", "NHP00585", "F*02:04:01", ("F*01:04", "F*01:04:01"), ab1.source)
+    ab1 = RegistryRecord("Mamu", "NHP10798", "F*01:04", (), "IPD-MHC-3.17.0.0.xml")
+    ab2 = RegistryRecord("Mamu", "NHP10799", "F*01:04:01", (), "IPD-MHC-3.17.0.0.xml")
+    pub = RegistryRecord("Mamu", "NHP00585", "F*02:04:01:01", ("F*01:04", "F*01:04:01"), ab1.source)
     _, excluded = generator.partition_ipd_records([ab1, ab2])
     rows = generator.registry_identity_rows(excluded, [ab1, ab2, pub])
     assert [r["accession"] for r in rows] == ["NHP00585", "NHP10798", "NHP10799"]

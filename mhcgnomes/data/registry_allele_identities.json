@@ -1,13 +1,218 @@
 [
   {
-    "accession": "DLA04910",
+    "accession": "BOLA03101",
+    "aliases": [
+      "BoLA-DRB3*0102"
+    ],
+    "canonical_name": "BoLA-DRB3*001:02",
+    "locus": "DRB3",
+    "mhc_class": "II",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/BOLA03101?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Bos sp.",
+    "status": "abandoned",
+    "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1001/"
+  },
+  {
+    "accession": "BOLA03266",
+    "aliases": [
+      "BoLA-DQA*0501"
+    ],
+    "canonical_name": "BoLA-DQA*005:01",
+    "locus": "DQA",
+    "mhc_class": "II",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/BOLA03266?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Bos sp.",
+    "status": "abandoned",
+    "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1000/"
+  },
+  {
+    "accession": "BOLA03304",
+    "aliases": [
+      "BoLA-DQB*10022"
+    ],
+    "canonical_name": "BoLA-DQB*010:02:02",
+    "locus": "DQB",
+    "mhc_class": "II",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/BOLA03304?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Bos sp.",
+    "status": "abandoned",
+    "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1000/"
+  },
+  {
+    "accession": "BOLA03305",
+    "aliases": [
+      "BoLA-DQB*1004"
+    ],
+    "canonical_name": "BoLA-DQB*010:04",
+    "locus": "DQB",
+    "mhc_class": "II",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/BOLA03305?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Bos sp.",
+    "status": "abandoned",
+    "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1000/"
+  },
+  {
+    "accession": "BOLA03306",
+    "aliases": [
+      "BoLA-DQB*1007"
+    ],
+    "canonical_name": "BoLA-DQB*010:07",
+    "locus": "DQB",
+    "mhc_class": "II",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/BOLA03306?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Bos sp.",
+    "status": "abandoned",
+    "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1000/"
+  },
+  {
+    "accession": "BOLA03307",
+    "aliases": [
+      "BoLA-DRB3*2006"
+    ],
+    "canonical_name": "BoLA-DRB3*020:06",
+    "locus": "DRB3",
+    "mhc_class": "II",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/BOLA03307?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Bos sp.",
+    "status": "abandoned",
+    "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1001/"
+  },
+  {
+    "accession": "BOLA03308",
+    "aliases": [
+      "BoLA-DRB3*2007"
+    ],
+    "canonical_name": "BoLA-DRB3*020:07",
+    "locus": "DRB3",
+    "mhc_class": "II",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/BOLA03308?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Bos sp.",
+    "status": "abandoned",
+    "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1000/"
+  },
+  {
+    "accession": "BOLA03309",
+    "aliases": [
+      "BoLA-DRB3*46012"
+    ],
+    "canonical_name": "BoLA-DRB3*046:01:02",
+    "locus": "DRB3",
+    "mhc_class": "II",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/BOLA03309?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Bos sp.",
+    "status": "abandoned",
+    "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1001/"
+  },
+  {
+    "accession": "BOLA09811",
     "aliases": [],
-    "canonical_name": "DLA-DRB1*09701",
+    "canonical_name": "BoLA-DRB3*024:06",
+    "locus": "DRB3",
+    "mhc_class": "II",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/BOLA09811?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Bos sp.",
+    "status": "abandoned",
+    "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3501/"
+  },
+  {
+    "accession": "BOLA10065",
+    "aliases": [
+      "BoLA-2*077:01",
+      "BoLA-2*087:01"
+    ],
+    "canonical_name": "BoLA-2*088:01",
+    "locus": "2",
+    "mhc_class": "I",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/BOLA10065?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Bos sp.",
+    "status": "abandoned",
+    "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3800/"
+  },
+  {
+    "accession": "BOLA10073",
+    "aliases": [
+      "BoLA-3*075:01N"
+    ],
+    "canonical_name": "BoLA-3*084:01N",
+    "locus": "3",
+    "mhc_class": "I",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/BOLA10073?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Bos sp.",
+    "status": "abandoned",
+    "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3800/"
+  },
+  {
+    "accession": "BOLA10104",
+    "aliases": [],
+    "canonical_name": "BoLA-6*092:01",
+    "locus": "6",
+    "mhc_class": "I",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/BOLA10104?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Bos sp.",
+    "status": "abandoned",
+    "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3800/"
+  },
+  {
+    "accession": "BOLA10110",
+    "aliases": [],
+    "canonical_name": "BoLA-4*077:01",
+    "locus": "4",
+    "mhc_class": "I",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/BOLA10110?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Bos sp.",
+    "status": "abandoned",
+    "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3800/"
+  },
+  {
+    "accession": "BOLA10114",
+    "aliases": [],
+    "canonical_name": "BoLA-NC1*013:01",
+    "locus": "NC1",
+    "mhc_class": "I",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/BOLA10114?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Bos sp.",
+    "status": "abandoned",
+    "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3800/"
+  },
+  {
+    "accession": "DLA04910",
+    "aliases": [
+      "DLA-DRB1*09701"
+    ],
+    "canonical_name": "DLA-DRB1*097:01",
     "locus": "DRB1",
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/DLA04910?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Canis sp.",
     "status": "public",
     "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/DLA04910?project=mhc"
@@ -22,7 +227,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/DLA07966?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Canis sp.",
     "status": "public",
     "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/DLA07966?project=mhc"
@@ -30,12 +235,12 @@
   {
     "accession": "DLA08202",
     "aliases": [],
-    "canonical_name": "DLA-DRB1*097:01",
+    "canonical_name": "DLA-DRB1*09701",
     "locus": "DRB1",
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/DLA08202?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Canis sp.",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31500/"
@@ -48,10 +253,23 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/DLA08335?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Canis sp.",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3800/"
+  },
+  {
+    "accession": "DLA08399",
+    "aliases": [],
+    "canonical_name": "DLA-DRB1*09701",
+    "locus": "DRB1",
+    "mhc_class": "II",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/DLA08399?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Canis sp.",
+    "status": "abandoned",
+    "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31500/"
   },
   {
     "accession": "NHP00085",
@@ -63,7 +281,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00085?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Callithrix jacchus",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
@@ -76,7 +294,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00177?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Chlorocebus aethiops",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1000/"
@@ -92,7 +310,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00192?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Gorilla gorilla",
     "status": "public",
     "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00192?project=mhc"
@@ -107,7 +325,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00201?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Gorilla gorilla",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3300/"
@@ -122,7 +340,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00202?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Gorilla gorilla",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3300/"
@@ -135,7 +353,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00206?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Gorilla gorilla",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1000/"
@@ -151,7 +369,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00302?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "public",
     "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00302?project=mhc"
@@ -167,7 +385,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00305?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "public",
     "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00305?project=mhc"
@@ -183,7 +401,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00307?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "public",
     "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00307?project=mhc"
@@ -196,7 +414,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00350?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1000/"
@@ -209,7 +427,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00351?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1000/"
@@ -222,7 +440,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00352?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1000/"
@@ -237,7 +455,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00355?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
@@ -253,7 +471,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00356?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
@@ -269,7 +487,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00357?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
@@ -285,7 +503,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00358?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
@@ -301,7 +519,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00359?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
@@ -316,7 +534,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00360?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
@@ -332,7 +550,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00363?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "public",
     "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00363?project=mhc"
@@ -348,7 +566,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00366?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "public",
     "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00366?project=mhc"
@@ -363,7 +581,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00376?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1001/"
@@ -379,7 +597,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00416?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "public",
     "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00416?project=mhc"
@@ -395,7 +613,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00418?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "public",
     "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00418?project=mhc"
@@ -411,7 +629,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00419?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "public",
     "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00419?project=mhc"
@@ -427,7 +645,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00420?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "public",
     "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00420?project=mhc"
@@ -443,7 +661,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00423?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "public",
     "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00423?project=mhc"
@@ -452,14 +670,15 @@
     "accession": "NHP00429",
     "aliases": [
       "Mamu-DQB1*1808",
-      "Mamu-DQB1*18:08"
+      "Mamu-DQB1*18:08",
+      "Mamu-DQB1*28:01"
     ],
-    "canonical_name": "Mamu-DQB1*28:01",
+    "canonical_name": "Mamu-DQB1*28:01:01:01",
     "locus": "DQB1",
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00429?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "public",
     "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00429?project=mhc"
@@ -468,14 +687,15 @@
     "accession": "NHP00430",
     "aliases": [
       "Mamu-DQB1*1809",
-      "Mamu-DQB1*18:09"
+      "Mamu-DQB1*18:09",
+      "Mamu-DQB1*27:01"
     ],
-    "canonical_name": "Mamu-DQB1*27:01",
+    "canonical_name": "Mamu-DQB1*27:01:01:01",
     "locus": "DQB1",
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00430?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "public",
     "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00430?project=mhc"
@@ -484,14 +704,15 @@
     "accession": "NHP00432",
     "aliases": [
       "Mamu-DQB1*1811",
-      "Mamu-DQB1*18:11"
+      "Mamu-DQB1*18:11",
+      "Mamu-DQB1*27:02"
     ],
-    "canonical_name": "Mamu-DQB1*27:02",
+    "canonical_name": "Mamu-DQB1*27:02:01:01",
     "locus": "DQB1",
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00432?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "public",
     "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00432?project=mhc"
@@ -506,7 +727,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00577?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
@@ -516,14 +737,15 @@
     "aliases": [
       "Mamu-F*0104",
       "Mamu-F*01:04",
-      "Mamu-F*01:04:01"
+      "Mamu-F*01:04:01",
+      "Mamu-F*02:04:01"
     ],
-    "canonical_name": "Mamu-F*02:04:01",
+    "canonical_name": "Mamu-F*02:04:01:01",
     "locus": "F",
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00585?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "public",
     "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00585?project=mhc"
@@ -538,7 +760,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00588?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "public",
     "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00588?project=mhc"
@@ -551,7 +773,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00590?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1000/"
@@ -564,7 +786,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00591?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1000/"
@@ -577,7 +799,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00592?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1000/"
@@ -592,7 +814,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00612?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca nemestrina",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3300/"
@@ -607,7 +829,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00650?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Papio anubis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3001/"
@@ -623,7 +845,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00670?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Pongo pygmaeus",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3300/"
@@ -639,7 +861,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00780?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Pan troglodytes",
     "status": "public",
     "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00780?project=mhc"
@@ -654,7 +876,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00800?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Pan troglodytes",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1001/"
@@ -669,7 +891,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00801?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Pan troglodytes",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1001/"
@@ -685,7 +907,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00802?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Pan troglodytes",
     "status": "public",
     "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00802?project=mhc"
@@ -698,7 +920,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00820?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Pan troglodytes",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3100/"
@@ -711,7 +933,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00822?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Pan troglodytes",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3100/"
@@ -724,7 +946,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00823?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Pan troglodytes",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3100/"
@@ -737,7 +959,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00825?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Pan troglodytes",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3100/"
@@ -750,7 +972,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00826?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Pan troglodytes",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3100/"
@@ -763,7 +985,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00827?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Pan troglodytes",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3100/"
@@ -776,7 +998,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00828?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Pan troglodytes",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3100/"
@@ -792,7 +1014,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00868?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Pan troglodytes",
     "status": "public",
     "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00868?project=mhc"
@@ -807,7 +1029,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00943?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Pongo pygmaeus",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3300/"
@@ -822,7 +1044,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00944?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Pongo pygmaeus",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3300/"
@@ -837,7 +1059,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00945?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Pongo pygmaeus",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3300/"
@@ -850,7 +1072,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00946?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Pongo pygmaeus",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3200/"
@@ -863,7 +1085,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00947?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Pongo pygmaeus",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3200/"
@@ -878,7 +1100,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00951?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Pongo pygmaeus",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3300/"
@@ -893,7 +1115,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00952?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Pongo pygmaeus",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3300/"
@@ -908,7 +1130,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00953?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Pongo pygmaeus",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3300/"
@@ -923,7 +1145,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00954?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Pongo pygmaeus",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3300/"
@@ -938,7 +1160,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00956?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Pongo pygmaeus",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3300/"
@@ -953,7 +1175,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00958?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Pongo pygmaeus",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3300/"
@@ -968,7 +1190,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00959?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Pongo pygmaeus",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3300/"
@@ -983,7 +1205,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP00960?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Pongo pygmaeus",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3300/"
@@ -999,7 +1221,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP01067?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "public",
     "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP01067?project=mhc"
@@ -1015,7 +1237,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP01115?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "public",
     "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP01115?project=mhc"
@@ -1031,7 +1253,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP01139?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "public",
     "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP01139?project=mhc"
@@ -1047,7 +1269,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP01216?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "public",
     "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP01216?project=mhc"
@@ -1063,7 +1285,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP01277?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "public",
     "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP01277?project=mhc"
@@ -1080,7 +1302,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP01328?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "public",
     "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP01328?project=mhc"
@@ -1096,7 +1318,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP01329?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "public",
     "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP01329?project=mhc"
@@ -1112,7 +1334,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP01335?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "public",
     "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP01335?project=mhc"
@@ -1127,7 +1349,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP01593?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3300/"
@@ -1142,7 +1364,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP01594?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3300/"
@@ -1159,7 +1381,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP01614?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "public",
     "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP01614?project=mhc"
@@ -1168,14 +1390,15 @@
     "accession": "NHP01616",
     "aliases": [
       "Mafa-DPA1*0203",
-      "Mafa-DPA1*02:03"
+      "Mafa-DPA1*02:03",
+      "Mafa-DPA1*13:03"
     ],
-    "canonical_name": "Mafa-DPA1*13:03",
+    "canonical_name": "Mafa-DPA1*13:03:01:01",
     "locus": "DPA1",
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP01616?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "public",
     "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP01616?project=mhc"
@@ -1184,14 +1407,15 @@
     "accession": "NHP01627",
     "aliases": [
       "Mamu-F*0101",
-      "Mamu-F*01:01"
+      "Mamu-F*01:01",
+      "Mamu-F*02:01"
     ],
-    "canonical_name": "Mamu-F*02:01",
+    "canonical_name": "Mamu-F*02:01:01:01",
     "locus": "F",
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP01627?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "public",
     "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP01627?project=mhc"
@@ -1206,7 +1430,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP01738?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3201/"
@@ -1223,7 +1447,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP01839?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "public",
     "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP01839?project=mhc"
@@ -1231,6 +1455,8 @@
   {
     "accession": "NHP01884",
     "aliases": [
+      "Mamu-A*08",
+      "Mamu-A*26",
       "Mamu-A1*01104",
       "Mamu-A1*011:01",
       "Mamu-A1*011:04"
@@ -1240,7 +1466,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP01884?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "public",
     "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP01884?project=mhc"
@@ -1257,7 +1483,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP01983?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "public",
     "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP01983?project=mhc"
@@ -1273,7 +1499,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP02061?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "public",
     "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP02061?project=mhc"
@@ -1290,7 +1516,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP02065?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "public",
     "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP02065?project=mhc"
@@ -1306,7 +1532,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP02137?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca nemestrina",
     "status": "public",
     "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP02137?project=mhc"
@@ -1322,7 +1548,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP02144?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca nemestrina",
     "status": "public",
     "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP02144?project=mhc"
@@ -1331,14 +1557,15 @@
     "accession": "NHP02191",
     "aliases": [
       "Mamu-DQB1*1817",
-      "Mamu-DQB1*18:17"
+      "Mamu-DQB1*18:17",
+      "Mamu-DQB1*27:04"
     ],
-    "canonical_name": "Mamu-DQB1*27:04",
+    "canonical_name": "Mamu-DQB1*27:04:01:01",
     "locus": "DQB1",
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP02191?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "public",
     "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP02191?project=mhc"
@@ -1354,7 +1581,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP02199?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "public",
     "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP02199?project=mhc"
@@ -1370,7 +1597,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP02347?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "public",
     "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP02347?project=mhc"
@@ -1386,7 +1613,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP02348?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "public",
     "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP02348?project=mhc"
@@ -1402,7 +1629,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP02548?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca nemestrina",
     "status": "public",
     "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP02548?project=mhc"
@@ -1417,7 +1644,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP02580?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1001/"
@@ -1434,7 +1661,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP02589?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "public",
     "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP02589?project=mhc"
@@ -1450,7 +1677,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP02623?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "public",
     "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP02623?project=mhc"
@@ -1465,7 +1692,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP02628?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1001/"
@@ -1481,7 +1708,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP02644?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "public",
     "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP02644?project=mhc"
@@ -1497,7 +1724,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP02663?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1001/"
@@ -1514,7 +1741,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP02673?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "public",
     "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP02673?project=mhc"
@@ -1530,7 +1757,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP02674?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "public",
     "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP02674?project=mhc"
@@ -1545,7 +1772,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP02693?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3600/"
@@ -1561,7 +1788,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP02903?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "public",
     "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP02903?project=mhc"
@@ -1576,7 +1803,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP02971?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
@@ -1591,7 +1818,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP03363?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
@@ -1604,7 +1831,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP03369?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
@@ -1617,7 +1844,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP03377?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3001/"
@@ -1630,7 +1857,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP03419?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca nemestrina",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1001/"
@@ -1643,7 +1870,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP03429?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca nemestrina",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1001/"
@@ -1656,7 +1883,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP03448?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca nemestrina",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1001/"
@@ -1669,7 +1896,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP03449?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca nemestrina",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1001/"
@@ -1682,7 +1909,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP03450?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca nemestrina",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1001/"
@@ -1697,10 +1924,26 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP03481?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
+  },
+  {
+    "accession": "NHP03497",
+    "aliases": [
+      "Mamu-DQB*27:06; Mamu-DQB1*18:23",
+      "Mamu-DQB1*27:06"
+    ],
+    "canonical_name": "Mamu-DQB1*27:02:02",
+    "locus": "DQB1",
+    "mhc_class": "II",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP03497?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Macaca mulatta",
+    "status": "public",
+    "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP03497?project=mhc"
   },
   {
     "accession": "NHP03501",
@@ -1710,7 +1953,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP03501?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca nemestrina",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1001/"
@@ -1723,7 +1966,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP03508?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca nemestrina",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1001/"
@@ -1736,7 +1979,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP03509?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca nemestrina",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1001/"
@@ -1749,7 +1992,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP03520?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1001/"
@@ -1762,7 +2005,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP03665?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1001/"
@@ -1775,7 +2018,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP03688?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1001/"
@@ -1788,7 +2031,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP03734?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
@@ -1801,7 +2044,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP03742?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1001/"
@@ -1814,10 +2057,25 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP03743?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
+  },
+  {
+    "accession": "NHP03747",
+    "aliases": [
+      "Mamu-B20*01:02"
+    ],
+    "canonical_name": "Mamu-B02Ps*01:02",
+    "locus": "B02Ps",
+    "mhc_class": "I",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP03747?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Macaca mulatta",
+    "status": "public",
+    "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP03747?project=mhc"
   },
   {
     "accession": "NHP03758",
@@ -1829,7 +2087,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP03758?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
@@ -1842,10 +2100,25 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP03759?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
+  },
+  {
+    "accession": "NHP03763",
+    "aliases": [
+      "Mafa-B21*01:02"
+    ],
+    "canonical_name": "Mafa-B21Ps*01:02",
+    "locus": "B21Ps",
+    "mhc_class": "I",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP03763?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Macaca fascicularis",
+    "status": "public",
+    "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP03763?project=mhc"
   },
   {
     "accession": "NHP03765",
@@ -1857,7 +2130,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP03765?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
@@ -1870,7 +2143,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP03796?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3600/"
@@ -1883,7 +2156,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP03838?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
@@ -1896,7 +2169,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP03842?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
@@ -1909,7 +2182,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP03843?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
@@ -1922,7 +2195,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP03897?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca nemestrina",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1001/"
@@ -1935,7 +2208,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP03904?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca nemestrina",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1001/"
@@ -1948,7 +2221,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP03913?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca nemestrina",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1001/"
@@ -1961,7 +2234,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP03914?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca nemestrina",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1001/"
@@ -1974,7 +2247,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP03916?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca nemestrina",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1001/"
@@ -1987,7 +2260,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP03917?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca nemestrina",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1001/"
@@ -2000,7 +2273,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP03921?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca nemestrina",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1001/"
@@ -2013,7 +2286,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP03922?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca nemestrina",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1001/"
@@ -2026,7 +2299,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP03925?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca nemestrina",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1001/"
@@ -2039,7 +2312,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP03927?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca nemestrina",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1001/"
@@ -2052,7 +2325,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP03928?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca nemestrina",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1001/"
@@ -2065,7 +2338,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP03929?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca nemestrina",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1001/"
@@ -2078,7 +2351,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP03930?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca nemestrina",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1001/"
@@ -2091,10 +2364,41 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP03934?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3600/"
+  },
+  {
+    "accession": "NHP03946",
+    "aliases": [
+      "Mamu-B20*01:04",
+      "Mamu-B20*01:04:01:01"
+    ],
+    "canonical_name": "Mamu-B02Ps*01:04:01:01",
+    "locus": "B02Ps",
+    "mhc_class": "I",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP03946?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Macaca mulatta",
+    "status": "public",
+    "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP03946?project=mhc"
+  },
+  {
+    "accession": "NHP03969",
+    "aliases": [
+      "Mafa-B20*01:02"
+    ],
+    "canonical_name": "Mafa-B02Ps*01:02",
+    "locus": "B02Ps",
+    "mhc_class": "I",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP03969?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Macaca fascicularis",
+    "status": "public",
+    "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP03969?project=mhc"
   },
   {
     "accession": "NHP03985",
@@ -2104,7 +2408,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP03985?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca nemestrina",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1001/"
@@ -2117,7 +2421,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP03988?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca nemestrina",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1001/"
@@ -2130,7 +2434,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP03991?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca nemestrina",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1001/"
@@ -2143,7 +2447,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP03992?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca nemestrina",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1001/"
@@ -2158,7 +2462,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP04043?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca nemestrina",
     "status": "public",
     "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP04043?project=mhc"
@@ -2171,7 +2475,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP04087?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
@@ -2184,7 +2488,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP04112?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1000/"
@@ -2197,7 +2501,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP04138?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca nemestrina",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1001/"
@@ -2210,7 +2514,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP04179?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca nemestrina",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1001/"
@@ -2223,7 +2527,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP04222?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Callithrix jacchus",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
@@ -2236,7 +2540,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP04269?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
@@ -2252,7 +2556,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP04270?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
@@ -2265,7 +2569,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP04271?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
@@ -2278,7 +2582,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP04273?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
@@ -2291,7 +2595,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP04274?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
@@ -2304,7 +2608,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP04276?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
@@ -2317,7 +2621,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP04277?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
@@ -2330,7 +2634,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP04296?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca nemestrina",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
@@ -2343,7 +2647,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP04298?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1001/"
@@ -2356,7 +2660,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP04300?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
@@ -2369,7 +2673,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP04301?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
@@ -2382,7 +2686,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP04302?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
@@ -2395,7 +2699,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP04303?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
@@ -2408,7 +2712,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP04304?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
@@ -2421,7 +2725,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP04305?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
@@ -2434,7 +2738,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP04306?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
@@ -2447,7 +2751,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP04307?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
@@ -2460,7 +2764,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP04308?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
@@ -2475,7 +2779,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP04309?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
@@ -2490,7 +2794,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP04311?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
@@ -2503,7 +2807,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP04324?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
@@ -2518,7 +2822,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP04329?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "public",
     "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP04329?project=mhc"
@@ -2534,7 +2838,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP04337?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
@@ -2549,7 +2853,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP04346?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
@@ -2562,7 +2866,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP04410?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Saguinus oedipus",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3001/"
@@ -2575,7 +2879,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP04419?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
@@ -2588,7 +2892,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP04420?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
@@ -2601,7 +2905,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP04424?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
@@ -2614,7 +2918,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP04425?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
@@ -2627,7 +2931,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP04426?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
@@ -2640,7 +2944,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP04427?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
@@ -2653,7 +2957,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP04428?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
@@ -2668,7 +2972,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP04429?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
@@ -2681,7 +2985,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP04430?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
@@ -2694,7 +2998,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP04431?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
@@ -2707,7 +3011,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP04432?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
@@ -2720,7 +3024,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP04580?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca nemestrina",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1001/"
@@ -2733,7 +3037,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP04582?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca nemestrina",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1001/"
@@ -2746,7 +3050,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP04585?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca nemestrina",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1001/"
@@ -2759,7 +3063,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP04588?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca nemestrina",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1001/"
@@ -2772,7 +3076,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP04590?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca nemestrina",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1001/"
@@ -2785,7 +3089,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP04603?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1001/"
@@ -2798,7 +3102,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP04604?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1001/"
@@ -2811,7 +3115,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP04638?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
@@ -2826,7 +3130,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP04639?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
@@ -2839,7 +3143,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP04640?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
@@ -2852,7 +3156,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP04684?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Callithrix jacchus",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1001/"
@@ -2867,7 +3171,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP04701?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "public",
     "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP04701?project=mhc"
@@ -2883,7 +3187,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP04808?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "public",
     "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP04808?project=mhc"
@@ -2892,14 +3196,15 @@
     "accession": "NHP04809",
     "aliases": [
       "Mafa-F*01:04",
-      "Mafa-F*01:04:01"
+      "Mafa-F*01:04:01",
+      "Mafa-F*02:04:01"
     ],
-    "canonical_name": "Mafa-F*02:04:01",
+    "canonical_name": "Mafa-F*02:04:01:01",
     "locus": "F",
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP04809?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "public",
     "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP04809?project=mhc"
@@ -2915,10 +3220,25 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP04811?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "public",
     "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP04811?project=mhc"
+  },
+  {
+    "accession": "NHP05130",
+    "aliases": [
+      "Mamu-DQA1*01:04:02"
+    ],
+    "canonical_name": "Mamu-DQA1*01:13",
+    "locus": "DQA1",
+    "mhc_class": "II",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP05130?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Macaca mulatta",
+    "status": "public",
+    "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP05130?project=mhc"
   },
   {
     "accession": "NHP05144",
@@ -2928,7 +3248,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP05144?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
@@ -2941,7 +3261,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP05471?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca nemestrina",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1001/"
@@ -2954,7 +3274,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP05479?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca nemestrina",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1001/"
@@ -2967,7 +3287,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP05508?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Pongo abelii",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31500/"
@@ -2980,7 +3300,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP05527?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3600/"
@@ -2993,7 +3313,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP06230?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3001/"
@@ -3006,7 +3326,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP06775?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3600/"
@@ -3019,7 +3339,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP06842?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
@@ -3032,7 +3352,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP06882?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3001/"
@@ -3045,7 +3365,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP06926?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
@@ -3058,7 +3378,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP06927?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
@@ -3071,7 +3391,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP06955?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
@@ -3084,7 +3404,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP07096?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Papio anubis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v2002/"
@@ -3097,7 +3417,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP07163?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Gorilla gorilla",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3300/"
@@ -3110,7 +3430,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP07165?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Gorilla gorilla",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3300/"
@@ -3123,7 +3443,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP07166?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Gorilla gorilla",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3300/"
@@ -3136,7 +3456,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP07167?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Gorilla gorilla",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3300/"
@@ -3149,7 +3469,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP07168?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Gorilla gorilla",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3300/"
@@ -3162,7 +3482,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP07376?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca nemestrina",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
@@ -3175,7 +3495,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP07447?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3001/"
@@ -3188,7 +3508,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP07652?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3600/"
@@ -3201,7 +3521,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP07665?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Chlorocebus sabaeus",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v2002/"
@@ -3214,7 +3534,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP07675?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Chlorocebus sabaeus",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v2002/"
@@ -3229,7 +3549,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP08755?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3401/"
@@ -3244,7 +3564,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP08783?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v2200/"
@@ -3257,7 +3577,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP08905?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v2200/"
@@ -3270,7 +3590,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP08908?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v2200/"
@@ -3285,7 +3605,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP08911?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3401/"
@@ -3298,7 +3618,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP09457?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3600/"
@@ -3311,7 +3631,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP09464?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3600/"
@@ -3324,7 +3644,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP09546?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3600/"
@@ -3337,7 +3657,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP09676?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Pan troglodytes",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3100/"
@@ -3350,7 +3670,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP09771?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
@@ -3363,7 +3683,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP09799?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3001/"
@@ -3376,7 +3696,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP09835?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Callithrix jacchus",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3001/"
@@ -3389,7 +3709,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP09849?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3600/"
@@ -3402,7 +3722,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP09862?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3600/"
@@ -3415,7 +3735,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP09906?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
@@ -3428,7 +3748,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP09985?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3600/"
@@ -3441,7 +3761,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP09998?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Papio anubis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3100/"
@@ -3456,7 +3776,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10019?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Callithrix jacchus",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3200/"
@@ -3471,7 +3791,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10020?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Callithrix jacchus",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3200/"
@@ -3486,7 +3806,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10022?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Callithrix jacchus",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3200/"
@@ -3499,7 +3819,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10034?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Gorilla gorilla",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3300/"
@@ -3512,7 +3832,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10040?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Gorilla gorilla",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3300/"
@@ -3525,7 +3845,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10041?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Gorilla gorilla",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3300/"
@@ -3538,7 +3858,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10057?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Gorilla gorilla",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3300/"
@@ -3551,7 +3871,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10064?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3400/"
@@ -3564,7 +3884,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10080?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3600/"
@@ -3577,7 +3897,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10087?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
@@ -3590,7 +3910,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10147?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3600/"
@@ -3603,7 +3923,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10148?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3600/"
@@ -3616,7 +3936,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10166?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3400/"
@@ -3629,7 +3949,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10237?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3600/"
@@ -3642,7 +3962,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10240?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
@@ -3657,7 +3977,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10320?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Callithrix jacchus",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3400/"
@@ -3672,7 +3992,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10321?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Callithrix jacchus",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3400/"
@@ -3687,7 +4007,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10322?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Callithrix jacchus",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3400/"
@@ -3702,10 +4022,25 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10323?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Callithrix jacchus",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3400/"
+  },
+  {
+    "accession": "NHP10426",
+    "aliases": [
+      "Mamu-B20*01:04:01:02"
+    ],
+    "canonical_name": "Mamu-B02Ps*01:04:01:02",
+    "locus": "B02Ps",
+    "mhc_class": "I",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10426?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Macaca mulatta",
+    "status": "public",
+    "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10426?project=mhc"
   },
   {
     "accession": "NHP10446",
@@ -3715,10 +4050,25 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10446?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31300/"
+  },
+  {
+    "accession": "NHP10504",
+    "aliases": [
+      "Mamu-B20*01:04:01:03"
+    ],
+    "canonical_name": "Mamu-B02Ps*01:04:01:03",
+    "locus": "B02Ps",
+    "mhc_class": "I",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10504?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Macaca mulatta",
+    "status": "public",
+    "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10504?project=mhc"
   },
   {
     "accession": "NHP10524",
@@ -3728,7 +4078,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10524?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
@@ -3741,7 +4091,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10530?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3600/"
@@ -3754,7 +4104,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10637?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3500/"
@@ -3767,7 +4117,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10652?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3500/"
@@ -3780,7 +4130,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10672?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
@@ -3793,7 +4143,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10675?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3500/"
@@ -3806,7 +4156,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10683?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
@@ -3819,7 +4169,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10686?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
@@ -3832,7 +4182,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10697?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
@@ -3845,7 +4195,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10764?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Papio hamadryas",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
@@ -3858,7 +4208,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10783?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Gorilla gorilla",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1000/"
@@ -3871,7 +4221,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10784?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1000/"
@@ -3884,7 +4234,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10785?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1000/"
@@ -3897,7 +4247,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10786?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1000/"
@@ -3910,7 +4260,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10787?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1000/"
@@ -3923,7 +4273,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10788?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1000/"
@@ -3936,7 +4286,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10789?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1000/"
@@ -3949,7 +4299,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10790?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1000/"
@@ -3962,7 +4312,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10791?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1000/"
@@ -3975,7 +4325,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10792?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1000/"
@@ -3988,7 +4338,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10793?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1000/"
@@ -4001,7 +4351,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10794?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1000/"
@@ -4014,7 +4364,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10795?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1000/"
@@ -4027,7 +4377,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10796?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1000/"
@@ -4040,7 +4390,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10797?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1000/"
@@ -4053,7 +4403,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10798?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1000/"
@@ -4066,7 +4416,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10799?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3000/"
@@ -4079,7 +4429,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10800?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1000/"
@@ -4092,7 +4442,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10801?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1000/"
@@ -4105,7 +4455,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10802?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3000/"
@@ -4118,7 +4468,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10803?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1000/"
@@ -4131,7 +4481,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10804?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1000/"
@@ -4144,7 +4494,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10805?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1000/"
@@ -4157,7 +4507,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10806?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1000/"
@@ -4170,7 +4520,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10807?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1000/"
@@ -4183,7 +4533,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10808?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1000/"
@@ -4196,7 +4546,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10809?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1000/"
@@ -4209,7 +4559,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10810?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Pan troglodytes",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1000/"
@@ -4222,7 +4572,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10811?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Pan troglodytes",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1000/"
@@ -4235,7 +4585,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10812?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Pan troglodytes",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1000/"
@@ -4248,7 +4598,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10813?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1000/"
@@ -4261,7 +4611,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10814?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1000/"
@@ -4274,7 +4624,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10815?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1000/"
@@ -4287,7 +4637,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10816?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1000/"
@@ -4300,7 +4650,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10817?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1000/"
@@ -4313,7 +4663,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10818?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1000/"
@@ -4326,7 +4676,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10819?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1000/"
@@ -4339,7 +4689,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10820?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1000/"
@@ -4352,7 +4702,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10821?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1000/"
@@ -4365,7 +4715,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10822?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1000/"
@@ -4378,7 +4728,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10823?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1000/"
@@ -4391,7 +4741,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10824?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1001/"
@@ -4404,7 +4754,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10825?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1000/"
@@ -4417,7 +4767,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10826?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1000/"
@@ -4430,7 +4780,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10827?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v0100/"
@@ -4443,7 +4793,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10828?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1000/"
@@ -4456,7 +4806,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10829?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1000/"
@@ -4469,7 +4819,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10830?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3000/"
@@ -4482,7 +4832,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10831?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3000/"
@@ -4495,7 +4845,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10832?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3000/"
@@ -4508,7 +4858,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10833?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca nemestrina",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1000/"
@@ -4521,7 +4871,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10834?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca nemestrina",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1000/"
@@ -4534,7 +4884,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10835?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca nemestrina",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1000/"
@@ -4547,7 +4897,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP10840?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v1000/"
@@ -4560,7 +4910,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11194?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3900/"
@@ -4573,10 +4923,25 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11195?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31000/"
+  },
+  {
+    "accession": "NHP11245",
+    "aliases": [
+      "Mafa-DPB2*01:01:01:01N"
+    ],
+    "canonical_name": "Mafa-DPB2*02:01:01:01N",
+    "locus": "DPB2",
+    "mhc_class": "II",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11245?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Macaca fascicularis",
+    "status": "public",
+    "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11245?project=mhc"
   },
   {
     "accession": "NHP11253",
@@ -4586,7 +4951,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11253?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31300/"
@@ -4599,23 +4964,130 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11264?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31300/"
   },
   {
     "accession": "NHP11275",
-    "aliases": [],
-    "canonical_name": "Mafa-K*01:02",
+    "aliases": [
+      "Mafa-K*01:02"
+    ],
+    "canonical_name": "Mafa-K*02:02:01:01",
     "locus": "K",
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11275?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31300/"
+  },
+  {
+    "accession": "NHP11284",
+    "aliases": [
+      "Mafa-V*01:02"
+    ],
+    "canonical_name": "Mafa-V*02:01:01:01",
+    "locus": "V",
+    "mhc_class": "I",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11284?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Macaca fascicularis",
+    "status": "public",
+    "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11284?project=mhc"
+  },
+  {
+    "accession": "NHP11285",
+    "aliases": [
+      "Mafa-V*01:03"
+    ],
+    "canonical_name": "Mafa-V*02:02:01:01",
+    "locus": "V",
+    "mhc_class": "I",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11285?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Macaca fascicularis",
+    "status": "public",
+    "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11285?project=mhc"
+  },
+  {
+    "accession": "NHP11286",
+    "aliases": [
+      "Mafa-V*01:04"
+    ],
+    "canonical_name": "Mafa-V*04:01:01:01",
+    "locus": "V",
+    "mhc_class": "I",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11286?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Macaca fascicularis",
+    "status": "public",
+    "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11286?project=mhc"
+  },
+  {
+    "accession": "NHP11288",
+    "aliases": [
+      "Mafa-W*01:04"
+    ],
+    "canonical_name": "Mafa-W*04:01:01:01",
+    "locus": "W",
+    "mhc_class": "I",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11288?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Macaca fascicularis",
+    "status": "public",
+    "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11288?project=mhc"
+  },
+  {
+    "accession": "NHP11289",
+    "aliases": [
+      "Mafa-W*01:07"
+    ],
+    "canonical_name": "Mafa-W*07:01:01:01",
+    "locus": "W",
+    "mhc_class": "I",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11289?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Macaca fascicularis",
+    "status": "public",
+    "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11289?project=mhc"
+  },
+  {
+    "accession": "NHP11290",
+    "aliases": [
+      "Mafa-W*01:09"
+    ],
+    "canonical_name": "Mafa-W*09:01:01:01",
+    "locus": "W",
+    "mhc_class": "I",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11290?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Macaca fascicularis",
+    "status": "public",
+    "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11290?project=mhc"
+  },
+  {
+    "accession": "NHP11291",
+    "aliases": [
+      "Mafa-W*01:02"
+    ],
+    "canonical_name": "Mafa-W*02:01:01:01",
+    "locus": "W",
+    "mhc_class": "I",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11291?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Macaca fascicularis",
+    "status": "public",
+    "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11291?project=mhc"
   },
   {
     "accession": "NHP11292",
@@ -4625,10 +5097,70 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11292?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3900/"
+  },
+  {
+    "accession": "NHP11293",
+    "aliases": [
+      "Mafa-W*01:05"
+    ],
+    "canonical_name": "Mafa-W*05:01:01:01",
+    "locus": "W",
+    "mhc_class": "I",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11293?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Macaca fascicularis",
+    "status": "public",
+    "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11293?project=mhc"
+  },
+  {
+    "accession": "NHP11294",
+    "aliases": [
+      "Mafa-W*01:06"
+    ],
+    "canonical_name": "Mafa-W*06:01:01:01",
+    "locus": "W",
+    "mhc_class": "I",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11294?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Macaca fascicularis",
+    "status": "public",
+    "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11294?project=mhc"
+  },
+  {
+    "accession": "NHP11295",
+    "aliases": [
+      "Mafa-W*01:08"
+    ],
+    "canonical_name": "Mafa-W*06:02:01:01",
+    "locus": "W",
+    "mhc_class": "I",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11295?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Macaca fascicularis",
+    "status": "public",
+    "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11295?project=mhc"
+  },
+  {
+    "accession": "NHP11296",
+    "aliases": [
+      "Mafa-W*01:10"
+    ],
+    "canonical_name": "Mafa-W*10:01:01:01",
+    "locus": "W",
+    "mhc_class": "I",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11296?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Macaca fascicularis",
+    "status": "public",
+    "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11296?project=mhc"
   },
   {
     "accession": "NHP11310",
@@ -4638,7 +5170,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11310?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31300/"
@@ -4651,7 +5183,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11516?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31300/"
@@ -4664,7 +5196,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11525?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31300/"
@@ -4677,7 +5209,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11526?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31300/"
@@ -4690,7 +5222,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11527?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31300/"
@@ -4703,7 +5235,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11528?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31300/"
@@ -4716,7 +5248,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11530?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31300/"
@@ -4729,7 +5261,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11531?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31300/"
@@ -4742,7 +5274,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11532?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31300/"
@@ -4755,7 +5287,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11533?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31300/"
@@ -4768,7 +5300,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11586?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31300/"
@@ -4781,7 +5313,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11587?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31300/"
@@ -4794,7 +5326,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11588?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31300/"
@@ -4807,7 +5339,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11590?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31300/"
@@ -4820,7 +5352,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11591?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31300/"
@@ -4833,7 +5365,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11592?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31300/"
@@ -4846,7 +5378,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11593?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31300/"
@@ -4859,7 +5391,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11594?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31300/"
@@ -4872,7 +5404,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11595?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31300/"
@@ -4885,7 +5417,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11596?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31300/"
@@ -4898,7 +5430,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11597?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31300/"
@@ -4911,7 +5443,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11598?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31300/"
@@ -4924,7 +5456,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11599?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31300/"
@@ -4937,7 +5469,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11742?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31300/"
@@ -4950,7 +5482,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11743?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31300/"
@@ -4963,7 +5495,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11744?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31300/"
@@ -4976,7 +5508,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11745?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31300/"
@@ -4989,7 +5521,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11746?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31300/"
@@ -5002,7 +5534,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11747?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31300/"
@@ -5015,7 +5547,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11748?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31300/"
@@ -5028,7 +5560,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11750?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31300/"
@@ -5041,7 +5573,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11751?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31300/"
@@ -5054,7 +5586,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11752?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31300/"
@@ -5067,7 +5599,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11753?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31300/"
@@ -5080,7 +5612,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11754?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31300/"
@@ -5093,7 +5625,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11755?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31300/"
@@ -5106,7 +5638,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11756?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31300/"
@@ -5119,7 +5651,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11757?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31300/"
@@ -5132,7 +5664,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11758?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31300/"
@@ -5145,7 +5677,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11822?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31300/"
@@ -5158,7 +5690,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11840?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31300/"
@@ -5171,7 +5703,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11844?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31300/"
@@ -5184,7 +5716,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11850?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31300/"
@@ -5197,7 +5729,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11851?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31300/"
@@ -5210,7 +5742,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11858?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31300/"
@@ -5223,7 +5755,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11860?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31300/"
@@ -5236,7 +5768,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11862?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31300/"
@@ -5249,7 +5781,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11863?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31300/"
@@ -5262,7 +5794,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11897?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31300/"
@@ -5275,7 +5807,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11898?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31300/"
@@ -5288,7 +5820,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11899?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca mulatta",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31300/"
@@ -5301,7 +5833,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11957?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31300/"
@@ -5314,7 +5846,20 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11958?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
+    "species_name": "Macaca fascicularis",
+    "status": "abandoned",
+    "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31300/"
+  },
+  {
+    "accession": "NHP11981",
+    "aliases": [],
+    "canonical_name": "Mafa-B19Ps*01:01:01:02",
+    "locus": "B19Ps",
+    "mhc_class": "I",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11981?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31300/"
@@ -5327,7 +5872,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11987?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
@@ -5340,10 +5885,607 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP11988?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Macaca fascicularis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3700/"
+  },
+  {
+    "accession": "NHP12029",
+    "aliases": [],
+    "canonical_name": "Mafa-B02Ps*01:11:02:01",
+    "locus": "B02Ps",
+    "mhc_class": "I",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP12029?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Macaca fascicularis",
+    "status": "abandoned",
+    "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31300/"
+  },
+  {
+    "accession": "NHP12034",
+    "aliases": [],
+    "canonical_name": "Mafa-B21Ps*01:05:02:01",
+    "locus": "B21Ps",
+    "mhc_class": "I",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP12034?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Macaca fascicularis",
+    "status": "abandoned",
+    "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31300/"
+  },
+  {
+    "accession": "NHP12039",
+    "aliases": [],
+    "canonical_name": "Mafa-J*02:01:05:01",
+    "locus": "J",
+    "mhc_class": "I",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP12039?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Macaca fascicularis",
+    "status": "abandoned",
+    "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31300/"
+  },
+  {
+    "accession": "NHP12042",
+    "aliases": [
+      "Mafa-K*01:04:01:01"
+    ],
+    "canonical_name": "Mafa-K*02:04:01:01",
+    "locus": "K",
+    "mhc_class": "I",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP12042?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Macaca fascicularis",
+    "status": "public",
+    "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP12042?project=mhc"
+  },
+  {
+    "accession": "NHP12060",
+    "aliases": [],
+    "canonical_name": "Mamu-J*01:01:01:09",
+    "locus": "J",
+    "mhc_class": "I",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP12060?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Macaca mulatta",
+    "status": "abandoned",
+    "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31300/"
+  },
+  {
+    "accession": "NHP12061",
+    "aliases": [],
+    "canonical_name": "Mamu-J*02:01:01:11",
+    "locus": "J",
+    "mhc_class": "I",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP12061?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Macaca mulatta",
+    "status": "abandoned",
+    "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31300/"
+  },
+  {
+    "accession": "NHP12069",
+    "aliases": [],
+    "canonical_name": "Mamu-J*02:01:01:12",
+    "locus": "J",
+    "mhc_class": "I",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP12069?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Macaca mulatta",
+    "status": "abandoned",
+    "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31300/"
+  },
+  {
+    "accession": "NHP12071",
+    "aliases": [],
+    "canonical_name": "Mamu-J*02:01:01:13",
+    "locus": "J",
+    "mhc_class": "I",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP12071?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Macaca mulatta",
+    "status": "abandoned",
+    "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31300/"
+  },
+  {
+    "accession": "NHP12099",
+    "aliases": [
+      "Mamu-K*01:01:01:01"
+    ],
+    "canonical_name": "Mamu-K*02:01:01:01",
+    "locus": "K",
+    "mhc_class": "I",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP12099?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Macaca mulatta",
+    "status": "public",
+    "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP12099?project=mhc"
+  },
+  {
+    "accession": "NHP12100",
+    "aliases": [
+      "Mamu-K*01:02:01:01"
+    ],
+    "canonical_name": "Mamu-K*02:02:01:01",
+    "locus": "K",
+    "mhc_class": "I",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP12100?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Macaca mulatta",
+    "status": "public",
+    "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP12100?project=mhc"
+  },
+  {
+    "accession": "NHP12101",
+    "aliases": [
+      "Mamu-K*01:03:01:01"
+    ],
+    "canonical_name": "Mamu-K*03:03:01:01",
+    "locus": "K",
+    "mhc_class": "I",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP12101?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Macaca mulatta",
+    "status": "public",
+    "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP12101?project=mhc"
+  },
+  {
+    "accession": "NHP12128",
+    "aliases": [
+      "Mafa-W*01:11"
+    ],
+    "canonical_name": "Mafa-W*11:01:01:01",
+    "locus": "W",
+    "mhc_class": "I",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP12128?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Macaca fascicularis",
+    "status": "public",
+    "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP12128?project=mhc"
+  },
+  {
+    "accession": "NHP12129",
+    "aliases": [
+      "Mafa-W*01:12"
+    ],
+    "canonical_name": "Mafa-W*11:02:01:01",
+    "locus": "W",
+    "mhc_class": "I",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP12129?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Macaca fascicularis",
+    "status": "public",
+    "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP12129?project=mhc"
+  },
+  {
+    "accession": "NHP12130",
+    "aliases": [],
+    "canonical_name": "Mafa-B19Ps*01:01:01:03",
+    "locus": "B19Ps",
+    "mhc_class": "I",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP12130?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Macaca fascicularis",
+    "status": "abandoned",
+    "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31300/"
+  },
+  {
+    "accession": "NHP12179",
+    "aliases": [],
+    "canonical_name": "Mamu-DQB1*27:06",
+    "locus": "DQB1",
+    "mhc_class": "II",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP12179?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Macaca mulatta",
+    "status": "abandoned",
+    "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31000/"
+  },
+  {
+    "accession": "NHP12180",
+    "aliases": [],
+    "canonical_name": "Mamu-B02Ps*01:02",
+    "locus": "B02Ps",
+    "mhc_class": "I",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP12180?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Macaca mulatta",
+    "status": "abandoned",
+    "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31000/"
+  },
+  {
+    "accession": "NHP12181",
+    "aliases": [],
+    "canonical_name": "Mafa-B21Ps*01:02",
+    "locus": "B21Ps",
+    "mhc_class": "I",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP12181?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Macaca fascicularis",
+    "status": "abandoned",
+    "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31000/"
+  },
+  {
+    "accession": "NHP12182",
+    "aliases": [],
+    "canonical_name": "Mamu-B02Ps*01:04:01:01",
+    "locus": "B02Ps",
+    "mhc_class": "I",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP12182?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Macaca mulatta",
+    "status": "abandoned",
+    "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31000/"
+  },
+  {
+    "accession": "NHP12183",
+    "aliases": [],
+    "canonical_name": "Mafa-B02Ps*01:02",
+    "locus": "B02Ps",
+    "mhc_class": "I",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP12183?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Macaca fascicularis",
+    "status": "abandoned",
+    "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31000/"
+  },
+  {
+    "accession": "NHP12184",
+    "aliases": [],
+    "canonical_name": "Mamu-DQA1*01:04:02",
+    "locus": "DQA1",
+    "mhc_class": "II",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP12184?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Macaca mulatta",
+    "status": "abandoned",
+    "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31000/"
+  },
+  {
+    "accession": "NHP12185",
+    "aliases": [],
+    "canonical_name": "Mamu-B02Ps*01:04:01:02",
+    "locus": "B02Ps",
+    "mhc_class": "I",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP12185?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Macaca mulatta",
+    "status": "abandoned",
+    "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31000/"
+  },
+  {
+    "accession": "NHP12186",
+    "aliases": [],
+    "canonical_name": "Mamu-B02Ps*01:04:01:03",
+    "locus": "B02Ps",
+    "mhc_class": "I",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP12186?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Macaca mulatta",
+    "status": "abandoned",
+    "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31000/"
+  },
+  {
+    "accession": "NHP12204",
+    "aliases": [],
+    "canonical_name": "Mafa-B19Ps*01:01:01:04",
+    "locus": "B19Ps",
+    "mhc_class": "I",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP12204?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Macaca fascicularis",
+    "status": "abandoned",
+    "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31300/"
+  },
+  {
+    "accession": "NHP12212",
+    "aliases": [],
+    "canonical_name": "Mafa-B19Ps*01:01:01:05",
+    "locus": "B19Ps",
+    "mhc_class": "I",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP12212?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Macaca fascicularis",
+    "status": "abandoned",
+    "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31300/"
+  },
+  {
+    "accession": "NHP12268",
+    "aliases": [],
+    "canonical_name": "Mafa-K*02:03:01:01",
+    "locus": "K",
+    "mhc_class": "I",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP12268?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Macaca fascicularis",
+    "status": "abandoned",
+    "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31300/"
+  },
+  {
+    "accession": "NHP12269",
+    "aliases": [],
+    "canonical_name": "Mafa-K*02:05:01:01",
+    "locus": "K",
+    "mhc_class": "I",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP12269?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Macaca fascicularis",
+    "status": "abandoned",
+    "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31300/"
+  },
+  {
+    "accession": "NHP12392",
+    "aliases": [],
+    "canonical_name": "Mafa-DPB2*01:01:01:01N",
+    "locus": "DPB2",
+    "mhc_class": "II",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP12392?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Macaca fascicularis",
+    "status": "abandoned",
+    "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31200/"
+  },
+  {
+    "accession": "NHP12393",
+    "aliases": [],
+    "canonical_name": "Mafa-K*01:02",
+    "locus": "K",
+    "mhc_class": "I",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP12393?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Macaca fascicularis",
+    "status": "abandoned",
+    "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31200/"
+  },
+  {
+    "accession": "NHP12394",
+    "aliases": [],
+    "canonical_name": "Mafa-V*01:02",
+    "locus": "V",
+    "mhc_class": "I",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP12394?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Macaca fascicularis",
+    "status": "abandoned",
+    "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31200/"
+  },
+  {
+    "accession": "NHP12395",
+    "aliases": [],
+    "canonical_name": "Mafa-V*01:03",
+    "locus": "V",
+    "mhc_class": "I",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP12395?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Macaca fascicularis",
+    "status": "abandoned",
+    "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31200/"
+  },
+  {
+    "accession": "NHP12396",
+    "aliases": [],
+    "canonical_name": "Mafa-V*01:04",
+    "locus": "V",
+    "mhc_class": "I",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP12396?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Macaca fascicularis",
+    "status": "abandoned",
+    "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31200/"
+  },
+  {
+    "accession": "NHP12397",
+    "aliases": [],
+    "canonical_name": "Mafa-W*01:04",
+    "locus": "W",
+    "mhc_class": "I",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP12397?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Macaca fascicularis",
+    "status": "abandoned",
+    "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31200/"
+  },
+  {
+    "accession": "NHP12398",
+    "aliases": [],
+    "canonical_name": "Mafa-W*01:07",
+    "locus": "W",
+    "mhc_class": "I",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP12398?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Macaca fascicularis",
+    "status": "abandoned",
+    "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31200/"
+  },
+  {
+    "accession": "NHP12399",
+    "aliases": [],
+    "canonical_name": "Mafa-W*01:09",
+    "locus": "W",
+    "mhc_class": "I",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP12399?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Macaca fascicularis",
+    "status": "abandoned",
+    "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31200/"
+  },
+  {
+    "accession": "NHP12400",
+    "aliases": [],
+    "canonical_name": "Mafa-W*01:02",
+    "locus": "W",
+    "mhc_class": "I",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP12400?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Macaca fascicularis",
+    "status": "abandoned",
+    "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31200/"
+  },
+  {
+    "accession": "NHP12401",
+    "aliases": [],
+    "canonical_name": "Mafa-W*01:05",
+    "locus": "W",
+    "mhc_class": "I",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP12401?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Macaca fascicularis",
+    "status": "abandoned",
+    "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31200/"
+  },
+  {
+    "accession": "NHP12402",
+    "aliases": [],
+    "canonical_name": "Mafa-W*01:06",
+    "locus": "W",
+    "mhc_class": "I",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP12402?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Macaca fascicularis",
+    "status": "abandoned",
+    "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31200/"
+  },
+  {
+    "accession": "NHP12403",
+    "aliases": [],
+    "canonical_name": "Mafa-W*01:08",
+    "locus": "W",
+    "mhc_class": "I",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP12403?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Macaca fascicularis",
+    "status": "abandoned",
+    "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31200/"
+  },
+  {
+    "accession": "NHP12404",
+    "aliases": [],
+    "canonical_name": "Mafa-W*01:10",
+    "locus": "W",
+    "mhc_class": "I",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP12404?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Macaca fascicularis",
+    "status": "abandoned",
+    "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31200/"
+  },
+  {
+    "accession": "NHP12405",
+    "aliases": [],
+    "canonical_name": "Mafa-K*01:04:01:01",
+    "locus": "K",
+    "mhc_class": "I",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP12405?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Macaca fascicularis",
+    "status": "abandoned",
+    "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31200/"
+  },
+  {
+    "accession": "NHP12406",
+    "aliases": [],
+    "canonical_name": "Mamu-K*01:01:01:01",
+    "locus": "K",
+    "mhc_class": "I",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP12406?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Macaca mulatta",
+    "status": "abandoned",
+    "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31200/"
+  },
+  {
+    "accession": "NHP12407",
+    "aliases": [],
+    "canonical_name": "Mamu-K*01:02:01:01",
+    "locus": "K",
+    "mhc_class": "I",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP12407?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Macaca mulatta",
+    "status": "abandoned",
+    "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31200/"
+  },
+  {
+    "accession": "NHP12408",
+    "aliases": [],
+    "canonical_name": "Mamu-K*01:03:01:01",
+    "locus": "K",
+    "mhc_class": "I",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP12408?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Macaca mulatta",
+    "status": "abandoned",
+    "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31200/"
+  },
+  {
+    "accession": "NHP12409",
+    "aliases": [],
+    "canonical_name": "Mafa-W*01:11",
+    "locus": "W",
+    "mhc_class": "I",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP12409?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Macaca fascicularis",
+    "status": "abandoned",
+    "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31200/"
+  },
+  {
+    "accession": "NHP12410",
+    "aliases": [],
+    "canonical_name": "Mafa-W*01:12",
+    "locus": "W",
+    "mhc_class": "I",
+    "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/NHP12410?project=mhc",
+    "registry": "IPD-MHC",
+    "source_release": "3.17.0.0",
+    "species_name": "Macaca fascicularis",
+    "status": "abandoned",
+    "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31200/"
   },
   {
     "accession": "OLA08729",
@@ -5353,7 +6495,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/OLA08729?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Ovis aries",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3200/"
@@ -5366,7 +6508,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/OLA08730?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Ovis aries",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3200/"
@@ -5379,7 +6521,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/OLA08731?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Ovis aries",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3200/"
@@ -5392,7 +6534,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/OLA08732?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Ovis aries",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3200/"
@@ -5405,7 +6547,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/OLA08733?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Ovis aries",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3200/"
@@ -5418,7 +6560,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/OLA08734?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Ovis aries",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3200/"
@@ -5431,7 +6573,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/OLA08735?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Ovis aries",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3200/"
@@ -5444,7 +6586,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/OLA08736?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Ovis aries",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3200/"
@@ -5457,7 +6599,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/OLA08737?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Ovis aries",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3200/"
@@ -5470,7 +6612,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/OLA08738?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Ovis aries",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3200/"
@@ -5483,7 +6625,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/OLA08739?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Ovis aries",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3300/"
@@ -5496,7 +6638,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/OLA08740?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Ovis aries",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3200/"
@@ -5509,7 +6651,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/OLA08741?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Ovis aries",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3200/"
@@ -5522,7 +6664,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/OLA08742?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Ovis aries",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3200/"
@@ -5535,7 +6677,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/OLA08743?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Ovis aries",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3200/"
@@ -5548,7 +6690,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/OLA08744?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Ovis aries",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3200/"
@@ -5561,7 +6703,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/OLA08745?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Ovis aries",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3200/"
@@ -5574,7 +6716,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/OLA08746?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Ovis aries",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3200/"
@@ -5587,7 +6729,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/OLA08747?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Ovis aries",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3200/"
@@ -5600,7 +6742,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/OLA08748?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Ovis aries",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3200/"
@@ -5613,7 +6755,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/OLA08749?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Ovis aries",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3200/"
@@ -5626,7 +6768,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/OLA08750?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Ovis aries",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3200/"
@@ -5639,7 +6781,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/OLA08751?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Ovis aries",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3200/"
@@ -5652,7 +6794,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/OLA08752?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Ovis aries",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3200/"
@@ -5665,7 +6807,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/OLA08853?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Ovis canadensis",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3401/"
@@ -5680,7 +6822,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/SLA05923?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Sus sp.",
     "status": "public",
     "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/SLA05923?project=mhc"
@@ -5695,7 +6837,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/SLA06213?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Sus sp.",
     "status": "public",
     "status_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/SLA06213?project=mhc"
@@ -5708,7 +6850,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/SLA08512?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Sus sp.",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3010/"
@@ -5723,7 +6865,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/SLA08730?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Sus sp.",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3001/"
@@ -5736,7 +6878,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/SLA08738?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Sus sp.",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3001/"
@@ -5751,7 +6893,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/SLA08740?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Sus sp.",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3001/"
@@ -5764,7 +6906,7 @@
     "mhc_class": "I",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/SLA09718?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Sus sp.",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v3800/"
@@ -5777,7 +6919,7 @@
     "mhc_class": "II",
     "record_source": "https://www.ebi.ac.uk/cgi-bin/ipd/api/allele/SLA09726?project=mhc",
     "registry": "IPD-MHC",
-    "source_release": "3.8.0.0",
+    "source_release": "3.17.0.0",
     "species_name": "Sus sp.",
     "status": "abandoned",
     "status_source": "https://www.ebi.ac.uk/ipd/mhc/version/v31000/"

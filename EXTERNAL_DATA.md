@@ -77,15 +77,14 @@ Run:
 
 The script fetches missing inputs through the cache and combines:
 
-- IPD-MHC 3.8.0.0 nomenclature history from `MHC.xml`;
+- IPD-MHC 3.17.0.0 nomenclature history from `MHC.xml`;
 - IPD-IMGT/HLA 3.66.0 allele history;
 - IPD-IMGT/HLA 3.66.0 deleted-allele and suffix-change records; and
 - `curated_allele_aliases.yaml`.
 
 The official 3.66.0 `Deleted_alleles.txt` contains the suffix-change section, so no locally split
-copy is needed. The historical IPD-MHC 3.5.0.1 XML remains registered for reproducibility, but it is
-not an alias input: the old shell command repeated an argparse option, causing 3.8.0.0 to replace
-3.5.0.1. The maintained non-human source is 3.8.0.0.
+copy is needed. Historical IPD-MHC 3.5.0.1 and 3.8.0.0 XMLs remain registered under the `legacy`
+group for reproducibility; the maintained non-human source is 3.17.0.0.
 
 Exhaustive compatibility validation and the evaluation notebook use the optional protein inputs.
 Fetch them first with `mhcgnomes data download --group validation`; they are read from
@@ -100,7 +99,7 @@ It accepts optional FASTA paths (default `.external-data/hla_prot.fasta` and
 `.external-data/MHC_prot.fasta`) and `--max-failures`.
 
 The normal test suite stays fully offline and contains a small explicit, accession-backed inventory
-covering all 69 species prefixes in IPD-MHC 3.8.0.0. The cached CI job runs the exhaustive check.
+covering all 87 species prefixes in IPD-MHC 3.17.0.0. The cached CI job runs the exhaustive check.
 
 ## Source precedence and audit API
 
@@ -132,11 +131,10 @@ CI regenerates the aliases, guards, identity catalog and audit, and checks every
 alias with `python scripts/validate_alias_sources.py`. Every eligible name must parse;
 there is no allowlist of unparseable names.
 
-`ipd_record_annotations.json` records all 364 abandoned IPD-MHC entries retained in
-the pinned `IPD-MHC-3.8.0.0.xml` snapshot (across IPD-MHC release reports `0.1.0.0`
-through `3.15.0.0`), with species/class/locus evidence from each cited live accession
-record (initial 76 from `3.7.0.0` checked 2026-11-04; remaining 288 and colliding public
-records checked 2026-11-26). The pinned 3.8.0.0 XML retains these entries and their
+`ipd_record_annotations.json` records all 419 abandoned IPD-MHC entries retained in
+the pinned `IPD-MHC-3.17.0.0.xml` snapshot (across IPD-MHC release reports `0.1.0.0`
+through `3.17.0.0`), with species/class/locus evidence from each cited live accession
+record. The pinned 3.17.0.0 XML retains these entries and their
 complete history. A matching accession with a different name fails for review. Missing
 sequences alone never trigger exclusion. `current_records` counts source records
 eligible after annotations (`source_records` minus `excluded_records`).
@@ -144,23 +142,24 @@ eligible after annotations (`source_records` minus `excluded_records`).
 Excluded status applies to the active-source audit, not to name ownership or
 parseability. The generator preserves every record's latest name in precedence
 checks and includes documented historical aliases even for abandoned records.
-`registry_allele_identities.json` additionally rolls each of the 364 abandoned
+`registry_allele_identities.json` additionally rolls each of the 419 abandoned
 accessions and all its recorded names into a stable `IPD-MHC:<accession>` identity.
-58 related public records are included so overlapping names expose their actual
+84 related public records are included so overlapping names expose their actual
 candidates. Complete history in this explicit inventory may include partial-looking
 old names; resolving those names still requires `use_allele_aliases=True` in `parse`,
-and historical registry aliases never override terminal targets established in
-`allele_aliases.yaml` (e.g., curated `Mamu-A*11 -> Mamu-A1*011:01`). The general
+and historical registry aliases never override curated keys or terminal targets
+established in `allele_aliases.yaml` (e.g., curated `Mamu-A*11 -> Mamu-A1*011:01`,
+`Mamu-A*08 -> Mamu-A1*008:01:01`, `Mamu-A*26 -> Mamu-A1*026:01`). The general
 alias table's conservative partial-name rules remain unchanged.
 
 No replacement accession is inferred. In particular `Paha-DP1*06:01` keeps its own
 abandoned identity NHP10764 and is parsed without establishing an ontology gene or
 asserting a DPB1 replacement. `Mafa-B*051:06:03` retains NHP11987 despite also
 occurring in NHP04329's history (the same IPD tombstone pattern recurs across 50+
-earlier abandoned records). Two designations are the latest name on two records in the
-pinned XML: `Mafa-DQA1*01:16:01` (public NHP04701 and abandoned NHP11988) and
-`DLA-DRB1*097:01` (public DLA07966 and abandoned DLA08202, with public DLA04910
-retaining `DLA-DRB1*09701`); name-only lookup retains both candidates. Two SLA
+earlier abandoned records). Shared latest names in the pinned 3.17.0.0 XML include
+`Mafa-DQA1*01:16:01` (public NHP04701 and abandoned NHP11988), `DLA-DRB1*097:01`
+(public DLA04910 and public DLA07966), and `DLA-DRB1*09701` (abandoned DLA08202 and
+abandoned DLA08399); name-only lookup retains every candidate. Two SLA
 historical spellings (`SLA-DMA*0104` and `SLA-6*0102`) appear in both a public and an
 abandoned record's history under distinct canonical names; `get_registry_identities`
 exposes both candidates while `parse(..., use_allele_aliases=True)` preserves the

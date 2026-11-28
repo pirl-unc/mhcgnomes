@@ -80,7 +80,7 @@ def audit_alias_sources(records):
 def main():
     """Read checkout-local pinned sources; print audit failures and return status 0/1."""
     ipd_records, excluded = partition_ipd_records(
-        read_ipd_xml(ROOT / ".external-data/IPD-MHC-3.8.0.0.xml")
+        read_ipd_xml(ROOT / ".external-data/IPD-MHC-3.17.0.0.xml")
     )
     for record in excluded:
         print(
@@ -97,11 +97,13 @@ def main():
         r.accession for r in identities.values() if r.status == "abandoned"
     }:
         failures.append("Annotated exclusions and runtime identity inventory differ")
-    alias_targets = {
-        f"{prefix}-{target}".casefold()
-        for prefix, table in allele_aliases.items()
-        for target in table.values()
-    }
+    alias_keys = {}
+    alias_targets = set()
+    for prefix, table in allele_aliases.items():
+        for old in table.keys():  # noqa: SIM118 -- keys() preserves original spellings
+            target = table[old]
+            alias_keys[f"{prefix}-{old}".casefold()] = f"{prefix}-{target}"
+            alias_targets.add(f"{prefix}-{target}".casefold())
     for identity in identities.values():
         for name in (identity.accession, identity.identifier, *identity.names):
             result = parse(name, use_allele_aliases=True, raise_on_error=False)
@@ -109,20 +111,31 @@ def main():
             if result is None:
                 failures.append(f"Registry identity failed to parse: {name} -> {expected}")
                 continue
+            key_cf = name.strip().casefold()
             distinct_canonicals = {r.canonical_name for r in expected}
+            is_alias_only = name not in (
+                identity.accession,
+                identity.identifier,
+                identity.canonical_name,
+            )
             if len(distinct_canonicals) > 1:
                 # A historical spelling shared by records with distinct canonical
                 # names (e.g. SLA-DMA*0104) resolves via allele_aliases to one
                 # candidate rather than claiming both canonical names at once.
                 if result.registry_identity not in expected:
                     failures.append(f"Registry identity mismatch: {name} -> {expected}")
-            elif (
-                name not in (identity.accession, identity.identifier, identity.canonical_name)
-                and name.strip().casefold() in alias_targets
-            ):
+            elif is_alias_only and key_cf in alias_keys:
+                # Explicit allele_aliases entries (e.g. curated Mamu-A*08/A*26
+                # overriding IPD-MHC's off-by-one previous history) take precedence.
+                expected_alias = parse(alias_keys[key_cf], use_allele_aliases=True)
+                if result != expected_alias:
+                    failures.append(
+                        f"Registry alias overrode allele_aliases entry: {name} -> {result}"
+                    )
+            elif is_alias_only and key_cf in alias_targets:
                 # Terminal allele_aliases targets (e.g. curated Mamu-A*11 -> A1*011:01)
                 # stay fixed points of parse(..., use_allele_aliases=True).
-                if result.to_string().casefold() != name.strip().casefold():
+                if result.to_string().casefold() != key_cf:
                     failures.append(f"Protected alias target drifted: {name} -> {result}")
             elif result.registry_identities != expected:
                 failures.append(f"Registry identity mismatch: {name} -> {expected}")
