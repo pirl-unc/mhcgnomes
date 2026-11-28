@@ -8,16 +8,52 @@ from mhcgnomes import Allele, Gene, Haplotype, Serotype, parse
 @pytest.mark.parametrize(
     "raw, expected_name, expected_alleles",
     [
-        ("BoLA-A10", "A10", ("BoLA-2*012:01", "BoLA-3*002:01")),
+        (
+            "BoLA-A10",
+            "A10",
+            (
+                "BoLA-2*012:01",
+                "BoLA-3*002:01",
+                "BoLA-3*086:01N",
+                "BoLA-6*092:02",
+                "BoLA-NC1*009:02",
+            ),
+        ),
         ("BoLA-A12", "A12", ("BoLA-1*019:01", "BoLA-2*008:01")),
+        (
+            "BoLA-A13",
+            "A13",
+            ("BoLA-1*031:01", "BoLA-2*032:01N", "BoLA-NC1*012:01"),
+        ),
         (
             "BoLA-A14",
             "A14",
-            ("BoLA-1*023:01", "BoLA-2*025:01", "BoLA-4*024:01", "BoLA-6*040:01"),
+            (
+                "BoLA-1*023:01",
+                "BoLA-2*025:01",
+                "BoLA-4*024:01:01:01",
+                "BoLA-6*040:01",
+                "BoLA-NC1*005:01",
+            ),
         ),
-        ("BoLA-A15", "A15", ("BoLA-1*009:01", "BoLA-2*025:01", "BoLA-4*024:01")),
-        ("BoLA-A19", "A19", ("BoLA-2*016:01", "BoLA-6*014:02")),
+        (
+            "BoLA-A15",
+            "A15",
+            ("BoLA-1*009:01", "BoLA-2*025:01", "BoLA-4*024:01:01:01"),
+        ),
+        (
+            "BoLA-A17",
+            "A17",
+            ("BoLA-2*006:01", "BoLA-2*008:01", "BoLA-6*015:02"),
+        ),
+        ("BoLA-A19", "A19", ("BoLA-2*016:01", "BoLA-6*014:01")),
         ("BoLA-A20", "A20", ("BoLA-2*026:01", "BoLA-3*027:01")),
+        (
+            "BoLA-A31",
+            "A31",
+            ("BoLA-1*021:01", "BoLA-2*022:01", "BoLA-NC1*005:01"),
+        ),
+        ("BoLA-A33", "A33", ("BoLA-2*005:01", "BoLA-3*004:01")),
     ],
 )
 def test_bola_class1_haplotypes(raw, expected_name, expected_alleles):
@@ -69,3 +105,27 @@ def test_myotis_lucifugus_class1_b_alleles(raw, expected_fields):
     assert result.mhc_class == "Ia"
     assert result.is_class1 is True
     assert result.species_source == "explicit"
+
+
+@pytest.mark.parametrize(
+    "raw, expected",
+    [
+        ("Mafa-A1*01:01", "Mafa-A1*001:01"),
+        ("Mafa-B*01:01", "Mafa-B*001:01"),
+        ("Mane-A1*01:01", "Mane-A1*001:01"),
+        ("Mane-B*01:01", "Mane-B*001:01"),
+        ("DLA-12*01:01", "DLA-12*001:01"),
+        ("DLA-DQA1*01:01", "DLA-DQA1*001:01"),
+        ("DLA-DQB1*01:01", "DLA-DQB1*001:01"),
+        ("DLA-DRB1*01:01", "DLA-DRB1*001:01"),
+        ("BoLA-4*24:01", "BoLA-4*024:01"),
+        ("BoLA-DQA*01:01", "BoLA-DQA*001:01"),
+        ("BoLA-DQB*01:01", "BoLA-DQB*001:01"),
+        ("BoLA-NC1*09:02", "BoLA-NC1*009:02"),
+    ],
+)
+def test_ipd_mhc_3digit_first_field_normalization(raw, expected):
+    parsed = parse(raw)
+    assert type(parsed) is Allele
+    assert parsed.to_string() == expected
+    assert parse(expected) == parsed

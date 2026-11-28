@@ -590,6 +590,49 @@ def test_parse_gene_class_and_dataframe_integration():
             "DQA",
             "DQB",
         ),
+        # Hyphen-separated Class II pairs containing AccessionedAllele (#335)
+        (
+            "HLA-DRA*01:01-DRB1*uniprot:P01911",
+            "HLA-DRA*01:01/DRB1*uniprot:P01911",
+            "IIa",
+            "DRA",
+            "DRB1",
+        ),
+        (
+            "HLA-DRA*uniprot:P01903-DRB1*01:01",
+            "HLA-DRA*uniprot:P01903/DRB1*01:01",
+            "IIa",
+            "DRA",
+            "DRB1",
+        ),
+        (
+            "HLA-DRA*uniprot:P01903-DRB1*uniprot:P01911",
+            "HLA-DRA*uniprot:P01903/DRB1*uniprot:P01911",
+            "IIa",
+            "DRA",
+            "DRB1",
+        ),
+        (
+            "HLA-DRA*uniprot:P01903-HLA-DRB1*uniprot:P01911",
+            "HLA-DRA*uniprot:P01903/DRB1*uniprot:P01911",
+            "IIa",
+            "DRA",
+            "DRB1",
+        ),
+        (
+            "HLA-DRA*uniprot:P01903-2-DRB1*uniprot:P01911",
+            "HLA-DRA*uniprot:P01903-2/DRB1*uniprot:P01911",
+            "IIa",
+            "DRA",
+            "DRB1",
+        ),
+        (
+            "HLA-DRB1*uniprot:P01911-HLA-DRA*01:01",
+            "HLA-DRA*01:01/DRB1*uniprot:P01911",
+            "IIa",
+            "DRA",
+            "DRB1",
+        ),
         # Class I heavy chain + B2M (both orders)
         (
             "HLA-A*uniprot:P04439/B2M",
@@ -634,6 +677,7 @@ def test_accessioned_allele_infer_class2_pairing():
     "bad_pair",
     [
         "HLA-A*uniprot:P04439/HLA-B*uniprot:P01889",
+        "HLA-A*uniprot:P04439-HLA-B*uniprot:P01889",
         "HLA-DRA*uniprot:P01903/HLA-DRA*uniprot:P01903",
         "HLA-DRB1*uniprot:P01911/HLA-DRB1*uniprot:P04229",
         "HLA-DQA1*uniprot:P01909/HLA-DRB1*uniprot:P01911",

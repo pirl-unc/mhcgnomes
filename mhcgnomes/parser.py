@@ -174,6 +174,28 @@ def _strip_accession_class_slot(text: str) -> tuple[str | None, str]:
     return _normalize_accession_class_qualifier(match.group(2)), match.group(1).strip()
 
 
+def _split_accessioned_pair(stripped: str) -> tuple[str, str] | None:
+    """Split a slash- or hyphen-separated heterodimer pair containing an accessioned allele (#317, #335)."""
+    if "/" in stripped:
+        if stripped.count("/") != 1:
+            return None
+        left_str, right_str = (part.strip() for part in stripped.split("/", 1))
+        return (left_str, right_str) if (left_str and right_str) else None
+    first_star = stripped.find("*")
+    if first_star < 0:
+        return None
+    # Split at the first hyphen after the left chain's '*' that introduces a
+    # gene-bearing right chain (e.g. "-DRB1*..." or "-HLA-DRB1*..."), without
+    # splitting UniProt isoform suffixes such as "-2".
+    split_match = re.search(r"-(?=[A-Za-z][A-Za-z0-9_-]*\*)", stripped[first_star + 1 :])
+    if split_match is None:
+        return None
+    split_pos = first_star + 1 + split_match.start()
+    left_str = stripped[:split_pos].strip()
+    right_str = stripped[split_pos + 1 :].strip()
+    return (left_str, right_str) if (left_str and right_str) else None
+
+
 def _strip_leading_accession_class_qualifier(text: str) -> tuple[str | None, str]:
     """Strip an optional leading ``class I`` / ``MHC-II`` qualifier from ``text``."""
     stripped = text.strip()
@@ -3157,7 +3179,9 @@ class Parser:
         if _BARE_NAMESPACED_ACCESSION_RE.match(stripped):
             return [], True, False
 
-        if "/" in stripped and _ACCESSIONED_ALLELE_MARKER_RE.search(stripped):
+        if _ACCESSIONED_ALLELE_MARKER_RE.search(stripped) and (
+            "/" in stripped or _split_accessioned_pair(stripped) is not None
+        ):
             return self._parse_accessioned_pair_candidates(stripped, name, default_species)
 
         matches = list(_ACCESSIONED_ALLELE_MARKER_RE.finditer(stripped))
@@ -3264,12 +3288,11 @@ class Parser:
         raw_name: str,
         default_species: Species | str | None = DEFAULT_SPECIES_PREFIX,
     ) -> tuple[list[Pair], bool, bool]:
-        """Parse a slash-separated heterodimer Pair containing at least one AccessionedAllele (#317)."""
-        if stripped.count("/") != 1:
+        """Parse a slash- or hyphen-separated heterodimer Pair containing an AccessionedAllele (#317, #335)."""
+        parts = _split_accessioned_pair(stripped)
+        if parts is None:
             return [], True, False
-        left_str, right_str = (part.strip() for part in stripped.split("/", 1))
-        if not left_str or not right_str:
-            return [], True, False
+        left_str, right_str = parts
 
         left_result = self._parse_cached(
             left_str,
