@@ -929,6 +929,26 @@ Rattus sp.:
       DM:
         - DMA
         - DMB
+  gene families:
+    # Hurt et al., Genome Res 2004;14:631 (PMID 15150082) and Günther & Walter,
+    # Immunogenetics 2001;53:520 (PMID 11685465): RT1-CE is the rat class Ib
+    # gene cluster whose copy number varies across haplotypes (CE1..CE16), so
+    # haplotype-level labels such as RT1-CE*l name the family without assigning
+    # a single locus (#339).
+    CE:
+      - CE1
+      - CE2
+      - CE3
+      - CE4
+      - CE5
+      - CE7
+      - CE10
+      - CE11
+      - CE12
+      - CE13
+      - CE14
+      - CE15
+      - CE16
 Rattus norvegicus:
   parent: Rattus sp.
   # prefix source: designated -- listed with this code in the IPD-MHC
